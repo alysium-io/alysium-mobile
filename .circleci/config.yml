@@ -1,0 +1,190 @@
+version: 2.1
+orbs:
+  rn: react-native-community/react-native@7.1.1
+commands:
+  write-app-env-vars:
+    description: "Write environment variables to .env.* file"
+    parameters:
+      envtype:
+        type: string
+      API_URL:
+        type: env_var_name
+      ENV:
+        type: env_var_name
+    steps:
+      - run:
+          name: Write environment variables to .env.* file
+          command: |
+            echo "API_URL=${<< parameters.API_URL >>}" >> .env.<< parameters.envtype >>
+            echo "ENV=${<< parameters.ENV >>}" >> .env.<< parameters.envtype >>
+  write-android-credentials:
+    description: "Write Android credentials"
+    steps:
+      - run:
+          name: Write Android signing keys to gradle.properties
+          command: |
+            mkdir ~/.gradle
+            touch ~/.gradle/gradle.properties
+            echo "ALYSIUM_UPLOAD_STORE_FILE=${ALYSIUM_UPLOAD_STORE_FILE}" >> ~/.gradle/gradle.properties
+            echo "ALYSIUM_UPLOAD_STORE_PASSWORD=${ALYSIUM_UPLOAD_STORE_PASSWORD}" >> ~/.gradle/gradle.properties
+            echo "ALYSIUM_UPLOAD_KEY_ALIAS=${ALYSIUM_UPLOAD_KEY_ALIAS}" >> ~/.gradle/gradle.properties
+            echo "ALYSIUM_UPLOAD_KEY_PASSWORD=${ALYSIUM_UPLOAD_KEY_PASSWORD}" >> ~/.gradle/gradle.properties
+      - run:
+          name: Write Android Keystore
+          command: echo $ANDROID_ENCRYPTED_KEYSTORE | base64 --decode > ./android/app/alysium.keystore
+      - run:
+          name: Write Google Play Upload Key Credentials
+          command: echo $GOOGLE_PLAY_SERVICE_KEY | base64 --decode > /tmp/google-play-credentials.json
+  show-diff:
+    description: "Show git diff"
+    steps:
+      - run:
+          name: Show git diff
+          command: git --no-pager diff -p
+  git-config:
+    description: "Configure Git"
+    steps:
+      - run:
+          name: Set Git user information
+          command: |
+            git config --global user.name "CircleCI Server"
+            git config --global user.email "noreply@circleci.com"
+      - run:
+          name: Set auto deploy
+          command: |
+            git config --global push.default current
+  jest:
+    description: "Run Jest Tests"
+    steps:
+      - run:
+          name: Run Jest Tests
+          command: yarn test
+  install-fastlane:
+    description: "Install Fastlane"
+    steps:
+      - run:
+          name: Bundle Config
+          command: bundle config set --local path 'vendor/bundle'
+          working_directory: fastlane
+      - run:
+          name: Install fastlane
+          command: bundle install
+          working_directory: fastlane
+  add-repo-fingerprint:
+    description: "Add repo fingerprint to known_hosts"
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "e9:2b:96:bc:0b:6a:ab:05:b1:e7:ff:c3:37:5b:62:d7"
+  add-match-fingerprint:
+    description: "Add match fingerprint to known_hosts"
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "4a:37:9b:93:91:e9:19:1c:0e:dc:e4:6b:fa:71:4b:c1"
+  bump-build-number:
+    description: "Bump Build Number"
+    steps:
+      - run:
+          name: Bump Build
+          command: yarn bump-build-and-skip-ci
+      - run:
+          name: Push Build Commit
+          command: git push
+  install-pods:
+    description: "Install Pods"
+    steps:
+      - run:
+          name: Install React Native Gem Bundler
+          command: gem install bundler
+      - run:
+          name: Bundle Install React Native
+          command: bundle install
+      - restore_cache:
+          keys:
+            - pod-deps-{{ checksum "ios/Podfile.lock" }}
+            - pod-deps-
+      - run:
+          name: Install using specific CocoaPods version
+          command: bundle exec pod install
+          working_directory: ios
+      - save_cache:
+          paths:
+            - ios/Pods
+          key: pod-deps-{{ checksum "ios/Podfile.lock" }}
+jobs:
+  env_setup:
+    docker:
+      - image: cimg/node:16.14.2
+    steps:
+      - checkout
+      - add-repo-fingerprint
+      - git-config
+      - write-app-env-vars:
+          envtype: staging
+          API_URL: API_URL_STAGING
+          ENV: ENV_STAGING
+      - rn/yarn_install
+      - jest
+      - show-diff
+      - bump-build-number
+      - persist_to_workspace:
+          root: .
+          paths: .
+  build_android_staging:
+    docker:
+      - image: cimg/android:2023.07-node
+    environment:
+      FL_OUTPUT_DIR: output
+    steps:
+      - attach_workspace:
+          at: .
+      - install-fastlane
+      - write-android-credentials
+      - run:
+          name: Deploy with fastlane
+          command: bundle exec fastlane android internal_beta
+          working_directory: fastlane
+      - store_artifacts:
+          path: output
+  build_ios_staging:
+    executor:
+      name: rn/macos
+      xcode_version: 14.3.1
+    environment:
+      FL_OUTPUT_DIR: output
+    steps:
+      - attach_workspace:
+          at: .
+      - add-match-fingerprint
+      - install-fastlane
+      - install-pods
+      - show-diff
+      - run:
+          name: Deploy with fastlane
+          command: bundle exec fastlane ios internal_beta
+          working_directory: fastlane
+      - store_artifacts:
+          path: output
+workflows:
+  deploy_staging:
+    jobs:
+      - env_setup:
+          filters:
+            branches:
+              only:
+                - testflight
+                - master
+      - build_ios_staging:
+          filters:
+            branches:
+              only: master
+          requires:
+            - env_setup
+      - build_android_staging:
+          filters:
+            branches:
+              only: master
+          requires:
+            - env_setup
+

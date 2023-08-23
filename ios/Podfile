@@ -4,7 +4,7 @@ require_relative '../node_modules/@react-native-community/cli-platform-ios/nativ
 platform :ios, '12.4'
 install! 'cocoapods', :deterministic_uuids => false
 
-target 'alysium' do
+abstract_target 'alysiumCommonPods' do
   config = use_native_modules!
 
   # Flags change depending on the env values.
@@ -26,10 +26,16 @@ target 'alysium' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-  target 'alysiumTests' do
-    inherit! :complete
-    # Pods for testing
-  end
+  pod 'react-native-config', :path => '../node_modules/react-native-config'
+	pod 'react-native-config/Extension', :path => '../node_modules/react-native-config'
+	
+	target 'alysium-dev' do
+		inherit! :complete
+	end
+	
+	target 'alysium-staging' do
+		inherit! :complete
+	end
 
   post_install do |installer|
     react_native_post_install(

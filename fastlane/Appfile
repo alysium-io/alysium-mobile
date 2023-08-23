@@ -1,0 +1,4 @@
+json_key_file('/tmp/google-play-credentials.json')
+package_name('io.alysium')
+app_identifier('io.alysium') # The bundle identifier of your app
+apple_id('aymather@gmail.com') # Your Apple email address

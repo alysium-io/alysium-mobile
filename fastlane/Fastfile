@@ -1,0 +1,94 @@
+platform :ios do
+
+    lane :dev do
+
+        # Set up match for development
+        match(
+            type: 'development',
+            readonly: true
+        )
+
+        # Build
+        gym(
+            scheme: 'alysium',
+            export_method: 'development',
+            workspace: './ios/alysium.xcworkspace',
+            output_directory: './ios/build',
+            output_name: 'alysium_dev.ipa'
+        )
+
+    end
+
+    lane :internal_beta do
+
+        # Configure circleci
+        setup_circle_ci
+
+        # Make sure match is set up correctly for the testflight deployment
+        match(
+            type: 'appstore',
+            readonly: true
+        )
+
+        # Build
+        gym(
+            scheme: 'alysium-staging',
+            export_method: 'app-store',
+            workspace: './ios/alysium.xcworkspace',
+            output_directory: './ios/build',
+            output_name: 'alysium-staging.ipa'
+        )
+
+        # Appstoreconnect API key for pilot to upload to TestFlight
+        api_key = app_store_connect_api_key(
+            key_id: ENV['APP_STORE_CONNECT_API_KEY_ID'],
+            issuer_id: ENV['APP_STORE_CONNECT_API_ISSUER_ID'],
+            key_content: Base64.decode64(ENV['APP_STORE_CONNECT_API_KEY_CONTENT'])
+        )
+
+        # Upload to TestFlight
+        pilot(
+            skip_submission: true,
+            skip_waiting_for_build_processing: true,
+            username: 'aymather@gmail.com',
+            app_identifier: 'io.alysium',
+            distribute_external: true,
+            changelog: 'v#{get_version_number}(#{get_build_number})',
+            beta_app_feedback_email: 'aymather@gmail.com',
+            beta_app_description: 'v#{get_version_number}(#{get_build_number})',
+            groups: ['memyselfandi']
+        )
+
+    end
+
+end
+
+platform :android do
+
+    lane :internal_beta do
+
+        ENV['ENVFILE'] = '.env.staging'
+
+        gradle(
+            task: 'clean',
+            project_dir: './android',
+            gradle_path: './gradlew'
+        )
+
+        gradle(
+            task: 'bundle',
+            project_dir: './android',
+            gradle_path: './gradlew',
+            flavor: 'staging',
+            build_type: 'Release'
+        )
+
+        upload_to_play_store(
+            track: 'internal',
+            aab: './android/app/build/outputs/bundle/stagingRelease/app-staging-release.aab'
+        )
+
+    end
+
+end
+

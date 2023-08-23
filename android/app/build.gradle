@@ -1,7 +1,16 @@
 apply plugin: "com.android.application"
-
 import com.android.build.OutputFile
 import org.apache.tools.ant.taskdefs.condition.Os
+
+project.ext.envConfigFiles = [
+	prodDebug: ".env.prod",
+	prodRelease: ".env.prod",
+	stagingRelease: ".env.staging",
+	stagingDebug: ".env.staging",
+	devDebug: ".env.dev",
+	devRelease: ".env.dev"
+]
+apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
 
 /**
  * The react.gradle file registers a task for each build variant (e.g. bundleDebugJsAndAssets
@@ -139,7 +148,7 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
-        versionName "1.0"
+        versionName "0.0.1"
         buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
 
         if (isNewArchitectureEnabled()) {
@@ -158,6 +167,29 @@ android {
                     abiFilters (*reactNativeArchitectures())
                 }
             }
+        }
+    }
+
+    flavorDimensions "default"
+
+    productFlavors {
+        prod {
+            minSdkVersion rootProject.ext.minSdkVersion
+            applicationId "io.alysium"
+            targetSdkVersion rootProject.ext.targetSdkVersion
+            resValue "string", "build_config_package", "io.alysium"
+        }
+        staging {
+            minSdkVersion rootProject.ext.minSdkVersion
+            applicationId "io.alysium"
+            targetSdkVersion rootProject.ext.targetSdkVersion
+            resValue "string", "build_config_package", "io.alysium"
+        }
+        dev {
+            minSdkVersion rootProject.ext.minSdkVersion
+            applicationId "io.alysium"
+            targetSdkVersion rootProject.ext.targetSdkVersion
+            resValue "string", "build_config_package", "io.alysium"
         }
     }
 
@@ -217,6 +249,14 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
+        release {
+            if (project.hasProperty('ALYSIUM_UPLOAD_STORE_FILE')) {
+                storeFile file(ALYSIUM_UPLOAD_STORE_FILE)
+                storePassword ALYSIUM_UPLOAD_STORE_PASSWORD
+                keyAlias ALYSIUM_UPLOAD_KEY_ALIAS
+                keyPassword ALYSIUM_UPLOAD_KEY_PASSWORD
+            }
+        }
     }
     buildTypes {
         debug {
@@ -225,7 +265,7 @@ android {
         release {
             // Caution! In production, you need to generate your own keystore file.
             // see https://reactnative.dev/docs/signed-apk-android.
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }

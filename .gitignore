@@ -69,3 +69,6 @@ fastlane/.bundle
 
 # Any environment files (we'll create 3: prod, staging, dev)
 **/.env*
+
+# Passwords
+passwords.txt
