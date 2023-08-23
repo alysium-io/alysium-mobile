@@ -75,13 +75,13 @@ commands:
     steps:
       - add_ssh_keys:
           fingerprints:
-            - "e9:2b:96:bc:0b:6a:ab:05:b1:e7:ff:c3:37:5b:62:d7"
+            - "df:b8:a0:d7:36:74:6a:84:ff:5d:6d:92:08:d7:9f:87"
   add-match-fingerprint:
     description: "Add match fingerprint to known_hosts"
     steps:
       - add_ssh_keys:
           fingerprints:
-            - "4a:37:9b:93:91:e9:19:1c:0e:dc:e4:6b:fa:71:4b:c1"
+            - "ef:57:ec:e0:ba:a5:c7:cf:37:54:b1:9e:b1:bf:a8:b6"
   bump-build-number:
     description: "Bump Build Number"
     steps:
