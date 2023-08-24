@@ -120,7 +120,7 @@ jobs:
     environment:
       FL_OUTPUT_DIR: output
     steps:
-      - add-match_fingerprint
+      - add-match-fingerprint
       - run:
           name: Test SSH Connection
           command: ssh -T git@gitlab.com
