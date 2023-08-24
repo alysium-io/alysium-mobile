@@ -88,9 +88,9 @@ commands:
       - run:
           name: Bump Build
           command: yarn bump-build-and-skip-ci
-      - run:
-          name: Push Build Commit
-          command: git push
+      # - run:
+      #     name: Push Build Commit
+      #     command: git push
   install-pods:
     description: "Install Pods"
     steps:
