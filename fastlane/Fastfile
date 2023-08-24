@@ -9,13 +9,13 @@ platform :ios do
         )
 
         # Build
-        gym(
-            scheme: 'alysium',
-            export_method: 'development',
-            workspace: './ios/alysium.xcworkspace',
-            output_directory: './ios/build',
-            output_name: 'alysium_dev.ipa'
-        )
+        # gym(
+        #     scheme: 'alysium',
+        #     export_method: 'development',
+        #     workspace: './ios/alysium.xcworkspace',
+        #     output_directory: './ios/build',
+        #     output_name: 'alysium_dev.ipa'
+        # )
 
     end
 
