@@ -126,10 +126,14 @@ jobs:
       #     name: Add gitlab.com to known hosts
       #     command: echo "gitlab.com,172.65.251.78 ssh-ed25519 SHA256:eUXGGm1YGsMAS7vkcx6JOJdOGHPem5gQp4taiCfCLB8" >> ~/.ssh/known_hosts
       - add-match-fingerprint
+      # - run:
+      #     name: Test SSH Connection
+      #     command: ssh -o StrictHostKeyChecking=no -T git@gitlab.com
       - run:
-          name: Test SSH Connection
-          command: ssh -o StrictHostKeyChecking=no -T git@gitlab.com
+          name: Add GitLab to SSH known hosts
+          command: ssh-keyscan -H gitlab.com >> ~/.ssh/known_hosts
       - install-fastlane
+      - install-pods
       - run:
           name: Deploy with fastlane
           command: bundle exec fastlane ios test_build
