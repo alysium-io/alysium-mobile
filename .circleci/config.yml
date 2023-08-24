@@ -126,7 +126,7 @@ jobs:
       - add-match-fingerprint
       - run:
           name: Test SSH Connection
-          command: ssh -T git@gitlab.com
+          command: ssh -o StrictHostKeyChecking=no -T git@gitlab.com
   env_setup:
     docker:
       - image: cimg/node:16.14.2
