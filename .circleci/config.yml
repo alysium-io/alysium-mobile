@@ -113,6 +113,17 @@ commands:
             - ios/Pods
           key: pod-deps-{{ checksum "ios/Podfile.lock" }}
 jobs:
+  test_things:
+    executor:
+      name: rn/macos
+      xcode_version: 14.3.1
+    environment:
+      FL_OUTPUT_DIR: output
+    steps:
+      - add-match_fingerprint
+      - run:
+          name: Test SSH Connection
+          command: ssh -T git@gitlab.com
   env_setup:
     docker:
       - image: cimg/node:16.14.2
@@ -167,28 +178,31 @@ jobs:
       - store_artifacts:
           path: output
 workflows:
-  deploy_staging:
+  test:
     jobs:
-      - env_setup:
-          filters:
-            branches:
-              only:
-                - testflight
-                - master
-      - build_ios_staging:
-          filters:
-            branches:
-              only:
-                - testflight
-                - master
-          requires:
-            - env_setup
-      - build_android_staging:
-          filters:
-            branches:
-              only:
-                - testflight
-                - master
-          requires:
-            - env_setup
+      - test_things
+  # deploy_staging:
+  #   jobs:
+  #     - env_setup:
+  #         filters:
+  #           branches:
+  #             only:
+  #               - testflight
+  #               - master
+  #     - build_ios_staging:
+  #         filters:
+  #           branches:
+  #             only:
+  #               - testflight
+  #               - master
+  #         requires:
+  #           - env_setup
+  #     - build_android_staging:
+  #         filters:
+  #           branches:
+  #             only:
+  #               - testflight
+  #               - master
+  #         requires:
+  #           - env_setup
 
