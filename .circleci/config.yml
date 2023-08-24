@@ -82,15 +82,21 @@ commands:
       - add_ssh_keys:
           fingerprints:
             - "ef:57:ec:e0:ba:a5:c7:cf:37:54:b1:9e:b1:bf:a8:b6"
+  add-gitlab-to-known-hosts:
+    description: "Add GitLab to SSH known hosts"
+    steps:
+      - run:
+          name: Add GitLab to SSH known hosts
+          command: ssh-keyscan -H gitlab.com >> ~/.ssh/known_hosts
   bump-build-number:
     description: "Bump Build Number"
     steps:
       - run:
           name: Bump Build
           command: yarn bump-build-and-skip-ci
-      # - run:
-      #     name: Push Build Commit
-      #     command: git push
+      - run:
+          name: Push Build Commit
+          command: git push
   install-pods:
     description: "Install Pods"
     steps:
@@ -156,9 +162,7 @@ jobs:
     steps:
       - attach_workspace:
           at: .
-      - run:
-          name: Add GitLab to SSH known hosts
-          command: ssh-keyscan -H gitlab.com >> ~/.ssh/known_hosts
+      - add-gitlab-to-known-hosts
       - add-match-fingerprint
       - install-fastlane
       - install-pods
@@ -186,12 +190,12 @@ workflows:
                 - master
           requires:
             - env_setup
-      # - build_android_staging:
-      #     filters:
-      #       branches:
-      #         only:
-      #           - testflight
-      #           - master
-      #     requires:
-      #       - env_setup
+      - build_android_staging:
+          filters:
+            branches:
+              only:
+                - testflight
+                - master
+          requires:
+            - env_setup
 
