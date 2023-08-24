@@ -122,9 +122,9 @@ jobs:
     steps:
       - attach_workspace:
           at: .
-      - run:
-          name: Add gitlab.com to known hosts
-          command: echo "gitlab.com,172.65.251.78 ssh-ed25519 SHA256:eUXGGm1YGsMAS7vkcx6JOJdOGHPem5gQp4taiCfCLB8" >> ~/.ssh/known_hosts
+      # - run:
+      #     name: Add gitlab.com to known hosts
+      #     command: echo "gitlab.com,172.65.251.78 ssh-ed25519 SHA256:eUXGGm1YGsMAS7vkcx6JOJdOGHPem5gQp4taiCfCLB8" >> ~/.ssh/known_hosts
       - add-match-fingerprint
       - run:
           name: Test SSH Connection
