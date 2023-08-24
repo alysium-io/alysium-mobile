@@ -178,13 +178,17 @@ workflows:
       - build_ios_staging:
           filters:
             branches:
-              only: master
+              only:
+                - testflight
+                - master
           requires:
             - env_setup
       - build_android_staging:
           filters:
             branches:
-              only: master
+              only:
+                - testflight
+                - master
           requires:
             - env_setup
 
