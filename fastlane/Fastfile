@@ -21,6 +21,9 @@ platform :ios do
 
     lane :test_build do
 
+        # Configure circleci
+        setup_circle_ci
+
         # Make sure match is set up correctly for the testflight deployment
         match(
             type: 'appstore',
