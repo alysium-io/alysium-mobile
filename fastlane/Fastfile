@@ -19,6 +19,25 @@ platform :ios do
 
     end
 
+    lane :test_build do
+
+        # Make sure match is set up correctly for the testflight deployment
+        match(
+            type: 'appstore',
+            readonly: true
+        )
+
+        # Build
+        gym(
+            scheme: 'alysium-staging',
+            export_method: 'app-store',
+            workspace: './ios/alysium.xcworkspace',
+            output_directory: './ios/build',
+            output_name: 'alysium-staging.ipa'
+        )
+
+    end
+
     lane :internal_beta do
 
         # Configure circleci
