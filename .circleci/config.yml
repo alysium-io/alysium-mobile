@@ -120,6 +120,8 @@ jobs:
     environment:
       FL_OUTPUT_DIR: output
     steps:
+      - attach_workspace:
+          at: .
       - run:
           name: Add gitlab.com to known hosts
           command: echo "gitlab.com,172.65.251.78 ssh-ed25519 SHA256:eUXGGm1YGsMAS7vkcx6JOJdOGHPem5gQp4taiCfCLB8" >> ~/.ssh/known_hosts
@@ -127,6 +129,7 @@ jobs:
       - run:
           name: Test SSH Connection
           command: ssh -o StrictHostKeyChecking=no -T git@gitlab.com
+      - install-fastlane
       - run:
           name: Deploy with fastlane
           command: bundle exec fastlane ios dev
@@ -187,7 +190,10 @@ jobs:
 workflows:
   test:
     jobs:
-      - test_things
+      - env_setup
+      - test_things:
+          requires:
+            - env_setup
   # deploy_staging:
   #   jobs:
   #     - env_setup:
