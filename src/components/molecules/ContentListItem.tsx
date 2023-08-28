@@ -39,7 +39,7 @@ const ContentListItem : React.FC<ContentListItemProps> = ({
                     <Text variant='subtext' numberOfLines={1}>{ subtitle }</Text>
                 </View>
                 <View style={styles.iconContainer}>
-                    <Icon name='arrow-right' size='35%' color={theme.colors.secondaryText} />
+                    <Icon name='arrow' size='35%' color={theme.colors.secondaryText} />
                 </View>
             </View>
         </TouchableWithoutFeedback>

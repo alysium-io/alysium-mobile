@@ -11,26 +11,26 @@ export type Animate = { animated: true }
 /**
  * Extending Raw Svg
  */
-export type CustomSvgProps = RNSvgProps & Inanimate & {
-    size?: number | string;
+export type BaseCustomSvgProps = {
     children?: React.ReactNode;
+    size?: number | string;
+    direction?: 'up' | 'down' | 'left' | 'right';
 }
+export type CustomSvgProps = RNSvgProps & Inanimate & BaseCustomSvgProps;
 
-export type CustomAnimatedSvgProps = RNSvgProps & Animate & {
-    size?: number | string;
-    children?: React.ReactNode;
+export type CustomAnimatedSvgProps = RNSvgProps & Animate & BaseCustomSvgProps & {
     animatedProps?: AnimateProps<RNSvgProps>;
 }
 
 /**
  * Extending Raw Path
  */
-export type CustomPathProps = RNPathProps & Inanimate & {
+export type BaseCustomPathProps = {
     color?: string;
 }
+export type CustomPathProps = RNPathProps & Inanimate & BaseCustomPathProps;
 
-export type CustomAnimatedPathProps = RNPathProps & Animate & {
-    color?: string;
+export type CustomAnimatedPathProps = RNPathProps & Animate & BaseCustomPathProps & {
     animatedProps?: AnimateProps<RNPathProps>;
 }
 

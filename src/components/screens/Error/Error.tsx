@@ -1,17 +1,16 @@
 import React from 'react'
-import { View, Text } from '@atomic'
-import { Page } from '@screens'
+import { View, Text, BasePage } from '@atomic'
 import { StyleSheet } from 'react-native'
 
 
 const Error = () => {
 
     return (
-        <Page>
+        <BasePage>
             <View style={styles.container}>
                 <Text>Error!</Text>
             </View>
-        </Page>
+        </BasePage>
     )
 }
 

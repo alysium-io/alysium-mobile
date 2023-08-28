@@ -25,7 +25,7 @@ const colors : ColorSet = {
     negativeSecondaryBg: '#555555',
 
     primaryText: '#ffffff',
-    secondaryText: '#aaaaaa',
+    secondaryText: '#cccccc',
     negativePrimaryText: '#000000',
     negativeSecondaryText: '#777777',
 

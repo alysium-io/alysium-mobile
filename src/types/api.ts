@@ -46,6 +46,17 @@ export type ArtistResponse = {
             spotify_name: string;
             spotify_popularity: number;
             spotify_genres: string;
+            genres: {
+                data: {
+                    id: number;
+                    attributes: {
+                        name: string;
+                        color: string;
+                        createdAt: string;
+                        updatedAt: string;
+                    }
+                }[];
+            };
             createdAt: null;
             updatedAt: null;
         };

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Svg, Path } from 'src/components/atomic'
+import { Svg, Path } from '@atomic'
 import { IconProps } from 'src/types'
 import { SvgProps, PathProps } from 'react-native-svg'
 
@@ -15,20 +15,39 @@ const path : PathProps = {
     clipRule: 'evenodd'
 }
 
-const SvgComponent : React.FC<IconProps> = (props) => {
+const Arrow : React.FC<IconProps> = (props) => {
+
+    const getDirection = () : string => {
+        /**
+         * Returns 'right' by default
+         */
+        switch(props.direction) {
+            case 'up':
+                return '270deg'
+            case 'down':
+                return '90deg'
+            case 'left':
+                return '180deg'
+            case 'right':
+                return '0deg'
+            default:
+                return '0deg'
+        }
+    }
 
     if (props.animated) {
         return (
             <Svg
                 {...svg}
                 animated={true}
-                animatedProps={props.animatedProps}
+                animatedProps={props.animatedSvgProps}
                 size={props.size}
+                style={{ transform: [{ rotate: getDirection() }] }}
             >
                 <Path
                     {...path}
                     animated={true}
-                    animatedProps={props.animatedProps}
+                    animatedProps={props.animatedPathProps}
                     fill={props.color}
                 />
             </Svg>
@@ -36,11 +55,11 @@ const SvgComponent : React.FC<IconProps> = (props) => {
     }
 
     return (
-        <Svg {...svg} size={props.size}>
+        <Svg {...svg} size={props.size} style={{ transform: [{ rotate: getDirection() }] }}>
             <Path {...path} fill={props.color} />
         </Svg>
     )
 
 }
 
-export default SvgComponent
+export default Arrow

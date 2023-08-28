@@ -48,12 +48,14 @@
       "@hooks":         ["./src/utils/hooks"],
       "@restyle":       ["./src/restyle"],
       "@redux":         ["./src/redux"],
-      "@atomic":        ["./src/components/atomic"],
       "@subatomic":     ["./src/components/subatomic"],
+      "@atomic":        ["./src/components/atomic"],
       "@molecules":     ["./src/components/molecules"],
+      "@templates":     ["./src/components/templates"],
       "@svg":           ["./src/svg"],
       "@etc":           ["./src/etc"],
       "@types":         ["./src/types"],
+      "@images":        ["./src/assets/images"],
     },                                        /* A series of entries which re-map imports to lookup locations relative to the 'baseUrl'. */
     // "rootDirs": [],                        /* List of root folders whose combined content represents the structure of the project at runtime. */
     // "typeRoots": [],                       /* List of folders to include type definitions from. */

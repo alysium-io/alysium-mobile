@@ -7,6 +7,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { useSettings } from '@hooks'
 import { BottomTabNavigatorParamList } from '@types'
 import { Icon } from '@atomic'
+import TestStackNavigator from './TestStackNavigator'
 
 
 const TAB_ICON_SCALING_FACTOR = 0.8
@@ -48,6 +49,13 @@ const TabNavigator = () => {
                             tabBarIcon: ({ color, size }) => <Icon name='profile' size={size * TAB_ICON_SCALING_FACTOR} color={color} />
                         }}
                     />
+                    {/* <Tab.Screen
+                        name='Test'
+                        component={TestStackNavigator}
+                        options={{
+                            tabBarIcon: ({ color, size }) => <Icon name='profile' size={size * TAB_ICON_SCALING_FACTOR} color={color} />
+                        }}
+                    /> */}
                 </Tab.Navigator>
             </NavigationContainer>
         </SafeAreaProvider>

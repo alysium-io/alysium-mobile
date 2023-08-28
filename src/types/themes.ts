@@ -1,4 +1,5 @@
 import { BaseTheme } from '@shopify/restyle'
+import { ContentType } from '@types';
 import { StatusBarStyle, ViewStyle } from 'react-native'
 
 export type Spacing = {
@@ -17,6 +18,9 @@ export type BorderRadii = {
     l: number;
     xl: number;
     round: number;
+    [ContentType.artist]: number;
+    [ContentType.venue]: number;
+    [ContentType.genre]: number;
 }
 
 export type BlurColor = 'light' | 'dark'

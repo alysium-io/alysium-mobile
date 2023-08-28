@@ -1,17 +1,16 @@
 import React from 'react'
-import { View } from '@atomic'
-import { Page } from '@screens'
+import { View, BasePage } from '@atomic'
 import { StyleSheet, ActivityIndicator } from 'react-native'
 
 
 const Loading = () => {
 
     return (
-        <Page>
+        <BasePage>
             <View style={styles.container}>
                 <ActivityIndicator />
             </View>
-        </Page>
+        </BasePage>
     )
 }
 

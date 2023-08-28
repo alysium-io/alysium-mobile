@@ -1,7 +1,7 @@
 import React from 'react'
-import { IconProps } from 'src/types'
+import { Svg, Path } from '@atomic'
+import { IconProps } from '@types'
 import { SvgProps, PathProps } from 'react-native-svg'
-import { Svg, Path } from 'src/components/atomic'
 
 
 const svg : SvgProps = {
@@ -27,7 +27,12 @@ const Profile : React.FC<IconProps> = (props) => {
     
     if (props.animated) {
         return (
-            <Svg {...svg} size={props.size}>
+            <Svg
+                {...svg}
+                size={props.size}
+                animated={true}
+                animatedProps={props.animatedSvgProps}
+            >
                 <Path
                     {...path1}
                     stroke={props.color}

@@ -1,6 +1,6 @@
 import React from 'react'
-import { Svg, Path } from 'src/components/atomic'
-import { IconProps } from 'src/types'
+import { Svg, Path } from '@atomic'
+import { IconProps } from '@types'
 import { SvgProps, PathProps } from 'react-native-svg'
 
 

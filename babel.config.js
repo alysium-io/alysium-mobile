@@ -11,12 +11,14 @@ module.exports = {
 					"@hooks":         "./src/utils/hooks",
 					"@restyle":       "./src/restyle",
 					"@redux":         "./src/redux",
-					"@atomic":        "./src/components/atomic",
 					"@subatomic":     "./src/components/subatomic",
+					"@atomic":        "./src/components/atomic",
 					"@molecules":     "./src/components/molecules",
+					"@templates":     "./src/components/templates",
 					"@svg":           "./src/svg",
 					"@etc":           "./src/etc",
 					"@types":         "./src/types",
+					"@images": 	  	  "./src/assets/images",
 				}
 			}
 		],

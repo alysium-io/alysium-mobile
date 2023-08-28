@@ -1,5 +1,4 @@
-import React from 'react'
-import { Image as RNImage } from 'react-native'
+import React, { useState } from 'react'
 import {
     InanimateImage,
     AnimatedImage,
@@ -12,15 +11,20 @@ type ImageProps =
     (InanimateImageProps & { animated: false }) |
     (AnimatedImageProps & { animated?: true })
 
-const Image = React.forwardRef<React.ElementRef<typeof RNImage>, ImageProps>(({ animated = true, ...props }, ref) => {
+const Image : React.FC<ImageProps> = ({
+    animated = true,
+    ...props
+}) => {
+    const [hasError, setHasError] = useState<boolean>(false)
+    const handleError = () => setHasError(true)
 
     if (animated) {
         const animatedBoxProps = props as AnimatedImageProps
-        return <AnimatedImage ref={ref as any} {...animatedBoxProps} />
+        return <AnimatedImage onError={handleError} {...animatedBoxProps} />
     } else {
         const boxProps = props as InanimateImageProps
-        return <InanimateImage ref={ref as any} {...boxProps} />
+        return <InanimateImage onError={handleError} {...boxProps} />
     }
-})
+}
 
 export default Image

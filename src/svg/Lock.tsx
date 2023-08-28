@@ -1,6 +1,6 @@
 import React from 'react'
-import { Svg, Path } from 'src/components/atomic'
-import { IconProps } from 'src/types'
+import { Svg, Path } from '@atomic'
+import { IconProps } from '@types'
 import { PathProps, SvgProps } from 'react-native-svg'
 
 
@@ -21,24 +21,24 @@ const Lock : React.FC<IconProps> = (props) => {
     if (props.animated) {
         return (
             <Svg
+                {...svg}
                 animated={true}
                 animatedProps={props.animatedSvgProps}
                 size={props.size}
-                {...svg}
             >
                 <Path
+                    {...path}
                     animated={true}
                     animatedProps={props.animatedPathProps}
                     stroke={props.color}
-                    {...path}
                 />
             </Svg>
         )
     }
 
     return (
-        <Svg animated={false} size={props.size} {...svg}>
-            <Path animated={false} stroke={props.color} {...path} />
+        <Svg {...svg} size={props.size}>
+            <Path {...path} stroke={props.color} />
         </Svg>
     )
 

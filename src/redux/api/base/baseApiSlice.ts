@@ -68,7 +68,10 @@ export const api = createApi({
         artist: builder.query<ArtistResponse, ArtistRequestParams>({
             query: ({ artist_id }) => ({
                 url: `/artists/${artist_id}`,
-                method: 'GET'
+                method: 'GET',
+                params: {
+                    populate: '*'
+                }
             })
         })
     })

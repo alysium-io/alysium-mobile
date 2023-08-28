@@ -1,15 +1,14 @@
 import React from 'react'
 import { useSettings, useTextInput, useUser } from 'src/utils/hooks'
-import { LargeInput, LargeButton } from 'src/components/molecules'
+import { LargeInput, LargeButton, StaticNotchBlur } from '@molecules'
 import { Easing, FadeInDown, FadeOut } from 'react-native-reanimated'
 import { Keyboard, StyleSheet, TouchableWithoutFeedback } from 'react-native'
 import {
     View,
     StatusBar,
     Icon,
-    NotchBlur,
     Text
-} from 'src/components/atomic'
+} from '@atomic'
 
 
 const LoggedOut = () => {
@@ -88,7 +87,7 @@ const LoggedOut = () => {
                     { user.error ? <ErrorText /> : <InvisibleText /> }
                 </View>
                 <StatusBar />
-                <NotchBlur />
+                <StaticNotchBlur />
             </View>
         </TouchableWithoutFeedback>
     )

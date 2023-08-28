@@ -14,6 +14,10 @@ import type { BottomTabNavigationProp } from '@react-navigation/bottom-tabs'
  * 
  * navigation.navigate('SearchPage')
  */
+export type TestStackNavigatorParamList = {
+    TestPage: undefined;
+}
+
 export type SearchStackNavigatorParamList = {
     SearchPage: undefined;
     ArtistPage: { item_id: number };
@@ -41,6 +45,7 @@ export type ProfileStackNavigatorParamList = {
  *  navigation.jumpTo('Profile')
  */
 export type BottomTabNavigatorParamList = {
+    Test: undefined;
     Search: SearchStackNavigatorParamList;
     Profile: undefined;
 }
