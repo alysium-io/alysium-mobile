@@ -6,13 +6,13 @@ import { settingsReducer } from './settingsSlice'
 
 const saveSubsetFilter = createFilter(
     'settings',
-    ['theme']
+    ['app']
 )
 
 const persistConfig = {
     key: 'settings',
     storage: AsyncStorage,
-    whitelist: ['theme'],
+    whitelist: ['app'],
     transforms: [saveSubsetFilter]
 }
 

@@ -5,14 +5,14 @@ import { SvgProps, PathProps } from 'react-native-svg'
 
 
 const svg : SvgProps = {
-    viewBox: '0 0 45 45',
+    viewBox: '0 0 24 24',
     fill: 'none'
 }
 
 const path : PathProps = {
-    d: 'M13.249 44.342c.828.877 2.169.877 2.995 0L33.76 25.75c1.655-1.756 1.655-4.605 0-6.36L16.117.657a2.033 2.033 0 0 0-2.974-.022c-.85.874-.857 2.316-.023 3.204l16.147 17.138c.828.88.828 2.302 0 3.182L13.249 41.163c-.828.877-.828 2.302 0 3.18Z',
-    fillRule: 'evenodd',
-    clipRule: 'evenodd'
+    d: 'M5.707 9.71a1 1 0 0 0 0 1.415l4.892 4.887a2 2 0 0 0 2.828 0l4.89-4.89a1 1 0 1 0-1.414-1.415l-4.185 4.186a1 1 0 0 1-1.415 0L7.121 9.71a1 1 0 0 0-1.414 0Z',
+    // fillRule: 'evenodd',
+    // clipRule: 'evenodd'
 }
 
 const Arrow : React.FC<IconProps> = (props) => {
@@ -23,13 +23,13 @@ const Arrow : React.FC<IconProps> = (props) => {
          */
         switch(props.direction) {
             case 'up':
-                return '270deg'
-            case 'down':
-                return '90deg'
-            case 'left':
                 return '180deg'
-            case 'right':
+            case 'down':
                 return '0deg'
+            case 'left':
+                return '90deg'
+            case 'right':
+                return '270deg'
             default:
                 return '0deg'
         }

@@ -22,9 +22,9 @@ const Lock : React.FC<IconProps> = (props) => {
         return (
             <Svg
                 {...svg}
+                size={props.size}
                 animated={true}
                 animatedProps={props.animatedSvgProps}
-                size={props.size}
             >
                 <Path
                     {...path}

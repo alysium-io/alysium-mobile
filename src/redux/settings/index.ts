@@ -1,5 +1,5 @@
 export { default as settingsReducer } from './sliceConfig'
 
 export {
-    setTheme as action_setTheme
+    setApp as action_setApp
 } from './settingsSlice'

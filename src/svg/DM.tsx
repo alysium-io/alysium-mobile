@@ -19,8 +19,7 @@ const DM : React.FC<IconProps> = (props) => {
         return (
             <Svg
                 {...svg}
-                width={props.size}
-                height={props.size}
+                size={props.size}
                 animated={true}
                 animatedProps={props.animatedSvgProps}
             >
@@ -34,7 +33,7 @@ const DM : React.FC<IconProps> = (props) => {
     }
 
     return (
-        <Svg {...svg} width={props.size} height={props.size}>
+        <Svg {...svg} size={props.size}>
             <Path {...path} fill={props.color} />
         </Svg>
     )

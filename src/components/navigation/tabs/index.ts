@@ -1,0 +1,7 @@
+export { default as EventManagerTab } from './EventManagerTab'
+export { default as ProfileTab } from './ProfileTab'
+export { default as ExperimentTab } from './ExperimentTab'
+export { default as SearchTab } from './SearchTab'
+export { default as ComponentsTab } from './ComponentsTab'
+export { default as PagesTab } from './PagesTab'
+export { default as ContractManagerTab } from './ContractManagerTab'

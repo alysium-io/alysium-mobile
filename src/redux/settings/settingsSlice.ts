@@ -1,17 +1,17 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { SettingsState, ThemeName } from 'src/types'
+import { SettingsState, AppType } from 'src/types'
 
 
 const initialState : SettingsState = {
-    theme: 'dark'
+    app: AppType.test
 }
 
 const settingsSlice = createSlice({
-    name: 'user',
+    name: 'settings',
     initialState,
     reducers: {
-        setTheme: (state, action: PayloadAction<ThemeName>) => {
-            state.theme = action.payload
+        setApp: (state, action: PayloadAction<AppType>) => {
+            state.app = action.payload
         }
     },
     extraReducers: (builder) => {
@@ -22,5 +22,5 @@ const settingsSlice = createSlice({
 export const settingsReducer = settingsSlice.reducer
 
 export const {
-    setTheme
+    setApp
 } = settingsSlice.actions

@@ -7,7 +7,13 @@ import {
     SearchResponse,
     SearchRequestBody,
     ArtistResponse,
-    ArtistRequestParams
+    ArtistRequestParams,
+    HostResponse,
+    HostRequestParams,
+    TagArtistsRequestParams,
+    TagArtistsResponse,
+    TagRequestParams,
+    TagResponse
 } from 'src/types'
 
 
@@ -66,12 +72,33 @@ export const api = createApi({
             })
         }),
         artist: builder.query<ArtistResponse, ArtistRequestParams>({
-            query: ({ artist_id }) => ({
-                url: `/artists/${artist_id}`,
+            query: ({ artistId }) => ({
+                url: `/artists/${artistId}`,
                 method: 'GET',
                 params: {
                     populate: '*'
                 }
+            })
+        }),
+        host: builder.query<HostResponse, HostRequestParams>({
+            query: ({ hostId }) => ({
+                url: `/hosts/${hostId}`,
+                method: 'GET',
+                params: {
+                    populate: '*'
+                }
+            })
+        }),
+        tag: builder.query<TagResponse, TagRequestParams>({
+            query: ({ tagId }) => ({
+                url: `/genres/${tagId}`,
+                method: 'GET'
+            })
+        }),
+        tagArtists: builder.query<TagArtistsResponse, TagArtistsRequestParams>({
+            query: ({ tagId }) => ({
+                url: `/genres/relatedArtists/${tagId}`,
+                method: 'GET'
             })
         })
     })
@@ -81,7 +108,11 @@ export const {
     useLazyAuthUserQuery,
     useLazyGetMeQuery,
     useSearchQuery,
-    useArtistQuery
+    useArtistQuery,
+    useLazyArtistQuery,
+    useLazyHostQuery,
+    useLazyTagQuery,
+    useLazyTagArtistsQuery
 } = api
 
 export default api.reducer

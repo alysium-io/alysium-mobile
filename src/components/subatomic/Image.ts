@@ -1,6 +1,5 @@
 import React from 'react'
 import { Theme } from '@types'
-import { Image as RNImage } from 'react-native'
 import FastImage, { FastImageProps } from 'react-native-fast-image'
 import Animated from 'react-native-reanimated'
 import {
@@ -10,7 +9,7 @@ import {
     createVariant
 } from '@shopify/restyle'
 
-const AnimatedFastImage = Animated.createAnimatedComponent(FastImage as React.FunctionComponent<FastImageProps>)
+const AnimatedFastImage = Animated.createAnimatedComponent(FastImage as React.FC<FastImageProps>)
 
 const RestyleImage = createBox<Theme, React.ComponentProps<typeof FastImage>>()
 const AnimatedRestyleImage = createBox<Theme, React.ComponentProps<typeof Animated.Image>>(AnimatedFastImage)
@@ -21,7 +20,7 @@ const imageRestyleFunctions = [
 ]
 
 export type InanimateImageProps = VariantProps<Theme, 'imageVariants'> & React.ComponentProps<typeof RestyleImage>
-export type AnimatedImageProps = VariantProps<Theme, 'imageVariants'> & React.ComponentProps<typeof Animated.Image>
+export type AnimatedImageProps = VariantProps<Theme, 'imageVariants'> & React.ComponentProps<typeof Animated.Image> & React.ComponentProps<typeof RestyleImage>
 
 const InanimateImage = createRestyleComponent<
     InanimateImageProps,

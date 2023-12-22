@@ -7,19 +7,19 @@ export enum Stage {
 }
 
 export type User = {
-    id: number;
-    username: string;
-    email: string;
-    provider: string;
-    confirmed: boolean;
-    blocked: boolean;
-    createdAt: string;
-    updatedAt: string;
+    id: number
+    username: string
+    email: string
+    provider: string
+    confirmed: boolean
+    blocked: boolean
+    createdAt: string
+    updatedAt: string
 }
 
 export type UserState = {
-    stage: Stage;
-    error: string | null;
-    user: User | null;
-    token: string | null;
+    stage: Stage
+    error: string | null
+    user: User | null
+    token: string | null
 }

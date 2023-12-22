@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { userReducer } from './user'
 import { searchReducer } from './search'
+import { themeReducer } from './theme'
 import { settingsReducer } from './settings'
 import { apiErrorUnauthorizedMiddleware } from './middleware'
 import apiReducer, { api } from './api/base/baseApiSlice'
@@ -24,6 +25,7 @@ const store = configureStore({
     reducer: {
         user: userReducer,
         search: searchReducer,
+        theme: themeReducer,
         settings: settingsReducer,
         [api.reducerPath]: apiReducer
     },

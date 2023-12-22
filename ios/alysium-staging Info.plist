@@ -24,6 +24,12 @@
 	<string>7</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false />
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>We need access to your photo library to allow you to pick images.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>We need permission to save images to your photo library.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>This app requires access to the camera to take photos.</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true />
 	<key>NSAppTransportSecurity</key>

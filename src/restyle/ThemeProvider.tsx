@@ -1,6 +1,6 @@
 import React from 'react'
 import { ThemeProvider as RestyleThemeProvider } from '@shopify/restyle'
-import { useSettings } from 'src/utils/hooks'
+import { useTheme } from 'src/utils/hooks'
 
 
 interface ThemeProviderProps {
@@ -9,7 +9,7 @@ interface ThemeProviderProps {
 
 const ThemeProvider : React.FC<ThemeProviderProps> = ({ children }) => {
 
-    const { theme } = useSettings()
+    const { theme } = useTheme()
 
     return (
         <RestyleThemeProvider theme={theme}>

@@ -1,3 +1,22 @@
+type RGB = {
+    r: number
+    g: number
+    b: number
+}
+
+type RGBA = {
+    r: number
+    g: number
+    b: number
+    a: number
+}
+
+type YIQ = {
+    y: number
+    i: number
+    q: number
+}
+
 class Colors {
 
     // Helper function to validate HEX color
@@ -44,22 +63,43 @@ class Colors {
         return Colors.adjustColorBrightness(color, factor, true)
     }
 
-    static hex2Rgb = (hexColor: string) : [number, number, number] => {
+    static hex2Alpha = (hexColor: string, alpha: number = 1) : string => {
+        const { r, g, b } = Colors.hex2RGB(hexColor)
+        return Colors.RGBA2String({ r, g, b, a: alpha })
+    }
+
+    static RGB2String = ({ r, g, b }: RGB) : string => {
+        return `rgb(${r}, ${g}, ${b})`
+    }
+
+    static RGBA2String = ({ r, g, b, a }: RGBA) : string => {
+        return `rgba(${r}, ${g}, ${b}, ${a})`
+    }
+
+    static hex2RGB = (hexColor: string) : RGB => {
 
         const bigint = parseInt(hexColor.slice(1), 16)
         const r = (bigint >> 16) & 255
         const g = (bigint >> 8) & 255
         const b = bigint & 255
     
-        return [r, g, b]
+        return { r, g, b }
     
     }
+
+    static parseRGB = (rgbColor: string) : RGB => {
+        const [r, g, b] = rgbColor.split(',').map((val) => parseInt(val))
+        return { r, g, b }
+    }
+
+    static parseRGBA = (rgba: string) : RGBA => {
+        const [r, g, b, a] = rgba.split(',').map((val) => parseInt(val))
+        return { r, g, b, a }
+    }
     
-    static hexToRGBA = (hexColor: string, alpha: number = 1) : string => {
-        
-        const rgb = Colors.hex2Rgb(hexColor)
-        return `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, ${alpha})`
-    
+    static hex2RGBA = (hexColor: string, alpha: number = 1) : RGBA => {
+        const { r, g, b } = Colors.hex2RGB(hexColor)
+        return { r, g, b, a: alpha }
     }
 
     static RGB2Hex = (rgbColor: number[]) => {
@@ -73,11 +113,23 @@ class Colors {
         )
     }
 
+    static RGB2YIQ = ({ r, g, b }: RGB) : YIQ => {
+        const y = (0.299 * r + 0.587 * g + 0.114 * b) / 255
+        const i = (0.596 * r - 0.274 * g - 0.322 * b) / 255
+        const q = (0.211 * r - 0.523 * g + 0.312 * b) / 255
+        return { y, i, q }
+    }
+
+    static hex2YIQ = (hexColor: string) : YIQ => {
+        const rgb = Colors.hex2RGB(hexColor)
+        return Colors.RGB2YIQ(rgb)
+    }
+
     static normalizeColorToRange = (hexColor: string, minRgb: number = 159, maxRgb: number = 239) => {
 
-        const rgbColor = Colors.hex2Rgb(hexColor)
-        const minInputRgb = Math.min(...rgbColor)
-        const maxInputRgb = Math.max(...rgbColor)
+        const { r, g, b } = Colors.hex2RGB(hexColor)
+        const minInputRgb = Math.min(r, g, b)
+        const maxInputRgb = Math.max(r, g, b)
     
         // Handle edge case when input color has equal min and max RGB values
         if (minInputRgb === maxInputRgb) {
@@ -85,7 +137,7 @@ class Colors {
             return Colors.RGB2Hex([midRgb, midRgb, midRgb])
           }
     
-        const adjustedRgbColor = rgbColor.map((val) => {
+        const adjustedRgbColor = [r, g, b].map((val) => {
             return Math.floor(Colors.scaleValue(val, minInputRgb, maxInputRgb, minRgb, maxRgb))
         })
     
@@ -95,6 +147,18 @@ class Colors {
 
     static scaleValue = (value: number, inMin: number, inMax: number, outMin: number, outMax: number) => {
         return ((value - inMin) * (outMax - outMin)) / (inMax - inMin) + outMin
+    }
+
+    static getContrastTextColor = (hex: string) : string => {
+        const luminanceThreshold = 0.7
+        const { r, g, b } = Colors.hex2RGB(hex)
+        const { y } = this.RGB2YIQ({ r, g, b })
+        return y > luminanceThreshold ? 'black' : 'white'
+    }
+
+    static randomColor = () : string => {
+        const randomColor = Math.floor(Math.random() * 0xFFFFFF).toString(16)
+        return '#' + randomColor.padStart(6, '0')
     }
 
 }

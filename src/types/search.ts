@@ -1,10 +1,13 @@
-export type RecentSearch = {
-    title: string;
-    subttile: string;
+export type SearchItem = {
+    id: number
+    score: number
+    name: string
+    image: string
 }
 
 export type SearchState = {
-    error: string | null;
-    recentSearches: RecentSearch[];
-    searchResults: string[];
+    error: string | null
+    recentSearches: SearchItem[]
+    searchResults: SearchItem[]
+    searchText: string
 }

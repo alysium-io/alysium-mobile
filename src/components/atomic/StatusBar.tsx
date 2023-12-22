@@ -1,11 +1,16 @@
 import React from 'react'
-import { useSettings } from '@hooks'
+import { useTheme } from '@hooks'
 import { StatusBar as RNStatusBar } from 'react-native'
 
 
 const StatusBar = () => {
-    const { theme } = useSettings()
-    return <RNStatusBar barStyle={theme.colors.statusBar} />
+
+    const { mode } = useTheme()
+
+    if (mode === 'light') return <RNStatusBar barStyle='dark-content' />
+
+    if (mode === 'dark') return <RNStatusBar barStyle='light-content' />
+
 }
 
 export default StatusBar

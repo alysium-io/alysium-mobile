@@ -1,7 +1,5 @@
-import light from './light'
-import dark from './dark'
+import * as main from './main'
 
-export default {
-    light,
-    dark
+export {
+    main
 }

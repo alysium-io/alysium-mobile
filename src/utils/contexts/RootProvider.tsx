@@ -1,4 +1,5 @@
 import React from 'react'
+import { ThemeProvider } from './ThemeContext'
 
 
 interface RootProviderProps {
@@ -7,7 +8,9 @@ interface RootProviderProps {
 
 const RootProvider : React.FC<RootProviderProps> = ({ children }) => (
     <>
-        { children }
+        <ThemeProvider>
+            { children }
+        </ThemeProvider>
     </>
 )
 

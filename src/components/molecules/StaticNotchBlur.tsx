@@ -3,7 +3,7 @@ import Animated from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { BlurView } from '@react-native-community/blur'
 import { StyleSheet } from 'react-native'
-import { useSettings } from '@hooks'
+import { useTheme } from '@hooks'
 
 
 const AnimatedBlurView = Animated.createAnimatedComponent(BlurView)
@@ -12,7 +12,7 @@ const StaticNotchBlur = () => {
 
     const insets = useSafeAreaInsets()
 
-    const { theme } = useSettings()
+    const { theme } = useTheme()
 
     return (
         <AnimatedBlurView
