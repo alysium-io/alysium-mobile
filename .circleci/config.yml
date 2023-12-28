@@ -95,18 +95,18 @@ commands:
   install-pods:
     description: "Install Pods"
     steps:
-      - restore_cache:
-          keys:
-            - pod-deps-{{ checksum "ios/Podfile.lock" }}
-            - pod-deps-
+      # - restore_cache:
+      #     keys:
+      #       - pod-deps-{{ checksum "ios/Podfile.lock" }}
+      #       - pod-deps-
       - run:
           name: Install using specific CocoaPods version
           command: bundle exec pod install
           working_directory: ios
-      - save_cache:
-          paths:
-            - ios/Pods
-          key: pod-deps-{{ checksum "ios/Podfile.lock" }}
+      # - save_cache:
+      #     paths:
+      #       - ios/Pods
+      #     key: pod-deps-{{ checksum "ios/Podfile.lock" }}
   check-versions:
     description: "Check versions"
     steps:
@@ -119,6 +119,22 @@ commands:
       - run:
           name: Check to see if rbenv is installed
           command: rbenv versions
+  install-and-switch-to-ruby-3.0.2:
+    description: "Install and switch to Ruby 3.0.2"
+    steps:
+      - restore_cache:
+          keys:
+            - v1-rbenv-versions-{{ checksum ".ruby-version" }}
+            - v1-rbenv-versions-
+      - run:
+          name: Install and switch to Ruby
+          command: |
+            rbenv install 3.0.2 -s
+            rbenv local 3.0.2
+      - save_cache:
+          key: v1-rbenv-versions-{{ checksum ".ruby-version" }}
+          paths:
+            - ~/.rbenv/versions
 jobs:
   env_setup:
     docker:
@@ -164,11 +180,7 @@ jobs:
     steps:
       - attach_workspace:
           at: .
-      - run:
-          name: Install and switch to Ruby 3.0.2
-          command: |
-            rbenv install 3.0.2 -s  # The -s flag skips installation if the version is already installed
-            rbenv local 3.0.2
+      - install-and-switch-to-ruby-3.0.2
       - add-gitlab-to-known-hosts
       - add-match-fingerprint
       - install-gem-bundler
