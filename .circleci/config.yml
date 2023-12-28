@@ -116,6 +116,9 @@ commands:
       - run:
           name: Check Ruby version
           command: ruby -v
+      - run:
+          name: Check to see if rbenv is installed
+          command: rbenv versions
 jobs:
   env_setup:
     docker:
@@ -161,6 +164,7 @@ jobs:
     steps:
       - attach_workspace:
           at: .
+      - check-versions
       - add-gitlab-to-known-hosts
       - add-match-fingerprint
       - install-gem-bundler
@@ -189,12 +193,12 @@ workflows:
                 - master
           requires:
             - env_setup
-      - build_android_staging:
-          filters:
-            branches:
-              only:
-                - testflight
-                - master
-          requires:
-            - env_setup
+      # - build_android_staging:
+      #     filters:
+      #       branches:
+      #         only:
+      #           - testflight
+      #           - master
+      #     requires:
+      #       - env_setup
 
