@@ -59,17 +59,15 @@ commands:
       - run:
           name: Run Jest Tests
           command: yarn test
-  install-fastlane:
-    description: "Install Fastlane"
+  install-gem-bundler:
+    description: "Install Gem Bundler"
     steps:
       - run:
-          name: Bundle Config
-          command: bundle config set --local path 'vendor/bundle'
-          working_directory: fastlane
+          name: Install React Native Gem Bundler
+          command: gem install bundler
       - run:
-          name: Install fastlane
+          name: Bundle Install React Native
           command: bundle install
-          working_directory: fastlane
   add-repo-fingerprint:
     description: "Add repo fingerprint to known_hosts"
     steps:
@@ -100,24 +98,18 @@ commands:
   install-pods:
     description: "Install Pods"
     steps:
-      - run:
-          name: Install React Native Gem Bundler
-          command: gem install bundler
-      - run:
-          name: Bundle Install React Native
-          command: bundle install
-      # - restore_cache:
-      #     keys:
-      #       - pod-deps-{{ checksum "ios/Podfile.lock" }}
-      #       - pod-deps-
+      - restore_cache:
+          keys:
+            - pod-deps-{{ checksum "ios/Podfile.lock" }}
+            - pod-deps-
       - run:
           name: Install using specific CocoaPods version
           command: bundle exec pod install
           working_directory: ios
-      # - save_cache:
-      #     paths:
-      #       - ios/Pods
-      #     key: pod-deps-{{ checksum "ios/Podfile.lock" }}
+      - save_cache:
+          paths:
+            - ios/Pods
+          key: pod-deps-{{ checksum "ios/Podfile.lock" }}
 jobs:
   env_setup:
     docker:
@@ -131,6 +123,7 @@ jobs:
           API_URL: API_URL_STAGING
           ENV: ENV_STAGING
       - rn/yarn_install
+      - install-gem-bundler
       - jest
       - show-diff
       # - bump-build-number
