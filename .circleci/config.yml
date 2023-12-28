@@ -190,12 +190,12 @@ workflows:
                 - master
           requires:
             - env_setup
-      - build_android_staging:
-          filters:
-            branches:
-              only:
-                - testflight
-                - master
-          requires:
-            - env_setup
+      # - build_android_staging:
+      #     filters:
+      #       branches:
+      #         only:
+      #           - testflight
+      #           - master
+      #     requires:
+      #       - env_setup
 
