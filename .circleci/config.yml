@@ -63,6 +63,9 @@ commands:
     description: "Install Gem Bundler"
     steps:
       - run:
+          name: Install specific Ruby version
+          command: rvm install 3.0.6 && rvm use 3.0.6
+      - run:
           name: Bundle Install React Native
           command: bundle install
   add-repo-fingerprint:
