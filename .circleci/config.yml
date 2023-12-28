@@ -132,8 +132,6 @@ jobs:
       - jest
       - show-diff
       # - bump-build-number
-      # Step to check the current Ruby version
-      - check-versions
       - persist_to_workspace:
           root: .
           paths: .
