@@ -107,6 +107,15 @@ commands:
           paths:
             - ios/Pods
           key: pod-deps-{{ checksum "ios/Podfile.lock" }}
+  check-versions:
+    description: "Check versions"
+    steps:
+      - run:
+          name: Check bundler version
+          command: bundle -v
+      - run:
+          name: Check Ruby version
+          command: ruby -v
 jobs:
   env_setup:
     docker:
@@ -124,33 +133,7 @@ jobs:
       - show-diff
       # - bump-build-number
       # Step to check the current Ruby version
-      - run:
-          name: Check Ruby version
-          command: ruby -v || echo "Ruby not found"
-
-      # Step to check if rbenv is installed
-      - run:
-          name: Check rbenv installation
-          command: |
-            if command -v rbenv &> /dev/null
-            then
-                echo "rbenv is installed"
-                rbenv -v  # Show rbenv version
-            else
-                echo "rbenv is not installed"
-            fi
-
-      # Step to check if rvm is installed
-      - run:
-          name: Check rvm installation
-          command: |
-            if command -v rvm &> /dev/null
-            then
-                echo "rvm is installed"
-                rvm -v  # Show rvm version
-            else
-                echo "rvm is not installed"
-            fi
+      - check-versions
       - persist_to_workspace:
           root: .
           paths: .
@@ -163,34 +146,7 @@ jobs:
       - attach_workspace:
           at: .
       - write-android-credentials
-      # Step to check the current Ruby version
-      - run:
-          name: Check Ruby version
-          command: ruby -v || echo "Ruby not found"
-
-      # Step to check if rbenv is installed
-      - run:
-          name: Check rbenv installation
-          command: |
-            if command -v rbenv &> /dev/null
-            then
-                echo "rbenv is installed"
-                rbenv -v  # Show rbenv version
-            else
-                echo "rbenv is not installed"
-            fi
-
-      # Step to check if rvm is installed
-      - run:
-          name: Check rvm installation
-          command: |
-            if command -v rvm &> /dev/null
-            then
-                echo "rvm is installed"
-                rvm -v  # Show rvm version
-            else
-                echo "rvm is not installed"
-            fi
+      - check-versions
       - install-gem-bundler
       - run:
           name: Deploy with fastlane
