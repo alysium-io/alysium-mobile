@@ -1,4 +1,4 @@
-package com.alysium.newarchitecture.modules;
+package io.alysium.newarchitecture.modules;
 
 import com.facebook.jni.HybridData;
 import com.facebook.react.ReactPackage;

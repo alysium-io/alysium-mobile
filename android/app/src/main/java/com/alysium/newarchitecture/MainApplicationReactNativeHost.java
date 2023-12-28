@@ -1,4 +1,4 @@
-package com.alysium.newarchitecture;
+package io.alysium.newarchitecture;
 
 import android.app.Application;
 import androidx.annotation.NonNull;
@@ -19,9 +19,9 @@ import com.facebook.react.fabric.CoreComponentsRegistry;
 import com.facebook.react.fabric.FabricJSIModuleProvider;
 import com.facebook.react.fabric.ReactNativeConfig;
 import com.facebook.react.uimanager.ViewManagerRegistry;
-import com.alysium.BuildConfig;
-import com.alysium.newarchitecture.components.MainComponentsRegistry;
-import com.alysium.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
+import io.alysium.BuildConfig;
+import io.alysium.newarchitecture.components.MainComponentsRegistry;
+import io.alysium.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
 import java.util.ArrayList;
 import java.util.List;
 

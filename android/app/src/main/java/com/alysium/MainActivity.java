@@ -1,4 +1,4 @@
-package com.alysium;
+package io.alysium;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
