@@ -63,6 +63,12 @@ commands:
     description: "Install Gem Bundler"
     steps:
       - run:
+          name: Install RVM
+          command: |
+            curl -sSL https://get.rvm.io | bash -s stable
+            echo 'source "$HOME/.rvm/scripts/rvm"' >> $BASH_ENV
+            source $BASH_ENV
+      - run:
           name: Install specific Ruby version
           command: rvm install 3.0.6 && rvm use 3.0.6
       - run:
