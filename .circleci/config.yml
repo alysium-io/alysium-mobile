@@ -163,7 +163,6 @@ jobs:
       - attach_workspace:
           at: .
       - write-android-credentials
-      - check-versions
       - install-gem-bundler
       - run:
           name: Deploy with fastlane
