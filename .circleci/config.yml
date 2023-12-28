@@ -106,18 +106,18 @@ commands:
       - run:
           name: Bundle Install React Native
           command: bundle install
-      - restore_cache:
-          keys:
-            - pod-deps-{{ checksum "ios/Podfile.lock" }}
-            - pod-deps-
+      # - restore_cache:
+      #     keys:
+      #       - pod-deps-{{ checksum "ios/Podfile.lock" }}
+      #       - pod-deps-
       - run:
           name: Install using specific CocoaPods version
           command: bundle exec pod install
           working_directory: ios
-      - save_cache:
-          paths:
-            - ios/Pods
-          key: pod-deps-{{ checksum "ios/Podfile.lock" }}
+      # - save_cache:
+      #     paths:
+      #       - ios/Pods
+      #     key: pod-deps-{{ checksum "ios/Podfile.lock" }}
 jobs:
   env_setup:
     docker:
@@ -164,7 +164,7 @@ jobs:
           at: .
       - add-gitlab-to-known-hosts
       - add-match-fingerprint
-      - install-fastlane
+      # - install-fastlane
       - install-pods
       - show-diff
       - run:
