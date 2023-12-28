@@ -145,7 +145,6 @@ jobs:
     steps:
       - attach_workspace:
           at: .
-      - install-fastlane
       - write-android-credentials
       - run:
           name: Deploy with fastlane
