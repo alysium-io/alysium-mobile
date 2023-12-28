@@ -163,6 +163,7 @@ jobs:
           at: .
       - add-gitlab-to-known-hosts
       - add-match-fingerprint
+      - install-gem-bundler
       - install-pods
       - show-diff
       - run:
@@ -180,14 +181,14 @@ workflows:
               only:
                 - testflight
                 - master
-      # - build_ios_staging:
-      #     filters:
-      #       branches:
-      #         only:
-      #           - testflight
-      #           - master
-      #     requires:
-      #       - env_setup
+      - build_ios_staging:
+          filters:
+            branches:
+              only:
+                - testflight
+                - master
+          requires:
+            - env_setup
       - build_android_staging:
           filters:
             branches:
