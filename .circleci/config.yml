@@ -119,7 +119,7 @@ commands:
       - run:
           name: Check to see if rbenv is installed
           command: rbenv versions
-  install-and-switch-to-ruby-3.0.2:
+  install-and-switch-to-ruby:
     description: "Install and switch to Ruby 3.0.2"
     steps:
       - restore_cache:
@@ -180,7 +180,7 @@ jobs:
     steps:
       - attach_workspace:
           at: .
-      - install-and-switch-to-ruby-3.0.2
+      - install-and-switch-to-ruby
       - add-gitlab-to-known-hosts
       - add-match-fingerprint
       - install-gem-bundler
