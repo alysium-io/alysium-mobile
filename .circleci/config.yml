@@ -63,12 +63,6 @@ commands:
     description: "Install Gem Bundler"
     steps:
       - run:
-          name: Set Bundle Config Path
-          command: bundle config set --local path 'vendor/bundle'
-      - run:
-          name: Install React Native Gem Bundler
-          command: gem install bundler
-      - run:
           name: Bundle Install React Native
           command: bundle install
   add-repo-fingerprint:
