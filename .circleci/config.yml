@@ -121,7 +121,7 @@ commands:
 jobs:
   env_setup:
     docker:
-      - image: cimg/node:21.5.0
+      - image: cimg/node:21.4.0
     steps:
       - checkout
       - add-repo-fingerprint
