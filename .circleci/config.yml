@@ -95,18 +95,18 @@ commands:
   install-pods:
     description: "Install Pods"
     steps:
-      # - restore_cache:
-      #     keys:
-      #       - pod-deps-{{ checksum "ios/Podfile.lock" }}
-      #       - pod-deps-
+      - restore_cache:
+          keys:
+            - pod-deps-{{ checksum "ios/Podfile.lock" }}
+            - pod-deps-
       - run:
           name: Install using specific CocoaPods version
           command: bundle exec pod install
           working_directory: ios
-      # - save_cache:
-      #     paths:
-      #       - ios/Pods
-      #     key: pod-deps-{{ checksum "ios/Podfile.lock" }}
+      - save_cache:
+          paths:
+            - ios/Pods
+          key: pod-deps-{{ checksum "ios/Podfile.lock" }}
   check-versions:
     description: "Check versions"
     steps:
@@ -150,7 +150,7 @@ jobs:
       - rn/yarn_install
       - jest
       - show-diff
-      # - bump-build-number
+      - bump-build-number
       - persist_to_workspace:
           root: .
           paths: .
@@ -209,12 +209,12 @@ workflows:
                 - master
           requires:
             - env_setup
-      # - build_android_staging:
-      #     filters:
-      #       branches:
-      #         only:
-      #           - testflight
-      #           - master
-      #     requires:
-      #       - env_setup
+      - build_android_staging:
+          filters:
+            branches:
+              only:
+                - testflight
+                - master
+          requires:
+            - env_setup
 
