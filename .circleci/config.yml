@@ -164,7 +164,11 @@ jobs:
     steps:
       - attach_workspace:
           at: .
-      - check-versions
+      - run:
+          name: Install and switch to Ruby 3.0.2
+          command: |
+            rbenv install 3.0.2 -s  # The -s flag skips installation if the version is already installed
+            rbenv local 3.0.2
       - add-gitlab-to-known-hosts
       - add-match-fingerprint
       - install-gem-bundler
