@@ -136,7 +136,7 @@ commands:
           paths:
             - ~/.rbenv/versions
 jobs:
-  env_setup:
+  testflight_env_setup:
     docker:
       - image: cimg/node:21.4.0
     steps:
@@ -150,11 +150,26 @@ jobs:
       - rn/yarn_install
       - jest
       - show-diff
-      - bump-build-number
       - persist_to_workspace:
           root: .
           paths: .
-  build_android_staging:
+  preflight_env_setup:
+    docker:
+      - image: cimg/node:21.4.0
+    steps:
+      - checkout
+      - add-repo-fingerprint
+      - git-config
+      - write-app-env-vars:
+          envtype: staging
+          API_URL: API_URL_STAGING
+          ENV: ENV_STAGING
+      - rn/yarn_install
+      - jest
+      - persist_to_workspace:
+          root: .
+          paths: .
+  testflight_ship_android_staging:
     docker:
       - image: cimg/android:2023.07-node
     environment:
@@ -170,7 +185,23 @@ jobs:
           working_directory: fastlane
       - store_artifacts:
           path: output
-  build_ios_staging:
+  preflight_test_build_android_staging:
+    docker:
+      - image: cimg/android:2023.07-node
+    environment:
+      FL_OUTPUT_DIR: output
+    steps:
+      - attach_workspace:
+          at: .
+      - write-android-credentials
+      - install-gem-bundler
+      - run:
+          name: Deploy with fastlane
+          command: bundle exec fastlane android preflight_test
+          working_directory: fastlane
+      - store_artifacts:
+          path: output
+  testflight_ship_ios_staging:
     executor:
       name: rn/macos
       xcode_version: 15.1.0
@@ -191,29 +222,68 @@ jobs:
           working_directory: fastlane
       - store_artifacts:
           path: output
+  preflight_test_build_ios_staging:
+    executor:
+      name: rn/macos
+      xcode_version: 15.1.0
+    environment:
+      FL_OUTPUT_DIR: output
+    steps:
+      - attach_workspace:
+          at: .
+      - install-and-switch-to-ruby
+      - add-gitlab-to-known-hosts
+      - add-match-fingerprint
+      - install-gem-bundler
+      - install-pods
+      - show-diff
+      - run:
+          name: Deploy with fastlane
+          command: bundle exec fastlane ios preflight_test
+          working_directory: fastlane
+      - store_artifacts:
+          path: output
 workflows:
-  deploy_staging:
+  testflight_ship:
     jobs:
-      - env_setup:
+      - testflight_env_setup:
           filters:
             branches:
               only:
                 - testflight
-                - master
-      # - build_ios_staging:
-      #     filters:
-      #       branches:
-      #         only:
-      #           - testflight
-      #           - master
-      #     requires:
-      #       - env_setup
-      - build_android_staging:
+      - testflight_ship_ios_staging:
           filters:
             branches:
               only:
                 - testflight
-                - master
+          requires:
+            - env_setup
+      - testflight_ship_android_staging:
+          filters:
+            branches:
+              only:
+                - testflight
+          requires:
+            - env_setup
+  preflight_test_build:
+    jobs:
+      - preflight_env_setup:
+          filters:
+            branches:
+              only:
+                - preflight
+      - preflight_test_build_ios_staging:
+          filters:
+            branches:
+              only:
+                - preflight
+          requires:
+            - env_setup
+      - preflight_test_build_android_staging:
+          filters:
+            branches:
+              only:
+                - preflight
           requires:
             - env_setup
 

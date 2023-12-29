@@ -1,24 +1,29 @@
 platform :ios do
 
-    lane :dev do
+    # This lane just makes sure that the build is working
+    lane :preflight_test do
 
-        # Set up match for development
+        # Configure circleci
+        setup_circle_ci
+
+        # Make sure match is set up correctly for the testflight deployment
         match(
-            type: 'development',
+            type: 'appstore',
             readonly: true
         )
 
         # Build
         gym(
-            scheme: 'alysium',
-            export_method: 'development',
+            scheme: 'alysium-staging',
+            export_method: 'app-store',
             workspace: './ios/alysium.xcworkspace',
             output_directory: './ios/build',
-            output_name: 'alysium_dev.ipa'
+            output_name: 'alysium-staging.ipa'
         )
 
     end
 
+    # Build and ship to testflight
     lane :internal_beta do
 
         # Configure circleci
@@ -65,6 +70,28 @@ end
 
 platform :android do
 
+    # This lane just makes sure that the build is working
+    lane :preflight_test do
+
+        ENV['ENVFILE'] = '.env.staging'
+
+        gradle(
+            task: 'clean',
+            project_dir: './android',
+            gradle_path: './gradlew'
+        )
+
+        gradle(
+            task: 'bundle',
+            project_dir: './android',
+            gradle_path: './gradlew',
+            flavor: 'staging',
+            build_type: 'Release'
+        )
+
+    end
+
+    # Build and ship to testflight
     lane :internal_beta do
 
         ENV['ENVFILE'] = '.env.staging'
