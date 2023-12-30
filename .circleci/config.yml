@@ -216,4 +216,18 @@ workflows:
                 - master
           requires:
             - env_setup
+  test_android:
+    jobs:
+      - env_setup:
+          filters:
+            branches:
+              only:
+                - test-build-android
+      - build_android_staging:
+          filters:
+            branches:
+              only:
+                - test-build-android
+          requires:
+            - env_setup
 
