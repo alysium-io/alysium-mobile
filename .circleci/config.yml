@@ -135,7 +135,10 @@ commands:
           key: v1-rbenv-versions-{{ checksum ".ruby-version" }}
           paths:
             - ~/.rbenv/versions
+
 jobs:
+
+  # Set up environments
   env_setup:
     docker:
       - image: cimg/node:21.4.0
@@ -154,6 +157,25 @@ jobs:
       - persist_to_workspace:
           root: .
           paths: .
+  env_setup_nobump:
+    docker:
+      - image: cimg/node:21.4.0
+    steps:
+      - checkout
+      - add-repo-fingerprint
+      - git-config
+      - write-app-env-vars:
+          envtype: staging
+          API_URL: API_URL_STAGING
+          ENV: ENV_STAGING
+      - rn/yarn_install
+      - jest
+      - show-diff
+      - persist_to_workspace:
+          root: .
+          paths: .
+  
+  # Deploy to TestFlight
   build_android_staging:
     docker:
       - image: cimg/android:2023.07-node
@@ -191,6 +213,46 @@ jobs:
           working_directory: fastlane
       - store_artifacts:
           path: output
+
+  # Test Build
+  build_android:
+    docker:
+      - image: cimg/android:2023.07-node
+    environment:
+      FL_OUTPUT_DIR: output
+    steps:
+      - attach_workspace:
+          at: .
+      - write-android-credentials
+      - install-gem-bundler
+      - run:
+          name: Deploy with fastlane
+          command: bundle exec fastlane android test_build
+          working_directory: fastlane
+      - store_artifacts:
+          path: output
+  build_ios:
+    executor:
+      name: rn/macos
+      xcode_version: 15.1.0
+    environment:
+      FL_OUTPUT_DIR: output
+    steps:
+      - attach_workspace:
+          at: .
+      - install-and-switch-to-ruby
+      - add-gitlab-to-known-hosts
+      - add-match-fingerprint
+      - install-gem-bundler
+      - install-pods
+      - show-diff
+      - run:
+          name: Deploy with fastlane
+          command: bundle exec fastlane ios test_build
+          working_directory: fastlane
+      - store_artifacts:
+          path: output
+
 workflows:
   deploy_staging:
     jobs:
@@ -200,14 +262,14 @@ workflows:
               only:
                 - testflight
                 - master
-      # - build_ios_staging:
-      #     filters:
-      #       branches:
-      #         only:
-      #           - testflight
-      #           - master
-      #     requires:
-      #       - env_setup
+      - build_ios_staging:
+          filters:
+            branches:
+              only:
+                - testflight
+                - master
+          requires:
+            - env_setup
       - build_android_staging:
           filters:
             branches:
@@ -216,18 +278,26 @@ workflows:
                 - master
           requires:
             - env_setup
-  test_android:
+            
+  test_build:
     jobs:
-      - env_setup:
+      - env_setup_nobump:
           filters:
             branches:
               only:
-                - test-build-android
-      - build_android_staging:
+                - /^feature\//
+      - build_android:
           filters:
             branches:
               only:
-                - test-build-android
+                - /^feature\//
           requires:
-            - env_setup
+            - env_setup_nobump
+      - build_ios:
+          filters:
+            branches:
+              only:
+                - /^feature\//
+          requires:
+            - env_setup_nobump
 
