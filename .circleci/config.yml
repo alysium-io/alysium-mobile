@@ -151,7 +151,7 @@ jobs:
           ENV: ENV_STAGING
       - rn/yarn_install
       - jest
-      - show-diff
+      - bump-build-number
       - persist_to_workspace:
           root: .
           paths: .
@@ -231,7 +231,7 @@ jobs:
 workflows:
   testflight_ship:
     jobs:
-      - testflight_env_setup:
+      - env_setup:
           filters:
             branches:
               only:
