@@ -285,19 +285,19 @@ workflows:
           filters:
             branches:
               only:
-                - /^feature\//
+                - /^feature\/.*/
       - build_android:
           filters:
             branches:
               only:
-                - /^feature\//
+                - /^feature\/.*/
           requires:
             - env_setup_nobump
       - build_ios:
           filters:
             branches:
               only:
-                - /^feature\//
+                - /^feature\/.*/
           requires:
             - env_setup_nobump
 
