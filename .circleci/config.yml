@@ -152,7 +152,6 @@ jobs:
       - rn/yarn_install
       - jest
       - show-diff
-      - bump-build-number
       - persist_to_workspace:
           root: .
           paths: .
@@ -230,9 +229,9 @@ jobs:
           working_directory: fastlane
 
 workflows:
-  deploy_staging:
+  testflight_ship:
     jobs:
-      - env_setup:
+      - testflight_env_setup:
           filters:
             branches:
               only:
