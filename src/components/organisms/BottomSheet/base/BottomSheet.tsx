@@ -1,5 +1,4 @@
 import React, { useMemo } from 'react'
-import { View } from '@atomic'
 import { useTheme, SheetRef } from '@hooks'
 import { Easing } from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -10,9 +9,9 @@ import CustomBackdrop from './CustomBackdrop'
 import {
     BottomSheetModal,
     useBottomSheetTimingConfigs,
-    useBottomSheetDynamicSnapPoints,
     BottomSheetFooterProps,
-    BottomSheetHandleProps
+    BottomSheetHandleProps,
+    BottomSheetView
 } from '@gorhom/bottom-sheet'
 
 
@@ -67,14 +66,6 @@ const BottomSheet = ({
         easing: easingConfig
     })
 
-    const initialSnapPoints = useMemo(() => snapPoints || ['CONTENT_HEIGHT'], [])
-    const {
-        animatedHandleHeight,
-        animatedSnapPoints,
-        animatedContentHeight,
-        handleContentLayout,
-    } = useBottomSheetDynamicSnapPoints(initialSnapPoints)
-
     const maxHeightStyle = useBottomSheetMaxHeight(maxHeight)
 
     return (
@@ -86,9 +77,8 @@ const BottomSheet = ({
             handleComponent={customHandle}
             enablePanDownToClose={enablePanDownToClose}
             animationConfigs={animationConfigs}
-            snapPoints={animatedSnapPoints as any}
-            handleHeight={animatedHandleHeight}
-            contentHeight={animatedContentHeight}
+            enableDynamicSizing={snapPoints ? false : true}
+            snapPoints={snapPoints}
             footerComponent={footerComponent}
             enableContentPanningGesture={enableContentPanningGesture}
             backgroundStyle={{
@@ -98,8 +88,7 @@ const BottomSheet = ({
                 borderTopColor: borderColor || getRawColor(colorScheme[mode].border)
             }}
         >
-            <View
-                onLayout={handleContentLayout}
+            <BottomSheetView
                 style={[
                     {
                         maxHeight: maxHeightStyle,
@@ -108,7 +97,7 @@ const BottomSheet = ({
                 ]}
             >
                 { children }
-            </View>
+            </BottomSheetView>
         </BottomSheetModal>
     )
 }
