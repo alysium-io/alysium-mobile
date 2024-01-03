@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { RootState } from 'src/redux'
+import { RootState } from '@redux'
 import {
     AuthResponse,
     AuthRequestBody,
@@ -13,13 +13,19 @@ import {
     TagArtistsRequestParams,
     TagArtistsResponse,
     TagRequestParams,
-    TagResponse
-} from 'src/types'
+    TagResponse,
+    CreateAccountResponse,
+    CreateAccountBody
+} from '@types'
 
 
 export const api = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: 'https://api-int.celium.live/celium/api',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
         prepareHeaders: (headers, { getState }) => {
             const state = getState() as RootState
             const token = state.user.token
@@ -31,14 +37,10 @@ export const api = createApi({
     }),
     tagTypes: ['User'],
     endpoints: (builder) => ({
-        authUser: builder.query<AuthResponse, AuthRequestBody>({
+        loginUser: builder.query<AuthResponse, AuthRequestBody>({
             query: ({ identifier, password }) => ({
                 url: '/auth/local',
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
                 body: {
                     identifier,
                     password
@@ -48,10 +50,17 @@ export const api = createApi({
         getMe: builder.query<MeResponse, void>({
             query: () => ({
                 url: '/users/me',
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
+                method: 'GET'
+            })
+        }),
+        createAccount: builder.query<CreateAccountResponse, CreateAccountBody>({
+            query: ({ username, email, password }) => ({
+                url: '/auth/local/register',
+                method: 'POST',
+                body: {
+                    username,
+                    email,
+                    password
                 }
             })
         }),
@@ -105,14 +114,15 @@ export const api = createApi({
 })
 
 export const {
-    useLazyAuthUserQuery,
+    useLazyLoginUserQuery,
     useLazyGetMeQuery,
     useSearchQuery,
     useArtistQuery,
     useLazyArtistQuery,
     useLazyHostQuery,
     useLazyTagQuery,
-    useLazyTagArtistsQuery
+    useLazyTagArtistsQuery,
+    useLazyCreateAccountQuery
 } = api
 
 export default api.reducer

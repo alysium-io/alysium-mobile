@@ -12,23 +12,22 @@ import {
 const RootAppNavigator = () => {
 
     const { app } = useSettings()
-    
-    const renderApp = () => {
-        switch (app) {
-            case AppType.user:
-                return <UserApp />
-            case AppType.host:
-                return <HostApp />
-            case AppType.artist:
-                return <ArtistApp />
-            case AppType.test:
-                return <TestApp />
-            default:
-                return <TestApp />
-        }
+
+    if (app === AppType.user) {
+        return <UserApp />
     }
 
-    return renderApp()
+    if (app === AppType.host) {
+        return <HostApp />
+    }
+
+    if (app === AppType.artist) {
+        return <ArtistApp />
+    }
+
+    if (app === AppType.test) {
+        return <TestApp />
+    }
 }
 
 export default RootAppNavigator

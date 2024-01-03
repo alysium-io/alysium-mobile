@@ -4,7 +4,7 @@ import { BasePage } from '@organisms'
 import { StyleSheet, ActivityIndicator } from 'react-native'
 
 
-const Loading = () => {
+const AppLoading = () => {
 
     return (
         <BasePage>
@@ -23,4 +23,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Loading
+export default AppLoading

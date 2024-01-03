@@ -1,8 +1,9 @@
 import { useDispatch, useSelector } from 'src/redux'
 import { UserState } from 'src/types'
 import {
-    useLazyAuthUserQuery,
-    useLazyGetMeQuery
+    useLazyLoginUserQuery,
+    useLazyGetMeQuery,
+    useLazyCreateAccountQuery
 } from 'src/redux/api/base/baseApiSlice'
 import {
     action_setUser,
@@ -12,24 +13,28 @@ import {
 
 
 interface IUseUser {
-    logIn: (identifier: string, password: string) => Promise<void>;
-    getUser: () => Promise<void>;
-    logout: () => Promise<void>;
-    user: UserState;
+    logIn: (identifier: string, password: string) => Promise<void>
+    getUser: () => Promise<void>
+    logout: () => Promise<void>
+    createAccount: (username: string, email: string, password: string) => Promise<void>
+    user: UserState
 }
 
 const useUser = () : IUseUser => {
 
-    const [ authUser ] = useLazyAuthUserQuery()
-    const [ getMe ] = useLazyGetMeQuery()
+    const [ flux_loginUser ] = useLazyLoginUserQuery()
+    const [ flux_getMe ] = useLazyGetMeQuery()
+    const [ flux_createAccount ] = useLazyCreateAccountQuery()
 
     const user : UserState = useSelector(state => state.user)
     const dispatch = useDispatch()
 
-    const checkTokenExists = async () => { if (!user.token) { dispatch(action_logout()) } }
+    const jwtExists = () : boolean => {
+        return (user.token && user.token.length > 0) ? true : false
+    }
 
     const logIn = async (identifier: string, password: string) => {
-        authUser({ identifier, password })
+        flux_loginUser({ identifier, password })
             .then(({ data, error }) => {
                 if (error && 'data' in error && error.status === 400) {
                     dispatch(action_invalidCredentialsError())
@@ -39,22 +44,39 @@ const useUser = () : IUseUser => {
                     dispatch(action_setUser({ user, jwt }))
                 }
             })
+            .catch(() => logout())
     }
 
     const getUser = async () => {
-        checkTokenExists()
-        getMe()
+        if (jwtExists()) {
+            flux_getMe()
+                .then(({ data, error }) => {
+                    if (error) logout()
+                    if (data) {
+                        dispatch(action_setUser({
+                            user: data,
+                            jwt: user.token as string
+                        }))
+                    }
+                })
+                .catch(() => logout())
+        } else {
+            logout()
+        }
+    }
+
+    const createAccount = async (username: string, email: string, password: string) => {
+        flux_createAccount({ username, email, password })
             .then(({ data, error }) => {
-                if (error) {
-                    dispatch(action_logout())
-                }
+                if (error) logout()
                 if (data) {
                     dispatch(action_setUser({
-                        user: data,
+                        user: data.user,
                         jwt: user.token as string
                     }))
                 }
             })
+            .catch(() => logout())
     }
 
     const logout = async () => {
@@ -65,6 +87,7 @@ const useUser = () : IUseUser => {
         logIn,
         getUser,
         logout,
+        createAccount,
         user
     }
 }

@@ -28,6 +28,13 @@ export type AuthRequestBody = {
     password: string
 }
 
+export type CreateAccountResponse = AuthResponse
+export type CreateAccountBody = {
+    username: string
+    email: string
+    password: string
+}
+
 /**
  * Search
  */

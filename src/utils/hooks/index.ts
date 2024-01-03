@@ -19,7 +19,6 @@ export {
 
 // Navigation
 export { default as useNavigation } from './useNavigation'
-export { default as useGenericNavigation } from './useGenericNavigation'
 
 // APIs
 export { default as usePhotosAndCamera } from './usePhotosAndCamera'
