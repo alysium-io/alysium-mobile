@@ -3,6 +3,7 @@ import { Icon, View } from '@atomic'
 import { LargeTextInput, Button } from '@molecules'
 import { Keyboard, StyleSheet, TouchableWithoutFeedback } from 'react-native'
 import { FadeIn, FadeInUp, FadeOut, FadeOutDown } from 'react-native-reanimated'
+import { useUser } from '@hooks'
 
 
 interface CreateAccountProps {
@@ -16,6 +17,8 @@ const CreateAccount : React.FC<CreateAccountProps> = ({
     const [email, setEmail] = useState<string>('')
     const [username, setUsername] = useState<string>('')
     const [password, setPassword] = useState<string>('')
+
+    const { createAccount } = useUser()
 
     return (
         <View
@@ -61,7 +64,7 @@ const CreateAccount : React.FC<CreateAccountProps> = ({
                         />
                         <Button
                             text='Create Account'
-                            onPress={() => console.log({ email, password })}
+                            onPress={() => createAccount(username, email, password)}
                             color_variant='haze'
                         />
                     </View>
@@ -79,7 +82,7 @@ const styles = StyleSheet.create({
     },
     footer: {
         position: 'absolute',
-        bottom: 0,
+        bottom: 25,
         width: '100%'
     }
 })

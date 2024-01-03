@@ -5,7 +5,8 @@ import {
     SelectAccountSection,
     HeaderSection,
     MenuSection,
-    CreateProfileActionFooter
+    CreateProfileActionFooter,
+    LogoutSection
 } from './components'
 
 
@@ -18,6 +19,7 @@ const ProfilePage = () => {
                     <HeaderSection />
                     <SelectAccountSection />
                     <MenuSection />
+                    <LogoutSection />
                 </ScrollView>
             </HeaderSafeArea>
         </BasePage>

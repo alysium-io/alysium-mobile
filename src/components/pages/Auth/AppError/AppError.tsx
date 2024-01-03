@@ -4,7 +4,7 @@ import { BasePage } from '@organisms'
 import { StyleSheet } from 'react-native'
 
 
-const Error = () => {
+const AppError = () => {
 
     return (
         <BasePage>
@@ -23,4 +23,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Error
+export default AppError

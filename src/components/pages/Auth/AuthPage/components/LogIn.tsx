@@ -3,6 +3,7 @@ import { Icon, View } from '@atomic'
 import { LargeTextInput, Button } from '@molecules'
 import { Keyboard, StyleSheet, TouchableWithoutFeedback } from 'react-native'
 import { FadeIn, FadeInUp, FadeOut, FadeOutDown } from 'react-native-reanimated'
+import { useUser } from '@hooks'
 
 
 interface LogInProps {
@@ -15,6 +16,8 @@ const LogIn : React.FC<LogInProps> = ({
 
     const [email, setEmail] = useState<string>('dulatello08@gmail.com')
     const [password, setPassword] = useState<string>('Password')
+
+    const { logIn } = useUser()
 
     return (
         <View
@@ -53,7 +56,7 @@ const LogIn : React.FC<LogInProps> = ({
                         />
                         <Button
                             text='Log In'
-                            onPress={() => console.log({ email, password })}
+                            onPress={() => logIn(email, password)}
                             color_variant='matt'
                         />
                     </View>
@@ -71,7 +74,7 @@ const styles = StyleSheet.create({
     },
     footer: {
         position: 'absolute',
-        bottom: 0,
+        bottom: 25,
         width: '100%'
     }
 })
