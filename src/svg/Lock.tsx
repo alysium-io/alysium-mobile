@@ -1,19 +1,16 @@
 import React from 'react'
+import { SvgProps, PathProps } from 'react-native-svg'
 import { Svg, Path } from '@atomic'
 import { IconProps } from '@types'
-import { PathProps, SvgProps } from 'react-native-svg'
 
 
 const svg : SvgProps = {
-    fill: 'none',
-    viewBox: '0 0 24 24'
+    viewBox: '0 0 18 18',
+    fill: 'none'
 }
 
 const path : PathProps = {
-    d: 'M7 10.029C7.471 10 8.053 10 8.8 10h6.4c.747 0 1.329 0 1.8.029m-10 0c-.588.036-1.006.117-1.362.298a3 3 0 0 0-1.311 1.311C4 12.28 4 13.12 4 14.8v1.4c0 1.68 0 2.52.327 3.162a3 3 0 0 0 1.311 1.311C6.28 21 7.12 21 8.8 21h6.4c1.68 0 2.52 0 3.162-.327a3 3 0 0 0 1.311-1.311C20 18.72 20 17.88 20 16.2v-1.4c0-1.68 0-2.52-.327-3.162a3 3 0 0 0-1.311-1.311c-.356-.181-.774-.262-1.362-.298m-10 0V8a5 5 0 0 1 10 0v2.029',
-    strokeWidth: 2,
-    strokeLinecap: 'round',
-    strokeLinejoin: 'round'
+    d: 'M9 .375a5.23 5.23 0 0 0-5.19 4.506l-.022.142a5.36 5.36 0 0 0-.038.609v.751c-.829 0-1.5.676-1.5 1.502v8.26c0 .827.672 1.503 1.5 1.503h10.5c.829 0 1.5-.676 1.5-1.502V7.885c0-.826-.672-1.502-1.5-1.502v-.751c0-.207-.015-.409-.038-.609l-.022-.142c.004 0-.006 0 0 0A5.23 5.23 0 0 0 9 .375Zm0 2.253a3.013 3.013 0 0 1 3 3.004v.751H6v-.75c0-.208.03-.415.07-.611.057-.278.16-.536.287-.78.039-.072.074-.147.118-.216.045-.073.098-.14.149-.207.061-.08.124-.16.194-.233.048-.052.1-.101.152-.15.086-.08.176-.155.271-.224.052-.038.103-.076.157-.11.104-.067.215-.124.328-.178.054-.025.106-.054.161-.076.122-.05.25-.085.38-.117.053-.014.105-.034.16-.044.186-.036.377-.059.573-.059Z'
 }
 
 const Lock : React.FC<IconProps> = (props) => {
@@ -28,9 +25,9 @@ const Lock : React.FC<IconProps> = (props) => {
             >
                 <Path
                     {...path}
+                    fill={props.color}
                     animated={true}
                     animatedProps={props.animatedPathProps}
-                    stroke={props.color}
                 />
             </Svg>
         )
@@ -38,10 +35,9 @@ const Lock : React.FC<IconProps> = (props) => {
 
     return (
         <Svg {...svg} size={props.size}>
-            <Path {...path} stroke={props.color} />
+            <Path {...path} fill={props.color} />
         </Svg>
     )
-
 }
 
 export default Lock

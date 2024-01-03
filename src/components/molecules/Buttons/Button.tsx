@@ -13,13 +13,15 @@ interface ButtonProps {
     text: string
     variant: ButtonVariants
     color_variant: 'default' | keyof FeatureColors
+    containerProps?: React.ComponentProps<typeof View>
 }
 
 const FilledButton : React.FC<ButtonProps> = ({
     onPress,
     variant,
     color_variant,
-    text
+    text,
+    containerProps
 }) => {
 
     const { getRawColor, mode } = useTheme()
@@ -48,6 +50,7 @@ const FilledButton : React.FC<ButtonProps> = ({
         <TouchableWithoutFeedback onPress={onPress} onPressIn={onPressIn} onPressOut={onPressOut}>
             <View
                 animated
+                {...containerProps}
                 style={[
                     styles.container,
                     animatedBgStyles
@@ -63,7 +66,8 @@ const OutlinedButton : React.FC<ButtonProps> = ({
     onPress,
     variant,
     color_variant,
-    text
+    text,
+    containerProps
 }) => {
 
     const { getRawColor, mode } = useTheme()
@@ -86,6 +90,7 @@ const OutlinedButton : React.FC<ButtonProps> = ({
         <TouchableWithoutFeedback onPress={onPress}>
             <View
                 animated
+                {...containerProps}
                 style={[
                     styles.container,
                     {
@@ -104,15 +109,16 @@ const Button : React.FC<Partial<ButtonProps>> = ({
     onPress = () => console.log('I am a button :)'),
     text = 'Press Me',
     variant = 'filled',
-    color_variant = 'default'
+    color_variant = 'default',
+    containerProps
 }) => {
 
     if (variant === 'outlined') {
-        return <OutlinedButton onPress={onPress} variant={variant} color_variant={color_variant} text={text} />
+        return <OutlinedButton onPress={onPress} variant={variant} color_variant={color_variant} text={text} containerProps={containerProps} />
     }
 
     if (variant === 'filled') {
-        return <FilledButton onPress={onPress} variant={variant} color_variant={color_variant} text={text} />
+        return <FilledButton onPress={onPress} variant={variant} color_variant={color_variant} text={text} containerProps={containerProps} />
     }
 }
 
