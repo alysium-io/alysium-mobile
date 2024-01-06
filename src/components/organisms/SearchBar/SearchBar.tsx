@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Icon, View, TextInput, Text } from '@atomic'
 import { StyleSheet, TouchableWithoutFeedback } from 'react-native'
 import { useTextInput, useTheme } from '@hooks'
-import { FadeIn, Layout, LinearTransition } from 'react-native-reanimated'
+import { FadeIn, LinearTransition } from 'react-native-reanimated'
 import { ThemeMode } from '@types'
 import { Colors } from '@etc'
 
@@ -12,18 +12,21 @@ interface SearchBarProps {
     onPressClearText: () => void
     barDidActivate?: () => void
     barDidDeactivate?: () => void
+    isActive: boolean
+    setIsActive: (isActive: boolean) => void
 }
 
 const SearchBar : React.FC<SearchBarProps> = ({
     onChangeText,
     onPressClearText,
     barDidActivate,
-    barDidDeactivate
+    barDidDeactivate,
+    isActive,
+    setIsActive
 }) => {
 
     const { ref, focus, clear, blur } = useTextInput()
     const { theme, getRawColor, mode } = useTheme()
-    const [isActive, setIsActive] = useState<boolean>(false)
     const [showClearButton, setShowClearButton] = useState<boolean>(false)
 
     const colorScheme = {
@@ -85,7 +88,6 @@ const SearchBar : React.FC<SearchBarProps> = ({
                                 placeholder='Search Alysium...'
                                 onChangeText={_onChangeText}
                                 onFocus={_onPressActivate}
-                                onBlur={() => setIsActive(false)}
                                 style={{ color: colorScheme[mode].text }}
                             />
                         </View>

@@ -10,4 +10,5 @@ export type SearchState = {
     recentSearches: SearchItem[]
     searchResults: SearchItem[]
     searchText: string
+    isSearchActive: boolean
 }

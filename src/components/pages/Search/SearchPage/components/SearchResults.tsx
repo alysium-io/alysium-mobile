@@ -8,7 +8,7 @@ import { ContentType } from '@types'
 
 const SearchResults = () => {
 
-    const { searchResults } = useSearchPageContext()
+    const { searchResults, onPressSearchResult } = useSearchPageContext()
 
     return (
         <Section>
@@ -21,7 +21,7 @@ const SearchResults = () => {
                         key={result.id}
                         title={result.name}
                         subtitle='artist'
-                        onPress={() => console.log('Pressed')}
+                        onPress={() => onPressSearchResult(result)}
                         contentType={ContentType.artist}
                         image={result.image}
                         border
