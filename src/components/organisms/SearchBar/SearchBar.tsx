@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Icon, View, TextInput, Text } from '@atomic'
 import { StyleSheet, TouchableWithoutFeedback } from 'react-native'
 import { useTextInput, useTheme } from '@hooks'
-import { FadeIn, Layout } from 'react-native-reanimated'
+import { FadeIn, Layout, LinearTransition } from 'react-native-reanimated'
 import { ThemeMode } from '@types'
 import { Colors } from '@etc'
 
@@ -70,7 +70,7 @@ const SearchBar : React.FC<SearchBarProps> = ({
         <View style={styles.container}>
             <View
                 animated
-                layout={Layout.duration(200)}
+                layout={LinearTransition.duration(200)}
                 style={styles.textContainer}
                 backgroundColor={colorScheme[mode].background}
             >
