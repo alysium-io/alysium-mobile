@@ -2,7 +2,7 @@ import React from 'react'
 import { View } from '@atomic'
 import { Button } from '@molecules'
 import { BottomSheetFooterProps } from '@gorhom/bottom-sheet'
-import { CustomFooter } from '../base'
+import { BottomSheetFooter } from '../base'
 
 
 interface FooterWithDismissButtonProps extends BottomSheetFooterProps {
@@ -15,14 +15,14 @@ const FooterWithDismissButton : React.FC<FooterWithDismissButtonProps> = ({
 }) => {
 
     return (
-        <CustomFooter {...props}>
-            <View marginHorizontal='m'>
+        <BottomSheetFooter {...props}>
+            <View marginHorizontal='l'>
                 <Button
                     text='Dismiss'
                     onPress={dismiss}
                 />
             </View>
-        </CustomFooter>
+        </BottomSheetFooter>
     )
 }
 

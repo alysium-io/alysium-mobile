@@ -1,5 +1,3 @@
-export * from './OtherPage'
-export * from './NotchBlurHeader'
 export * from './ImageGallery'
 export * from './BottomSheet'
 export * from './ProfileCarousel'

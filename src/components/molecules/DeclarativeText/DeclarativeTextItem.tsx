@@ -16,22 +16,25 @@ const DeclarativeTextItem : React.FC<DeclarativeTextItemProps> = ({
     const { getRawColor } = useTheme()
 
     return (
-        <View
-            style={{
-                borderBottomWidth: underline ? 0.5 : 0,
-                borderBottomColor: getRawColor(color || 't1')
-            }}
-        >
-            <Text
-                variant={variant}
-                color={color}
-                onPress={onPress}
-                suppressHighlighting={true}
+        <>
+            { newline && '\n'}
+            <View
+                style={{
+                    borderBottomWidth: underline ? 0.5 : 0,
+                    borderBottomColor: getRawColor(color || 't1')
+                }}
             >
-                {newline && '\n'}
-                {text}
-            </Text>
-        </View>
+                <Text
+                    lineHeight={15}
+                    variant={variant}
+                    color={color}
+                    onPress={onPress}
+                    suppressHighlighting={true}
+                >
+                    {text}
+                </Text>
+            </View>
+        </>
     )
 }
 

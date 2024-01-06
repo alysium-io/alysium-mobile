@@ -2,8 +2,7 @@ import React from 'react'
 import { useRoute } from '@react-navigation/native'
 import { ArtistFollowersAndShowsPageRouteProp } from '@types'
 import { View } from '@atomic'
-import { MoreButton } from '@molecules'
-import { TabToggle, useHeader, useNotchBlurHeader, BasePage } from '@organisms'
+import { TabToggle, useHeader, BasePage } from '@organisms'
 import { useArtistFollowersAndShowsPage } from './hooks'
 import { MoreOptionsBottomSheet } from '../shared'
 import { Followers, Shows } from './components'
@@ -15,21 +14,9 @@ const ArtistFollowersAndShowsPage = () => {
     const route = useRoute<ArtistFollowersAndShowsPageRouteProp>()
     const { totalHeaderHeight } = useHeader()
     const { moreSheetRef, openMore } = useArtistFollowersAndShowsPage()
-    const { NotchBlurHeader } = useNotchBlurHeader()
-
-    const NotchHeaderRightComponent = () => (
-        <MoreButton onPress={openMore} />
-    )
 
     return (
         <BasePage>
-            <NotchBlurHeader
-                title='Mesto'
-                NotchHeaderRightComponent={NotchHeaderRightComponent}
-                backgroundColor='bg1'
-                titleInterpolationRange={[-100, 0]}
-                border={false}
-            />
             <View style={{ paddingTop: totalHeaderHeight + 15 }}>
                 <TabToggle
                     defaultTabIndex={route.params.defaultTabIndex}

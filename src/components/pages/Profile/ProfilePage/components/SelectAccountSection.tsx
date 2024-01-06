@@ -24,6 +24,32 @@ const SelectAccountSection = () => {
                 image={global.artistImages['seth hills']}
                 border
             />
+            {
+                user.user?.hosts.map(host => (
+                    <ContentListItem
+                        key={host.id}
+                        title={host.name}
+                        subtitle='host'
+                        onPress={() => console.log('Pressed')}
+                        contentType={ContentType.host}
+                        image={global.sampleData.images.artist}
+                        border
+                    />
+                ))
+            }
+            {
+                user.user?.artists.map(artist => (
+                    <ContentListItem
+                        key={artist.id}
+                        title={artist.name}
+                        subtitle='artist'
+                        onPress={() => console.log('Pressed')}
+                        contentType={ContentType.artist}
+                        image={global.sampleData.images.artist}
+                        border
+                    />
+                ))
+            }
         </Section>
     )
 }

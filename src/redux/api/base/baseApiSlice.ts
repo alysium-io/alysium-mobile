@@ -3,7 +3,7 @@ import { RootState } from '@redux'
 import {
     AuthResponse,
     AuthRequestBody,
-    MeResponse, 
+    UserResponse, 
     SearchResponse,
     SearchRequestBody,
     ArtistResponse,
@@ -15,7 +15,11 @@ import {
     TagRequestParams,
     TagResponse,
     CreateAccountResponse,
-    CreateAccountBody
+    CreateAccountBody,
+    CreateHostBody,
+    CreateHostResponse,
+    CreateArtistResponse,
+    CreateArtistBody
 } from '@types'
 
 
@@ -47,10 +51,13 @@ export const api = createApi({
                 }
             })
         }),
-        getMe: builder.query<MeResponse, void>({
+        getMe: builder.query<UserResponse, void>({
             query: () => ({
                 url: '/users/me',
-                method: 'GET'
+                method: 'GET',
+                params: {
+                    populate: '*'
+                }
             })
         }),
         createAccount: builder.query<CreateAccountResponse, CreateAccountBody>({
@@ -109,6 +116,28 @@ export const api = createApi({
                 url: `/genres/relatedArtists/${tagId}`,
                 method: 'GET'
             })
+        }),
+        createHost: builder.query<CreateHostResponse, CreateHostBody>({
+            query: ({ name }) => ({
+                url: '/hosts',
+                method: 'POST',
+                body: {
+                    data: {
+                        name
+                    }
+                }
+            })
+        }),
+        createArtist: builder.query<CreateArtistResponse, CreateArtistBody>({
+            query: ({ name }) => ({
+                url: '/artists',
+                method: 'POST',
+                body: {
+                    data: {
+                        name
+                    }
+                }
+            })
         })
     })
 })
@@ -122,7 +151,9 @@ export const {
     useLazyHostQuery,
     useLazyTagQuery,
     useLazyTagArtistsQuery,
-    useLazyCreateAccountQuery
+    useLazyCreateAccountQuery,
+    useLazyCreateHostQuery,
+    useLazyCreateArtistQuery
 } = api
 
 export default api.reducer

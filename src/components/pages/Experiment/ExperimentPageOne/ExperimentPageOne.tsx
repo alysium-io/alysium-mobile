@@ -23,6 +23,12 @@ const ExperimentPageOne = () => {
                             onPress={experimentPageTwo}
                         />
                     </View>
+                    <View margin='m'>
+                        <Button
+                            text='Test Button'
+                            onPress={() => console.log('test')}
+                        />
+                    </View>
                 </ScrollView>
             </HeaderSafeArea>
         </BasePage>
