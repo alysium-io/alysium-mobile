@@ -1,18 +1,12 @@
-import { User } from './user'
+import { User, Host, Artist } from './models'
 
 
 /**
  * User
  */
-export type MeResponse = {
-    id: number
-    username: string
-    email: string
-    provider: string
-    confirmed: boolean
-    blocked: boolean
-    createdAt: string
-    updatedAt: string
+export type UserResponse = User & {
+    hosts: Host[]
+    artists: Artist[]
 }
 
 /**
@@ -20,7 +14,7 @@ export type MeResponse = {
  */
 export type AuthResponse = {
     jwt: string
-    user: User
+    user: UserResponse
 }
 
 export type AuthRequestBody = {
@@ -87,6 +81,26 @@ export type HostRequestParams = {
     hostId: number
 }
 
+export type CreateHostResponse = {
+    data: {
+        id: number,
+        attributes: {
+            name: string,
+            createdAt: string,
+            updatedAt: string,
+            color: string | null,
+            image: string | null,
+            company_name: string | null,
+            phone_number: string | null
+        }
+    },
+    meta: {}
+}
+
+export type CreateHostBody = {
+    name: string
+}
+
 /**
  * Artists
  */
@@ -123,6 +137,13 @@ export type ArtistRequestParams = {
     artistId: number
 }
 
+export type CreateArtistResponse = {
+    
+}
+
+export type CreateArtistBody = {
+    name: string
+}
 
 /**
  * Tags

@@ -6,7 +6,7 @@ import { StyleSheet } from 'react-native'
 import { ThemeMode } from '@types'
 
 
-const CustomHandle : React.FC<BottomSheetHandleProps> = () => {
+const BottomSheetHandle : React.FC<BottomSheetHandleProps> = () => {
 
     const { getRawColor, mode } = useTheme()
 
@@ -32,4 +32,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default CustomHandle
+export default BottomSheetHandle

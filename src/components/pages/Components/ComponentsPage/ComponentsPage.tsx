@@ -571,6 +571,7 @@ const ComponentsPage = () => {
                                 itemDimension={100}
                                 additionalRowStyle={{ marginTop: 8 }}
                                 data={Object.keys(SvgIcons)}
+                                listKey={(item: number) => item}
                                 renderItem={({ item }) => (
                                     <View
                                         key={item}

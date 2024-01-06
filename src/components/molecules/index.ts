@@ -15,12 +15,7 @@
 /**
  * Individual components
  */
-export { default as StaticNotchBlur } from './StaticNotchBlur'
-export { default as MoreButton } from './MoreButton'
-export { default as HyperlinkButton } from './HyperlinkButton'
 export { default as BackButton } from './BackButton'
-export { default as NotificationsButton } from './NotificationsButton'
-export { default as SimpleNotchBackground } from './SimpleNotchBackground'
 export { default as OpenLinksButton } from './OpenLinksButton'
 
 export * from './SectionHeaders'

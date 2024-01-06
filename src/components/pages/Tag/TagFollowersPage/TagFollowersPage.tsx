@@ -2,8 +2,7 @@ import React from 'react'
 import { useRoute } from '@react-navigation/native'
 import { TagFollowersPageRouteProp } from '@types'
 import { View } from '@atomic'
-import { MoreButton } from '@molecules'
-import { TabToggle, useHeader, useNotchBlurHeader, BasePage } from '@organisms'
+import { TabToggle, useHeader, BasePage } from '@organisms'
 import { MoreOptionsBottomSheet } from '../shared'
 import { useTagFollowersPageContext } from './hooks'
 import { Followers } from './components'
@@ -13,14 +12,7 @@ const TagFollowersPage = () => {
 
     const route = useRoute<TagFollowersPageRouteProp>()
     const { totalHeaderHeight } = useHeader()
-
-    const { NotchBlurHeader } = useNotchBlurHeader()
-
-    const { moreSheetRef, openMore } = useTagFollowersPageContext()
-
-    const NotchHeaderRightComponent = () => (
-        <MoreButton onPress={openMore} />
-    )
+    const { moreSheetRef } = useTagFollowersPageContext()
 
     return (
         <BasePage>
@@ -34,12 +26,6 @@ const TagFollowersPage = () => {
                     ]}
                 />
             </View>
-            <NotchBlurHeader
-                title='edm'
-                NotchHeaderRightComponent={NotchHeaderRightComponent}
-                backgroundColor='bg1'
-                titleInterpolationRange={[-100, 0]}
-            />
             <MoreOptionsBottomSheet sheetRef={moreSheetRef} />
         </BasePage>
     )
