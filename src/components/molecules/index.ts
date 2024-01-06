@@ -16,6 +16,7 @@
  * Individual components
  */
 export { default as BackButton } from './BackButton'
+export { default as OpenLinksButton } from './OpenLinksButton'
 
 export * from './SectionHeaders'
 export * from './Buttons'

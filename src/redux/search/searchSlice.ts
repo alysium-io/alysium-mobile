@@ -6,7 +6,8 @@ const initialState : SearchState = {
     error: null,
     recentSearches: [],
     searchResults: [],
-    searchText: ''
+    searchText: '',
+    isSearchActive: false
 }
 
 const searchSlice = createSlice({
@@ -41,6 +42,9 @@ const searchSlice = createSlice({
         },
         deleteRecentSearch: (state, action: PayloadAction<number>) => {
             state.recentSearches = state.recentSearches.filter(item => item.id !== action.payload)
+        },
+        setIsSearchActive: (state, action: PayloadAction<boolean>) => {
+            state.isSearchActive = action.payload
         }
     },
     extraReducers: (builder) => {
@@ -56,5 +60,6 @@ export const {
     addRecentSearch,
     deleteRecentSearch,
     setSearchText,
-    clearSearchText
+    clearSearchText,
+    setIsSearchActive
 } = searchSlice.actions

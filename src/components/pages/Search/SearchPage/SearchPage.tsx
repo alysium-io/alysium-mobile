@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { HeaderSafeArea, View, ScrollView } from '@atomic'
 import { BasePage, SearchBar } from '@organisms'
 import { useSearchPageContext } from './hooks'
@@ -8,23 +8,27 @@ import { SearchInactivePage, SearchActivePage } from './components'
 
 const SearchPage = () => {
 
-    const { setSearchText, clearSearchText } = useSearchPageContext()
-    const [isSearching, setIsSearching] = useState<boolean>(false)
+    const {
+        setSearchText,
+        clearSearchText,
+        isSearchActive,
+        setIsSearchActive
+    } = useSearchPageContext()
 
     return (
         <BasePage>
             <HeaderSafeArea>
-                <ScrollView contentContainerStyle={{ minHeight: '100%' }}>
+                <ScrollView alwaysBounceVertical contentContainerStyle={{ minHeight: '100%' }}>
                     <View margin='m'>
                         <SearchBar
                             onChangeText={setSearchText}
                             onPressClearText={clearSearchText}
-                            barDidActivate={() => setIsSearching(true)}
-                            barDidDeactivate={() => setIsSearching(false)}
+                            isActive={isSearchActive}
+                            setIsActive={setIsSearchActive}
                         />
                     </View>
                     {
-                        isSearching ?
+                        isSearchActive ?
                             <SearchActivePage key='active' /> :
                             <SearchInactivePage key='inactive' />
                     }
