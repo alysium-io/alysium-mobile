@@ -18,7 +18,7 @@ const DeclarativeText : React.FC<DeclarativeTextProps> = ({
     }
 
     return (
-        <Text {...props} textAlignVertical='bottom'>
+        <Text {...props} textAlignVertical='bottom' lineHeight={100}>
             { textItems.map((item, index) => <DeclarativeTextItem key={index} {...item} />) }
         </Text>
     )

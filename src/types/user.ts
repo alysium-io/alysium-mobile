@@ -1,3 +1,5 @@
+import { UserResponse } from './api'
+
 export enum Stage {
     precheck = 'precheck',
     loggedOut = 'loggedOut',
@@ -6,20 +8,9 @@ export enum Stage {
     error = 'error'
 }
 
-export type User = {
-    id: number
-    username: string
-    email: string
-    provider: string
-    confirmed: boolean
-    blocked: boolean
-    createdAt: string
-    updatedAt: string
-}
-
 export type UserState = {
     stage: Stage
     error: string | null
-    user: User | null
+    user: UserResponse | null
     token: string | null
 }

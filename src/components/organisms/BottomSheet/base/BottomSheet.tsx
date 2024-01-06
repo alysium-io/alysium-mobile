@@ -1,11 +1,11 @@
 import React, { useMemo } from 'react'
 import { useTheme, SheetRef } from '@hooks'
-import { Easing } from 'react-native-reanimated'
+import { Easing, SharedValue } from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useBottomSheetMaxHeight } from '../hooks'
 import { ThemeMode } from '@types'
-import CustomHandle from './CustomHandle'
-import CustomBackdrop from './CustomBackdrop'
+import BottomSheetHandle from './BottomSheetHandle'
+import BottomSheetBackdrop from './BottomSheetBackdrop'
 import {
     BottomSheetModal,
     useBottomSheetTimingConfigs,
@@ -30,7 +30,7 @@ interface BottomSheetProps {
     sheetRef: SheetRef
     children?: React.ReactNode
     onDismiss?: () => void
-    snapPoints?: (string | number)[]
+    snapPoints?: readonly (string | number)[] | SharedValue<(string | number)[]> | undefined
     maxHeight?: string
     footerComponent?: React.FC<BottomSheetFooterProps> | undefined
     customHandle?: React.FC<BottomSheetHandleProps> | undefined
@@ -48,7 +48,7 @@ const BottomSheet = ({
     maxHeight = '90%',
     snapPoints,
     footerComponent,
-    customHandle = CustomHandle,
+    customHandle = BottomSheetHandle,
     enablePanDownToClose = true,
     enableContentPanningGesture = false,
     borderRadius = true,
@@ -73,7 +73,7 @@ const BottomSheet = ({
             onDismiss={onDismiss}
             ref={sheetRef}
             index={0}
-            backdropComponent={CustomBackdrop}
+            backdropComponent={BottomSheetBackdrop}
             handleComponent={customHandle}
             enablePanDownToClose={enablePanDownToClose}
             animationConfigs={animationConfigs}

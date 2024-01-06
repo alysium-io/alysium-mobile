@@ -1,9 +1,10 @@
 import React, { useMemo } from 'react'
-import { View, Text } from '@atomic'
+import { View, Text, Icon } from '@atomic'
 import { StyleSheet, TouchableWithoutFeedback } from 'react-native'
 import { useBgTouchAnimation, useTheme } from '@hooks'
 import { FeatureColors, ThemeMode } from '@types'
 import { Colors } from '@etc'
+import { IconNames } from '@svg'
 
 
 type ButtonVariants = 'filled' | 'outlined'
@@ -14,6 +15,7 @@ interface ButtonProps {
     variant: ButtonVariants
     color_variant: 'default' | keyof FeatureColors
     containerProps?: React.ComponentProps<typeof View>
+    icon?: IconNames
 }
 
 const FilledButton : React.FC<ButtonProps> = ({
@@ -21,7 +23,8 @@ const FilledButton : React.FC<ButtonProps> = ({
     variant,
     color_variant,
     text,
-    containerProps
+    containerProps,
+    icon
 }) => {
 
     const { getRawColor, mode } = useTheme()
@@ -57,6 +60,13 @@ const FilledButton : React.FC<ButtonProps> = ({
                 ]}
             >
                 <Text variant='paragraph-small-bold' color={colorScheme.text}>{text}</Text>
+                {
+                    icon && (
+                        <View marginLeft='s'>
+                            <Icon name={icon} color={colorScheme.text} size='small' />
+                        </View>
+                    )
+                }
             </View>
         </TouchableWithoutFeedback>
     )
@@ -67,7 +77,8 @@ const OutlinedButton : React.FC<ButtonProps> = ({
     variant,
     color_variant,
     text,
-    containerProps
+    containerProps,
+    icon
 }) => {
 
     const { getRawColor, mode } = useTheme()
@@ -100,6 +111,13 @@ const OutlinedButton : React.FC<ButtonProps> = ({
                 ]}
             >
                 <Text variant='paragraph-small-bold' color={colorScheme.text}>{text}</Text>
+                {
+                    icon && (
+                        <View marginLeft='s'>
+                            <Icon name={icon} color={colorScheme.text} size='small' />
+                        </View>
+                    )
+                }
             </View>
         </TouchableWithoutFeedback>
     )
@@ -110,15 +128,16 @@ const Button : React.FC<Partial<ButtonProps>> = ({
     text = 'Press Me',
     variant = 'filled',
     color_variant = 'default',
-    containerProps
+    containerProps,
+    icon
 }) => {
 
     if (variant === 'outlined') {
-        return <OutlinedButton onPress={onPress} variant={variant} color_variant={color_variant} text={text} containerProps={containerProps} />
+        return <OutlinedButton onPress={onPress} variant={variant} color_variant={color_variant} text={text} containerProps={containerProps} icon={icon} />
     }
 
     if (variant === 'filled') {
-        return <FilledButton onPress={onPress} variant={variant} color_variant={color_variant} text={text} containerProps={containerProps} />
+        return <FilledButton onPress={onPress} variant={variant} color_variant={color_variant} text={text} containerProps={containerProps} icon={icon} />
     }
 }
 

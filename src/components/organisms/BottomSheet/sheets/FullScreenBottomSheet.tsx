@@ -1,42 +1,35 @@
 import React from 'react'
 import { BottomSheet } from '../base'
 import { ScrollView } from '@atomic'
-import { FooterWithDismissButton } from '../components'
-import { BottomSheetView, BottomSheetFooterProps, BottomSheetProps } from '@gorhom/bottom-sheet'
+import { BottomSheetView, BottomSheetProps } from '@gorhom/bottom-sheet'
 import { SheetApi } from '@hooks'
 import { useHeader } from '@organisms'
 import { useWindowDimensions } from 'react-native'
 
 
-interface FullScreenDismissableBottomSheetProps extends BottomSheetProps {
+interface FullScreenBottomSheetProps extends BottomSheetProps {
     sheetApi: SheetApi
     children: React.ReactNode
 }
 
-const FullScreenDismissableBottomSheet : React.FC<FullScreenDismissableBottomSheetProps> = ({
+const FullScreenBottomSheet : React.FC<FullScreenBottomSheetProps> = ({
     sheetApi,
-    children
+    children,
+    ...props
 }) => {
 
     const { totalHeaderHeight } = useHeader()
     const { height } = useWindowDimensions()
-    
-    const renderFooter = (props: BottomSheetFooterProps) => (
-        <FooterWithDismissButton
-            dismiss={sheetApi.close}
-            {...props}
-        />
-    )
 
     return (
         <BottomSheet
             sheetRef={sheetApi.sheetRef}
             snapPoints={[height - totalHeaderHeight]}
-            footerComponent={renderFooter}
             customHandle={() => null}
             enablePanDownToClose={false}
             enableContentPanningGesture={false}
             borderRadius={false}
+            {...props}
         >
             <BottomSheetView>
                 <ScrollView>
@@ -47,4 +40,4 @@ const FullScreenDismissableBottomSheet : React.FC<FullScreenDismissableBottomShe
     )
 }
 
-export default FullScreenDismissableBottomSheet
+export default FullScreenBottomSheet
