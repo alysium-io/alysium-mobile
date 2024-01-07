@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import {
     Stage,
     UserState,
-    AuthResponse
+    UserResponse
 } from 'src/types'
 
 
@@ -17,10 +17,11 @@ const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        setUser: (state, action: PayloadAction<AuthResponse>) => {
-            state.stage = Stage.loggedIn
-            state.user = action.payload.user
-            state.token = action.payload.jwt
+        setToken: (state, action: PayloadAction<string>) => {
+            state.token = action.payload
+        },
+        setUser: (state, action: PayloadAction<UserResponse>) => {
+            state.user = action.payload
             state.error = null
         },
         logout: (state) => {
@@ -30,11 +31,13 @@ const userSlice = createSlice({
             state.token = null
         },
         invalidCredentialsError: (state) => {
-            console.log('in here')
             state.stage = Stage.loggedOut
             state.error = 'Invalid Credentials'
             state.user = null
             state.token = null
+        },
+        setStage: (state, action: PayloadAction<Stage>) => {
+            state.stage = action.payload
         }
     },
     extraReducers: (builder) => {
@@ -45,7 +48,9 @@ const userSlice = createSlice({
 export const userReducer = userSlice.reducer
 
 export const {
+    setToken,
     setUser,
     logout,
-    invalidCredentialsError
+    invalidCredentialsError,
+    setStage
 } = userSlice.actions

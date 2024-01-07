@@ -1,5 +1,5 @@
-import { useDispatch, useSelector } from 'src/redux'
-import { UserState } from 'src/types'
+import { useDispatch, useSelector } from '@redux'
+import { UserState, Stage } from '@types'
 import {
     useLazyLoginUserQuery,
     useLazyGetMeQuery,
@@ -10,7 +10,9 @@ import {
 import {
     action_setUser,
     action_logout,
-    action_invalidCredentialsError
+    action_invalidCredentialsError,
+    action_setStage,
+    action_setToken
 } from 'src/redux/user'
 
 
@@ -40,49 +42,48 @@ const useUser = () : IUseUser => {
     }
 
     const logIn = async (identifier: string, password: string) => {
-        flux_loginUser({ identifier, password })
-            .then(({ data, error }) => {
-                if (error && 'data' in error && error.status === 400) {
-                    dispatch(action_invalidCredentialsError())
-                }
-                if (data) {
-                    const { user, jwt } = data
-                    dispatch(action_setUser({ user, jwt }))
-                }
-            })
-            .catch(() => logout())
+        try {
+            const { data, error } = await flux_loginUser({ identifier, password })
+
+            if (error && 'data' in error && error.status === 400) {
+                dispatch(action_invalidCredentialsError())
+            }
+            if (data) {
+                dispatch(action_setToken(data.jwt))
+            }
+        } catch (err) {
+            console.log(err)
+            logout()
+        }
     }
 
     const getUser = async () => {
         if (jwtExists()) {
-            flux_getMe()
-                .then(({ data, error }) => {
-                    if (error) logout()
-                    if (data) {
-                        dispatch(action_setUser({
-                            user: data,
-                            jwt: user.token as string
-                        }))
-                    }
-                })
-                .catch(() => logout())
+            const { data, error } = await flux_getMe()
+
+            if (error) logout()
+
+            if (data) {
+                dispatch(action_setUser(data))
+                dispatch(action_setStage(Stage.loggedIn))
+            }
         } else {
             logout()
         }
     }
 
     const createAccount = async (username: string, email: string, password: string) => {
-        flux_createAccount({ username, email, password })
-            .then(({ data, error }) => {
-                if (error) logout()
-                if (data) {
-                    dispatch(action_setUser({
-                        user: data.user,
-                        jwt: user.token as string
-                    }))
-                }
-            })
-            .catch(() => logout())
+        try {
+            const { data, error } = await flux_createAccount({ username, email, password })
+
+            if (error) logout()
+            if (data) {
+                dispatch(action_setToken(data.jwt))
+            }
+        } catch (err) {
+            console.log(err)
+            logout()
+        }
     }
 
     const logout = async () => {
@@ -90,31 +91,33 @@ const useUser = () : IUseUser => {
     }
 
     const createHost = async (name: string) => {
-        flux_createHost({ name })
-            .then(({ data, error }) => {
-                if (error) {
-                    console.log(error)
-                }
-                if (data) {
-                    console.log(data)
-                    getUser()
-                }
-            })
-            .catch(err => console.log(err))
+        try {
+            const { data, error } = await flux_createHost({ name })
+
+            if (error) {
+                console.log(error)
+            }
+            if (data) {
+                getUser()
+            }
+        } catch (err) {
+            throw err
+        }
     }
 
     const createArtist = async (name: string) => {
-        flux_createArtist({ name })
-            .then(({ data, error }) => {
-                if (error) {
-                    console.log(error)
-                }
-                if (data) {
-                    console.log(data)
-                    getUser()
-                }
-            })
-            .catch(err => console.log(err))
+        try {
+            const { data, error } = await flux_createArtist({ name })
+
+            if (error) {
+                console.log(error)
+            }
+            if (data) {
+                getUser()
+            }
+        } catch (err) {
+            throw err
+        }
     }
 
     return {

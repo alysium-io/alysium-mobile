@@ -14,7 +14,7 @@ const AuthGate = () => {
         getUser()
             .then(() => SplashScreen.hide())
             .catch(() => SplashScreen.hide())
-    }, [])
+    }, [user.token])
 
     if (user.stage === Stage.precheck) {
         return <AppLoading />
