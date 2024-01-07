@@ -25,7 +25,7 @@ const SelectAccountSection = () => {
                 border
             />
             {
-                user.user?.hosts.map(host => (
+                user.user?.hosts?.map(host => (
                     <ContentListItem
                         key={host.id}
                         title={host.name}
@@ -38,7 +38,7 @@ const SelectAccountSection = () => {
                 ))
             }
             {
-                user.user?.artists.map(artist => (
+                user.user?.artists?.map(artist => (
                     <ContentListItem
                         key={artist.id}
                         title={artist.name}
