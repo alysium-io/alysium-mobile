@@ -1,19 +1,41 @@
 import React from 'react'
-import { Text, View } from '@atomic'
+import { View } from '@atomic'
 import NoRecentSearches from './NoRecentSearches'
 import { FadeInUp, FadeOutDown } from 'react-native-reanimated'
+import { useSearchPageContext } from '../hooks'
+import SearchResultsLoading from './SearchResultsLoading'
+import SearchResults from './SearchResults'
+import RecentSearches from './RecentSearches'
 
 
 const SearchActivePage = () => {
+
+    const { searchText, searchResults, isLoading, recentSearches } = useSearchPageContext()
+    console.log(searchResults)
+
+    const render = () => {
+        if (isLoading) {
+            return <SearchResultsLoading />
+        } else {
+            if (searchText.length === 0) {
+                if (recentSearches.length === 0) {
+                    return <NoRecentSearches />
+                } else {
+                    return <RecentSearches />
+                }
+            } else {
+                return <SearchResults />
+            }
+        }
+    }
 
     return (
         <View
             animated
             entering={FadeInUp.duration(250)}
             exiting={FadeOutDown.duration(250)}
-            margin='m'
         >
-            <NoRecentSearches />
+            {render()}
         </View>
     )
 }
