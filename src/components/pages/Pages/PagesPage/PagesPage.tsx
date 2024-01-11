@@ -15,8 +15,7 @@ const PagesPage = () => {
         editContractPage,
         eventManagerPage,
         contractManager,
-        profilePage,
-        authPage
+        profilePage
     } = useNavigation()
 
     return (
@@ -27,11 +26,6 @@ const PagesPage = () => {
                         <Text variant='page-header'>Example Pages</Text>
                     </View>
                     <Section>
-                        <MenuListItem
-                            title='Auth'
-                            subtitle='Login and registration pages'
-                            onPress={() => authPage()}
-                        />
                         <MenuListItem
                             title='Profile'
                             subtitle='Edit profile, change accounts, etc.'

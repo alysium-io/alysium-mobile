@@ -1,4 +1,4 @@
-export * from './user'
+export * from './redux'
 export * from './search'
 export * from './themes'
 export * from './navigation'

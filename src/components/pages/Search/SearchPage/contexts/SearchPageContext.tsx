@@ -1,8 +1,12 @@
 import React, { useState, createContext } from 'react'
 import { ProviderProps, SearchItem, SearchResponseItem } from '@types'
-import { useSearchQuery } from 'src/redux/api/base/baseApiSlice'
+import searchApiSlice from 'src/redux/api/searchApiSlice'
 import { useNavigation, useSearch } from '@hooks'
 
+
+const {
+    useSearchQuery
+} = searchApiSlice
 
 export type SearchPageContextType = {
     searchResults: SearchResponseItem[] | undefined

@@ -4,10 +4,7 @@ import { ThemeNames, Theme, ThemeState, ThemeMode, AppType } from 'src/types'
 import { themes } from 'src/restyle'
 import { createTheme } from '@shopify/restyle'
 import { ThemeContext } from '../contexts/ThemeContext'
-import {
-    action_setTheme,
-    action_toggleMode
-} from 'src/redux/theme'
+import { themeActions } from 'src/redux/theme'
 import {
     SharedValue,
     withTiming
@@ -22,6 +19,7 @@ interface IUseTheme {
     theme: Theme
     otherTheme: Theme
     toggleMode: () => void
+    setMode: (mode: ThemeMode) => void
     getRawColor: (color: string) => string
     isValidColor: (color: string) => boolean
     getModeByApp: (app: AppType) => ThemeMode
@@ -38,12 +36,17 @@ const useTheme = () : IUseTheme => {
     const otherTheme = createTheme(themes[themeState.themeName][themeState.mode === ThemeMode.light ? ThemeMode.dark : ThemeMode.light])
 
     const setTheme = (themeName: ThemeNames) => {
-        dispatch(action_setTheme(themeName))
+        dispatch(themeActions.setTheme(themeName))
     }
 
     const toggleMode = () => {
         animatedValue.value = withTiming(themeState.mode === ThemeMode.light ? 0 : 1, { duration: 200 })
-        dispatch(action_toggleMode())
+        dispatch(themeActions.toggleMode())
+    }
+
+    const setMode = (mode: ThemeMode) => {
+        animatedValue.value = withTiming(mode === ThemeMode.light ? 0 : 1, { duration: 200 })
+        dispatch(themeActions.setMode(mode))
     }
 
     const getRawColor = (colorName: string) : string => {
@@ -80,6 +83,7 @@ const useTheme = () : IUseTheme => {
         theme,
         otherTheme,
         toggleMode,
+        setMode,
         animatedValue,
         getRawColor,
         isValidColor,

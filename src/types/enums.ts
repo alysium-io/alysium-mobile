@@ -14,3 +14,9 @@ export enum EventStatus {
     cancelled = 'cancelled',
     completed = 'completed'
 }
+
+export enum Persona {
+    artist = 'artist',
+    host = 'host',
+    user = 'user'
+}

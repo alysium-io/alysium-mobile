@@ -1,26 +1,16 @@
 import { useDispatch, useSelector } from '@redux'
-import { UserState, Stage } from '@types'
-import {
-    useLazyLoginUserQuery,
-    useLazyGetMeQuery,
-    useLazyCreateAccountQuery,
+import { UserState } from '@types'
+import { userApiSlice } from 'src/redux/api'
+import { userActions } from 'src/redux/user'
+
+const {
+    useLazyGetUserDetailsQuery,
     useLazyCreateHostQuery,
     useLazyCreateArtistQuery
-} from 'src/redux/api/base/baseApiSlice'
-import {
-    action_setUser,
-    action_logout,
-    action_invalidCredentialsError,
-    action_setStage,
-    action_setToken
-} from 'src/redux/user'
-
+} = userApiSlice
 
 interface IUseUser {
-    logIn: (identifier: string, password: string) => Promise<void>
-    getUser: () => Promise<void>
-    logout: () => Promise<void>
-    createAccount: (username: string, email: string, password: string) => Promise<void>
+    getUserDetails: () => Promise<void>
     createHost: (name: string) => Promise<void>
     createArtist: (name: string) => Promise<void>
     user: UserState
@@ -28,68 +18,28 @@ interface IUseUser {
 
 const useUser = () : IUseUser => {
 
-    const [ flux_loginUser ] = useLazyLoginUserQuery()
-    const [ flux_getMe ] = useLazyGetMeQuery()
-    const [ flux_createAccount ] = useLazyCreateAccountQuery()
-    const [ flux_createHost ] = useLazyCreateHostQuery()
-    const [ flux_createArtist ] = useLazyCreateArtistQuery()
-
     const user : UserState = useSelector(state => state.user)
     const dispatch = useDispatch()
 
-    const jwtExists = () : boolean => {
-        return (user.token && user.token.length > 0) ? true : false
-    }
+    const [ flux_getUserDetails ] = useLazyGetUserDetailsQuery()
+    const [ flux_createHost ] = useLazyCreateHostQuery()
+    const [ flux_createArtist ] = useLazyCreateArtistQuery()
 
-    const logIn = async (identifier: string, password: string) => {
+    const getUserDetails = async () => {
         try {
-            const { data, error } = await flux_loginUser({ identifier, password })
+            const { data, error } = await flux_getUserDetails()
 
-            if (error && 'data' in error && error.status === 400) {
-                dispatch(action_invalidCredentialsError())
+            if (error) {
+                console.log(error)
             }
             if (data) {
-                dispatch(action_setToken(data.jwt))
+                dispatch(userActions.setUser(data))
             }
         } catch (err) {
-            console.log(err)
-            logout()
+            throw err
         }
     }
-
-    const getUser = async () => {
-        if (jwtExists()) {
-            const { data, error } = await flux_getMe()
-
-            if (error) logout()
-
-            if (data) {
-                dispatch(action_setUser(data))
-                dispatch(action_setStage(Stage.loggedIn))
-            }
-        } else {
-            logout()
-        }
-    }
-
-    const createAccount = async (username: string, email: string, password: string) => {
-        try {
-            const { data, error } = await flux_createAccount({ username, email, password })
-
-            if (error) logout()
-            if (data) {
-                dispatch(action_setToken(data.jwt))
-            }
-        } catch (err) {
-            console.log(err)
-            logout()
-        }
-    }
-
-    const logout = async () => {
-        dispatch(action_logout())
-    }
-
+    
     const createHost = async (name: string) => {
         try {
             const { data, error } = await flux_createHost({ name })
@@ -98,7 +48,7 @@ const useUser = () : IUseUser => {
                 console.log(error)
             }
             if (data) {
-                getUser()
+                getUserDetails()
             }
         } catch (err) {
             throw err
@@ -113,7 +63,7 @@ const useUser = () : IUseUser => {
                 console.log(error)
             }
             if (data) {
-                getUser()
+                getUserDetails()
             }
         } catch (err) {
             throw err
@@ -121,10 +71,7 @@ const useUser = () : IUseUser => {
     }
 
     return {
-        logIn,
-        getUser,
-        logout,
-        createAccount,
+        getUserDetails,
         createHost,
         createArtist,
         user
