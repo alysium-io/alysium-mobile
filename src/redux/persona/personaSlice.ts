@@ -18,6 +18,11 @@ const personaSlice = createSlice({
         },
         setIsLoading: (state, action: PayloadAction<boolean>) => {
             state.isLoading = action.payload
+        },
+        resetPersona: (state) => {
+            state.activePersonaType = initialState.activePersonaType
+            state.activePersonaId = initialState.activePersonaId
+            state.isLoading = initialState.isLoading
         }
     }
 })

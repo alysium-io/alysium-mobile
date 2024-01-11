@@ -15,6 +15,7 @@ interface IUseUser {
     createHost: (name: string) => Promise<void>
     createArtist: (name: string) => Promise<void>
     getAccountList: () => AccountList | null
+    resetUser: () => void
     user: UserState
 }
 
@@ -24,7 +25,7 @@ const useUser = () : IUseUser => {
     const activePersonaId = useSelector(state => state.persona.activePersonaId)
     const activePersonaType = useSelector(state => state.persona.activePersonaType)
     const dispatch = useDispatch()
-
+    
     const [ flux_getUserDetails ] = useLazyGetUserDetailsQuery()
     const [ flux_createHost ] = useLazyCreateHostQuery()
     const [ flux_createArtist ] = useLazyCreateArtistQuery()
@@ -44,10 +45,18 @@ const useUser = () : IUseUser => {
         }
     }
 
+    const resetUser = () => {
+        dispatch(userActions.resetUser())
+    }
+
     const getAccountList = () : AccountList | null => {
         if (user.user === null) {
             return null
         }
+
+        console.log(user.user)
+        console.log(activePersonaId)
+        console.log(activePersonaType)
 
         // First get the user account
         const userAccount : AccountListItem = {
@@ -123,6 +132,7 @@ const useUser = () : IUseUser => {
         createHost,
         createArtist,
         getAccountList,
+        resetUser,
         user
     }
 }

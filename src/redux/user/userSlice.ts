@@ -6,8 +6,7 @@ import {
 
 
 const initialState : UserState = {
-    user: null,
-    error: null
+    user: null
 }
 
 const userSlice = createSlice({
@@ -16,6 +15,9 @@ const userSlice = createSlice({
     reducers: {
         setUser: (state, action: PayloadAction<UserDetailsResponse>) => {
             state.user = action.payload
+        },
+        resetUser: (state) => {
+            state.user = initialState.user
         }
     }
 })

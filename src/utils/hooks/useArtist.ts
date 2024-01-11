@@ -10,6 +10,7 @@ const {
 
 interface IUseArtist {
     artist: ArtistState
+    resetArtist: () => void
     getArtistDetails: (artistId: number) => Promise<void>
 }
 
@@ -35,8 +36,13 @@ const useArtist = () : IUseArtist => {
         }
     }
     
+    const resetArtist = () => {
+        dispatch(artistActions.resetArtist())
+    }
+    
     return {
         artist,
+        resetArtist,
         getArtistDetails
     }
 }

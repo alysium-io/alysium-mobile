@@ -15,6 +15,9 @@ const artistSlice = createSlice({
     reducers: {
         setArtist: (state, action: PayloadAction<Artist>) => {
             state.artist = action.payload
+        },
+        resetArtist: (state) => {
+            state.artist = initialState.artist
         }
     }
 })

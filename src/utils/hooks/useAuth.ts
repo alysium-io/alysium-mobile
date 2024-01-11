@@ -2,6 +2,11 @@ import { useDispatch, useSelector } from '@redux'
 import { AuthState } from '@types'
 import { authApiSlice } from 'src/redux/api'
 import { authActions } from 'src/redux/auth'
+import { batch } from 'react-redux'
+import { userActions } from 'src/redux/user'
+import { hostActions } from 'src/redux/host'
+import { artistActions } from 'src/redux/artist'
+import { personaActions } from 'src/redux/persona'
 
 
 const {
@@ -79,7 +84,13 @@ const useAuth = () : IUseAuth => {
     }
 
     const logout = async () => {
-        dispatch(authActions.logout())
+        batch(() => {
+            dispatch(authActions.logout())
+            dispatch(userActions.resetUser())
+            dispatch(hostActions.resetHost())
+            dispatch(artistActions.resetArtist())
+            dispatch(personaActions.resetPersona())
+        })
     }
     
     return {

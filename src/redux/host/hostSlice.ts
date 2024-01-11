@@ -27,6 +27,10 @@ const hostSlice = createSlice({
         editEvent: (state, action: PayloadAction<Event>) => {
             const eventIndex = state.events.findIndex(event => event.id === action.payload.id)
             state.events[eventIndex] = action.payload
+        },
+        resetHost: (state) => {
+            state.host = initialState.host
+            state.events = initialState.events
         }
     }
 })

@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import { Icon, View } from '@atomic'
 import { LargeTextInput, Button } from '@molecules'
 import { Keyboard, StyleSheet, TouchableWithoutFeedback } from 'react-native'
-import { FadeIn, FadeInUp, FadeOut, FadeOutDown } from 'react-native-reanimated'
-import { useUser } from '@hooks'
+import { FadeIn, FadeOut } from 'react-native-reanimated'
+import { useAuth } from '@hooks'
 
 
 interface CreateAccountProps {
@@ -18,7 +18,7 @@ const CreateAccount : React.FC<CreateAccountProps> = ({
     const [username, setUsername] = useState<string>('')
     const [password, setPassword] = useState<string>('')
 
-    const { createAccount } = useUser()
+    const { createAccount } = useAuth()
 
     return (
         <View

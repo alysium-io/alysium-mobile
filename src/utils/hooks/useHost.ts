@@ -16,6 +16,7 @@ export interface IUseHost {
     getEvents: () => Promise<void>
     createEvent: (attributes: EventAttributes) => Promise<void>
     editEvent: (eventId: number, attributes: EventAttributes) => Promise<void>
+    resetHost: () => void
     host: HostState
 }
 
@@ -91,12 +92,17 @@ const useHost = () : IUseHost => {
             throw err
         }
     }
+
+    const resetHost = () => {
+        dispatch(hostActions.resetHost())
+    }
     
     return {
         getHostDetails,
         getEvents,
         createEvent,
         editEvent,
+        resetHost,
         host
     }
 }

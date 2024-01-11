@@ -1,8 +1,9 @@
 import React from 'react'
-import { Section, Text, View, Icon } from '@atomic'
+import { Section, View } from '@atomic'
 import { DeclarativeText, EditableProfileImage } from '@molecules'
 import { global } from '@etc'
 import { Stats } from '@organisms'
+import UsernameDisplay from './UsernameDisplay'
 import { usePersona, useUser } from '@hooks'
 
 
@@ -15,10 +16,7 @@ const HeaderSection = () => {
         <Section margin='m' alignItems='center'>
             <EditableProfileImage image={global.artistImages['mesto']} />
             <View margin='m' alignItems='center'>
-                <View flexDirection='row' alignItems='center'>
-                    <Icon name='at' size='small' color='t1' />
-                    <Text variant='paragraph-large-medium' marginLeft='xs'>{user.user?.username}</Text>
-                </View>
+                <UsernameDisplay />
                 <View marginTop='s'>
                     <DeclarativeText
                         textItems={[

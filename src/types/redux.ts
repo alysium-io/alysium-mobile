@@ -16,7 +16,6 @@ export type AuthState = {
 
 export type UserState = {
     user: UserDetailsResponse | null
-    error: string | null
 }
 
 export type PersonaState = {
