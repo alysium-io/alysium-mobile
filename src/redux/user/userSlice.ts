@@ -7,7 +7,6 @@ import {
 
 const initialState : UserState = {
     user: null,
-    isLoading: true,
     error: null
 }
 
@@ -17,7 +16,6 @@ const userSlice = createSlice({
     reducers: {
         setUser: (state, action: PayloadAction<UserDetailsResponse>) => {
             state.user = action.payload
-            state.isLoading = false
         }
     }
 })

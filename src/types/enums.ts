@@ -1,8 +1,14 @@
+export enum Persona {
+    artist = 'artist',
+    host = 'host',
+    user = 'user'
+}
+
 export enum ContentType {
     user = 'user',
     artist = 'artist',
-    tag = 'tag',
     host = 'host',
+    tag = 'tag',
     event = 'event',
     location = 'location'
 }
@@ -13,10 +19,4 @@ export enum EventStatus {
     published = 'published',
     cancelled = 'cancelled',
     completed = 'completed'
-}
-
-export enum Persona {
-    artist = 'artist',
-    host = 'host',
-    user = 'user'
 }

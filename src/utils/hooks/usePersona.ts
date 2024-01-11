@@ -1,9 +1,8 @@
-import { useEffect } from 'react'
 import { Persona, PersonaState, ThemeMode } from '@types'
 import { useDispatch, useSelector } from '@redux'
 import { personaActions } from 'src/redux/persona'
-import useTheme from './useTheme'
 import { useArtist, useHost, useUser } from '@hooks'
+import useTheme from './useTheme'
 
 
 const applicationPersonaThemeMap = {

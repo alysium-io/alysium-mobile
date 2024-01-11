@@ -3,12 +3,13 @@ import { Section, Text, View, Icon } from '@atomic'
 import { DeclarativeText, EditableProfileImage } from '@molecules'
 import { global } from '@etc'
 import { Stats } from '@organisms'
-import { useUser } from '@hooks'
+import { usePersona, useUser } from '@hooks'
 
 
 const HeaderSection = () => {
 
     const { user } = useUser()
+    const { persona } = usePersona()
 
     return (
         <Section margin='m' alignItems='center'>
@@ -19,6 +20,17 @@ const HeaderSection = () => {
                     <Text variant='paragraph-large-medium' marginLeft='xs'>{user.user?.username}</Text>
                 </View>
                 <View marginTop='s'>
+                    <DeclarativeText
+                        textItems={[
+                            {
+                                variant: 'paragraph',
+                                text: persona.activePersonaType,
+                                color: 't3'
+                            }
+                        ]}
+                    />
+                </View>
+                <View marginTop='m'>
                     <DeclarativeText
                         textItems={[
                             {

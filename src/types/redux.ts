@@ -16,7 +16,6 @@ export type AuthState = {
 
 export type UserState = {
     user: UserDetailsResponse | null
-    isLoading: boolean
     error: string | null
 }
 
@@ -28,13 +27,9 @@ export type PersonaState = {
 
 export type ArtistState = {
     artist: Artist | null
-    error: string | null
-    isLoading: boolean
 }
 
 export type HostState = {
     host: Host | null
-    error: string | null
-    isLoading: boolean
     events: Event[]
 }

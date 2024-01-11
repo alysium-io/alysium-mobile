@@ -6,7 +6,7 @@ import { userReducer } from './userSlice'
 const persistConfig = {
     key: 'user',
     storage: AsyncStorage,
-    whitelist: ['token']
+    whitelist: []
 }
 
 const persistedSearchReducer = persistReducer(persistConfig, userReducer)

@@ -7,8 +7,6 @@ import {
 
 
 const initialState : HostState = {
-    error: null,
-    isLoading: false,
     host: null,
     events: []
 }
@@ -19,12 +17,6 @@ const hostSlice = createSlice({
     reducers: {
         setHost: (state, action: PayloadAction<Host>) => {
             state.host = action.payload
-        },
-        setIsLoading: (state, action: PayloadAction<boolean>) => {
-            state.isLoading = action.payload
-        },
-        setError: (state, action: PayloadAction<string>) => {
-            state.error = action.payload
         },
         setHostEvents: (state, action: PayloadAction<Event[]>) => {
             state.events = action.payload

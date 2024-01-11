@@ -6,8 +6,6 @@ import {
 
 
 const initialState : ArtistState = {
-    error: null,
-    isLoading: false,
     artist: null
 }
 
@@ -17,12 +15,6 @@ const artistSlice = createSlice({
     reducers: {
         setArtist: (state, action: PayloadAction<Artist>) => {
             state.artist = action.payload
-        },
-        setIsLoading: (state, action: PayloadAction<boolean>) => {
-            state.isLoading = action.payload
-        },
-        setError: (state, action: PayloadAction<string>) => {
-            state.error = action.payload
         }
     }
 })
