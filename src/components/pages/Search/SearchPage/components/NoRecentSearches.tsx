@@ -6,7 +6,7 @@ import { DeclarativeText } from '@molecules'
 const NoRecentSearches = () => {
 
     return (
-        <View>
+        <View margin='m'>
             <DeclarativeText
                 textItems={[
                     {

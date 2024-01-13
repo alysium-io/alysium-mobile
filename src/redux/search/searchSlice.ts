@@ -1,12 +1,13 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
-import { SearchItem, SearchState } from 'src/types'
+import { SearchItem, SearchState } from '@types'
 
 
 const initialState : SearchState = {
     error: null,
     recentSearches: [],
     searchResults: [],
-    searchText: ''
+    searchText: '',
+    isSearchActive: false
 }
 
 const searchSlice = createSlice({
@@ -34,17 +35,17 @@ const searchSlice = createSlice({
             state.recentSearches.unshift(action.payload)
 
             // Limit the array to 10 items
-            if (state.recentSearches.length > 10) {
+            if (state.recentSearches.length > 50) {
                 state.recentSearches.pop()
             }
 
         },
         deleteRecentSearch: (state, action: PayloadAction<number>) => {
             state.recentSearches = state.recentSearches.filter(item => item.id !== action.payload)
+        },
+        setIsSearchActive: (state, action: PayloadAction<boolean>) => {
+            state.isSearchActive = action.payload
         }
-    },
-    extraReducers: (builder) => {
-        
     }
 })
 
@@ -56,5 +57,6 @@ export const {
     addRecentSearch,
     deleteRecentSearch,
     setSearchText,
-    clearSearchText
+    clearSearchText,
+    setIsSearchActive
 } = searchSlice.actions

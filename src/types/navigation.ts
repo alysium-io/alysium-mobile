@@ -21,7 +21,7 @@ type TagFollowersPage = { itemId: number }
 type ProfilePage = undefined
 
 type EventManagerPage = undefined
-type EditEventPage = { itemId: number }
+type EditEventPage = { itemId: number | null }
 
 type EventPage = { itemId: number }
 
@@ -31,8 +31,6 @@ type ExperimentPageTwo = undefined
 type PagesPage = undefined
 
 type EditContractPage = { itemId: number }
-
-type AuthPage = undefined
 
 type ContractManagerPage = undefined
 
@@ -65,7 +63,6 @@ export type PagesStackNavigatorParamList = {
     TagPage: TagPage
     EditEventPage: EditEventPage
     EditContractPage: EditContractPage
-    AuthPage: AuthPage
     EventManagerPage: EventManagerPage
     ContractManagerPage: ContractManagerPage
     ProfilePage: ProfilePage

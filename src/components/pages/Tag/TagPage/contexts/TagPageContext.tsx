@@ -1,13 +1,15 @@
-import React, { useEffect, createContext } from 'react'
+import React, { createContext } from 'react'
 import { useRoute } from '@react-navigation/native'
 import { ProviderProps, TagResponse, TagPageRouteProp, TagArtistsResponse } from '@types'
 import { SheetApi, useNavigation, useSheet } from '@hooks'
 import { global } from '@etc'
-import {
-    useLazyTagQuery,
-    useLazyTagArtistsQuery
-} from 'src/redux/api/base/baseApiSlice'
+import tagApiSlice from 'src/redux/api/tagApiSlice'
 
+
+const {
+    useLazyGetTagDetailsQuery,
+    useLazyGetTagArtistsQuery
+} = tagApiSlice
 
 export type TagPageContextType = {
     tagData: TagResponse | undefined
@@ -36,7 +38,7 @@ export const TagPageContextProvider : React.FC<ProviderProps> = ({ children }) =
             isLoading : isTagDataLoading,
             isError : isTagDataError
         }
-    ] = useLazyTagQuery()
+    ] = useLazyGetTagDetailsQuery()
     const loadTagData = () => getTagData({ tagId: route.params.itemId })
 
     const [
@@ -46,17 +48,12 @@ export const TagPageContextProvider : React.FC<ProviderProps> = ({ children }) =
             isLoading : isTagArtistsDataLoading,
             isError : isTagArtistsDataError
         }
-    ] = useLazyTagArtistsQuery()
+    ] = useLazyGetTagArtistsQuery()
     const loadTagArtistsData = () => getTagArtistsData({ tagId: route.params.itemId })
 
     const moreSheetApi = useSheet()
 
     const onPressFollowers = () => tagFollowersPage(route.params.itemId)
-
-    useEffect(() => {
-        // loadTagData()
-        // loadTagArtistsData()
-    }, [])
 
     return (
         <TagPageContext.Provider value={{

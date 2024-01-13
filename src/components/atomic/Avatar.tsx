@@ -1,7 +1,7 @@
 import React from 'react'
 import { Image, View, Icon } from '@atomic'
 import { StyleSheet } from 'react-native'
-import { ContentType } from '@types'
+import { ContentType, Persona } from '@types'
 import { IconNames } from '@svg'
 
 
@@ -21,7 +21,7 @@ const defaultAvatarImageIconScheme = {
 }
 
 interface AvatarProps {
-    contentType: ContentType
+    contentType: ContentType | Persona
     image?: string | null
     size: string | number
     borderRadius?: 'round' | 'sharp' | 'smooth' | number

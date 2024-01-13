@@ -20,16 +20,8 @@ const themeSlice = createSlice({
         setMode: (state, action: PayloadAction<ThemeMode>) => {
             state.mode = action.payload
         }
-    },
-    extraReducers: (builder) => {
-        
     }
 })
 
 export const themeReducer = themeSlice.reducer
-
-export const {
-    setTheme,
-    toggleMode,
-    setMode
-} = themeSlice.actions
+export const themeActions = themeSlice.actions

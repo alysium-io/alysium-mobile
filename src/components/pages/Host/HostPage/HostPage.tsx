@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { BasePage } from '@organisms'
 import { useHostPageContext } from './hooks'
 import { MoreOptionsBottomSheet } from '../shared'
@@ -21,18 +21,14 @@ const HostPage = () => {
         notificationsSheetApi,
         data
     } = useHostPageContext()
-
-    useEffect(() => {
-        // loadHostData()
-    }, [])
     
     return (
         <BasePage>
             {
                 data && (
                     <ParallaxPageOutline
-                        title={global.sampleData.host.name}
-                        image={global.sampleData.host.image}
+                        title={data.data.attributes.name}
+                        image={data.data.attributes.image || global.sampleData.venueImages[0]}
                     >
                         <SubHeader />
                         <ActionButtons />

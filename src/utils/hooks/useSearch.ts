@@ -16,6 +16,7 @@ interface IUseSearch {
     deleteRecentSearch: (id: number) => void
     setSearchText: (searchText: string) => void
     clearSearchText: () => void
+    isSearchActive: boolean
     setIsSearchActive: (isSearchActive: boolean) => void
     recentSearches: SearchItem[]
     searchText: string
@@ -57,6 +58,7 @@ const useSearch = () : IUseSearch => {
         setSearchText,
         clearSearchText,
         setIsSearchActive,
+        isSearchActive: search.isSearchActive,
         recentSearches: search.recentSearches,
         searchText: search.searchText
     }

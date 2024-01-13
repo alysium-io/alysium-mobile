@@ -1,8 +1,12 @@
 import React, { useState, createContext } from 'react'
 import { ProviderProps, SearchItem, SearchResponseItem } from '@types'
-import { useSearchQuery } from 'src/redux/api/base/baseApiSlice'
+import searchApiSlice from 'src/redux/api/searchApiSlice'
 import { useNavigation, useSearch } from '@hooks'
 
+
+const {
+    useSearchQuery
+} = searchApiSlice
 
 export type SearchPageContextType = {
     searchResults: SearchResponseItem[] | undefined
@@ -15,7 +19,8 @@ export type SearchPageContextType = {
     recentSearches: SearchItem[]
     clearSearchText: () => void
     onPressSearchResult: (item: SearchItem) => void
-    isInSearchMode: boolean
+    isSearchActive: boolean
+    setIsSearchActive: (isSearchActive: boolean) => void
 }
 
 export const SearchPageContext = createContext({} as SearchPageContextType)
@@ -24,8 +29,8 @@ export const SearchPageProvider : React.FC<ProviderProps> = ({ children }) => {
 
     const { artistPage } = useNavigation()
     const [searchText, setSearchText] = useState<string>('')
-    const { addRecentSearch, recentSearches, deleteRecentSearch } = useSearch()
     const clearSearchText = () => setSearchText('')
+    const { addRecentSearch, recentSearches, deleteRecentSearch, setIsSearchActive, isSearchActive } = useSearch()
     
     const onPressSearchResult = (item: SearchItem) => {
         addRecentSearch(item)
@@ -51,7 +56,8 @@ export const SearchPageProvider : React.FC<ProviderProps> = ({ children }) => {
                 deleteRecentSearch,
                 clearSearchText,
                 onPressSearchResult,
-                isInSearchMode: searchText.length > 0
+                isSearchActive,
+                setIsSearchActive
             }}
         >
             {children}

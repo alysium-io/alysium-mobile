@@ -9,14 +9,15 @@ import {
     SelectVenueSection,
     FeaturesSection,
     VenueTypeSection,
-    SummarySection
+    SummarySection,
+    EditEventPageFooter
 } from './components'
 
 
 const EditEventPage = () => {
 
     return (
-        <BasePage>
+        <BasePage FooterComponent={EditEventPageFooter}>
             <HeaderSafeArea>
                 <ScrollView>
                     <PrimaryImage />
