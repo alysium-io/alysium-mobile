@@ -1,15 +1,18 @@
 import React from 'react'
 import { View } from '@atomic'
 import { Button } from '@molecules'
+import { useNavigation } from '@hooks'
 
 
 const CreateEventFooter = () => {
+
+    const { editEventPage } = useNavigation()
 
     return (
         <View margin='m' flex={1}>
             <Button
                 text='Create Event'
-                onPress={() => console.log('pressed')}
+                onPress={() => editEventPage(null)}
             />
         </View>
     )

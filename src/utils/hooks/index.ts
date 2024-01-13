@@ -1,8 +1,11 @@
 // Redux
+export { default as useAuth } from './useAuth'
 export { default as useUser } from './useUser'
+export { default as useHost } from './useHost'
+export { default as useArtist } from './useArtist'
 export { default as useSearch } from './useSearch'
-export { default as useSettings } from './useSettings'
 export { default as useTheme } from './useTheme'
+export { default as usePersona } from './usePersona'
 
 // Etc
 export { default as useTextInput } from './useTextInput'

@@ -1,1 +1,3 @@
-export { default as RootAppNavigator } from './RootAppNavigator'
+export * from './BaseGate'
+export * from './AuthGate'
+export * from './AppGate'

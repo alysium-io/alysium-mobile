@@ -18,13 +18,11 @@ interface IUseNavigation {
 
     eventPage: (itemId: number) => void
     
-    editEventPage: (itemId: number) => void
+    editEventPage: (itemId: number | null) => void
 
     editContractPage: (itemId: number) => void
 
     searchPage: () => void
-
-    authPage: () => void
 
     eventManagerPage: () => void
 
@@ -58,13 +56,11 @@ const useNavigation = () : IUseNavigation => {
 
     const eventPage = (itemId: number) => navigation.navigate('EventPage', { itemId })
     
-    const editEventPage = (itemId: number) => navigation.navigate('EditEventPage', { itemId })
+    const editEventPage = (itemId: number | null) => navigation.navigate('EditEventPage', { itemId })
 
     const editContractPage = (itemId: number) => navigation.navigate('EditContractPage', { itemId })
 
     const searchPage = () => navigation.navigate('SearchPage')
-
-    const authPage = () => navigation.navigate('AuthPage')
 
     const eventManagerPage = () => navigation.navigate('EventManagerPage')
 
@@ -100,8 +96,6 @@ const useNavigation = () : IUseNavigation => {
         editContractPage,
 
         searchPage,
-
-        authPage,
 
         eventManagerPage,
 

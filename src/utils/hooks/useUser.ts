@@ -1,129 +1,138 @@
-import { useDispatch, useSelector } from 'src/redux'
-import { UserState } from 'src/types'
-import {
-    useLazyLoginUserQuery,
-    useLazyGetMeQuery,
-    useLazyCreateAccountQuery,
+import { global } from '@etc'
+import { useDispatch, useSelector } from '@redux'
+import { AccountList, AccountListItem, Persona, UserState } from '@types'
+import { userApiSlice } from 'src/redux/api'
+import { userActions } from 'src/redux/user'
+
+const {
+    useLazyGetUserDetailsQuery,
     useLazyCreateHostQuery,
     useLazyCreateArtistQuery
-} from 'src/redux/api/base/baseApiSlice'
-import {
-    action_setUser,
-    action_logout,
-    action_invalidCredentialsError
-} from 'src/redux/user'
-
+} = userApiSlice
 
 interface IUseUser {
-    logIn: (identifier: string, password: string) => Promise<void>
-    getUser: () => Promise<void>
-    logout: () => Promise<void>
-    createAccount: (username: string, email: string, password: string) => Promise<void>
+    getUserDetails: () => Promise<void>
     createHost: (name: string) => Promise<void>
     createArtist: (name: string) => Promise<void>
+    getAccountList: () => AccountList | null
+    resetUser: () => void
     user: UserState
 }
 
 const useUser = () : IUseUser => {
 
-    const [ flux_loginUser ] = useLazyLoginUserQuery()
-    const [ flux_getMe ] = useLazyGetMeQuery()
-    const [ flux_createAccount ] = useLazyCreateAccountQuery()
+    const user : UserState = useSelector(state => state.user)
+    const activePersonaId = useSelector(state => state.persona.activePersonaId)
+    const activePersonaType = useSelector(state => state.persona.activePersonaType)
+    const dispatch = useDispatch()
+    
+    const [ flux_getUserDetails ] = useLazyGetUserDetailsQuery()
     const [ flux_createHost ] = useLazyCreateHostQuery()
     const [ flux_createArtist ] = useLazyCreateArtistQuery()
 
-    const user : UserState = useSelector(state => state.user)
-    const dispatch = useDispatch()
+    const getUserDetails = async () => {
+        try {
+            const { data, error } = await flux_getUserDetails()
 
-    const jwtExists = () : boolean => {
-        return (user.token && user.token.length > 0) ? true : false
-    }
-
-    const logIn = async (identifier: string, password: string) => {
-        flux_loginUser({ identifier, password })
-            .then(({ data, error }) => {
-                if (error && 'data' in error && error.status === 400) {
-                    dispatch(action_invalidCredentialsError())
-                }
-                if (data) {
-                    const { user, jwt } = data
-                    dispatch(action_setUser({ user, jwt }))
-                }
-            })
-            .catch(() => logout())
-    }
-
-    const getUser = async () => {
-        if (jwtExists()) {
-            flux_getMe()
-                .then(({ data, error }) => {
-                    if (error) logout()
-                    if (data) {
-                        dispatch(action_setUser({
-                            user: data,
-                            jwt: user.token as string
-                        }))
-                    }
-                })
-                .catch(() => logout())
-        } else {
-            logout()
+            if (error) {
+                console.log(error)
+            }
+            if (data) {
+                dispatch(userActions.setUser(data))
+            }
+        } catch (err) {
+            throw err
         }
     }
 
-    const createAccount = async (username: string, email: string, password: string) => {
-        flux_createAccount({ username, email, password })
-            .then(({ data, error }) => {
-                if (error) logout()
-                if (data) {
-                    dispatch(action_setUser({
-                        user: data.user,
-                        jwt: user.token as string
-                    }))
-                }
-            })
-            .catch(() => logout())
+    const resetUser = () => {
+        dispatch(userActions.resetUser())
     }
 
-    const logout = async () => {
-        dispatch(action_logout())
-    }
+    const getAccountList = () : AccountList | null => {
+        if (user.user === null) {
+            return null
+        }
 
+        console.log(user.user)
+        console.log(activePersonaId)
+        console.log(activePersonaType)
+
+        // First get the user account
+        const userAccount : AccountListItem = {
+            id: user.user.id,
+            name: user.user.username,
+            type: Persona.user,
+            image: global.artistImages['seth hills'],
+            isActive: (
+                activePersonaId === user.user.id &&
+                activePersonaType === Persona.user
+            )
+        }
+
+        // Now get the host accounts
+        const hostAccounts : AccountList = user.user.hosts.map(host => ({
+            id: host.id,
+            name: host.name || 'Host',
+            type: Persona.host,
+            image: global.artistImages['seth hills'],
+            isActive: (
+                activePersonaId === host.id &&
+                activePersonaType === Persona.host
+            )
+        }))
+
+        // Now get the artist accounts
+        const artistAccounts : AccountList = user.user.artists.map(artist => ({
+            id: artist.id,
+            name: artist.name || 'Artist',
+            type: Persona.artist,
+            image: global.artistImages['seth hills'],
+            isActive: (
+                activePersonaId === artist.id &&
+                activePersonaType === Persona.artist
+            )
+        }))
+
+        return [userAccount, ...hostAccounts, ...artistAccounts]
+    }
+    
     const createHost = async (name: string) => {
-        flux_createHost({ name })
-            .then(({ data, error }) => {
-                if (error) {
-                    console.log(error)
-                }
-                if (data) {
-                    console.log(data)
-                    getUser()
-                }
-            })
-            .catch(err => console.log(err))
+        try {
+            const { data, error } = await flux_createHost({ name })
+
+            if (error) {
+                console.log(error)
+            }
+            if (data) {
+                getUserDetails()
+            }
+        } catch (err) {
+            throw err
+        }
     }
 
     const createArtist = async (name: string) => {
-        flux_createArtist({ name })
-            .then(({ data, error }) => {
-                if (error) {
-                    console.log(error)
-                }
-                if (data) {
-                    console.log(data)
-                    getUser()
-                }
-            })
-            .catch(err => console.log(err))
+        try {
+            const { data, error } = await flux_createArtist({ name })
+
+            if (error) {
+                console.log(error)
+            }
+            if (data) {
+                getUserDetails()
+            }
+        } catch (err) {
+            throw err
+        }
     }
 
     return {
-        logIn,
-        getUser,
-        logout,
-        createAccount,
+        getUserDetails,
         createHost,
         createArtist,
+        getAccountList,
+        resetUser,
         user
     }
 }

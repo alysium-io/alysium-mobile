@@ -1,11 +1,13 @@
 import React from 'react'
 import { Text, View } from '@atomic'
-import { ContentType, ThemeMode } from '@types'
+import { ContentType, Persona, ThemeMode } from '@types'
 import { Colors } from '@etc'
 import { useBgTouchAnimation, useTheme } from '@hooks'
 import ContentListItemTitle from './ContentListItemTitle'
 import ContentListItemImage from './ContentListItemImage'
 import ContentListItemIcon from './ContentListItemIcon'
+import ContentListItemMarker from './ContentListItemMarker'
+import { IconNames } from '@svg'
 import { StyleSheet } from 'react-native'
 
 
@@ -14,7 +16,7 @@ interface ContentListItemProps {
     subtitle: string
     rnk?: number
     onPress: () => void
-    contentType: ContentType
+    contentType: ContentType | Persona
     image: string | null
     size?: 'small' | 'medium' | 'large'
     border?: boolean
@@ -22,6 +24,7 @@ interface ContentListItemProps {
     onPressMenu?: () => void
     subtitleFirst?: boolean
     borderRadius?: 'round' | 'sharp' | 'smooth' | number
+    marker?: IconNames
 }
 
 const ContentListItem : React.FC<ContentListItemProps> = ({
@@ -36,7 +39,8 @@ const ContentListItem : React.FC<ContentListItemProps> = ({
     icon = 'arrow',
     onPressMenu,
     subtitleFirst = false,
-    borderRadius = 'round'
+    borderRadius = 'round',
+    marker
 }) => {
 
     const { getRawColor, mode, theme } = useTheme()
@@ -59,6 +63,7 @@ const ContentListItem : React.FC<ContentListItemProps> = ({
                     { rnk && <Text variant='paragraph-medium' marginRight='m'>{rnk}</Text> }
                     <ContentListItemImage contentType={contentType} image={image} size={size} borderRadius={borderRadius} />
                     <ContentListItemTitle title={title} subtitle={subtitle} subtitleFirst={subtitleFirst} />
+                    { marker && <ContentListItemMarker icon={marker} /> }
                     <ContentListItemIcon type={icon} onPress={onPressMenu} />
                 </View>
             </View>

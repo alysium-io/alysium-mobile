@@ -1,12 +1,12 @@
 import React from 'react'
 import { View } from '@atomic'
 import { Button } from '@molecules'
-import { useUser } from '@hooks'
+import { useAuth } from '@hooks'
 
 
 const LogoutSection = () => {
 
-    const { logout } = useUser()
+    const { logout } = useAuth()
 
     return (
         <View margin='m'>

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Avatar, View } from '@atomic'
 import { StyleSheet } from 'react-native'
-import { ContentType } from '@types'
+import { ContentType, Persona } from '@types'
 
 
 const sizeScheme = {
@@ -13,7 +13,7 @@ const sizeScheme = {
 interface ContentListItemImageProps {
     image: string | null
     size: keyof typeof sizeScheme
-    contentType: ContentType
+    contentType: ContentType | Persona
     borderRadius?: 'round' | 'sharp' | 'smooth' | number
 }
 

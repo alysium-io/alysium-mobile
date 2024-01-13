@@ -1,7 +1,7 @@
 import React from 'react'
 import { SheetRef, useTheme } from '@hooks'
-import { AppType, ThemeMode } from '@types'
-import { useSettings } from '@hooks'
+import { Persona, ThemeMode } from '@types'
+import { usePersona } from '@hooks'
 import {
     BottomSheet,
     BottomSheetHeader,
@@ -18,34 +18,28 @@ const AppBetaConfigBottomSheet : React.FC<AppBetaConfigBottomSheetProps> = ({
     sheetRef
 }) => {
 
-    const { setApp } = useSettings()
+    const { setPersona } = usePersona()
     const { toggleMode, mode } = useTheme()
 
     return (
         <BottomSheet sheetRef={sheetRef}>
             <BottomSheetHeader text='Config' />
-            <BottomSheetListItem
+            {/* <BottomSheetListItem
                 text='Host App'
-                onPress={() => setApp(AppType.host)}
+                onPress={() => setPersona(Persona.host)}
                 icon='host'
                 border
             />
             <BottomSheetListItem
                 text='Artist App'
-                onPress={() => setApp(AppType.artist)}
+                onPress={() => setPersona(Persona.artist)}
                 icon='artist'
                 border
             />
             <BottomSheetListItem
                 text='User App'
-                onPress={() => setApp(AppType.user)}
+                onPress={() => setPersona(Persona.user)}
                 icon='user'
-                border
-            />
-            <BottomSheetListItem
-                text='Test App'
-                onPress={() => setApp(AppType.test)}
-                icon='experiment'
                 border
             />
             <BottomSheetListItemWithToggle
@@ -53,7 +47,7 @@ const AppBetaConfigBottomSheet : React.FC<AppBetaConfigBottomSheetProps> = ({
                 onToggle={toggleMode}
                 value={mode === ThemeMode.dark}
                 border
-            />
+            /> */}
         </BottomSheet>
     )
 }

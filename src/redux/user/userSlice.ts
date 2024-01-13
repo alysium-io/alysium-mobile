@@ -1,51 +1,26 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import {
-    Stage,
     UserState,
-    AuthResponse
-} from 'src/types'
+    UserDetailsResponse
+} from '@types'
 
 
 const initialState : UserState = {
-    stage: Stage.precheck,
-    error: null,
-    user: null,
-    token: null
+    user: null
 }
 
 const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        setUser: (state, action: PayloadAction<AuthResponse>) => {
-            state.stage = Stage.loggedIn
-            state.user = action.payload.user
-            state.token = action.payload.jwt
-            state.error = null
+        setUser: (state, action: PayloadAction<UserDetailsResponse>) => {
+            state.user = action.payload
         },
-        logout: (state) => {
-            state.stage = Stage.loggedOut
-            state.error = null
-            state.user = null
-            state.token = null
-        },
-        invalidCredentialsError: (state) => {
-            console.log('in here')
-            state.stage = Stage.loggedOut
-            state.error = 'Invalid Credentials'
-            state.user = null
-            state.token = null
+        resetUser: (state) => {
+            state.user = initialState.user
         }
-    },
-    extraReducers: (builder) => {
-        
     }
 })
 
 export const userReducer = userSlice.reducer
-
-export const {
-    setUser,
-    logout,
-    invalidCredentialsError
-} = userSlice.actions
+export const userActions = userSlice.actions

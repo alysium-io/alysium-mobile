@@ -6,13 +6,13 @@ import { themeReducer } from './themeSlice'
 
 const saveSubsetFilter = createFilter(
     'theme',
-    ['theme']
+    ['mode']
 )
 
 const persistConfig = {
     key: 'theme',
     storage: AsyncStorage,
-    whitelist: ['theme'],
+    whitelist: ['mode'],
     transforms: [saveSubsetFilter]
 }
 

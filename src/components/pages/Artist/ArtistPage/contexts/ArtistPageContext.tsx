@@ -1,10 +1,14 @@
 import React, { createContext } from 'react'
-import { ArtistPageRouteProp, ArtistResponse, ProviderProps } from '@types'
+import { ArtistPageRouteProp, ArtistDetailsResponse, ProviderProps } from '@types'
 import { useRoute } from '@react-navigation/native'
-import { useLazyArtistQuery } from 'src/redux/api/base/baseApiSlice'
+import artistApiSlice from 'src/redux/api/artistApiSlice'
 import { SheetApi, useNavigation, useSheet } from '@hooks'
 import { global } from '@etc'
 
+
+const {
+    useGetArtistDetailsQuery
+} = artistApiSlice
 
 export type ArtistPageContextType = {
     moreSheetApi: SheetApi
@@ -12,8 +16,7 @@ export type ArtistPageContextType = {
     linksSheetApi: SheetApi
     onPressFollowers: () => void
     onPressShows: () => void
-    loadArtistData: () => void
-    data: ArtistResponse | undefined
+    data: ArtistDetailsResponse | undefined
     isLoading: boolean
     error: any
 }
@@ -23,12 +26,8 @@ export const ArtistPageContext = createContext({} as ArtistPageContextType)
 export const ArtistPageProvider : React.FC<ProviderProps> = ({ children }) => {
 
     const route = useRoute<ArtistPageRouteProp>()
-    const [ getArtistData, { data, isLoading, error }] = useLazyArtistQuery()
+    const { data, isLoading, error } = useGetArtistDetailsQuery({ artistId: route.params.itemId })
     const { artistFollowersAndShowsPage } = useNavigation()
-
-    const loadArtistData = () => {
-        getArtistData({ artistId: route.params.itemId })
-    }
 
     const moreSheetApi = useSheet()
     const notificationsSheetApi = useSheet()
@@ -45,8 +44,7 @@ export const ArtistPageProvider : React.FC<ProviderProps> = ({ children }) => {
                 linksSheetApi,
                 onPressFollowers,
                 onPressShows,
-                loadArtistData,
-                data: global.sampleApiResponses.artist,
+                data,
                 isLoading,
                 error
             }}
