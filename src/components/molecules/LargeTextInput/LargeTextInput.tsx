@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, TextInput, Icon } from '@atomic'
 import { useAnimatedState, useTextInput, useTheme } from '@hooks'
+import { IconNames } from '@svg'
 import {
     TouchableWithoutFeedback,
     StyleSheet
@@ -10,7 +11,6 @@ import {
     useAnimatedProps,
     useAnimatedStyle
 } from 'react-native-reanimated'
-import { IconNames } from '@svg'
 
 
 interface LargeTextInputProps {
@@ -23,6 +23,7 @@ interface LargeTextInputProps {
     textAlign?: 'left' | 'center'
     containerProps?: React.ComponentProps<typeof View>
     icon?: IconNames
+    value?: string
 }
 
 const LargeTextInput : React.FC<LargeTextInputProps> = ({
@@ -34,7 +35,8 @@ const LargeTextInput : React.FC<LargeTextInputProps> = ({
     onBlur,
     textAlign = 'left',
     containerProps,
-    icon
+    icon,
+    value
 }) => {
 
     const { theme, mode } = useTheme()
@@ -102,6 +104,7 @@ const LargeTextInput : React.FC<LargeTextInputProps> = ({
                         secureTextEntry={secureTextEntry}
                         keyboardAppearance={mode}
                         textAlign={textAlign}
+                        value={value}
                         style={[
                             styles.textInput,
                             {

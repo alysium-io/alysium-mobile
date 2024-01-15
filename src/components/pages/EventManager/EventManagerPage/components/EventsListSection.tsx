@@ -1,23 +1,28 @@
 import React from 'react'
 import { Section } from '@atomic'
-import { global } from '@etc'
-import { ContentType } from '@types'
+import { ContentType, EventStatus } from '@types'
 import { ContentListItem } from '@organisms'
+import { useHost, useNavigation } from '@hooks'
 
 
 const EventsListSection = () => {
+    
+    const { host } = useHost()
+    const { editEventPage } = useNavigation()
+
+    if (host.events === null) return <></>
 
     return (
         <Section>
             {
-                global.sampleData.sampleEvents.map(event => (
+                host.events.map(event => (
                     <ContentListItem
                         key={event.id}
-                        title={event.name}
-                        subtitle={event.status}
-                        onPress={() => console.log('Event pressed')}
+                        title={event.attributes.name}
+                        subtitle={EventStatus.draft}
+                        onPress={() => editEventPage(event.id)}
                         contentType={ContentType.event}
-                        image={event.image}
+                        image={event.attributes.image}
                         borderRadius='sharp'
                         border
                     />

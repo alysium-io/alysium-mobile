@@ -1,29 +1,26 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import {
-    HostState,
-    Host,
-    Event,
-    ApiIdentifier
+    EventState,
+    Event
 } from '@types'
 
 
-const initialState : HostState = {
-    host: null,
+const initialState : EventState = {
     events: null,
+    isLoading: true,
+    error: null
 }
 
-const hostSlice = createSlice({
-    name: 'host',
+const eventSlice = createSlice({
+    name: 'event',
     initialState,
     reducers: {
-        setHost: (state, action: PayloadAction<Host>) => {
-            state.host = action.payload
-        },
-        resetHost: (state) => {
-            state.host = initialState.host
-        },
         setAllEvents: (state, action: PayloadAction<Event[]>) => {
             state.events = action.payload
+            state.isLoading = false
+        },
+        setIsLoading: (state, action: PayloadAction<boolean>) => {
+            state.isLoading = action.payload
         },
         addEvent: (state, action: PayloadAction<Event>) => {
             if (state.events === null) {
@@ -41,15 +38,9 @@ const hostSlice = createSlice({
         },
         resetEvent: (state) => {
             state.events = initialState.events
-        },
-        deleteEvent: (state, action: PayloadAction<ApiIdentifier>) => {
-            if (state.events !== null) {
-                const eventIndex = state.events.findIndex(event => event.id === action.payload)
-                state.events.splice(eventIndex, 1)
-            }
         }
     }
 })
 
-export const hostReducer = hostSlice.reducer
-export const hostActions = hostSlice.actions
+export const eventReducer = eventSlice.reducer
+export const eventActions = eventSlice.actions

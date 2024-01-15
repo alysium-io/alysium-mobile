@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { HeaderSafeArea, ScrollView, Separator } from '@atomic'
 import { BasePage } from '@organisms'
+import { EditEventPageProvider } from './contexts'
+import { useEditEventPageContext } from './hooks'
 import {
     PrimaryImage,
     EventName,
@@ -15,6 +17,12 @@ import {
 
 
 const EditEventPage = () => {
+
+    const { data, loadForm } = useEditEventPageContext()
+
+    useEffect(() => {
+        loadForm()
+    }, [data])
 
     return (
         <BasePage FooterComponent={EditEventPageFooter}>
@@ -39,4 +47,8 @@ const EditEventPage = () => {
     )
 }
 
-export default EditEventPage
+export default () => (
+    <EditEventPageProvider>
+        <EditEventPage />
+    </EditEventPageProvider>
+)

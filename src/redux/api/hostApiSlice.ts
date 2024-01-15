@@ -8,7 +8,11 @@ import {
     EditEventResponse,
     EditEventBody,
     EventsResponse,
-    EventsBody
+    EventsBody,
+    EventDetailsResponse,
+    EventDetailsBody,
+    DeleteEventResponse,
+    DeleteEventBody
 } from '@types'
 
 
@@ -26,7 +30,7 @@ const hostApiSlice = createApi({
                 }
             })
         }),
-        getHostEvents: builder.query<EventsResponse, EventsBody>({
+        getEvents: builder.query<EventsResponse, EventsBody>({
             query: () => ({
                 url: '/events',
                 method: 'GET',
@@ -35,18 +39,35 @@ const hostApiSlice = createApi({
                 }
             })
         }),
-        createHostEvent: builder.query<CreateEventResponse, CreateEventBody>({
+        createEvent: builder.query<CreateEventResponse, CreateEventBody>({
             query: ({ attributes }) => ({
                 url: '/events',
                 method: 'POST',
+                body: {
+                    data: attributes
+                }
+            })
+        }),
+        editEvent: builder.mutation<EditEventResponse, EditEventBody>({
+            query: ({ eventId, attributes }) => ({
+                url: `/events/${eventId}`,
+                method: 'PUT',
                 body: attributes
             })
         }),
-        editHostEvent: builder.query<EditEventResponse, EditEventBody>({
-            query: ({ id, attributes }) => ({
-                url: `/events/${id}`,
-                method: 'PUT',
-                body: attributes
+        getEventDetails: builder.query<EventDetailsResponse, EventDetailsBody>({
+            query: ({ eventId }) => ({
+                url: `/events/${eventId}`,
+                method: 'GET',
+                params: {
+                    populate: '*'
+                }
+            })
+        }),
+        deleteEvent: builder.mutation<DeleteEventResponse, DeleteEventBody>({
+            query: ({ eventId }) => ({
+                url: `/events/${eventId}`,
+                method: 'DELETE'
             })
         })
     })

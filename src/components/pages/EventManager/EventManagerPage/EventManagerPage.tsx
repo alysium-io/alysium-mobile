@@ -1,10 +1,18 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { HeaderSafeArea, ScrollView, Text, View } from '@atomic'
 import { EventsListSection, CreateEventFooter } from './components'
 import { BasePage } from '@organisms'
+import { useHost } from '@hooks'
+import { EventManagerPageProvider } from './contexts'
 
 
 const EventManagerPage = () => {
+
+    const { getEvents } = useHost()
+
+    useEffect(() => {
+        getEvents()
+    }, [])
 
     return (
         <BasePage FooterComponent={CreateEventFooter}>
@@ -20,4 +28,8 @@ const EventManagerPage = () => {
     )
 }
 
-export default EventManagerPage
+export default () => (
+    <EventManagerPageProvider>
+        <EventManagerPage />
+    </EventManagerPageProvider>
+)

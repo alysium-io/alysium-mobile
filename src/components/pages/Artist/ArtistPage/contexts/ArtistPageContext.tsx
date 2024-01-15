@@ -3,7 +3,6 @@ import { ArtistPageRouteProp, ArtistDetailsResponse, ProviderProps } from '@type
 import { useRoute } from '@react-navigation/native'
 import artistApiSlice from 'src/redux/api/artistApiSlice'
 import { SheetApi, useNavigation, useSheet } from '@hooks'
-import { global } from '@etc'
 
 
 const {

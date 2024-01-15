@@ -30,5 +30,5 @@ export type ArtistState = {
 
 export type HostState = {
     host: Host | null
-    events: Event[]
+    events: Event [] | null
 }

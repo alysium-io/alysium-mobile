@@ -46,8 +46,8 @@ export type EventAttributes = {
     address: string | null,
     image: string | null,
     color: string | null,
-    slots: ApiRelation<Slot[]>,
-    venue: ApiRelation<Venue>
+    slots?: ApiRelation<Slot[]>,
+    venue?: ApiRelation<Venue>
 }
 export type Event = Model<EventAttributes>
 
