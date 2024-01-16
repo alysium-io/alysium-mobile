@@ -15,7 +15,6 @@ const initialValues : EventAttributes = {
     color: ''
 }
 
-
 const {
     useGetEventDetailsQuery
 } = hostApiSlice
@@ -35,17 +34,16 @@ export const EditEventPageContext = createContext({} as EditEventPageContextType
 export const EditEventPageProvider : React.FC<ProviderProps> = ({ children }) => {
 
     const { back } = useNavigation()
-    const { deleteEvent } = useHost()
+    const { deleteEvent, editEvent } = useHost()
 
     const route = useRoute<EditEventPageRouteProp>()
+
     const { data, error, isLoading } = useGetEventDetailsQuery({ eventId: route.params.itemId })
 
-    const formMethods = useForm<EventAttributes>({
-        defaultValues: data ? data.data.attributes : initialValues
-    })
+    const formMethods = useForm<EventAttributes>({ defaultValues: initialValues })
 
     const onValid : SubmitHandler<EventAttributes> = (data: EventAttributes) => {
-        console.log(data)
+        editEvent(route.params.itemId, data)
     }
 
     const onInvalid : SubmitErrorHandler<EventAttributes> = (errors: any) => {
@@ -62,17 +60,17 @@ export const EditEventPageProvider : React.FC<ProviderProps> = ({ children }) =>
 
     const confirmDelete = () => {
         Alert.alert(
-            "Delete Event",
-            "Are you sure you want to delete this event?",
+            'Delete Event',
+            'Are you sure you want to delete this event?',
             [
                 {
-                    text: "cancel",
-                    style: "cancel"
+                    text: 'cancel',
+                    style: 'cancel'
                 },
                 { 
-                    text: "delete", 
+                    text: 'delete', 
                     onPress: onDeleteEvent,
-                    style: "destructive"
+                    style: 'destructive'
                 }
             ],
             { cancelable: false }

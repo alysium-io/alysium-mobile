@@ -19,7 +19,7 @@ import {
 const hostApiSlice = createApi({
     baseQuery: fetchBaseQuery(defaultApiConfig),
     reducerPath: 'hostApi',
-    tagTypes: ['Host'],
+    tagTypes: ['Host', 'Event'],
     endpoints: (builder) => ({
         getHostDetails: builder.query<HostDetailsResponse, HostDetailsRequestParams>({
             query: ({ hostId }) => ({
@@ -39,6 +39,16 @@ const hostApiSlice = createApi({
                 }
             })
         }),
+        getEventDetails: builder.query<EventDetailsResponse, EventDetailsBody>({
+            query: ({ eventId }) => ({
+                url: `/events/${eventId}`,
+                method: 'GET',
+                params: {
+                    populate: '*'
+                }
+            }),
+            providesTags: (_result, _error, { eventId }) => [{ type: 'Event', id: eventId }]
+        }),
         createEvent: builder.query<CreateEventResponse, CreateEventBody>({
             query: ({ attributes }) => ({
                 url: '/events',
@@ -52,17 +62,11 @@ const hostApiSlice = createApi({
             query: ({ eventId, attributes }) => ({
                 url: `/events/${eventId}`,
                 method: 'PUT',
-                body: attributes
-            })
-        }),
-        getEventDetails: builder.query<EventDetailsResponse, EventDetailsBody>({
-            query: ({ eventId }) => ({
-                url: `/events/${eventId}`,
-                method: 'GET',
-                params: {
-                    populate: '*'
+                body: {
+                    data: attributes
                 }
-            })
+            }),
+            invalidatesTags: (_result, _error, { eventId }) => [{ type: 'Event', id: eventId }]
         }),
         deleteEvent: builder.mutation<DeleteEventResponse, DeleteEventBody>({
             query: ({ eventId }) => ({
