@@ -21,7 +21,7 @@ type TagFollowersPage = { itemId: number }
 type ProfilePage = undefined
 
 type EventManagerPage = undefined
-type EditEventPage = { itemId: number | null }
+type EditEventPage = { itemId: number }
 
 type EventPage = { itemId: number }
 

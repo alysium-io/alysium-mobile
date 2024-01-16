@@ -1,10 +1,13 @@
 import React from 'react'
-import { Section, View, Text } from '@atomic'
+import { Section, View } from '@atomic'
 import { Button, SectionHeader } from '@molecules'
 import { MenuListItem, SummaryTextBlock } from '@organisms'
+import { useEditEventPageContext } from '../hooks'
 
 
 const SummarySection = () => {
+
+    const { confirmDelete } = useEditEventPageContext()
 
     return (
         <Section marginVertical='m'>
@@ -49,6 +52,14 @@ const SummarySection = () => {
                         color_variant='matt'
                         text='Finalize'
                         onPress={() => console.log('Finalize')}
+                    />
+                </View>
+                <View margin='m'>
+                    <Button
+                        variant='outlined'
+                        color_variant='haze'
+                        text='Delete'
+                        onPress={confirmDelete}
                     />
                 </View>
             </View>
