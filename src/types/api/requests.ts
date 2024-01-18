@@ -6,7 +6,7 @@ import { Host, Artist, Tag, Event, EventAttributes } from './models'
  * Auth
  */
 export type AuthUserResponse = {
-    id: number
+    id: ApiIdentifier
     username: string
     email: string
     provider: string
@@ -46,7 +46,7 @@ export type CreateAccountWithIdentifierAndPasswordRequestBody = {
  * Users
  */
 export type UserDetailsResponse = {
-    id: number
+    id: ApiIdentifier
     username: string
     email: string
     provider: string
@@ -55,7 +55,7 @@ export type UserDetailsResponse = {
     createdAt: string
     updatedAt: string
     hosts: {
-        id: number
+        id: ApiIdentifier
         name: string | null
         createdAt: string
         updatedAt: string
@@ -65,7 +65,7 @@ export type UserDetailsResponse = {
         phone_number: string | null
     }[]
     artists: {
-        id: number
+        id: ApiIdentifier
         spotify_followers: number | null
         createdAt: string
         updatedAt: string
@@ -82,7 +82,7 @@ export type UserDetailsResponse = {
 export type SearchRequestBody = { searchText: string }
 export type SearchResponseItem = {
     score: number
-    id: number
+    id: ApiIdentifier
     image: string
     name: string
 }
@@ -92,7 +92,7 @@ export type SearchResponse = SearchResponseItem[]
  * Hosts
  */
 export type HostDetailsResponse = ApiResponseBase<Host>
-export type HostDetailsRequestParams = { hostId: number }
+export type HostDetailsRequestParams = { hostId: ApiIdentifier }
 
 export type CreateHostResponse = ApiResponseBase<Host>
 export type CreateHostBody = { name: string }
@@ -101,7 +101,7 @@ export type CreateHostBody = { name: string }
  * Artists
  */
 export type ArtistDetailsResponse = ApiResponseBase<Artist>
-export type ArtistDetailsRequestParams = { artistId: number }
+export type ArtistDetailsRequestParams = { artistId: ApiIdentifier }
 
 export type CreateArtistResponse = {}
 export type CreateArtistBody = { name: string }
@@ -110,7 +110,7 @@ export type CreateArtistBody = { name: string }
  * Tags
  */
 export type TagResponse = ApiResponseBase<Tag>
-export type TagRequestParams = { tagId: number }
+export type TagRequestParams = { tagId: ApiIdentifier }
 
 // Temporary type
 export type TagArtistsResponse = {
@@ -121,7 +121,7 @@ export type TagArtistsResponse = {
         totalPages: number
     }
     artists: {
-        id: number
+        id: ApiIdentifier
         spotify_image: string
         spotify_url: string
         spotify_followers: number
@@ -144,7 +144,7 @@ export type TagArtistsResponse = {
     }[]
 }
 
-export type TagArtistsRequestParams = { tagId: number }
+export type TagArtistsRequestParams = { tagId: ApiIdentifier }
 
 /**
  * Events
@@ -156,9 +156,15 @@ export type CreateEventBody = {
 
 export type EditEventResponse = ApiResponseBase<Event>
 export type EditEventBody = {
-    id: ApiIdentifier
+    eventId: ApiIdentifier
     attributes: Partial<EventAttributes>
 }
 
 export type EventsResponse = ApiResponseBase<Event[], Pagination>
 export type EventsBody = void
+
+export type EventDetailsResponse = ApiResponseBase<Event>
+export type EventDetailsBody = { eventId: ApiIdentifier }
+
+export type DeleteEventResponse = ApiResponseBase<Event>
+export type DeleteEventBody = { eventId: ApiIdentifier }

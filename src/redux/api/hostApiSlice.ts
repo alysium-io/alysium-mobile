@@ -8,14 +8,18 @@ import {
     EditEventResponse,
     EditEventBody,
     EventsResponse,
-    EventsBody
+    EventsBody,
+    EventDetailsResponse,
+    EventDetailsBody,
+    DeleteEventResponse,
+    DeleteEventBody
 } from '@types'
 
 
 const hostApiSlice = createApi({
     baseQuery: fetchBaseQuery(defaultApiConfig),
     reducerPath: 'hostApi',
-    tagTypes: ['Host'],
+    tagTypes: ['Host', 'Event'],
     endpoints: (builder) => ({
         getHostDetails: builder.query<HostDetailsResponse, HostDetailsRequestParams>({
             query: ({ hostId }) => ({
@@ -26,7 +30,7 @@ const hostApiSlice = createApi({
                 }
             })
         }),
-        getHostEvents: builder.query<EventsResponse, EventsBody>({
+        getEvents: builder.query<EventsResponse, EventsBody>({
             query: () => ({
                 url: '/events',
                 method: 'GET',
@@ -35,18 +39,39 @@ const hostApiSlice = createApi({
                 }
             })
         }),
-        createHostEvent: builder.query<CreateEventResponse, CreateEventBody>({
+        getEventDetails: builder.query<EventDetailsResponse, EventDetailsBody>({
+            query: ({ eventId }) => ({
+                url: `/events/${eventId}`,
+                method: 'GET',
+                params: {
+                    populate: '*'
+                }
+            }),
+            providesTags: (_result, _error, { eventId }) => [{ type: 'Event', id: eventId }]
+        }),
+        createEvent: builder.query<CreateEventResponse, CreateEventBody>({
             query: ({ attributes }) => ({
                 url: '/events',
                 method: 'POST',
-                body: attributes
+                body: {
+                    data: attributes
+                }
             })
         }),
-        editHostEvent: builder.query<EditEventResponse, EditEventBody>({
-            query: ({ id, attributes }) => ({
-                url: `/events/${id}`,
+        editEvent: builder.mutation<EditEventResponse, EditEventBody>({
+            query: ({ eventId, attributes }) => ({
+                url: `/events/${eventId}`,
                 method: 'PUT',
-                body: attributes
+                body: {
+                    data: attributes
+                }
+            }),
+            invalidatesTags: (_result, _error, { eventId }) => [{ type: 'Event', id: eventId }]
+        }),
+        deleteEvent: builder.mutation<DeleteEventResponse, DeleteEventBody>({
+            query: ({ eventId }) => ({
+                url: `/events/${eventId}`,
+                method: 'DELETE'
             })
         })
     })

@@ -1,20 +1,31 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { View } from '@atomic'
 import { LargeTextInput } from '@molecules'
+import { Controller } from 'react-hook-form'
+import { useEditEventPageContext } from '../hooks'
 
 
 const defaultEventName = 'Event name'
 
 const EventName = () => {
 
-    const [eventName, setEventName] = useState<string>(defaultEventName)
+    const { formMethods } = useEditEventPageContext()
 
     return (
         <View marginHorizontal='m' marginTop='l'>
-            <LargeTextInput
-                placeholder={defaultEventName}
-                onChangeText={text => setEventName(text)}
-                textAlign='center'
+            <Controller
+                control={formMethods.control}
+                rules={{ required: true }}
+                render={({ field: { onChange, onBlur, value } }) => (
+                    <LargeTextInput
+                        placeholder={defaultEventName}
+                        onChangeText={onChange}
+                        textAlign='center'
+                        onBlur={onBlur}
+                        value={value}
+                    />
+                )}
+                name="name"
             />
         </View>
     )

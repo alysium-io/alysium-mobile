@@ -54,10 +54,6 @@ const useUser = () : IUseUser => {
             return null
         }
 
-        console.log(user.user)
-        console.log(activePersonaId)
-        console.log(activePersonaType)
-
         // First get the user account
         const userAccount : AccountListItem = {
             id: user.user.id,

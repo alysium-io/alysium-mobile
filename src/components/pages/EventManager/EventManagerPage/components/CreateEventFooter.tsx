@@ -1,19 +1,21 @@
 import React from 'react'
 import { View } from '@atomic'
 import { Button } from '@molecules'
-import { useNavigation } from '@hooks'
+import CreateEventStartBottomSheet from './CreateEventStartBottomSheet'
+import { useEventManagerPageContext } from '../hooks'
 
 
 const CreateEventFooter = () => {
 
-    const { editEventPage } = useNavigation()
+    const { createEventStartSheetApi } = useEventManagerPageContext()
 
     return (
         <View margin='m' flex={1}>
             <Button
                 text='Create Event'
-                onPress={() => editEventPage(null)}
+                onPress={() => createEventStartSheetApi.open()}
             />
+            <CreateEventStartBottomSheet sheetApi={createEventStartSheetApi} />
         </View>
     )
 }
