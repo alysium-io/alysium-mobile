@@ -63,10 +63,6 @@ buck-out/
 /ios/Pods/
 /vendor/bundle/
 
-# for fastlane
-fastlane/vendor
-fastlane/.bundle
-
 # Any environment files (we'll create 3: prod, staging, dev)
 **/.env*
 
