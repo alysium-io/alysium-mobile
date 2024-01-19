@@ -13,15 +13,18 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 # Available Actions
 
-## iOS
-
-### ios dev
+### test_lane
 
 ```sh
-[bundle exec] fastlane ios dev
+[bundle exec] fastlane test_lane
 ```
 
 
+
+----
+
+
+## iOS
 
 ### ios test_build
 
@@ -43,6 +46,14 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 
 ## Android
+
+### android test_build
+
+```sh
+[bundle exec] fastlane android test_build
+```
+
+
 
 ### android internal_beta
 
