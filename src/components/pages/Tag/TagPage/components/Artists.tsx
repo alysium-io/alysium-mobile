@@ -3,10 +3,12 @@ import { View, Section } from '@atomic'
 import { SectionHeader } from '@molecules'
 import { ContentListItem } from '@organisms'
 import { ContentType } from '@types'
-import { global } from '@etc'
+import { useTagPageContext } from '../hooks'
 
 
 const Artists = () => {
+
+    const { tagArtistsData } = useTagPageContext()
 
     return (
         <Section marginTop='l'>
@@ -14,12 +16,12 @@ const Artists = () => {
                 <SectionHeader text='Artists' />
             </View>
             {
-                global.sampleData.listOfArtists.map((artist, index) => (
+                tagArtistsData?.artists.map((artist, index) => (
                     <ContentListItem
                         key={index}
                         rnk={index + 1}
-                        title={artist.name}
-                        subtitle={artist.location}
+                        title={artist.name || 'Unknown'}
+                        subtitle={'Los Angeles, CA'}
                         onPress={() => console.log('pressed')}
                         contentType={ContentType.artist}
                         image={artist.image}

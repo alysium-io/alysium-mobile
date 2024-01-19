@@ -121,26 +121,22 @@ export type TagArtistsResponse = {
         totalPages: number
     }
     artists: {
-        id: ApiIdentifier
-        spotify_image: string
-        spotify_url: string
+        id: number
         spotify_followers: number
-        spotify_artist_id: string
-        spotify_name: string
-        spotify_popularity: number
-        spotify_genres: string
-        createdAt: string
-        updatedAt: string
+        createdAt: string | null
+        updatedAt: string | null
         spotify_data: {
-            spotify_url: string
-            spotify_data: null
-            spotify_name: string
-            spotify_image: string
-            spotify_genres: string
+            name: string
+            image: string | null
+            spotify_url: string | null
+            spotify_genres: string | null
             spotify_artist_id: string
             spotify_followers: number
             spotify_popularity: number
-        }
+        },
+        image: string | null
+        name: string
+        color: string
     }[]
 }
 

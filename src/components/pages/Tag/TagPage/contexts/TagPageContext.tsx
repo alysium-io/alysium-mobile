@@ -7,19 +7,17 @@ import tagApiSlice from 'src/redux/api/tagApiSlice'
 
 
 const {
-    useLazyGetTagDetailsQuery,
-    useLazyGetTagArtistsQuery
+    useGetTagDetailsQuery,
+    useGetTagArtistsQuery
 } = tagApiSlice
 
 export type TagPageContextType = {
     tagData: TagResponse | undefined
     isTagDataLoading: boolean
     isTagDataError: boolean
-    loadTagData: () => void
     tagArtistsData: TagArtistsResponse | undefined
     isTagArtistsDataLoading: boolean
     isTagArtistsDataError: boolean
-    loadTagArtistsData: () => void
     relatedTags: string[]
     onPressFollowers: () => void
     moreSheetApi: SheetApi
@@ -31,25 +29,17 @@ export const TagPageContextProvider : React.FC<ProviderProps> = ({ children }) =
 
     const route = useRoute<TagPageRouteProp>()
     const { tagFollowersPage } = useNavigation()
-    const [
-        getTagData,
-        {
-            data : tagData,
-            isLoading : isTagDataLoading,
-            isError : isTagDataError
-        }
-    ] = useLazyGetTagDetailsQuery()
-    const loadTagData = () => getTagData({ tagId: route.params.itemId })
+    const {
+        data : tagData,
+        isLoading : isTagDataLoading,
+        isError : isTagDataError
+    } = useGetTagDetailsQuery({ tagId: route.params.itemId })
 
-    const [
-        getTagArtistsData,
-        {
-            data : tagArtistsData,
-            isLoading : isTagArtistsDataLoading,
-            isError : isTagArtistsDataError
-        }
-    ] = useLazyGetTagArtistsQuery()
-    const loadTagArtistsData = () => getTagArtistsData({ tagId: route.params.itemId })
+    const {
+        data : tagArtistsData,
+        isLoading : isTagArtistsDataLoading,
+        isError : isTagArtistsDataError
+    } = useGetTagArtistsQuery({ tagId: route.params.itemId })
 
     const moreSheetApi = useSheet()
 
@@ -60,11 +50,9 @@ export const TagPageContextProvider : React.FC<ProviderProps> = ({ children }) =
             tagData,
             isTagDataLoading,
             isTagDataError,
-            loadTagData,
             tagArtistsData,
             isTagArtistsDataLoading,
             isTagArtistsDataError,
-            loadTagArtistsData,
             relatedTags: global.sampleData.sampleTags,
             onPressFollowers,
             moreSheetApi
