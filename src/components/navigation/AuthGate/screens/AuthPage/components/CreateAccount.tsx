@@ -56,16 +56,17 @@ const CreateAccount : React.FC<CreateAccountProps> = ({
                         />
                     </View>
                     <View style={styles.footer} padding='m'>
-                        <Button
-                            variant='outlined'
-                            text='Use Existing Account'
-                            onPress={toggleAuthScreen}
-                            containerProps={{ marginBottom: 's' }}
-                        />
+                        <View marginBottom='m'>
+                            <Button
+                                variant='outlined'
+                                text='Use Existing Account'
+                                onPress={toggleAuthScreen}
+                            />
+                        </View>
                         <Button
                             text='Create Account'
                             onPress={() => createAccount(username, email, password)}
-                            color_variant='haze'
+                            colorVariant='negative'
                         />
                     </View>
                 </View>

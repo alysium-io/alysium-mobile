@@ -8,9 +8,9 @@ export { default as useTheme } from './useTheme'
 export { default as usePersona } from './usePersona'
 
 // Etc
+export { default as useButton } from './useButton'
 export { default as useTextInput } from './useTextInput'
 export { default as useScrollView } from './useScrollView'
-export { default as useBgTouchAnimation } from './useBgTouchAnimation'
 export { default as useAnimatedValue } from './useAnimatedValue'
 export { default as useAnimatedState } from './useAnimatedState'
 export { default as useSet } from './useSet'

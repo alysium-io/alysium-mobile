@@ -1,12 +1,12 @@
 import React from 'react'
 import { Time } from '@etc'
-import { useBgTouchAnimation } from '@hooks'
 import { ArtistImage } from '../Images'
 import LineupTextContainer from '../LineupTextContainer'
 import LineupListItemRightColumn from '../LineupListItemRightColumn'
 import ListItemContainer from '../ListItemContainer'
 import { Connection } from '../Connections'
 import { ContainerType, LineupArtistProperties } from '../settings'
+import { BgTouchAnimation } from '@atomic'
 
 
 type ArtistListItemProps = LineupArtistProperties & {
@@ -23,14 +23,12 @@ const ArtistListItem : React.FC<ArtistListItemProps> = ({
     nextContainerType
 }) => {
 
-    const { Touchable } = useBgTouchAnimation('transparent', 'rgba(255, 255, 255, 0.1)')
-
     const onPress = () => {
         console.log('Pressed: ' + name)
     }
 
     return (
-        <Touchable onPress={onPress}>
+        <BgTouchAnimation onPress={onPress} color='rgba(255, 255, 255, 0.1)' animationType='highlight'>
             <ListItemContainer containerType='artist'>
                 <ArtistImage image={image} />
                 <LineupTextContainer
@@ -43,7 +41,7 @@ const ArtistListItem : React.FC<ArtistListItemProps> = ({
                 />
                 <LineupListItemRightColumn text={startTime.format('h:mma')} />
             </ListItemContainer>
-        </Touchable>
+        </BgTouchAnimation>
     )
 }
 

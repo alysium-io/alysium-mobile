@@ -22,7 +22,6 @@ interface IUseTheme {
     setMode: (mode: ThemeMode) => void
     getRawColor: (color: string) => string
     isValidColor: (color: string) => boolean
-    getModeByApp: (app: AppType) => ThemeMode
 }
 
 const useTheme = () : IUseTheme => {
@@ -61,21 +60,6 @@ const useTheme = () : IUseTheme => {
         return color in theme.colors
     }
 
-    const getModeByApp = (app: AppType) : ThemeMode => {
-        // Artists/Hosts use light mode (daytime)
-        if (app === AppType.artist || app === AppType.host) {
-            return ThemeMode.light
-        }
-
-        // Users use dark mode (nighttime)
-        if (app === AppType.user) {
-            return ThemeMode.dark
-        }
-
-        // If we're in the test app or something else, just return the current mode
-        return themeState.mode
-    }
-
     return {
         setTheme,
         mode: themeState.mode,
@@ -86,8 +70,7 @@ const useTheme = () : IUseTheme => {
         setMode,
         animatedValue,
         getRawColor,
-        isValidColor,
-        getModeByApp
+        isValidColor
     }
 }
 

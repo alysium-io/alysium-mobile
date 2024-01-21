@@ -48,16 +48,17 @@ const LogIn : React.FC<LogInProps> = ({
                         />
                     </View>
                     <View style={styles.footer} padding='m'>
-                        <Button
-                            variant='outlined'
-                            text='Create Account'
-                            onPress={toggleAuthScreen}
-                            containerProps={{ marginBottom: 's' }}
-                        />
+                        <View marginBottom='m'>
+                            <Button
+                                variant='outlined'
+                                text='Create Account'
+                                onPress={toggleAuthScreen}
+                            />
+                        </View>
                         <Button
                             text='Log In'
                             onPress={() => login(email, password)}
-                            color_variant='matt'
+                            colorVariant='positive'
                         />
                     </View>
                 </View>

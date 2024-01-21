@@ -321,7 +321,7 @@ const ComponentsPage = () => {
                             <RadioListItem
                                 checked={sampleRadio}
                                 onPress={() => setSampleRadio(!sampleRadio)}
-                                color_variant='matt'
+                                colorVariant='matt'
                                 title='Radio Item'
                                 icon='alcohol'
                             />
@@ -343,56 +343,14 @@ const ComponentsPage = () => {
                                 <Button
                                     text='Save'
                                     variant='outlined'
-                                    color_variant='default'
-                                />
-                            </View>
-                            <View marginBottom='m'>
-                                <Button
-                                    text='Submit'
-                                    variant='outlined'
-                                    color_variant='ion_dark'
-                                />
-                            </View>
-                            <View marginBottom='m'>
-                                <Button
-                                    text='Dismiss'
-                                    variant='outlined'
-                                    color_variant='meteor'
-                                />
-                            </View>
-                            <View marginBottom='m'>
-                                <Button
-                                    text='Dismiss'
-                                    variant='outlined'
-                                    color_variant='haze'
+                                    colorVariant='default'
                                 />
                             </View>
                             <View marginBottom='m'>
                                 <Button
                                     text='Save'
                                     variant='filled'
-                                    color_variant='default'
-                                />
-                            </View>
-                            <View marginBottom='m'>
-                                <Button
-                                    text='Save'
-                                    variant='filled'
-                                    color_variant='ion'
-                                />
-                            </View>
-                            <View marginBottom='m'>
-                                <Button
-                                    text='Submit'
-                                    variant='filled'
-                                    color_variant='meteor'
-                                />
-                            </View>
-                            <View marginBottom='m'>
-                                <Button
-                                    text='Dismiss'
-                                    variant='filled'
-                                    color_variant='haze'
+                                    colorVariant='default'
                                 />
                             </View>
                         </Section>
@@ -534,6 +492,8 @@ const ComponentsPage = () => {
                             <SearchBar
                                 onChangeText={setSearchText}
                                 onPressClearText={clearSearchText}
+                                isActive={true}
+                                setIsActive={() => console.log('setIsActive')}
                             />
                         </Section>
                         <Section marginVertical='m'>

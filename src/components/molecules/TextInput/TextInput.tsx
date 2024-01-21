@@ -43,7 +43,7 @@ const TextInput : React.FC<TextInputProps> = ({
         focus
     } = useTextInput()
 
-    const borderColor = useSharedValue(theme.colors.ion)
+    const borderColor = useSharedValue<string>(theme.colors.ion)
 
     const animatedContainerStyle = useAnimatedStyle(() => {
         return {

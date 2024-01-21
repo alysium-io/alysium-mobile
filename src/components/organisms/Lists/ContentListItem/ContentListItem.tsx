@@ -1,8 +1,8 @@
 import React from 'react'
-import { Text, View } from '@atomic'
+import { BgTouchAnimation, Text, View } from '@atomic'
 import { ContentType, Persona, ThemeMode } from '@types'
 import { Colors } from '@etc'
-import { useBgTouchAnimation, useTheme } from '@hooks'
+import { useTheme } from '@hooks'
 import ContentListItemTitle from './ContentListItemTitle'
 import ContentListItemImage from './ContentListItemImage'
 import ContentListItemIcon from './ContentListItemIcon'
@@ -45,19 +45,14 @@ const ContentListItem : React.FC<ContentListItemProps> = ({
 
     const { getRawColor, mode, theme } = useTheme()
 
-    const { Touchable } = useBgTouchAnimation('transparent', Colors.RGBA2String(Colors.hex2RGBA(getRawColor('ion'), 0.1)))
-
     return (
-        <Touchable onPress={onPress}>
-            <View
-                animated
-                paddingHorizontal='m'
-            >
+        <BgTouchAnimation color={Colors.RGBA2String(Colors.hex2RGBA(getRawColor('ion'), 0.1))} animationType='highlight' onPress={onPress}>
+            <View paddingHorizontal='m'>
                 <View paddingVertical='s' style={[
                     styles.container,
                     {
-                        borderBottomWidth: border ? 0.5 : 0,
-                        borderBottomColor: mode === ThemeMode.dark ? theme.colors.ion_dark : theme.colors.ion
+                        borderBottomWidth: border ? 0.2 : 0,
+                        borderBottomColor: theme.colors.bg2
                     }
                 ]}>
                     { rnk && <Text variant='paragraph-medium' marginRight='m'>{rnk}</Text> }
@@ -67,7 +62,7 @@ const ContentListItem : React.FC<ContentListItemProps> = ({
                     <ContentListItemIcon type={icon} onPress={onPressMenu} />
                 </View>
             </View>
-        </Touchable>
+        </BgTouchAnimation>
     )
 }
 
