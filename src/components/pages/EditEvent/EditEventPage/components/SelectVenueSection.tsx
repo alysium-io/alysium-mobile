@@ -1,7 +1,7 @@
 import React from 'react'
 import { Section, View } from '@atomic'
 import { SectionHeader } from '@molecules'
-import { ContentListItemToggler } from '@organisms'
+import { ContentListItemToggler, CreateNewContentListItemToggle } from '@organisms'
 import { global } from '@etc'
 
 
@@ -12,6 +12,13 @@ const SelectVenueSection = () => {
             <View margin='m'>
                 <SectionHeader text='Select Venue' variant='large' />
             </View>
+            <CreateNewContentListItemToggle
+                title='Create New Venue'
+                subtitle='address, type, etc.'
+                onPress={() => console.log('pressed')}
+                subtitleFirst={true}
+                icon='plus'
+            />
             <ContentListItemToggler
                 defaultId={1}
                 onPress={(id) => console.log(id)}

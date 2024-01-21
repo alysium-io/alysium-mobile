@@ -43,7 +43,7 @@ const ContentListItem : React.FC<ContentListItemProps> = ({
     marker
 }) => {
 
-    const { getRawColor, mode, theme } = useTheme()
+    const { getRawColor, theme } = useTheme()
 
     return (
         <BgTouchAnimation color={Colors.RGBA2String(Colors.hex2RGBA(getRawColor('ion'), 0.1))} animationType='highlight' onPress={onPress}>

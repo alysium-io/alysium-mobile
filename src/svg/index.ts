@@ -45,6 +45,7 @@ import Outdoors from './Outdoors'
 import Club from './Club'
 import Arena from './Arena'
 import At from './At'
+import Plus from './Plus'
 
 export const SvgIcons = {
     'search': Search,
@@ -94,6 +95,7 @@ export const SvgIcons = {
     'club': Club,
     'arena': Arena,
     'at': At,
+    'plus': Plus,
 }
 
 export type IconNames = keyof typeof SvgIcons
