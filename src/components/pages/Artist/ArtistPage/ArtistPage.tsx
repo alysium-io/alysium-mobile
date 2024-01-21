@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react'
-import { global } from '@etc'
+import React from 'react'
 import { useArtistPageContext } from './hooks'
 import { MoreOptionsBottomSheet } from '../shared'
 import { ArtistPageProvider } from './contexts'
@@ -22,17 +21,13 @@ const ArtistPage = () => {
         data
     } = useArtistPageContext()
 
-    useEffect(() => {
-        // loadArtistData()
-    }, [])
-
     return (
         <BasePage>
             {
-                global && (
+                data && (
                     <ParallaxPageOutline
-                        title={global.sampleData.artist.name}
-                        image={global.sampleData.artist.image}
+                        title={data.data.attributes.name}
+                        image={data.data.attributes.image || ''}
                     >
                         <SubHeader />
                         <ActionButtons />

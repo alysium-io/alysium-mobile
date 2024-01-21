@@ -4,7 +4,6 @@ import { useHostPageContext } from './hooks'
 import { MoreOptionsBottomSheet } from '../shared'
 import { HostPageProvider } from './contexts'
 import { ParallaxPageOutline } from '@templates'
-import { global } from '@etc'
 import {
     SubHeader,
     NotificationsOptionsBottomSheet,
@@ -28,7 +27,7 @@ const HostPage = () => {
                 data && (
                     <ParallaxPageOutline
                         title={data.data.attributes.name}
-                        image={data.data.attributes.image || global.sampleData.venueImages[0]}
+                        image={data.data.attributes.image || ''}
                     >
                         <SubHeader />
                         <ActionButtons />

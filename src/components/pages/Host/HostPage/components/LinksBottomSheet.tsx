@@ -21,14 +21,14 @@ const LinksBottomSheet : React.FC<LinksBottomSheetProps> = ({
     return (
         <BottomSheet sheetRef={sheetRef}>
             <BottomSheetHeader text='Links' />
-            {data?.links.map((link, index) => (
+            {/* {data?.links.map((link, index) => (
                 <BottomSheetListItemLink
                     key={index}
                     text={link.title}
                     url={link.url}
                     border={index !== data.links.length - 1}
                 />
-            ))}
+            ))} */}
         </BottomSheet>
     )
 }
