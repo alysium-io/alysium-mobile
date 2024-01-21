@@ -1,6 +1,6 @@
 import React from 'react'
-import { View, Text, Icon } from '@atomic'
-import { useBgTouchAnimation, useTheme } from '@hooks'
+import { View, Text, Icon, BgTouchAnimation } from '@atomic'
+import { useTheme } from '@hooks'
 import { StyleSheet } from 'react-native'
 import { ThemeMode } from '@types'
 
@@ -32,10 +32,12 @@ const BottomSheetListItemLink : React.FC<BottomSheetListItemLinkProps> = ({
         console.log('Going to: ' + url)
     }
 
-    const { Touchable } = useBgTouchAnimation('transparent', getRawColor(colorScheme[mode].backgroundHighlight))
-
     return (
-        <Touchable onPress={onPress}>
+        <BgTouchAnimation
+            onPress={onPress}
+            color={getRawColor(colorScheme[mode].backgroundHighlight)}
+            animationType='highlight'
+        >
             <View
                 style={[
                     styles.container,
@@ -56,7 +58,7 @@ const BottomSheetListItemLink : React.FC<BottomSheetListItemLinkProps> = ({
                     >{ url }</Text>
                 </View>
             </View>
-        </Touchable>
+        </BgTouchAnimation>
     )
 }
 

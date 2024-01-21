@@ -39,7 +39,7 @@ const CreateEventStartBottomSheet : React.FC<CreateEventStartBottomSheetProps> =
                 <Button
                     text='Create'
                     onPress={_createEvent}
-                    color_variant='matt'
+                    colorVariant='positive'
                 />
             </View>
         </BottomSheet>

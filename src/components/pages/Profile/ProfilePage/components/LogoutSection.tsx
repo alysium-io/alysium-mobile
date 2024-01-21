@@ -12,7 +12,7 @@ const LogoutSection = () => {
         <View margin='m'>
             <Button
                 variant='outlined'
-                color_variant='haze'
+                colorVariant='negative'
                 text='Logout'
                 onPress={logout}
             />

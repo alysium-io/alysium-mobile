@@ -10,7 +10,7 @@ import { DeclarativeText, DeclarativeTextItems } from '@molecules'
 
 interface RadioListItemProps {
     checked: boolean
-    color_variant?: 'default' | keyof FeatureColors
+    colorVariant?: 'default' | keyof FeatureColors
     onPress: () => void
     icon?: IconNames
     title: string
@@ -19,7 +19,7 @@ interface RadioListItemProps {
 
 const RadioListItem : React.FC<RadioListItemProps> = ({
     checked,
-    color_variant = 'default',
+    colorVariant = 'default',
     onPress,
     icon,
     title,
@@ -42,7 +42,7 @@ const RadioListItem : React.FC<RadioListItemProps> = ({
                 ) }
             </View>
             <Radio
-                color_variant={color_variant}
+                colorVariant={colorVariant}
                 checked={checked}
                 onPress={onPress}
             />

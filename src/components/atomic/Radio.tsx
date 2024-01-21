@@ -9,13 +9,13 @@ import { interpolateColor, useAnimatedStyle } from 'react-native-reanimated'
 interface RadioProps {
     checked: boolean
     onPress: () => void
-    color_variant?: 'default' | keyof FeatureColors
+    colorVariant?: 'default' | keyof FeatureColors
 }
 
 const Radio : React.FC<RadioProps> = ({
     checked,
     onPress,
-    color_variant = 'default'
+    colorVariant = 'default'
 }) => {
 
     const { mode, getRawColor, theme } = useTheme()
@@ -26,11 +26,11 @@ const Radio : React.FC<RadioProps> = ({
 
     const colorScheme = useMemo(() => {
         if (mode === ThemeMode.dark) {
-            return { color: color_variant === 'default' ? 'white' : color_variant }
+            return { color: colorVariant === 'default' ? 'white' : colorVariant }
         } else {
-            return { color: color_variant === 'default' ? 'black' : color_variant }
+            return { color: colorVariant === 'default' ? 'black' : colorVariant }
         }
-    }, [mode, color_variant])
+    }, [mode, colorVariant])
 
     const animatedStyle = useAnimatedStyle(() => {
         return { opacity: animatedOpacityState.value }

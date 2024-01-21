@@ -1,6 +1,6 @@
-const DEFAULT_LIGHT = '#FBFBFB'
-const DEFAULT = '#bbbbbb'
-const DEFAULT_DARK = '#3E3E3E'
+const DEFAULT_LIGHT = '#cccccc'
+const DEFAULT = '#121212'
+const DEFAULT_DARK = '#000000'
 
 const HAZE_LIGHT = '#FBEAFF'
 const HAZE = '#A47B9B'

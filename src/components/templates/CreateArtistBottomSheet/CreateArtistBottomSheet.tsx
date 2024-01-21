@@ -27,16 +27,17 @@ const CreateArtistBottomSheet : React.FC<CreateArtistBottomSheetProps> = ({
         return (
             <BottomSheetFooter {...props}>
                 <View marginHorizontal='l'>
-                    <Button
-                        text='Dismiss'
-                        onPress={sheetApi.close}
-                        variant='outlined'
-                        containerProps={{ marginBottom: 's' }}
-                    />
+                    <View marginBottom='s'>
+                        <Button
+                            text='Dismiss'
+                            onPress={sheetApi.close}
+                            variant='outlined'
+                        />
+                    </View>
                     <Button
                         text='Create Artist'
                         onPress={_submitNewArtist}
-                        color_variant='matt'
+                        colorVariant='positive'
                     />
                 </View>
             </BottomSheetFooter>
