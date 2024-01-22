@@ -9,6 +9,7 @@ export { default as usePersona } from './usePersona'
 
 // Etc
 export { default as useButton } from './useButton'
+export { default as useToggleButton } from './useToggleButton'
 export { default as useScrollView } from './useScrollView'
 export { default as useAnimatedValue } from './useAnimatedValue'
 export { default as useAnimatedState } from './useAnimatedState'
