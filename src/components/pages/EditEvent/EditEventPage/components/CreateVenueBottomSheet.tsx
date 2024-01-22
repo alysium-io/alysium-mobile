@@ -5,27 +5,17 @@ import { BottomSheet, BottomSheetHeader } from '@organisms'
 import { Button, TextInput } from '@molecules'
 
 
-interface CreateEventStartBottomSheetProps {
+interface CreateVenueBottomSheetProps {
     sheetApi: SheetApi
 }
 
-const CreateEventStartBottomSheet : React.FC<CreateEventStartBottomSheetProps> = ({
+const CreateVenueBottomSheet : React.FC<CreateVenueBottomSheetProps> = ({
     sheetApi
 }) => {
 
     const textInputApi = useTextInput()
-    const { createEvent } = useHost()
-    const { editEventPage } = useNavigation()
 
-    const [eventName, setEventName] = useState<string>('')
-
-    const _createEvent = async () => {
-        const data = await createEvent({ name: eventName })
-        if (data !== null) {
-            sheetApi.close()
-            editEventPage(data.id)
-        }
-    }
+    const [venueName, setVenueName] = useState<string>('')
 
     const onChange = (index: number) => {
         if (index === 0) {
@@ -35,12 +25,12 @@ const CreateEventStartBottomSheet : React.FC<CreateEventStartBottomSheetProps> =
 
     return (
         <BottomSheet sheetRef={sheetApi.sheetRef} borderRadius={false} borderColor='ion_dark' onChange={onChange}>
-            <BottomSheetHeader text='Create Event' />
+            <BottomSheetHeader text='Create Venue' />
             <View margin='m' marginTop='l'>
                 <TextInput
                     textInputApi={textInputApi}
-                    placeholder='Event Name'
-                    onChangeText={(text) => setEventName(text)}
+                    placeholder='Venue Name'
+                    onChangeText={(text) => setVenueName(text)}
                 />
             </View>
             <View margin='m' flexDirection='row'>
@@ -55,7 +45,7 @@ const CreateEventStartBottomSheet : React.FC<CreateEventStartBottomSheetProps> =
                 <View flex={1} marginLeft='s'>
                     <Button
                         text='Create'
-                        onPress={_createEvent}
+                        onPress={() => console.log('created venue')}
                         colorVariant='positive'
                     />
                 </View>
@@ -65,4 +55,4 @@ const CreateEventStartBottomSheet : React.FC<CreateEventStartBottomSheetProps> =
     )
 }
 
-export default CreateEventStartBottomSheet
+export default CreateVenueBottomSheet

@@ -12,13 +12,14 @@ import {
     FeaturesSection,
     VenueTypeSection,
     SummarySection,
-    EditEventPageFooter
+    EditEventPageFooter,
+    CreateVenueBottomSheet
 } from './components'
 
 
 const EditEventPage = () => {
 
-    const { data, loadForm } = useEditEventPageContext()
+    const { data, loadForm, createVenueSheetApi } = useEditEventPageContext()
 
     useEffect(() => {
         loadForm()
@@ -41,6 +42,7 @@ const EditEventPage = () => {
                     <VenueTypeSection />
                     <Separator />
                     <SummarySection />
+                    <CreateVenueBottomSheet sheetApi={createVenueSheetApi} />
                 </ScrollView>
             </HeaderSafeArea>
         </BasePage>

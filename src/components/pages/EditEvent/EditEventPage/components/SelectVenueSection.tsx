@@ -3,9 +3,12 @@ import { Section, View } from '@atomic'
 import { SectionHeader } from '@molecules'
 import { ContentListItemToggler, CreateNewContentListItemToggle } from '@organisms'
 import { global } from '@etc'
+import { useEditEventPageContext } from '../hooks'
 
 
 const SelectVenueSection = () => {
+
+    const { createVenueSheetApi } = useEditEventPageContext()
 
     return (
         <Section marginVertical='m'>
@@ -15,7 +18,7 @@ const SelectVenueSection = () => {
             <CreateNewContentListItemToggle
                 title='Create New Venue'
                 subtitle='address, type, etc.'
-                onPress={() => console.log('pressed')}
+                onPress={() => createVenueSheetApi.open()}
                 subtitleFirst={true}
                 icon='plus'
             />

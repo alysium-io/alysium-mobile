@@ -3,7 +3,7 @@ import { EditEventPageRouteProp, EventAttributes, EventDetailsResponse, Provider
 import { SubmitErrorHandler, SubmitHandler, useForm, UseFormReturn } from 'react-hook-form'
 import { useRoute } from '@react-navigation/native'
 import hostApiSlice from 'src/redux/api/hostApiSlice'
-import { useHost, useNavigation } from '@hooks'
+import { SheetApi, useHost, useNavigation, useSheet } from '@hooks'
 import { Alert } from 'react-native'
 
 
@@ -27,6 +27,7 @@ export type EditEventPageContextType = {
     onSubmit: (e?: React.BaseSyntheticEvent<object, any, any>) => Promise<void>
     loadForm: () => void
     confirmDelete: () => void
+    createVenueSheetApi: SheetApi
 }
 
 export const EditEventPageContext = createContext({} as EditEventPageContextType)
@@ -37,6 +38,8 @@ export const EditEventPageProvider : React.FC<ProviderProps> = ({ children }) =>
     const { deleteEvent, editEvent } = useHost()
 
     const route = useRoute<EditEventPageRouteProp>()
+
+    const createVenueSheetApi = useSheet()
 
     const { data, error, isLoading } = useGetEventDetailsQuery({ eventId: route.params.itemId })
 
@@ -51,9 +54,7 @@ export const EditEventPageProvider : React.FC<ProviderProps> = ({ children }) =>
     }
 
     const loadForm = () => {
-        if (data) {
-            formMethods.reset(data.data.attributes)
-        }
+        if (data) formMethods.reset(data.data.attributes)
     }
 
     const onSubmit = formMethods.handleSubmit(onValid, onInvalid)
@@ -91,7 +92,8 @@ export const EditEventPageProvider : React.FC<ProviderProps> = ({ children }) =>
                 formMethods,
                 onSubmit,
                 loadForm,
-                confirmDelete
+                confirmDelete,
+                createVenueSheetApi
             }}
         >
             {children}
