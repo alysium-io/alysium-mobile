@@ -1,21 +1,38 @@
 import React, { useState } from 'react'
 import { KeyboardViewFill, View } from '@atomic'
-import { SheetApi, useHost, useNavigation, useTextInput } from '@hooks'
+import { SheetApi, useButton, useTextInput } from '@hooks'
 import { BottomSheet, BottomSheetHeader } from '@organisms'
 import { Button, TextInput } from '@molecules'
 
 
-interface CreateVenueBottomSheetProps {
+interface CreateVenueStartBottomSheetProps {
     sheetApi: SheetApi
 }
 
-const CreateVenueBottomSheet : React.FC<CreateVenueBottomSheetProps> = ({
+const CreateVenueStartBottomSheet : React.FC<CreateVenueStartBottomSheetProps> = ({
     sheetApi
 }) => {
 
     const textInputApi = useTextInput()
+    const {
+        buttonState: createVenueButtonState,
+        setButtonState
+    } = useButton('disabled')
 
     const [venueName, setVenueName] = useState<string>('')
+
+    const _setVenueName = (text: string) => {
+        setVenueName(text)
+        if (text.length > 0) {
+            setButtonState('default')
+        } else {
+            setButtonState('disabled')
+        }
+    }
+
+    const _createVenue = async () => {
+        console.log('Create Venue')
+    }
 
     const onChange = (index: number) => {
         if (index === 0) {
@@ -23,14 +40,19 @@ const CreateVenueBottomSheet : React.FC<CreateVenueBottomSheetProps> = ({
         }
     }
 
+    const onDismiss = () => {
+        setButtonState('disabled')
+        setVenueName('')
+    }
+
     return (
-        <BottomSheet sheetRef={sheetApi.sheetRef} borderRadius={false} borderColor='ion_dark' onChange={onChange}>
+        <BottomSheet sheetRef={sheetApi.sheetRef} borderRadius={false} borderColor='ion_dark' onChange={onChange} onDismiss={onDismiss}>
             <BottomSheetHeader text='Create Venue' />
             <View margin='m' marginTop='l'>
                 <TextInput
                     textInputApi={textInputApi}
                     placeholder='Venue Name'
-                    onChangeText={(text) => setVenueName(text)}
+                    onChangeText={_setVenueName}
                 />
             </View>
             <View margin='m' flexDirection='row'>
@@ -45,8 +67,10 @@ const CreateVenueBottomSheet : React.FC<CreateVenueBottomSheetProps> = ({
                 <View flex={1} marginLeft='s'>
                     <Button
                         text='Create'
-                        onPress={() => console.log('created venue')}
-                        colorVariant='positive'
+                        onPress={_createVenue}
+                        colorVariant='default'
+                        buttonState={createVenueButtonState}
+                        disabled={venueName.length === 0}
                     />
                 </View>
             </View>
@@ -55,4 +79,4 @@ const CreateVenueBottomSheet : React.FC<CreateVenueBottomSheetProps> = ({
     )
 }
 
-export default CreateVenueBottomSheet
+export default CreateVenueStartBottomSheet
