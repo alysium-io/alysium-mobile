@@ -1,5 +1,5 @@
 import React, { createContext } from 'react'
-import { EditEventPageRouteProp, EventAttributes, EventDetailsResponse, ProviderProps } from '@types'
+import { EditEventPageRouteProp, EventAttributes, EventDetailsResponse, GetMyVenuesResponse, ProviderProps } from '@types'
 import { SubmitErrorHandler, SubmitHandler, useForm, UseFormReturn } from 'react-hook-form'
 import { useRoute } from '@react-navigation/native'
 import hostApiSlice from 'src/redux/api/hostApiSlice'
@@ -16,18 +16,23 @@ const initialValues : EventAttributes = {
 }
 
 const {
-    useGetEventDetailsQuery
+    useGetEventDetailsQuery,
+    useGetVenuesQuery
 } = hostApiSlice
 
 export type EditEventPageContextType = {
-    data: EventDetailsResponse | undefined
-    isLoading: boolean
-    error: any
+    eventData: EventDetailsResponse | undefined
+    eventError: any
+    eventIsLoading: boolean
+    venuesData: GetMyVenuesResponse | undefined
+    venuesError: any
+    venuesIsLoading: boolean
     formMethods: UseFormReturn<EventAttributes>
     onSubmit: (e?: React.BaseSyntheticEvent<object, any, any>) => Promise<void>
     loadForm: () => void
     confirmDelete: () => void
     createVenueSheetApi: SheetApi
+    createVenue: (name: string) => void
 }
 
 export const EditEventPageContext = createContext({} as EditEventPageContextType)
@@ -35,13 +40,23 @@ export const EditEventPageContext = createContext({} as EditEventPageContextType
 export const EditEventPageProvider : React.FC<ProviderProps> = ({ children }) => {
 
     const { back } = useNavigation()
-    const { deleteEvent, editEvent } = useHost()
+    const { deleteEvent, editEvent, host, createVenue } = useHost()
 
     const route = useRoute<EditEventPageRouteProp>()
 
     const createVenueSheetApi = useSheet()
 
-    const { data, error, isLoading } = useGetEventDetailsQuery({ eventId: route.params.itemId })
+    const {
+        data: eventData,
+        error: eventError,
+        isLoading: eventIsLoading
+    } = useGetEventDetailsQuery({ eventId: route.params.itemId })
+
+    const {
+        data: venuesData,
+        error: venuesError,
+        isLoading: venuesIsLoading
+    } = useGetVenuesQuery({ hostId: host.host?.id }, { skip: host.host === undefined })
 
     const formMethods = useForm<EventAttributes>({ defaultValues: initialValues })
 
@@ -54,7 +69,7 @@ export const EditEventPageProvider : React.FC<ProviderProps> = ({ children }) =>
     }
 
     const loadForm = () => {
-        if (data) formMethods.reset(data.data.attributes)
+        if (eventData) formMethods.reset(eventData.data.attributes)
     }
 
     const onSubmit = formMethods.handleSubmit(onValid, onInvalid)
@@ -86,14 +101,18 @@ export const EditEventPageProvider : React.FC<ProviderProps> = ({ children }) =>
     return (
         <EditEventPageContext.Provider
             value={{
-                data,
-                isLoading,
-                error,
+                eventData,
+                eventError,
+                eventIsLoading,
+                venuesData,
+                venuesError,
+                venuesIsLoading,
                 formMethods,
                 onSubmit,
                 loadForm,
                 confirmDelete,
-                createVenueSheetApi
+                createVenueSheetApi,
+                createVenue
             }}
         >
             {children}

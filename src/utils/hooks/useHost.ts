@@ -9,7 +9,9 @@ const {
     useLazyGetEventsQuery,
     useEditEventMutation,
     useLazyCreateEventQuery,
-    useDeleteEventMutation
+    useDeleteEventMutation,
+    useLazyGetVenuesQuery,
+    useCreateVenueMutation
 } = hostApiSlice
 
 export interface IUseHost {
@@ -20,6 +22,8 @@ export interface IUseHost {
     createEvent: (attributes: Partial<EventAttributes>) => Promise<Event | null>
     editEvent: (eventId: number, attributes: EventAttributes) => Promise<void>
     deleteEvent: (eventId: number) => Promise<void>
+    getVenues: (hostId: number) => Promise<void>
+    createVenue: (name: string) => Promise<void>
 }
 
 const useHost = () : IUseHost => {
@@ -30,8 +34,10 @@ const useHost = () : IUseHost => {
     const [ flux_getHostDetails ] = useLazyGetHostDetailsQuery()
     const [ flux_getEvents ] = useLazyGetEventsQuery()
     const [ flux_createEvent ] = useLazyCreateEventQuery()
-    const [ flux_editEvent, { isSuccess: isEditEventSuccess } ] = useEditEventMutation()
-    const [ flux_deleteEvent, { isSuccess: isDeleteEventSuccess } ] = useDeleteEventMutation()
+    const [ flux_editEvent ] = useEditEventMutation()
+    const [ flux_deleteEvent ] = useDeleteEventMutation()
+    const [ flux_getVenues ] = useLazyGetVenuesQuery()
+    const [ flux_createVenue ] = useCreateVenueMutation()
 
     const getHostDetails = async (hostId: number) => {
         try {
@@ -101,6 +107,33 @@ const useHost = () : IUseHost => {
             throw err
         }
     }
+
+    const getVenues = async (hostId: number) => {
+        try {
+            const { data, error } = await flux_getVenues({ hostId })
+
+            if (error) {
+                console.log(error)
+            }
+
+            if (data) {
+                dispatch(hostActions.setAllVenues(data.data))
+            }
+        } catch (err) {
+            throw err
+        }
+    }
+
+    const createVenue = async (name: string) => {
+        try {
+            if (host.host !== null) {
+                const { data } = await flux_createVenue({ hostId: host.host.id, name }).unwrap()
+                dispatch(hostActions.addVenue(data))
+            }
+        } catch (err) {
+            throw err
+        }
+    }
     
     return {
         getHostDetails,
@@ -109,7 +142,9 @@ const useHost = () : IUseHost => {
         getEvents,
         createEvent,
         editEvent,
-        deleteEvent
+        deleteEvent,
+        getVenues,
+        createVenue
     }
 }
 

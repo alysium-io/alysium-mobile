@@ -3,6 +3,7 @@ import { KeyboardViewFill, View } from '@atomic'
 import { SheetApi, useButton, useTextInput } from '@hooks'
 import { BottomSheet, BottomSheetHeader } from '@organisms'
 import { Button, TextInput } from '@molecules'
+import { useEditEventPageContext } from '../hooks'
 
 
 interface CreateVenueStartBottomSheetProps {
@@ -12,6 +13,8 @@ interface CreateVenueStartBottomSheetProps {
 const CreateVenueStartBottomSheet : React.FC<CreateVenueStartBottomSheetProps> = ({
     sheetApi
 }) => {
+
+    const { createVenue, createVenueSheetApi } = useEditEventPageContext()
 
     const textInputApi = useTextInput()
     const {
@@ -31,7 +34,8 @@ const CreateVenueStartBottomSheet : React.FC<CreateVenueStartBottomSheetProps> =
     }
 
     const _createVenue = async () => {
-        console.log('Create Venue')
+        createVenue(venueName)
+        createVenueSheetApi.close()
     }
 
     const onChange = (index: number) => {

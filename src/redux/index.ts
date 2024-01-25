@@ -7,6 +7,7 @@ import { searchReducer } from './search'
 import { themeReducer } from './theme'
 import { personaReducer } from './persona'
 import { eventReducer } from './event'
+import { generalStateReducer } from './client/general'
 import { apiErrorUnauthorizedMiddleware } from './middleware'
 import apiReducers, {
     authApiSlice,
@@ -42,6 +43,7 @@ const store = configureStore({
         theme: themeReducer,
         persona: personaReducer,
         event: eventReducer,
+        general: generalStateReducer,
         ...apiReducers
     },
     middleware: (getDefaultMiddleware) => {

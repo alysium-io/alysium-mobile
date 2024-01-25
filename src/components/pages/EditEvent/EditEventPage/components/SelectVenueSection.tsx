@@ -4,11 +4,13 @@ import { SectionHeader } from '@molecules'
 import { ContentListItemToggler, CreateNewContentListItemToggle } from '@organisms'
 import { global } from '@etc'
 import { useEditEventPageContext } from '../hooks'
+import { useHost } from '@hooks'
 
 
 const SelectVenueSection = () => {
 
-    const { createVenueSheetApi } = useEditEventPageContext()
+    const { createVenueSheetApi, venuesData } = useEditEventPageContext()
+    const { host } = useHost()
 
     return (
         <Section marginVertical='m'>
@@ -26,26 +28,12 @@ const SelectVenueSection = () => {
                 defaultId={1}
                 onPress={(id) => console.log(id)}
                 subtitleFirst={true}
-                items={[
-                    {
-                        id: 1,
-                        image: global.sampleData.venueImages[0],
-                        title: 'EDX Nightclub',
-                        subtitle: '114 N. Park Rd.'
-                    },
-                    {
-                        id: 2,
-                        image: global.sampleData.venueImages[1],
-                        title: 'Terry\'s Tavern',
-                        subtitle: '10080 W. 8 Mile Rd.'
-                    },
-                    {
-                        id: 3,
-                        image: global.sampleData.venueImages[2],
-                        title: 'Backyard Bangers',
-                        subtitle: '1234 W. 8 Mile Rd.'
-                    }
-                ]}
+                items={venuesData?.data.map(venue => ({
+                    id: venue.id,
+                    image: global.sampleData.venueImages[0],
+                    title: venue.attributes.name,
+                    subtitle: venue.attributes.address || 'Unknown Address'
+                })) ?? []}
             />
         </Section>
     )

@@ -19,11 +19,11 @@ import {
 
 const EditEventPage = () => {
 
-    const { data, loadForm, createVenueSheetApi } = useEditEventPageContext()
+    const { eventData, loadForm, createVenueSheetApi } = useEditEventPageContext()
 
     useEffect(() => {
         loadForm()
-    }, [data])
+    }, [eventData])
 
     return (
         <BasePage FooterComponent={EditEventPageFooter}>

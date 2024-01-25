@@ -1,5 +1,5 @@
 import { ApiIdentifier, ApiResponseBase, Pagination } from './base'
-import { Host, Artist, Tag, Event, EventAttributes } from './models'
+import { Host, Artist, Tag, Event, EventAttributes, Venue, VenueAttributes } from './models'
 
 
 /**
@@ -164,3 +164,15 @@ export type EventDetailsBody = { eventId: ApiIdentifier }
 
 export type DeleteEventResponse = ApiResponseBase<Event>
 export type DeleteEventBody = { eventId: ApiIdentifier }
+
+/**
+ * Venues
+ */
+export type GetMyVenuesResponse = ApiResponseBase<Venue[]>
+export type GetMyVenuesBody = { hostId?: ApiIdentifier }
+
+export type CreateVenueResponse = ApiResponseBase<Venue>
+export type CreateVenueBody = {
+    hostId: ApiIdentifier
+    name: string
+}
