@@ -9,9 +9,7 @@ const {
     useLazyGetEventsQuery,
     useEditEventMutation,
     useLazyCreateEventQuery,
-    useDeleteEventMutation,
-    useLazyGetVenuesQuery,
-    useCreateVenueMutation
+    useDeleteEventMutation
 } = hostApiSlice
 
 export interface IUseHost {
@@ -22,8 +20,6 @@ export interface IUseHost {
     createEvent: (attributes: Partial<EventAttributes>) => Promise<Event | null>
     editEvent: (eventId: number, attributes: EventAttributes) => Promise<void>
     deleteEvent: (eventId: number) => Promise<void>
-    getVenues: (hostId: number) => Promise<void>
-    createVenue: (name: string) => Promise<void>
 }
 
 const useHost = () : IUseHost => {
@@ -36,8 +32,6 @@ const useHost = () : IUseHost => {
     const [ flux_createEvent ] = useLazyCreateEventQuery()
     const [ flux_editEvent ] = useEditEventMutation()
     const [ flux_deleteEvent ] = useDeleteEventMutation()
-    const [ flux_getVenues ] = useLazyGetVenuesQuery()
-    const [ flux_createVenue ] = useCreateVenueMutation()
 
     const getHostDetails = async (hostId: number) => {
         try {
@@ -74,28 +68,41 @@ const useHost = () : IUseHost => {
     }
 
     const createEvent = async (attributes: Partial<EventAttributes>) : Promise<Event | null> => {
-        try {
-            const { data, error } = await flux_createEvent({ attributes })
-
-            if (error) console.log(error)
-            if (!data) return null
-
-            if (data) {
-                dispatch(hostActions.addEvent(data.data))
+        if (host.host !== null) {
+            try {
+                const { data, error } = await flux_createEvent({
+                    hostId: host.host.id,
+                    attributes
+                })
+    
+                if (error) console.log(error)
+                if (data) {
+                    dispatch(hostActions.addEvent(data.data))
+                }
+    
+                if (!data) return null
+                
+                // For follow-up functionality like redirecting to the event page
+                return data.data
+            } catch (err) {
+                throw err
             }
-            
-            return data.data
-        } catch (err) {
-            throw err
         }
+        return null
     }
 
     const editEvent = async (eventId: ApiIdentifier, attributes: Partial<EventAttributes>) => {
-        try {
-            const { data } = await flux_editEvent({ eventId, attributes }).unwrap()
-            dispatch(hostActions.editEvent(data))
-        } catch (err) {
-            throw err
+        if (host.host !== null) {
+            try {
+                const { data } = await flux_editEvent({
+                    hostId: host.host.id,
+                    eventId,
+                    attributes
+                }).unwrap()
+                dispatch(hostActions.editEvent(data))
+            } catch (err) {
+                throw err
+            }
         }
     }
 
@@ -103,33 +110,6 @@ const useHost = () : IUseHost => {
         try {
             await flux_deleteEvent({ eventId })
             dispatch(hostActions.deleteEvent(eventId))
-        } catch (err) {
-            throw err
-        }
-    }
-
-    const getVenues = async (hostId: number) => {
-        try {
-            const { data, error } = await flux_getVenues({ hostId })
-
-            if (error) {
-                console.log(error)
-            }
-
-            if (data) {
-                dispatch(hostActions.setAllVenues(data.data))
-            }
-        } catch (err) {
-            throw err
-        }
-    }
-
-    const createVenue = async (name: string) => {
-        try {
-            if (host.host !== null) {
-                const { data } = await flux_createVenue({ hostId: host.host.id, name }).unwrap()
-                dispatch(hostActions.addVenue(data))
-            }
         } catch (err) {
             throw err
         }
@@ -142,9 +122,7 @@ const useHost = () : IUseHost => {
         getEvents,
         createEvent,
         editEvent,
-        deleteEvent,
-        getVenues,
-        createVenue
+        deleteEvent
     }
 }
 

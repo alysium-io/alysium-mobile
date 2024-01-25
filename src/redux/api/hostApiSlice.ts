@@ -64,11 +64,14 @@ const hostApiSlice = createApi({
                     : ['Event']
         }),
         createEvent: builder.query<CreateEventResponse, CreateEventBody>({
-            query: ({ attributes }) => ({
+            query: ({ hostId, attributes }) => ({
                 url: '/events',
                 method: 'POST',
                 body: {
-                    data: attributes
+                    data: {
+                        host: hostId,
+                        ...attributes
+                    }
                 }
             }),
             onQueryStarted: async ({ attributes }, { queryFulfilled, dispatch }) => {
@@ -86,11 +89,14 @@ const hostApiSlice = createApi({
             }
         }),
         editEvent: builder.mutation<EditEventResponse, EditEventBody>({
-            query: ({ eventId, attributes }) => ({
+            query: ({ hostId, eventId, attributes }) => ({
                 url: `/events/${eventId}`,
                 method: 'PUT',
                 body: {
-                    data: attributes
+                    data: {
+                        host: hostId,
+                        ...attributes
+                    }
                 }
             }),
             invalidatesTags: (_result, _error, { eventId }) => [

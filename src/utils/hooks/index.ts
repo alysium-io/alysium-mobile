@@ -6,6 +6,7 @@ export { default as useArtist } from './useArtist'
 export { default as useSearch } from './useSearch'
 export { default as useTheme } from './useTheme'
 export { default as usePersona } from './usePersona'
+export { default as useVenues } from './useVenues'
 
 // Etc
 export { default as useButton } from './useButton'

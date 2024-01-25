@@ -32,7 +32,6 @@ export type EditEventPageContextType = {
     loadForm: () => void
     confirmDelete: () => void
     createVenueSheetApi: SheetApi
-    createVenue: (name: string) => void
 }
 
 export const EditEventPageContext = createContext({} as EditEventPageContextType)
@@ -40,7 +39,7 @@ export const EditEventPageContext = createContext({} as EditEventPageContextType
 export const EditEventPageProvider : React.FC<ProviderProps> = ({ children }) => {
 
     const { back } = useNavigation()
-    const { deleteEvent, editEvent, host, createVenue } = useHost()
+    const { deleteEvent, editEvent, host } = useHost()
 
     const route = useRoute<EditEventPageRouteProp>()
 
@@ -111,8 +110,7 @@ export const EditEventPageProvider : React.FC<ProviderProps> = ({ children }) =>
                 onSubmit,
                 loadForm,
                 confirmDelete,
-                createVenueSheetApi,
-                createVenue
+                createVenueSheetApi
             }}
         >
             {children}

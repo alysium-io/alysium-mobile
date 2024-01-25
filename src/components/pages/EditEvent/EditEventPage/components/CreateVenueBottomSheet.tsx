@@ -4,6 +4,7 @@ import { SheetApi, useButton, useTextInput } from '@hooks'
 import { BottomSheet, BottomSheetHeader } from '@organisms'
 import { Button, TextInput } from '@molecules'
 import { useEditEventPageContext } from '../hooks'
+import { useVenues } from '@hooks'
 
 
 interface CreateVenueStartBottomSheetProps {
@@ -14,7 +15,8 @@ const CreateVenueStartBottomSheet : React.FC<CreateVenueStartBottomSheetProps> =
     sheetApi
 }) => {
 
-    const { createVenue, createVenueSheetApi } = useEditEventPageContext()
+    const { createVenueSheetApi } = useEditEventPageContext()
+    const { createVenue } = useVenues()
 
     const textInputApi = useTextInput()
     const {

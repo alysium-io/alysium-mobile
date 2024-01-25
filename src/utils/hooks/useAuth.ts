@@ -8,8 +8,6 @@ import { hostActions } from 'src/redux/host'
 import { artistActions } from 'src/redux/artist'
 import { personaActions } from 'src/redux/persona'
 
-import { generalStateActions } from 'src/redux/client/general'
-
 
 const {
     useLazyCreateAccountWithIdentifierAndPasswordQuery,
@@ -23,7 +21,6 @@ interface IUseAuth {
     logout: () => Promise<void>
     createAccount: (username: string, email: string, password: string) => Promise<void>
     auth: AuthState
-    isLoggedIn: boolean
 }
 
 const useAuth = () : IUseAuth => {
@@ -35,15 +32,6 @@ const useAuth = () : IUseAuth => {
     const auth : AuthState = useSelector(state => state.auth)
     const dispatch = useDispatch()
 
-    const isLoggedIn : boolean = (auth.token && auth.token.length > 0) ? true : false
-
-    const load = async () => {
-        if (!isLoggedIn) {
-            logout()
-            return
-        }
-    }
-
     const login = async (identifier: string, password: string) => {
         try {
             const { data, error } = await flux_loginWithIdentifierAndPassword({ identifier, password })
@@ -53,7 +41,6 @@ const useAuth = () : IUseAuth => {
             }
             if (data) {
                 dispatch(authActions.login(data))
-                dispatch(generalStateActions.setToken(data.jwt))
             }
             
         } catch (err) {
@@ -63,7 +50,7 @@ const useAuth = () : IUseAuth => {
     }
 
     const getAuthUser = async () => {
-        if (isLoggedIn) {
+        if (auth.token && auth.token.length > 0) {
             const { data, error } = await flux_getAuthUser()
 
             if (error) logout()
@@ -108,8 +95,7 @@ const useAuth = () : IUseAuth => {
         getAuthUser,
         logout,
         createAccount,
-        auth,
-        isLoggedIn
+        auth
     }
 }
 
