@@ -2,14 +2,14 @@ import React, { useRef } from 'react'
 import { TextInput as RNTextInput } from 'react-native'
 
 
-interface useTextInputProps {
+export interface TextInputApi {
     ref: React.RefObject<RNTextInput>
     focus: () => void
     blur: () => void
     clear: () => void
 }
 
-const useTextInput = () : useTextInputProps => {
+const useTextInput = () : TextInputApi => {
 
     const ref = useRef<RNTextInput>(null)
 
@@ -24,7 +24,6 @@ const useTextInput = () : useTextInputProps => {
         blur,
         clear
     }
-
 }
 
 export default useTextInput

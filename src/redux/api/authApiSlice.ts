@@ -12,7 +12,7 @@ import {
 const authApiSlice = createApi({
     baseQuery: fetchBaseQuery(defaultApiConfig),
     reducerPath: 'authApi',
-    tagTypes: ['Auth'],
+    tagTypes: ['Auth', 'Host', 'Artist'],
     endpoints: (builder) => ({
         loginWithIdentifierAndPassword: builder.query<LoginUserWithIdentifierAndPasswordResponse, LoginWithIdentifierAndPasswordRequestBody>({
             query: ({ identifier, password }) => ({
@@ -39,7 +39,8 @@ const authApiSlice = createApi({
             query: () => ({
                 url: '/users/me',
                 method: 'GET'
-            })
+            }),
+            providesTags: (_result, _error) => ['Auth', 'Host', 'Artist']
         })
     })
 })

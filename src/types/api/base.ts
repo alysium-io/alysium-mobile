@@ -20,7 +20,7 @@ export type Model<T> = ApiDataObject<T>
 export type ApiRelation<T> = { data: T }
 
 export type Pagination = {
-    pagination: {
+    pagination?: {
         page: number
         pageSize: number
         pageCount: number

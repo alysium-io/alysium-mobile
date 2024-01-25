@@ -2,8 +2,8 @@ import { useState } from 'react'
 import { ButtonState } from '@molecules'
 
 
-const useButton = () => {
-    const [buttonState, setButtonState] = useState<ButtonState>('default')
+const useButton = (defaultButtonState: ButtonState = 'default') => {
+    const [buttonState, setButtonState] = useState<ButtonState>(defaultButtonState)
 
     const _setButtonState = (state: ButtonState) => {
         if (state !== buttonState) {

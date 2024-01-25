@@ -8,7 +8,9 @@ import {
     EditEventPage,
     EventManagerPageHeader,
     EditEventPageHeader,
-    EventPageHeader
+    EventPageHeader,
+    EditVenuePage,
+    EditVenuePageHeader
 } from '@pages'
 
 
@@ -36,6 +38,12 @@ const EventManagerTab = () => {
                 name='EventPage'
                 component={EventPage}
                 options={{ header: EventPageHeader }}
+            />
+
+            <EventManagerStack.Screen
+                name='EditVenuePage'
+                component={EditVenuePage}
+                options={{ header: EditVenuePageHeader }}
             />
 
         </EventManagerStack.Navigator>

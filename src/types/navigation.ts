@@ -1,6 +1,7 @@
 import { CompositeNavigationProp, ParamListBase, RouteProp } from '@react-navigation/native'
 import { type NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { type BottomTabNavigationProp } from '@react-navigation/bottom-tabs'
+import { ApiIdentifier } from './api'
 
 
 /**
@@ -9,28 +10,30 @@ import { type BottomTabNavigationProp } from '@react-navigation/bottom-tabs'
 type SearchPage = undefined
 type ComponentsPage = undefined
 
-type HostPage = { itemId: number }
-type HostFollowersAndShowsPage = { itemId: number, defaultTabIndex: number }
+type HostPage = { itemId: ApiIdentifier }
+type HostFollowersAndShowsPage = { itemId: ApiIdentifier, defaultTabIndex: number }
 
-type ArtistPage = { itemId: number }
-type ArtistFollowersAndShowsPage = { itemId: number, defaultTabIndex: number }
+type ArtistPage = { itemId: ApiIdentifier }
+type ArtistFollowersAndShowsPage = { itemId: ApiIdentifier, defaultTabIndex: number }
 
-type TagPage = { itemId: number }
-type TagFollowersPage = { itemId: number }
+type TagPage = { itemId: ApiIdentifier }
+type TagFollowersPage = { itemId: ApiIdentifier }
 
 type ProfilePage = undefined
 
 type EventManagerPage = undefined
-type EditEventPage = { itemId: number }
+type EditEventPage = { itemId: ApiIdentifier }
 
-type EventPage = { itemId: number }
+type EditVenuePage = { itemId: ApiIdentifier }
+
+type EventPage = { itemId: ApiIdentifier }
 
 type ExperimentPageOne = undefined
 type ExperimentPageTwo = undefined
 
 type PagesPage = undefined
 
-type EditContractPage = { itemId: number }
+type EditContractPage = { itemId: ApiIdentifier }
 
 type ContractManagerPage = undefined
 
@@ -94,6 +97,7 @@ export type EventManagerStackNavigatorParamList = {
     EventManagerPage: EventManagerPage
     EditEventPage: EditEventPage
     EventPage: EventPage
+    EditVenuePage: EditVenuePage
 
 }
 
@@ -101,6 +105,7 @@ export type ContractManagerStackNavigatorParamList = {
 
     ContractManagerPage: ContractManagerPage
     EditContractPage: EditContractPage
+    EditVenuePage: EditVenuePage
 
 }
 

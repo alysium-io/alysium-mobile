@@ -3,19 +3,26 @@ import {
     HostState,
     Host,
     Event,
-    ApiIdentifier
+    ApiIdentifier,
+    Venue
 } from '@types'
 
 
 const initialState : HostState = {
     host: null,
     events: null,
+    venues: null
 }
 
 const hostSlice = createSlice({
     name: 'host',
     initialState,
     reducers: {
+        resetAll: (state) => {
+            state.host = initialState.host
+            state.events = initialState.events
+            state.venues = initialState.venues
+        },
         setHost: (state, action: PayloadAction<Host>) => {
             state.host = action.payload
         },
@@ -46,6 +53,17 @@ const hostSlice = createSlice({
             if (state.events !== null) {
                 const eventIndex = state.events.findIndex(event => event.id === action.payload)
                 state.events.splice(eventIndex, 1)
+            }
+        },
+        setAllVenues: (state, action: PayloadAction<Venue[]>) => {
+            state.venues = action.payload
+        },
+        addVenue: (state, action: PayloadAction<Venue>) => {
+            if (state.venues === null) {
+                state.venues = []
+                state.venues.push(action.payload)
+            } else {
+                state.venues.push(action.payload)
             }
         }
     }

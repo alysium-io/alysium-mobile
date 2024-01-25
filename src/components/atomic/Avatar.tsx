@@ -1,8 +1,9 @@
 import React from 'react'
-import { Image, View, Icon } from '@atomic'
+import { Image, View } from '@atomic'
 import { StyleSheet } from 'react-native'
 import { ContentType, Persona } from '@types'
 import { IconNames } from '@svg'
+import DefaultIconImage from './DefaultIconImage'
 
 
 const borderRadiiScheme = {
@@ -53,17 +54,7 @@ const Avatar : React.FC<AvatarProps> = ({
         }
     ]
 
-    if (!image) {
-        return (
-            <View style={containerStyles} backgroundColor='bg2'>
-                <Icon
-                    name={defaultAvatarImageIconScheme[contentType]}
-                    color='t2'
-                    size='regular'
-                />
-            </View>
-        )
-    }
+    if (!image) return <DefaultIconImage icon={defaultAvatarImageIconScheme[contentType]} />
 
     return (
         <View style={containerStyles}>

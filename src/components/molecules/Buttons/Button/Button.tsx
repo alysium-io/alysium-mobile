@@ -13,6 +13,7 @@ interface ButtonProps {
     colorVariant: ButtonColorVariants
     icon?: IconNames
     buttonState?: ButtonState
+    disabled?: boolean
 }
 
 const Button : React.FC<Partial<ButtonProps>> = ({
@@ -21,7 +22,8 @@ const Button : React.FC<Partial<ButtonProps>> = ({
     variant = 'filled',
     colorVariant = 'default',
     icon,
-    buttonState = 'default'
+    buttonState = 'default',
+    disabled = false
 }) => {
 
     const {
@@ -33,7 +35,7 @@ const Button : React.FC<Partial<ButtonProps>> = ({
     return (
         <ButtonContainer
             onPress={onPress}
-            isDisabled={buttonState !== 'default'}
+            isDisabled={buttonState !== 'default' || disabled}
             borderColor={borderColor}
             backgroundColor={backgroundColor}
         >

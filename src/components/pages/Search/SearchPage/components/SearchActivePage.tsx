@@ -11,7 +11,6 @@ import RecentSearches from './RecentSearches'
 const SearchActivePage = () => {
 
     const { searchText, searchResults, isLoading, recentSearches } = useSearchPageContext()
-    console.log(searchResults)
 
     const render = () => {
         if (isLoading) {

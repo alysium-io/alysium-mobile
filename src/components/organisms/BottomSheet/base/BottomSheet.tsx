@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import { useTheme, SheetRef } from '@hooks'
+import { useTheme, SheetRef, useKeyboard } from '@hooks'
 import { Easing, SharedValue } from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useBottomSheetMaxHeight } from '../hooks'
@@ -39,6 +39,7 @@ interface BottomSheetProps {
     borderRadius?: boolean
     backgroundColor?: string
     borderColor?: string
+    onChange?: (index: number) => void
 }
 
 const BottomSheet = ({
@@ -53,9 +54,11 @@ const BottomSheet = ({
     enableContentPanningGesture = false,
     borderRadius = true,
     backgroundColor,
-    borderColor
+    borderColor,
+    onChange
 } : BottomSheetProps) => {
 
+    const { isVisible } = useKeyboard()
     const { mode, getRawColor } = useTheme()
     const insets = useSafeAreaInsets()
 
@@ -87,12 +90,13 @@ const BottomSheet = ({
                 borderTopWidth: borderColor ? 1 : 0,
                 borderTopColor: borderColor || getRawColor(colorScheme[mode].border)
             }}
+            onChange={onChange}
         >
             <BottomSheetView
                 style={[
                     {
                         maxHeight: maxHeightStyle,
-                        paddingBottom: insets.bottom
+                        paddingBottom: isVisible ? 0 : insets.bottom
                     }
                 ]}
             >

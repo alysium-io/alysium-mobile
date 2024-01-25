@@ -2,17 +2,12 @@ import React from 'react'
 import { Avatar, View } from '@atomic'
 import { StyleSheet } from 'react-native'
 import { ContentType } from '@types'
+import { imageSizeScheme } from './shared'
 
-
-const sizeScheme = {
-    small: 50,
-    medium: 65,
-    large: 95
-}
 
 interface ContentListItemToggleImageProps {
     image: string | null
-    size: keyof typeof sizeScheme
+    size: keyof typeof imageSizeScheme
     contentType: ContentType
     borderRadius?: 'round' | 'sharp' | 'smooth' | number
 }
@@ -27,7 +22,7 @@ const ContentListItemToggleImage : React.FC<ContentListItemToggleImageProps> = (
     return (
         <View style={[
             styles.container,
-            { height: sizeScheme[size] }
+            { height: imageSizeScheme[size] }
         ]}>
             <Avatar
                 contentType={contentType}

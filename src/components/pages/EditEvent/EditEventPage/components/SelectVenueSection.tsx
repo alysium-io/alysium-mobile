@@ -1,41 +1,40 @@
 import React from 'react'
 import { Section, View } from '@atomic'
 import { SectionHeader } from '@molecules'
-import { ContentListItemToggler } from '@organisms'
+import { ContentListItemToggler, CreateNewContentListItemToggle } from '@organisms'
 import { global } from '@etc'
+import { useEditEventPageContext } from '../hooks'
+import { useNavigation } from '@hooks'
 
 
 const SelectVenueSection = () => {
+
+    const { createVenueSheetApi, venuesData, onChangeVenue, eventData } = useEditEventPageContext()
+    const { editVenuePage } = useNavigation()
 
     return (
         <Section marginVertical='m'>
             <View margin='m'>
                 <SectionHeader text='Select Venue' variant='large' />
             </View>
-            <ContentListItemToggler
-                defaultId={1}
-                onPress={(id) => console.log(id)}
+            <CreateNewContentListItemToggle
+                title='Create New Venue'
+                subtitle='address, type, etc.'
+                onPress={() => createVenueSheetApi.open()}
                 subtitleFirst={true}
-                items={[
-                    {
-                        id: 1,
-                        image: global.sampleData.venueImages[0],
-                        title: 'EDX Nightclub',
-                        subtitle: '114 N. Park Rd.'
-                    },
-                    {
-                        id: 2,
-                        image: global.sampleData.venueImages[1],
-                        title: 'Terry\'s Tavern',
-                        subtitle: '10080 W. 8 Mile Rd.'
-                    },
-                    {
-                        id: 3,
-                        image: global.sampleData.venueImages[2],
-                        title: 'Backyard Bangers',
-                        subtitle: '1234 W. 8 Mile Rd.'
-                    }
-                ]}
+                icon='plus'
+            />
+            <ContentListItemToggler
+                defaultId={eventData?.data.attributes.venue?.data?.id ?? null}
+                subtitleFirst={true}
+                onPress={(id) => editVenuePage(id)}
+                onPressToggle={(id) => onChangeVenue(id)}
+                items={venuesData?.data.map(venue => ({
+                    id: venue.id,
+                    image: global.sampleData.venueImages[0],
+                    title: venue.attributes.name,
+                    subtitle: venue.attributes.address || 'Unknown Address'
+                })) ?? []}
             />
         </Section>
     )

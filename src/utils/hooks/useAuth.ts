@@ -32,10 +32,6 @@ const useAuth = () : IUseAuth => {
     const auth : AuthState = useSelector(state => state.auth)
     const dispatch = useDispatch()
 
-    const jwtExists = () : boolean => {
-        return (auth.token && auth.token.length > 0) ? true : false
-    }
-
     const login = async (identifier: string, password: string) => {
         try {
             const { data, error } = await flux_loginWithIdentifierAndPassword({ identifier, password })
@@ -46,6 +42,7 @@ const useAuth = () : IUseAuth => {
             if (data) {
                 dispatch(authActions.login(data))
             }
+            
         } catch (err) {
             console.log(err)
             logout()
@@ -53,7 +50,7 @@ const useAuth = () : IUseAuth => {
     }
 
     const getAuthUser = async () => {
-        if (jwtExists()) {
+        if (auth.token && auth.token.length > 0) {
             const { data, error } = await flux_getAuthUser()
 
             if (error) logout()
