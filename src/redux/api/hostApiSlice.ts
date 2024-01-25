@@ -109,11 +109,26 @@ const hostApiSlice = createApi({
                 url: `/events/${eventId}`,
                 method: 'DELETE'
             }),
-            invalidatesTags: (_result, _error, { eventId }) => [
-                { type: 'EventDetails', id: eventId },
-                { type: 'Event', id: eventId },
-                'Event'
-            ]
+            onQueryStarted: async ({ eventId }, { dispatch, queryFulfilled }) => {
+                // Optimistically remove the event from relevant queries
+                dispatch(hostApiSlice.util.updateQueryData('getEvents', undefined, (draft) => {
+                    const index = draft.data.findIndex(event => event.id === eventId)
+                    if (index !== -1) {
+                        draft.data.splice(index, 1)
+                        console.log(draft.data)
+                    }
+                }))
+
+                try {
+                    await queryFulfilled
+                } catch {
+                    // If the deletion fails, you can refetch the affected queries to get the current state
+                    dispatch(hostApiSlice.util.invalidateTags([
+                        { type: 'EventDetails', id: eventId },
+                        'Event'
+                    ]))
+                }
+            }
         }),
         getVenues: builder.query<GetMyVenuesResponse, GetMyVenuesBody>({
             query: ({ hostId }) => ({

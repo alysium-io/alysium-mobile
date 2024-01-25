@@ -2,20 +2,21 @@ import React from 'react'
 import { Section } from '@atomic'
 import { ContentType, EventStatus } from '@types'
 import { ContentListItem } from '@organisms'
-import { useHost, useNavigation } from '@hooks'
+import { useNavigation } from '@hooks'
+import { useEventManagerPageContext } from '../hooks'
 
 
 const EventsListSection = () => {
     
-    const { host } = useHost()
+    const { eventsData } = useEventManagerPageContext()
     const { editEventPage } = useNavigation()
 
-    if (host.events === null) return <></>
+    if (!eventsData) return <></>
 
     return (
         <Section>
             {
-                host.events.map(event => (
+                eventsData.data.map(event => (
                     <ContentListItem
                         key={event.id}
                         title={event.attributes.name}

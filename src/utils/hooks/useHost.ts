@@ -6,7 +6,6 @@ import { hostActions } from 'src/redux/host'
 
 const {
     useLazyGetHostDetailsQuery,
-    useLazyGetEventsQuery,
     useEditEventMutation,
     useLazyCreateEventQuery,
     useDeleteEventMutation
@@ -16,7 +15,6 @@ export interface IUseHost {
     getHostDetails: (hostId: number) => Promise<void>
     resetHost: () => void
     host: HostState
-    getEvents: () => Promise<void>
     createEvent: (attributes: Partial<EventAttributes>) => Promise<Event | null>
     editEvent: (eventId: number, attributes: EventAttributes) => Promise<void>
     deleteEvent: (eventId: number) => Promise<void>
@@ -28,7 +26,6 @@ const useHost = () : IUseHost => {
     const dispatch = useDispatch()
 
     const [ flux_getHostDetails ] = useLazyGetHostDetailsQuery()
-    const [ flux_getEvents ] = useLazyGetEventsQuery()
     const [ flux_createEvent ] = useLazyCreateEventQuery()
     const [ flux_editEvent ] = useEditEventMutation()
     const [ flux_deleteEvent ] = useDeleteEventMutation()
@@ -50,21 +47,6 @@ const useHost = () : IUseHost => {
 
     const resetHost = () => {
         dispatch(hostActions.resetHost())
-    }
-
-    const getEvents = async () => {
-        try {
-            const { data, error } = await flux_getEvents()
-
-            if (error) {
-                console.log(error)
-            }
-            if (data) {
-                dispatch(hostActions.setAllEvents(data.data))
-            }
-        } catch (err) {
-            throw err
-        }
     }
 
     const createEvent = async (attributes: Partial<EventAttributes>) : Promise<Event | null> => {
@@ -109,7 +91,6 @@ const useHost = () : IUseHost => {
     const deleteEvent = async (eventId: ApiIdentifier) => {
         try {
             await flux_deleteEvent({ eventId })
-            dispatch(hostActions.deleteEvent(eventId))
         } catch (err) {
             throw err
         }
@@ -119,7 +100,6 @@ const useHost = () : IUseHost => {
         getHostDetails,
         resetHost,
         host,
-        getEvents,
         createEvent,
         editEvent,
         deleteEvent

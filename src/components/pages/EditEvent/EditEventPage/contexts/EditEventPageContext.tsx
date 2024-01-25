@@ -39,7 +39,7 @@ export const EditEventPageContext = createContext({} as EditEventPageContextType
 export const EditEventPageProvider : React.FC<ProviderProps> = ({ children }) => {
 
     const { back } = useNavigation()
-    const { deleteEvent, editEvent, host } = useHost()
+    const { editEvent, host, deleteEvent } = useHost()
 
     const route = useRoute<EditEventPageRouteProp>()
 
