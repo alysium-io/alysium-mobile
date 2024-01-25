@@ -9,7 +9,7 @@ import { useNavigation } from '@hooks'
 
 const SelectVenueSection = () => {
 
-    const { createVenueSheetApi, venuesData } = useEditEventPageContext()
+    const { createVenueSheetApi, venuesData, onChangeVenue, eventData } = useEditEventPageContext()
     const { editVenuePage } = useNavigation()
 
     return (
@@ -25,9 +25,10 @@ const SelectVenueSection = () => {
                 icon='plus'
             />
             <ContentListItemToggler
-                defaultId={1}
-                onPress={(id) => editVenuePage(id)}
+                defaultId={eventData?.data.attributes.venue?.data?.id ?? null}
                 subtitleFirst={true}
+                onPress={(id) => editVenuePage(id)}
+                onPressToggle={(id) => onChangeVenue(id)}
                 items={venuesData?.data.map(venue => ({
                     id: venue.id,
                     image: global.sampleData.venueImages[0],

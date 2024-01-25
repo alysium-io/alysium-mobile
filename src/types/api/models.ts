@@ -40,6 +40,10 @@ export type Artist = Model<ArtistAttributes>
 /**
  * Events
  */
+export type EditEventAttributes = {
+    name: string,
+    venue: number | null
+}
 export type EventAttributes = {
     name: string,
     date: string | null,
@@ -47,7 +51,7 @@ export type EventAttributes = {
     image: string | null,
     color: string | null,
     slots?: ApiRelation<Slot[]>,
-    venue?: ApiRelation<Venue>
+    venue?: ApiRelation<Venue | null>
 }
 export type Event = Model<EventAttributes>
 

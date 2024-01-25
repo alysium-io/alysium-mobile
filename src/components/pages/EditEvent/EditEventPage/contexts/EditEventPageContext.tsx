@@ -1,18 +1,21 @@
 import React, { createContext } from 'react'
-import { EditEventPageRouteProp, EventAttributes, EventDetailsResponse, GetMyVenuesResponse, ProviderProps } from '@types'
 import { SubmitErrorHandler, SubmitHandler, useForm, UseFormReturn } from 'react-hook-form'
-import { useRoute } from '@react-navigation/native'
-import hostApiSlice from 'src/redux/api/hostApiSlice'
 import { SheetApi, useHost, useNavigation, useSheet } from '@hooks'
 import { Alert } from 'react-native'
+import { useRoute } from '@react-navigation/native'
+import hostApiSlice from 'src/redux/api/hostApiSlice'
+import {
+    EditEventAttributes,
+    EditEventPageRouteProp,
+    EventDetailsResponse,
+    GetMyVenuesResponse,
+    ProviderProps
+} from '@types'
 
 
-const initialValues : EventAttributes = {
+const initialValues : EditEventAttributes = {
     name: '',
-    date: '',
-    address: '',
-    image: '',
-    color: ''
+    venue: null
 }
 
 const {
@@ -27,11 +30,12 @@ export type EditEventPageContextType = {
     venuesData: GetMyVenuesResponse | undefined
     venuesError: any
     venuesIsLoading: boolean
-    formMethods: UseFormReturn<EventAttributes>
+    formMethods: UseFormReturn<EditEventAttributes>
     onSubmit: (e?: React.BaseSyntheticEvent<object, any, any>) => Promise<void>
     loadForm: () => void
     confirmDelete: () => void
     createVenueSheetApi: SheetApi
+    onChangeVenue: (venueId: number) => void
 }
 
 export const EditEventPageContext = createContext({} as EditEventPageContextType)
@@ -57,18 +61,23 @@ export const EditEventPageProvider : React.FC<ProviderProps> = ({ children }) =>
         isLoading: venuesIsLoading
     } = useGetVenuesQuery({ hostId: host.host?.id }, { skip: host.host === undefined })
 
-    const formMethods = useForm<EventAttributes>({ defaultValues: initialValues })
+    const formMethods = useForm<EditEventAttributes>({ defaultValues: initialValues })
 
-    const onValid : SubmitHandler<EventAttributes> = (data: EventAttributes) => {
+    const onValid : SubmitHandler<EditEventAttributes> = (data: EditEventAttributes) => {
         editEvent(route.params.itemId, data)
     }
 
-    const onInvalid : SubmitErrorHandler<EventAttributes> = (errors: any) => {
+    const onInvalid : SubmitErrorHandler<EditEventAttributes> = (errors: any) => {
         console.log(errors)
     }
 
     const loadForm = () => {
-        if (eventData) formMethods.reset(eventData.data.attributes)
+        if (eventData) {
+            formMethods.reset({
+                name: eventData.data.attributes.name,
+                venue: eventData.data.attributes.venue?.data?.id ?? null
+            })
+        }
     }
 
     const onSubmit = formMethods.handleSubmit(onValid, onInvalid)
@@ -97,6 +106,10 @@ export const EditEventPageProvider : React.FC<ProviderProps> = ({ children }) =>
         back()
     }
 
+    const onChangeVenue = (venueId: number) => {
+        formMethods.setValue('venue', venueId)
+    }
+
     return (
         <EditEventPageContext.Provider
             value={{
@@ -110,7 +123,8 @@ export const EditEventPageProvider : React.FC<ProviderProps> = ({ children }) =>
                 onSubmit,
                 loadForm,
                 confirmDelete,
-                createVenueSheetApi
+                createVenueSheetApi,
+                onChangeVenue
             }}
         >
             {children}

@@ -1,5 +1,5 @@
 import { ApiIdentifier, ApiResponseBase, Pagination } from './base'
-import { Host, Artist, Tag, Event, EventAttributes, Venue, VenueAttributes } from './models'
+import { Host, Artist, Tag, Event, EventAttributes, Venue, VenueAttributes, EditEventAttributes } from './models'
 
 
 /**
@@ -155,7 +155,7 @@ export type EditEventResponse = ApiResponseBase<Event>
 export type EditEventBody = {
     hostId: ApiIdentifier
     eventId: ApiIdentifier
-    attributes: Partial<EventAttributes>
+    attributes: Partial<EditEventAttributes>
 }
 
 export type EventsResponse = ApiResponseBase<Event[], Pagination>

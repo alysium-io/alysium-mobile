@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from '@redux'
-import { EventAttributes, HostState, Event, ApiIdentifier } from '@types'
+import { EventAttributes, EditEventAttributes, HostState, Event, ApiIdentifier } from '@types'
 import hostApiSlice from 'src/redux/api/hostApiSlice'
 import { hostActions } from 'src/redux/host'
 
@@ -16,7 +16,7 @@ export interface IUseHost {
     resetHost: () => void
     host: HostState
     createEvent: (attributes: Partial<EventAttributes>) => Promise<Event | null>
-    editEvent: (eventId: number, attributes: EventAttributes) => Promise<void>
+    editEvent: (eventId: number, attributes: EditEventAttributes) => Promise<void>
     deleteEvent: (eventId: number) => Promise<void>
 }
 
@@ -73,7 +73,7 @@ const useHost = () : IUseHost => {
         return null
     }
 
-    const editEvent = async (eventId: ApiIdentifier, attributes: Partial<EventAttributes>) => {
+    const editEvent = async (eventId: ApiIdentifier, attributes: Partial<EditEventAttributes>) => {
         if (host.host !== null) {
             try {
                 const { data } = await flux_editEvent({
