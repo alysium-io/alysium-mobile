@@ -4,13 +4,13 @@ import { SectionHeader } from '@molecules'
 import { ContentListItemToggler, CreateNewContentListItemToggle } from '@organisms'
 import { global } from '@etc'
 import { useEditEventPageContext } from '../hooks'
-import { useHost } from '@hooks'
+import { useNavigation } from '@hooks'
 
 
 const SelectVenueSection = () => {
 
     const { createVenueSheetApi, venuesData } = useEditEventPageContext()
-    const { host } = useHost()
+    const { editVenuePage } = useNavigation()
 
     return (
         <Section marginVertical='m'>
@@ -26,7 +26,7 @@ const SelectVenueSection = () => {
             />
             <ContentListItemToggler
                 defaultId={1}
-                onPress={(id) => console.log(id)}
+                onPress={(id) => editVenuePage(id)}
                 subtitleFirst={true}
                 items={venuesData?.data.map(venue => ({
                     id: venue.id,

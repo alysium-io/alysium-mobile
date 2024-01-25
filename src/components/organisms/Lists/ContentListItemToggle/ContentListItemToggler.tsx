@@ -25,11 +25,6 @@ const ContentListItemToggler : React.FC<ContentListItemTogglerProps> = ({
 
     const [selected, setSelected] = useState<number>(defaultId)
 
-    const _onPress = (id: number) => {
-        setSelected(id)
-        onPress && onPress(id)
-    }
-
     return (
         <View>
             {items.map(item => (
@@ -37,8 +32,8 @@ const ContentListItemToggler : React.FC<ContentListItemTogglerProps> = ({
                     key={item.id}
                     title={item.title}
                     subtitle={item.subtitle}
-                    onPressContent={() => console.log('pressed')}
-                    onPressToggle={() => _onPress(item.id)}
+                    onPressContent={() => onPress && onPress(item.id)}
+                    onPressToggle={() => setSelected(item.id)}
                     contentType={ContentType.event}
                     image={item.image}
                     size='medium'
