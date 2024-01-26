@@ -42,7 +42,7 @@ export const colorScheme : ButtonColorScheme = {
         },
         positive: {
             background: 'matt',
-            text: 'black',
+            text: 'white',
             borderColor: 'transparent'
         },
         negative: {
@@ -52,7 +52,7 @@ export const colorScheme : ButtonColorScheme = {
         },
         warning: {
             background: 'meteor',
-            text: 'black',
+            text: 'white',
             borderColor: 'transparent'
         }
     },

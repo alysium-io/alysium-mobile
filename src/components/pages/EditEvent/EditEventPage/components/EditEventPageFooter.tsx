@@ -13,8 +13,8 @@ const EditEventPageFooter = () => {
             <Button
                 text='Save Draft'
                 onPress={onSubmit}
-                colorVariant='warning'
-                variant='outlined'
+                colorVariant='positive'
+                variant='filled'
             />
         </View>
     )
