@@ -17,7 +17,7 @@ const FeaturesSection = () => {
                     onPress={() => setChecked(!checked)}
                     icon='alcohol'
                     title='Alcohol'
-                    color_variant='matt'
+                    colorVariant='matt'
                     subtitle={[
                         {
                             variant: 'paragraph-small',
@@ -43,7 +43,7 @@ const FeaturesSection = () => {
                     onPress={() => setChecked(!checked)}
                     icon='cheeseburger'
                     title='Food & Drink'
-                    color_variant='matt'
+                    colorVariant='matt'
                     subtitle={[
                         {
                             variant: 'paragraph-small',
@@ -63,7 +63,7 @@ const FeaturesSection = () => {
                     onPress={() => setChecked(!checked)}
                     icon='security'
                     title='Security'
-                    color_variant='matt'
+                    colorVariant='matt'
                     subtitle={[
                         {
                             variant: 'paragraph-small',
@@ -89,7 +89,7 @@ const FeaturesSection = () => {
                     onPress={() => setChecked(!checked)}
                     icon='dog'
                     title='Pet Friendly'
-                    color_variant='matt'
+                    colorVariant='matt'
                     subtitle={[
                         {
                             variant: 'paragraph-small',

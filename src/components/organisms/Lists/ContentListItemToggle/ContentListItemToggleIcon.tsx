@@ -35,8 +35,8 @@ const ContentListItemToggleIcon : React.FC<ContentListItemToggleIconProps> = ({
 
 const styles = StyleSheet.create({
     container: {
-        width: 25,
         height: 25,
+        width: 25,
         borderRadius: 999,
         justifyContent: 'center',
         alignItems: 'center',

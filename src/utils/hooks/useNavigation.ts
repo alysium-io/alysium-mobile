@@ -18,7 +18,9 @@ interface IUseNavigation {
 
     eventPage: (itemId: number) => void
     
-    editEventPage: (itemId: number | null) => void
+    editEventPage: (itemId: number) => void
+
+    editVenuePage: (itemId: number) => void
 
     editContractPage: (itemId: number) => void
 
@@ -56,7 +58,9 @@ const useNavigation = () : IUseNavigation => {
 
     const eventPage = (itemId: number) => navigation.navigate('EventPage', { itemId })
     
-    const editEventPage = (itemId: number | null) => navigation.navigate('EditEventPage', { itemId })
+    const editEventPage = (itemId: number) => navigation.navigate('EditEventPage', { itemId })
+
+    const editVenuePage = (itemId: number) => navigation.navigate('EditVenuePage', { itemId })
 
     const editContractPage = (itemId: number) => navigation.navigate('EditContractPage', { itemId })
 
@@ -92,6 +96,8 @@ const useNavigation = () : IUseNavigation => {
         eventPage,
         
         editEventPage,
+
+        editVenuePage,
 
         editContractPage,
 

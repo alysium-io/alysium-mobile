@@ -8,6 +8,7 @@ export * from './Event'
 export * from './EditEvent'
 export * from './EditContract'
 export * from './ContractManager'
+export * from './EditVenue'
 
 // For testing
 export * from './Components'

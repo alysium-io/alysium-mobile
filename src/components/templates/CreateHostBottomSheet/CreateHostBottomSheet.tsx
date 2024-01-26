@@ -27,16 +27,17 @@ const CreateHostBottomSheet : React.FC<CreateHostBottomSheetProps> = ({
         return (
             <BottomSheetFooter {...props}>
                 <View marginHorizontal='l'>
-                    <Button
-                        text='Dismiss'
-                        onPress={sheetApi.close}
-                        variant='outlined'
-                        containerProps={{ marginBottom: 's' }}
-                    />
+                    <View marginBottom='s'>
+                        <Button
+                            text='Dismiss'
+                            onPress={sheetApi.close}
+                            variant='outlined'
+                        />
+                    </View>
                     <Button
                         text='Create Host'
                         onPress={_submitNewHost}
-                        color_variant='matt'
+                        colorVariant='positive'
                     />
                 </View>
             </BottomSheetFooter>

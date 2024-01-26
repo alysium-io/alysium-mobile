@@ -52,7 +52,7 @@ const SummarySection = () => {
                 <View margin='m'>
                     <Button
                         variant='outlined'
-                        color_variant='matt'
+                        colorVariant='positive'
                         text='Send to Artist'
                         onPress={() => console.log('Send to Artist')}
                     />

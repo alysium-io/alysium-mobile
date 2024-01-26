@@ -15,13 +15,13 @@ const tagApiSlice = createApi({
     endpoints: (builder) => ({
         getTagDetails: builder.query<TagResponse, TagRequestParams>({
             query: ({ tagId }) => ({
-                url: `/genres/${tagId}`,
+                url: `/tags/${tagId}`,
                 method: 'GET'
             })
         }),
         getTagArtists: builder.query<TagArtistsResponse, TagArtistsRequestParams>({
             query: ({ tagId }) => ({
-                url: `/genres/relatedArtists/${tagId}`,
+                url: `/tags/relatedArtists/${tagId}`,
                 method: 'GET'
             })
         })

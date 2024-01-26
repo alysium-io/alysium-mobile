@@ -1,10 +1,10 @@
 import React from 'react'
-import { View, Icon } from '@atomic'
+import { View, Icon, BgTouchAnimation } from '@atomic'
 import { ContentType, ThemeMode } from '@types'
 import CategoricalListItemForContentTypeImage from './CategoricalListItemForContentTypeImage'
 import CategoricalListItemForContentTypeTitle from './CategoricalListItemForContentTypeTitle'
-import { StyleSheet, TouchableWithoutFeedback } from 'react-native'
-import { useTheme, useBgTouchAnimation } from '@hooks'
+import { StyleSheet } from 'react-native'
+import { useTheme } from '@hooks'
 import { Colors } from '@etc'
 
 
@@ -23,20 +23,10 @@ const CategoricalListItemForContentType : React.FC<CategoricalListItemForContent
 }) => {
 
     const { mode, theme, getRawColor } = useTheme()
-    
-    const {
-        animatedBgStyles,
-        onPressIn,
-        onPressOut
-    } = useBgTouchAnimation('transparent', Colors.RGBA2String(Colors.hex2RGBA(getRawColor('ion'), 0.1)))
 
     return (
-        <TouchableWithoutFeedback onPress={onPress} onPressIn={onPressIn} onPressOut={onPressOut}>
-            <View
-                animated
-                paddingHorizontal='m'
-                style={animatedBgStyles}
-            >
+        <BgTouchAnimation color={Colors.RGBA2String(Colors.hex2RGBA(getRawColor('ion'), 0.1))} animationType='highlight' onPress={onPress}>
+            <View paddingHorizontal='m'>
                 <View paddingVertical='s' style={[
                     styles.container,
                     {
@@ -49,7 +39,7 @@ const CategoricalListItemForContentType : React.FC<CategoricalListItemForContent
                     <Icon name='arrow-right' color='ion' size='small' />
                 </View>
             </View>
-        </TouchableWithoutFeedback>
+        </BgTouchAnimation>
     )
 }
 

@@ -1,8 +1,8 @@
 import React from 'react'
-import { Text, View } from '@atomic'
+import { BgTouchAnimation, Text, View } from '@atomic'
 import { StyleSheet } from 'react-native'
 import { ContentType, ThemeMode } from '@types'
-import { useBgTouchAnimation, useTheme } from '@hooks'
+import { useTheme } from '@hooks'
 import ContentListItemToggleImage from './ContentListItemToggleImage'
 import ContentListItemToggleTitle from './ContentListItemToggleTitle'
 import ContentListItemToggleIcon from './ContentListItemToggleIcon'
@@ -41,14 +41,9 @@ const ContentListItemToggle : React.FC<ContentListItemToggleProps> = ({
 
     const { getRawColor, mode, theme } = useTheme()
 
-    const { Touchable } = useBgTouchAnimation('transparent', Colors.RGBA2String(Colors.hex2RGBA(getRawColor('ion'), 0.1)))
-
     return (
-        <Touchable onPress={onPressContent}>
-            <View
-                animated
-                paddingHorizontal='m'
-            >
+        <BgTouchAnimation color={Colors.RGBA2String(Colors.hex2RGBA(getRawColor('ion'), 0.1))} animationType='highlight' onPress={onPressContent}>
+            <View paddingHorizontal='m'>
                 <View paddingVertical='s' style={[
                     styles.container,
                     {
@@ -62,7 +57,7 @@ const ContentListItemToggle : React.FC<ContentListItemToggleProps> = ({
                     <ContentListItemToggleIcon checked={checked} onPress={onPressToggle} />
                 </View>
             </View>
-        </Touchable>
+        </BgTouchAnimation>
     )
 }
 

@@ -49,7 +49,7 @@ const SummarySection = () => {
                 <View margin='m'>
                     <Button
                         variant='outlined'
-                        color_variant='matt'
+                        colorVariant='positive'
                         text='Finalize'
                         onPress={() => console.log('Finalize')}
                     />
@@ -57,7 +57,7 @@ const SummarySection = () => {
                 <View margin='m'>
                     <Button
                         variant='outlined'
-                        color_variant='haze'
+                        colorVariant='negative'
                         text='Delete'
                         onPress={confirmDelete}
                     />

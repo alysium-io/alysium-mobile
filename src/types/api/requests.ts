@@ -1,5 +1,5 @@
 import { ApiIdentifier, ApiResponseBase, Pagination } from './base'
-import { Host, Artist, Tag, Event, EventAttributes } from './models'
+import { Host, Artist, Tag, Event, EventAttributes, Venue, VenueAttributes, EditEventAttributes } from './models'
 
 
 /**
@@ -92,7 +92,7 @@ export type SearchResponse = SearchResponseItem[]
  * Hosts
  */
 export type HostDetailsResponse = ApiResponseBase<Host>
-export type HostDetailsRequestParams = { hostId: ApiIdentifier }
+export type HostDetailsRequestParams = { hostId?: ApiIdentifier }
 
 export type CreateHostResponse = ApiResponseBase<Host>
 export type CreateHostBody = { name: string }
@@ -121,26 +121,22 @@ export type TagArtistsResponse = {
         totalPages: number
     }
     artists: {
-        id: ApiIdentifier
-        spotify_image: string
-        spotify_url: string
+        id: number
         spotify_followers: number
-        spotify_artist_id: string
-        spotify_name: string
-        spotify_popularity: number
-        spotify_genres: string
-        createdAt: string
-        updatedAt: string
+        createdAt: string | null
+        updatedAt: string | null
         spotify_data: {
-            spotify_url: string
-            spotify_data: null
-            spotify_name: string
-            spotify_image: string
-            spotify_genres: string
+            name: string
+            image: string | null
+            spotify_url: string | null
+            spotify_genres: string | null
             spotify_artist_id: string
             spotify_followers: number
             spotify_popularity: number
-        }
+        },
+        image: string | null
+        name: string
+        color: string
     }[]
 }
 
@@ -151,13 +147,15 @@ export type TagArtistsRequestParams = { tagId: ApiIdentifier }
  */
 export type CreateEventResponse = ApiResponseBase<Event>
 export type CreateEventBody = {
+    hostId: ApiIdentifier
     attributes: Partial<EventAttributes>
 }
 
 export type EditEventResponse = ApiResponseBase<Event>
 export type EditEventBody = {
+    hostId: ApiIdentifier
     eventId: ApiIdentifier
-    attributes: Partial<EventAttributes>
+    attributes: Partial<EditEventAttributes>
 }
 
 export type EventsResponse = ApiResponseBase<Event[], Pagination>
@@ -168,3 +166,15 @@ export type EventDetailsBody = { eventId: ApiIdentifier }
 
 export type DeleteEventResponse = ApiResponseBase<Event>
 export type DeleteEventBody = { eventId: ApiIdentifier }
+
+/**
+ * Venues
+ */
+export type GetMyVenuesResponse = ApiResponseBase<Venue[]>
+export type GetMyVenuesBody = { hostId?: ApiIdentifier }
+
+export type CreateVenueResponse = ApiResponseBase<Venue>
+export type CreateVenueBody = {
+    hostId?: ApiIdentifier
+    name: string
+}

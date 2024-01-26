@@ -1,8 +1,8 @@
 import React from 'react'
-import { View, Text, Icon } from '@atomic'
+import { View, Text, Icon, BgTouchAnimation } from '@atomic'
 import { StyleSheet } from 'react-native'
 import { ColorTypes, ThemeMode } from '@types'
-import { useBgTouchAnimation, useTheme } from '@hooks'
+import { useTheme } from '@hooks'
 import { Colors } from '@etc'
 
 
@@ -26,7 +26,7 @@ const MenuListItem : React.FC<MenuListItemProps> = ({
     border = true
 }) => {
 
-    const { getRawColor, mode } = useTheme()
+    const { getRawColor, mode, theme } = useTheme()
 
     const colorScheme = {
         [ThemeMode.dark]: {
@@ -41,36 +41,36 @@ const MenuListItem : React.FC<MenuListItemProps> = ({
         }
     }
 
-    const { Touchable } = useBgTouchAnimation('transparent', colorScheme[mode].backgroundActive)
-
     return (
-        <Touchable onPress={onPress} paddingHorizontal='m'>
-            <View
-                paddingVertical='l'
-                style={[
-                    styles.container,
-                    {
-                        borderBottomWidth: border ? 0.5 : 0,
-                        borderBottomColor: colorScheme[mode].border
-                    }
-                ]}
-            >
-                <View style={styles.textContainer}>
-                    <Text variant='paragraph-medium' numberOfLines={0} {...titleProps}>{title}</Text>
-                    { subtitle && <Text variant='paragraph-small' numberOfLines={0} color={colorScheme[mode].text} marginTop='xs'>{subtitle}</Text> }
-                </View>
-                { secondaryText && (
-                    <View marginHorizontal='s'>
-                        <Text variant='paragraph-small' color={colorScheme[mode].text}>{secondaryText}</Text>
+        <BgTouchAnimation color={colorScheme[mode].backgroundActive} animationType='highlight' onPress={onPress}>
+            <View paddingHorizontal='m'>
+                <View
+                    paddingVertical='l'
+                    style={[
+                        styles.container,
+                        {
+                            borderBottomWidth: border ? 0.2 : 0,
+                            borderBottomColor: theme.colors.bg2
+                        }
+                    ]}
+                >
+                    <View style={styles.textContainer}>
+                        <Text variant='paragraph-medium' numberOfLines={0} {...titleProps}>{title}</Text>
+                        { subtitle && <Text variant='paragraph-small' numberOfLines={0} color={colorScheme[mode].text} marginTop='xs'>{subtitle}</Text> }
                     </View>
-                ) }
-                <Icon
-                    name='arrow-right'
-                    size='small'
-                    color={color}
-                />
+                    { secondaryText && (
+                        <View marginHorizontal='s'>
+                            <Text variant='paragraph-small' color={colorScheme[mode].text}>{secondaryText}</Text>
+                        </View>
+                    ) }
+                    <Icon
+                        name='arrow-right'
+                        size='small'
+                        color={color}
+                    />
+                </View>
             </View>
-        </Touchable>
+        </BgTouchAnimation>
     )
 }
 
