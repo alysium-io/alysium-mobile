@@ -2,6 +2,7 @@ import React from 'react'
 import { HeaderSafeArea, ScrollView, Text } from '@atomic'
 import { BasePage } from '@organisms'
 import { EditVenuePageProvider } from './contexts'
+import PrimaryImage from './components/PrimaryImage'
 
 
 const EditVenuePage = () => {
@@ -10,7 +11,7 @@ const EditVenuePage = () => {
         <BasePage>
             <HeaderSafeArea>
                 <ScrollView>
-                    <Text>Edit Venue</Text>
+                    <PrimaryImage />
                 </ScrollView>
             </HeaderSafeArea>
         </BasePage>
