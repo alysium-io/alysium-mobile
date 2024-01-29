@@ -10,7 +10,7 @@ import RecentSearches from './RecentSearches'
 
 const SearchActivePage = () => {
 
-    const { searchText, searchResults, isLoading, recentSearches } = useSearchPageContext()
+    const { searchText, isLoading, recentSearches } = useSearchPageContext()
 
     const render = () => {
         if (isLoading) {
@@ -30,6 +30,7 @@ const SearchActivePage = () => {
 
     return (
         <View
+            marginTop='m'
             animated
             entering={FadeInUp.duration(250)}
             exiting={FadeOutDown.duration(250)}

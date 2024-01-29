@@ -18,6 +18,7 @@ const ScrollView : React.FC<ScrollViewProps> = (props) => {
             showsVerticalScrollIndicator={props.showsVerticalScrollIndicator || false}
             showsHorizontalScrollIndicator={props.showsHorizontalScrollIndicator || false}
             alwaysBounceVertical={props.alwaysBounceVertical || false}
+            keyboardShouldPersistTaps='always'
             {...props}
         >
             {props.children}
