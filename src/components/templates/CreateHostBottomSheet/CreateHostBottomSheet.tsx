@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { DismissKeyboardWrapper, View } from '@atomic'
-import { BottomSheetFooter, FullScreenBottomSheet } from '@organisms'
+import { BottomSheet, BottomSheetFooter, FullScreenBottomSheet } from '@organisms'
 import { BottomSheetFooterProps } from '@gorhom/bottom-sheet'
 import { SheetApi } from '@hooks'
 import { Button, DeclarativeText, EditableProfileImage, LargeTextInput } from '@molecules'
@@ -23,7 +23,7 @@ const CreateHostBottomSheet : React.FC<CreateHostBottomSheetProps> = ({
         sheetApi.close()
     }
 
-    const CustomFooter : React.FC<BottomSheetFooterProps> = (props) => {
+    const CustomFooter = useCallback((props: React.ComponentProps<typeof BottomSheetFooter>) => {
         return (
             <BottomSheetFooter {...props}>
                 <View marginHorizontal='l'>
@@ -42,7 +42,7 @@ const CreateHostBottomSheet : React.FC<CreateHostBottomSheetProps> = ({
                 </View>
             </BottomSheetFooter>
         )
-    }
+    }, [])
 
     return (
         <FullScreenBottomSheet sheetApi={sheetApi} footerComponent={CustomFooter}>

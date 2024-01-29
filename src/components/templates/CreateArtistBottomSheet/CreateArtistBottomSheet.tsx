@@ -1,7 +1,6 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { DismissKeyboardWrapper, View } from '@atomic'
 import { BottomSheetFooter, FullScreenBottomSheet } from '@organisms'
-import { BottomSheetFooterProps } from '@gorhom/bottom-sheet'
 import { SheetApi } from '@hooks'
 import { Button, DeclarativeText, EditableProfileImage, LargeTextInput } from '@molecules'
 import { global } from '@etc'
@@ -23,7 +22,7 @@ const CreateArtistBottomSheet : React.FC<CreateArtistBottomSheetProps> = ({
         sheetApi.close()
     }
 
-    const CustomFooter : React.FC<BottomSheetFooterProps> = (props) => {
+    const CustomFooter = useCallback((props: React.ComponentProps<typeof BottomSheetFooter>) => {
         return (
             <BottomSheetFooter {...props}>
                 <View marginHorizontal='l'>
@@ -42,7 +41,7 @@ const CreateArtistBottomSheet : React.FC<CreateArtistBottomSheetProps> = ({
                 </View>
             </BottomSheetFooter>
         )
-    }
+    }, [])
 
     return (
         <FullScreenBottomSheet sheetApi={sheetApi} footerComponent={CustomFooter}>
