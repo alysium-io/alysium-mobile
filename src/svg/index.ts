@@ -1,4 +1,5 @@
 import Search from './Search'
+import SearchFilled from './SearchFilled'
 import Profile from './Profile'
 import Logo from './Logo'
 import Lock from './Lock'
@@ -49,6 +50,7 @@ import Plus from './Plus'
 
 export const SvgIcons = {
     'search': Search,
+    'search-filled': SearchFilled,
     'profile': Profile,
     'logo': Logo,
     'lock': Lock,

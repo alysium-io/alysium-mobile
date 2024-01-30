@@ -1,5 +1,5 @@
 import React from 'react'
-import { HeaderSafeArea, ScrollView, Text } from '@atomic'
+import { HeaderSafeArea, ScrollView } from '@atomic'
 import { BasePage } from '@organisms'
 import { EditVenuePageProvider } from './contexts'
 import PrimaryImage from './components/PrimaryImage'
