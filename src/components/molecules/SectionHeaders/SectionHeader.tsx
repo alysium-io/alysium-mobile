@@ -5,13 +5,13 @@ import { IconNames } from '@svg'
 
 
 const settings = {
-    'regular': {
+    regular: {
         textVariant: 'section-header-1',
         iconName: 'info-one' as IconNames,
         iconSize: 'regular' as keyof IconSize,
         iconColor: 't2'
     },
-    'large': {
+    large: {
         textVariant: 'section-header-2',
         iconName: 'info-two' as IconNames,
         iconSize: 'large' as keyof IconSize,
@@ -19,7 +19,7 @@ const settings = {
     }
 }
 
-interface SectionHeaderProps {
+type SectionHeaderProps = React.ComponentProps<typeof View> & {
     text: string
     color?: RestyleTextColor
     variant?: keyof typeof settings
@@ -29,12 +29,13 @@ interface SectionHeaderProps {
 const SectionHeader : React.FC<SectionHeaderProps> = ({
     text,
     color,
-    variant = 'regular',
-    icon
+    variant = 'regular' as keyof typeof settings,
+    icon,
+    ...props
 }) => {
 
     return (
-        <View marginBottom='s' flexDirection='row' justifyContent='space-between' alignItems='center'>
+        <View marginBottom='s' flexDirection='row' justifyContent='space-between' alignItems='center' {...props}>
             <View flexDirection='row' alignItems='center'>
                 <Text
                     variant={settings[variant].textVariant}

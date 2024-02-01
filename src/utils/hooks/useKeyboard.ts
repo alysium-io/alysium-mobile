@@ -26,8 +26,8 @@ const useKeyboard = () => {
         const hideSubscription = Keyboard.addListener('keyboardDidHide', onKeyboardHide)
 
         return () => {
-        showSubscription.remove()
-        hideSubscription.remove()
+            showSubscription.remove()
+            hideSubscription.remove()
         }
     }, [])
 

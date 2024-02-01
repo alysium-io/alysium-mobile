@@ -41,13 +41,13 @@ const LargeSelectableItem : React.FC<LargeSelectableItemProps> = ({
 
     const animatedContainerStyles = useAnimatedStyle(() => {
         return {
-            borderColor: interpolateColor(animated.value, [0, 1], [theme.colors.t3, theme.colors.t2])
+            borderColor: interpolateColor(animated.value, [0, 1], [theme.colors.bg2, theme.colors.t2])
         }
     }, [mode])
 
     const animatedTextStyles = useAnimatedStyle(() => {
         return {
-            color: interpolateColor(animated.value, [0, 1], [theme.colors.t2, theme.colors.t1])
+            color: interpolateColor(animated.value, [0, 1], [theme.colors.t3, theme.colors.t1])
         }
     }, [mode])
 
@@ -86,7 +86,7 @@ const LargeSelectableItem : React.FC<LargeSelectableItemProps> = ({
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        aspectRatio: 1,
+        aspectRatio: 1.2,
         borderRadius: 10,
         borderWidth: 1,
         justifyContent: 'space-between'

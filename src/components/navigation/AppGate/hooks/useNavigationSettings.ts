@@ -21,7 +21,7 @@ const useNavigationSettings = () : IUseNavigationSettings => {
 
     const screenOptions = {
         ...navigationConfig.screenOptions,
-        tabBarInactiveTintColor: theme.colors.t3,
+        tabBarInactiveTintColor: theme.colors.bg2,
         tabBarActiveTintColor: theme.colors.t1,
         tabBarStyle: {
             backgroundColor: theme.colors.bg1,

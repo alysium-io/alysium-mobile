@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from '@redux'
-import { EventAttributes, EditEventAttributes, HostState, Event, ApiIdentifier } from '@types'
+import { EventAttributes, EditEventAttributes, HostState, Event, ApiIdentifier, EditVenueAttributes } from '@types'
 import hostApiSlice from 'src/redux/api/hostApiSlice'
 import { hostActions } from 'src/redux/host'
 
@@ -8,7 +8,8 @@ const {
     useLazyGetHostDetailsQuery,
     useEditEventMutation,
     useLazyCreateEventQuery,
-    useDeleteEventMutation
+    useDeleteEventMutation,
+    useEditVenueMutation
 } = hostApiSlice
 
 export interface IUseHost {
@@ -18,6 +19,7 @@ export interface IUseHost {
     createEvent: (attributes: Partial<EventAttributes>) => Promise<Event | null>
     editEvent: (eventId: number, attributes: EditEventAttributes) => Promise<void>
     deleteEvent: (eventId: number) => Promise<void>
+    editVenue: (venueId: number, attributes: Partial<EditVenueAttributes>) => Promise<void>
 }
 
 const useHost = () : IUseHost => {
@@ -29,6 +31,7 @@ const useHost = () : IUseHost => {
     const [ flux_createEvent ] = useLazyCreateEventQuery()
     const [ flux_editEvent ] = useEditEventMutation()
     const [ flux_deleteEvent ] = useDeleteEventMutation()
+    const [ flux_editVenue ] = useEditVenueMutation()
 
     const getHostDetails = async (hostId: number) => {
         try {
@@ -95,6 +98,20 @@ const useHost = () : IUseHost => {
             throw err
         }
     }
+
+    const editVenue = async (venueId: ApiIdentifier, attributes: Partial<EditVenueAttributes>) => {
+        try {
+            if (host.host ) {
+                await flux_editVenue({
+                    hostId: host.host.id,
+                    venueId,
+                    attributes
+                })
+            }
+        } catch (err) {
+            throw err
+        }
+    }
     
     return {
         getHostDetails,
@@ -102,7 +119,8 @@ const useHost = () : IUseHost => {
         host,
         createEvent,
         editEvent,
-        deleteEvent
+        deleteEvent,
+        editVenue
     }
 }
 

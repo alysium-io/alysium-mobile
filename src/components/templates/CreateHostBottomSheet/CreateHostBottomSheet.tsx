@@ -1,7 +1,6 @@
 import React, { useCallback } from 'react'
 import { DismissKeyboardWrapper, View } from '@atomic'
-import { BottomSheet, BottomSheetFooter, FullScreenBottomSheet } from '@organisms'
-import { BottomSheetFooterProps } from '@gorhom/bottom-sheet'
+import { BottomSheetFooter, FullScreenBottomSheet } from '@organisms'
 import { SheetApi } from '@hooks'
 import { Button, DeclarativeText, EditableProfileImage, LargeTextInput } from '@molecules'
 import { global } from '@etc'
@@ -16,7 +15,11 @@ const CreateHostBottomSheet : React.FC<CreateHostBottomSheetProps> = ({
     sheetApi
 }) => {
 
-    const { setNewHostName, submitNewHost } = useCreateHost()
+    const {
+        setNewHostText,
+        submitNewHost,
+        onDismiss
+    } = useCreateHost()
 
     const _submitNewHost = () => {
         submitNewHost()
@@ -45,7 +48,7 @@ const CreateHostBottomSheet : React.FC<CreateHostBottomSheetProps> = ({
     }, [])
 
     return (
-        <FullScreenBottomSheet sheetApi={sheetApi} footerComponent={CustomFooter}>
+        <FullScreenBottomSheet sheetApi={sheetApi} footerComponent={CustomFooter} onDismiss={onDismiss}>
             <DismissKeyboardWrapper>
                 <View margin='m' justifyContent='center' alignItems='center'>
                     <View marginVertical='m'>
@@ -53,7 +56,7 @@ const CreateHostBottomSheet : React.FC<CreateHostBottomSheetProps> = ({
                     </View>
                     <LargeTextInput
                         placeholder='Host Name'
-                        onChangeText={setNewHostName}
+                        onChangeText={setNewHostText}
                     />
                     <View margin='m' width='100%'>
                         <DeclarativeText

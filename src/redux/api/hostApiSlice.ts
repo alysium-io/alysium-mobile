@@ -16,7 +16,11 @@ import {
     GetMyVenuesResponse,
     GetMyVenuesBody,
     CreateVenueResponse,
-    CreateVenueBody
+    CreateVenueBody,
+    GetVenueBody,
+    GetVenueResponse,
+    EditVenueBody,
+    EditVenueResponse
 } from '@types'
 
 
@@ -140,6 +144,13 @@ const hostApiSlice = createApi({
                     ? [...result.data.map(({ id }) => ({ type: 'Venue' as const, id })), 'Venue']
                     : ['Venue']
         }),
+        getVenueDetails: builder.query<GetVenueResponse, GetVenueBody>({
+            query: ({ venueId }) => ({
+                url: `/venues/${venueId}`,
+                method: 'GET'
+            }),
+            providesTags: (_result, _error, { venueId }) => [{ type: 'Venue', id: venueId }]
+        }),
         createVenue: builder.mutation<CreateVenueResponse, CreateVenueBody>({
             query: ({ hostId, name }) => ({
                 url: '/venues',
@@ -154,6 +165,21 @@ const hostApiSlice = createApi({
             invalidatesTags: (_result, _error, { hostId }) => [
                 { type: 'Venue', id: hostId },
                 'Venue'
+            ]
+        }),
+        editVenue: builder.mutation<EditVenueResponse, EditVenueBody>({
+            query: ({ venueId, hostId, attributes }) => ({
+                url: `/venues/${venueId}`,
+                method: 'PUT',
+                body: {
+                    data: {
+                        hostId,
+                        ...attributes
+                    }
+                }
+            }),
+            invalidatesTags: (_result, _error, { venueId }) => [
+                { type: 'Venue', id: venueId }
             ]
         })
     })

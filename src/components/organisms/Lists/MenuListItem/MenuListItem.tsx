@@ -4,6 +4,7 @@ import { StyleSheet } from 'react-native'
 import { ColorTypes, ThemeMode } from '@types'
 import { useTheme } from '@hooks'
 import { Colors } from '@etc'
+import { IconNames } from '@svg'
 
 
 interface MenuListItemProps {
@@ -14,6 +15,8 @@ interface MenuListItemProps {
     secondaryText?: string
     border?: boolean
     titleProps?: React.ComponentProps<typeof Text>
+    secondaryTextProps?: React.ComponentProps<typeof Text>
+    icon?: IconNames
 }
 
 const MenuListItem : React.FC<MenuListItemProps> = ({
@@ -23,7 +26,9 @@ const MenuListItem : React.FC<MenuListItemProps> = ({
     onPress,
     secondaryText,
     titleProps,
-    border = true
+    border = true,
+    icon = 'arrow-right',
+    secondaryTextProps
 }) => {
 
     const { getRawColor, mode, theme } = useTheme()
@@ -55,16 +60,22 @@ const MenuListItem : React.FC<MenuListItemProps> = ({
                     ]}
                 >
                     <View style={styles.textContainer}>
-                        <Text variant='paragraph-medium' numberOfLines={0} {...titleProps}>{title}</Text>
-                        { subtitle && <Text variant='paragraph-small' numberOfLines={0} color={colorScheme[mode].text} marginTop='xs'>{subtitle}</Text> }
+                        <Text variant='paragraph-medium' numberOfLines={1} {...titleProps}>{title}</Text>
+                        { subtitle && <Text variant='paragraph-small' numberOfLines={1} color={colorScheme[mode].text} marginTop='xs'>{subtitle}</Text> }
                     </View>
                     { secondaryText && (
-                        <View marginHorizontal='s'>
-                            <Text variant='paragraph-small' color={colorScheme[mode].text}>{secondaryText}</Text>
-                        </View>
+                        <Text
+                            variant='paragraph-small'
+                            color={colorScheme[mode].text}
+                            numberOfLines={1}
+                            ellipsizeMode='tail'
+                            marginHorizontal='s'
+                            style={{ maxWidth: '50%' }}
+                            {...secondaryTextProps}
+                        >{secondaryText}</Text>
                     ) }
                     <Icon
-                        name='arrow-right'
+                        name={icon}
                         size='small'
                         color={color}
                     />

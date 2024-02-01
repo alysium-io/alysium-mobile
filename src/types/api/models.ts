@@ -58,6 +58,11 @@ export type Event = Model<EventAttributes>
 /**
  * Venues
  */
+export type EditVenueAttributes = {
+    name: string
+    phone_number: string | null
+    capacity: number | null
+}
 export type VenueAttributes = {
     name: string
     capacity: number | null

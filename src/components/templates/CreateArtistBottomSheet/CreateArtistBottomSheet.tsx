@@ -15,7 +15,11 @@ const CreateArtistBottomSheet : React.FC<CreateArtistBottomSheetProps> = ({
     sheetApi
 }) => {
 
-    const { setNewArtistName, submitNewArtist } = useCreateArtist()
+    const {
+        setNewArtistText,
+        submitNewArtist,
+        onDismiss
+    } = useCreateArtist()
 
     const _submitNewArtist = () => {
         submitNewArtist()
@@ -44,7 +48,7 @@ const CreateArtistBottomSheet : React.FC<CreateArtistBottomSheetProps> = ({
     }, [])
 
     return (
-        <FullScreenBottomSheet sheetApi={sheetApi} footerComponent={CustomFooter}>
+        <FullScreenBottomSheet sheetApi={sheetApi} footerComponent={CustomFooter} onDismiss={onDismiss}>
             <DismissKeyboardWrapper>
                 <View margin='m' justifyContent='center' alignItems='center'>
                     <View marginVertical='m'>
@@ -52,7 +56,7 @@ const CreateArtistBottomSheet : React.FC<CreateArtistBottomSheetProps> = ({
                     </View>
                     <LargeTextInput
                         placeholder='Artist Name'
-                        onChangeText={setNewArtistName}
+                        onChangeText={setNewArtistText}
                     />
                     <View margin='m' width='100%'>
                         <DeclarativeText

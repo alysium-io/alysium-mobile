@@ -1,18 +1,35 @@
-import React from 'react'
-import { HeaderSafeArea, ScrollView } from '@atomic'
+import React, { useEffect } from 'react'
+import { HeaderSafeArea, KeyboardAvoidingView, ScrollView } from '@atomic'
 import { BasePage } from '@organisms'
 import { EditVenuePageProvider } from './contexts'
-import PrimaryImage from './components/PrimaryImage'
+import { useEditVenuePageContext } from './hooks'
+import {
+    HeaderSection,
+    BasicInfoSection,
+    VenueTypeSection,
+    LinksSection
+} from './components'
 
 
 const EditVenuePage = () => {
 
+    const { venueData, loadForm } = useEditVenuePageContext()
+
+    useEffect(() => {
+        loadForm()
+    }, [venueData])
+
     return (
         <BasePage>
             <HeaderSafeArea>
-                <ScrollView>
-                    <PrimaryImage />
-                </ScrollView>
+                <KeyboardAvoidingView>
+                    <ScrollView alwaysBounceVertical>
+                        <HeaderSection />
+                        <BasicInfoSection />
+                        <VenueTypeSection />
+                        <LinksSection />
+                    </ScrollView>
+                </KeyboardAvoidingView>
             </HeaderSafeArea>
         </BasePage>
     )

@@ -4,7 +4,9 @@ import {
     createVariant,
     VariantProps,
     spacing,
-    SpacingProps
+    SpacingProps,
+    color,
+    ColorProps
 } from '@shopify/restyle'
 import {
     TextInput as RNTextInput,
@@ -14,12 +16,14 @@ import {
 
 const textInputRestyleFunctions = [
     createVariant({ themeKey: 'textVariants' }),
-    spacing
+    spacing,
+    color
 ]
 
 export type InanimateTextInputProps =
     SpacingProps<Theme> &
     VariantProps<Theme, 'textVariants'> &
+    ColorProps<Theme> &
     RNTextInputProps
 
 const InanimateTextInput = createRestyleComponent<

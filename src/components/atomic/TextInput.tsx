@@ -8,7 +8,7 @@ import {
 
 type TextProps = InanimateTextInputProps
 
-const TextInput = React.forwardRef<React.ElementRef<typeof RNText>, TextProps>((
+const TextInput = React.forwardRef<RNText, TextProps>((
     {
         autoCorrect = false,
         autoComplete = 'off',
@@ -19,7 +19,7 @@ const TextInput = React.forwardRef<React.ElementRef<typeof RNText>, TextProps>((
 ) => {
     return (
         <InanimateTextInput
-            ref={ref as any}
+            ref={ref}
             autoCorrect={autoCorrect}
             autoComplete={autoComplete}
             autoCapitalize={autoCapitalize}
