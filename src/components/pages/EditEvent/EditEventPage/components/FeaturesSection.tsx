@@ -10,7 +10,7 @@ const FeaturesSection = () => {
 
     return (
         <Section margin='m'>
-            <SectionHeader text='Features' variant='large' />
+            <SectionHeader text='Features' titleVariant='large' />
             <View marginVertical='m'>
                 <RadioListItem
                     checked={checked}

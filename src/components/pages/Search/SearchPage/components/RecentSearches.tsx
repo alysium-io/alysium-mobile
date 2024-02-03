@@ -13,7 +13,7 @@ const RecentSearches = () => {
     return (
         <Section>
             <View marginHorizontal='m'>
-                <SectionHeader text='Recent Searches' variant='large' />
+                <SectionHeader text='Recent Searches' titleVariant='large' />
             </View>
             {
                 recentSearches?.map(result => (

@@ -22,14 +22,14 @@ const settings = {
 type SectionHeaderProps = React.ComponentProps<typeof View> & {
     text: string
     color?: RestyleTextColor
-    variant?: keyof typeof settings
+    titleVariant?: keyof typeof settings
     icon?: IconNames
 }
 
 const SectionHeader : React.FC<SectionHeaderProps> = ({
     text,
     color,
-    variant = 'regular' as keyof typeof settings,
+    titleVariant = 'regular' as keyof typeof settings,
     icon,
     ...props
 }) => {
@@ -38,7 +38,7 @@ const SectionHeader : React.FC<SectionHeaderProps> = ({
         <View marginBottom='s' flexDirection='row' justifyContent='space-between' alignItems='center' {...props}>
             <View flexDirection='row' alignItems='center'>
                 <Text
-                    variant={settings[variant].textVariant}
+                    variant={settings[titleVariant].textVariant}
                     color={color ? color : 't1'}
                 >{text}</Text>
                 {
@@ -46,7 +46,7 @@ const SectionHeader : React.FC<SectionHeaderProps> = ({
                         <View marginLeft='s'>
                             <Icon
                                 name={icon}
-                                size={settings[variant].iconSize}
+                                size={settings[titleVariant].iconSize}
                                 color='ion'
                             />
                         </View>
@@ -54,9 +54,9 @@ const SectionHeader : React.FC<SectionHeaderProps> = ({
                 }
             </View>
             <Icon
-                name={settings[variant].iconName}
-                color={settings[variant].iconColor}
-                size={settings[variant].iconSize}
+                name={settings[titleVariant].iconName}
+                color={settings[titleVariant].iconColor}
+                size={settings[titleVariant].iconSize}
             />
         </View>
     )

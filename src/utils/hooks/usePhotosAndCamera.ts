@@ -1,6 +1,7 @@
 import { launchImageLibrary, launchCamera, ImagePickerResponse } from 'react-native-image-picker'
 import { check, PERMISSIONS, PermissionStatus, request, RESULTS } from 'react-native-permissions'
 import { Alert, Platform } from 'react-native'
+import { useTheme } from '@shopify/restyle'
 
 
 interface IUsePhotosAndCamera {
@@ -8,6 +9,8 @@ interface IUsePhotosAndCamera {
 }
 
 const usePhotosAndCamera = () : IUsePhotosAndCamera => {
+
+    const { mode } = useTheme()
 
     const handleApiResolve = async (fn: () => any, resolve: any) => {
         try {
@@ -34,13 +37,13 @@ const usePhotosAndCamera = () : IUsePhotosAndCamera => {
                     },
                     {
                         text: 'Cancel',
-                        style: 'cancel',
+                        style: 'destructive',
                         onPress: () => resolve(null)
                     },
                 ],
                 {
                     cancelable: true,
-                    userInterfaceStyle: 'dark'
+                    userInterfaceStyle: mode
                 },
             )
         })
@@ -57,6 +60,7 @@ const usePhotosAndCamera = () : IUsePhotosAndCamera => {
                 return extractUriFromImagePickerResponse(result)
             } else {
                 console.log('Permission required')
+                console.log(permissionResult)
                 return null
             }
         } catch (err) {
@@ -73,6 +77,7 @@ const usePhotosAndCamera = () : IUsePhotosAndCamera => {
                 return extractUriFromImagePickerResponse(result)
             } else {
                 console.log('Permission requried')
+                console.log(permissionResult)
                 return null
             }
         } catch (err) {

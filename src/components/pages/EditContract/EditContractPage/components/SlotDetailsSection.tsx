@@ -9,7 +9,7 @@ const SlotDetailsSection = () => {
     return (
         <Section marginVertical='m'>
             <View margin='m'>
-                <SectionHeader text='Slot Details' variant='large' />
+                <SectionHeader text='Slot Details' titleVariant='large' />
             </View>
             <MenuListItem
                 title='Start Time'

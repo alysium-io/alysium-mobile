@@ -3,7 +3,10 @@ import { SimpleGrid } from 'react-native-super-grid'
 import LargeSelectableItem from './LargeSelectableItem'
 import { LargeSelectableItemData } from './shared'
 import { useSet } from '@hooks'
+import { generateId } from '@etc'
 
+
+const listKey = generateId()
 
 interface LargeSelectableItemListProps {
     data: LargeSelectableItemData[]
@@ -27,7 +30,7 @@ const LargeSelectableItemList : React.FC<LargeSelectableItemListProps> = ({
 
     return (
         <SimpleGrid
-            listKey='100'
+            listKey={listKey}
             spacing={10}
             maxItemsPerRow={2}
             data={data}

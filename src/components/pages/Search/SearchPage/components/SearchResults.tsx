@@ -13,7 +13,7 @@ const SearchResults = () => {
     return (
         <Section>
             <View marginHorizontal='m'>
-                <SectionHeader text='Search Results' variant='large' />
+                <SectionHeader text='Search Results' titleVariant='large' />
             </View>
             {
                 searchResults?.map(result => (

@@ -9,7 +9,7 @@ const EventDateSection = () => {
     return (
         <Section marginVertical='l'>
             <View marginHorizontal='m'>
-                <SectionHeader text='Event Date' variant='large' />
+                <SectionHeader text='Event Date' titleVariant='large' />
             </View>
             <View>
                 <MenuListItem

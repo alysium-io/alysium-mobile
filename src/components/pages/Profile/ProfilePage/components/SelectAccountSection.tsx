@@ -13,7 +13,7 @@ const SelectAccountSection = () => {
     return (
         <Section marginBottom='xl'>
             <View marginHorizontal='m'>
-                <SectionHeader text='Select Account' variant='large' />
+                <SectionHeader text='Select Account' titleVariant='large' />
             </View>
             {
                 getAccountList()?.map(account => (
