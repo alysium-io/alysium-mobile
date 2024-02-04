@@ -188,4 +188,5 @@ export type ProfilePageRouteProp = RouteProp<CompositeStackNavigatorParamList, '
  */
 export type EventManagerPageRouteProp = RouteProp<CompositeStackNavigatorParamList, 'EventManagerPage'>
 export type EditEventPageRouteProp = RouteProp<CompositeStackNavigatorParamList, 'EditEventPage'>
+export type EditVenuePageRouteProp = RouteProp<CompositeStackNavigatorParamList, 'EditVenuePage'>
 export type EventPageRouteProp = RouteProp<CompositeStackNavigatorParamList, 'EventPage'>

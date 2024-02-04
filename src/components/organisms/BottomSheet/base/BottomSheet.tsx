@@ -96,7 +96,8 @@ const BottomSheet = ({
                 style={[
                     {
                         maxHeight: maxHeightStyle,
-                        paddingBottom: isVisible ? 0 : insets.bottom
+                        paddingBottom: isVisible ? 0 : insets.bottom,
+                        flex: 1
                     }
                 ]}
             >

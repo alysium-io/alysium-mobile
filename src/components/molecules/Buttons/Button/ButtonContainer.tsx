@@ -1,6 +1,7 @@
 import React from 'react'
-import { BgTouchAnimation } from '@atomic'
+import { View } from '@atomic'
 import { StyleSheet } from 'react-native'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 
 
 interface ButtonContainerProps {
@@ -20,17 +21,23 @@ const ButtonContainer : React.FC<ButtonContainerProps> = ({
 }) => {
 
     return (
-        <BgTouchAnimation
-            color={backgroundColor}
+        <TouchableOpacity
             onPress={onPress}
             disabled={isDisabled}
-            style={[
-                styles.container,
-                { borderColor }
-            ]}
+            activeOpacity={0.9}
         >
-            {children}
-        </BgTouchAnimation>
+            <View
+                style={[
+                    styles.container,
+                    {
+                        borderColor,
+                        backgroundColor
+                    }
+                ]}
+            >
+                {children}
+            </View>
+        </TouchableOpacity>
     )
 }
 

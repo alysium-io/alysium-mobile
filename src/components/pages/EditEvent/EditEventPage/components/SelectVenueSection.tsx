@@ -15,7 +15,7 @@ const SelectVenueSection = () => {
     return (
         <Section marginVertical='m'>
             <View margin='m'>
-                <SectionHeader text='Select Venue' variant='large' />
+                <SectionHeader text='Select Venue' titleVariant='large' />
             </View>
             <CreateNewContentListItemToggle
                 title='Create New Venue'

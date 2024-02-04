@@ -1,19 +1,16 @@
-import React, { useState } from 'react'
-import { Section, View } from '@atomic'
-import { LargeSelectableItemRadioList } from '@organisms'
+import React from 'react'
+import { Section } from '@atomic'
 import { SectionHeader } from '@molecules'
+import { LargeSelectableItemRadioList } from '@organisms'
 
 
 const VenueTypeSection = () => {
 
-    const [selected, setSelected] = useState<number>(1)
-
     return (
         <Section margin='m'>
-            <SectionHeader text='Venue Type' variant='large' />
+            <SectionHeader text='VenueType' />
             <LargeSelectableItemRadioList
                 defaultId={1}
-                onPress={(id) => setSelected(id)}
                 data={[
                     {
                         id: 1,
@@ -22,8 +19,8 @@ const VenueTypeSection = () => {
                     },
                     {
                         id: 2,
-                        title: 'Arena',
-                        icon: 'arena'
+                        title: 'Outdoor',
+                        icon: 'outdoors'
                     },
                     {
                         id: 3,
@@ -32,10 +29,11 @@ const VenueTypeSection = () => {
                     },
                     {
                         id: 4,
-                        title: 'Outdoor',
-                        icon: 'outdoors'
+                        title: 'arena',
+                        icon: 'arena'
                     }
                 ]}
+                onPress={() => { }}
             />
         </Section>
     )

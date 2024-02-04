@@ -32,6 +32,7 @@ export { default as TextInput } from './TextInput'
 export { default as Switch } from './Switch'
 export { default as Radio } from './Radio'
 export { default as ScrollView } from './ScrollView'
+export { default as KeyboardAvoidingView } from './KeyboardAvoidingView'
 
 /**
  * Dependency Overrides

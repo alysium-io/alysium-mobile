@@ -3,7 +3,7 @@ import { View, TextInput as RNTextInput, Icon } from '@atomic'
 import { StyleSheet, TouchableWithoutFeedback } from 'react-native'
 import { IconNames } from '@svg'
 import { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
-import { TextInputApi, useTextInput, useTheme } from '@hooks'
+import { TextInputApi, useTheme } from '@hooks'
 
 
 interface TextInputProps {
@@ -36,7 +36,6 @@ const TextInput : React.FC<TextInputProps> = ({
 
     useEffect(() => {
         borderColor.value = withTiming(color || theme.colors.ion)
-
     }, [color])
 
     const { theme } = useTheme()
@@ -81,16 +80,19 @@ const TextInput : React.FC<TextInputProps> = ({
                             </View>
                         )
                     }
-                    <RNTextInput
-                        ref={textInputApi.ref}
-                        defaultValue={defaultValue}
-                        placeholder={placeholder}
-                        onChangeText={onChangeText}
-                        onFocus={_onFocus}
-                        onBlur={_onBlur}
-                        value={value}
-                        variant='paragraph-medium'
-                    />
+                    <View>
+                        <RNTextInput
+                            ref={textInputApi.ref}
+                            defaultValue={defaultValue}
+                            placeholder={placeholder}
+                            onChangeText={onChangeText}
+                            onFocus={_onFocus}
+                            onBlur={_onBlur}
+                            value={value}
+                            variant='paragraph-medium'
+                            placeholderTextColor={theme.colors.t3}
+                        />
+                    </View>
                 </View>
             </View>
         </TouchableWithoutFeedback>

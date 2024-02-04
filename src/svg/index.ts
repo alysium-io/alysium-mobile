@@ -1,4 +1,5 @@
 import Search from './Search'
+import SearchFilled from './SearchFilled'
 import Profile from './Profile'
 import Logo from './Logo'
 import Lock from './Lock'
@@ -46,9 +47,11 @@ import Club from './Club'
 import Arena from './Arena'
 import At from './At'
 import Plus from './Plus'
+import EditImage from './EditImage'
 
 export const SvgIcons = {
     'search': Search,
+    'search-filled': SearchFilled,
     'profile': Profile,
     'logo': Logo,
     'lock': Lock,
@@ -96,6 +99,7 @@ export const SvgIcons = {
     'arena': Arena,
     'at': At,
     'plus': Plus,
+    'edit-image': EditImage
 }
 
 export type IconNames = keyof typeof SvgIcons

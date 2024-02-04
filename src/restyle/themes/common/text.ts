@@ -12,13 +12,17 @@ const fontWeights = {
     bold: '700'
 }
 
+const PARAGRAPH_LARGE_SIZE = 20
+const PARAGRAPH_SIZE = 16
+const PARAGRAPH_SMALL_SIZE = 12
+
 export default {
     'page-header': {
         fontSize: 26,
         fontWeight: fontWeights.bold
     },
     'section-header-1': {
-        fontSize: 16,
+        fontSize: 18,
         fontWeight: fontWeights.bold
     },
     'section-header-2': {
@@ -26,35 +30,35 @@ export default {
         fontWeight: fontWeights.regular
     },
     'paragraph-large': {
-        fontSize: 18,
+        fontSize: PARAGRAPH_LARGE_SIZE,
         fontWeight: fontWeights.regular
     },
     'paragraph-large-medium': {
-        fontSize: 18,
+        fontSize: PARAGRAPH_LARGE_SIZE,
         fontWeight: fontWeights.medium
     },
     'paragraph': {
-        fontSize: 14,
+        fontSize: PARAGRAPH_SIZE,
         fontWeight: fontWeights.regular
     },
     'paragraph-medium': {
-        fontSize: 14,
+        fontSize: PARAGRAPH_SIZE,
         fontWeight: fontWeights.medium
     },
     'paragraph-bold': {
-        fontSize: 14,
+        fontSize: PARAGRAPH_SIZE,
         fontWeight: fontWeights.bold
     },
     'paragraph-small': {
-        fontSize: 10,
+        fontSize: PARAGRAPH_SMALL_SIZE,
         fontWeight: fontWeights.regular
     },
     'paragraph-small-medium': {
-        fontSize: 10,
+        fontSize: PARAGRAPH_SMALL_SIZE,
         fontWeight: fontWeights.medium
     },
     'paragraph-small-bold': {
-        fontSize: 10,
+        fontSize: PARAGRAPH_SMALL_SIZE,
         fontWeight: fontWeights.bold
     },
     defaults: textVariantDefaults

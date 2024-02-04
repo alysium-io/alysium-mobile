@@ -1,7 +1,6 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { DismissKeyboardWrapper, View } from '@atomic'
 import { BottomSheetFooter, FullScreenBottomSheet } from '@organisms'
-import { BottomSheetFooterProps } from '@gorhom/bottom-sheet'
 import { SheetApi } from '@hooks'
 import { Button, DeclarativeText, EditableProfileImage, LargeTextInput } from '@molecules'
 import { global } from '@etc'
@@ -16,14 +15,18 @@ const CreateHostBottomSheet : React.FC<CreateHostBottomSheetProps> = ({
     sheetApi
 }) => {
 
-    const { setNewHostName, submitNewHost } = useCreateHost()
+    const {
+        setNewHostText,
+        submitNewHost,
+        onDismiss
+    } = useCreateHost()
 
     const _submitNewHost = () => {
         submitNewHost()
         sheetApi.close()
     }
 
-    const CustomFooter : React.FC<BottomSheetFooterProps> = (props) => {
+    const CustomFooter = useCallback((props: React.ComponentProps<typeof BottomSheetFooter>) => {
         return (
             <BottomSheetFooter {...props}>
                 <View marginHorizontal='l'>
@@ -42,10 +45,10 @@ const CreateHostBottomSheet : React.FC<CreateHostBottomSheetProps> = ({
                 </View>
             </BottomSheetFooter>
         )
-    }
+    }, [])
 
     return (
-        <FullScreenBottomSheet sheetApi={sheetApi} footerComponent={CustomFooter}>
+        <FullScreenBottomSheet sheetApi={sheetApi} footerComponent={CustomFooter} onDismiss={onDismiss}>
             <DismissKeyboardWrapper>
                 <View margin='m' justifyContent='center' alignItems='center'>
                     <View marginVertical='m'>
@@ -53,7 +56,7 @@ const CreateHostBottomSheet : React.FC<CreateHostBottomSheetProps> = ({
                     </View>
                     <LargeTextInput
                         placeholder='Host Name'
-                        onChangeText={setNewHostName}
+                        onChangeText={setNewHostText}
                     />
                     <View margin='m' width='100%'>
                         <DeclarativeText

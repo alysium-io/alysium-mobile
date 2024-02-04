@@ -10,7 +10,7 @@ const SelectEventSection = () => {
     return (
         <Section>
             <View margin='m'>
-                <SectionHeader text='Select Event' variant='large' />
+                <SectionHeader text='Select Event' titleVariant='large' />
             </View>
             <ContentListItemToggler
                 defaultId={1}

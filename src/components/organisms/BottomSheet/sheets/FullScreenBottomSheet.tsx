@@ -10,11 +10,13 @@ import { useWindowDimensions } from 'react-native'
 interface FullScreenBottomSheetProps extends BottomSheetProps {
     sheetApi: SheetApi
     children: React.ReactNode
+    onDismiss?: () => void
 }
 
 const FullScreenBottomSheet : React.FC<FullScreenBottomSheetProps> = ({
     sheetApi,
     children,
+    onDismiss,
     ...props
 }) => {
 
@@ -29,10 +31,11 @@ const FullScreenBottomSheet : React.FC<FullScreenBottomSheetProps> = ({
             enablePanDownToClose={false}
             enableContentPanningGesture={false}
             borderRadius={false}
+            onDismiss={onDismiss}
             {...props}
         >
-            <BottomSheetView>
-                <ScrollView>
+            <BottomSheetView style={{ flex: 1 }}>
+                <ScrollView contentContainerStyle={{ flex: 1 }}>
                     {children}
                 </ScrollView>
             </BottomSheetView>

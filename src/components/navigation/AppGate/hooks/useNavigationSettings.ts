@@ -1,5 +1,5 @@
 import { useTheme } from '@hooks'
-import { ThemeMode, ScreenOptions, BottomTabNavigatorParamList } from '@types'
+import { ScreenOptions, BottomTabNavigatorParamList } from '@types'
 import navigationConfig from './navigationConfig'
 import { StyleProp, ViewStyle } from 'react-native'
 
@@ -21,7 +21,7 @@ const useNavigationSettings = () : IUseNavigationSettings => {
 
     const screenOptions = {
         ...navigationConfig.screenOptions,
-        tabBarInactiveTintColor: theme.colors.t2,
+        tabBarInactiveTintColor: theme.colors.bg2,
         tabBarActiveTintColor: theme.colors.t1,
         tabBarStyle: {
             backgroundColor: theme.colors.bg1,

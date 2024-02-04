@@ -12,7 +12,7 @@ const SummarySection = () => {
     return (
         <Section marginVertical='m'>
             <View marginHorizontal='m'>
-                <SectionHeader text='Summary' variant='large' />
+                <SectionHeader text='Summary' titleVariant='large' />
             </View>
             <View margin='m'>
                 <SummaryTextBlock

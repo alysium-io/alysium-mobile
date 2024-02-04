@@ -10,7 +10,6 @@ import {
     EventDateSection,
     SelectVenueSection,
     FeaturesSection,
-    VenueTypeSection,
     SummarySection,
     EditEventPageFooter,
     CreateVenueBottomSheet
@@ -38,8 +37,6 @@ const EditEventPage = () => {
                     <SelectVenueSection />
                     <Separator />
                     <FeaturesSection />
-                    <Separator />
-                    <VenueTypeSection />
                     <Separator />
                     <SummarySection />
                     <CreateVenueBottomSheet sheetApi={createVenueSheetApi} />

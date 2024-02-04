@@ -7,22 +7,37 @@ export interface TextInputApi {
     focus: () => void
     blur: () => void
     clear: () => void
+    text: React.RefObject<string>
+    setText: (text: string) => void
+    clearText: () => void
+    reset: () => void
 }
 
 const useTextInput = () : TextInputApi => {
 
     const ref = useRef<RNTextInput>(null)
-
     const focus = () => ref.current?.focus()
     const blur = () => ref.current?.blur()
-
     const clear = () => ref.current?.clear()
+
+    const text = useRef<string>('')
+    const setText = (newText: string) => text.current = newText
+    const clearText = () => text.current = ''
+
+    const reset = () => {
+        clear()
+        clearText()
+    }
 
     return {
         ref,
         focus,
         blur,
-        clear
+        clear,
+        text,
+        setText,
+        clearText,
+        reset
     }
 }
 
