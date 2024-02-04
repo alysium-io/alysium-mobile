@@ -23,7 +23,7 @@ const EventsListSection = () => {
                         subtitle={EventStatus.draft}
                         onPress={() => editEventPage(event.id)}
                         contentType={ContentType.event}
-                        image={event.attributes.image}
+                        image={event.attributes.image?.data || ''}
                         borderRadius='sharp'
                         border
                     />

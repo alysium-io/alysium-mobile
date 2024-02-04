@@ -23,7 +23,6 @@ const ContentListItemImage : React.FC<ContentListItemImageProps> = ({
     size = 'medium',
     borderRadius = 'round'
 }) => {
-
     return (
         <View style={[
             styles.container,

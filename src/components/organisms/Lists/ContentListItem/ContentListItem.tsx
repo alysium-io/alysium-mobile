@@ -1,6 +1,6 @@
 import React from 'react'
 import { BgTouchAnimation, Text, View } from '@atomic'
-import { ContentType, Persona, ThemeMode } from '@types'
+import { ContentType, Persona } from '@types'
 import { Colors } from '@etc'
 import { useTheme } from '@hooks'
 import ContentListItemTitle from './ContentListItemTitle'
