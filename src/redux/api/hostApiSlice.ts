@@ -20,7 +20,9 @@ import {
     GetVenueBody,
     GetVenueResponse,
     EditVenueBody,
-    EditVenueResponse
+    EditVenueResponse,
+    DeleteVenueResponse,
+    DeleteVenueBody
 } from '@types'
 
 
@@ -119,7 +121,6 @@ const hostApiSlice = createApi({
                     const index = draft.data.findIndex(event => event.id === eventId)
                     if (index !== -1) {
                         draft.data.splice(index, 1)
-                        console.log(draft.data)
                     }
                 }))
 
@@ -180,6 +181,16 @@ const hostApiSlice = createApi({
             }),
             invalidatesTags: (_result, _error, { venueId }) => [
                 { type: 'Venue', id: venueId }
+            ]
+        }),
+        deleteVenue: builder.mutation<DeleteVenueResponse, DeleteVenueBody>({
+            query: ({ venueId }) => ({
+                url: `/venues/${venueId}`,
+                method: 'DELETE'
+            }),
+            invalidatesTags: (_result, _error, { venueId }) => [
+                { type: 'Venue', id: venueId },
+                'Venue'
             ]
         })
     })

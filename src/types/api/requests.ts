@@ -190,3 +190,8 @@ export type EditVenueBody = {
     hostId: ApiIdentifier
     attributes: Partial<VenueAttributes>
 }
+
+export type DeleteVenueResponse = ApiResponseBase<Venue>
+export type DeleteVenueBody = {
+    venueId: ApiIdentifier    
+}

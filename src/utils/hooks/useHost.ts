@@ -9,17 +9,19 @@ const {
     useEditEventMutation,
     useLazyCreateEventQuery,
     useDeleteEventMutation,
-    useEditVenueMutation
+    useEditVenueMutation,
+    useDeleteVenueMutation
 } = hostApiSlice
 
 export interface IUseHost {
-    getHostDetails: (hostId: number) => Promise<void>
+    getHostDetails: (hostId: ApiIdentifier) => Promise<void>
     resetHost: () => void
     host: HostState
     createEvent: (attributes: Partial<EventAttributes>) => Promise<Event | null>
-    editEvent: (eventId: number, attributes: EditEventAttributes) => Promise<void>
-    deleteEvent: (eventId: number) => Promise<void>
-    editVenue: (venueId: number, attributes: Partial<EditVenueAttributes>) => Promise<void>
+    editEvent: (eventId: ApiIdentifier, attributes: EditEventAttributes) => Promise<void>
+    deleteEvent: (eventId: ApiIdentifier) => Promise<void>
+    editVenue: (venueId: ApiIdentifier, attributes: Partial<EditVenueAttributes>) => Promise<void>
+    deleteVenue: (venueId: ApiIdentifier) => Promise<void>
 }
 
 const useHost = () : IUseHost => {
@@ -32,8 +34,9 @@ const useHost = () : IUseHost => {
     const [ flux_editEvent ] = useEditEventMutation()
     const [ flux_deleteEvent ] = useDeleteEventMutation()
     const [ flux_editVenue ] = useEditVenueMutation()
+    const [ flux_deleteVenue ] = useDeleteVenueMutation()
 
-    const getHostDetails = async (hostId: number) => {
+    const getHostDetails = async (hostId: ApiIdentifier) => {
         try {
             const { data, error } = await flux_getHostDetails({ hostId })
 
@@ -101,13 +104,21 @@ const useHost = () : IUseHost => {
 
     const editVenue = async (venueId: ApiIdentifier, attributes: Partial<EditVenueAttributes>) => {
         try {
-            if (host.host ) {
+            if (host.host) {
                 await flux_editVenue({
                     hostId: host.host.id,
                     venueId,
                     attributes
                 })
             }
+        } catch (err) {
+            throw err
+        }
+    }
+
+    const deleteVenue = async (venueId: ApiIdentifier) => {
+        try {
+            await flux_deleteVenue({ venueId })
         } catch (err) {
             throw err
         }
@@ -120,7 +131,8 @@ const useHost = () : IUseHost => {
         createEvent,
         editEvent,
         deleteEvent,
-        editVenue
+        editVenue,
+        deleteVenue
     }
 }
 
