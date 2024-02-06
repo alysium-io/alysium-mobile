@@ -10,32 +10,34 @@ import { ApiIdentifier } from './api'
 type SearchPage = undefined
 type ComponentsPage = undefined
 
-type HostPage = { itemId: ApiIdentifier }
-type HostFollowersAndShowsPage = { itemId: ApiIdentifier, defaultTabIndex: number }
+type HostPage = { hostId: ApiIdentifier }
+type HostFollowersAndShowsPage = { hostId: ApiIdentifier, defaultTabIndex: number }
 
-type ArtistPage = { itemId: ApiIdentifier }
-type ArtistFollowersAndShowsPage = { itemId: ApiIdentifier, defaultTabIndex: number }
+type ArtistPage = { artistId: ApiIdentifier }
+type ArtistFollowersAndShowsPage = { artistId: ApiIdentifier, defaultTabIndex: number }
 
-type TagPage = { itemId: ApiIdentifier }
-type TagFollowersPage = { itemId: ApiIdentifier }
+type TagPage = { tagId: ApiIdentifier }
+type TagFollowersPage = { tagId: ApiIdentifier }
 
 type ProfilePage = undefined
 
 type EventManagerPage = undefined
-type EditEventPage = { itemId: ApiIdentifier }
+type EditEventPage = { eventId: ApiIdentifier }
 
-type EditVenuePage = { itemId: ApiIdentifier }
+type EditVenuePage = { venueId: ApiIdentifier }
 
-type EventPage = { itemId: ApiIdentifier }
+type EventPage = { eventId: ApiIdentifier }
 
 type ExperimentPageOne = undefined
 type ExperimentPageTwo = undefined
 
 type PagesPage = undefined
 
-type EditContractPage = { itemId: ApiIdentifier }
+type EditContractPage = { contractId: ApiIdentifier }
 
 type ContractManagerPage = undefined
+
+type EventCandidatesPage = { eventId: ApiIdentifier }
 
 /**
  * Stack Navigators
@@ -98,6 +100,7 @@ export type EventManagerStackNavigatorParamList = {
     EditEventPage: EditEventPage
     EventPage: EventPage
     EditVenuePage: EditVenuePage
+    EventCandidatesPage: EventCandidatesPage
 
 }
 

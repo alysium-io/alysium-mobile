@@ -68,6 +68,7 @@ const hostApiSlice = createApi({
                 result
                     ? [...result.data.map(({ id }) => ({ type: 'Event' as const, id })), 'Event']
                     : ['Event']
+                
         }),
         createEvent: builder.query<CreateEventResponse, CreateEventBody>({
             query: ({ hostId, attributes }) => ({
