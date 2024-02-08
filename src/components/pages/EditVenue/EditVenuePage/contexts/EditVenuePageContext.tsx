@@ -40,12 +40,12 @@ export const EditVenuePageProvider : React.FC<ProviderProps> = ({ children }) =>
         data: venueData,
         error: venueError,
         isLoading: venueIsLoading
-    } = useGetVenueDetailsQuery({ venueId: route.params.itemId })
+    } = useGetVenueDetailsQuery({ venueId: route.params.venueId })
 
     const formMethods = useForm<EditVenueAttributes>({ defaultValues: initialValues })
 
     const onValid : SubmitHandler<EditVenueAttributes> = (data: EditVenueAttributes) => {
-        editVenue(route.params.itemId, data)
+        editVenue(route.params.venueId, data)
     }
 
     const onInvalid : SubmitErrorHandler<EditVenueAttributes> = (errors: any) => {
@@ -86,7 +86,7 @@ export const EditVenuePageProvider : React.FC<ProviderProps> = ({ children }) =>
     }
 
     const onDeleteVenue = () => {
-        deleteVenue(route.params.itemId)
+        deleteVenue(route.params.venueId)
         back()
     }
 

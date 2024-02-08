@@ -42,9 +42,9 @@ const ContentListItemToggleTitle : React.FC<ContentListItemToggleTitleProps> = (
 
     return (
         <View style={styles.container} marginLeft='m'>
-            { subtitleFirst && <Text {...propsScheme.get(subtitleFirst)?.subtitle}>{subtitle}</Text> }
-            <Text {...propsScheme.get(subtitleFirst)?.title}>{title}</Text>
-            { !subtitleFirst && <Text {...propsScheme.get(subtitleFirst)?.subtitle}>{subtitle}</Text> }
+            { subtitleFirst && <Text {...propsScheme.get(subtitleFirst)?.subtitle} numberOfLines={1} ellipsizeMode='tail'>{subtitle}</Text> }
+            <Text {...propsScheme.get(subtitleFirst)?.title} numberOfLines={1} ellipsizeMode='tail'>{title}</Text>
+            { !subtitleFirst && <Text {...propsScheme.get(subtitleFirst)?.subtitle} numberOfLines={1} ellipsizeMode='tail'>{subtitle}</Text> }
         </View>
     )
 }

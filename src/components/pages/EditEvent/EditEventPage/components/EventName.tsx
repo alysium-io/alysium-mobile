@@ -25,7 +25,7 @@ const EventName = () => {
                         value={value}
                     />
                 )}
-                name="name"
+                name='name'
             />
         </View>
     )

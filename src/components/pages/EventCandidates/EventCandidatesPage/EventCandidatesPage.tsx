@@ -10,7 +10,7 @@ const EventCandidatesPage = () => {
         <BasePage>
             <HeaderSafeArea>
                 <ScrollView alwaysBounceVertical>
-                    <Text variant='page-header'>Event Candidates</Text>
+                    <Text variant='page-header' margin='m'>Event Candidates</Text>
                 </ScrollView>
             </HeaderSafeArea>
         </BasePage>

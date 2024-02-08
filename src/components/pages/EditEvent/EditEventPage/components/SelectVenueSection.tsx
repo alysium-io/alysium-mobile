@@ -29,11 +29,11 @@ const SelectVenueSection = () => {
                 subtitleFirst={true}
                 onPress={(id) => editVenuePage(id)}
                 onPressToggle={(id) => onChangeVenue(id)}
-                items={venuesData?.data.map(venue => ({
+                items={venuesData?.map(venue => ({
                     id: venue.id,
                     image: global.sampleData.venueImages[0],
-                    title: venue.attributes.name,
-                    subtitle: venue.attributes.address || 'Unknown Address'
+                    title: venue.name,
+                    subtitle: venue.address || 'Unknown Address'
                 })) ?? []}
             />
         </Section>

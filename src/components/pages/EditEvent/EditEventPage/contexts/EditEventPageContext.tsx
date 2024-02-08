@@ -5,6 +5,7 @@ import { Alert } from 'react-native'
 import { useRoute } from '@react-navigation/native'
 import hostApiSlice from 'src/redux/api/hostApiSlice'
 import {
+    ApiIdentifier,
     EditEventAttributes,
     EditEventPageRouteProp,
     EventDetailsResponse,
@@ -36,13 +37,14 @@ export type EditEventPageContextType = {
     confirmDelete: () => void
     createVenueSheetApi: SheetApi
     onChangeVenue: (venueId: number) => void
+    goToEventCandidatesPage: () => void
 }
 
 export const EditEventPageContext = createContext({} as EditEventPageContextType)
 
 export const EditEventPageProvider : React.FC<ProviderProps> = ({ children }) => {
 
-    const { back } = useNavigation()
+    const { back, eventCandidatesPage } = useNavigation()
     const { editEvent, host, deleteEvent } = useHost()
 
     const route = useRoute<EditEventPageRouteProp>()
@@ -53,8 +55,8 @@ export const EditEventPageProvider : React.FC<ProviderProps> = ({ children }) =>
         data: eventData,
         error: eventError,
         isLoading: eventIsLoading
-    } = useGetEventDetailsQuery({ eventId: route.params.itemId })
-
+    } = useGetEventDetailsQuery({ eventId: route.params.eventId })
+    
     const {
         data: venuesData,
         error: venuesError,
@@ -64,7 +66,7 @@ export const EditEventPageProvider : React.FC<ProviderProps> = ({ children }) =>
     const formMethods = useForm<EditEventAttributes>({ defaultValues: initialValues })
 
     const onValid : SubmitHandler<EditEventAttributes> = (data: EditEventAttributes) => {
-        editEvent(route.params.itemId, data)
+        editEvent(route.params.eventId, data)
     }
 
     const onInvalid : SubmitErrorHandler<EditEventAttributes> = (errors: any) => {
@@ -102,12 +104,16 @@ export const EditEventPageProvider : React.FC<ProviderProps> = ({ children }) =>
     }
 
     const onDeleteEvent = () => {
-        deleteEvent(route.params.itemId)
+        deleteEvent(route.params.eventId)
         back()
     }
 
-    const onChangeVenue = (venueId: number) => {
+    const onChangeVenue = (venueId: ApiIdentifier) => {
         formMethods.setValue('venue', venueId)
+    }
+
+    const goToEventCandidatesPage = () => {
+        eventCandidatesPage(route.params.eventId)
     }
 
     return (
@@ -124,7 +130,8 @@ export const EditEventPageProvider : React.FC<ProviderProps> = ({ children }) =>
                 loadForm,
                 confirmDelete,
                 createVenueSheetApi,
-                onChangeVenue
+                onChangeVenue,
+                goToEventCandidatesPage
             }}
         >
             {children}
