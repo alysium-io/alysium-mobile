@@ -6,7 +6,7 @@ import { ListItemContainer, ListItemTitle } from '../shared'
 
 type CreateNewContentListItemToggleProps =
     React.ComponentProps<typeof ListItemTitle> &
-    React.ComponentProps<typeof ListItemContainer>
+    Omit<React.ComponentProps<typeof ListItemContainer>, 'children'>
 
 const CreateNewContentListItemToggle : React.FC<CreateNewContentListItemToggleProps> = ({
     title,

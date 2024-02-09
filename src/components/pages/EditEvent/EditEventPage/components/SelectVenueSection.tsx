@@ -22,18 +22,17 @@ const SelectVenueSection = () => {
                 subtitle='address, type, etc.'
                 onPress={() => createVenueSheetApi.open()}
                 subtitleFirst={true}
-                icon='plus'
             />
             <ContentListItemToggler
                 defaultId={eventData?.data.attributes.venue?.data?.id ?? null}
                 subtitleFirst={true}
-                onPress={(id) => editVenuePage(id)}
                 onPressToggle={(id) => onChangeVenue(id)}
                 items={venuesData?.map(venue => ({
                     id: venue.id,
                     image: global.sampleData.venueImages[0],
                     title: venue.name,
-                    subtitle: venue.address || 'Unknown Address'
+                    subtitle: venue.address || 'Unknown Address',
+                    onPress: (id: number) => editVenuePage(id)
                 })) ?? []}
             />
         </Section>

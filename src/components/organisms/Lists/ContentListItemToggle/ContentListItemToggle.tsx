@@ -1,12 +1,11 @@
 import React from 'react'
-import { ListItemContainer, ListItemImage, ListItemRank, ListItemTitle } from '../shared'
+import { ListItemContainer, ListItemImage, ListItemTitle } from '../shared'
 import ContentListItemToggleIcon from './ContentListItemToggleIcon'
 
 
 type ContentListItemToggleProps =
+    Omit<React.ComponentProps<typeof ListItemContainer>, 'children'> &
     React.ComponentProps<typeof ListItemTitle> &
-    React.ComponentProps<typeof ListItemContainer> &
-    React.ComponentProps<typeof ListItemRank> &
     React.ComponentProps<typeof ListItemImage> &
 {
     onPressToggle: () => void
@@ -16,7 +15,6 @@ type ContentListItemToggleProps =
 const ContentListItemToggle : React.FC<ContentListItemToggleProps> = ({
     title,
     subtitle,
-    rnk,
     onPress,
     onPressToggle,
     contentType,
@@ -30,7 +28,6 @@ const ContentListItemToggle : React.FC<ContentListItemToggleProps> = ({
 
     return (
         <ListItemContainer border={border} onPress={onPress}>
-            { rnk && <ListItemRank rnk={rnk} /> }
             <ListItemImage contentType={contentType} image={image} size={size} borderRadius={borderRadius} />
             <ListItemTitle title={title} subtitle={subtitle} subtitleFirst={subtitleFirst} />
             <ContentListItemToggleIcon checked={checked} onPress={onPressToggle} />
