@@ -1,6 +1,5 @@
 import React from 'react'
 import { Avatar, View } from '@atomic'
-import { StyleSheet } from 'react-native'
 import { ContentType, Persona } from '@types'
 
 
@@ -10,24 +9,21 @@ const sizeScheme = {
     large: 95
 }
 
-interface ContentListItemImageProps {
+interface ListItemImageProps {
     image: string | null
-    size: keyof typeof sizeScheme
     contentType: ContentType | Persona
+    size?: keyof typeof sizeScheme
     borderRadius?: 'round' | 'sharp' | 'smooth' | number
 }
 
-const ContentListItemImage : React.FC<ContentListItemImageProps> = ({
+const ListItemImage : React.FC<ListItemImageProps> = ({
     image,
     contentType,
     size = 'medium',
     borderRadius = 'round'
 }) => {
     return (
-        <View style={[
-            styles.container,
-            { height: sizeScheme[size] }
-        ]}>
+        <View style={{ height: sizeScheme[size], aspectRatio: 1 }}>
             <Avatar
                 contentType={contentType}
                 borderRadius={borderRadius}
@@ -38,10 +34,4 @@ const ContentListItemImage : React.FC<ContentListItemImageProps> = ({
     )
 }
 
-const styles = StyleSheet.create({
-    container: {
-        aspectRatio: 1
-    }
-})
-
-export default ContentListItemImage
+export default ListItemImage

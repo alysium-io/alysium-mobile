@@ -1,6 +1,5 @@
 import React from 'react'
 import { View, Text } from '@atomic'
-import { StyleSheet } from 'react-native'
 
 
 const propsScheme = new Map([
@@ -28,31 +27,32 @@ const propsScheme = new Map([
     }]
 ])
 
-interface ContentListItemTitleProps {
+interface ListItemTitleProps {
     title: string
     subtitle: string
     subtitleFirst?: boolean
 }
 
-const ContentListItemTitle : React.FC<ContentListItemTitleProps> = ({
+const ListItemTitle : React.FC<ListItemTitleProps> = ({
     title,
     subtitle,
     subtitleFirst = false
 }) => {
 
+    const props = propsScheme.get(subtitleFirst)
+
+    const titleComponent = <Text {...props?.title} numberOfLines={1} ellipsizeMode='tail' key={0}>{title}</Text>
+    const subtitleComponent = <Text {...props?.subtitle} numberOfLines={1} ellipsizeMode='tail' key={1}>{subtitle}</Text>
+
     return (
-        <View style={styles.container} marginLeft='m'>
-            { subtitleFirst && <Text {...propsScheme.get(subtitleFirst)?.subtitle}>{subtitle}</Text> }
-            <Text {...propsScheme.get(subtitleFirst)?.title}>{title}</Text>
-            { !subtitleFirst && <Text {...propsScheme.get(subtitleFirst)?.subtitle}>{subtitle}</Text> }
+        <View flex={1} marginLeft='m'>
+            {
+                subtitleFirst
+                    ? [subtitleComponent, titleComponent]
+                    : [titleComponent, subtitleComponent]
+            }
         </View>
     )
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1
-    }
-})
-
-export default ContentListItemTitle
+export default ListItemTitle

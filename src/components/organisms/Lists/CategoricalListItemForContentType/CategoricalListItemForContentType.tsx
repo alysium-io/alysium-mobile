@@ -1,18 +1,15 @@
 import React from 'react'
-import { View, Icon, BgTouchAnimation } from '@atomic'
-import { ContentType, ThemeMode } from '@types'
+import { Icon } from '@atomic'
+import { ContentType } from '@types'
 import CategoricalListItemForContentTypeImage from './CategoricalListItemForContentTypeImage'
-import CategoricalListItemForContentTypeTitle from './CategoricalListItemForContentTypeTitle'
-import { StyleSheet } from 'react-native'
-import { useTheme } from '@hooks'
-import { Colors } from '@etc'
+import { ListItemContainer, ListItemTitle } from '../shared'
 
 
-interface CategoricalListItemForContentTypeProps {
+type CategoricalListItemForContentTypeProps =
+    React.ComponentProps<typeof ListItemTitle> &
+    React.ComponentProps<typeof ListItemContainer> &
+{
     contentType: ContentType.artist | ContentType.host | ContentType.tag | ContentType.location
-    title: string
-    subtitle: string
-    onPress: () => void
 }
 
 const CategoricalListItemForContentType : React.FC<CategoricalListItemForContentTypeProps> = ({
@@ -22,32 +19,13 @@ const CategoricalListItemForContentType : React.FC<CategoricalListItemForContent
     onPress
 }) => {
 
-    const { mode, theme, getRawColor } = useTheme()
-
     return (
-        <BgTouchAnimation color={Colors.RGBA2String(Colors.hex2RGBA(getRawColor('ion'), 0.1))} animationType='highlight' onPress={onPress}>
-            <View paddingHorizontal='m'>
-                <View paddingVertical='s' style={[
-                    styles.container,
-                    {
-                        borderBottomWidth: 0.5,
-                        borderBottomColor: mode === ThemeMode.dark ? theme.colors.ion_dark : theme.colors.ion
-                    }
-                ]}>
-                    <CategoricalListItemForContentTypeImage contentType={contentType} />
-                    <CategoricalListItemForContentTypeTitle title={title} subtitle={subtitle} />
-                    <Icon name='arrow-right' color='ion' size='small' />
-                </View>
-            </View>
-        </BgTouchAnimation>
+        <ListItemContainer border onPress={onPress}>
+            <CategoricalListItemForContentTypeImage contentType={contentType} />
+            <ListItemTitle title={title} subtitle={subtitle} />
+            <Icon name='arrow-right' color='ion' size='small' />
+        </ListItemContainer>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flexDirection: 'row',
-        alignItems: 'center'
-    }
-})
 
 export default CategoricalListItemForContentType
