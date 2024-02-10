@@ -3,11 +3,11 @@ import { Text } from '@atomic'
 
 
 interface ListItemRankProps {
-    rnk: number
+    rnk?: number
 }
 
 const ListItemRank : React.FC<ListItemRankProps> = ({ rnk }) => {
-    return <Text variant='paragraph-medium' marginRight='m'>{rnk}</Text>
+    return rnk ? <Text variant='paragraph-medium' marginRight='m'>{rnk}</Text> : <></>
 }
 
 export default ListItemRank

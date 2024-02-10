@@ -16,14 +16,14 @@ const EventsListSection = () => {
     return (
         <Section>
             {
-                eventsData.map(event => (
+                eventsData.data.map(event => (
                     <ContentListItem
                         key={event.id}
-                        title={event.name}
+                        title={event.attributes.name}
                         subtitle={EventStatus.draft}
                         onPress={() => editEventPage(event.id)}
                         contentType={ContentType.event}
-                        image={event.image?.data || ''}
+                        image={event.attributes.image?.data?.attributes.url || ''}
                         borderRadius='sharp'
                         border
                     />

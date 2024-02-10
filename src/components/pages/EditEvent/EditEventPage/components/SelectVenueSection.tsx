@@ -27,11 +27,11 @@ const SelectVenueSection = () => {
                 defaultId={eventData?.data.attributes.venue?.data?.id ?? null}
                 subtitleFirst={true}
                 onPressToggle={(id) => onChangeVenue(id)}
-                items={venuesData?.map(venue => ({
+                items={venuesData?.data.map(venue => ({
                     id: venue.id,
                     image: global.sampleData.venueImages[0],
-                    title: venue.name,
-                    subtitle: venue.address || 'Unknown Address',
+                    title: venue.attributes.name,
+                    subtitle: venue.attributes.address || 'Unknown Address',
                     onPress: (id: number) => editVenuePage(id)
                 })) ?? []}
             />

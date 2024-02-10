@@ -21,12 +21,12 @@ const MenuIcon : React.FC<{ onPress?: () => void }> = ({ onPress }) => (
 )
 
 interface ListItemActionIconProps {
-    actionIcon: 'arrow' | 'menu'
+    actionIcon?: 'arrow' | 'menu'
     onPress?: () => void
 }
 
 const ListItemActionIcon : React.FC<ListItemActionIconProps> = ({
-    actionIcon,
+    actionIcon = 'arrow',
     onPress
 }) => {
 

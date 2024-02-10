@@ -1,4 +1,5 @@
 import { ApiIdentifier, ApiRelation, Model } from './base'
+import { Image } from './images'
 
 export type UserAttributes = {
     username: string
@@ -48,10 +49,10 @@ export type EventAttributes = {
     name: string
     date: string | null
     address: string | null
-    image: any | null
     color: string | null
     slots?: ApiRelation<Slot[]>
     venue?: ApiRelation<Venue | null>
+    image?: ApiRelation<Image | null>
 }
 export type Event = Model<EventAttributes>
 
@@ -73,7 +74,7 @@ export type VenueAttributes = {
     is_ready_for_contracting: boolean | null
     location_lat_lon: string | null
 }
-export type Venue = VenueAttributes
+export type Venue = Model<VenueAttributes>
 
 /**
  * Slots

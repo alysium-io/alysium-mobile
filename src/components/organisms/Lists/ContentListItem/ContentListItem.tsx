@@ -3,9 +3,9 @@ import { ListItemImage, ListItemMarker, ListItemTitle, ListItemActionIcon, ListI
 
 
 type ContentListItemProps =
+    Omit<React.ComponentProps<typeof ListItemContainer>, 'children'> &
     React.ComponentProps<typeof ListItemMarker> &
     React.ComponentProps<typeof ListItemTitle> &
-    React.ComponentProps<typeof ListItemContainer> &
     React.ComponentProps<typeof ListItemActionIcon> &
     React.ComponentProps<typeof ListItemRank> &
     React.ComponentProps<typeof ListItemImage> &
@@ -23,15 +23,15 @@ const ContentListItem : React.FC<ContentListItemProps> = ({
     border,
     onPressMenu,
     markerIcon,
+    actionIcon,
     size = 'medium',
-    actionIcon = 'arrow',
     subtitleFirst = false,
     borderRadius = 'round'
 }) => {
 
     return (
         <ListItemContainer border={border} onPress={onPress}>
-            { rnk && <ListItemRank rnk={rnk} /> }
+            <ListItemRank rnk={rnk} />
             <ListItemImage contentType={contentType} image={image} size={size} borderRadius={borderRadius} />
             <ListItemTitle title={title} subtitle={subtitle} subtitleFirst={subtitleFirst} />
             { markerIcon && <ListItemMarker markerIcon={markerIcon} /> }

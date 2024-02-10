@@ -158,7 +158,7 @@ export type EditEventBody = {
     attributes: Partial<EditEventAttributes>
 }
 
-export type EventsResponse = Event[]
+export type EventsResponse = ApiResponseBase<Event[]>
 export type EventsBody = void
 
 export type EventDetailsResponse = ApiResponseBase<Event>
@@ -170,7 +170,7 @@ export type DeleteEventBody = { eventId: ApiIdentifier }
 /**
  * Venues
  */
-export type GetMyVenuesResponse = Venue[]
+export type GetMyVenuesResponse = ApiResponseBase<Venue[]>
 export type GetMyVenuesBody = { hostId?: ApiIdentifier }
 
 export type GetVenueResponse = ApiResponseBase<Model<Venue>>
@@ -193,5 +193,5 @@ export type EditVenueBody = {
 
 export type DeleteVenueResponse = ApiResponseBase<Venue>
 export type DeleteVenueBody = {
-    venueId: ApiIdentifier    
+    venueId: ApiIdentifier
 }

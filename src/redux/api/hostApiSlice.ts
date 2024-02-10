@@ -66,7 +66,7 @@ const hostApiSlice = createApi({
             }),
             providesTags: (result, _error) =>
                 result
-                    ? [...result.map(({ id }) => ({ type: 'Event' as const, id })), 'Event']
+                    ? [...result.data.map(({ id }) => ({ type: 'Event' as const, id })), 'Event']
                     : ['Event']
                 
         }),
@@ -86,7 +86,7 @@ const hostApiSlice = createApi({
                     const { data } = await queryFulfilled
                     dispatch(
                         hostApiSlice.util.updateQueryData('getEvents', undefined, draft => {
-                            draft.push(data.data) // Add the new event to the list
+                            draft.data.push(data.data) // Add the new event to the list
                         })
                     )
                 } catch {
@@ -119,9 +119,9 @@ const hostApiSlice = createApi({
             onQueryStarted: async ({ eventId }, { dispatch, queryFulfilled }) => {
                 // Optimistically remove the event from relevant queries
                 dispatch(hostApiSlice.util.updateQueryData('getEvents', undefined, (draft) => {
-                    const index = draft.findIndex(event => event.id === eventId)
+                    const index = draft.data.findIndex(event => event.id === eventId)
                     if (index !== -1) {
-                        draft.splice(index, 1)
+                        draft.data.splice(index, 1)
                     }
                 }))
 
@@ -143,7 +143,7 @@ const hostApiSlice = createApi({
             }),
             providesTags: (result) =>
                 result
-                    ? [...result.map(({ id }) => ({ type: 'Venue' as const, id })), 'Venue']
+                    ? [...result.data.map(({ id }) => ({ type: 'Venue' as const, id })), 'Venue']
                     : ['Venue']
         }),
         getVenueDetails: builder.query<GetVenueResponse, GetVenueBody>({
