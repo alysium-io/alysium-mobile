@@ -9,6 +9,7 @@ export * from './EditEvent'
 export * from './EditContract'
 export * from './ContractManager'
 export * from './EditVenue'
+export * from './EventCandidates'
 
 // For testing
 export * from './Components'

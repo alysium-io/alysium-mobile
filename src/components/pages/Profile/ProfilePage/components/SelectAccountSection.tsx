@@ -25,7 +25,7 @@ const SelectAccountSection = () => {
                         contentType={account.type}
                         image={account.image}
                         border
-                        marker={account.isActive ? 'checkmark' : undefined}
+                        markerIcon={account.isActive ? 'checkmark' : undefined}
                     />
                 ))
             }

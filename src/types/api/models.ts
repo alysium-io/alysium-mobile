@@ -1,4 +1,4 @@
-import { ApiRelation, Model } from './base'
+import { ApiIdentifier, ApiRelation, Model } from './base'
 
 export type UserAttributes = {
     username: string
@@ -45,12 +45,12 @@ export type EditEventAttributes = {
     venue: number | null
 }
 export type EventAttributes = {
-    name: string,
-    date: string | null,
-    address: string | null,
-    image: string | null,
-    color: string | null,
-    slots?: ApiRelation<Slot[]>,
+    name: string
+    date: string | null
+    address: string | null
+    image: any | null
+    color: string | null
+    slots?: ApiRelation<Slot[]>
     venue?: ApiRelation<Venue | null>
 }
 export type Event = Model<EventAttributes>
@@ -64,6 +64,7 @@ export type EditVenueAttributes = {
     capacity: number | null
 }
 export type VenueAttributes = {
+    id: ApiIdentifier
     name: string
     capacity: number | null
     address: string | null
@@ -72,7 +73,7 @@ export type VenueAttributes = {
     is_ready_for_contracting: boolean | null
     location_lat_lon: string | null
 }
-export type Venue = Model<VenueAttributes>
+export type Venue = VenueAttributes
 
 /**
  * Slots

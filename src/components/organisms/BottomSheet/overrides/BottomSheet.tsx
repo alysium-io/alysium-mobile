@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 import { useTheme, SheetRef, useKeyboard } from '@hooks'
-import { Easing, SharedValue } from 'react-native-reanimated'
+import { Easing } from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useBottomSheetMaxHeight } from '../hooks'
 import { ThemeMode } from '@types'
@@ -9,7 +9,6 @@ import BottomSheetBackdrop from './BottomSheetBackdrop'
 import {
     BottomSheetModal,
     useBottomSheetTimingConfigs,
-    BottomSheetFooterProps,
     BottomSheetHandleProps,
     BottomSheetView
 } from '@gorhom/bottom-sheet'
@@ -26,37 +25,30 @@ const colorScheme = {
     }
 }
 
-interface BottomSheetProps {
-    sheetRef: SheetRef
+type BottomSheetProps = React.ComponentProps<typeof BottomSheetModal> & {
     children?: React.ReactNode
-    onDismiss?: () => void
-    snapPoints?: readonly (string | number)[] | SharedValue<(string | number)[]> | undefined
+    sheetRef: SheetRef
     maxHeight?: string
-    footerComponent?: React.FC<BottomSheetFooterProps> | undefined
-    customHandle?: React.FC<BottomSheetHandleProps> | undefined
-    enablePanDownToClose?: boolean
-    enableContentPanningGesture?: boolean
+    customHandle?: React.FC<BottomSheetHandleProps>
     borderRadius?: boolean
     backgroundColor?: string
     borderColor?: string
-    onChange?: (index: number) => void
+    contentContainerStyle?: React.ComponentProps<typeof BottomSheetView>['style']
 }
 
-const BottomSheet = ({
+const BottomSheet : React.FC<BottomSheetProps> = ({
     children,
     sheetRef,
-    onDismiss,
+    backgroundColor,
+    borderColor,
     maxHeight = '90%',
-    snapPoints,
-    footerComponent,
     customHandle = BottomSheetHandle,
     enablePanDownToClose = true,
     enableContentPanningGesture = false,
     borderRadius = true,
-    backgroundColor,
-    borderColor,
-    onChange
-} : BottomSheetProps) => {
+    contentContainerStyle,
+    ...props
+}) => {
 
     const { isVisible } = useKeyboard()
     const { mode, getRawColor } = useTheme()
@@ -73,16 +65,13 @@ const BottomSheet = ({
 
     return (
         <BottomSheetModal
-            onDismiss={onDismiss}
             ref={sheetRef}
             index={0}
             backdropComponent={BottomSheetBackdrop}
             handleComponent={customHandle}
             enablePanDownToClose={enablePanDownToClose}
             animationConfigs={animationConfigs}
-            enableDynamicSizing={snapPoints ? false : true}
-            snapPoints={snapPoints}
-            footerComponent={footerComponent}
+            enableDynamicSizing={props.snapPoints ? false : true}
             enableContentPanningGesture={enableContentPanningGesture}
             backgroundStyle={{
                 backgroundColor: backgroundColor || getRawColor(colorScheme[mode].background),
@@ -90,15 +79,15 @@ const BottomSheet = ({
                 borderTopWidth: borderColor ? 1 : 0,
                 borderTopColor: borderColor || getRawColor(colorScheme[mode].border)
             }}
-            onChange={onChange}
+            {...props}
         >
             <BottomSheetView
                 style={[
                     {
                         maxHeight: maxHeightStyle,
-                        paddingBottom: isVisible ? 0 : insets.bottom,
-                        flex: 1
-                    }
+                        paddingBottom: isVisible ? 0 : insets.bottom
+                    },
+                    contentContainerStyle
                 ]}
             >
                 { children }

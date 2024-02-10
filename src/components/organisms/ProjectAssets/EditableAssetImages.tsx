@@ -50,8 +50,6 @@ const EditableAssetImages = () => {
         setState(newState)
     }
 
-    console.log(state)
-
     return (
         <View padding='m'>
             <SimpleGrid

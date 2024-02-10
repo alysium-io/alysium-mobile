@@ -20,7 +20,9 @@ import {
     GetVenueBody,
     GetVenueResponse,
     EditVenueBody,
-    EditVenueResponse
+    EditVenueResponse,
+    DeleteVenueResponse,
+    DeleteVenueBody
 } from '@types'
 
 
@@ -64,8 +66,9 @@ const hostApiSlice = createApi({
             }),
             providesTags: (result, _error) =>
                 result
-                    ? [...result.data.map(({ id }) => ({ type: 'Event' as const, id })), 'Event']
+                    ? [...result.map(({ id }) => ({ type: 'Event' as const, id })), 'Event']
                     : ['Event']
+                
         }),
         createEvent: builder.query<CreateEventResponse, CreateEventBody>({
             query: ({ hostId, attributes }) => ({
@@ -83,7 +86,7 @@ const hostApiSlice = createApi({
                     const { data } = await queryFulfilled
                     dispatch(
                         hostApiSlice.util.updateQueryData('getEvents', undefined, draft => {
-                            draft.data.push(data.data) // Add the new event to the list
+                            draft.push(data.data) // Add the new event to the list
                         })
                     )
                 } catch {
@@ -116,10 +119,9 @@ const hostApiSlice = createApi({
             onQueryStarted: async ({ eventId }, { dispatch, queryFulfilled }) => {
                 // Optimistically remove the event from relevant queries
                 dispatch(hostApiSlice.util.updateQueryData('getEvents', undefined, (draft) => {
-                    const index = draft.data.findIndex(event => event.id === eventId)
+                    const index = draft.findIndex(event => event.id === eventId)
                     if (index !== -1) {
-                        draft.data.splice(index, 1)
-                        console.log(draft.data)
+                        draft.splice(index, 1)
                     }
                 }))
 
@@ -141,7 +143,7 @@ const hostApiSlice = createApi({
             }),
             providesTags: (result) =>
                 result
-                    ? [...result.data.map(({ id }) => ({ type: 'Venue' as const, id })), 'Venue']
+                    ? [...result.map(({ id }) => ({ type: 'Venue' as const, id })), 'Venue']
                     : ['Venue']
         }),
         getVenueDetails: builder.query<GetVenueResponse, GetVenueBody>({
@@ -180,6 +182,16 @@ const hostApiSlice = createApi({
             }),
             invalidatesTags: (_result, _error, { venueId }) => [
                 { type: 'Venue', id: venueId }
+            ]
+        }),
+        deleteVenue: builder.mutation<DeleteVenueResponse, DeleteVenueBody>({
+            query: ({ venueId }) => ({
+                url: `/venues/${venueId}`,
+                method: 'DELETE'
+            }),
+            invalidatesTags: (_result, _error, { venueId }) => [
+                { type: 'Venue', id: venueId },
+                'Venue'
             ]
         })
     })

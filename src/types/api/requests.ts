@@ -1,4 +1,4 @@
-import { ApiIdentifier, ApiResponseBase, Pagination } from './base'
+import { ApiIdentifier, ApiResponseBase, Model } from './base'
 import { Host, Artist, Tag, Event, EventAttributes, Venue, VenueAttributes, EditEventAttributes } from './models'
 
 
@@ -158,7 +158,7 @@ export type EditEventBody = {
     attributes: Partial<EditEventAttributes>
 }
 
-export type EventsResponse = ApiResponseBase<Event[], Pagination>
+export type EventsResponse = Event[]
 export type EventsBody = void
 
 export type EventDetailsResponse = ApiResponseBase<Event>
@@ -170,10 +170,10 @@ export type DeleteEventBody = { eventId: ApiIdentifier }
 /**
  * Venues
  */
-export type GetMyVenuesResponse = ApiResponseBase<Venue[]>
+export type GetMyVenuesResponse = Venue[]
 export type GetMyVenuesBody = { hostId?: ApiIdentifier }
 
-export type GetVenueResponse = ApiResponseBase<Venue>
+export type GetVenueResponse = ApiResponseBase<Model<Venue>>
 export type GetVenueBody = { venueId: ApiIdentifier }
 
 export type CreateVenueResponse = ApiResponseBase<Venue>
@@ -189,4 +189,9 @@ export type EditVenueBody = {
     venueId: ApiIdentifier
     hostId: ApiIdentifier
     attributes: Partial<VenueAttributes>
+}
+
+export type DeleteVenueResponse = ApiResponseBase<Venue>
+export type DeleteVenueBody = {
+    venueId: ApiIdentifier    
 }

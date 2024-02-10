@@ -3,7 +3,8 @@ import { EditVenueAttributes, EditVenuePageRouteProp, GetVenueResponse, Provider
 import { useRoute } from '@react-navigation/native'
 import { SubmitErrorHandler, SubmitHandler, UseFormReturn, useForm } from 'react-hook-form'
 import { hostApiSlice } from 'src/redux/api'
-import { SheetApi, useHost, useSheet } from '@hooks'
+import { SheetApi, useHost, useNavigation, useSheet } from '@hooks'
+import { Alert } from 'react-native'
 
 
 const {
@@ -22,6 +23,7 @@ export type EditVenuePageContextType = {
     loadForm: () => void
     venueData: GetVenueResponse | undefined
     createLinkSheetApi: SheetApi
+    confirmDelete: () => void
 }
 
 export const EditVenuePageContext = createContext({} as EditVenuePageContextType)
@@ -30,18 +32,20 @@ export const EditVenuePageProvider : React.FC<ProviderProps> = ({ children }) =>
 
     const route = useRoute<EditVenuePageRouteProp>()
 
-    const { editVenue } = useHost()
+    const { editVenue, deleteVenue } = useHost()
+
+    const { back } = useNavigation()
 
     const {
         data: venueData,
         error: venueError,
         isLoading: venueIsLoading
-    } = useGetVenueDetailsQuery({ venueId: route.params.itemId })
+    } = useGetVenueDetailsQuery({ venueId: route.params.venueId })
 
     const formMethods = useForm<EditVenueAttributes>({ defaultValues: initialValues })
 
     const onValid : SubmitHandler<EditVenueAttributes> = (data: EditVenueAttributes) => {
-        editVenue(route.params.itemId, data)
+        editVenue(route.params.venueId, data)
     }
 
     const onInvalid : SubmitErrorHandler<EditVenueAttributes> = (errors: any) => {
@@ -62,6 +66,30 @@ export const EditVenuePageProvider : React.FC<ProviderProps> = ({ children }) =>
 
     const createLinkSheetApi = useSheet()
 
+    const confirmDelete = () => {
+        Alert.alert(
+            'Delete Venue',
+            'Are you sure you want to delete this venue?',
+            [
+                {
+                    text: 'cancel',
+                    style: 'cancel'
+                },
+                { 
+                    text: 'delete', 
+                    onPress: onDeleteVenue,
+                    style: 'destructive'
+                }
+            ],
+            { cancelable: false }
+        )
+    }
+
+    const onDeleteVenue = () => {
+        deleteVenue(route.params.venueId)
+        back()
+    }
+
     return (
         <EditVenuePageContext.Provider
             value={{
@@ -69,7 +97,8 @@ export const EditVenuePageProvider : React.FC<ProviderProps> = ({ children }) =>
                 onSubmit,
                 loadForm,
                 venueData,
-                createLinkSheetApi
+                createLinkSheetApi,
+                confirmDelete
             }}
         >
             {children}

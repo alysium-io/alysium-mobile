@@ -31,7 +31,7 @@ const EditEventPage = () => {
                     <PrimaryImage />
                     <EventName />
                     <CandidatesItem />
-                    <Separator size='large' />
+                    <Separator size='large' marginTop='none' />
                     <EventDateSection />
                     <Separator size='large' />
                     <SelectVenueSection />

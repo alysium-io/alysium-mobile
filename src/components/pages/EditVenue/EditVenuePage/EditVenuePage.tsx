@@ -8,7 +8,8 @@ import {
     BasicInfoSection,
     VenueTypeSection,
     LinksSection,
-    AssetsSection
+    AssetsSection,
+    ButtonsSection
 } from './components'
 
 
@@ -30,6 +31,7 @@ const EditVenuePage = () => {
                         <VenueTypeSection />
                         <LinksSection />
                         <AssetsSection />
+                        <ButtonsSection />
                     </ScrollView>
                 </KeyboardAvoidingView>
             </HeaderSafeArea>

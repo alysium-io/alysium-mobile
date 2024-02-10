@@ -1,5 +1,4 @@
 import { Middleware } from '@reduxjs/toolkit'
-import { action_logout } from 'src/redux/user'
 
 
 const apiErrorUnauthorizedMiddleware : Middleware = ({ dispatch }) => (next) => (action) => {
@@ -13,10 +12,8 @@ const apiErrorUnauthorizedMiddleware : Middleware = ({ dispatch }) => (next) => 
 
 	if (isRejectedAction) {
 		const errorStatus = action?.payload?.status
-		console.log(action?.payload?.status)
-		console.log(action?.payload?.data)
 		if (errorStatus === 400) {
-			dispatch(action_logout())
+			console.log('Should log user out')
 		}
 	}
 

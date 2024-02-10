@@ -1,28 +1,30 @@
 import { useNavigation as useRNNavigation } from '@react-navigation/native'
-import { CompositeScreenNavigationProp } from '@types'
+import { ApiIdentifier, CompositeScreenNavigationProp } from '@types'
 
 
 interface IUseNavigation {
 
     /** Pages */
-    hostPage: (itemId: number) => void
-    hostFollowersAndShowsPage: (itemId: number, defaultTabIndex: number) => void
+    hostPage: (hostId: ApiIdentifier) => void
+    hostFollowersAndShowsPage: (hostId: number, defaultTabIndex: number) => void
 
-    artistPage: (itemId: number) => void
-    artistFollowersAndShowsPage: (itemId: number, defaultTabIndex: number) => void
+    artistPage: (artistId: ApiIdentifier) => void
+    artistFollowersAndShowsPage: (artistId: number, defaultTabIndex: number) => void
 
-    tagPage: (itemId: number) => void
-    tagFollowersPage: (itemId: number) => void
+    tagPage: (tagId: ApiIdentifier) => void
+    tagFollowersPage: (tagId: number) => void
 
     profilePage: () => void
 
-    eventPage: (itemId: number) => void
+    eventPage: (eventId: ApiIdentifier) => void
     
-    editEventPage: (itemId: number) => void
+    editEventPage: (eventId: ApiIdentifier) => void
 
-    editVenuePage: (itemId: number) => void
+    eventCandidatesPage: (eventId: ApiIdentifier) => void
 
-    editContractPage: (itemId: number) => void
+    editVenuePage: (venueId: ApiIdentifier) => void
+
+    editContractPage: (contractId: ApiIdentifier) => void
 
     searchPage: () => void
 
@@ -45,24 +47,26 @@ const useNavigation = () : IUseNavigation => {
     /**
      * Pages
      */
-    const hostPage = (itemId: number) => navigation.navigate('HostPage', { itemId })
-    const hostFollowersAndShowsPage = (itemId: number, defaultTabIndex: number) => navigation.navigate('HostFollowersAndShowsPage', { itemId, defaultTabIndex })
+    const hostPage = (hostId: ApiIdentifier) => navigation.navigate('HostPage', { hostId })
+    const hostFollowersAndShowsPage = (hostId: ApiIdentifier, defaultTabIndex: number) => navigation.navigate('HostFollowersAndShowsPage', { hostId, defaultTabIndex })
 
-    const artistPage = (itemId: number) => navigation.navigate('ArtistPage', { itemId })
-    const artistFollowersAndShowsPage = (itemId: number, defaultTabIndex: number) => navigation.navigate('ArtistFollowersAndShowsPage', { itemId, defaultTabIndex })
+    const artistPage = (artistId: ApiIdentifier) => navigation.navigate('ArtistPage', { artistId })
+    const artistFollowersAndShowsPage = (artistId: ApiIdentifier, defaultTabIndex: number) => navigation.navigate('ArtistFollowersAndShowsPage', { artistId, defaultTabIndex })
 
-    const tagPage = (itemId: number) => navigation.navigate('TagPage', { itemId })
-    const tagFollowersPage = (itemId: number) => navigation.navigate('TagFollowersPage', { itemId })
+    const tagPage = (tagId: ApiIdentifier) => navigation.navigate('TagPage', { tagId })
+    const tagFollowersPage = (tagId: ApiIdentifier) => navigation.navigate('TagFollowersPage', { tagId })
 
     const profilePage = () => navigation.navigate('ProfilePage')
 
-    const eventPage = (itemId: number) => navigation.navigate('EventPage', { itemId })
+    const eventPage = (eventId: ApiIdentifier) => navigation.navigate('EventPage', { eventId })
+
+    const eventCandidatesPage = (eventId: ApiIdentifier) => navigation.navigate('EventCandidatesPage', { eventId })
     
-    const editEventPage = (itemId: number) => navigation.navigate('EditEventPage', { itemId })
+    const editEventPage = (eventId: ApiIdentifier) => navigation.navigate('EditEventPage', { eventId })
 
-    const editVenuePage = (itemId: number) => navigation.navigate('EditVenuePage', { itemId })
+    const editVenuePage = (venueId: ApiIdentifier) => navigation.navigate('EditVenuePage', { venueId })
 
-    const editContractPage = (itemId: number) => navigation.navigate('EditContractPage', { itemId })
+    const editContractPage = (contractId: ApiIdentifier) => navigation.navigate('EditContractPage', { contractId })
 
     const searchPage = () => navigation.navigate('SearchPage')
 
@@ -94,6 +98,8 @@ const useNavigation = () : IUseNavigation => {
         profilePage,
 
         eventPage,
+
+        eventCandidatesPage,
         
         editEventPage,
 

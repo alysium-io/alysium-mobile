@@ -2,7 +2,7 @@ import React from 'react'
 import { View } from '@atomic'
 import { Button } from '@molecules'
 import { BottomSheetFooterProps } from '@gorhom/bottom-sheet'
-import { BottomSheetFooter } from '../base'
+import { BottomSheetFooter } from '../overrides'
 
 
 interface FooterWithDismissButtonProps extends BottomSheetFooterProps {

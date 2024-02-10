@@ -20,23 +20,23 @@ const MenuIcon : React.FC<{ onPress?: () => void }> = ({ onPress }) => (
     </TouchableWithoutFeedback>
 )
 
-interface ContentListItemIconProps {
-    type: 'arrow' | 'menu'
+interface ListItemActionIconProps {
+    actionIcon: 'arrow' | 'menu'
     onPress?: () => void
 }
 
-const ContentListItemIcon : React.FC<ContentListItemIconProps> = ({
-    type,
+const ListItemActionIcon : React.FC<ListItemActionIconProps> = ({
+    actionIcon,
     onPress
 }) => {
 
-    if (type === 'arrow') {
+    if (actionIcon === 'arrow') {
         return <ArrowIcon />
     }
 
-    if (type === 'menu') {
+    if (actionIcon === 'menu') {
         return <MenuIcon onPress={onPress} />
     }
 }
 
-export default ContentListItemIcon
+export default ListItemActionIcon
