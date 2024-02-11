@@ -1,15 +1,18 @@
 import React from 'react'
 import { View } from '@atomic'
 import { EditableProfileImage } from '@molecules'
-import { global } from '@etc'
+import { useEditEventPageContext } from '../hooks'
 
 
 const PrimaryImage = () => {
 
+    const { eventData, changeEventImage } = useEditEventPageContext()
+
     return (
         <View marginTop='l' flexDirection='row' justifyContent='center'>
             <EditableProfileImage
-                image={global.sampleData.images.event}
+                image={eventData?.data.attributes.image?.data?.attributes.url || ''}
+                onChooseImage={changeEventImage}
             />
         </View>
     )

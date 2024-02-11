@@ -25,15 +25,15 @@ export const ArtistPageContext = createContext({} as ArtistPageContextType)
 export const ArtistPageProvider : React.FC<ProviderProps> = ({ children }) => {
 
     const route = useRoute<ArtistPageRouteProp>()
-    const { data, isLoading, error } = useGetArtistDetailsQuery({ artistId: route.params.itemId })
+    const { data, isLoading, error } = useGetArtistDetailsQuery({ artistId: route.params.artistId })
     const { artistFollowersAndShowsPage } = useNavigation()
 
     const moreSheetApi = useSheet()
     const notificationsSheetApi = useSheet()
     const linksSheetApi = useSheet()
 
-    const onPressFollowers = () => artistFollowersAndShowsPage(route.params.itemId, 0)
-    const onPressShows = () => artistFollowersAndShowsPage(route.params.itemId, 1)
+    const onPressFollowers = () => artistFollowersAndShowsPage(route.params.artistId, 0)
+    const onPressShows = () => artistFollowersAndShowsPage(route.params.artistId, 1)
 
     return (
         <ArtistPageContext.Provider

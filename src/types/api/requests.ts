@@ -1,4 +1,5 @@
 import { ApiIdentifier, ApiResponseBase, Model } from './base'
+import { ImageAttributes } from './images'
 import { Host, Artist, Tag, Event, EventAttributes, Venue, VenueAttributes, EditEventAttributes } from './models'
 
 
@@ -74,7 +75,10 @@ export type UserDetailsResponse = {
         name: string | null
         color: string | null
     }[]
+    profile_picture: ImageAttributes
 }
+
+export type UploadImageFormData = FormData
 
 /**
  * Search

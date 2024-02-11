@@ -1,6 +1,7 @@
 import React from 'react'
 import { HeaderSafeArea, ScrollView } from '@atomic'
 import { BasePage } from '@organisms'
+import { ProfilePageProvider } from './contexts'
 import {
     SelectAccountSection,
     HeaderSection,
@@ -26,4 +27,8 @@ const ProfilePage = () => {
     )
 }
 
-export default ProfilePage
+export default () => (
+    <ProfilePageProvider>
+        <ProfilePage />
+    </ProfilePageProvider>
+)

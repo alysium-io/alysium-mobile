@@ -1,9 +1,10 @@
-import React, { createContext } from 'react'
+import React, { useEffect, createContext, useState } from 'react'
 import { SubmitErrorHandler, SubmitHandler, useForm, UseFormReturn } from 'react-hook-form'
-import { SheetApi, useHost, useNavigation, useSheet } from '@hooks'
+import { SheetApi, useHost, useImages, useNavigation, useSheet } from '@hooks'
 import { Alert } from 'react-native'
 import { useRoute } from '@react-navigation/native'
 import hostApiSlice from 'src/redux/api/hostApiSlice'
+import { Asset } from 'react-native-image-picker'
 import {
     ApiIdentifier,
     EditEventAttributes,
@@ -38,6 +39,7 @@ export type EditEventPageContextType = {
     createVenueSheetApi: SheetApi
     onChangeVenue: (venueId: number) => void
     goToEventCandidatesPage: () => void
+    changeEventImage: (imagePickerAsset: Asset) => void
 }
 
 export const EditEventPageContext = createContext({} as EditEventPageContextType)
@@ -46,6 +48,7 @@ export const EditEventPageProvider : React.FC<ProviderProps> = ({ children }) =>
 
     const { back, eventCandidatesPage } = useNavigation()
     const { editEvent, host, deleteEvent } = useHost()
+    const { uploadEventImage } = useImages()
 
     const route = useRoute<EditEventPageRouteProp>()
 
@@ -116,6 +119,16 @@ export const EditEventPageProvider : React.FC<ProviderProps> = ({ children }) =>
         eventCandidatesPage(route.params.eventId)
     }
 
+    const changeEventImage = (imagePickerAsset: Asset) => {
+        if (imagePickerAsset.uri && imagePickerAsset.type && imagePickerAsset.fileName) {
+            uploadEventImage(route.params.eventId, {
+                name: imagePickerAsset.fileName,
+                uri: imagePickerAsset.uri,
+                type: imagePickerAsset.type
+            })
+        }
+    }
+
     return (
         <EditEventPageContext.Provider
             value={{
@@ -131,7 +144,8 @@ export const EditEventPageProvider : React.FC<ProviderProps> = ({ children }) =>
                 confirmDelete,
                 createVenueSheetApi,
                 onChangeVenue,
-                goToEventCandidatesPage
+                goToEventCandidatesPage,
+                changeEventImage
             }}
         >
             {children}

@@ -9,6 +9,7 @@ export { default as usePersona } from './usePersona'
 export { default as useVenues } from './useVenues'
 
 // Etc
+export { default as useImages } from './useImages'
 export { default as useButton } from './useButton'
 export { default as useToggleButton } from './useToggleButton'
 export { default as useScrollView } from './useScrollView'

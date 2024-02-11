@@ -14,7 +14,8 @@ import apiReducers, {
     hostApiSlice,
     artistApiSlice,
     tagApiSlice,
-    searchApiSlice
+    searchApiSlice,
+    imagesApiSlice
 } from './api'
 import {
     FLUSH,
@@ -56,6 +57,7 @@ const store = configureStore({
         .concat(artistApiSlice.middleware)
         .concat(tagApiSlice.middleware)
         .concat(searchApiSlice.middleware)
+        .concat(imagesApiSlice.middleware)
         .concat(apiErrorUnauthorizedMiddleware)
     }
 })
