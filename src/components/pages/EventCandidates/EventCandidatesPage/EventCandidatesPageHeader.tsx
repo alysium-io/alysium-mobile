@@ -1,5 +1,5 @@
 import React from 'react'
-import { Header, HeaderTitle } from '@organisms'
+import { Header, HeaderIconButton, HeaderTitle } from '@organisms'
 import { StackHeaderProps } from '@react-navigation/stack'
 
 
@@ -8,7 +8,7 @@ const EventCandidatesPageHeader : React.FC<StackHeaderProps> = (stackHeaderProps
     return (
         <Header
             stackHeaderProps={stackHeaderProps}
-            LeftComponent={undefined}
+            LeftComponent={() => <HeaderIconButton onPress={stackHeaderProps.navigation.goBack} icon='arrow-left' />}
             CenterComponent={() => <HeaderTitle title='event candidates' />}
             RightComponent={undefined}
         />
