@@ -61,12 +61,13 @@ export type Event = Model<EventAttributes>
  */
 export type EditVenueAttributes = {
     name: string
-    phone_number: string | null
-    capacity: number | null
+    address: string
+    phone_number: string
+    capacity: string
 }
 export type VenueAttributes = {
     name: string
-    capacity: number | null
+    capacity: string | null
     address: string | null
     website: string | null
     phone_number: string | null

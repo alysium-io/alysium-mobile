@@ -106,12 +106,12 @@ const useHost = () : IUseHost => {
         try {
             if (host.host) {
                 await flux_editVenue({
-                    hostId: host.host.id,
                     venueId,
                     attributes
                 })
             }
         } catch (err) {
+            console.log(err)
             throw err
         }
     }

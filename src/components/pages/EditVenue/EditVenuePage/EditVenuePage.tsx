@@ -9,7 +9,8 @@ import {
     VenueTypeSection,
     LinksSection,
     AssetsSection,
-    ButtonsSection
+    ButtonsSection,
+    EditVenuePageFooter
 } from './components'
 
 
@@ -22,7 +23,7 @@ const EditVenuePage = () => {
     }, [venueData])
 
     return (
-        <BasePage>
+        <BasePage FooterComponent={EditVenuePageFooter}>
             <HeaderSafeArea>
                 <KeyboardAvoidingView>
                     <ScrollView alwaysBounceVertical>

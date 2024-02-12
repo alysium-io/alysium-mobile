@@ -1,13 +1,16 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Section } from '@atomic'
 import { SectionHeader, EditableTextInputWithLabel, EditableNumericInputWithLabel } from '@molecules'
 import { useTextInput } from '@hooks'
 import { Formatting } from '@etc'
+import { Controller } from 'react-hook-form'
+import { useEditVenuePageContext } from '../hooks'
 
 
 const BasicInfoSection = () => {
 
-    const [text, setText] = useState<string>('')
+    const { formMethods } = useEditVenuePageContext()
+
     const textInput1 = useTextInput()
     const textInput2 = useTextInput()
     const textInput3 = useTextInput()
@@ -15,28 +18,51 @@ const BasicInfoSection = () => {
     return (
         <Section marginTop='xl' marginHorizontal='m'>
             <SectionHeader text='Basic Info' />
-            <EditableTextInputWithLabel
-                label='address'
-                textInputApi={textInput1}
-                placeholder='10028 N. Virginia Ave.'
-                onChangeText={() => { }}
+            <Controller
+                name='address'
+                control={formMethods.control}
+                render={({ field: { onChange, onBlur, value } }) => (
+                    <EditableTextInputWithLabel
+                        label='address'
+                        placeholder='10028 N. Virginia Ave.'
+                        onChangeText={onChange}
+                        onBlur={onBlur}
+                        value={value}
+                        textInputApi={textInput1}
+                    />
+                )}
             />
-            <EditableNumericInputWithLabel
-                label='phone #'
-                textInputApi={textInput2}
-                placeholder='(123) 456-7891'
-                keyboardType='phone-pad'
-                onChangeText={(text: string) => setText(Formatting.formatPhoneNumber(text))}
-                value={text}
-                maxLength={14}
+            <Controller
+                name='phone_number'
+                control={formMethods.control}
+                render={({ field: { onChange, onBlur, value } }) => (
+                    <EditableNumericInputWithLabel
+                        label='phone #'
+                        textInputApi={textInput2}
+                        placeholder='(123) 456-7891'
+                        keyboardType='phone-pad'
+                        onBlur={onBlur}
+                        onChangeText={(text: string) => onChange(Formatting.formatPhoneNumber(text))}
+                        value={value}
+                        maxLength={14}
+                    />
+                )}
             />
-            <EditableNumericInputWithLabel
-                label='capacity'
-                textInputApi={textInput3}
-                placeholder='Max # of people'
-                keyboardType='numeric'
-                onChangeText={(text: string) => setText(Formatting.formatCommaSeparatedNumber(text))}
-                value={text}
+            <Controller
+                name='capacity'
+                control={formMethods.control}
+                render={({ field: { onChange, onBlur, value } }) => (
+                    <EditableNumericInputWithLabel
+                        label='capacity'
+                        textInputApi={textInput3}
+                        placeholder='Max # of people'
+                        keyboardType='numeric'
+                        onBlur={onBlur}
+                        value={value}
+                        maxLength={9}
+                        onChangeText={(text: string) => onChange(Formatting.formatCommaSeparatedNumber(text))}
+                    />
+                )}
             />
         </Section>
     )

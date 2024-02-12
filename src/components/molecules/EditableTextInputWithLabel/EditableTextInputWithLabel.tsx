@@ -1,21 +1,13 @@
 import React from 'react'
 import { View, TextInput, Text } from '@atomic'
-import { StyleSheet, TouchableWithoutFeedback } from 'react-native'
+import { TouchableWithoutFeedback } from 'react-native'
 import { TextInputApi, useTheme } from '@hooks'
 
 
-interface EditableTextInputWithLabelProps {
+type EditableTextInputWithLabelProps = React.ComponentProps<typeof TextInput> & {
     textInputApi: TextInputApi
-    defaultValue?: string
-    placeholder: string
-    onChangeText: (text: string) => void
-    secureTextEntry?: boolean
-    onFocus?: () => void
-    onBlur?: () => void
     textAlign?: 'left' | 'center'
-    value?: string
     label: string
-    keyboardType?: 'default' | 'number-pad' | 'decimal-pad' | 'numeric' | 'email-address' | 'phone-pad'
 }
 
 const EditableTextInputWithLabel : React.FC<EditableTextInputWithLabelProps> = ({
@@ -35,7 +27,7 @@ const EditableTextInputWithLabel : React.FC<EditableTextInputWithLabelProps> = (
     return (
         <TouchableWithoutFeedback onPress={textInputApi.focus}>
             <View paddingVertical='l' paddingHorizontal='s' borderBottomWidth={0.5} borderBottomColor='bg2'>
-                <View marginBottom='xs'>
+                <View style={{ marginBottom: 5 }}>
                     <Text
                         variant='paragraph-small'
                         color='t1'

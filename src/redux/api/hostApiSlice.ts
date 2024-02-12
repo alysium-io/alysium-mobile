@@ -173,14 +173,11 @@ const hostApiSlice = createApi({
             ]
         }),
         editVenue: builder.mutation<EditVenueResponse, EditVenueBody>({
-            query: ({ venueId, hostId, attributes }) => ({
+            query: ({ venueId, attributes }) => ({
                 url: `/venues/${venueId}`,
                 method: 'PUT',
                 body: {
-                    data: {
-                        hostId,
-                        ...attributes
-                    }
+                    data: attributes
                 }
             }),
             invalidatesTags: (_result, _error, { venueId }) => [

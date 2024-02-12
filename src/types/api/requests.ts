@@ -191,7 +191,6 @@ export type EditVenueResponse = {
 }
 export type EditVenueBody = {
     venueId: ApiIdentifier
-    hostId: ApiIdentifier
     attributes: Partial<VenueAttributes>
 }
 

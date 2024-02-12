@@ -20,7 +20,7 @@ const EditableNumericInputWithLabel : React.FC<EditableNumericInputWithLabelProp
     return (
         <TouchableWithoutFeedback onPress={textInputApi.focus}>
             <View paddingVertical='l' paddingHorizontal='s' borderBottomWidth={0.5} borderBottomColor='bg2'>
-                <View marginBottom='xs'>
+                <View style={{ marginBottom: 5 }}>
                     <Text
                         variant='paragraph-small'
                         color='t2'

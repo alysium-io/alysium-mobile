@@ -6,6 +6,7 @@ import { hostApiSlice } from 'src/redux/api'
 import { SheetApi, useHost, useImages, useNavigation, useSheet } from '@hooks'
 import { Alert } from 'react-native'
 import { Asset } from 'react-native-image-picker'
+import { Formatting } from '@etc'
 
 
 const {
@@ -14,8 +15,9 @@ const {
 
 const initialValues : EditVenueAttributes = {
     name: '',
+    address: '',
     phone_number: '',
-    capacity: 0,
+    capacity: '',
 }
 
 export type EditVenuePageContextType = {
@@ -48,10 +50,16 @@ export const EditVenuePageProvider : React.FC<ProviderProps> = ({ children }) =>
     const formMethods = useForm<EditVenueAttributes>({ defaultValues: initialValues })
 
     const onValid : SubmitHandler<EditVenueAttributes> = (data: EditVenueAttributes) => {
-        editVenue(route.params.venueId, data)
+        editVenue(route.params.venueId, {
+            name: data.name,
+            address: data.address,
+            phone_number: data.phone_number,
+            capacity: Formatting.cleanStringToNumber(data.capacity)
+        })
     }
 
     const onInvalid : SubmitErrorHandler<EditVenueAttributes> = (errors: any) => {
+        console.log('Invalid')
         console.log(errors)
     }
 
@@ -59,8 +67,9 @@ export const EditVenuePageProvider : React.FC<ProviderProps> = ({ children }) =>
         if (venueData) {
             formMethods.reset({
                 name: venueData.data.attributes.name,
-                phone_number: venueData.data.attributes.phone_number,
-                capacity: venueData.data.attributes.capacity
+                address: venueData.data.attributes.address || initialValues.name,
+                phone_number: venueData.data.attributes.phone_number ? Formatting.formatPhoneNumber(venueData.data.attributes.phone_number) : initialValues.phone_number,
+                capacity: venueData.data.attributes.capacity ? Formatting.formatCommaSeparatedNumber(venueData.data.attributes.capacity) : initialValues.capacity
             })
         }
     }
@@ -78,7 +87,7 @@ export const EditVenuePageProvider : React.FC<ProviderProps> = ({ children }) =>
                     text: 'cancel',
                     style: 'cancel'
                 },
-                { 
+                {
                     text: 'delete', 
                     onPress: onDeleteVenue,
                     style: 'destructive'
