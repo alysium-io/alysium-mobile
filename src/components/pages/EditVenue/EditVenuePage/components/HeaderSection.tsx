@@ -1,19 +1,19 @@
 import React from 'react'
 import { Text, View } from '@atomic'
 import { EditableProfileImage, LargeTextInput } from '@molecules'
-import { global } from '@etc'
 import { Controller } from 'react-hook-form'
 import { useEditVenuePageContext } from '../hooks'
 
 
 const HeaderSection = () => {
 
-    const { formMethods } = useEditVenuePageContext()
+    const { formMethods, venueData, changeVenueImage } = useEditVenuePageContext()
 
     return (
         <View marginTop='l' marginHorizontal='m' alignItems='center'>
             <EditableProfileImage
-                image={global.sampleData.images.event}
+                image={venueData?.data.attributes.image?.data?.attributes.url || ''}
+                onChooseImage={changeVenueImage}
             />
             <Text
                 marginTop='l'
@@ -23,6 +23,7 @@ const HeaderSection = () => {
             >venue</Text>
             <View marginTop='l'>
                 <Controller
+                    name='name'
                     control={formMethods.control}
                     rules={{ required: true }}
                     render={({ field: { onChange, onBlur, value } }) => (
@@ -34,7 +35,6 @@ const HeaderSection = () => {
                             value={value}
                         />
                     )}
-                    name='name'
                 />
             </View>
         </View>

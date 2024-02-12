@@ -177,7 +177,7 @@ export type DeleteEventBody = { eventId: ApiIdentifier }
 export type GetMyVenuesResponse = ApiResponseBase<Venue[]>
 export type GetMyVenuesBody = { hostId?: ApiIdentifier }
 
-export type GetVenueResponse = ApiResponseBase<Model<Venue>>
+export type GetVenueResponse = ApiResponseBase<Venue>
 export type GetVenueBody = { venueId: ApiIdentifier }
 
 export type CreateVenueResponse = ApiResponseBase<Venue>

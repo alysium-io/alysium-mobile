@@ -3,8 +3,9 @@ import { EditVenueAttributes, EditVenuePageRouteProp, GetVenueResponse, Provider
 import { useRoute } from '@react-navigation/native'
 import { SubmitErrorHandler, SubmitHandler, UseFormReturn, useForm } from 'react-hook-form'
 import { hostApiSlice } from 'src/redux/api'
-import { SheetApi, useHost, useNavigation, useSheet } from '@hooks'
+import { SheetApi, useHost, useImages, useNavigation, useSheet } from '@hooks'
 import { Alert } from 'react-native'
+import { Asset } from 'react-native-image-picker'
 
 
 const {
@@ -24,6 +25,7 @@ export type EditVenuePageContextType = {
     venueData: GetVenueResponse | undefined
     createLinkSheetApi: SheetApi
     confirmDelete: () => void
+    changeVenueImage: (imagePickerAsset: Asset) => void
 }
 
 export const EditVenuePageContext = createContext({} as EditVenuePageContextType)
@@ -33,6 +35,7 @@ export const EditVenuePageProvider : React.FC<ProviderProps> = ({ children }) =>
     const route = useRoute<EditVenuePageRouteProp>()
 
     const { editVenue, deleteVenue } = useHost()
+    const { uploadVenueImage } = useImages()
 
     const { back } = useNavigation()
 
@@ -90,6 +93,16 @@ export const EditVenuePageProvider : React.FC<ProviderProps> = ({ children }) =>
         back()
     }
 
+    const changeVenueImage = (imagePickerAsset: Asset) => {
+        if (imagePickerAsset.uri && imagePickerAsset.type && imagePickerAsset.fileName) {
+            uploadVenueImage(route.params.venueId, {
+                name: imagePickerAsset.fileName,
+                uri: imagePickerAsset.uri,
+                type: imagePickerAsset.type
+            })
+        }
+    }
+
     return (
         <EditVenuePageContext.Provider
             value={{
@@ -98,7 +111,8 @@ export const EditVenuePageProvider : React.FC<ProviderProps> = ({ children }) =>
                 loadForm,
                 venueData,
                 createLinkSheetApi,
-                confirmDelete
+                confirmDelete,
+                changeVenueImage
             }}
         >
             {children}

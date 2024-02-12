@@ -149,7 +149,10 @@ const hostApiSlice = createApi({
         getVenueDetails: builder.query<GetVenueResponse, GetVenueBody>({
             query: ({ venueId }) => ({
                 url: `/venues/${venueId}`,
-                method: 'GET'
+                method: 'GET',
+                params: {
+                    populate: '*'
+                }
             }),
             providesTags: (_result, _error, { venueId }) => [{ type: 'Venue', id: venueId }]
         }),

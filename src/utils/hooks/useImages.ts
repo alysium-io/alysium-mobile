@@ -11,6 +11,7 @@ const {
 interface IUseImages {
     uploadUserProfileImage: (imageProps: UploadImageProps) => void
     uploadEventImage: (eventId: ApiIdentifier, imageProps: UploadImageProps) => void
+    uploadVenueImage: (venueId: ApiIdentifier, imageProps: UploadImageProps) => void
 }
 
 const useImages = () : IUseImages => {
@@ -47,10 +48,20 @@ const useImages = () : IUseImages => {
             imageProps
         )
     }
+
+    const uploadVenueImage = (venueId: ApiIdentifier, imageProps: UploadImageProps) => {
+        uploadImage(
+            'image',
+            'api::venue.venue',
+            venueId.toString(),
+            imageProps
+        )
+    }
     
     return {
         uploadUserProfileImage,
-        uploadEventImage
+        uploadEventImage,
+        uploadVenueImage
     }
 }
 

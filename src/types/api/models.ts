@@ -1,4 +1,4 @@
-import { ApiIdentifier, ApiRelation, Model } from './base'
+import { ApiRelation, Model } from './base'
 import { Image } from './images'
 
 export type UserAttributes = {
@@ -65,7 +65,6 @@ export type EditVenueAttributes = {
     capacity: number | null
 }
 export type VenueAttributes = {
-    id: ApiIdentifier
     name: string
     capacity: number | null
     address: string | null
@@ -73,6 +72,7 @@ export type VenueAttributes = {
     phone_number: string | null
     is_ready_for_contracting: boolean | null
     location_lat_lon: string | null
+    image?: ApiRelation<Image | null>
 }
 export type Venue = Model<VenueAttributes>
 
