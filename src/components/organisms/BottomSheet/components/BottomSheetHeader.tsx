@@ -20,7 +20,7 @@ const BottomSheetHeader : React.FC<BottomSheetHeaderProps> = ({
             style={[
                 styles.container,
                 {
-                    borderBottomWidth: 1,
+                    borderBottomWidth: 0.5,
                     borderBottomColor: mode === ThemeMode.dark ? getRawColor('bg3') : getRawColor('ion')
                 }
             ]}

@@ -1,3 +1,6 @@
+import day from 'dayjs'
+
+
 class Formatting {
 
     static formatPhoneNumber = (input: string) : string => {
@@ -53,6 +56,16 @@ class Formatting {
 
         // You must pass a number to the `toLocaleString` function
         return parseInt(input).toLocaleString()
+    }
+
+    static formatJsDateForPostgresTimestamp = (timestamp: Date) : string => {
+        /**
+         * Function that formats a JS date object to a string that can be used in a Postgres timestamp (US Standard Format)
+         * 
+         * Example: 2024-02-12T17:03:01.000Z
+         */
+        
+        return day(timestamp).format('YYYY-MM-DDTHH:mm:ss.SSS[Z]')
     }
 
 }

@@ -5,6 +5,7 @@ import { Alert } from 'react-native'
 import { useRoute } from '@react-navigation/native'
 import hostApiSlice from 'src/redux/api/hostApiSlice'
 import { Asset } from 'react-native-image-picker'
+import { Formatting } from '@etc'
 import {
     ApiIdentifier,
     EditEventAttributes,
@@ -17,7 +18,10 @@ import {
 
 const initialValues : EditEventAttributes = {
     name: '',
-    venue: null
+    venue: null,
+    start_time: null,
+    end_time: null,
+    doors_open_time: null
 }
 
 const {
@@ -40,6 +44,9 @@ export type EditEventPageContextType = {
     onChangeVenue: (venueId: number) => void
     goToEventCandidatesPage: () => void
     changeEventImage: (imagePickerAsset: Asset) => void
+    onChangeStartTime: (startTime: Date) => void
+    onChangeEndTime: (endTime: Date) => void
+    onChangeDoorsOpenTime: (doorsOpenTime: Date) => void
 }
 
 export const EditEventPageContext = createContext({} as EditEventPageContextType)
@@ -80,7 +87,10 @@ export const EditEventPageProvider : React.FC<ProviderProps> = ({ children }) =>
         if (eventData) {
             formMethods.reset({
                 name: eventData.data.attributes.name,
-                venue: eventData.data.attributes.venue?.data?.id ?? null
+                venue: eventData.data.attributes.venue?.data?.id ?? null,
+                start_time: eventData.data.attributes.start_time ?? null,
+                end_time: eventData.data.attributes.end_time ?? null,
+                doors_open_time: eventData.data.attributes.doors_open_time ?? null
             })
         }
     }
@@ -96,7 +106,7 @@ export const EditEventPageProvider : React.FC<ProviderProps> = ({ children }) =>
                     text: 'cancel',
                     style: 'cancel'
                 },
-                { 
+                {
                     text: 'delete', 
                     onPress: onDeleteEvent,
                     style: 'destructive'
@@ -111,9 +121,10 @@ export const EditEventPageProvider : React.FC<ProviderProps> = ({ children }) =>
         back()
     }
 
-    const onChangeVenue = (venueId: ApiIdentifier) => {
-        formMethods.setValue('venue', venueId)
-    }
+    const onChangeVenue = (venueId: ApiIdentifier) => formMethods.setValue('venue', venueId)
+    const onChangeStartTime = (startTime: Date) => formMethods.setValue('start_time', Formatting.formatJsDateForPostgresTimestamp(startTime))
+    const onChangeEndTime = (endTime: Date) => formMethods.setValue('end_time', Formatting.formatJsDateForPostgresTimestamp(endTime))
+    const onChangeDoorsOpenTime = (doorsOpenTime: Date) => formMethods.setValue('doors_open_time', Formatting.formatJsDateForPostgresTimestamp(doorsOpenTime))
 
     const goToEventCandidatesPage = () => {
         eventCandidatesPage(route.params.eventId)
@@ -145,7 +156,10 @@ export const EditEventPageProvider : React.FC<ProviderProps> = ({ children }) =>
                 createVenueSheetApi,
                 onChangeVenue,
                 goToEventCandidatesPage,
-                changeEventImage
+                changeEventImage,
+                onChangeStartTime,
+                onChangeEndTime,
+                onChangeDoorsOpenTime
             }}
         >
             {children}

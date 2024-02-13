@@ -43,11 +43,17 @@ export type Artist = Model<ArtistAttributes>
  */
 export type EditEventAttributes = {
     name: string,
-    venue: number | null
+    venue?: number | null
+    start_time?: string | null
+    end_time?: string | null
+    doors_open_time?: string | null
 }
 export type EventAttributes = {
     name: string
     date: string | null
+    start_time: string | null
+    end_time: string | null
+    doors_open_time: string | null
     address: string | null
     color: string | null
     slots?: ApiRelation<Slot[]>

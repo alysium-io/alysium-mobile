@@ -6,8 +6,8 @@ import { ListItemContainer, ListItemTitle } from '../shared'
 
 
 type CategoricalListItemForContentTypeProps =
+    Omit<React.ComponentProps<typeof ListItemContainer>, 'children'> &
     React.ComponentProps<typeof ListItemTitle> &
-    React.ComponentProps<typeof ListItemContainer> &
 {
     contentType: ContentType.artist | ContentType.host | ContentType.tag | ContentType.location
 }

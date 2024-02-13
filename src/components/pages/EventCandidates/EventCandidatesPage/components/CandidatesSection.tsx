@@ -15,8 +15,8 @@ const CandidatesSection = () => {
                 contentType={ContentType.artist}
                 image={global.artistImages['seth hills']}
                 onPress={() => console.log('hi')}
-                statusText='send offer >'
-                statusColor='matt'
+                statusText='send offer'
+                statusColor='t2'
                 statusBarVariant='filled'
             />
             <ContentListItemWithStatus

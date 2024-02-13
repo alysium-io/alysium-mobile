@@ -360,26 +360,28 @@ const ComponentsPage = () => {
                             </View>
                             <ContentListItemToggler
                                 defaultId={1}
-                                onPress={(id) => console.log(id)}
                                 subtitleFirst={true}
                                 items={[
                                     {
                                         id: 1,
                                         image: global.sampleData.images.artist,
                                         title: 'EDX',
-                                        subtitle: 'Artist'
+                                        subtitle: 'Artist',
+                                        onPress: () => console.log('EDX')
                                     },
                                     {
                                         id: 2,
                                         image: global.sampleData.images.artist,
                                         title: 'EDX',
-                                        subtitle: 'Artist'
+                                        subtitle: 'Artist',
+                                        onPress: () => console.log('EDX')
                                     },
                                     {
                                         id: 3,
                                         image: global.sampleData.images.artist,
                                         title: 'EDX',
-                                        subtitle: 'Artist'
+                                        subtitle: 'Artist',
+                                        onPress: () => console.log('EDX')
                                     }
                                 ]}
                             />
