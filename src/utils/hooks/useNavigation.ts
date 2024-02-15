@@ -14,6 +14,8 @@ interface IUseNavigation {
     tagPage: (tagId: ApiIdentifier) => void
     tagFollowersPage: (tagId: number) => void
 
+    locationPage: (locationId: ApiIdentifier) => void
+
     profilePage: () => void
 
     eventPage: (eventId: ApiIdentifier) => void
@@ -56,6 +58,8 @@ const useNavigation = () : IUseNavigation => {
     const tagPage = (tagId: ApiIdentifier) => navigation.navigate('TagPage', { tagId })
     const tagFollowersPage = (tagId: ApiIdentifier) => navigation.navigate('TagFollowersPage', { tagId })
 
+    const locationPage = (locationId: ApiIdentifier) => navigation.navigate('LocationPage', { locationId })
+
     const profilePage = () => navigation.navigate('ProfilePage')
 
     const eventPage = (eventId: ApiIdentifier) => navigation.navigate('EventPage', { eventId })
@@ -94,6 +98,8 @@ const useNavigation = () : IUseNavigation => {
 
         tagPage,
         tagFollowersPage,
+
+        locationPage,
         
         profilePage,
 

@@ -10,7 +10,9 @@ import {
     SearchPageHeader,
     HostPageHeader,
     ArtistPageHeader,
-    TagPageHeader
+    TagPageHeader,
+    LocationPage,
+    LocationPageHeader
 } from '@pages'
 
 
@@ -45,6 +47,12 @@ const SearchTab = () => {
                 name='TagPage'
                 component={TagPage}
                 options={{ header: TagPageHeader }}
+            />
+
+            <SearchStack.Screen
+                name='LocationPage'
+                component={LocationPage}
+                options={{ header: LocationPageHeader }}
             />
 
         </SearchStack.Navigator>

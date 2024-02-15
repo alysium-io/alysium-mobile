@@ -4,9 +4,12 @@ import { BlockListItem, CategoricalListItemForContentType } from '@organisms'
 import { ContentType } from '@types'
 import { SectionHeader } from '@molecules'
 import { FadeInUp, FadeOutDown } from 'react-native-reanimated'
+import { useNavigation } from '@hooks'
 
 
 const SearchInactivePage = () => {
+
+    const { locationPage } = useNavigation()
 
     return (
         <View
@@ -37,7 +40,7 @@ const SearchInactivePage = () => {
                     contentType={ContentType.location}
                     title='Locations'
                     subtitle='1 following'
-                    onPress={() => console.log('pressed')}
+                    onPress={() => locationPage(2)}
                 />
             </Section>
             <Section margin='m'>

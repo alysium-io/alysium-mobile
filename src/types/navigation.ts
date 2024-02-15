@@ -19,6 +19,8 @@ type ArtistFollowersAndShowsPage = { artistId: ApiIdentifier, defaultTabIndex: n
 type TagPage = { tagId: ApiIdentifier }
 type TagFollowersPage = { tagId: ApiIdentifier }
 
+type LocationPage = { locationId: ApiIdentifier }
+
 type ProfilePage = undefined
 
 type EventManagerPage = undefined
@@ -85,6 +87,8 @@ export type SearchStackNavigatorParamList = {
 
     TagPage: TagPage
     TagFollowersPage: TagFollowersPage
+
+    LocationPage: LocationPage
 
 }
 

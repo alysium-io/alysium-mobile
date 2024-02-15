@@ -33,17 +33,17 @@ export const TagPageContextProvider : React.FC<ProviderProps> = ({ children }) =
         data : tagData,
         isLoading : isTagDataLoading,
         isError : isTagDataError
-    } = useGetTagDetailsQuery({ tagId: route.params.itemId })
+    } = useGetTagDetailsQuery({ tagId: route.params.tagId })
 
     const {
         data : tagArtistsData,
         isLoading : isTagArtistsDataLoading,
         isError : isTagArtistsDataError
-    } = useGetTagArtistsQuery({ tagId: route.params.itemId })
+    } = useGetTagArtistsQuery({ tagId: route.params.tagId })
 
     const moreSheetApi = useSheet()
 
-    const onPressFollowers = () => tagFollowersPage(route.params.itemId)
+    const onPressFollowers = () => tagFollowersPage(route.params.tagId)
 
     return (
         <TagPageContext.Provider value={{
