@@ -105,6 +105,7 @@ export type EventManagerStackNavigatorParamList = {
     EventPage: EventPage
     EditVenuePage: EditVenuePage
     EventCandidatesPage: EventCandidatesPage
+    EditContractPage: EditContractPage
 
 }
 
