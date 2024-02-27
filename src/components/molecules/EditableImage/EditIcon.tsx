@@ -12,8 +12,8 @@ const colorScheme = {
         backgroundColor: 'white'
     },
     [ThemeMode.light]: {
-        borderColor: 'matt',
-        iconColor: 'matt',
+        borderColor: 't2',
+        iconColor: 't2',
         backgroundColor: 'bg1'
     }
 }
@@ -32,7 +32,7 @@ const EditIcon = () => {
         >
             <Icon
                 name='pencil'
-                size='regular'
+                size='small'
                 color={colorScheme[mode].iconColor}
             />
         </View>
@@ -42,7 +42,7 @@ const EditIcon = () => {
 const styles = StyleSheet.create({
     container: {
         borderRadius: 1000,
-        borderWidth: 3,
+        borderWidth: 2,
         padding: 5
     }
 })

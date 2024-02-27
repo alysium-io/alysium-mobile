@@ -42,7 +42,7 @@ const EditableProfileImage : React.FC<EditableProfileImageProps> = ({
 
 const styles = StyleSheet.create({
     container: {
-        width: 115,
+        width: 80,
         aspectRatio: 1
     },
     image: {

@@ -1,22 +1,28 @@
 import React from 'react'
 import { Section, View, Text } from '@atomic'
+import { useEventPageContext } from '../hooks'
+import day from 'dayjs'
 
 
 const SubHeader = () => {
 
+    const { eventData } = useEventPageContext()
+
     return (
         <Section margin='m' flexDirection='row' alignItems='center' justifyContent='space-between'>
-            <View>
+            <View flex={1}>
                 <Text
                     variant='paragraph-large-medium'
                     style={{ marginBottom: 6 }}
-                >Thurs. Oct 28th</Text>
+                    numberOfLines={1}
+                    ellipsizeMode='tail'
+                >{day(eventData?.data.attributes.start_time).format('ddd. MMM D')}</Text>
                 <Text
                     variant='paragraph-medium'
                     color='t2'
-                >10:00pm</Text>
+                >{day(eventData?.data.attributes.start_time).format('HH:mm A')}</Text>
             </View>
-            <View>
+            <View flex={1}>
                 <Text
                     variant='paragraph-medium'
                     style={{ marginBottom: 6 }}

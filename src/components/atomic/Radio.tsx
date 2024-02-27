@@ -1,9 +1,8 @@
 import React, { useMemo } from 'react'
 import { Icon, View } from '@atomic'
 import { StyleSheet, TouchableWithoutFeedback } from 'react-native'
-import { useAnimatedState, useTheme } from '@hooks'
+import { useTheme } from '@hooks'
 import { FeatureColors, ThemeMode } from '@types'
-import { interpolateColor, useAnimatedStyle } from 'react-native-reanimated'
 
 
 interface RadioProps {
@@ -19,10 +18,6 @@ const Radio : React.FC<RadioProps> = ({
 }) => {
 
     const { mode, getRawColor, theme } = useTheme()
-    const {
-        state: animatedOpacityState,
-        toggle: toggleAnimatedOpacityState
-    } = useAnimatedState(checked, { duration: 100 })
 
     const colorScheme = useMemo(() => {
         if (mode === ThemeMode.dark) {
@@ -32,17 +27,8 @@ const Radio : React.FC<RadioProps> = ({
         }
     }, [mode, colorVariant])
 
-    const animatedStyle = useAnimatedStyle(() => {
-        return { opacity: animatedOpacityState.value }
-    }, [])
-
-    const animatedBgStyle = useAnimatedStyle(() => {
-        return { backgroundColor: interpolateColor(animatedOpacityState.value, [0, 1], ['transparent', theme.colors[colorScheme.color]]) }
-    }, [])
-
     const _onPress = () => {
         onPress()
-        toggleAnimatedOpacityState()
     }
 
     return (
@@ -50,14 +36,19 @@ const Radio : React.FC<RadioProps> = ({
             <View flexDirection='row'>
                 <View animated style={[
                     styles.container,
-                    animatedBgStyle,
-                    { borderColor: getRawColor(colorScheme.color) }
+                    {
+                        borderColor: getRawColor(colorScheme.color),
+                        backgroundColor: checked ? theme.colors[colorScheme.color] : 'transparent'
+                    }
                 ]}>
                     <View
                         animated
                         style={[
-                            animatedStyle,
-                            { height: 14, width: 14 }
+                            {
+                                height: 16,
+                                width: 16,
+                                opacity: checked ? 1 : 0
+                            }
                         ]}
                     >
                         <Icon
@@ -78,7 +69,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: 2,
+        borderRadius: 3,
         padding: 4
     }
 })

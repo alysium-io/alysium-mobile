@@ -1,4 +1,4 @@
-import { Persona, PersonaState, ThemeMode } from '@types'
+import { ApiIdentifier, Persona, PersonaState, ThemeMode } from '@types'
 import { useDispatch, useSelector } from '@redux'
 import { personaActions } from 'src/redux/persona'
 import { useArtist, useHost, useUser } from '@hooks'
@@ -15,7 +15,7 @@ interface IUsePersona {
     persona: PersonaState
     loadPersona: () => Promise<void>
     setIsLoading: (isLoading: boolean) => void
-    setPersona: (personaId: number, personaType: Persona) => void
+    setPersona: (personaId: ApiIdentifier, personaType: Persona) => void
 }
 
 const usePersona = () : IUsePersona => {

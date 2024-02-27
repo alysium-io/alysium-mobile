@@ -22,7 +22,7 @@ export type UserState = {
 export type PersonaState = {
     isLoading: boolean
     activePersonaType: Persona
-    activePersonaId: number | null
+    activePersonaId: ApiIdentifier | null
 }
 
 export type ArtistState = {

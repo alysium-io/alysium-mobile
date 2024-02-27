@@ -22,7 +22,8 @@ import {
     EditVenueBody,
     EditVenueResponse,
     DeleteVenueResponse,
-    DeleteVenueBody
+    DeleteVenueBody,
+    HostEventsBody
 } from '@types'
 
 
@@ -68,7 +69,21 @@ const hostApiSlice = createApi({
                 result
                     ? [...result.data.map(({ id }) => ({ type: 'Event' as const, id })), 'Event']
                     : ['Event']
-                
+        }),
+        getHostEvents: builder.query<EventsResponse, HostEventsBody>({
+            query: ({ hostId }) => ({
+                url: '/events',
+                method: 'GET',
+                params: {
+                    host: hostId,
+                    owner: true,
+                    populate: '*'
+                }
+            }),
+            providesTags: (result, _error) =>
+                result
+                    ? [...result.data.map(({ id }) => ({ type: 'Event' as const, id })), 'Event']
+                    : ['Event']
         }),
         createEvent: builder.query<CreateEventResponse, CreateEventBody>({
             query: ({ hostId, attributes }) => ({

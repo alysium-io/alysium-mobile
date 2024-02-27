@@ -164,6 +164,7 @@ export type EditEventBody = {
 
 export type EventsResponse = ApiResponseBase<Event[]>
 export type EventsBody = void
+export type HostEventsBody = { hostId: ApiIdentifier | undefined }
 
 export type EventDetailsResponse = ApiResponseBase<Event>
 export type EventDetailsBody = { eventId: ApiIdentifier }

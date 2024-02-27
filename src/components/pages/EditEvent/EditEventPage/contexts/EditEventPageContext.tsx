@@ -30,6 +30,7 @@ const {
 } = hostApiSlice
 
 export type EditEventPageContextType = {
+    eventId: ApiIdentifier
     eventData: EventDetailsResponse | undefined
     eventError: any
     eventIsLoading: boolean
@@ -143,6 +144,7 @@ export const EditEventPageProvider : React.FC<ProviderProps> = ({ children }) =>
     return (
         <EditEventPageContext.Provider
             value={{
+                eventId: route.params.eventId,
                 eventData,
                 eventError,
                 eventIsLoading,

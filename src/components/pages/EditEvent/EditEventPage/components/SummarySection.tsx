@@ -3,11 +3,13 @@ import { Section, View } from '@atomic'
 import { Button, SectionHeader } from '@molecules'
 import { MenuListItem, SummaryTextBlock } from '@organisms'
 import { useEditEventPageContext } from '../hooks'
+import { useNavigation } from '@hooks'
 
 
 const SummarySection = () => {
 
-    const { confirmDelete } = useEditEventPageContext()
+    const { confirmDelete, eventId } = useEditEventPageContext()
+    const { eventPage } = useNavigation()
 
     return (
         <Section marginVertical='m'>
@@ -30,7 +32,7 @@ const SummarySection = () => {
             <View>
                 <MenuListItem
                     title='Preview'
-                    onPress={() => console.log('Preview')}
+                    onPress={() => eventPage(eventId)}
                     titleProps={{ color: 't2' }}
                     border
                 />

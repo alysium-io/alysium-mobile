@@ -1,11 +1,11 @@
 import React, { createContext } from 'react'
 import { EventsResponse, ProviderProps } from '@types'
-import { SheetApi, useSheet } from '@hooks'
+import { SheetApi, usePersona, useSheet } from '@hooks'
 import { hostApiSlice } from 'src/redux/api'
 
 
 const {
-    useGetEventsQuery
+    useGetHostEventsQuery
 } = hostApiSlice
 
 export type EventManagerPageContextType = {
@@ -19,11 +19,13 @@ export const EventManagerPageContext = createContext({} as EventManagerPageConte
 
 export const EventManagerPageProvider : React.FC<ProviderProps> = ({ children }) => {
 
+    const { persona } = usePersona()
+
     const {
         data: eventsData,
         error: eventsError,
         isLoading: eventsIsLoading
-    } = useGetEventsQuery()
+    } = useGetHostEventsQuery({ hostId: persona.activePersonaId ?? undefined }, { skip: !persona.activePersonaId })
 
     const createEventStartSheetApi = useSheet()
 

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { View } from '@atomic'
 import { ContentType } from '@types'
 import ContentListItemToggle from './ContentListItemToggle'
+import { Vibrator } from '@etc'
 
 
 interface ContentListItemTogglerProps {
@@ -31,6 +32,7 @@ const ContentListItemToggler : React.FC<ContentListItemTogglerProps> = ({
     const [selected, setSelected] = useState<number | null>(defaultId)
 
     const handlePressToggle = (id: number) => {
+        Vibrator.contextClick()
         setSelected(id)
         onPressToggle && onPressToggle(id)
     }

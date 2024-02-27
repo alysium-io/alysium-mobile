@@ -4,6 +4,7 @@ import { ButtonColorVariants, ButtonState, ButtonVariants } from './shared'
 import ButtonContainer from './ButtonContainer'
 import ButtonForeground from './ButtonForeground'
 import useButton from './useButton'
+import { Vibrator } from '@etc'
 
 
 interface ButtonProps {
@@ -32,9 +33,14 @@ const Button : React.FC<Partial<ButtonProps>> = ({
         textColor
     } = useButton(buttonState, variant, colorVariant)
 
+    const _onPress = () => {
+        onPress()
+        Vibrator.clockTick()
+    }
+
     return (
         <ButtonContainer
-            onPress={onPress}
+            onPress={_onPress}
             isDisabled={buttonState !== 'default' || disabled}
             borderColor={borderColor}
             backgroundColor={backgroundColor}
