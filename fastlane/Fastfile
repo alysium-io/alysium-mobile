@@ -9,6 +9,11 @@ lane :test_lane do
     # Use this lane to test your Fastfile without uploading to App Store Connect
     # Be sure to delete whatever you're testing here before committing tho... >_>
     puts 'Test lane'
+
+    match(
+        type: 'appstore',
+        readonly: true
+    )
 end
 
 platform :ios do

@@ -33,27 +33,27 @@ jobs:
       with:
         ruby-version: '3.0.2'
 
-    # Set up Java/NDK/SDK
-    - name: Set up JDK 17
-      uses: actions/setup-java@v4
-      with:
-        java-version: 17
-        distribution: 'temurin'
-    - name: Cache Android SDK and NDK
-      id: cache-android
-      uses: actions/cache@v4
-      with:
-        path: |
-          /Users/runner/Library/Android/sdk/build-tools/33.0.0
-          /Users/runner/Library/Android/sdk/platforms/android-33
-          /Users/runner/Library/Android/sdk/ndk/23.1.7779620
-        key: ${{ runner.os }}-android-sdk-33-ndk-23.1.7779620
-    - name: Set up Android SDK
-      uses: android-actions/setup-android@v3
-    - name: Install Android Build Tools and SDKs
-      if: steps.cache-android.outputs.cache-hit != 'true'
-      run: |
-        yes | sdkmanager "build-tools;33.0.0" "platforms;android-33" "ndk;23.1.7779620"
+    # # Set up Java/NDK/SDK
+    # - name: Set up JDK 17
+    #   uses: actions/setup-java@v4
+    #   with:
+    #     java-version: 17
+    #     distribution: 'temurin'
+    # - name: Cache Android SDK and NDK
+    #   id: cache-android
+    #   uses: actions/cache@v4
+    #   with:
+    #     path: |
+    #       /Users/runner/Library/Android/sdk/build-tools/33.0.0
+    #       /Users/runner/Library/Android/sdk/platforms/android-33
+    #       /Users/runner/Library/Android/sdk/ndk/23.1.7779620
+    #     key: ${{ runner.os }}-android-sdk-33-ndk-23.1.7779620
+    # - name: Set up Android SDK
+    #   uses: android-actions/setup-android@v3
+    # - name: Install Android Build Tools and SDKs
+    #   if: steps.cache-android.outputs.cache-hit != 'true'
+    #   run: |
+    #     yes | sdkmanager "build-tools;33.0.0" "platforms;android-33" "ndk;23.1.7779620"
 
     # Install yarn
     - name: Cache Yarn dependencies
@@ -66,7 +66,7 @@ jobs:
       if: steps.cache-yarn.outputs.cache-hit != 'true'
       run: yarn install --frozen-lockfile
 
-    # Install ruby
+    # Install gems
     - name: Cache Ruby dependencies
       uses: actions/cache@v4
       id: cache-ruby
@@ -91,7 +91,7 @@ jobs:
 
     # Build iOS
     - name: Build iOS
-      run: bundle exec fastlane ios test_build
+      run: bundle exec fastlane ios test_lane
       working-directory: fastlane
 
     # Etc
