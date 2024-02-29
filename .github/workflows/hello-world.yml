@@ -92,6 +92,7 @@ jobs:
     # Build iOS
     - name: Build iOS
       run: bundle exec fastlane ios test_build
+      working-directory: fastlane
 
     # Etc
     - name: Run a one-line script
