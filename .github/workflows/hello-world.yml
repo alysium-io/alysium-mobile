@@ -17,3 +17,6 @@ jobs:
     
     - name: Print out the current directory
       run: pwd
+
+    - name: List the files in the repository
+      run: ls -la
