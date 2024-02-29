@@ -57,7 +57,7 @@ jobs:
 
     # Install yarn
     - name: Cache Yarn dependencies
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       id: cache-yarn
       with:
         path: '**/node_modules'
@@ -68,7 +68,7 @@ jobs:
 
     # Install ruby
     - name: Cache Ruby dependencies
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       id: cache-ruby
       with:
         path: vendor/bundle
@@ -79,7 +79,7 @@ jobs:
 
     # Install pods
     - name: Cache CocoaPods dependencies
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       id: cache-cocoapods
       with:
         path: ios/Pods
@@ -88,6 +88,10 @@ jobs:
       if: steps.cache-cocoapods.outputs.cache-hit != 'true'
       run: bundle exec pod install
       working-directory: ios
+
+    # Build iOS
+    - name: Build iOS
+      run: bundle exec fastlane ios test_build
 
     # Etc
     - name: Run a one-line script
