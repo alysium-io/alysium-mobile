@@ -1,4 +1,4 @@
-name: Hello World Workflow
+name: Alysium Mobile Testflight
 
 on:
   push:
