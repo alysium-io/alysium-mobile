@@ -18,7 +18,7 @@ jobs:
       with:
         node-version: '21.4.0' # Specify your Node.js version here
 
-    # Set up Ruby
+    # Set up ruby
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
@@ -30,9 +30,18 @@ jobs:
       with:
         java-version: 17
         distribution: 'temurin'
+    - name: Cache Android SDK and NDK
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/Android/sdk/build-tools/33.0.0
+          ~/Android/sdk/platforms/android-33
+          ~/Android/sdk/ndk/23.1.7779620
+        key: ${{ runner.os }}-android-sdk-33-ndk-23.1.7779620
     - name: Set up Android SDK
       uses: android-actions/setup-android@v3
     - name: Install Android Build Tools and SDKs
+      if: steps.cache-sdk.outputs.cache-hit != 'true'
       run: |
         yes | sdkmanager "build-tools;33.0.0" "platforms;android-33" "ndk;23.1.7779620"
 
