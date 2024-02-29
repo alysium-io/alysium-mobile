@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: macos-latest
+    runs-on: macos-13
 
     steps:
 
@@ -17,81 +17,82 @@ jobs:
       with:
         xcode-version: '15.1.0'
     
-    # Init
-    - uses: actions/checkout@v4
+    # # Init
+    # - name: Checkout the repository
+    #   uses: actions/checkout@v4
 
-    # Set up Node.js
-    - name: Use Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '20'
+    # # Set up Node.js
+    # - name: Use Node.js
+    #   uses: actions/setup-node@v3
+    #   with:
+    #     node-version: '20'
 
-    # Set up Ruby
-    - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: '3.0.2'
+    # # Set up Ruby
+    # - name: Set up Ruby
+    #   uses: ruby/setup-ruby@v1
+    #   with:
+    #     ruby-version: '3.0.2'
 
-    # Set up Java/NDK/SDK
-    - name: Set up JDK 17
-      uses: actions/setup-java@v3
-      with:
-        java-version: 17
-        distribution: 'temurin'
-    - name: Cache Android SDK and NDK
-      id: cache-android
-      uses: actions/cache@v3
-      with:
-        path: |
-          /Users/runner/Library/Android/sdk/build-tools/33.0.0
-          /Users/runner/Library/Android/sdk/platforms/android-33
-          /Users/runner/Library/Android/sdk/ndk/23.1.7779620
-        key: ${{ runner.os }}-android-sdk-33-ndk-23.1.7779620
-    - name: Set up Android SDK
-      uses: android-actions/setup-android@v3
-    - name: Install Android Build Tools and SDKs
-      if: steps.cache-android.outputs.cache-hit != 'true'
-      run: |
-        yes | sdkmanager "build-tools;33.0.0" "platforms;android-33" "ndk;23.1.7779620"
+    # # Set up Java/NDK/SDK
+    # - name: Set up JDK 17
+    #   uses: actions/setup-java@v3
+    #   with:
+    #     java-version: 17
+    #     distribution: 'temurin'
+    # - name: Cache Android SDK and NDK
+    #   id: cache-android
+    #   uses: actions/cache@v3
+    #   with:
+    #     path: |
+    #       /Users/runner/Library/Android/sdk/build-tools/33.0.0
+    #       /Users/runner/Library/Android/sdk/platforms/android-33
+    #       /Users/runner/Library/Android/sdk/ndk/23.1.7779620
+    #     key: ${{ runner.os }}-android-sdk-33-ndk-23.1.7779620
+    # - name: Set up Android SDK
+    #   uses: android-actions/setup-android@v3
+    # - name: Install Android Build Tools and SDKs
+    #   if: steps.cache-android.outputs.cache-hit != 'true'
+    #   run: |
+    #     yes | sdkmanager "build-tools;33.0.0" "platforms;android-33" "ndk;23.1.7779620"
 
-    # Install yarn
-    - name: Cache Yarn dependencies
-      uses: actions/cache@v3
-      id: cache-yarn
-      with:
-        path: '**/node_modules'
-        key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-    - name: Install Yarn dependencies
-      if: steps.cache-yarn.outputs.cache-hit != 'true'
-      run: yarn install --frozen-lockfile
+    # # Install yarn
+    # - name: Cache Yarn dependencies
+    #   uses: actions/cache@v3
+    #   id: cache-yarn
+    #   with:
+    #     path: '**/node_modules'
+    #     key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+    # - name: Install Yarn dependencies
+    #   if: steps.cache-yarn.outputs.cache-hit != 'true'
+    #   run: yarn install --frozen-lockfile
 
-    # Install ruby
-    - name: Cache Ruby dependencies
-      uses: actions/cache@v3
-      id: cache-ruby
-      with:
-        path: vendor/bundle
-        key: ${{ runner.os }}-ruby-${{ hashFiles('**/Gemfile.lock') }}
-    - name: Install ruby dependencies
-      if: steps.cache-ruby.outputs.cache-hit != 'true'
-      run: bundle install
+    # # Install ruby
+    # - name: Cache Ruby dependencies
+    #   uses: actions/cache@v3
+    #   id: cache-ruby
+    #   with:
+    #     path: vendor/bundle
+    #     key: ${{ runner.os }}-ruby-${{ hashFiles('**/Gemfile.lock') }}
+    # - name: Install ruby dependencies
+    #   if: steps.cache-ruby.outputs.cache-hit != 'true'
+    #   run: bundle install
 
-    # Install pods
-    - name: Cache CocoaPods dependencies
-      uses: actions/cache@v3
-      id: cache-cocoapods
-      with:
-        path: ios/Pods
-        key: ${{ runner.os }}-cocoapods-${{ hashFiles('ios/Podfile.lock') }}
-    - name: Install CocoaPods dependencies
-      if: steps.cache-cocoapods.outputs.cache-hit != 'true'
-      run: bundle exec pod install
-      working-directory: ios
+    # # Install pods
+    # - name: Cache CocoaPods dependencies
+    #   uses: actions/cache@v3
+    #   id: cache-cocoapods
+    #   with:
+    #     path: ios/Pods
+    #     key: ${{ runner.os }}-cocoapods-${{ hashFiles('ios/Podfile.lock') }}
+    # - name: Install CocoaPods dependencies
+    #   if: steps.cache-cocoapods.outputs.cache-hit != 'true'
+    #   run: bundle exec pod install
+    #   working-directory: ios
 
-    # Etc
-    - name: Run a one-line script
-      run: echo Hello, world! ${{ secrets.MATCH_PASSWORD }}
-    - name: Print out the current directory
-      run: pwd
-    - name: List the files in the repository
-      run: ls -la
+    # # Etc
+    # - name: Run a one-line script
+    #   run: echo Hello, world! ${{ secrets.MATCH_PASSWORD }}
+    # - name: Print out the current directory
+    #   run: pwd
+    # - name: List the files in the repository
+    #   run: ls -la
