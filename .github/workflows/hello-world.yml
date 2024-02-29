@@ -17,16 +17,16 @@ jobs:
       with:
         node-version: '18.0.0' # Specify your Node.js version here
 
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.0.2' # Specify your Ruby version here
+
     - name: Install node dependencies
       run: yarn install
 
     - name: Install ruby dependencies
       run: bundle install
-
-    - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: '3.0.2' # Specify your Ruby version here
 
     - name: Run a one-line script
       run: echo Hello, world! ${{ secrets.MATCH_PASSWORD }}
