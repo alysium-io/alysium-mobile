@@ -113,8 +113,11 @@ jobs:
     - name: Print SSH key
       run: ls -la ~/.ssh
 
+    - name: Print stuff
+      run: ls -la /Users/runner/.ssh/
+
     - name: Test SSH connection 
-      run: ssh -Tvvv -i /Users/runner/.ssh/alysium_match git@github.com
+      run: ssh -Tvvv git@github.com
 
     # Build iOS
     - name: Build iOS
