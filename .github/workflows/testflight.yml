@@ -6,7 +6,7 @@ on:
       - workflow
 
 jobs:
-  build:
+  build-testflight:
     runs-on: macos-13
 
     steps:
@@ -97,6 +97,14 @@ jobs:
         chmod 600 /Users/runner/.ssh/alysium_match
         ssh-keyscan github.com >> /Users/runner/.ssh/known_hosts
         echo -e "Host github.com\n  IdentityFile /Users/runner/.ssh/alysium_match\n  IdentitiesOnly yes" > /Users/runner/.ssh/config
+
+    # Write the env file
+    - name: Write .env file
+      uses: ./.github/actions/write-env-vars
+      with:
+        envtype: 'staging'
+        API_URL: ${{ env.API_URL_STAGING }}
+        ENV: ${{ env.ENV_STAGING }}
 
     # Build iOS
     - name: Build iOS

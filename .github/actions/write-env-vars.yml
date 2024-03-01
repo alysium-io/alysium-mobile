@@ -1,0 +1,17 @@
+name: 'Write Environment Variables'
+description: 'Write environment variables to .env.* file'
+inputs:
+  API_URL:
+    description: 'API URL environment variable name'
+    required: true
+  ENV:
+    description: 'ENV environment variable name'
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - run: |
+        echo "API_URL=${{ inputs.API_URL }}" >> .env.${{ inputs.envtype }}
+        echo "ENV=${{ inputs.ENV }}" >> .env.${{ inputs.envtype }}
+      shell: bash
