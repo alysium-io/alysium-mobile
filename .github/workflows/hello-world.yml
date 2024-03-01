@@ -102,7 +102,7 @@ jobs:
     - name: Build iOS
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
-      run: bundle exec fastlane test_lane
+      run: bundle exec fastlane test_lane --verbose
       working-directory: fastlane
 
     # # Etc
