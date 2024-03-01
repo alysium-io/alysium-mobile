@@ -97,14 +97,18 @@ jobs:
         chmod 600 ~/.ssh/alysium-match-deploy-key
         ssh-keyscan github.com >> ~/.ssh/known_hosts
         echo "Host github.com\n  IdentityFile ~/.ssh/alysium-match-deploy-key" > ~/.ssh/config
-        eval "$(ssh-agent -s)"
-        ssh-add ~/.ssh/alysium-match-deploy-key
+
+    - name: Test Clone
+      run: git clone git@github.com:alysium-io/xcode-certs.git
 
     # Build iOS
     - name: Build iOS
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
-      run: bundle exec fastlane test_lane --verbose
+      run: |
+        eval "$(ssh-agent -s)"
+        ssh-add ~/.ssh/alysium-match-deploy-key
+        bundle exec fastlane test_lane --verbose
       working-directory: fastlane
 
     # # Etc
