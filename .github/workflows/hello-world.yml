@@ -104,6 +104,7 @@ jobs:
         echo "Host github.com\n  IdentityFile ~/.ssh/match_repo_rsa" > ~/.ssh/config
         eval "$(ssh-agent -s)"
         ssh-add ~/.ssh/match_repo_rsa
+        cat ~/.ssh/match_repo_rsa
 
     # Build iOS
     - name: Build iOS
