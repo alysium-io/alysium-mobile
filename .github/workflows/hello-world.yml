@@ -55,16 +55,16 @@ jobs:
     #   run: |
     #     yes | sdkmanager "build-tools;33.0.0" "platforms;android-33" "ndk;23.1.7779620"
 
-    # # Install yarn
-    # - name: Cache Yarn dependencies
-    #   uses: actions/cache@v4
-    #   id: cache-yarn
-    #   with:
-    #     path: '**/node_modules'
-    #     key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-    # - name: Install Yarn dependencies
-    #   if: steps.cache-yarn.outputs.cache-hit != 'true'
-    #   run: yarn install --frozen-lockfile
+    # Install yarn
+    - name: Cache Yarn dependencies
+      uses: actions/cache@v4
+      id: cache-yarn
+      with:
+        path: '**/node_modules'
+        key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+    - name: Install Yarn dependencies
+      if: steps.cache-yarn.outputs.cache-hit != 'true'
+      run: yarn install --frozen-lockfile
 
     # Install gems
     - name: Cache Ruby dependencies
@@ -77,18 +77,19 @@ jobs:
       if: steps.cache-ruby.outputs.cache-hit != 'true'
       run: bundle install
 
-    # # Install pods
-    # - name: Cache CocoaPods dependencies
-    #   uses: actions/cache@v4
-    #   id: cache-cocoapods
-    #   with:
-    #     path: ios/Pods
-    #     key: ${{ runner.os }}-cocoapods-${{ hashFiles('ios/Podfile.lock') }}
-    # - name: Install CocoaPods dependencies
-    #   if: steps.cache-cocoapods.outputs.cache-hit != 'true'
-    #   run: bundle exec pod install
-    #   working-directory: ios
+    # Install pods
+    - name: Cache CocoaPods dependencies
+      uses: actions/cache@v4
+      id: cache-cocoapods
+      with:
+        path: ios/Pods
+        key: ${{ runner.os }}-cocoapods-${{ hashFiles('ios/Podfile.lock') }}
+    - name: Install CocoaPods dependencies
+      if: steps.cache-cocoapods.outputs.cache-hit != 'true'
+      run: bundle exec pod install
+      working-directory: ios
 
+    # Set up SSH key for match repository
     - name: Set up SSH key for match
       run: |
         mkdir -p /Users/runner/.ssh
@@ -101,13 +102,9 @@ jobs:
     - name: Build iOS
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
-      run: bundle exec fastlane test_lane --verbose
+        FASTLANE_USER: ${{ secrets.FASTLANE_USER }}
+        APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
+        APP_STORE_CONNECT_API_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}
+        APP_STORE_CONNECT_API_KEY_CONTENT: ${{ secrets.APP_STORE_CONNECT_API_KEY_CONTENT }}
+      run: bundle exec fastlane test_build
       working-directory: fastlane
-
-    # # Etc
-    # - name: Run a one-line script
-    #   run: echo Hello, world! ${{ secrets.MATCH_PASSWORD }}
-    # - name: Print out the current directory
-    #   run: pwd
-    # - name: List the files in the repository
-    #   run: ls -la

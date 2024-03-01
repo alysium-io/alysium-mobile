@@ -9,19 +9,17 @@ lane :test_lane do
     # Use this lane to test your Fastfile without uploading to App Store Connect
     # Be sure to delete whatever you're testing here before committing tho... >_>
     puts 'Test lane'
-    setup_ci
-    match(
-        type: 'appstore',
-        readonly: true
-    )
 end
 
 platform :ios do
 
     lane :test_build do
 
-        # Configure circleci
-        setup_circle_ci
+        # Configure ci environment
+        # You will run into this error if you don't set up the CI environment:
+        #   Missing password for user example@gmail.com, and running in non-interactive shell
+        # Basically this command sets up the keychain for the CI environment
+        setup_ci
 
         # Make sure match is set up correctly for the testflight deployment
         match(
