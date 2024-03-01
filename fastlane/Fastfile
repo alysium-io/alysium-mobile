@@ -11,6 +11,7 @@ lane :test_lane do
     puts 'Test lane'
 
     match(
+        git_url: "git@github.com:alysium-io/xcode-certs.git",
         type: 'appstore',
         readonly: true
     )
