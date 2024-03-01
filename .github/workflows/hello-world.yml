@@ -89,24 +89,11 @@ jobs:
     #   run: bundle exec pod install
     #   working-directory: ios
 
-    # Configure match deploy key
-    - name: Set up SSH key
-      run: |
-        mkdir -p ~/.ssh
-        echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/match
-        cat ~/.ssh/match
-        chmod 600 ~/.ssh/match
-        ssh-keyscan github.com >> ~/.ssh/known_hosts
-        echo "Host github.com\n  IdentityFile ~/.ssh/match" > ~/.ssh/config
-
     # Build iOS
     - name: Build iOS
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
-      run: |
-        eval "$(ssh-agent -s)"
-        ssh-add ~/.ssh/match
-        bundle exec fastlane test_lane --verbose
+      run: bundle exec fastlane test_lane --verbose
       working-directory: fastlane
 
     # # Etc
