@@ -95,6 +95,16 @@ jobs:
         git config --global user.name "aymather"
         git config --global user.email "aymather@gmail.com"
 
+    - name: Set up SSH key for match
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/match_repo_rsa
+        chmod 600 ~/.ssh/match_repo_rsa
+        ssh-keyscan github.com >> ~/.ssh/known_hosts
+        echo "Host github.com\n  IdentityFile ~/.ssh/match_repo_rsa" > ~/.ssh/config
+        eval "$(ssh-agent -s)"
+        ssh-add ~/.ssh/match_repo_rsa
+
     # Build iOS
     - name: Build iOS
       env:
