@@ -11,7 +11,8 @@ lane :test_lane do
     puts 'Test lane'
     setup_ci
     match(
-        type: 'appstore'
+        type: 'appstore',
+        readonly: true
     )
 end
 
