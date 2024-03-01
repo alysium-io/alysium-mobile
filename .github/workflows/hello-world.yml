@@ -108,14 +108,13 @@ jobs:
         [ -f /Users/runner/.ssh/alysium_match ] && echo 'yes' || echo 'no'
 
     - name: Print SSH config
-    - run: cat ~/.ssh/config
+      run: cat ~/.ssh/config
 
     - name: Print SSH key
-    - run: ls -la ~/.ssh
+      run: ls -la ~/.ssh
 
     - name: Test SSH connection 
-      run: |
-        ssh -Tvvv -i /Users/runner/.ssh/alysium_match git@github.com
+      run: ssh -Tvvv -i /Users/runner/.ssh/alysium_match git@github.com
 
     # Build iOS
     - name: Build iOS
