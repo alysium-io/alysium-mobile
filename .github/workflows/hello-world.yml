@@ -89,6 +89,15 @@ jobs:
     #   run: bundle exec pod install
     #   working-directory: ios
 
+    # Configure match deploy key
+    - name: Set up SSH key
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/alysium-match-deploy-key
+        chmod 600 ~/.ssh/alysium-match-deploy-key
+        ssh-keyscan github.com >> ~/.ssh/known_hosts
+        echo "Host github.com\n  IdentityFile ~/.ssh/alysium-match-deploy-key" > ~/.ssh/config
+
     # Build iOS
     - name: Build iOS
       env:
