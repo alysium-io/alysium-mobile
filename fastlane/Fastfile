@@ -9,7 +9,7 @@ lane :test_lane do
     # Use this lane to test your Fastfile without uploading to App Store Connect
     # Be sure to delete whatever you're testing here before committing tho... >_>
     puts 'Test lane'
-    setup_ci
+
     match(
         type: 'appstore'
     )

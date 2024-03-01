@@ -96,8 +96,6 @@ jobs:
         chmod 600 /Users/runner/.ssh/alysium_match
         ssh-keyscan github.com >> /Users/runner/.ssh/known_hosts
         echo -e "Host github.com\n  IdentityFile /Users/runner/.ssh/alysium_match\n  IdentitiesOnly yes" > /Users/runner/.ssh/config
-        eval "$(ssh-agent -s)"
-        ssh-add /Users/runner/.ssh/alysium_match
 
     # Build iOS
     - name: Build iOS
