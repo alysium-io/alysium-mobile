@@ -102,9 +102,16 @@ jobs:
         chmod 600 /Users/runner/.ssh/alysium_match
         ssh-keyscan github.com >> /Users/runner/.ssh/known_hosts
         echo "Host github.com\n  IdentityFile /Users/runner/.ssh/alysium_match\n  IdentitiesOnly yes" > /Users/runner/.ssh/config
+        echo "Host github.com\n  IdentityFile /Users/runner/.ssh/alysium_match\n  IdentitiesOnly yes" > /Users/runner/.ssh/config.d
         eval "$(ssh-agent -s)"
         ssh-add /Users/runner/.ssh/alysium_match
         [ -f /Users/runner/.ssh/alysium_match ] && echo 'yes' || echo 'no'
+
+    - name: Print SSH config
+    - run: cat ~/.ssh/config
+
+    - name: Print SSH key
+    - run: ls -la ~/.ssh
 
     - name: Test SSH connection 
       run: |
