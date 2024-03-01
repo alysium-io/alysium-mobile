@@ -1,4 +1,4 @@
-git_url("git@github.com:alysium-io/xcode-certs.git")
+git_url("git@github.com:alysium-io/xcode-certificates.git")
 
 storage_mode("git")
 
