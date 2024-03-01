@@ -100,6 +100,8 @@ jobs:
         chmod 600 ~/.ssh/alysium-match-deploy-key
         ssh-keyscan github.com >> ~/.ssh/known_hosts
         echo "Host github.com\n  IdentityFile ~/.ssh/alysium-match-deploy-key" > ~/.ssh/config
+        eval "$(ssh-agent -s)"
+        ssh-add ~/.ssh/alysium-match-deploy-key
 
     # Build iOS
     - name: Build iOS
