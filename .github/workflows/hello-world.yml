@@ -98,13 +98,12 @@ jobs:
     - name: Set up SSH key for match
       run: |
         mkdir -p ~/.ssh
-        echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/match_repo_rsa
-        chmod 600 ~/.ssh/match_repo_rsa
+        echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/alysium-match-deploy-key
+        chmod 600 ~/.ssh/alysium-match-deploy-key
         ssh-keyscan github.com >> ~/.ssh/known_hosts
-        echo "Host github.com\n  IdentityFile ~/.ssh/match_repo_rsa" > ~/.ssh/config
+        echo "Host github.com\n  IdentityFile ~/.ssh/alysium-match-deploy-key\n  IdentitiesOnly yes" > ~/.ssh/config
         eval "$(ssh-agent -s)"
-        ssh-add ~/.ssh/match_repo_rsa
-        cat ~/.ssh/match_repo_rsa
+        ssh-add ~/.ssh/alysium-match-deploy-key
 
     - name: Test SSH connection
       run: |
