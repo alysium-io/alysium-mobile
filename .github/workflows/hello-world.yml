@@ -98,14 +98,13 @@ jobs:
     - name: Set up SSH key for match
       run: |
         mkdir -p /Users/runner/.ssh
-        echo "${{ secrets.MATCH_DEPLOY_KEY }}" > /Users/runner/.ssh/alysium_match
-        chmod 600 /Users/runner/.ssh/alysium_match
+        echo "${{ secrets.MATCH_DEPLOY_KEY }}" > /Users/runner/.ssh/id_ed25519
+        chmod 600 /Users/runner/.ssh/id_ed25519
         ssh-keyscan github.com >> /Users/runner/.ssh/known_hosts
-        echo "Host github.com\n  IdentityFile /Users/runner/.ssh/alysium_match\n  IdentitiesOnly yes" > /Users/runner/.ssh/config
-        echo "Host github.com\n  IdentityFile /Users/runner/.ssh/alysium_match\n  IdentitiesOnly yes" > /Users/runner/.ssh/config.d
+        echo "Host github.com\n  IdentityFile /Users/runner/.ssh/id_ed25519\n  IdentitiesOnly yes" > /Users/runner/.ssh/config
         eval "$(ssh-agent -s)"
-        ssh-add /Users/runner/.ssh/alysium_match
-        [ -f /Users/runner/.ssh/alysium_match ] && echo 'yes' || echo 'no'
+        ssh-add /Users/runner/.ssh/id_ed25519
+        [ -f /Users/runner/.ssh/id_ed25519 ] && echo 'yes' || echo 'no'
 
     - name: Print SSH config
       run: cat ~/.ssh/config
@@ -115,6 +114,9 @@ jobs:
 
     - name: Print stuff
       run: ls -la /Users/runner/.ssh/
+
+    - name: Print other stuff
+      run: cat ~/.ssh/config
 
     - name: Test SSH connection 
       run: ssh -Tvvv git@github.com
