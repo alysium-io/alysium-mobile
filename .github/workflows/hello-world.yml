@@ -106,6 +106,10 @@ jobs:
         ssh-add ~/.ssh/match_repo_rsa
         cat ~/.ssh/match_repo_rsa
 
+    - name: Test SSH connection
+      run: |
+        ssh -Tvvv git@github.com
+
     # Build iOS
     - name: Build iOS
       env:
