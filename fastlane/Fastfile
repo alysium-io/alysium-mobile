@@ -33,7 +33,8 @@ platform :ios do
             export_method: 'app-store',
             workspace: './ios/alysium.xcworkspace',
             output_directory: './ios/build',
-            output_name: 'alysium-staging.ipa'
+            output_name: 'alysium-staging.ipa',
+            silent: true
         )
 
         # Appstoreconnect API key for pilot to upload to TestFlight
