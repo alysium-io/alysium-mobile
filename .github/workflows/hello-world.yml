@@ -89,9 +89,6 @@ jobs:
     #   run: bundle exec pod install
     #   working-directory: ios
 
-    - name: INFO
-      run: cat ~/.ssh/known_hosts
-
     # Configure match deploy key
     - name: Set up SSH key
       run: |
