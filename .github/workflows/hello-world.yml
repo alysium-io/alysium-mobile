@@ -89,6 +89,12 @@ jobs:
     #   run: bundle exec pod install
     #   working-directory: ios
 
+
+    - name: Configure git
+      run: |
+        git config --global user.name "aymather"
+        git config --global user.email "aymather@gmail.com"
+
     # Build iOS
     - name: Build iOS
       env:
