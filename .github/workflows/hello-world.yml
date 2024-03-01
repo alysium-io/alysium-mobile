@@ -93,16 +93,11 @@ jobs:
     - name: Set up SSH key
       run: |
         mkdir -p ~/.ssh
-        echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/alysium-match-deploy-key
-        cat ~/.ssh/alysium-match-deploy-key
-        chmod 600 ~/.ssh/alysium-match-deploy-key
+        echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/match
+        cat ~/.ssh/match
+        chmod 600 ~/.ssh/match
         ssh-keyscan github.com >> ~/.ssh/known_hosts
-        echo "Host github.com\n  IdentityFile ~/.ssh/alysium-match-deploy-key" > ~/.ssh/config
-
-    - name: Test Clone
-      run:
-        ssh-add ~/.ssh/alysium-match-deploy-key
-        git clone git@github.com:alysium-io/xcode-certs.git
+        echo "Host github.com\n  IdentityFile ~/.ssh/match" > ~/.ssh/config
 
     # Build iOS
     - name: Build iOS
@@ -110,7 +105,7 @@ jobs:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
       run: |
         eval "$(ssh-agent -s)"
-        ssh-add ~/.ssh/alysium-match-deploy-key
+        ssh-add ~/.ssh/match
         bundle exec fastlane test_lane --verbose
       working-directory: fastlane
 

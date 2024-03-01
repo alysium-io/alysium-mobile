@@ -11,8 +11,7 @@ lane :test_lane do
     puts 'Test lane'
 
     match(
-        type: 'appstore',
-        readonly: true
+        type: 'appstore'
     )
 end
 
