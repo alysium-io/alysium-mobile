@@ -100,7 +100,9 @@ jobs:
         echo "Host github.com\n  IdentityFile ~/.ssh/alysium-match-deploy-key" > ~/.ssh/config
 
     - name: Test Clone
-      run: git clone git@github.com:alysium-io/xcode-certs.git
+      run:
+        ssh-add ~/.ssh/alysium-match-deploy-key
+        git clone git@github.com:alysium-io/xcode-certs.git
 
     # Build iOS
     - name: Build iOS
