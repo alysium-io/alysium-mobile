@@ -1,6 +1,9 @@
 name: 'Write Environment Variables'
 description: 'Write environment variables to .env.* file'
 inputs:
+  envtype:
+    description: 'Environment type'
+    required: true
   API_URL:
     description: 'API URL environment variable name'
     required: true
