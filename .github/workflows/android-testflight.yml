@@ -67,6 +67,10 @@ jobs:
       run: |
         yes | sdkmanager "build-tools;33.0.0" "platforms;android-33" "ndk;23.1.7779620"
 
+    # android credentials
+    - name: Write Android signing keys to gradle.properties
+      uses: ./.github/actions/android-credentials
+
     # android
     - name: Build android
       run: bundle exec fastlane android test_build
