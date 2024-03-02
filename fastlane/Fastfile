@@ -34,7 +34,8 @@ platform :ios do
             workspace: './ios/alysium.xcworkspace',
             output_directory: './ios/build',
             output_name: 'alysium-staging.ipa',
-            silent: true
+            silent: true,
+            export_xcargs: '-jobs $(sysctl -n hw.ncpu)'
         )
 
         # Appstoreconnect API key for pilot to upload to TestFlight

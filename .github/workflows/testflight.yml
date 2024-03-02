@@ -7,6 +7,7 @@ on:
 
 jobs:
   build-testflight:
+    if: github.actor != 'github-actions[bot]'
     runs-on: macos-13
 
     steps:
@@ -72,39 +73,23 @@ jobs:
     #   run: |
     #     yes | sdkmanager "build-tools;33.0.0" "platforms;android-33" "ndk;23.1.7779620"
 
-    # Install yarn
-    - name: Cache Yarn dependencies
-      uses: actions/cache@v4
-      id: cache-yarn
-      with:
-        path: '**/node_modules'
-        key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-    - name: Install Yarn dependencies
-      if: steps.cache-yarn.outputs.cache-hit != 'true'
-      run: yarn install --frozen-lockfile
+    # yarn
+    - name: Install yarn dependencies
+      uses: ./.github/actions/yarn
 
-    # Install gems
-    - name: Cache Ruby dependencies
-      uses: actions/cache@v4
-      id: cache-ruby
-      with:
-        path: vendor/bundle
-        key: ${{ runner.os }}-ruby-${{ hashFiles('**/Gemfile.lock') }}
-    - name: Install ruby dependencies
-      if: steps.cache-ruby.outputs.cache-hit != 'true'
-      run: bundle install
+    # gems
+    - name: Install gem dependencies
+      uses: ./.github/actions/gems
 
-    # Install pods
-    - name: Cache CocoaPods dependencies
-      uses: actions/cache@v4
-      id: cache-cocoapods
-      with:
-        path: ios/Pods
-        key: ${{ runner.os }}-cocoapods-${{ hashFiles('ios/Podfile.lock') }}
-    - name: Install CocoaPods dependencies
-      if: steps.cache-cocoapods.outputs.cache-hit != 'true'
-      run: bundle exec pod install
-      working-directory: ios
+    # pods
+    - name: Install pods
+      uses: ./.github/actions/pods
+
+    # Bump build number
+    - name: Bump Build Number
+      run: |
+        yarn bump-build-and-skip-ci
+        git push
 
     # Build iOS
     - name: Build iOS

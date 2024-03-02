@@ -1,0 +1,15 @@
+name: 'gems'
+description: 'Install ruby dependencies (gems)'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Cache Ruby dependencies
+      uses: actions/cache@v4
+      id: cache-ruby
+      with:
+        path: vendor/bundle
+        key: ${{ runner.os }}-ruby-${{ hashFiles('**/Gemfile.lock') }}
+    - name: Install ruby dependencies
+      if: steps.cache-ruby.outputs.cache-hit != 'true'
+      run: bundle install
