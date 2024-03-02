@@ -7,17 +7,17 @@ on:
 
 jobs:
   build-testflight:
-  
+
     if: github.actor != 'github-actions[bot]'
     runs-on: macos-13
 
     steps:
 
-    # Set up Xcode
-    - name: Set up Xcode
-      uses: maxim-lobanov/setup-xcode@v1.6.0
-      with:
-        xcode-version: '15.1.0'
+    # # Set up Xcode
+    # - name: Set up Xcode
+    #   uses: maxim-lobanov/setup-xcode@v1.6.0
+    #   with:
+    #     xcode-version: '15.1.0'
     
     # Init
     - name: Checkout the repository
