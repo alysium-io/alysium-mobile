@@ -30,8 +30,10 @@ jobs:
         ENV: ${{ env.ENV_STAGING }}
 
     # Set up SSH key for match
-    - name: Set up SSH key for match
+    - name: Configure SSH
       uses: ./.github/actions/ssh-config
+      with:
+        match_deploy_key: ${{ secrets.MATCH_DEPLOY_KEY }}
 
     # Set up Node.js
     - name: Use Node.js
