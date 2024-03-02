@@ -15,7 +15,7 @@ jobs:
 
     # Init
     - name: Checkout the repository
-      uses: actions/checkout@v4s
+      uses: actions/checkout@v4
 
     # Write the env file
     - name: Write .env file
