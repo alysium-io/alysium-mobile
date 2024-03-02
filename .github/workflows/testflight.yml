@@ -5,6 +5,11 @@ on:
     branches:
       - workflow
 
+permissions:
+  pull-requests: write
+  issues: write
+  repository-projects: write
+
 jobs:
   build-testflight:
     if: github.actor != 'github-actions[bot]'
