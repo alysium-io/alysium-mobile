@@ -26,7 +26,6 @@ jobs:
     - name: Write .env file
       uses: ./.github/actions/write-env-vars
       with:
-        envtype: 'staging'
         API_URL: ${{ env.API_URL_STAGING }}
         ENV: ${{ env.ENV_STAGING }}
 

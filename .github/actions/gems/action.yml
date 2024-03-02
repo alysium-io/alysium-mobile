@@ -13,3 +13,4 @@ runs:
     - name: Install ruby dependencies
       if: steps.cache-ruby.outputs.cache-hit != 'true'
       run: bundle install
+      shell: bash

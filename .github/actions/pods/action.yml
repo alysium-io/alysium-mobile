@@ -14,3 +14,4 @@ runs:
       if: steps.cache-cocoapods.outputs.cache-hit != 'true'
       run: bundle exec pod install
       working-directory: ios
+      shell: bash
