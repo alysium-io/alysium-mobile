@@ -89,7 +89,7 @@ jobs:
         git config --global user.name 'github-actions'
         git config --global user.email 'github-actions@github.com'
         yarn bump-build-and-skip-ci
-        git push
+        git push https://${{ secrets.GITHUB_TOKEN }}@github.com/alysium-io/alysium-mobile.git HEAD:workflow
 
     # Build iOS
     - name: Build iOS
