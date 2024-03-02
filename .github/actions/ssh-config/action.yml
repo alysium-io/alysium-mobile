@@ -1,0 +1,14 @@
+name: 'ssh-config'
+description: 'Configure SSH keys'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Set up SSH key for match
+      shell: bash
+      run: |
+        mkdir -p /Users/runner/.ssh
+        echo "${{ secrets.MATCH_DEPLOY_KEY }}" > /Users/runner/.ssh/alysium_match
+        chmod 600 /Users/runner/.ssh/alysium_match
+        ssh-keyscan github.com >> /Users/runner/.ssh/known_hosts
+        echo -e "Host github.com\n  IdentityFile /Users/runner/.ssh/alysium_match\n  IdentitiesOnly yes" > /Users/runner/.ssh/config
