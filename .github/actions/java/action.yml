@@ -19,10 +19,9 @@ runs:
           /Users/runner/Library/Android/sdk/ndk/23.1.7779620
         key: ${{ runner.os }}-android-sdk-33-ndk-23.1.7779620
     - name: Set up Android SDK
-      uses: android-actions/setup-android@v3
+      uses: android-actions/setup-android@v4
     - name: Install Android Build Tools and SDKs
       if: steps.cache-android.outputs.cache-hit != 'true'
       shell: bash
       run: |
         yes | sdkmanager "build-tools;33.0.0" "platforms;android-33" "ndk;23.1.7779620"
-        
