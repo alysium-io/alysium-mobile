@@ -13,6 +13,20 @@ jobs:
 
     steps:
 
+    # Init
+    - name: Checkout the repository
+      uses: actions/checkout@v4
+
+    # Set up Node.js
+    - name: Use Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    # yarn
+    - name: Install yarn dependencies
+      uses: ./.github/actions/yarn
+
     # Bump build number
     - name: Bump Build Number
       env:
