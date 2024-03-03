@@ -1,5 +1,24 @@
 name: 'java'
 description: 'Install and set up Java, Android SDK, and NDK'
+inputs:
+  ALYSIUM_UPLOAD_STORE_FILE:
+    description: 'Alysium Upload Store File'
+    required: true
+  ALYSIUM_UPLOAD_STORE_PASSWORD:
+    description: 'Alysium Upload Store Password'
+    required: true
+  ALYSIUM_UPLOAD_KEY_ALIAS:
+    description: 'Alysium Upload Key Alias'
+    required: true
+  ALYSIUM_UPLOAD_KEY_PASSWORD:
+    description: 'Alysium Upload Key Password'
+    required: true
+  ANDROID_ENCRYPTED_KEYSTORE:
+    description: 'Encrypted Android Keystore'
+    required: true
+  GOOGLE_PLAY_SERVICE_KEY:
+    description: 'Google Play Service Key'
+    required: true
 
 runs:
   using: 'composite'
@@ -9,17 +28,17 @@ runs:
       run: |
         mkdir -p ~/.gradle
         touch ~/.gradle/gradle.properties
-        echo "ALYSIUM_UPLOAD_STORE_FILE=${{ secrets.ALYSIUM_UPLOAD_STORE_FILE }}" >> ~/.gradle/gradle.properties
-        echo "ALYSIUM_UPLOAD_STORE_PASSWORD=${{ secrets.ALYSIUM_UPLOAD_STORE_PASSWORD }}" >> ~/.gradle/gradle.properties
-        echo "ALYSIUM_UPLOAD_KEY_ALIAS=${{ secrets.ALYSIUM_UPLOAD_KEY_ALIAS }}" >> ~/.gradle/gradle.properties
-        echo "ALYSIUM_UPLOAD_KEY_PASSWORD=${{ secrets.ALYSIUM_UPLOAD_KEY_PASSWORD }}" >> ~/.gradle/gradle.properties
+        echo "ALYSIUM_UPLOAD_STORE_FILE=${{ inputs.ALYSIUM_UPLOAD_STORE_FILE }}" >> ~/.gradle/gradle.properties
+        echo "ALYSIUM_UPLOAD_STORE_PASSWORD=${{ inputs.ALYSIUM_UPLOAD_STORE_PASSWORD }}" >> ~/.gradle/gradle.properties
+        echo "ALYSIUM_UPLOAD_KEY_ALIAS=${{ inputs.ALYSIUM_UPLOAD_KEY_ALIAS }}" >> ~/.gradle/gradle.properties
+        echo "ALYSIUM_UPLOAD_KEY_PASSWORD=${{ inputs.ALYSIUM_UPLOAD_KEY_PASSWORD }}" >> ~/.gradle/gradle.properties
 
     - name: Write Android Keystore
       shell: bash
       run: |
-        echo "${{ secrets.ANDROID_ENCRYPTED_KEYSTORE }}" | base64 --decode > ./android/app/alysium.keystore
+        echo "${{ inputs.ANDROID_ENCRYPTED_KEYSTORE }}" | base64 --decode > ./android/app/alysium.keystore
 
     - name: Write Google Play Upload Key Credentials
       shell: bash
       run: |
-        echo "${{ secrets.GOOGLE_PLAY_SERVICE_KEY }}" | base64 --decode > /tmp/google-play-credentials.json
+        echo "${{ inputs.GOOGLE_PLAY_SERVICE_KEY }}" | base64 --decode > /tmp/google-play-credentials.json
