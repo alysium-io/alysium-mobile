@@ -44,16 +44,20 @@ jobs:
     needs: pre-build
 
     steps:
+    
+    # Init
+    - name: Checkout the repository
+      uses: actions/checkout@v4
+    - name: Get the latest commit
+      run: |
+        git fetch origin workflow
+        git checkout workflow
 
     # Set up Xcode
     - name: Set up Xcode
       uses: maxim-lobanov/setup-xcode@v1.6.0
       with:
         xcode-version: '15.1.0'
-    
-    # Init
-    - name: Checkout the repository
-      uses: actions/checkout@v4
 
     # Write the env file
     - name: Write .env file
@@ -115,6 +119,10 @@ jobs:
     # Init
     - name: Checkout the repository
       uses: actions/checkout@v4
+    - name: Get the latest commit
+      run: |
+        git fetch origin workflow
+        git checkout workflow
 
     # Write the env file
     - name: Write .env file
@@ -179,5 +187,5 @@ jobs:
 
     # android
     - name: Build android
-      run: bundle exec fastlane android interal_beta
+      run: bundle exec fastlane android internal_beta
       working-directory: fastlane
