@@ -3,7 +3,7 @@ name: Alysium Test Build
 on:
   push:
     branches:
-      - workflow
+      - testflight
 
 jobs:
   pre-build:
@@ -34,8 +34,8 @@ jobs:
       run: |
         git config --global user.name 'github-actions'
         git config --global user.email 'github-actions@github.com'
-        yarn bump-build-and-skip-ci
-        git push https://${{ secrets.GITHUB_TOKEN }}@github.com/alysium-io/alysium-mobile.git HEAD:workflow
+        yarn bump-build-and
+        git push https://${{ secrets.GITHUB_TOKEN }}@github.com/alysium-io/alysium-mobile.git HEAD:testflight
 
   ios:
 
@@ -50,8 +50,8 @@ jobs:
       uses: actions/checkout@v4
     - name: Get the latest commit
       run: |
-        git fetch origin workflow
-        git checkout workflow
+        git fetch origin testflight
+        git checkout testflight
 
     # Set up Xcode
     - name: Set up Xcode
@@ -121,8 +121,8 @@ jobs:
       uses: actions/checkout@v4
     - name: Get the latest commit
       run: |
-        git fetch origin workflow
-        git checkout workflow
+        git fetch origin testflight
+        git checkout testflight
 
     # Write the env file
     - name: Write .env file
