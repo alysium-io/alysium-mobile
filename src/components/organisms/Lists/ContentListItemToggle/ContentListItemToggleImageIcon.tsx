@@ -1,7 +1,7 @@
 import React from 'react'
 import { View } from '@atomic'
 import { imageSizeScheme } from './shared'
-import DefaultIconImage from 'src/components/atomic/DefaultIconImage'
+import { DefaultIconImage } from '@atomic'
 import { IconNames } from '@svg'
 
 

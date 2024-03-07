@@ -3,7 +3,6 @@ import { View, DatetimePicker } from '@atomic'
 import { Button } from '@molecules'
 import { BottomSheet, BottomSheetHeader } from '@organisms'
 import { useSheet } from '@hooks'
-import { StyleSheet } from 'react-native'
 
 
 interface DatetimePickerWithModalProps {
@@ -61,36 +60,21 @@ const DatetimePickerWithModal : React.FC<DatetimePickerWithModalProps> = ({
 
     return (
         <BottomSheet sheetRef={sheetRef} onDismiss={onDismiss}>
-            <View margin='m' style={styles.container}>
-                <BottomSheetHeader text={title} />
-                <DatetimePicker
-                    date={date}
-                    onDateChange={_onChange}
-                />
-                <View style={styles.buttonsContainer}>
-                    <View style={styles.buttonContainer}>
-                        <Button onPress={_onCancelled} text='cancel' variant='outlined' />
-                    </View>
-                    <View style={styles.buttonContainer}>
-                        <Button onPress={_onConfirm} text='confirm' />
-                    </View>
+            <BottomSheetHeader text={title} />
+            <DatetimePicker
+                date={date}
+                onDateChange={_onChange}
+            />
+            <View margin='m' flexDirection='row'>
+                <View flex={1} marginRight='s'>
+                    <Button onPress={_onCancelled} text='cancel' variant='outlined' />
+                </View>
+                <View flex={1} marginLeft='s'>
+                    <Button onPress={_onConfirm} text='confirm' />
                 </View>
             </View>
         </BottomSheet>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        
-    },
-    buttonsContainer: {
-        flexDirection: 'row'
-    },
-    buttonContainer: {
-        flex: 1,
-        marginRight: 10
-    }
-})
 
 export default DatetimePickerWithModal

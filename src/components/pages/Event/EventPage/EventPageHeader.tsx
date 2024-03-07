@@ -9,7 +9,7 @@ const EventPageHeader : React.FC<StackHeaderProps> = (stackHeaderProps) => {
         <Header
             stackHeaderProps={stackHeaderProps}
             LeftComponent={() => <HeaderIconButton onPress={stackHeaderProps.navigation.goBack} icon='arrow-left' />}
-            CenterComponent={() => <HeaderTitle title='artist page' />}
+            CenterComponent={() => <HeaderTitle title='event' />}
             RightComponent={undefined}
         />
     )

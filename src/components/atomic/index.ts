@@ -32,6 +32,7 @@ export { default as TextInput } from './TextInput'
 export { default as Switch } from './Switch'
 export { default as Radio } from './Radio'
 export { default as ScrollView } from './ScrollView'
+export { default as KeyboardAvoidingView } from './KeyboardAvoidingView'
 
 /**
  * Dependency Overrides
@@ -58,3 +59,4 @@ export { default as Separator } from './Separator'
 export { default as DismissKeyboardWrapper } from './DismissKeyboardWrapper'
 export { default as BgTouchAnimation } from './BgTouchAnimation'
 export { default as KeyboardViewFill } from './KeyboardViewFill'
+export { default as DefaultIconImage } from './DefaultIconImage'

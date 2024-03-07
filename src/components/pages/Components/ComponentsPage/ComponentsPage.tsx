@@ -183,12 +183,12 @@ const ComponentsPage = () => {
                         </Section>
                         <Section marginVertical='m'>
                             <View marginHorizontal='m'>
-                                <SectionHeader text='Lineup' variant='large' />
+                                <SectionHeader text='Lineup' titleVariant='large' />
                             </View>
                             <Lineup lineup={global.sampleData.event.lineup} />
                         </Section>
                         <Section margin='m'>
-                            <SectionHeader text='Large Selectable Radio' variant='large' />
+                            <SectionHeader text='Large Selectable Radio' titleVariant='large' />
                             <LargeSelectableItemRadioList
                                 data={[
                                     { id: 1, title: 'Artists', icon: 'artist' },
@@ -201,7 +201,7 @@ const ComponentsPage = () => {
                             />
                         </Section>
                         <Section margin='m'>
-                            <SectionHeader text='Large Selectable Item' variant='large' />
+                            <SectionHeader text='Large Selectable Item' titleVariant='large' />
                             <LargeSelectableItemList
                                 onPress={(arr) => console.log(arr)}
                                 data={[
@@ -212,7 +212,7 @@ const ComponentsPage = () => {
                             />
                         </Section>
                         <Section margin='m'>
-                            <SectionHeader text='Secondary Header' variant='large' />
+                            <SectionHeader text='Secondary Header' titleVariant='large' />
                         </Section>
                         <Section margin='m'>
                             <SectionHeader text='Declarative Text' />
@@ -360,26 +360,28 @@ const ComponentsPage = () => {
                             </View>
                             <ContentListItemToggler
                                 defaultId={1}
-                                onPress={(id) => console.log(id)}
                                 subtitleFirst={true}
                                 items={[
                                     {
                                         id: 1,
                                         image: global.sampleData.images.artist,
                                         title: 'EDX',
-                                        subtitle: 'Artist'
+                                        subtitle: 'Artist',
+                                        onPress: () => console.log('EDX')
                                     },
                                     {
                                         id: 2,
                                         image: global.sampleData.images.artist,
                                         title: 'EDX',
-                                        subtitle: 'Artist'
+                                        subtitle: 'Artist',
+                                        onPress: () => console.log('EDX')
                                     },
                                     {
                                         id: 3,
                                         image: global.sampleData.images.artist,
                                         title: 'EDX',
-                                        subtitle: 'Artist'
+                                        subtitle: 'Artist',
+                                        onPress: () => console.log('EDX')
                                     }
                                 ]}
                             />

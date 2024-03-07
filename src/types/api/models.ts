@@ -1,4 +1,5 @@
 import { ApiRelation, Model } from './base'
+import { Image } from './images'
 
 export type UserAttributes = {
     username: string
@@ -42,30 +43,43 @@ export type Artist = Model<ArtistAttributes>
  */
 export type EditEventAttributes = {
     name: string,
-    venue: number | null
+    venue?: number | null
+    start_time?: string | null
+    end_time?: string | null
+    doors_open_time?: string | null
 }
 export type EventAttributes = {
-    name: string,
-    date: string | null,
-    address: string | null,
-    image: string | null,
-    color: string | null,
-    slots?: ApiRelation<Slot[]>,
+    name: string
+    date: string | null
+    start_time: string | null
+    end_time: string | null
+    doors_open_time: string | null
+    address: string | null
+    color: string | null
+    slots?: ApiRelation<Slot[]>
     venue?: ApiRelation<Venue | null>
+    image?: ApiRelation<Image | null>
 }
 export type Event = Model<EventAttributes>
 
 /**
  * Venues
  */
+export type EditVenueAttributes = {
+    name: string
+    address: string
+    phone_number: string
+    capacity: string
+}
 export type VenueAttributes = {
     name: string
-    capacity: number | null
+    capacity: string | null
     address: string | null
     website: string | null
     phone_number: string | null
     is_ready_for_contracting: boolean | null
     location_lat_lon: string | null
+    image?: ApiRelation<Image | null>
 }
 export type Venue = Model<VenueAttributes>
 

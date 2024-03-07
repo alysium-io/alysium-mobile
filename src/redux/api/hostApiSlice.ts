@@ -16,7 +16,14 @@ import {
     GetMyVenuesResponse,
     GetMyVenuesBody,
     CreateVenueResponse,
-    CreateVenueBody
+    CreateVenueBody,
+    GetVenueBody,
+    GetVenueResponse,
+    EditVenueBody,
+    EditVenueResponse,
+    DeleteVenueResponse,
+    DeleteVenueBody,
+    HostEventsBody
 } from '@types'
 
 
@@ -55,6 +62,21 @@ const hostApiSlice = createApi({
                 url: '/events',
                 method: 'GET',
                 params: {
+                    populate: '*'
+                }
+            }),
+            providesTags: (result, _error) =>
+                result
+                    ? [...result.data.map(({ id }) => ({ type: 'Event' as const, id })), 'Event']
+                    : ['Event']
+        }),
+        getHostEvents: builder.query<EventsResponse, HostEventsBody>({
+            query: ({ hostId }) => ({
+                url: '/events',
+                method: 'GET',
+                params: {
+                    host: hostId,
+                    owner: true,
                     populate: '*'
                 }
             }),
@@ -115,7 +137,6 @@ const hostApiSlice = createApi({
                     const index = draft.data.findIndex(event => event.id === eventId)
                     if (index !== -1) {
                         draft.data.splice(index, 1)
-                        console.log(draft.data)
                     }
                 }))
 
@@ -140,6 +161,16 @@ const hostApiSlice = createApi({
                     ? [...result.data.map(({ id }) => ({ type: 'Venue' as const, id })), 'Venue']
                     : ['Venue']
         }),
+        getVenueDetails: builder.query<GetVenueResponse, GetVenueBody>({
+            query: ({ venueId }) => ({
+                url: `/venues/${venueId}`,
+                method: 'GET',
+                params: {
+                    populate: '*'
+                }
+            }),
+            providesTags: (_result, _error, { venueId }) => [{ type: 'Venue', id: venueId }]
+        }),
         createVenue: builder.mutation<CreateVenueResponse, CreateVenueBody>({
             query: ({ hostId, name }) => ({
                 url: '/venues',
@@ -153,6 +184,28 @@ const hostApiSlice = createApi({
             }),
             invalidatesTags: (_result, _error, { hostId }) => [
                 { type: 'Venue', id: hostId },
+                'Venue'
+            ]
+        }),
+        editVenue: builder.mutation<EditVenueResponse, EditVenueBody>({
+            query: ({ venueId, attributes }) => ({
+                url: `/venues/${venueId}`,
+                method: 'PUT',
+                body: {
+                    data: attributes
+                }
+            }),
+            invalidatesTags: (_result, _error, { venueId }) => [
+                { type: 'Venue', id: venueId }
+            ]
+        }),
+        deleteVenue: builder.mutation<DeleteVenueResponse, DeleteVenueBody>({
+            query: ({ venueId }) => ({
+                url: `/venues/${venueId}`,
+                method: 'DELETE'
+            }),
+            invalidatesTags: (_result, _error, { venueId }) => [
+                { type: 'Venue', id: venueId },
                 'Venue'
             ]
         })

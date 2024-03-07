@@ -4,6 +4,7 @@ import hostApiSlice from './hostApiSlice'
 import artistApiSlice from './artistApiSlice'
 import tagApiSlice from './tagApiSlice'
 import searchApiSlice from './searchApiSlice'
+import imagesApiSlice from './imagesApiSlice'
 
 export {
     authApiSlice,
@@ -11,7 +12,8 @@ export {
     hostApiSlice,
     artistApiSlice,
     tagApiSlice,
-    searchApiSlice
+    searchApiSlice,
+    imagesApiSlice
 }
 
 const apiReducers = {
@@ -20,7 +22,8 @@ const apiReducers = {
     [hostApiSlice.reducerPath]: hostApiSlice.reducer,
     [artistApiSlice.reducerPath]: artistApiSlice.reducer,
     [tagApiSlice.reducerPath]: tagApiSlice.reducer,
-    [searchApiSlice.reducerPath]: searchApiSlice.reducer
+    [searchApiSlice.reducerPath]: searchApiSlice.reducer,
+    [imagesApiSlice.reducerPath]: imagesApiSlice.reducer
 }
 
 export default apiReducers

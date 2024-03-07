@@ -1,26 +1,33 @@
-import { useUser } from '@hooks'
-import { useState } from 'react'
+import { useTextInput, useUser } from '@hooks'
 
 interface IUseCreateArtist {
-    newArtistName: string
-    setNewArtistName: (newArtistName: string) => void
+    newArtistText: React.RefObject<string>
+    setNewArtistText: (newArtistName: string) => void
     submitNewArtist: () => void
+    onDismiss: () => void
 }
 
 const useCreateArtist = () : IUseCreateArtist => {
 
-    const [newArtistName, setNewArtistName] = useState<string>('')
+    const {
+        text: newArtistText,
+        setText: setNewArtistText,
+        reset: resetNewArtistText
+    } = useTextInput()
 
     const { createArtist } = useUser()
 
     const submitNewArtist = () => {
-        createArtist(newArtistName)
+        if (newArtistText.current) createArtist(newArtistText.current)
     }
+
+    const onDismiss = () => resetNewArtistText()
     
     return {
-        newArtistName,
-        setNewArtistName,
-        submitNewArtist
+        newArtistText,
+        setNewArtistText,
+        submitNewArtist,
+        onDismiss
     }
 }
 

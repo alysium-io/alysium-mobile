@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { View } from '@atomic'
 import { ContentType } from '@types'
 import ContentListItemToggle from './ContentListItemToggle'
+import { Vibrator } from '@etc'
 
 
 interface ContentListItemTogglerProps {
     subtitleFirst?: boolean
-    onPress?: (id: number) => void
     onPressToggle?: (id: number) => void
     defaultId: number | null
     items: {
@@ -14,13 +14,13 @@ interface ContentListItemTogglerProps {
         image: string | null
         title: string
         subtitle: string
+        onPress: (id: number) => void
     }[]
 }
 
 const ContentListItemToggler : React.FC<ContentListItemTogglerProps> = ({
     subtitleFirst = true,
     defaultId,
-    onPress,
     onPressToggle,
     items
 }) => {
@@ -32,6 +32,7 @@ const ContentListItemToggler : React.FC<ContentListItemTogglerProps> = ({
     const [selected, setSelected] = useState<number | null>(defaultId)
 
     const handlePressToggle = (id: number) => {
+        Vibrator.contextClick()
         setSelected(id)
         onPressToggle && onPressToggle(id)
     }
@@ -43,7 +44,7 @@ const ContentListItemToggler : React.FC<ContentListItemTogglerProps> = ({
                     key={item.id}
                     title={item.title}
                     subtitle={item.subtitle}
-                    onPressContent={() => onPress && onPress(item.id)}
+                    onPress={() => item.onPress(item.id)}
                     onPressToggle={() => handlePressToggle(item.id)}
                     contentType={ContentType.event}
                     image={item.image}

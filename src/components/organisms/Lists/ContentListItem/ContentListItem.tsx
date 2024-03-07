@@ -1,30 +1,16 @@
 import React from 'react'
-import { BgTouchAnimation, Text, View } from '@atomic'
-import { ContentType, Persona, ThemeMode } from '@types'
-import { Colors } from '@etc'
-import { useTheme } from '@hooks'
-import ContentListItemTitle from './ContentListItemTitle'
-import ContentListItemImage from './ContentListItemImage'
-import ContentListItemIcon from './ContentListItemIcon'
-import ContentListItemMarker from './ContentListItemMarker'
-import { IconNames } from '@svg'
-import { StyleSheet } from 'react-native'
+import { ListItemImage, ListItemMarker, ListItemTitle, ListItemActionIcon, ListItemContainer, ListItemRank } from '../shared'
 
 
-interface ContentListItemProps {
-    title: string
-    subtitle: string
-    rnk?: number
-    onPress: () => void
-    contentType: ContentType | Persona
-    image: string | null
-    size?: 'small' | 'medium' | 'large'
-    border?: boolean
-    icon?: 'arrow' | 'menu'
+type ContentListItemProps =
+    Omit<React.ComponentProps<typeof ListItemContainer>, 'children'> &
+    React.ComponentProps<typeof ListItemMarker> &
+    React.ComponentProps<typeof ListItemTitle> &
+    React.ComponentProps<typeof ListItemActionIcon> &
+    React.ComponentProps<typeof ListItemRank> &
+    React.ComponentProps<typeof ListItemImage> &
+{
     onPressMenu?: () => void
-    subtitleFirst?: boolean
-    borderRadius?: 'round' | 'sharp' | 'smooth' | number
-    marker?: IconNames
 }
 
 const ContentListItem : React.FC<ContentListItemProps> = ({
@@ -34,43 +20,24 @@ const ContentListItem : React.FC<ContentListItemProps> = ({
     onPress,
     contentType,
     image,
-    size = 'medium',
     border,
-    icon = 'arrow',
     onPressMenu,
+    markerIcon,
+    actionIcon,
+    size = 'medium',
     subtitleFirst = false,
-    borderRadius = 'round',
-    marker
+    borderRadius = 'round'
 }) => {
 
-    const { getRawColor, theme } = useTheme()
-
     return (
-        <BgTouchAnimation color={Colors.RGBA2String(Colors.hex2RGBA(getRawColor('ion'), 0.1))} animationType='highlight' onPress={onPress}>
-            <View paddingHorizontal='m'>
-                <View paddingVertical='s' style={[
-                    styles.container,
-                    {
-                        borderBottomWidth: border ? 0.2 : 0,
-                        borderBottomColor: theme.colors.bg2
-                    }
-                ]}>
-                    { rnk && <Text variant='paragraph-medium' marginRight='m'>{rnk}</Text> }
-                    <ContentListItemImage contentType={contentType} image={image} size={size} borderRadius={borderRadius} />
-                    <ContentListItemTitle title={title} subtitle={subtitle} subtitleFirst={subtitleFirst} />
-                    { marker && <ContentListItemMarker icon={marker} /> }
-                    <ContentListItemIcon type={icon} onPress={onPressMenu} />
-                </View>
-            </View>
-        </BgTouchAnimation>
+        <ListItemContainer border={border} onPress={onPress}>
+            <ListItemRank rnk={rnk} />
+            <ListItemImage contentType={contentType} image={image} size={size} borderRadius={borderRadius} />
+            <ListItemTitle title={title} subtitle={subtitle} subtitleFirst={subtitleFirst} />
+            { markerIcon && <ListItemMarker markerIcon={markerIcon} /> }
+            <ListItemActionIcon actionIcon={actionIcon} onPress={onPressMenu} />
+        </ListItemContainer>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flexDirection: 'row',
-        alignItems: 'center'
-    }
-})
 
 export default ContentListItem

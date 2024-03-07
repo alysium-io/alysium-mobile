@@ -1,26 +1,27 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { View, Image } from '@atomic'
 import { usePhotosAndCamera } from '@hooks'
 import EditIcon from './EditIcon'
 import { StyleSheet, TouchableWithoutFeedback } from 'react-native'
+import { Asset } from 'react-native-image-picker'
 
 
 interface EditableProfileImageProps {
     image: string
+    onChooseImage?: (imagePickerAsset: Asset) => void
 }
 
 const EditableProfileImage : React.FC<EditableProfileImageProps> = ({
-    image
+    image,
+    onChooseImage
 }) => {
-
-    const [imageUri, setImageUri] = useState<string>(image)
 
     const { chooseImageOrTakeNewPhoto } = usePhotosAndCamera()
 
     const onPress = async () => {
-        const image = await chooseImageOrTakeNewPhoto()
-        if (image) {
-            setImageUri(image)
+        const newImage = await chooseImageOrTakeNewPhoto()
+        if (newImage && onChooseImage && newImage.assets && newImage.assets.length > 0) {
+            onChooseImage(newImage.assets[0])
         }
     }
 
@@ -28,7 +29,7 @@ const EditableProfileImage : React.FC<EditableProfileImageProps> = ({
         <TouchableWithoutFeedback onPress={onPress}>
             <View style={styles.container}>
                 <Image
-                    source={{ uri: imageUri }}
+                    source={{ uri: image }}
                     style={styles.image}
                 />
                 <View style={styles.iconContainer}>
@@ -41,7 +42,7 @@ const EditableProfileImage : React.FC<EditableProfileImageProps> = ({
 
 const styles = StyleSheet.create({
     container: {
-        width: 115,
+        width: 80,
         aspectRatio: 1
     },
     image: {

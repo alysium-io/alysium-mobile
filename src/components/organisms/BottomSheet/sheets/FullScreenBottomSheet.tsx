@@ -1,13 +1,13 @@
 import React from 'react'
-import { BottomSheet } from '../base'
+import { BottomSheet } from '../overrides'
 import { ScrollView } from '@atomic'
-import { BottomSheetView, BottomSheetProps } from '@gorhom/bottom-sheet'
+import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { SheetApi } from '@hooks'
 import { useHeader } from '@organisms'
 import { useWindowDimensions } from 'react-native'
 
 
-interface FullScreenBottomSheetProps extends BottomSheetProps {
+type FullScreenBottomSheetProps = React.ComponentProps<typeof BottomSheetModal> & {
     sheetApi: SheetApi
     children: React.ReactNode
 }
@@ -29,13 +29,12 @@ const FullScreenBottomSheet : React.FC<FullScreenBottomSheetProps> = ({
             enablePanDownToClose={false}
             enableContentPanningGesture={false}
             borderRadius={false}
+            contentContainerStyle={{ flex: 1 }}
             {...props}
         >
-            <BottomSheetView>
-                <ScrollView>
-                    {children}
-                </ScrollView>
-            </BottomSheetView>
+            <ScrollView contentContainerStyle={{ flex: 1 }}>
+                {children}
+            </ScrollView>
         </BottomSheet>
     )
 }

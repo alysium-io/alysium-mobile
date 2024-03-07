@@ -1,5 +1,5 @@
 import React from 'react'
-import { BottomSheet } from '../base'
+import { BottomSheet } from '../overrides'
 import { ScrollView } from '@atomic'
 import { FooterWithDismissButton } from '../components'
 import { BottomSheetView, BottomSheetFooterProps, BottomSheetProps } from '@gorhom/bottom-sheet'

@@ -15,8 +15,11 @@ platform :ios do
 
     lane :test_build do
 
-        # Configure circleci
-        setup_circle_ci
+        # Configure ci environment
+        # You will run into this error if you don't set up the CI environment:
+        #   Missing password for user example@gmail.com, and running in non-interactive shell
+        # Basically this command sets up the keychain for the CI environment
+        setup_ci
 
         # Make sure match is set up correctly for the testflight deployment
         match(
@@ -30,7 +33,9 @@ platform :ios do
             export_method: 'app-store',
             workspace: './ios/alysium.xcworkspace',
             output_directory: './ios/build',
-            output_name: 'alysium-staging.ipa'
+            output_name: 'alysium-staging.ipa',
+            silent: true,
+            export_xcargs: '-jobs $(sysctl -n hw.ncpu)'
         )
 
         # Appstoreconnect API key for pilot to upload to TestFlight
@@ -48,8 +53,11 @@ platform :ios do
     # Build and ship to testflight
     lane :internal_beta do
 
-        # Configure circleci
-        setup_circle_ci
+        # Configure ci environment
+        # You will run into this error if you don't set up the CI environment:
+        #   Missing password for user example@gmail.com, and running in non-interactive shell
+        # Basically this command sets up the keychain for the CI environment
+        setup_ci
 
         # Make sure match is set up correctly for the testflight deployment
         match(
@@ -63,7 +71,8 @@ platform :ios do
             export_method: 'app-store',
             workspace: './ios/alysium.xcworkspace',
             output_directory: './ios/build',
-            output_name: 'alysium-staging.ipa'
+            output_name: 'alysium-staging.ipa',
+            silent: true
         )
 
         # Appstoreconnect API key for pilot to upload to TestFlight

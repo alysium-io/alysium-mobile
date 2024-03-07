@@ -1,20 +1,21 @@
 import React from 'react'
 import { Section, View } from '@atomic'
 import { DeclarativeText, EditableProfileImage } from '@molecules'
-import { global } from '@etc'
 import { Stats } from '@organisms'
 import UsernameDisplay from './UsernameDisplay'
 import { usePersona, useUser } from '@hooks'
+import { useProfilePageContext } from '../hooks'
 
 
 const HeaderSection = () => {
 
     const { user } = useUser()
+    const { changeProfileImage } = useProfilePageContext()
     const { persona } = usePersona()
 
     return (
         <Section margin='m' alignItems='center'>
-            <EditableProfileImage image={global.artistImages['mesto']} />
+            <EditableProfileImage image={user.user?.profile_picture.url || ''} onChooseImage={changeProfileImage} />
             <View margin='m' alignItems='center'>
                 <UsernameDisplay />
                 <View marginTop='s'>

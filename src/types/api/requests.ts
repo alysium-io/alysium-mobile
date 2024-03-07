@@ -1,4 +1,5 @@
-import { ApiIdentifier, ApiResponseBase, Pagination } from './base'
+import { ApiIdentifier, ApiResponseBase, Model } from './base'
+import { ImageAttributes } from './images'
 import { Host, Artist, Tag, Event, EventAttributes, Venue, VenueAttributes, EditEventAttributes } from './models'
 
 
@@ -74,7 +75,10 @@ export type UserDetailsResponse = {
         name: string | null
         color: string | null
     }[]
+    profile_picture: ImageAttributes
 }
+
+export type UploadImageFormData = FormData
 
 /**
  * Search
@@ -158,8 +162,9 @@ export type EditEventBody = {
     attributes: Partial<EditEventAttributes>
 }
 
-export type EventsResponse = ApiResponseBase<Event[], Pagination>
+export type EventsResponse = ApiResponseBase<Event[]>
 export type EventsBody = void
+export type HostEventsBody = { hostId: ApiIdentifier | undefined }
 
 export type EventDetailsResponse = ApiResponseBase<Event>
 export type EventDetailsBody = { eventId: ApiIdentifier }
@@ -173,8 +178,24 @@ export type DeleteEventBody = { eventId: ApiIdentifier }
 export type GetMyVenuesResponse = ApiResponseBase<Venue[]>
 export type GetMyVenuesBody = { hostId?: ApiIdentifier }
 
+export type GetVenueResponse = ApiResponseBase<Venue>
+export type GetVenueBody = { venueId: ApiIdentifier }
+
 export type CreateVenueResponse = ApiResponseBase<Venue>
 export type CreateVenueBody = {
     hostId?: ApiIdentifier
     name: string
+}
+
+export type EditVenueResponse = {
+
+}
+export type EditVenueBody = {
+    venueId: ApiIdentifier
+    attributes: Partial<VenueAttributes>
+}
+
+export type DeleteVenueResponse = ApiResponseBase<Venue>
+export type DeleteVenueBody = {
+    venueId: ApiIdentifier
 }

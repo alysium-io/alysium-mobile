@@ -5,7 +5,6 @@ import ButtonLoading from './ButtonLoading'
 import ButtonText from './ButtonText'
 import ButtonIcon from './ButtonIcon'
 import { IconNames } from '@svg'
-import { FadeIn, FadeOut } from 'react-native-reanimated'
 
 
 interface ButtonForegroundProps {
@@ -27,7 +26,7 @@ const ButtonForeground : React.FC<ButtonForegroundProps> = ({
     }
 
     return (
-        <View animated entering={FadeIn} exiting={FadeOut} flexDirection='row' alignItems='center'>
+        <View flexDirection='row' alignItems='center'>
             <ButtonText text={text} color={textColor} />
             <ButtonIcon icon={icon} color={textColor} />
         </View>

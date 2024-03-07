@@ -1,7 +1,7 @@
 {
   "name": "alysium",
   "version": "0.0.1",
-  "build_number": 23,
+  "build_number": 29,
   "private": true,
   "scripts": {
     "android": "react-native run-android",
@@ -13,12 +13,10 @@
     "check-git-clean": "git diff-index --quiet HEAD -- || (echo \"You have uncommitted changes. Please commit or stash them.\"; exit 1)",
     "tag-version": "git tag v$(node -p -e \"require('./package.json').version + '(' + require('./package.json').build_number + ')'\")",
     "commit-version": "git add . && git commit -m \"Version: $(node -p -e \"require('./package.json').version\")($(node -p -e \"require('./package.json').build_number\"))\"",
-    "commit-version-and-skip-ci": "git add . && git commit -m \"Version: $(node -p -e \"require('./package.json').version\") ($(node -p -e \"require('./package.json').build_number\")) [skip ci]\"",
     "bump-version-patch": "yarn check-git-clean && yarn increment-package-json-build-number && yarn version --patch --no-git-tag-version && npx react-native-version && yarn commit-version && yarn tag-version",
     "bump-version-minor": "yarn check-git-clean && yarn increment-package-json-build-number && yarn version --minor --no-git-tag-version && npx react-native-version && yarn commit-version && yarn tag-version",
     "bump-version-major": "yarn check-git-clean && yarn increment-package-json-build-number && yarn version --major --no-git-tag-version && npx react-native-version && yarn commit-version && yarn tag-version",
     "bump-build": "yarn check-git-clean && yarn increment-package-json-build-number && npx react-native-version --increment-build && yarn commit-version",
-    "bump-build-and-skip-ci": "yarn check-git-clean && yarn increment-package-json-build-number && npx react-native-version --increment-build && yarn commit-version-and-skip-ci",
     "android:prod": "npx react-native run-android --variant=prodDebug",
     "android:prod-release": "npx react-native run-android --variant=prodRelease",
     "android:staging": "npx react-native run-android --variant=stagingDebug",
@@ -26,8 +24,8 @@
     "android:dev": "npx react-native run-android --variant=devDebug",
     "android:dev-release": "npx react-native run-android --variant=devRelease",
     "android:reverse-tcp": "adb reverse tcp:8081 tcp:8081",
-    "link-assets": "npx react-native-asset",
-    "android:build:metadata": "bundle exec ruby ./tools/build-android-metadata.rb"
+    "android:build:metadata": "bundle exec ruby ./tools/build-android-metadata.rb",
+    "link-assets": "npx react-native-asset"
   },
   "dependencies": {
     "@babel/plugin-proposal-export-namespace-from": "^7.18.9",

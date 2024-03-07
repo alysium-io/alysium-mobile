@@ -9,7 +9,7 @@ const MenuSection = () => {
     return (
         <Section>
             <View marginHorizontal='m'>
-                <SectionHeader text='Menu' variant='large' />
+                <SectionHeader text='Menu' titleVariant='large' />
             </View>
             <MenuListItem
                 title='Settings'

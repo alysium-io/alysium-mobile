@@ -9,11 +9,13 @@ import { ThemeMode } from '@types'
 interface HeaderIconButtonProps {
     onPress: () => void
     icon: IconNames
+    color?: string
 }
 
 const HeaderIconButton : React.FC<HeaderIconButtonProps> = ({
     onPress,
-    icon
+    icon,
+    color = 'matt'
 }) => {
 
     const { mode } = useTheme()
@@ -24,7 +26,7 @@ const HeaderIconButton : React.FC<HeaderIconButtonProps> = ({
                 <Icon
                     name={icon}
                     size='regular'
-                    color={mode === ThemeMode.dark ? 't1' : 'matt'}
+                    color={mode === ThemeMode.dark ? 't1' : color}
                 />
             </View>
         </TouchableWithoutFeedback>

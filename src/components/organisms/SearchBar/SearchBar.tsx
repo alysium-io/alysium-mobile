@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Icon, View, TextInput, Text } from '@atomic'
-import { StyleSheet, TouchableWithoutFeedback } from 'react-native'
+import { Keyboard, StyleSheet, TouchableWithoutFeedback } from 'react-native'
 import { useTextInput, useTheme } from '@hooks'
 import { FadeIn, LinearTransition } from 'react-native-reanimated'
 import { ThemeMode } from '@types'
@@ -28,7 +28,7 @@ const SearchBar : React.FC<SearchBarProps> = ({
     const { ref, focus, clear, blur } = useTextInput()
     const { theme, getRawColor, mode } = useTheme()
     const [showClearButton, setShowClearButton] = useState<boolean>(false)
-
+    
     const colorScheme = {
         [ThemeMode.dark]: {
             placeholderText: Colors.RGBA2String(Colors.hex2RGBA(getRawColor(theme.colors.ion_light), 0.8)),
@@ -53,6 +53,7 @@ const SearchBar : React.FC<SearchBarProps> = ({
     }
 
     const _onPressDeactivate = () => {
+        Keyboard.dismiss()
         setIsActive(false)
         blur()
         barDidDeactivate && barDidDeactivate()
@@ -80,7 +81,7 @@ const SearchBar : React.FC<SearchBarProps> = ({
                 <TouchableWithoutFeedback onPress={_onPressActivate}>
                     <View padding='s' style={styles.textContainerLeft}>
                         <Icon name='search' size='regular' color={colorScheme[mode].icon} />
-                        <View animated paddingLeft='s'>
+                        <View flex={1} paddingLeft='s' justifyContent='center'>
                             <TextInput
                                 ref={ref}
                                 variant='paragraph-bold'
@@ -111,7 +112,7 @@ const SearchBar : React.FC<SearchBarProps> = ({
                         exiting={FadeIn.delay(200).duration(200)}
                         padding='s'
                     >
-                        <Text variant='paragraph-small' color='t1'>Cancel</Text>
+                        <Text variant='paragraph-medium' color='t1'>cancel</Text>
                     </View>
                 </TouchableWithoutFeedback>
             ) }

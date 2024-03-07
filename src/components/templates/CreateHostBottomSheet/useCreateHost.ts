@@ -1,26 +1,33 @@
-import { useUser } from '@hooks'
-import { useState } from 'react'
+import { useTextInput, useUser } from '@hooks'
 
 interface IUseCreateHost {
-    newHostName: string
-    setNewHostName: (newHostName: string) => void
+    newHostText: React.RefObject<string>
+    setNewHostText: (newHostName: string) => void
     submitNewHost: () => void
+    onDismiss: () => void
 }
 
 const useCreateHost = () : IUseCreateHost => {
 
-    const [newHostName, setNewHostName] = useState<string>('')
+    const {
+        text: newHostText,
+        setText: setNewHostText,
+        reset: resetNewHostText
+    } = useTextInput()
 
     const { createHost } = useUser()
 
     const submitNewHost = () => {
-        createHost(newHostName)
+        if (newHostText.current) createHost(newHostText.current)
     }
+
+    const onDismiss = () => resetNewHostText()
     
     return {
-        newHostName,
-        setNewHostName,
-        submitNewHost
+        newHostText,
+        setNewHostText,
+        submitNewHost,
+        onDismiss
     }
 }
 

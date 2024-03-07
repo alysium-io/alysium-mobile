@@ -14,6 +14,7 @@ const EventName = () => {
     return (
         <View marginHorizontal='m' marginTop='l'>
             <Controller
+                name='name'
                 control={formMethods.control}
                 rules={{ required: true }}
                 render={({ field: { onChange, onBlur, value } }) => (
@@ -25,7 +26,6 @@ const EventName = () => {
                         value={value}
                     />
                 )}
-                name="name"
             />
         </View>
     )

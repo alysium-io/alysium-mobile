@@ -13,7 +13,7 @@ const SelectAccountSection = () => {
     return (
         <Section marginBottom='xl'>
             <View marginHorizontal='m'>
-                <SectionHeader text='Select Account' variant='large' />
+                <SectionHeader text='Select Account' titleVariant='large' />
             </View>
             {
                 getAccountList()?.map(account => (
@@ -25,7 +25,7 @@ const SelectAccountSection = () => {
                         contentType={account.type}
                         image={account.image}
                         border
-                        marker={account.isActive ? 'checkmark' : undefined}
+                        markerIcon={account.isActive ? 'checkmark' : undefined}
                     />
                 ))
             }
