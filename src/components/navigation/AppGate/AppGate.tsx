@@ -1,13 +1,13 @@
-import { usePersona } from '@hooks';
 import { Persona } from '@types';
 import React from 'react';
 import ArtistApp from './apps/ArtistApp';
 import HostApp from './apps/HostApp';
 import UserApp from './apps/UserApp';
-import { UserAppProvider } from './contexts';
+import { UserAppProvider, usePersonaAppContext } from './contexts';
+import { PersonaAppProvider } from './contexts/PersonaAppContext';
 
 const Applications = () => {
-	const { personaType } = usePersona();
+	const { personaType, isLoading } = usePersonaAppContext();
 
 	const getApplication = () => {
 		switch (personaType) {
@@ -22,7 +22,15 @@ const Applications = () => {
 		}
 	};
 
+	if (isLoading) {
+		return <></>;
+	}
+
 	return <UserAppProvider>{getApplication()}</UserAppProvider>;
 };
 
-export default Applications;
+export default () => (
+	<PersonaAppProvider>
+		<Applications />
+	</PersonaAppProvider>
+);

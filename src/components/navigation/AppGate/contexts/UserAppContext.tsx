@@ -1,3 +1,5 @@
+import { createUseContextHook } from '@etc';
+import { usePersona } from '@hooks';
 import { ProviderProps } from '@types';
 import React, { createContext } from 'react';
 import { userApiSlice } from 'src/redux/api';
@@ -15,7 +17,9 @@ export const UserAppContext = createContext({} as UserAppContextType);
 
 export const UserAppProvider: React.FC<ProviderProps> = ({ children }) => {
 	const { data, error, isLoading } = useMeQuery();
-	console.log(data);
+	const { initializePersona } = usePersona();
+	if (data) initializePersona(data.user_id);
+
 	return (
 		<UserAppContext.Provider
 			value={{
@@ -28,3 +32,8 @@ export const UserAppProvider: React.FC<ProviderProps> = ({ children }) => {
 		</UserAppContext.Provider>
 	);
 };
+
+export const useUserAppContext = createUseContextHook<UserAppContextType>(
+	UserAppContext,
+	'UserAppContext'
+);

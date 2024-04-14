@@ -3,7 +3,7 @@ import { usePersona } from '@hooks';
 import { DeclarativeText, EditableProfileImage } from '@molecules';
 import { Stats } from '@organisms';
 import React from 'react';
-import useUserAppContext from 'src/components/navigation/AppGate/hooks/useUserAppContext';
+import { useUserAppContext } from 'src/components/navigation/AppGate/contexts';
 import { useProfilePageContext } from '../hooks';
 import UsernameDisplay from './UsernameDisplay';
 

@@ -19,7 +19,7 @@ const useAuth = (): IUseAuth => {
 	const auth: AuthState = useSelector((state) => state.auth);
 	const dispatch = useDispatch();
 
-	const { reset: resetPersistedAppState, set: setPersistedAppState } =
+	const { resetPersistedAppState, setPersistedAppState } =
 		usePersistedAppState();
 
 	const login = async (email: string, password: string) => {
@@ -27,11 +27,10 @@ const useAuth = (): IUseAuth => {
 			body: { email, password }
 		});
 		if (error) {
-			dispatch(authActions.setAuthStage(AuthStage.loggedOut));
+			logout();
 		}
 		if (data) {
 			setPersistedAppState({ token: data.token });
-			// dispatch(authActions.setAuthStage(AuthStage.loggedIn));
 		}
 	};
 

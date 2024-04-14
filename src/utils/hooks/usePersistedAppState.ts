@@ -3,23 +3,28 @@ import { AppState } from '@types';
 import { appActions } from 'src/redux/local/app';
 
 export type IUsePersistedAppState = AppState & {
-	set: (state: Partial<AppState>) => void;
-	reset: () => void;
+	setPersistedAppState: (state: Partial<AppState>) => void;
+	resetPersistedAppState: () => void;
 };
 
 const usePersistedAppState = (): IUsePersistedAppState => {
 	const dispatch = useDispatch();
 	const persistedApp = useSelector((state) => state.persistedApp);
-	const set = (state: Partial<AppState>) => {
+	const setPersistedAppState = (state: Partial<AppState>) => {
 		dispatch(appActions.set(state));
 	};
-	const reset = () => {
+	const resetPersistedAppState = () => {
 		dispatch(appActions.reset());
 	};
+
 	return {
-		...persistedApp,
-		reset,
-		set
+		personaId: persistedApp.personaId,
+		personaType: persistedApp.personaType,
+		themeName: persistedApp.themeName,
+		mode: persistedApp.mode,
+		token: persistedApp.token,
+		setPersistedAppState,
+		resetPersistedAppState
 	};
 };
 

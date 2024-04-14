@@ -17,7 +17,6 @@ const useUser = (): IUseUser => {
 	const me = async (): Promise<GetMeResponseDto | undefined> => {
 		const { data, error } = await lazyMeQuery();
 		if (error) {
-			console.log(error);
 			setAuthStage(AuthStage.loggedOut);
 			return undefined;
 		} else {

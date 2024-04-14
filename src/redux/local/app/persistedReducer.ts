@@ -3,7 +3,7 @@ import configurePersistor from '../utils/configurePersistor';
 import { appReducer } from './slice';
 
 const persistedAppReducer = configurePersistor<AppState>(
-	'auth',
+	'app',
 	['token', 'personaType', 'personaId', 'themeName', 'mode'],
 	appReducer
 );
