@@ -1,102 +1,55 @@
-import { useDispatch, useSelector } from '@redux'
-import { AuthState } from '@types'
-import { authApiSlice } from 'src/redux/api'
-import { authActions } from 'src/redux/auth'
-import { batch } from 'react-redux'
-import { userActions } from 'src/redux/user'
-import { hostActions } from 'src/redux/host'
-import { artistActions } from 'src/redux/artist'
-import { personaActions } from 'src/redux/persona'
+import { useDispatch, useSelector } from '@redux';
+import { AuthStage, AuthState } from '@types';
+import userApiSlice from 'src/redux/api/user';
+import { authActions } from 'src/redux/local/auth';
+import usePersistedAppState from './usePersistedAppState';
 
-
-const {
-    useLazyCreateAccountWithIdentifierAndPasswordQuery,
-    useLazyLoginWithIdentifierAndPasswordQuery,
-    useLazyGetAuthUserQuery
-} = authApiSlice
+const { useLazyLoginQuery } = userApiSlice;
 
 interface IUseAuth {
-    login: (identifier: string, password: string) => Promise<void>
-    getAuthUser: () => Promise<void>
-    logout: () => Promise<void>
-    createAccount: (username: string, email: string, password: string) => Promise<void>
-    auth: AuthState
+	login: (email: string, password: string) => Promise<void>;
+	logout: () => void;
+	setAuthStage: (authStage: AuthStage) => void;
+	auth: AuthState;
 }
 
-const useAuth = () : IUseAuth => {
+const useAuth = (): IUseAuth => {
+	const [lazyLoginQuery] = useLazyLoginQuery();
 
-    const [ flux_createAccountWithIdentifierAndPassword ] = useLazyCreateAccountWithIdentifierAndPasswordQuery()
-    const [ flux_loginWithIdentifierAndPassword ] = useLazyLoginWithIdentifierAndPasswordQuery()
-    const [ flux_getAuthUser ] = useLazyGetAuthUserQuery()
+	const auth: AuthState = useSelector((state) => state.auth);
+	const dispatch = useDispatch();
 
-    const auth : AuthState = useSelector(state => state.auth)
-    const dispatch = useDispatch()
+	const { reset: resetPersistedAppState, set: setPersistedAppState } =
+		usePersistedAppState();
 
-    const login = async (identifier: string, password: string) => {
-        try {
-            const { data, error } = await flux_loginWithIdentifierAndPassword({ identifier, password })
+	const login = async (email: string, password: string) => {
+		const { data, error } = await lazyLoginQuery({
+			body: { email, password }
+		});
+		if (error) {
+			dispatch(authActions.setAuthStage(AuthStage.loggedOut));
+		}
+		if (data) {
+			setPersistedAppState({ token: data.token });
+			// dispatch(authActions.setAuthStage(AuthStage.loggedIn));
+		}
+	};
 
-            if (error && 'data' in error && error.status === 400) {
-                dispatch(authActions.invalidCredentialsError())
-            }
-            if (data) {
-                dispatch(authActions.login(data))
-            }
-            
-        } catch (err) {
-            console.log(err)
-            logout()
-        }
-    }
+	const logout = () => {
+		resetPersistedAppState();
+		dispatch(authActions.setAuthStage(AuthStage.loggedOut));
+	};
 
-    const getAuthUser = async () => {
-        if (auth.token && auth.token.length > 0) {
-            const { data, error } = await flux_getAuthUser()
+	const setAuthStage = (authStage: AuthStage) => {
+		dispatch(authActions.setAuthStage(authStage));
+	};
 
-            if (error) logout()
+	return {
+		login,
+		logout,
+		setAuthStage,
+		auth
+	};
+};
 
-            if (data) {
-                dispatch(authActions.login({
-                    jwt: auth.token as string,
-                    user: data
-                }))
-            }
-        } else {
-            logout()
-        }
-    }
-
-    const createAccount = async (username: string, email: string, password: string) => {
-        try {
-            const { data, error } = await flux_createAccountWithIdentifierAndPassword({ username, email, password })
-
-            if (error) logout()
-            if (data) {
-                dispatch(authActions.login(data))
-            }
-        } catch (err) {
-            console.log(err)
-            logout()
-        }
-    }
-
-    const logout = async () => {
-        batch(() => {
-            dispatch(authActions.logout())
-            dispatch(userActions.resetUser())
-            dispatch(hostActions.resetHost())
-            dispatch(artistActions.resetArtist())
-            dispatch(personaActions.resetPersona())
-        })
-    }
-    
-    return {
-        login,
-        getAuthUser,
-        logout,
-        createAccount,
-        auth
-    }
-}
-
-export default useAuth
+export default useAuth;

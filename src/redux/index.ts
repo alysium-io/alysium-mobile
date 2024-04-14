@@ -1,73 +1,96 @@
-import { configureStore } from '@reduxjs/toolkit'
-import { authReducer } from './auth'
-import { userReducer } from './user'
-import { hostReducer } from './host'
-import { artistReducer } from './artist'
-import { searchReducer } from './search'
-import { themeReducer } from './theme'
-import { personaReducer } from './persona'
-import { eventReducer } from './event'
-import { apiErrorUnauthorizedMiddleware } from './middleware'
-import apiReducers, {
-    authApiSlice,
-    userApiSlice,
-    hostApiSlice,
-    artistApiSlice,
-    tagApiSlice,
-    searchApiSlice,
-    imagesApiSlice
-} from './api'
+import { configureStore } from '@reduxjs/toolkit';
 import {
-    FLUSH,
-    PAUSE,
-    PERSIST,
-    PURGE,
-    REGISTER,
-    REHYDRATE,
-    persistStore
-} from 'redux-persist'
+	TypedUseSelectorHook,
+	useDispatch as useReduxDispatch,
+	useSelector as useReduxSelector
+} from 'react-redux';
 import {
-    TypedUseSelectorHook,
-    useDispatch as useReduxDispatch,
-    useSelector as useReduxSelector
-} from 'react-redux'
+	FLUSH,
+	PAUSE,
+	PERSIST,
+	PURGE,
+	REGISTER,
+	REHYDRATE,
+	persistStore
+} from 'redux-persist';
+import {
+	artistApiSlice,
+	artistTagApiSlice,
+	eventApiSlice,
+	galleryApiSlice,
+	hostApiSlice,
+	hostEventApiSlice,
+	locationApiSlice,
+	mediaApiSlice,
+	searchApiSlice,
+	tagApiSlice,
+	userApiSlice,
+	venueApiSlice
+} from './api';
+import {
+	authReducer,
+	eventReducer,
+	hostReducer,
+	persistedAppReducer,
+	personaReducer,
+	searchReducer,
+	themeReducer,
+	userReducer
+} from './local';
 
+import { apiErrorUnauthorizedMiddleware } from './middleware';
 
 const store = configureStore({
-    reducer: {
-        auth: authReducer,
-        user: userReducer,
-        host: hostReducer,
-        artist: artistReducer,
-        search: searchReducer,
-        theme: themeReducer,
-        persona: personaReducer,
-        event: eventReducer,
-        ...apiReducers
-    },
-    middleware: (getDefaultMiddleware) => {
-        return getDefaultMiddleware({
-            serializableCheck: {
-                ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
-            }
-        })
-        .concat(authApiSlice.middleware)
-        .concat(userApiSlice.middleware)
-        .concat(hostApiSlice.middleware)
-        .concat(artistApiSlice.middleware)
-        .concat(tagApiSlice.middleware)
-        .concat(searchApiSlice.middleware)
-        .concat(imagesApiSlice.middleware)
-        .concat(apiErrorUnauthorizedMiddleware)
-    }
-})
+	reducer: {
+		persistedApp: persistedAppReducer,
+		auth: authReducer,
+		user: userReducer,
+		host: hostReducer,
+		search: searchReducer,
+		theme: themeReducer,
+		persona: personaReducer,
+		event: eventReducer,
+		[artistApiSlice.reducerPath]: artistApiSlice.reducer,
+		[hostApiSlice.reducerPath]: hostApiSlice.reducer,
+		[venueApiSlice.reducerPath]: venueApiSlice.reducer,
+		[eventApiSlice.reducerPath]: eventApiSlice.reducer,
+		[artistTagApiSlice.reducerPath]: artistTagApiSlice.reducer,
+		[galleryApiSlice.reducerPath]: galleryApiSlice.reducer,
+		[hostEventApiSlice.reducerPath]: hostEventApiSlice.reducer,
+		[locationApiSlice.reducerPath]: locationApiSlice.reducer,
+		[mediaApiSlice.reducerPath]: mediaApiSlice.reducer,
+		[tagApiSlice.reducerPath]: tagApiSlice.reducer,
+		[userApiSlice.reducerPath]: userApiSlice.reducer,
+		[searchApiSlice.reducerPath]: searchApiSlice.reducer
+	},
+	middleware: (getDefaultMiddleware) => {
+		return getDefaultMiddleware({
+			serializableCheck: {
+				ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
+			}
+		})
+			.concat(artistApiSlice.middleware)
+			.concat(hostApiSlice.middleware)
+			.concat(venueApiSlice.middleware)
+			.concat(eventApiSlice.middleware)
+			.concat(artistTagApiSlice.middleware)
+			.concat(galleryApiSlice.middleware)
+			.concat(hostEventApiSlice.middleware)
+			.concat(locationApiSlice.middleware)
+			.concat(mediaApiSlice.middleware)
+			.concat(tagApiSlice.middleware)
+			.concat(userApiSlice.middleware)
+			.concat(searchApiSlice.middleware)
+			.concat(apiErrorUnauthorizedMiddleware);
+	}
+});
 
-const persistor = persistStore(store)
+const persistor = persistStore(store);
 
-export { store, persistor }
+export { persistor, store };
 
-export type RootState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
 
-export const useDispatch = () => useReduxDispatch<AppDispatch>()
-export const useSelector : TypedUseSelectorHook<RootState> = useReduxSelector
+export const useDispatch = () => useReduxDispatch<AppDispatch>();
+export const useSelector: TypedUseSelectorHook<RootState> = useReduxSelector;

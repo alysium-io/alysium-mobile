@@ -1,30 +1,30 @@
-import React, { useEffect } from 'react'
-import SplashScreen from 'react-native-splash-screen'
-import { AuthStage } from '@types'
-import AuthScreens from './screens'
-import { useAuth } from '@hooks'
-
+import { useAuth, useUser } from '@hooks';
+import { AuthStage } from '@types';
+import React, { useEffect } from 'react';
+import SplashScreen from 'react-native-splash-screen';
+import usePersistedAppState from 'src/utils/hooks/usePersistedAppState';
+import AuthScreens from './screens';
 
 interface AuthGateProps {
-    children?: React.ReactNode
+	children?: React.ReactNode;
 }
 
-const AuthGate : React.FC<AuthGateProps> = ({ children }) => {
+const AuthGate: React.FC<AuthGateProps> = ({ children }) => {
+	const { token } = usePersistedAppState();
+	const { auth } = useAuth();
+	const { me } = useUser();
 
-    const { auth, getAuthUser } = useAuth()
+	useEffect(() => {
+		me()
+			.then(() => SplashScreen.hide())
+			.catch(() => SplashScreen.hide());
+	}, [token]);
 
-    useEffect(() => {
-        getAuthUser()
-            .then(() => SplashScreen.hide())
-            .catch(() => SplashScreen.hide())
-    }, [auth.token])
+	if (auth.stage === AuthStage.loggedIn) {
+		return children;
+	}
 
-    if (auth.stage === AuthStage.loggedIn) {
-        return children
-    }
+	return <AuthScreens />;
+};
 
-    const AuthComponent = AuthScreens[auth.stage]
-    return <AuthComponent />
-}
-
-export default AuthGate
+export default AuthGate;

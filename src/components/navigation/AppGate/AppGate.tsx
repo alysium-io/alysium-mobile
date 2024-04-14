@@ -1,17 +1,28 @@
-import React from 'react'
-import { usePersona } from '@hooks'
-import Application from './apps'
-import { PersonaGate } from './gates'
+import { usePersona } from '@hooks';
+import { Persona } from '@types';
+import React from 'react';
+import ArtistApp from './apps/ArtistApp';
+import HostApp from './apps/HostApp';
+import UserApp from './apps/UserApp';
+import { UserAppProvider } from './contexts';
 
+const Applications = () => {
+	const { personaType } = usePersona();
 
-const AppGate = () => {
-    const { persona } = usePersona()
-    const App = Application[persona.activePersonaType]
-    return (
-        <PersonaGate>
-            <App />
-        </PersonaGate>
-    )
-}
+	const getApplication = () => {
+		switch (personaType) {
+			case Persona.artist:
+				return <ArtistApp />;
+			case Persona.host:
+				return <HostApp />;
+			case Persona.user:
+				return <UserApp />;
+			default:
+				return <></>;
+		}
+	};
 
-export default AppGate
+	return <UserAppProvider>{getApplication()}</UserAppProvider>;
+};
+
+export default Applications;

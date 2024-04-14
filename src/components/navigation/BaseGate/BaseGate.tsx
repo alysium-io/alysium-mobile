@@ -1,24 +1,20 @@
-import React from 'react'
-import { GestureHandlerRootView } from 'react-native-gesture-handler'
-import { PortalHost, PortalProvider } from '@gorhom/portal'
-import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
-import { PersistGate } from 'redux-persist/integration/react'
-import { StyleSheet } from 'react-native'
-import { Provider } from 'react-redux'
-import { SafeAreaProvider } from 'react-native-safe-area-context'
-import { store, persistor } from '@redux'
-import { ThemeProvider } from '@restyle'
-import { RootProvider } from 'src/utils/contexts'
-import { AppBetaConfigBottomSheetProvider } from '@templates'
-
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+import { PortalProvider } from '@gorhom/portal';
+import { persistor, store } from '@redux';
+import { ThemeProvider } from '@restyle';
+import React from 'react';
+import { StyleSheet } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import { RootProvider } from 'src/utils/contexts';
 
 interface BaseGateProps {
-    children?: React.ReactNode
+	children?: React.ReactNode;
 }
 
-const BaseGate : React.FC<BaseGateProps> = ({
-    children
-}) => {
+const BaseGate: React.FC<BaseGateProps> = ({ children }) => {
 	return (
 		<Provider store={store}>
 			<PersistGate loading={null} persistor={persistor}>
@@ -28,9 +24,7 @@ const BaseGate : React.FC<BaseGateProps> = ({
 							<SafeAreaProvider>
 								<PortalProvider>
 									<BottomSheetModalProvider>
-										<AppBetaConfigBottomSheetProvider>
-											{children}
-										</AppBetaConfigBottomSheetProvider>
+										{children}
 									</BottomSheetModalProvider>
 								</PortalProvider>
 							</SafeAreaProvider>
@@ -39,13 +33,13 @@ const BaseGate : React.FC<BaseGateProps> = ({
 				</ThemeProvider>
 			</PersistGate>
 		</Provider>
-	)
-}
+	);
+};
 
 const styles = StyleSheet.create({
 	gesture: {
 		flex: 1
 	}
-})
+});
 
-export default BaseGate
+export default BaseGate;

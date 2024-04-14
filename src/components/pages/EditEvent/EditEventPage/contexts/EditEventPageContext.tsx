@@ -1,170 +1,207 @@
-import React, { createContext } from 'react'
-import { SubmitErrorHandler, SubmitHandler, useForm, UseFormReturn } from 'react-hook-form'
-import { SheetApi, useHost, useImages, useNavigation, useSheet } from '@hooks'
-import { Alert } from 'react-native'
-import { useRoute } from '@react-navigation/native'
-import hostApiSlice from 'src/redux/api/hostApiSlice'
-import { Asset } from 'react-native-image-picker'
-import { Formatting } from '@etc'
+import { Formatting } from '@etc';
+import { SheetApi, useNavigation, useSheet } from '@hooks';
+import { useRoute } from '@react-navigation/native';
+import { ApiIdentifier, EditEventPageRouteProp, ProviderProps } from '@types';
+import React, { createContext } from 'react';
 import {
-    ApiIdentifier,
-    EditEventAttributes,
-    EditEventPageRouteProp,
-    EventDetailsResponse,
-    GetMyVenuesResponse,
-    ProviderProps
-} from '@types'
+	SubmitErrorHandler,
+	SubmitHandler,
+	UseFormReturn,
+	useForm
+} from 'react-hook-form';
+import { Alert } from 'react-native';
+import { Asset } from 'react-native-image-picker';
+import { eventApiSlice, hostApiSlice, venueApiSlice } from 'src/redux/api';
+import { FindOneEventResponseDto } from 'src/redux/api/event/dto/event-find-one.dto';
+import { FindAllVenuesResponseDto } from 'src/redux/api/venue/dto/venue-find-all.dto';
 
+type EditEventAttributes = {
+	name: string;
+	venue: ApiIdentifier | null;
+	start_time: string | null;
+	end_time: string | null;
+	doors_open_time: string | null;
+};
 
-const initialValues : EditEventAttributes = {
-    name: '',
-    venue: null,
-    start_time: null,
-    end_time: null,
-    doors_open_time: null
-}
+const initialValues: EditEventAttributes = {
+	name: '',
+	venue: null,
+	start_time: null,
+	end_time: null,
+	doors_open_time: null
+};
 
-const {
-    useGetEventDetailsQuery,
-    useGetVenuesQuery
-} = hostApiSlice
+const { useFindAllQuery } = hostApiSlice;
+const { useFindOneQuery: useFindOneEventQuery } = eventApiSlice;
+const { useFindOneQuery: useFindOneVenueQuery } = venueApiSlice;
 
 export type EditEventPageContextType = {
-    eventId: ApiIdentifier
-    eventData: EventDetailsResponse | undefined
-    eventError: any
-    eventIsLoading: boolean
-    venuesData: GetMyVenuesResponse | undefined
-    venuesError: any
-    venuesIsLoading: boolean
-    formMethods: UseFormReturn<EditEventAttributes>
-    onSubmit: (e?: React.BaseSyntheticEvent<object, any, any>) => Promise<void>
-    loadForm: () => void
-    confirmDelete: () => void
-    createVenueSheetApi: SheetApi
-    onChangeVenue: (venueId: number) => void
-    goToEventCandidatesPage: () => void
-    changeEventImage: (imagePickerAsset: Asset) => void
-    onChangeStartTime: (startTime: Date) => void
-    onChangeEndTime: (endTime: Date) => void
-    onChangeDoorsOpenTime: (doorsOpenTime: Date) => void
-}
+	eventId: ApiIdentifier;
+	eventData: FindOneEventResponseDto | undefined;
+	eventError: any;
+	eventIsLoading: boolean;
+	venuesData: FindAllVenuesResponseDto | undefined;
+	venuesError: any;
+	venuesIsLoading: boolean;
+	formMethods: UseFormReturn<EditEventAttributes>;
+	onSubmit: (e?: React.BaseSyntheticEvent<object, any, any>) => Promise<void>;
+	loadForm: () => void;
+	confirmDelete: () => void;
+	createVenueSheetApi: SheetApi;
+	onChangeVenue: (venueId: number) => void;
+	goToEventCandidatesPage: () => void;
+	changeEventImage: (imagePickerAsset: Asset) => void;
+	onChangeStartTime: (startTime: Date) => void;
+	onChangeEndTime: (endTime: Date) => void;
+	onChangeDoorsOpenTime: (doorsOpenTime: Date) => void;
+};
 
-export const EditEventPageContext = createContext({} as EditEventPageContextType)
+export const EditEventPageContext = createContext(
+	{} as EditEventPageContextType
+);
 
-export const EditEventPageProvider : React.FC<ProviderProps> = ({ children }) => {
+export const EditEventPageProvider: React.FC<ProviderProps> = ({
+	children
+}) => {
+	const { back, eventCandidatesPage } = useNavigation();
+	// const { editEvent, host, deleteEvent } = useHost();
 
-    const { back, eventCandidatesPage } = useNavigation()
-    const { editEvent, host, deleteEvent } = useHost()
-    const { uploadEventImage } = useImages()
+	// const { uploadEventImage } = useImages();
 
-    const route = useRoute<EditEventPageRouteProp>()
+	const route = useRoute<EditEventPageRouteProp>();
 
-    const createVenueSheetApi = useSheet()
+	const createVenueSheetApi = useSheet();
 
-    const {
-        data: eventData,
-        error: eventError,
-        isLoading: eventIsLoading
-    } = useGetEventDetailsQuery({ eventId: route.params.eventId })
-    
-    const {
-        data: venuesData,
-        error: venuesError,
-        isLoading: venuesIsLoading
-    } = useGetVenuesQuery({ hostId: host.host?.id }, { skip: host.host === undefined })
+	const {
+		data: eventData,
+		error: eventError,
+		isLoading: eventIsLoading
+	} = useFindOneEventQuery({ params: { event_id: route.params.eventId } });
 
-    const formMethods = useForm<EditEventAttributes>({ defaultValues: initialValues })
+	const {
+		data: venuesData,
+		error: venuesError,
+		isLoading: venuesIsLoading
+	} = useFindOneVenueQuery({ params: { venue_id: 1 } });
 
-    const onValid : SubmitHandler<EditEventAttributes> = (data: EditEventAttributes) => {
-        editEvent(route.params.eventId, data)
-    }
+	const formMethods = useForm<EditEventAttributes>({
+		defaultValues: initialValues
+	});
 
-    const onInvalid : SubmitErrorHandler<EditEventAttributes> = (errors: any) => {
-        console.log(errors)
-    }
+	const onValid: SubmitHandler<EditEventAttributes> = (
+		data: EditEventAttributes
+	) => {
+		// editEvent(route.params.eventId, data);
+		console.log('TODO: EditEventPageContext.tsx, line 97');
+	};
 
-    const loadForm = () => {
-        if (eventData) {
-            formMethods.reset({
-                name: eventData.data.attributes.name,
-                venue: eventData.data.attributes.venue?.data?.id ?? null,
-                start_time: eventData.data.attributes.start_time ?? null,
-                end_time: eventData.data.attributes.end_time ?? null,
-                doors_open_time: eventData.data.attributes.doors_open_time ?? null
-            })
-        }
-    }
+	const onInvalid: SubmitErrorHandler<EditEventAttributes> = (
+		errors: any
+	) => {
+		console.log(errors);
+	};
 
-    const onSubmit = formMethods.handleSubmit(onValid, onInvalid)
+	const loadForm = () => {
+		if (eventData) {
+			formMethods.reset({
+				// name: eventData.data.attributes.name,
+				// venue: eventData.data.attributes.venue?.data?.id ?? null,
+				// start_time: eventData.data.attributes.start_time ?? null,
+				// end_time: eventData.data.attributes.end_time ?? null,
+				// doors_open_time:
+				// 	eventData.data.attributes.doors_open_time ?? null
+			});
+		}
+	};
 
-    const confirmDelete = () => {
-        Alert.alert(
-            'Delete Event',
-            'Are you sure you want to delete this event?',
-            [
-                {
-                    text: 'cancel',
-                    style: 'cancel'
-                },
-                {
-                    text: 'delete', 
-                    onPress: onDeleteEvent,
-                    style: 'destructive'
-                }
-            ],
-            { cancelable: false }
-        )
-    }
+	const onSubmit = formMethods.handleSubmit(onValid, onInvalid);
 
-    const onDeleteEvent = () => {
-        deleteEvent(route.params.eventId)
-        back()
-    }
+	const confirmDelete = () => {
+		Alert.alert(
+			'Delete Event',
+			'Are you sure you want to delete this event?',
+			[
+				{
+					text: 'cancel',
+					style: 'cancel'
+				},
+				{
+					text: 'delete',
+					onPress: onDeleteEvent,
+					style: 'destructive'
+				}
+			],
+			{ cancelable: false }
+		);
+	};
 
-    const onChangeVenue = (venueId: ApiIdentifier) => formMethods.setValue('venue', venueId)
-    const onChangeStartTime = (startTime: Date) => formMethods.setValue('start_time', Formatting.formatJsDateForPostgresTimestamp(startTime))
-    const onChangeEndTime = (endTime: Date) => formMethods.setValue('end_time', Formatting.formatJsDateForPostgresTimestamp(endTime))
-    const onChangeDoorsOpenTime = (doorsOpenTime: Date) => formMethods.setValue('doors_open_time', Formatting.formatJsDateForPostgresTimestamp(doorsOpenTime))
+	const onDeleteEvent = () => {
+		// deleteEvent(route.params.eventId);
+		console.log('TODO: EditEventPageContext.tsx, line 142');
+		back();
+	};
 
-    const goToEventCandidatesPage = () => {
-        eventCandidatesPage(route.params.eventId)
-    }
+	const onChangeVenue = (venueId: ApiIdentifier) =>
+		formMethods.setValue('venue', venueId);
+	const onChangeStartTime = (startTime: Date) =>
+		formMethods.setValue(
+			'start_time',
+			Formatting.formatJsDateForPostgresTimestamp(startTime)
+		);
+	const onChangeEndTime = (endTime: Date) =>
+		formMethods.setValue(
+			'end_time',
+			Formatting.formatJsDateForPostgresTimestamp(endTime)
+		);
+	const onChangeDoorsOpenTime = (doorsOpenTime: Date) =>
+		formMethods.setValue(
+			'doors_open_time',
+			Formatting.formatJsDateForPostgresTimestamp(doorsOpenTime)
+		);
 
-    const changeEventImage = (imagePickerAsset: Asset) => {
-        if (imagePickerAsset.uri && imagePickerAsset.type && imagePickerAsset.fileName) {
-            uploadEventImage(route.params.eventId, {
-                name: imagePickerAsset.fileName,
-                uri: imagePickerAsset.uri,
-                type: imagePickerAsset.type
-            })
-        }
-    }
+	const goToEventCandidatesPage = () => {
+		eventCandidatesPage(route.params.eventId);
+	};
 
-    return (
-        <EditEventPageContext.Provider
-            value={{
-                eventId: route.params.eventId,
-                eventData,
-                eventError,
-                eventIsLoading,
-                venuesData,
-                venuesError,
-                venuesIsLoading,
-                formMethods,
-                onSubmit,
-                loadForm,
-                confirmDelete,
-                createVenueSheetApi,
-                onChangeVenue,
-                goToEventCandidatesPage,
-                changeEventImage,
-                onChangeStartTime,
-                onChangeEndTime,
-                onChangeDoorsOpenTime
-            }}
-        >
-            {children}
-        </EditEventPageContext.Provider>
-    )
-}
+	const changeEventImage = (imagePickerAsset: Asset) => {
+		if (
+			imagePickerAsset.uri &&
+			imagePickerAsset.type &&
+			imagePickerAsset.fileName
+		) {
+			// uploadEventImage(route.params.eventId, {
+			// 	name: imagePickerAsset.fileName,
+			// 	uri: imagePickerAsset.uri,
+			// 	type: imagePickerAsset.type
+			// });
+			console.log('TODO: EditEventPageContext.tsx, line 177');
+		}
+	};
+
+	return (
+		<EditEventPageContext.Provider
+			value={{
+				eventId: route.params.eventId,
+				eventData,
+				eventError,
+				eventIsLoading,
+				venuesData,
+				venuesError,
+				venuesIsLoading,
+				formMethods,
+				onSubmit,
+				loadForm,
+				confirmDelete,
+				createVenueSheetApi,
+				onChangeVenue,
+				goToEventCandidatesPage,
+				changeEventImage,
+				onChangeStartTime,
+				onChangeEndTime,
+				onChangeDoorsOpenTime
+			}}
+		>
+			{children}
+		</EditEventPageContext.Provider>
+	);
+};

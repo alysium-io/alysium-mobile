@@ -1,12 +1,13 @@
-import React, { createContext } from 'react'
-import { HostDetailsResponse, HostPageRouteProp, ProviderProps } from '@types'
-import { useRoute } from '@react-navigation/native'
-import hostApiSlice from 'src/redux/api/hostApiSlice'
 import { SheetApi, useNavigation, useSheet } from '@hooks'
+import { useRoute } from '@react-navigation/native'
+import { HostPageRouteProp, ProviderProps } from '@types'
+import React, { createContext } from 'react'
+import { hostApiSlice } from 'src/redux/api'
+import { Host } from 'src/redux/api/host/host.entity'
 
 
 const {
-    useGetHostDetailsQuery
+	useFindOneQuery
 } = hostApiSlice
 
 export type HostPageContextType = {
@@ -15,7 +16,7 @@ export type HostPageContextType = {
     linksSheetApi: SheetApi
     onPressFollowers: () => void
     onPressShows: () => void
-    data: HostDetailsResponse | undefined
+    data: Host | undefined
     isLoading: boolean
     error: any
 }
@@ -25,7 +26,7 @@ export const HostPageContext = createContext({} as HostPageContextType)
 export const HostPageProvider : React.FC<ProviderProps> = ({ children }) => {
 
     const route = useRoute<HostPageRouteProp>()
-    const { isLoading, error, data } = useGetHostDetailsQuery({ hostId: route.params.hostId })
+    const { isLoading, error, data } = useFindOneQuery({ params: { host_id: route.params.hostId } })
     const { hostFollowersAndShowsPage } = useNavigation()
 
     const moreSheetApi = useSheet()

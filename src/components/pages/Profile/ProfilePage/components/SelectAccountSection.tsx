@@ -1,36 +1,31 @@
-import React from 'react'
-import { Section, View } from '@atomic'
-import { SectionHeader } from '@molecules'
-import { ContentListItem } from '@organisms'
-import { usePersona, useUser } from '@hooks'
-
+import React from 'react';
 
 const SelectAccountSection = () => {
+	return <></>;
+	// const { getAccountList } = useUser()
+	// const { setPersona } = usePersona()
 
-    const { getAccountList } = useUser()
-    const { setPersona } = usePersona()
+	// return (
+	//     <Section marginBottom='xl'>
+	//         <View marginHorizontal='m'>
+	//             <SectionHeader text='Select Account' titleVariant='large' />
+	//         </View>
+	//         {
+	//             getAccountList()?.map(account => (
+	//                 <ContentListItem
+	//                     key={account.id}
+	//                     title={account.name}
+	//                     subtitle={account.type}
+	//                     onPress={() => setPersona(account.id, account.type)}
+	//                     contentType={account.type}
+	//                     image={account.image}
+	//                     border
+	//                     markerIcon={account.isActive ? 'checkmark' : undefined}
+	//                 />
+	//             ))
+	//         }
+	//     </Section>
+	// )
+};
 
-    return (
-        <Section marginBottom='xl'>
-            <View marginHorizontal='m'>
-                <SectionHeader text='Select Account' titleVariant='large' />
-            </View>
-            {
-                getAccountList()?.map(account => (
-                    <ContentListItem
-                        key={account.id}
-                        title={account.name}
-                        subtitle={account.type}
-                        onPress={() => setPersona(account.id, account.type)}
-                        contentType={account.type}
-                        image={account.image}
-                        border
-                        markerIcon={account.isActive ? 'checkmark' : undefined}
-                    />
-                ))
-            }
-        </Section>
-    )
-}
-
-export default SelectAccountSection
+export default SelectAccountSection;

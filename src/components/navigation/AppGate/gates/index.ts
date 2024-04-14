@@ -1,1 +1,1 @@
-export { default as PersonaGate } from './PersonaGate'
+export { default as PersonaGate } from './PersonaGate';

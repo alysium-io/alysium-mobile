@@ -1,23 +1,20 @@
-import React, { useEffect } from 'react'
-import { usePersona } from '@hooks'
-
+import { usePersona } from '@hooks';
+import React, { useEffect } from 'react';
 
 interface PersonaGateProps {
-    children?: React.ReactNode
+	children?: React.ReactNode;
 }
 
-const PersonaGate : React.FC<PersonaGateProps> = ({
-    children
-}) => {
-    const { persona, loadPersona } = usePersona()
+const PersonaGate: React.FC<PersonaGateProps> = ({ children }) => {
+	const { persona, loadPersona } = usePersona();
 
-    useEffect(() => {
-        loadPersona()
-    }, [persona.activePersonaId, persona.activePersonaType])
+	useEffect(() => {
+		loadPersona();
+	}, [persona.activePersonaId, persona.activePersonaType]);
 
-    if (persona.isLoading) return <></>
+	if (persona.isLoading) return <></>;
 
-    return children
-}
+	return children;
+};
 
-export default PersonaGate
+export default PersonaGate;
