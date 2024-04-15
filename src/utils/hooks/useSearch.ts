@@ -1,64 +1,43 @@
-import { useDispatch, useSelector } from '@redux';
+import { useSelector } from '@redux';
 import { SearchItem } from '@types';
-import {
-	action_addRecentSearch,
-	action_clearRecentSearches,
-	action_clearSearchText,
-	action_deleteRecentSearch,
-	action_setIsSearchActive,
-	action_setSearchText
-} from 'src/redux/local/search';
+import usePersistedAppState from './usePersistedAppState';
 
 interface IUseSearch {
 	addRecentSearch: (search: SearchItem) => void;
 	clearRecentSearches: () => void;
-	deleteRecentSearch: (id: number) => void;
-	setSearchText: (searchText: string) => void;
-	clearSearchText: () => void;
-	isSearchActive: boolean;
-	setIsSearchActive: (isSearchActive: boolean) => void;
 	recentSearches: SearchItem[];
-	searchText: string;
 }
 
 const useSearch = (): IUseSearch => {
-	const search = useSelector((state) => state.search);
-	const dispatch = useDispatch();
-
-	const setSearchText = (searchText: string) => {
-		dispatch(action_setSearchText(searchText));
-	};
-
-	const clearSearchText = () => {
-		dispatch(action_clearSearchText());
-	};
+	const recentSearches = useSelector(
+		(state) => state.persistedApp.recentSearches
+	);
+	const { setPersistedAppState } = usePersistedAppState();
 
 	const addRecentSearch = (search: SearchItem) => {
-		dispatch(action_addRecentSearch(search));
+		let recentSearchesCopy = [...recentSearches];
+
+		// First remove it if it exists
+		recentSearchesCopy = recentSearches.filter((item) => item.id !== search.id);
+
+		// Add it to the beginning
+		recentSearchesCopy.unshift(search);
+
+		// Limit the array to n items
+		recentSearchesCopy = recentSearchesCopy.slice(0, 50);
+
+		// Set the new persisted app state
+		setPersistedAppState({ recentSearches: recentSearchesCopy });
 	};
 
 	const clearRecentSearches = () => {
-		dispatch(action_clearRecentSearches());
-	};
-
-	const deleteRecentSearch = (id: number) => {
-		dispatch(action_deleteRecentSearch(id));
-	};
-
-	const setIsSearchActive = (isSearchActive: boolean) => {
-		dispatch(action_setIsSearchActive(isSearchActive));
+		setPersistedAppState({ recentSearches: [] });
 	};
 
 	return {
 		addRecentSearch,
 		clearRecentSearches,
-		deleteRecentSearch,
-		setSearchText,
-		clearSearchText,
-		setIsSearchActive,
-		isSearchActive: search.isSearchActive,
-		recentSearches: search.recentSearches,
-		searchText: search.searchText
+		recentSearches
 	};
 };
 

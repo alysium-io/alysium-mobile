@@ -1,7 +1,7 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import baseQueryConfig from '../utils/baseQueryConfig';
 import {
-	SearchArtistsQueryDto,
+	SearchArtistsBodyDto,
 	SearchArtistsResponseDto
 } from './dto/search-artists.dto';
 
@@ -11,13 +11,13 @@ const apiSlice = createApi({
 	tagTypes: ['Search'],
 	endpoints: (builder) => ({
 		searchArtists: builder.query<
-			SearchArtistsResponseDto[],
-			{ query: SearchArtistsQueryDto }
+			{ hits: SearchArtistsResponseDto[] },
+			{ body: SearchArtistsBodyDto }
 		>({
-			query: ({ query }) => ({
+			query: ({ body }) => ({
 				url: '/artists',
-				method: 'GET',
-				params: { q: query.q }
+				method: 'POST',
+				body
 			})
 		})
 	})

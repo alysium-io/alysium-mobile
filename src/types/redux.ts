@@ -22,6 +22,7 @@ export type AppState = {
 	personaId: ApiIdentifier | null;
 	themeName: ThemeNames;
 	mode: ThemeMode;
+	recentSearches: SearchItem[];
 };
 
 export type AuthState = {

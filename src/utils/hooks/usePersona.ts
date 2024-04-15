@@ -1,5 +1,11 @@
-import { ApiIdentifier, Persona } from '@types';
+import { ApiIdentifier, Persona, ThemeMode } from '@types';
 import usePersistedAppState from './usePersistedAppState';
+
+const appThemeModeMap = {
+	[Persona.user]: ThemeMode.dark,
+	[Persona.artist]: ThemeMode.light,
+	[Persona.host]: ThemeMode.light
+};
 
 interface IUsePersona {
 	personaType: Persona;
@@ -18,7 +24,8 @@ const usePersona = (): IUsePersona => {
 	) => {
 		setPersistedAppState({
 			personaType: newPersonaType,
-			personaId: newPersonaId
+			personaId: newPersonaId,
+			mode: appThemeModeMap[newPersonaType]
 		});
 	};
 

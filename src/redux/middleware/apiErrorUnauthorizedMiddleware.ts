@@ -15,6 +15,7 @@ const apiErrorUnauthorizedMiddleware: Middleware =
 			const errorStatus = action?.payload?.status;
 			if (errorStatus === 400) {
 				console.log('Should log user out');
+				console.log(action.payload);
 			}
 		}
 

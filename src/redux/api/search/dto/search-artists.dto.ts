@@ -1,6 +1,6 @@
 import { Search } from '../search.entity';
 
-export interface SearchArtistsQueryDto {
+export interface SearchArtistsBodyDto {
 	q: string;
 }
 

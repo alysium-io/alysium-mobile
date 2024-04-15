@@ -33,7 +33,6 @@ import {
 	hostReducer,
 	persistedAppReducer,
 	personaReducer,
-	searchReducer,
 	userReducer
 } from './local';
 
@@ -45,7 +44,6 @@ const store = configureStore({
 		auth: authReducer,
 		user: userReducer,
 		host: hostReducer,
-		search: searchReducer,
 		persona: personaReducer,
 		event: eventReducer,
 		[artistApiSlice.reducerPath]: artistApiSlice.reducer,

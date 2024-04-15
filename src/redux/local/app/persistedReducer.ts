@@ -4,7 +4,7 @@ import { appReducer } from './slice';
 
 const persistedAppReducer = configurePersistor<AppState>(
 	'app',
-	['token', 'personaType', 'personaId', 'themeName', 'mode'],
+	['token', 'personaType', 'personaId', 'themeName', 'mode', 'recentSearches'],
 	appReducer
 );
 

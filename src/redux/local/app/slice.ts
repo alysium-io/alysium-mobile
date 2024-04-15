@@ -6,7 +6,8 @@ const initialState: AppState = {
 	personaType: Persona.user,
 	personaId: null,
 	themeName: 'main',
-	mode: ThemeMode.dark
+	mode: ThemeMode.dark,
+	recentSearches: []
 };
 
 const appSlice = createSlice({
