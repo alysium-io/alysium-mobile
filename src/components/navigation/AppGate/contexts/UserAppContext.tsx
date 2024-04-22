@@ -1,8 +1,7 @@
-import { createUseContextHook } from '@etc';
-import { usePersona } from '@hooks';
+import { createUseContextHook, usePersona } from '@hooks';
 import { ProviderProps } from '@types';
 import React, { createContext } from 'react';
-import { userApiSlice } from 'src/redux/api';
+import { userApiSlice } from 'src/redux/api/user';
 import { User } from 'src/redux/api/user/user.entity';
 
 const { useMeQuery } = userApiSlice;

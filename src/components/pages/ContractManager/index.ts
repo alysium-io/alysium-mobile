@@ -1,1 +1,1 @@
-export * from './ContractManagerPage'
+export { default as ContractManagerPage } from './ContractManager.page';

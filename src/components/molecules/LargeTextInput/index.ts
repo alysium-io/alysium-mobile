@@ -1,1 +1,1 @@
-export { default as LargeTextInput } from './LargeTextInput'
+export { default as LargeTextInput } from './LargeTextInput';

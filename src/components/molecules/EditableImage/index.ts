@@ -1,1 +1,1 @@
-export { default as EditableProfileImage } from './EditableProfileImage'
+export { default as EditableProfileImage } from './EditableProfileImage';

@@ -1,2 +1,1 @@
-export * from './ArtistPage'
-export * from './ArtistFollowersAndShowsPage'
+export { default as ArtistPage } from './Artist.page';

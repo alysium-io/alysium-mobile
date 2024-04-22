@@ -1,20 +1,20 @@
-import { useState } from 'react'
-import { ButtonState } from '@molecules'
-
+import { ButtonState } from '@molecules';
+import { useState } from 'react';
 
 const useButton = (defaultButtonState: ButtonState = 'default') => {
-    const [buttonState, setButtonState] = useState<ButtonState>(defaultButtonState)
+	const [buttonState, setButtonState] =
+		useState<ButtonState>(defaultButtonState);
 
-    const _setButtonState = (state: ButtonState) => {
-        if (state !== buttonState) {
-            setButtonState(state)
-        }
-    }
+	const _setButtonState = (state: ButtonState) => {
+		if (state !== buttonState) {
+			setButtonState(state);
+		}
+	};
 
-    return {
-        buttonState,
-        setButtonState: _setButtonState
-    }
-}
+	return {
+		buttonState,
+		setButtonState: _setButtonState
+	};
+};
 
-export default useButton
+export default useButton;

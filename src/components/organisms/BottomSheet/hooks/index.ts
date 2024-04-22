@@ -1,1 +1,1 @@
-export { default as useBottomSheetMaxHeight } from './useBottomSheetMaxHeight'
+export { default as useBottomSheetMaxHeight } from './useBottomSheetMaxHeight';

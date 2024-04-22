@@ -1,43 +1,40 @@
-import React from 'react'
-import { View, Text } from '@atomic'
-import { useTheme } from '@hooks'
-import { StyleSheet } from 'react-native'
-import { ThemeMode } from '@types'
-
+import { Text, View } from '@atomic';
+import { useTheme } from '@hooks';
+import { ThemeMode } from '@types';
+import React from 'react';
+import { StyleSheet } from 'react-native';
 
 interface BottomSheetHeaderProps {
-    text: string
+	text: string;
 }
 
-const BottomSheetHeader : React.FC<BottomSheetHeaderProps> = ({
-    text
-}) => {
+const BottomSheetHeader: React.FC<BottomSheetHeaderProps> = ({ text }) => {
+	const { getRawColor, mode } = useTheme();
 
-    const { getRawColor, mode } = useTheme()
-
-    return (
-        <View
-            style={[
-                styles.container,
-                {
-                    borderBottomWidth: 0.5,
-                    borderBottomColor: mode === ThemeMode.dark ? getRawColor('bg3') : getRawColor('ion')
-                }
-            ]}
-            paddingBottom='l'
-            marginTop='s'
-            paddingHorizontal='m'
-        >
-            <Text variant='section-header-1'>{ text }</Text>
-        </View>
-    )
-}
+	return (
+		<View
+			style={[
+				styles.container,
+				{
+					borderBottomWidth: 0.5,
+					borderBottomColor:
+						mode === ThemeMode.dark ? getRawColor('bg3') : getRawColor('ion')
+				}
+			]}
+			paddingBottom='l'
+			marginTop='s'
+			paddingHorizontal='m'
+		>
+			<Text variant='section-header-1'>{text}</Text>
+		</View>
+	);
+};
 
 const styles = StyleSheet.create({
-    container: {
-        flexDirection: 'row',
-        justifyContent: 'flex-start'
-    }
-})
+	container: {
+		flexDirection: 'row',
+		justifyContent: 'flex-start'
+	}
+});
 
-export default BottomSheetHeader
+export default BottomSheetHeader;

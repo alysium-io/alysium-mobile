@@ -1,30 +1,24 @@
-import React from 'react'
-import { View } from '@atomic'
-import settings from '../settings'
-import { StyleSheet } from 'react-native'
-
+import { View } from '@atomic';
+import React from 'react';
+import { StyleSheet } from 'react-native';
+import settings from '../settings';
 
 interface ConnectionContainerProps {
-    children: React.ReactNode
+	children: React.ReactNode;
 }
 
-const ConnectionContainer : React.FC<ConnectionContainerProps> = ({
-    children
+const ConnectionContainer: React.FC<ConnectionContainerProps> = ({
+	children
 }) => {
-
-    return (
-        <View style={styles.container}>
-            {children}
-        </View>
-    )
-}
+	return <View style={styles.container}>{children}</View>;
+};
 
 const styles = StyleSheet.create({
-    container: {
-        width: settings.MARKER_SIZE,
-        height: '100%',
-        position: 'relative'
-    }
-})
+	container: {
+		width: settings.MARKER_SIZE,
+		height: '100%',
+		position: 'relative'
+	}
+});
 
-export default ConnectionContainer
+export default ConnectionContainer;

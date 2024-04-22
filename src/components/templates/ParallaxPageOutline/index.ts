@@ -1,1 +1,1 @@
-export { default as ParallaxPageOutline } from './ParallaxPageOutline'
+export { default as ParallaxPageOutline } from './ParallaxPageOutline';

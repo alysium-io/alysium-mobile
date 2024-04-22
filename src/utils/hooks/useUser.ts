@@ -1,5 +1,5 @@
 import { AuthStage } from '@types';
-import { userApiSlice } from 'src/redux/api';
+import { userApiSlice } from 'src/redux/api/user';
 import { GetMeResponseDto } from 'src/redux/api/user/dto/user-me.dto';
 import useAuth from './useAuth';
 

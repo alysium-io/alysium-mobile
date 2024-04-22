@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from '@redux';
 import { AuthStage, AuthState } from '@types';
-import userApiSlice from 'src/redux/api/user';
+import { userApiSlice } from 'src/redux/api/user';
 import { authActions } from 'src/redux/local/auth';
 import usePersistedAppState from './usePersistedAppState';
 

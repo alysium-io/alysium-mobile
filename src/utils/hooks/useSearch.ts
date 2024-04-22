@@ -1,11 +1,11 @@
 import { useSelector } from '@redux';
-import { SearchItem } from '@types';
+import { Search } from 'src/redux/api/search';
 import usePersistedAppState from './usePersistedAppState';
 
 interface IUseSearch {
-	addRecentSearch: (search: SearchItem) => void;
+	addRecentSearch: (search: Search) => void;
 	clearRecentSearches: () => void;
-	recentSearches: SearchItem[];
+	recentSearches: Search[];
 }
 
 const useSearch = (): IUseSearch => {
@@ -14,7 +14,7 @@ const useSearch = (): IUseSearch => {
 	);
 	const { setPersistedAppState } = usePersistedAppState();
 
-	const addRecentSearch = (search: SearchItem) => {
+	const addRecentSearch = (search: Search) => {
 		let recentSearchesCopy = [...recentSearches];
 
 		// First remove it if it exists

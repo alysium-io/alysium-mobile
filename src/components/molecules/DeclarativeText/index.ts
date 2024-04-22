@@ -1,2 +1,2 @@
-export { default as DeclarativeText } from './DeclarativeText'
-export * from './shared'
+export { default as DeclarativeText } from './DeclarativeText';
+export * from './shared';

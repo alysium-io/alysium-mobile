@@ -1,3 +1,3 @@
-export * from './BaseGate'
-export * from './AuthGate'
-export * from './AppGate'
+export * from './AppGate';
+export * from './AuthGate';
+export * from './BaseGate';

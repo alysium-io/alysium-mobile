@@ -1,1 +1,1 @@
-export { default as CategoricalListItemForContentType } from './CategoricalListItemForContentType'
+export { default as CategoricalListItemForContentType } from './CategoricalListItemForContentType';

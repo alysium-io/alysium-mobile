@@ -13,20 +13,18 @@ import {
 	REHYDRATE,
 	persistStore
 } from 'redux-persist';
-import {
-	artistApiSlice,
-	artistTagApiSlice,
-	eventApiSlice,
-	galleryApiSlice,
-	hostApiSlice,
-	hostEventApiSlice,
-	locationApiSlice,
-	mediaApiSlice,
-	searchApiSlice,
-	tagApiSlice,
-	userApiSlice,
-	venueApiSlice
-} from './api';
+import { artistApiSlice } from './api/artist';
+import { artistTagApiSlice } from './api/artist-tag';
+import { eventApiSlice } from './api/event';
+import { galleryApiSlice } from './api/gallery';
+import { hostApiSlice } from './api/host';
+import { hostEventApiSlice } from './api/host-event';
+import { locationApiSlice } from './api/location';
+import { mediaApiSlice } from './api/media';
+import { searchApiSlice } from './api/search';
+import { tagApiSlice } from './api/tag';
+import { userApiSlice } from './api/user';
+import { venueApiSlice } from './api/venue';
 import {
 	authReducer,
 	eventReducer,

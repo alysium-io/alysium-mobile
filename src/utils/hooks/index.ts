@@ -8,6 +8,7 @@ export { default as useUser } from './useUser';
 export { default as useVenues } from './useVenues';
 
 // Etc
+export { default as createUseContextHook } from './createUseContextHook';
 export { default as useAnimatedState } from './useAnimatedState';
 export { default as useAnimatedValue } from './useAnimatedValue';
 export { default as useButton } from './useButton';

@@ -1,1 +1,1 @@
-export * from './TagPage'
+export { default as TagPage } from './Tag.page';

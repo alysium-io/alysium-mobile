@@ -1,1 +1,1 @@
-export { default as TabToggler } from './TabToggler'
+export { default as TabToggler } from './TabToggler';

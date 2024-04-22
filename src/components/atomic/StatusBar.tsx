@@ -1,16 +1,13 @@
-import React from 'react'
-import { useTheme } from '@hooks'
-import { StatusBar as RNStatusBar } from 'react-native'
-
+import { useTheme } from '@hooks';
+import React from 'react';
+import { StatusBar as RNStatusBar } from 'react-native';
 
 const StatusBar = () => {
+	const { mode } = useTheme();
 
-    const { mode } = useTheme()
+	if (mode === 'light') return <RNStatusBar barStyle='dark-content' />;
 
-    if (mode === 'light') return <RNStatusBar barStyle='dark-content' />
+	if (mode === 'dark') return <RNStatusBar barStyle='light-content' />;
+};
 
-    if (mode === 'dark') return <RNStatusBar barStyle='light-content' />
-
-}
-
-export default StatusBar
+export default StatusBar;

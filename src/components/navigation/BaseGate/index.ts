@@ -1,1 +1,1 @@
-export { default as BaseGate } from './BaseGate'
+export { default as BaseGate } from './BaseGate';

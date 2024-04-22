@@ -1,1 +1,1 @@
-export { default as BlockListItem } from './BlockListItem'
+export { default as BlockListItem } from './BlockListItem';

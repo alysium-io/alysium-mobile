@@ -1,25 +1,20 @@
-import React from 'react'
-import { BasePageProvider } from './context'
-import BasePageContent from './BasePageContent'
-
+import React from 'react';
+import BasePageContent from './BasePageContent';
+import { BasePageProvider } from './context';
 
 interface BasePageProps {
-    children?: React.ReactNode
-    FooterComponent?: React.FC
+	children?: React.ReactNode;
+	FooterComponent?: React.FC;
 }
 
-const BasePage : React.FC<BasePageProps> = ({
-    children,
-    FooterComponent
-}) => {
+const BasePage: React.FC<BasePageProps> = ({ children, FooterComponent }) => {
+	return (
+		<BasePageProvider>
+			<BasePageContent FooterComponent={FooterComponent}>
+				{children}
+			</BasePageContent>
+		</BasePageProvider>
+	);
+};
 
-    return (
-        <BasePageProvider>
-            <BasePageContent FooterComponent={FooterComponent}>
-                {children}
-            </BasePageContent>
-        </BasePageProvider>
-    )
-}
-
-export default BasePage
+export default BasePage;

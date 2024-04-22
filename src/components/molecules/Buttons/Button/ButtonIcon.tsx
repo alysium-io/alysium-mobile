@@ -1,27 +1,22 @@
-import React from 'react'
-import { Icon, View } from '@atomic'
-import { IconNames } from '@svg'
-
+import { Icon, View } from '@atomic';
+import { IconNames } from '@svg';
+import React from 'react';
 
 interface ButtonIconProps {
-    icon?: IconNames
-    color: string
+	icon?: IconNames;
+	color: string;
 }
 
-const ButtonIcon : React.FC<ButtonIconProps> = ({
-    icon,
-    color
-}) => {
+const ButtonIcon: React.FC<ButtonIconProps> = ({ icon, color }) => {
+	if (!icon) {
+		return null;
+	}
 
-    if (!icon) {
-        return null
-    }
+	return (
+		<View marginLeft='s'>
+			<Icon name={icon} color={color} size='small' />
+		</View>
+	);
+};
 
-    return (
-        <View marginLeft='s'>
-            <Icon name={icon} color={color}  size='small' />
-        </View>
-    )
-}
-
-export default ButtonIcon
+export default ButtonIcon;

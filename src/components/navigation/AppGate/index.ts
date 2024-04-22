@@ -1,1 +1,1 @@
-export { default as AppGate } from './AppGate'
+export { default as AppGate } from './AppGate';

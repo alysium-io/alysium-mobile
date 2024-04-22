@@ -1,2 +1,2 @@
-export { default as ArtistListItem } from './ArtistListItem'
-export { default as EventListItem } from './EventListItem'
+export { default as ArtistListItem } from './ArtistListItem';
+export { default as EventListItem } from './EventListItem';

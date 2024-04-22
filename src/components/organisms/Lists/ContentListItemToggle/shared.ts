@@ -1,5 +1,5 @@
 export const imageSizeScheme = {
-    small: 50,
-    medium: 65,
-    large: 95
-}
+	small: 50,
+	medium: 65,
+	large: 95
+};

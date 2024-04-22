@@ -1,5 +1,4 @@
-import { createUseContextHook } from '@etc';
-import { usePersona } from '@hooks';
+import { createUseContextHook, usePersona } from '@hooks';
 import { ApiIdentifier, Persona, ProviderProps } from '@types';
 import React, { createContext, useState } from 'react';
 import usePersistedAppState from 'src/utils/hooks/usePersistedAppState';

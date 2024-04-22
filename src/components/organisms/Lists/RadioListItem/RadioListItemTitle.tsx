@@ -1,33 +1,27 @@
-import React from 'react'
-import { Text, View } from '@atomic'
-import { StyleSheet } from 'react-native'
-
+import { Text, View } from '@atomic';
+import React from 'react';
+import { StyleSheet } from 'react-native';
 
 interface RadioListItemTitleProps {
-    text: string
+	text: string;
 }
 
-const RadioListItemTitle : React.FC<RadioListItemTitleProps> = ({
-    text
-}) => {
-
-    return (
-        <View style={styles.container}>
-            <Text
-                variant='paragraph-large'
-                color='t1'
-                numberOfLines={0}
-            >{text}</Text>
-        </View>
-    )
-}
+const RadioListItemTitle: React.FC<RadioListItemTitleProps> = ({ text }) => {
+	return (
+		<View style={styles.container}>
+			<Text variant='paragraph-large' color='t1' numberOfLines={0}>
+				{text}
+			</Text>
+		</View>
+	);
+};
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        flexDirection: 'row',
-        alignItems: 'center'
-    }
-})
+	container: {
+		flex: 1,
+		flexDirection: 'row',
+		alignItems: 'center'
+	}
+});
 
-export default RadioListItemTitle
+export default RadioListItemTitle;
