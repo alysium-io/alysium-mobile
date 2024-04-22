@@ -1,10 +1,10 @@
 import { KeyboardViewFill, View } from '@atomic';
+import { eventApiSlice } from '@flux/api/event';
 import { SheetApi, useButton, useNavigation, useTextInput } from '@hooks';
 import { Button, TextInput } from '@molecules';
 import { BottomSheet, BottomSheetHeader } from '@organisms';
 import React, { useState } from 'react';
 import { useHostAppContext } from 'src/components/navigation/AppGate/contexts/HostAppContext';
-import { eventApiSlice } from 'src/redux/api/event';
 
 const { useCreateMutation: useCreateEventMutation } = eventApiSlice;
 interface CreateEventStartBottomSheetProps {

@@ -1,9 +1,9 @@
 import { Icon, View } from '@atomic';
+import { userApiSlice } from '@flux/api/user';
 import { Button, LargeTextInput } from '@molecules';
 import React, { useState } from 'react';
 import { Keyboard, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import { FadeIn, FadeOut } from 'react-native-reanimated';
-import { userApiSlice } from 'src/redux/api/user';
 
 const { useCreateMutation } = userApiSlice;
 

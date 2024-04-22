@@ -1,19 +1,19 @@
-import { AppGate, AuthGate, BaseGate } from '@navigation';
+import { Application, Authentication, Dependencies } from '@arch';
 import React from 'react';
 
 if (__DEV__) {
 	require('./ReactotronConfig');
 }
 
-// BaseGate: Standard dependencies, app setup, and global state
-// AuthGate: Authentication flow
-// AppGate:  Application navigation/routing (user, artist, host, etc.)
+// Dependencies: Standard dependencies, app setup, and global state
+// Authentication: Authentication flow
+// Application:  Application navigation/routing (user, artist, host, etc.)
 const App = () => (
-	<BaseGate>
-		<AuthGate>
-			<AppGate />
-		</AuthGate>
-	</BaseGate>
+	<Dependencies>
+		<Authentication>
+			<Application />
+		</Authentication>
+	</Dependencies>
 );
 
 export default App;

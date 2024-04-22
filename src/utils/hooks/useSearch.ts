@@ -1,5 +1,5 @@
+import { Search } from '@flux/api/search';
 import { useSelector } from '@redux';
-import { Search } from 'src/redux/api/search';
 import usePersistedAppState from './usePersistedAppState';
 
 interface IUseSearch {

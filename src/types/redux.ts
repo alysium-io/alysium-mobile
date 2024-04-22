@@ -1,8 +1,8 @@
-import { Artist } from 'src/redux/api/artist/artist.entity';
-import { Event } from 'src/redux/api/event/event.entity';
-import { Host } from 'src/redux/api/host/host.entity';
-import { User } from 'src/redux/api/user/user.entity';
-import { Venue } from 'src/redux/api/venue/venue.entity';
+import { Artist } from '@flux/api/artist/artist.entity';
+import { Event } from '@flux/api/event/event.entity';
+import { Host } from '@flux/api/host/host.entity';
+import { User } from '@flux/api/user/user.entity';
+import { Venue } from '@flux/api/venue/venue.entity';
 import { ApiIdentifier } from './api';
 import { Persona } from './enums';
 import { ThemeMode } from './restyle';

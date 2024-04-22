@@ -1,7 +1,7 @@
+import { useSelector } from '@redux';
 import { createTheme } from '@shopify/restyle';
 import { useContext } from 'react';
 import { SharedValue, withTiming } from 'react-native-reanimated';
-import { useSelector } from 'src/redux';
 import { themes } from 'src/restyle';
 import { Theme, ThemeMode, ThemeNames } from 'src/types';
 import { ThemeContext } from '../contexts/ThemeContext';

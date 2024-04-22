@@ -1,8 +1,8 @@
+import { eventApiSlice } from '@flux/api/event';
+import { FindAllEventsResponseDto } from '@flux/api/event/dto/event-find-all.dto';
 import { SheetApi, createUseContextHook, useSheet } from '@hooks';
 import { ProviderProps } from '@types';
 import React, { createContext } from 'react';
-import { eventApiSlice } from 'src/redux/api/event';
-import { FindAllEventsResponseDto } from 'src/redux/api/event/dto/event-find-all.dto';
 
 const { useFindAllQuery } = eventApiSlice;
 

@@ -1,10 +1,10 @@
 import { global } from '@etc';
+import { tagApiSlice } from '@flux/api/tag';
+import { FindOneTagResponseDto } from '@flux/api/tag/dto/tag-find-one.dto';
 import { SheetApi, createUseContextHook, useSheet } from '@hooks';
 import { useRoute } from '@react-navigation/native';
 import { ProviderProps, TagPageRouteProp } from '@types';
 import React, { createContext } from 'react';
-import { tagApiSlice } from 'src/redux/api/tag';
-import { FindOneTagResponseDto } from 'src/redux/api/tag/dto/tag-find-one.dto';
 
 const { useFindOneQuery } = tagApiSlice;
 

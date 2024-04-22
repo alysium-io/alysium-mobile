@@ -1,6 +1,6 @@
+import { persistor, store } from '@flux';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { PortalProvider } from '@gorhom/portal';
-import { persistor, store } from '@redux';
 import { ThemeProvider } from '@restyle';
 import React from 'react';
 import { StyleSheet } from 'react-native';
@@ -10,11 +10,11 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { RootProvider } from 'src/utils/contexts';
 
-interface BaseGateProps {
+interface DependenciesProps {
 	children?: React.ReactNode;
 }
 
-const BaseGate: React.FC<BaseGateProps> = ({ children }) => {
+const Dependencies: React.FC<DependenciesProps> = ({ children }) => {
 	return (
 		<Provider store={store}>
 			<PersistGate loading={null} persistor={persistor}>
@@ -42,4 +42,4 @@ const styles = StyleSheet.create({
 	}
 });
 
-export default BaseGate;
+export default Dependencies;

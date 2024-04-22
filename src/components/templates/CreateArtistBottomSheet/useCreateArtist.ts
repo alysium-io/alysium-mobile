@@ -1,5 +1,5 @@
+import { artistApiSlice } from '@flux/api/artist';
 import { useTextInput } from '@hooks';
-import { artistApiSlice } from 'src/redux/api/artist';
 
 const { useCreateMutation } = artistApiSlice;
 

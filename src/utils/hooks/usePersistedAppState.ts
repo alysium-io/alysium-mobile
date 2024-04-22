@@ -1,6 +1,6 @@
+import { appActions } from '@flux/local/app';
 import { useDispatch, useSelector } from '@redux';
 import { AppState } from '@types';
-import { appActions } from 'src/redux/local/app';
 
 export type IUsePersistedAppState = AppState & {
 	setPersistedAppState: (state: Partial<AppState>) => void;

@@ -1,9 +1,8 @@
+import { Artist, artistApiSlice } from '@flux/api/artist';
 import { SheetApi, createUseContextHook, useSheet } from '@hooks';
 import { useRoute } from '@react-navigation/native';
 import { ArtistPageRouteProp, ProviderProps } from '@types';
 import React, { createContext } from 'react';
-import { artistApiSlice } from 'src/redux/api/artist';
-import { Artist } from 'src/redux/api/artist/artist.entity';
 
 const { useFindOneQuery } = artistApiSlice;
 

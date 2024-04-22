@@ -1,9 +1,9 @@
+import { hostApiSlice } from '@flux/api/host';
+import { Host } from '@flux/api/host/host.entity';
 import { SheetApi, createUseContextHook, useSheet } from '@hooks';
 import { useRoute } from '@react-navigation/native';
 import { HostPageRouteProp, ProviderProps } from '@types';
 import React, { createContext } from 'react';
-import { hostApiSlice } from 'src/redux/api/host';
-import { Host } from 'src/redux/api/host/host.entity';
 
 const { useFindOneQuery } = hostApiSlice;
 

@@ -1,8 +1,8 @@
+import { hostApiSlice } from '@flux/api/host';
+import { Host } from '@flux/api/host/host.entity';
 import { createUseContextHook, useAuth } from '@hooks';
 import { ApiIdentifier, Persona, ProviderProps } from '@types';
 import React, { createContext } from 'react';
-import { hostApiSlice } from 'src/redux/api/host';
-import { Host } from 'src/redux/api/host/host.entity';
 import { usePersonaAppContext } from './PersonaAppContext';
 
 const { useFindOneQuery } = hostApiSlice;

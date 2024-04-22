@@ -1,8 +1,8 @@
+import { artistApiSlice } from '@flux/api/artist';
+import { Artist } from '@flux/api/artist/artist.entity';
 import { createUseContextHook, useAuth } from '@hooks';
 import { ApiIdentifier, Persona, ProviderProps } from '@types';
 import React, { createContext } from 'react';
-import { artistApiSlice } from 'src/redux/api/artist';
-import { Artist } from 'src/redux/api/artist/artist.entity';
 import { usePersonaAppContext } from './PersonaAppContext';
 
 const { useFindOneQuery } = artistApiSlice;

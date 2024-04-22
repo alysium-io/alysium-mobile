@@ -1,5 +1,5 @@
+import { hostApiSlice } from '@flux/api/host';
 import { useTextInput } from '@hooks';
-import { hostApiSlice } from 'src/redux/api/host';
 
 const { useCreateMutation } = hostApiSlice;
 

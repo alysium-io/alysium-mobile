@@ -1,8 +1,8 @@
+import { searchApiSlice } from '@flux/api/search';
+import { Search } from '@flux/api/search/search.entity';
 import { createUseContextHook, useNavigation } from '@hooks';
 import { ProviderProps } from '@types';
 import React, { createContext, useState } from 'react';
-import { searchApiSlice } from 'src/redux/api/search';
-import { Search } from 'src/redux/api/search/search.entity';
 import useSearch from 'src/utils/hooks/useSearch';
 
 const { useSearchArtistsQuery } = searchApiSlice;

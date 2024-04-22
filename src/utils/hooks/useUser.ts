@@ -1,6 +1,6 @@
+import { userApiSlice } from '@flux/api/user';
+import { GetMeResponseDto } from '@flux/api/user/dto/user-me.dto';
 import { AuthStage } from '@types';
-import { userApiSlice } from 'src/redux/api/user';
-import { GetMeResponseDto } from 'src/redux/api/user/dto/user-me.dto';
 import useAuth from './useAuth';
 
 const { useLazyMeQuery } = userApiSlice;

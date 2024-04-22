@@ -1,9 +1,9 @@
+import { eventApiSlice } from '@flux/api/event';
+import { FindOneEventResponseDto } from '@flux/api/event/dto/event-find-one.dto';
 import { createUseContextHook } from '@hooks';
 import { useRoute } from '@react-navigation/native';
 import { EventPageRouteProp, ProviderProps } from '@types';
 import React, { createContext } from 'react';
-import { eventApiSlice } from 'src/redux/api/event';
-import { FindOneEventResponseDto } from 'src/redux/api/event/dto/event-find-one.dto';
 
 const { useFindOneQuery } = eventApiSlice;
 

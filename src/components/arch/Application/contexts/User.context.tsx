@@ -1,8 +1,8 @@
+import { userApiSlice } from '@flux/api/user';
+import { User } from '@flux/api/user/user.entity';
 import { createUseContextHook, usePersona } from '@hooks';
 import { ProviderProps } from '@types';
 import React, { createContext } from 'react';
-import { userApiSlice } from 'src/redux/api/user';
-import { User } from 'src/redux/api/user/user.entity';
 
 const { useMeQuery } = userApiSlice;
 

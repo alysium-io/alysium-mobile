@@ -1,7 +1,31 @@
 import { useTheme } from '@hooks';
+import { useIsFocused } from '@react-navigation/native';
+import { StackNavigationOptions } from '@react-navigation/stack';
 import { BottomTabNavigatorParamList, ScreenOptions } from '@types';
 import { StyleProp, ViewStyle } from 'react-native';
-import navigationConfig from './navigationConfig';
+
+export const navigationConfig = {
+	screenOptions: {
+		headerShown: false,
+		tabBarShowLabel: false,
+		tabBarInactiveTintColor: undefined,
+		tabBarActiveTintColor: undefined,
+		tabBarStyle: {
+			backgroundColor: undefined,
+			borderTopWidth: 0.5,
+			borderTopColor: undefined
+		}
+	},
+	sceneContainerStyle: {
+		backgroundColor: undefined
+	},
+	routes: {
+		initialArtistAppTab: 'Profile' as keyof BottomTabNavigatorParamList,
+		initialHostAppTab: 'Profile' as keyof BottomTabNavigatorParamList,
+		initialTestAppTab: 'Pages' as keyof BottomTabNavigatorParamList,
+		initialUserAppTab: 'Profile' as keyof BottomTabNavigatorParamList
+	}
+};
 
 interface IUseNavigationSettings {
 	screenOptions: ScreenOptions;
@@ -44,4 +68,16 @@ const useNavigationSettings = (): IUseNavigationSettings => {
 	};
 };
 
-export default useNavigationSettings;
+interface IUseTabSettings {
+	screenOptions: StackNavigationOptions;
+}
+
+export const useTabSettings = (): IUseTabSettings => {
+	return {
+		screenOptions: {
+			headerShown: useIsFocused(),
+			headerBackTitleVisible: false,
+			headerTransparent: true
+		}
+	};
+};

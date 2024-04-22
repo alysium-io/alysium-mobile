@@ -5,11 +5,11 @@ import SplashScreen from 'react-native-splash-screen';
 import usePersistedAppState from 'src/utils/hooks/usePersistedAppState';
 import AuthScreens from './screens';
 
-interface AuthGateProps {
+interface AuthenticationProps {
 	children?: React.ReactNode;
 }
 
-const AuthGate: React.FC<AuthGateProps> = ({ children }) => {
+const Authentication: React.FC<AuthenticationProps> = ({ children }) => {
 	const { token } = usePersistedAppState();
 	const { auth } = useAuth();
 	const { me } = useUser();
@@ -27,4 +27,4 @@ const AuthGate: React.FC<AuthGateProps> = ({ children }) => {
 	return <AuthScreens />;
 };
 
-export default AuthGate;
+export default Authentication;

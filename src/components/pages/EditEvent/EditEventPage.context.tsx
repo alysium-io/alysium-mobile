@@ -1,4 +1,8 @@
 import { Formatting } from '@etc';
+import { eventApiSlice } from '@flux/api/event';
+import { FindOneEventResponseDto } from '@flux/api/event/dto/event-find-one.dto';
+import { venueApiSlice } from '@flux/api/venue';
+import { FindAllVenuesResponseDto } from '@flux/api/venue/dto/venue-find-all.dto';
 import {
 	SheetApi,
 	createUseContextHook,
@@ -16,10 +20,6 @@ import {
 } from 'react-hook-form';
 import { Alert } from 'react-native';
 import { Asset } from 'react-native-image-picker';
-import { eventApiSlice } from 'src/redux/api/event';
-import { FindOneEventResponseDto } from 'src/redux/api/event/dto/event-find-one.dto';
-import { venueApiSlice } from 'src/redux/api/venue';
-import { FindAllVenuesResponseDto } from 'src/redux/api/venue/dto/venue-find-all.dto';
 
 type EditEventAttributes = {
 	name: string;
