@@ -1,5 +1,5 @@
+import { useDispatch, useSelector } from '@flux';
 import { appActions } from '@flux/local/app';
-import { useDispatch, useSelector } from '@redux';
 import { AppState } from '@types';
 
 export type IUsePersistedAppState = AppState & {

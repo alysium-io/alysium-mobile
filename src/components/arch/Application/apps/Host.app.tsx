@@ -3,8 +3,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { BottomTabNavigatorParamList } from '@types';
 import React from 'react';
-import { useNavigationSettings } from '../hooks';
 import { EventManagerTab, ProfileTab, SearchTab } from '../tabs';
+import { useNavigationSettings } from '../tabs/settings';
 
 const Tab = createBottomTabNavigator<BottomTabNavigatorParamList>();
 

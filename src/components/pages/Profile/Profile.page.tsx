@@ -1,6 +1,7 @@
 import { HeaderSafeArea, ScrollView } from '@atomic';
 import { BasePage } from '@organisms';
 import React from 'react';
+import { ProfilePageProvider } from './Profile.context';
 import {
 	CreateProfileActionFooter,
 	HeaderSection,
@@ -8,7 +9,6 @@ import {
 	MenuSection,
 	SelectAccountSection
 } from './components';
-import { ProfilePageProvider } from './contexts';
 
 const ProfilePage = () => {
 	return (

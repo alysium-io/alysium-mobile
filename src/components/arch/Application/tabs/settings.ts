@@ -38,7 +38,7 @@ interface IUseNavigationSettings {
 	};
 }
 
-const useNavigationSettings = (): IUseNavigationSettings => {
+export const useNavigationSettings = (): IUseNavigationSettings => {
 	const { theme } = useTheme();
 
 	const screenOptions = {

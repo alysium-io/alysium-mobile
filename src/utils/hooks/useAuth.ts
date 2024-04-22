@@ -1,6 +1,6 @@
+import { useDispatch, useSelector } from '@flux';
 import { userApiSlice } from '@flux/api/user';
 import { authActions } from '@flux/local/auth';
-import { useDispatch, useSelector } from '@redux';
 import { AuthStage, AuthState } from '@types';
 import usePersistedAppState from './usePersistedAppState';
 

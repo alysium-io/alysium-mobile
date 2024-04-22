@@ -1,4 +1,4 @@
-import { RootState } from '@redux';
+import { RootState } from '@flux';
 import {
 	FetchArgs,
 	FetchBaseQueryArgs,

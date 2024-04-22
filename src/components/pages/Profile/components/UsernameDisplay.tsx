@@ -1,8 +1,9 @@
+import { useUserAppContext } from '@arch/Application/contexts/User.context';
 import { Icon, Text, View } from '@atomic';
 import { usePersona } from '@hooks';
 import { Persona } from '@types';
 import React from 'react';
-import { useUserAppContext } from 'src/components/navigation/AppGate/contexts';
+
 
 const UsernameDisplay = () => {
 	const { personaType } = usePersona();

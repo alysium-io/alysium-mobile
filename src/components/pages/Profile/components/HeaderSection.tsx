@@ -1,9 +1,9 @@
+import { useUserAppContext } from '@arch/Application/contexts/User.context';
 import { Section, View } from '@atomic';
 import { usePersona } from '@hooks';
 import { DeclarativeText, EditableProfileImage } from '@molecules';
 import { Stats } from '@organisms';
 import React from 'react';
-import { useUserAppContext } from 'src/components/navigation/AppGate/contexts';
 import { useProfilePageContext } from '../Profile.context';
 import UsernameDisplay from './UsernameDisplay';
 

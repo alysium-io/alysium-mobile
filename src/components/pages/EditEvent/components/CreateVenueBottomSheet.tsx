@@ -1,5 +1,5 @@
 import { KeyboardViewFill, View } from '@atomic';
-import { SheetApi, useButton, useTextInput, useVenues } from '@hooks';
+import { SheetApi, useButton, useTextInput } from '@hooks';
 import { Button, TextInput } from '@molecules';
 import { BottomSheet, BottomSheetHeader } from '@organisms';
 import React, { useState } from 'react';
@@ -13,7 +13,8 @@ const CreateVenueStartBottomSheet: React.FC<
 	CreateVenueStartBottomSheetProps
 > = ({ sheetApi }) => {
 	const { createVenueSheetApi } = useEditEventPageContext();
-	const { createVenue } = useVenues();
+	// const { createVenue } = useVenues();
+	const createVenue = () => console.log('CreateVenueBottomSheet.tsx: createVenue() not implemented yet.')
 
 	const textInputApi = useTextInput();
 	const { buttonState: createVenueButtonState, setButtonState } =
@@ -31,7 +32,7 @@ const CreateVenueStartBottomSheet: React.FC<
 	};
 
 	const _createVenue = async () => {
-		createVenue(venueName);
+		createVenue();
 		createVenueSheetApi.close();
 	};
 

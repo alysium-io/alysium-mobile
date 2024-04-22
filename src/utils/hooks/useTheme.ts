@@ -1,4 +1,4 @@
-import { useSelector } from '@redux';
+import { useSelector } from '@flux';
 import { createTheme } from '@shopify/restyle';
 import { useContext } from 'react';
 import { SharedValue, withTiming } from 'react-native-reanimated';

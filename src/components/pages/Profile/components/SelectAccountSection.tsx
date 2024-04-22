@@ -1,12 +1,10 @@
+import { usePersonaAppContext } from '@arch/Application/contexts/Persona.context';
+import { useUserAppContext } from '@arch/Application/contexts/User.context';
 import { Section, View } from '@atomic';
 import { SectionHeader } from '@molecules';
 import { ContentListItem } from '@organisms';
 import { Persona } from '@types';
 import React from 'react';
-import {
-	usePersonaAppContext,
-	useUserAppContext
-} from 'src/components/navigation/AppGate/contexts';
 
 const SelectAccountSection = () => {
 	const { user } = useUserAppContext();

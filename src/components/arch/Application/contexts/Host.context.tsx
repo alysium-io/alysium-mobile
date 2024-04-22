@@ -3,7 +3,7 @@ import { Host } from '@flux/api/host/host.entity';
 import { createUseContextHook, useAuth } from '@hooks';
 import { ApiIdentifier, Persona, ProviderProps } from '@types';
 import React, { createContext } from 'react';
-import { usePersonaAppContext } from './PersonaAppContext';
+import { usePersonaAppContext } from './Persona.context';
 
 const { useFindOneQuery } = hostApiSlice;
 

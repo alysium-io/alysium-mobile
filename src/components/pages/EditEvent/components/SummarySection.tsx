@@ -1,9 +1,9 @@
-import React from 'react'
 import { Section, View } from '@atomic'
+import { useNavigation } from '@hooks'
 import { Button, SectionHeader } from '@molecules'
 import { MenuListItem, SummaryTextBlock } from '@organisms'
-import { useEditEventPageContext } from '../hooks'
-import { useNavigation } from '@hooks'
+import React from 'react'
+import { useEditEventPageContext } from '../EditEventPage.context'
 
 
 const SummarySection = () => {
