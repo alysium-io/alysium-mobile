@@ -19,12 +19,6 @@ import {
 import { Alert } from 'react-native';
 import { Asset } from 'react-native-image-picker';
 
-const {
-	useFindOneQuery: useFindOneVenueQuery,
-	useUpdateMutation: useUpdateVenueMutation,
-	useDeleteMutation: useDeleteVenueMutation
-} = venueApiSlice;
-
 const initialValues: UpdateVenueBodyDto = {
 	name: '',
 	latitude: 0,
@@ -57,8 +51,8 @@ export const EditVenuePageProvider: React.FC<ProviderProps> = ({
 }) => {
 	const route = useRoute<EditVenuePageRouteProp>();
 
-	const [editVenue] = useUpdateVenueMutation();
-	const [deleteVenue] = useDeleteVenueMutation();
+	const [editVenue] = venueApiSlice.useUpdateMutation();
+	const [deleteVenue] = venueApiSlice.useDeleteMutation();
 
 	const { back } = useNavigation();
 
@@ -66,7 +60,9 @@ export const EditVenuePageProvider: React.FC<ProviderProps> = ({
 		data: venueData,
 		error: venueError,
 		isLoading: venueIsLoading
-	} = useFindOneVenueQuery({ params: { venue_id: route.params.venueId } });
+	} = venueApiSlice.useFindOneQuery({
+		params: { venue_id: route.params.venueId }
+	});
 
 	const formMethods = useForm<UpdateVenueBodyDto>({
 		defaultValues: initialValues

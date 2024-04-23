@@ -4,8 +4,6 @@ import { createUseContextHook, usePersona } from '@hooks';
 import { ProviderProps } from '@types';
 import React, { createContext } from 'react';
 
-const { useMeQuery } = userApiSlice;
-
 export type UserAppContextType = {
 	user?: User;
 	error: any;
@@ -15,7 +13,7 @@ export type UserAppContextType = {
 export const UserAppContext = createContext({} as UserAppContextType);
 
 export const UserAppProvider: React.FC<ProviderProps> = ({ children }) => {
-	const { data, error, isLoading } = useMeQuery();
+	const { data, error, isLoading } = userApiSlice.useMeQuery();
 	const { initializePersona } = usePersona();
 	if (data) initializePersona(data.user_id);
 

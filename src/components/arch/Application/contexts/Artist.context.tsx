@@ -3,9 +3,7 @@ import { Artist } from '@flux/api/artist/artist.entity';
 import { createUseContextHook, useAuth } from '@hooks';
 import { ApiIdentifier, Persona, ProviderProps } from '@types';
 import React, { createContext } from 'react';
-import { usePersonaAppContext } from './PersonaAppContext';
-
-const { useFindOneQuery } = artistApiSlice;
+import { usePersonaAppContext } from './Persona.context';
 
 export type ArtistAppContextType = {
 	artist?: Artist;
@@ -24,7 +22,7 @@ export const ArtistAppProvider: React.FC<ProviderProps> = ({ children }) => {
 		return <></>;
 	}
 
-	const { data, error, isLoading } = useFindOneQuery({
+	const { data, error, isLoading } = artistApiSlice.useFindOneQuery({
 		params: { artist_id: personaId }
 	});
 

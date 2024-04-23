@@ -4,8 +4,6 @@ import { SheetApi, createUseContextHook, useSheet } from '@hooks';
 import { ProviderProps } from '@types';
 import React, { createContext } from 'react';
 
-const { useFindAllQuery } = eventApiSlice;
-
 export type EventManagerPageContextType = {
 	eventsData: FindAllEventsResponseDto[];
 	eventsError: any;
@@ -24,7 +22,7 @@ export const EventManagerPageProvider: React.FC<ProviderProps> = ({
 		data: eventsData,
 		error: eventsError,
 		isLoading: eventsIsLoading
-	} = useFindAllQuery({ query: { page: 1, limit: 10 } });
+	} = eventApiSlice.useFindAllQuery({ query: { page: 1, limit: 10 } });
 
 	const createEventStartSheetApi = useSheet();
 

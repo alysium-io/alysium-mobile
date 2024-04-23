@@ -1,8 +1,6 @@
 import { artistApiSlice } from '@flux/api/artist';
 import { useTextInput } from '@hooks';
 
-const { useCreateMutation } = artistApiSlice;
-
 interface IUseCreateArtist {
 	newArtistText: React.RefObject<string>;
 	setNewArtistText: (newArtistName: string) => void;
@@ -17,7 +15,7 @@ const useCreateArtist = (): IUseCreateArtist => {
 		reset: resetNewArtistText
 	} = useTextInput();
 
-	const [createArtist] = useCreateMutation();
+	const [createArtist] = artistApiSlice.useCreateMutation();
 
 	const submitNewArtist = () => {
 		if (newArtistText.current)

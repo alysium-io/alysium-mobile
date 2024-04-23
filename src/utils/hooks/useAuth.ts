@@ -4,8 +4,6 @@ import { authActions } from '@flux/local/auth';
 import { AuthStage, AuthState } from '@types';
 import usePersistedAppState from './usePersistedAppState';
 
-const { useLazyLoginQuery } = userApiSlice;
-
 interface IUseAuth {
 	login: (email: string, password: string) => Promise<void>;
 	logout: () => void;
@@ -14,7 +12,7 @@ interface IUseAuth {
 }
 
 const useAuth = (): IUseAuth => {
-	const [lazyLoginQuery] = useLazyLoginQuery();
+	const [lazyLoginQuery] = userApiSlice.useLazyLoginQuery();
 
 	const auth: AuthState = useSelector((state) => state.auth);
 	const dispatch = useDispatch();

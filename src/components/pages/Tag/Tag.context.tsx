@@ -6,8 +6,6 @@ import { useRoute } from '@react-navigation/native';
 import { ProviderProps, TagPageRouteProp } from '@types';
 import React, { createContext } from 'react';
 
-const { useFindOneQuery } = tagApiSlice;
-
 export type TagPageContextType = {
 	tagData: FindOneTagResponseDto;
 	isTagDataLoading: boolean;
@@ -27,7 +25,7 @@ export const TagPageContextProvider: React.FC<ProviderProps> = ({
 		data: tagData,
 		isLoading: isTagDataLoading,
 		isError: isTagDataError
-	} = useFindOneQuery({ params: { tag_id: route.params.tagId } });
+	} = tagApiSlice.useFindOneQuery({ params: { tag_id: route.params.tagId } });
 
 	const moreSheetApi = useSheet();
 

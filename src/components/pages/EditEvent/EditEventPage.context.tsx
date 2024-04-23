@@ -37,9 +37,6 @@ const initialValues: EditEventAttributes = {
 	doors_open_time: null
 };
 
-const { useFindOneQuery: useFindOneEventQuery } = eventApiSlice;
-const { useFindAllQuery: useFindAllVenuesQuery } = venueApiSlice;
-
 export type EditEventPageContextType = {
 	eventId: ApiIdentifier;
 	eventData: FindOneEventResponseDto;
@@ -81,13 +78,15 @@ export const EditEventPageProvider: React.FC<ProviderProps> = ({
 		data: eventData,
 		error: eventError,
 		isLoading: eventIsLoading
-	} = useFindOneEventQuery({ params: { event_id: route.params.eventId } });
+	} = eventApiSlice.useFindOneQuery({
+		params: { event_id: route.params.eventId }
+	});
 
 	const {
 		data: venuesData,
 		error: venuesError,
 		isLoading: venuesIsLoading
-	} = useFindAllVenuesQuery({ query: { page: 1, limit: 10 } });
+	} = venueApiSlice.useFindAllQuery({ query: { page: 1, limit: 10 } });
 
 	const formMethods = useForm<EditEventAttributes>({
 		defaultValues: initialValues

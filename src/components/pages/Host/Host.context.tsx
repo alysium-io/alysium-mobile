@@ -5,8 +5,6 @@ import { useRoute } from '@react-navigation/native';
 import { HostPageRouteProp, ProviderProps } from '@types';
 import React, { createContext } from 'react';
 
-const { useFindOneQuery } = hostApiSlice;
-
 export type HostPageContextType = {
 	moreSheetApi: SheetApi;
 	notificationsSheetApi: SheetApi;
@@ -27,7 +25,7 @@ export const HostPageProvider: React.FC<ProviderProps> = ({ children }) => {
 		data: hostData,
 		isLoading: hostIsLoading,
 		error: hostError
-	} = useFindOneQuery({
+	} = hostApiSlice.useFindOneQuery({
 		params: { host_id: route.params.hostId }
 	});
 

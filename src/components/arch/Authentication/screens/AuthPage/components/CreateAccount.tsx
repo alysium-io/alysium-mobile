@@ -5,8 +5,6 @@ import React, { useState } from 'react';
 import { Keyboard, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import { FadeIn, FadeOut } from 'react-native-reanimated';
 
-const { useCreateMutation } = userApiSlice;
-
 interface CreateAccountProps {
 	toggleAuthScreen: () => void;
 }
@@ -16,7 +14,7 @@ const CreateAccount: React.FC<CreateAccountProps> = ({ toggleAuthScreen }) => {
 	const [name, setName] = useState<string>('');
 	const [password, setPassword] = useState<string>('');
 
-	const [createAccount] = useCreateMutation();
+	const [createAccount] = userApiSlice.useCreateMutation();
 
 	return (
 		<View

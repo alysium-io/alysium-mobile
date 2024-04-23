@@ -5,8 +5,6 @@ import { ApiIdentifier, Persona, ProviderProps } from '@types';
 import React, { createContext } from 'react';
 import { usePersonaAppContext } from './Persona.context';
 
-const { useFindOneQuery } = hostApiSlice;
-
 export type HostAppContextType = {
 	host?: Host;
 	error: any;
@@ -24,7 +22,7 @@ export const HostAppProvider: React.FC<ProviderProps> = ({ children }) => {
 		return <></>;
 	}
 
-	const { data, error, isLoading } = useFindOneQuery({
+	const { data, error, isLoading } = hostApiSlice.useFindOneQuery({
 		params: { host_id: personaId }
 	});
 

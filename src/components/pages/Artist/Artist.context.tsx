@@ -4,8 +4,6 @@ import { useRoute } from '@react-navigation/native';
 import { ArtistPageRouteProp, ProviderProps } from '@types';
 import React, { createContext } from 'react';
 
-const { useFindOneQuery } = artistApiSlice;
-
 export type ArtistPageContextType = {
 	moreSheetApi: SheetApi;
 	notificationsSheetApi: SheetApi;
@@ -26,7 +24,7 @@ export const ArtistPageProvider: React.FC<ProviderProps> = ({ children }) => {
 		data: artistData,
 		isLoading: artistIsLoading,
 		error: artistError
-	} = useFindOneQuery({
+	} = artistApiSlice.useFindOneQuery({
 		params: { artist_id: route.params.artistId }
 	});
 

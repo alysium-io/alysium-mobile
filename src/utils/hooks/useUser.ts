@@ -3,14 +3,12 @@ import { GetMeResponseDto } from '@flux/api/user/dto/user-me.dto';
 import { AuthStage } from '@types';
 import useAuth from './useAuth';
 
-const { useLazyMeQuery } = userApiSlice;
-
 interface IUseUser {
 	me: () => Promise<GetMeResponseDto | undefined>;
 }
 
 const useUser = (): IUseUser => {
-	const [lazyMeQuery] = useLazyMeQuery();
+	const [lazyMeQuery] = userApiSlice.useLazyMeQuery();
 
 	const { setAuthStage } = useAuth();
 

@@ -5,8 +5,6 @@ import { SheetApi, useButton, useNavigation, useTextInput } from '@hooks';
 import { Button, TextInput } from '@molecules';
 import { BottomSheet, BottomSheetHeader } from '@organisms';
 import React, { useState } from 'react';
-
-const { useCreateMutation: useCreateEventMutation } = eventApiSlice;
 interface CreateEventStartBottomSheetProps {
 	sheetApi: SheetApi;
 }
@@ -22,7 +20,7 @@ const CreateEventStartBottomSheet: React.FC<
 
 	const [eventName, setEventName] = useState<string>('');
 
-	const [createEvent] = useCreateEventMutation();
+	const [createEvent] = eventApiSlice.useCreateMutation();
 
 	const _setEventName = (text: string) => {
 		setEventName(text);

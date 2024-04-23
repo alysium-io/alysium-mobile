@@ -1,8 +1,6 @@
 import { hostApiSlice } from '@flux/api/host';
 import { useTextInput } from '@hooks';
 
-const { useCreateMutation } = hostApiSlice;
-
 interface IUseCreateHost {
 	newHostText: React.RefObject<string>;
 	setNewHostText: (newHostName: string) => void;
@@ -17,7 +15,7 @@ const useCreateHost = (): IUseCreateHost => {
 		reset: resetNewHostText
 	} = useTextInput();
 
-	const [createHost] = useCreateMutation();
+	const [createHost] = hostApiSlice.useCreateMutation();
 
 	const submitNewHost = () => {
 		if (newHostText.current)

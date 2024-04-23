@@ -5,8 +5,6 @@ import { ProviderProps } from '@types';
 import React, { createContext, useState } from 'react';
 import useSearch from 'src/utils/hooks/useSearch';
 
-const { useSearchArtistsQuery } = searchApiSlice;
-
 export type SearchPageContextType = {
 	searchText: string;
 	setSearchText: (text: string) => void;
@@ -41,7 +39,7 @@ export const SearchPageProvider: React.FC<ProviderProps> = ({ children }) => {
 		data: searchResults,
 		isLoading,
 		error
-	} = useSearchArtistsQuery(
+	} = searchApiSlice.useSearchArtistsQuery(
 		{ body: { q: searchText } },
 		{ skip: searchText.length === 0 }
 	);

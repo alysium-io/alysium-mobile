@@ -5,8 +5,6 @@ import { useRoute } from '@react-navigation/native';
 import { EventPageRouteProp, ProviderProps } from '@types';
 import React, { createContext } from 'react';
 
-const { useFindOneQuery } = eventApiSlice;
-
 export type EventPageContextType = {
 	eventData: FindOneEventResponseDto;
 	eventError: any;
@@ -22,7 +20,9 @@ export const EventPageProvider: React.FC<ProviderProps> = ({ children }) => {
 		data: eventData,
 		error: eventError,
 		isLoading: eventIsLoading
-	} = useFindOneQuery({ params: { event_id: route.params.eventId } });
+	} = eventApiSlice.useFindOneQuery({
+		params: { event_id: route.params.eventId }
+	});
 
 	if (!eventData) {
 		return <></>;
