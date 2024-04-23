@@ -14,7 +14,7 @@ const apiSlice = createApi({
 			CreateMediaResponseDto,
 			{ body: CreateMediaBodyDto }
 		>({
-			query: (body) => ({
+			query: ({ body }) => ({
 				url: '/',
 				method: 'POST',
 				body

@@ -8,14 +8,14 @@ import { useProfilePageContext } from '../Profile.context';
 import UsernameDisplay from './UsernameDisplay';
 
 const HeaderSection = () => {
-	const { user } = useUserAppContext();
+	const { userData } = useUserAppContext();
 	const { changeProfileImage } = useProfilePageContext();
 	const { personaType } = usePersona();
 
 	return (
 		<Section margin='m' alignItems='center'>
 			<EditableProfileImage
-				image={user?.profile_image?.url || ''}
+				image={userData.profile_image?.url || ''}
 				onChooseImage={changeProfileImage}
 			/>
 			<View margin='m' alignItems='center'>

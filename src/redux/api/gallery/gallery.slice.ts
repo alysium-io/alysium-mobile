@@ -14,7 +14,7 @@ const apiSlice = createApi({
 			CreateGalleryResponseDto,
 			{ body: CreateGalleryBodyDto }
 		>({
-			query: (body) => ({
+			query: ({ body }) => ({
 				url: '/',
 				method: 'POST',
 				body

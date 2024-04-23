@@ -63,7 +63,7 @@ const apiSlice = createApi({
 			CreateVenueResponseDto,
 			{ body: CreateVenueBodyDto }
 		>({
-			query: (body) => ({
+			query: ({ body }) => ({
 				url: '/',
 				method: 'POST',
 				body

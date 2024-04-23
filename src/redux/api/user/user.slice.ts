@@ -41,7 +41,7 @@ const apiSlice = createApi({
 			CreateUserResponseDto,
 			{ body: CreateUserBodyDto }
 		>({
-			query: (body) => ({
+			query: ({ body }) => ({
 				url: '/',
 				method: 'POST',
 				body

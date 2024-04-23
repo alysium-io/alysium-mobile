@@ -7,30 +7,30 @@ import { Persona } from '@types';
 import React from 'react';
 
 const SelectAccountSection = () => {
-	const { user } = useUserAppContext();
+	const { userData, userArtists, userHosts } = useUserAppContext();
 	const { personaType, personaId, changePersona } = usePersonaAppContext();
 	return (
 		<Section marginBottom='xl'>
 			<View marginHorizontal='m'>
 				<SectionHeader text='Select Account' titleVariant='large' />
 			</View>
-			{user && (
+			{userData && (
 				<ContentListItem
-					key={user.user_id}
-					title={user.name || 'Unknown'}
+					key={userData.user_id}
+					title={userData.name || 'Unknown'}
 					subtitle={'user'}
-					onPress={() => changePersona(Persona.user, user.user_id)}
+					onPress={() => changePersona(Persona.user, userData.user_id)}
 					contentType={Persona.user}
 					image={'https://www.w3schools.com/howto/img_avatar.png'}
 					border
 					markerIcon={
-						personaType === Persona.user && personaId === user.user_id
+						personaType === Persona.user && personaId === userData.user_id
 							? 'checkmark'
 							: undefined
 					}
 				/>
 			)}
-			{user?.artists?.map((artist) => (
+			{userArtists.map((artist) => (
 				<ContentListItem
 					key={artist.artist_id}
 					title={artist.name}
@@ -49,7 +49,7 @@ const SelectAccountSection = () => {
 					}
 				/>
 			))}
-			{user?.hosts?.map((host) => (
+			{userHosts.map((host) => (
 				<ContentListItem
 					key={host.host_id}
 					title={host.name}

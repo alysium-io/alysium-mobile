@@ -63,7 +63,7 @@ const apiSlice = createApi({
 			CreateArtistResponseDto,
 			{ body: CreateArtistBodyDto }
 		>({
-			query: (body) => ({
+			query: ({ body }) => ({
 				url: '/',
 				method: 'POST',
 				body

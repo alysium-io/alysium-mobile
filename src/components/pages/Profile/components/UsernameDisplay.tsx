@@ -4,17 +4,16 @@ import { usePersona } from '@hooks';
 import { Persona } from '@types';
 import React from 'react';
 
-
 const UsernameDisplay = () => {
 	const { personaType } = usePersona();
-	const { user } = useUserAppContext();
+	const { userData } = useUserAppContext();
 
 	if (personaType === Persona.user) {
 		return (
 			<View flexDirection='row' alignItems='center'>
 				<Icon name='at' size='small' color='t1' />
 				<Text variant='paragraph-large-medium' marginLeft='xs'>
-					{user?.email}
+					{userData.email}
 				</Text>
 			</View>
 		);

@@ -23,11 +23,8 @@ const apiSlice = createApi({
 				{ type: 'Tag', id: params.tag_id }
 			]
 		}),
-		create: builder.mutation<
-			CreateTagResponseDto,
-			{ body: CreateTagBodyDto }
-		>({
-			query: (body) => ({
+		create: builder.mutation<CreateTagResponseDto, { body: CreateTagBodyDto }>({
+			query: ({ body }) => ({
 				url: '/',
 				method: 'POST',
 				body

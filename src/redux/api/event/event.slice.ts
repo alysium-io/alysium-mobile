@@ -56,14 +56,14 @@ const apiSlice = createApi({
 								id: event_id
 							})),
 							{ type: 'Event', id: 'LIST' }
-					  ]
+						]
 					: [{ type: 'Event', id: 'LIST' }]
 		}),
 		create: builder.mutation<
 			CreateEventResponseDto,
 			{ body: CreateEventBodyDto }
 		>({
-			query: (body) => ({
+			query: ({ body }) => ({
 				url: '/',
 				method: 'POST',
 				body

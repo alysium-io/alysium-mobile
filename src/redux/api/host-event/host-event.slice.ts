@@ -18,7 +18,7 @@ const apiSlice = createApi({
 			CreateHostEventResponseDto,
 			{ body: CreateHostEventBodyDto }
 		>({
-			query: (body) => ({
+			query: ({ body }) => ({
 				url: '/',
 				method: 'POST',
 				body

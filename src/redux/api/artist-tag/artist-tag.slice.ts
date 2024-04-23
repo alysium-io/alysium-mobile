@@ -18,7 +18,7 @@ const apiSlice = createApi({
 			CreateArtistTagResponseDto,
 			{ body: CreateArtistTagBodyDto }
 		>({
-			query: (body) => ({
+			query: ({ body }) => ({
 				url: '/',
 				method: 'POST',
 				body
