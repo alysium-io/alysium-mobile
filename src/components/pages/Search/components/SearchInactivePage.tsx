@@ -4,7 +4,7 @@ import { SectionHeader } from '@molecules';
 import { BlockListItem, CategoricalListItemForContentType } from '@organisms';
 import { ContentType } from '@types';
 import React from 'react';
-import { FadeInUp, FadeOutDown } from 'react-native-reanimated';
+import { FadeInUp, FadeOut } from 'react-native-reanimated';
 
 const SearchInactivePage = () => {
 	const { locationPage } = useNavigation();
@@ -13,7 +13,7 @@ const SearchInactivePage = () => {
 		<View
 			animated
 			entering={FadeInUp.duration(250)}
-			exiting={FadeOutDown.duration(250)}
+			exiting={FadeOut.duration(250)}
 		>
 			<Section marginBottom='l'>
 				<CategoricalListItemForContentType

@@ -1,6 +1,7 @@
 import { HeaderSafeArea, ScrollView, View } from '@atomic';
 import { BasePage, SearchBar } from '@organisms';
 import React from 'react';
+import { LayoutAnimationConfig } from 'react-native-reanimated';
 import { SearchPageProvider, useSearchPageContext } from './Search.context';
 import { SearchActivePage, SearchInactivePage } from './components';
 
@@ -23,11 +24,13 @@ const SearchPage = () => {
 							setIsActive={setIsSearchActive}
 						/>
 					</View>
-					{isSearchActive ? (
-						<SearchActivePage key='active' />
-					) : (
-						<SearchInactivePage key='inactive' />
-					)}
+					<LayoutAnimationConfig skipEntering>
+						{isSearchActive ? (
+							<SearchActivePage key='active' />
+						) : (
+							<SearchInactivePage key='inactive' />
+						)}
+					</LayoutAnimationConfig>
 				</ScrollView>
 			</HeaderSafeArea>
 		</BasePage>

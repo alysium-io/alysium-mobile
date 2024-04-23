@@ -10,7 +10,7 @@
 		"test": "jest",
 		"lint": "eslint . --ext .js,.jsx,.ts,.tsx",
 		"clean": "rm -rf node_modules",
-		"start:reset": "watchman watch-del '/Users/alecmather/Desktop/projects/alysium-mobile' ; watchman watch-project '/Users/alecmather/Desktop/projects/alysium-mobile' && yarn cache clean && yarn start --reset-cache",
+		"start:clean": "watchman watch-del-all && yarn cache clean && yarn start --reset-cache",
 		"increment-package-json-build-number": "node ./tools/increment-build-number.js",
 		"check-git-clean": "git diff-index --quiet HEAD -- || (echo \"You have uncommitted changes. Please commit or stash them.\"; exit 1)",
 		"tag-version": "git tag v$(node -p -e \"require('./package.json').version + '(' + require('./package.json').build_number + ')'\")",
