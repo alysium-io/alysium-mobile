@@ -1,6 +1,6 @@
 import { MenuListItem } from '@organisms';
 import React from 'react';
-import { useEditEventPageContext } from '../EditEventPage.context';
+import { useEditEventPageContext } from '../EditEvent.context';
 
 const CandidatesItem = () => {
 	const { goToEventCandidatesPage } = useEditEventPageContext();

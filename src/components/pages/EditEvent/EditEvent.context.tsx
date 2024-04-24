@@ -106,12 +106,11 @@ export const EditEventPageProvider: React.FC<ProviderProps> = ({
 	const loadForm = () => {
 		if (eventData) {
 			formMethods.reset({
-				// name: eventData.data.attributes.name,
-				// venue: eventData.data.attributes.venue?.data?.id ?? null,
-				// start_time: eventData.data.attributes.start_time ?? null,
-				// end_time: eventData.data.attributes.end_time ?? null,
-				// doors_open_time:
-				// 	eventData.data.attributes.doors_open_time ?? null
+				name: eventData.name,
+				venue: 1 ?? null,
+				start_time: eventData.start_time ?? null,
+				end_time: eventData.end_time ?? null,
+				doors_open_time: eventData.doors_open_time ?? null
 			});
 		}
 	};

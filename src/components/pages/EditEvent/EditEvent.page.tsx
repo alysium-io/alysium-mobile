@@ -4,7 +4,7 @@ import React, { useEffect } from 'react';
 import {
 	EditEventPageProvider,
 	useEditEventPageContext
-} from './EditEventPage.context';
+} from './EditEvent.context';
 import {
 	CandidatesItem,
 	CreateVenueBottomSheet,

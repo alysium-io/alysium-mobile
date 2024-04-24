@@ -4,7 +4,7 @@ import { DatetimePickerWithModal, MenuListItem } from '@organisms';
 import day from 'dayjs';
 import React, { useState } from 'react';
 import { Controller } from 'react-hook-form';
-import { useEditEventPageContext } from '../EditEventPage.context';
+import { useEditEventPageContext } from '../EditEvent.context';
 
 type EventDateState = {
 	startTimeOpen: boolean;

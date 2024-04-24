@@ -7,7 +7,7 @@ import {
 } from '@organisms';
 import { ApiIdentifier } from '@types';
 import React from 'react';
-import { useEditEventPageContext } from '../EditEventPage.context';
+import { useEditEventPageContext } from '../EditEvent.context';
 
 const SelectVenueSection = () => {
 	const { createVenueSheetApi, venuesData, onChangeVenue } =

@@ -32,6 +32,7 @@ const CreateEventStartBottomSheet: React.FC<
 	};
 
 	const _createEvent = async () => {
+		console.log(hostId);
 		const data = await createEvent({
 			body: {
 				host_id: hostId,

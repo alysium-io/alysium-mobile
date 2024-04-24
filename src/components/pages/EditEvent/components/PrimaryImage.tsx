@@ -1,7 +1,7 @@
 import { View } from '@atomic';
 import { EditableProfileImage } from '@molecules';
 import React from 'react';
-import { useEditEventPageContext } from '../EditEventPage.context';
+import { useEditEventPageContext } from '../EditEvent.context';
 
 const PrimaryImage = () => {
 	const { eventData, changeEventImage } = useEditEventPageContext();

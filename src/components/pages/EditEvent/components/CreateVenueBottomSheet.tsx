@@ -3,7 +3,7 @@ import { SheetApi, useButton, useTextInput } from '@hooks';
 import { Button, TextInput } from '@molecules';
 import { BottomSheet, BottomSheetHeader } from '@organisms';
 import React, { useState } from 'react';
-import { useEditEventPageContext } from '../EditEventPage.context';
+import { useEditEventPageContext } from '../EditEvent.context';
 
 interface CreateVenueStartBottomSheetProps {
 	sheetApi: SheetApi;
@@ -14,7 +14,10 @@ const CreateVenueStartBottomSheet: React.FC<
 > = ({ sheetApi }) => {
 	const { createVenueSheetApi } = useEditEventPageContext();
 	// const { createVenue } = useVenues();
-	const createVenue = () => console.log('CreateVenueBottomSheet.tsx: createVenue() not implemented yet.')
+	const createVenue = () =>
+		console.log(
+			'CreateVenueBottomSheet.tsx: createVenue() not implemented yet.'
+		);
 
 	const textInputApi = useTextInput();
 	const { buttonState: createVenueButtonState, setButtonState } =

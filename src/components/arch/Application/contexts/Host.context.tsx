@@ -6,9 +6,9 @@ import React, { createContext } from 'react';
 import { usePersonaAppContext } from './Persona.context';
 
 export type HostAppContextType = {
-	host?: Host;
-	error: any;
-	isLoading: boolean;
+	hostData: Host;
+	hostError: any;
+	hostIsLoading: boolean;
 	hostId: ApiIdentifier;
 };
 
@@ -22,16 +22,24 @@ export const HostAppProvider: React.FC<ProviderProps> = ({ children }) => {
 		return <></>;
 	}
 
-	const { data, error, isLoading } = hostApiSlice.useFindOneQuery({
+	const {
+		data: hostData,
+		error: hostError,
+		isLoading: hostIsLoading
+	} = hostApiSlice.useFindOneQuery({
 		params: { host_id: personaId }
 	});
+
+	if (!hostData) {
+		return <></>;
+	}
 
 	return (
 		<HostAppContext.Provider
 			value={{
-				host: data,
-				error,
-				isLoading,
+				hostData,
+				hostError,
+				hostIsLoading,
 				hostId: personaId
 			}}
 		>

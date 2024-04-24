@@ -2,7 +2,7 @@ import { View } from '@atomic';
 import { LargeTextInput } from '@molecules';
 import React from 'react';
 import { Controller } from 'react-hook-form';
-import { useEditEventPageContext } from '../EditEventPage.context';
+import { useEditEventPageContext } from '../EditEvent.context';
 
 const defaultEventName = 'Event name';
 
@@ -15,15 +15,18 @@ const EventName = () => {
 				name='name'
 				control={formMethods.control}
 				rules={{ required: true }}
-				render={({ field: { onChange, onBlur, value } }) => (
-					<LargeTextInput
-						placeholder={defaultEventName}
-						onChangeText={onChange}
-						textAlign='center'
-						onBlur={onBlur}
-						value={value}
-					/>
-				)}
+				render={({ field: { onChange, onBlur, value } }) => {
+					console.log(value);
+					return (
+						<LargeTextInput
+							placeholder={defaultEventName}
+							onChangeText={onChange}
+							textAlign='center'
+							onBlur={onBlur}
+							value={value}
+						/>
+					);
+				}}
 			/>
 		</View>
 	);
