@@ -1,4 +1,4 @@
-import { ApiIdentifier } from 'src/types';
+import { ApiIdentifier } from '@types';
 import { Media, MediaRefType } from '../media.entity';
 
 export interface CreateMediaBodyDto {

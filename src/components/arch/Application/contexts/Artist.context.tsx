@@ -1,38 +1,57 @@
 import { artistApiSlice } from '@flux/api/artist';
 import { Artist } from '@flux/api/artist/artist.entity';
-import { createUseContextHook, useAuth } from '@hooks';
-import { ApiIdentifier, Persona, ProviderProps } from '@types';
+import { MediaRefType } from '@flux/api/media/media.entity';
+import { createUseContextHook, useMedia } from '@hooks';
+import { ProviderProps } from '@types';
 import React, { createContext } from 'react';
+import { Asset } from 'react-native-image-picker';
 import { usePersonaAppContext } from './Persona.context';
 
 export type ArtistAppContextType = {
-	artist?: Artist;
-	error: any;
-	isLoading: boolean;
-	artistId: ApiIdentifier;
+	artistData: Artist;
+	artistError: any;
+	artistIsLoading: boolean;
+	setArtistProfileImage: (image: Asset) => void;
 };
 
 export const ArtistAppContext = createContext({} as ArtistAppContextType);
 
 export const ArtistAppProvider: React.FC<ProviderProps> = ({ children }) => {
-	const { personaId, personaType } = usePersonaAppContext();
-	const { logout } = useAuth();
-	if (personaType !== Persona.artist || personaId === null) {
-		logout();
-		return <></>;
-	}
+	const { personaId } = usePersonaAppContext();
 
-	const { data, error, isLoading } = artistApiSlice.useFindOneQuery({
+	const {
+		data: artistData,
+		error: artistError,
+		isLoading: artistIsLoading
+	} = artistApiSlice.useFindOneQuery({
 		params: { artist_id: personaId }
 	});
+
+	const { uploadMedia } = useMedia();
+	const setArtistProfileImage = (image: Asset) => {
+		if (artistData) {
+			uploadMedia(
+				{
+					ref: MediaRefType.artist,
+					refId: artistData.artist_id,
+					field: 'profile_image'
+				},
+				image
+			);
+		}
+	};
+
+	if (!artistData) {
+		return <></>;
+	}
 
 	return (
 		<ArtistAppContext.Provider
 			value={{
-				artist: data,
-				error,
-				isLoading,
-				artistId: personaId
+				artistData,
+				artistError,
+				artistIsLoading,
+				setArtistProfileImage
 			}}
 		>
 			{children}

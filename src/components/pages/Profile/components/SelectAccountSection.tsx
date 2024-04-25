@@ -21,7 +21,10 @@ const SelectAccountSection = () => {
 					subtitle={'user'}
 					onPress={() => changePersona(Persona.user, userData.user_id)}
 					contentType={Persona.user}
-					image={'https://www.w3schools.com/howto/img_avatar.png'}
+					image={
+						userData.profile_image?.url ||
+						'https://www.w3schools.com/howto/img_avatar.png'
+					}
 					border
 					markerIcon={
 						personaType === Persona.user && personaId === userData.user_id

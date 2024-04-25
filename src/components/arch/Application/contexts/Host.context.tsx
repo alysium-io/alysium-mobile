@@ -1,26 +1,23 @@
 import { hostApiSlice } from '@flux/api/host';
 import { Host } from '@flux/api/host/host.entity';
-import { createUseContextHook, useAuth } from '@hooks';
-import { ApiIdentifier, Persona, ProviderProps } from '@types';
+import { MediaRefType } from '@flux/api/media/media.entity';
+import { createUseContextHook, useMedia } from '@hooks';
+import { ProviderProps } from '@types';
 import React, { createContext } from 'react';
+import { Asset } from 'react-native-image-picker';
 import { usePersonaAppContext } from './Persona.context';
 
 export type HostAppContextType = {
 	hostData: Host;
 	hostError: any;
 	hostIsLoading: boolean;
-	hostId: ApiIdentifier;
+	setHostProfileImage: (image: Asset) => void;
 };
 
 export const HostAppContext = createContext({} as HostAppContextType);
 
 export const HostAppProvider: React.FC<ProviderProps> = ({ children }) => {
-	const { personaId, personaType } = usePersonaAppContext();
-	const { logout } = useAuth();
-	if (personaType !== Persona.host || personaId === null) {
-		logout();
-		return <></>;
-	}
+	const { personaId } = usePersonaAppContext();
 
 	const {
 		data: hostData,
@@ -29,6 +26,20 @@ export const HostAppProvider: React.FC<ProviderProps> = ({ children }) => {
 	} = hostApiSlice.useFindOneQuery({
 		params: { host_id: personaId }
 	});
+
+	const { uploadMedia } = useMedia();
+	const setHostProfileImage = (image: Asset) => {
+		if (hostData) {
+			uploadMedia(
+				{
+					ref: MediaRefType.host,
+					refId: hostData.host_id,
+					field: 'profile_image'
+				},
+				image
+			);
+		}
+	};
 
 	if (!hostData) {
 		return <></>;
@@ -40,7 +51,7 @@ export const HostAppProvider: React.FC<ProviderProps> = ({ children }) => {
 				hostData,
 				hostError,
 				hostIsLoading,
-				hostId: personaId
+				setHostProfileImage
 			}}
 		>
 			{children}

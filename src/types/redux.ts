@@ -1,12 +1,12 @@
 import { Artist } from '@flux/api/artist/artist.entity';
 import { Event } from '@flux/api/event/event.entity';
 import { Host } from '@flux/api/host/host.entity';
+import { Search } from '@flux/api/search';
 import { User } from '@flux/api/user/user.entity';
 import { Venue } from '@flux/api/venue/venue.entity';
 import { ApiIdentifier } from './api';
 import { Persona } from './enums';
 import { ThemeMode } from './restyle';
-import { SearchItem } from './search';
 import { ThemeNames } from './themes';
 
 export enum AuthStage {
@@ -22,7 +22,7 @@ export type AppState = {
 	personaId: ApiIdentifier | null;
 	themeName: ThemeNames;
 	mode: ThemeMode;
-	recentSearches: SearchItem[];
+	recentSearches: Search[];
 };
 
 export type AuthState = {
@@ -51,7 +51,7 @@ export type HostState = {
 
 export type GeneralState = {
 	token: string | null;
-	recentSearches: SearchItem[];
+	recentSearches: Search[];
 	personaId: ApiIdentifier | null;
 	personaType: Persona | null;
 };

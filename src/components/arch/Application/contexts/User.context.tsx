@@ -2,11 +2,13 @@ import { artistApiSlice } from '@flux/api/artist';
 import { FindAllArtistsResponseDto } from '@flux/api/artist/dto/artist-find-all.dto';
 import { hostApiSlice } from '@flux/api/host';
 import { FindAllHostsResponseDto } from '@flux/api/host/dto/host-find-all.dto';
+import { MediaRefType } from '@flux/api/media/media.entity';
 import { userApiSlice } from '@flux/api/user';
 import { User } from '@flux/api/user/user.entity';
-import { createUseContextHook, usePersona } from '@hooks';
+import { createUseContextHook, useMedia, usePersona } from '@hooks';
 import { ProviderProps } from '@types';
 import React, { createContext } from 'react';
+import { Asset } from 'react-native-image-picker';
 
 export type UserAppContextType = {
 	userData: User;
@@ -18,6 +20,7 @@ export type UserAppContextType = {
 	userHosts: FindAllHostsResponseDto[];
 	userHostsError: any;
 	userHostsIsLoading: boolean;
+	setUserProfileImage: (image: Asset) => void;
 };
 
 export const UserAppContext = createContext({} as UserAppContextType);
@@ -34,6 +37,18 @@ export const UserAppProvider: React.FC<ProviderProps> = ({ children }) => {
 	if (!userData) {
 		return <></>;
 	}
+
+	const { uploadMedia } = useMedia();
+	const setUserProfileImage = (image: Asset) => {
+		uploadMedia(
+			{
+				ref: MediaRefType.user,
+				refId: userData.user_id,
+				field: 'profile_image'
+			},
+			image
+		);
+	};
 
 	const {
 		data: userArtists,
@@ -62,7 +77,8 @@ export const UserAppProvider: React.FC<ProviderProps> = ({ children }) => {
 				userArtistsIsLoading,
 				userHosts,
 				userHostsError,
-				userHostsIsLoading
+				userHostsIsLoading,
+				setUserProfileImage
 			}}
 		>
 			{children}

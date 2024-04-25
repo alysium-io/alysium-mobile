@@ -12,6 +12,10 @@ const apiErrorUnauthorizedMiddleware: Middleware =
 		const isRejectedAction = action.type.endsWith('/rejected');
 
 		if (isRejectedAction) {
+			console.log('Rejected action');
+			console.log(action.type);
+			console.log(action.payload.data);
+			console.log(action.payload.data?.message);
 			const errorStatus = action?.payload?.status;
 			if (errorStatus === 400) {
 				console.log('Should log user out');

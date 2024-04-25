@@ -1,67 +1,23 @@
-import { useUserAppContext } from '@arch/Application/contexts/User.context';
-import { Section, View } from '@atomic';
+import { ConditionalRenderer } from '@atomic';
 import { usePersona } from '@hooks';
-import { DeclarativeText, EditableProfileImage } from '@molecules';
-import { Stats } from '@organisms';
+import { Persona } from '@types';
 import React from 'react';
-import { useProfilePageContext } from '../Profile.context';
-import UsernameDisplay from './UsernameDisplay';
+import ArtistHeaderSection from './HeaderSection.artist';
+import HostHeaderSection from './HeaderSection.host';
+import UserHeaderSection from './HeaderSection.user';
 
 const HeaderSection = () => {
-	const { userData } = useUserAppContext();
-	const { changeProfileImage } = useProfilePageContext();
 	const { personaType } = usePersona();
 
 	return (
-		<Section margin='m' alignItems='center'>
-			<EditableProfileImage
-				image={userData.profile_image?.url || ''}
-				onChooseImage={changeProfileImage}
-			/>
-			<View margin='m' alignItems='center'>
-				<UsernameDisplay />
-				<View marginTop='s'>
-					<DeclarativeText
-						textItems={[
-							{
-								variant: 'paragraph',
-								text: personaType,
-								color: 't3'
-							}
-						]}
-					/>
-				</View>
-				<View marginTop='m'>
-					<DeclarativeText
-						textItems={[
-							{
-								variant: 'paragraph-medium',
-								underline: true,
-								text: 'Edit Profile',
-								color: 'matt',
-								onPress: () => console.log('Edit Profile')
-							}
-						]}
-					/>
-				</View>
-				<View marginTop='m'>
-					<Stats
-						items={[
-							{
-								title: '42',
-								subtitle: 'shows',
-								onPress: () => console.log('shows')
-							},
-							{
-								title: '1.5k',
-								subtitle: 'followers',
-								onPress: () => console.log('shows')
-							}
-						]}
-					/>
-				</View>
-			</View>
-		</Section>
+		<ConditionalRenderer
+			componentKey={personaType}
+			componentMap={{
+				[Persona.artist]: ArtistHeaderSection,
+				[Persona.user]: UserHeaderSection,
+				[Persona.host]: HostHeaderSection
+			}}
+		/>
 	);
 };
 
