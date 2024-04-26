@@ -1,6 +1,7 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { Asset } from 'react-native-image-picker';
 import { artistApiSlice } from '../artist';
+import { eventApiSlice } from '../event';
 import { hostApiSlice } from '../host';
 import { userApiSlice } from '../user';
 import baseQueryConfig from '../utils/baseQueryConfig';
@@ -77,6 +78,19 @@ const apiSlice = createApi({
 							artistApiSlice.util.invalidateTags([
 								{ type: 'Artist', id: 'LIST' }
 							])
+						);
+					} else if (body.ref === MediaRefType.event) {
+						dispatch(
+							eventApiSlice.util.updateQueryData(
+								'findOne',
+								{ params: { event_id: body.refId } },
+								(draft) => {
+									draft.profile_image = result.data;
+								}
+							)
+						);
+						dispatch(
+							eventApiSlice.util.invalidateTags([{ type: 'Event', id: 'LIST' }])
 						);
 					}
 				} catch (error) {

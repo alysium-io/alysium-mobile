@@ -1,4 +1,4 @@
-import { ApiIdentifier } from 'src/types';
+import { ApiIdentifier } from '@types';
 import { ArtistTag } from '../artist-tag.entity';
 
 export interface DeleteArtistTagBodyDto {

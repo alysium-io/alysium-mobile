@@ -1,4 +1,4 @@
-import { ApiIdentifier } from 'src/types';
+import { ApiIdentifier } from '@types';
 import { User } from '../user.entity';
 
 export interface FindOneUserParamsDto {

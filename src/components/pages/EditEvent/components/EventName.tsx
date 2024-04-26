@@ -15,18 +15,15 @@ const EventName = () => {
 				name='name'
 				control={formMethods.control}
 				rules={{ required: true }}
-				render={({ field: { onChange, onBlur, value } }) => {
-					console.log(value);
-					return (
-						<LargeTextInput
-							placeholder={defaultEventName}
-							onChangeText={onChange}
-							textAlign='center'
-							onBlur={onBlur}
-							value={value}
-						/>
-					);
-				}}
+				render={({ field: { onChange, onBlur, value } }) => (
+					<LargeTextInput
+						placeholder={defaultEventName}
+						onChangeText={onChange}
+						textAlign='center'
+						onBlur={onBlur}
+						value={value}
+					/>
+				)}
 			/>
 		</View>
 	);

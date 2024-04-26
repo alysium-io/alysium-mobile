@@ -12,4 +12,8 @@ export interface Event {
 	start_time: string | null;
 	end_time: string | null;
 	doors_open_time: string | null;
+	serves_alcohol: boolean;
+	serves_food_and_drink: boolean;
+	has_security: boolean;
+	pets_allowed: boolean;
 }

@@ -1,4 +1,4 @@
-import { ApiIdentifier } from 'src/types';
+import { ApiIdentifier } from '@types';
 import { Location } from '../location.entity';
 
 export interface FindOneLocationParamsDto {

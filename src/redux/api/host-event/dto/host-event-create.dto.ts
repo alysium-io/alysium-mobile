@@ -1,4 +1,4 @@
-import { ApiIdentifier } from 'src/types';
+import { ApiIdentifier } from '@types';
 import { HostEvent } from '../host-event.entity';
 
 export interface CreateHostEventBodyDto {

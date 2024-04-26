@@ -82,21 +82,21 @@ const EventDateSection = () => {
 					title='Doors Open'
 					isOpen={state.doorsOpenTimeOpen}
 					toggleModal={() => toggleOpen('doorsOpenTimeOpen')}
-					onConfirm={(date: Date) => onChangeDoorsOpenTime(date)}
+					onConfirm={onChangeDoorsOpenTime}
 					onCancelled={() => console.log('Cancelled')}
 				/>
 				<DatetimePickerWithModal
 					title='Event Start'
 					isOpen={state.startTimeOpen}
 					toggleModal={() => toggleOpen('startTimeOpen')}
-					onConfirm={(date: Date) => onChangeStartTime(date)}
+					onConfirm={onChangeStartTime}
 					onCancelled={() => console.log('Cancelled')}
 				/>
 				<DatetimePickerWithModal
 					title='Event End'
 					isOpen={state.endTimeOpen}
 					toggleModal={() => toggleOpen('endTimeOpen')}
-					onConfirm={(date: Date) => onChangeEndTime(date)}
+					onConfirm={onChangeEndTime}
 					onCancelled={() => console.log('Cancelled')}
 				/>
 			</View>

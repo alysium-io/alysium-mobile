@@ -46,7 +46,7 @@ const apiSlice = createApi({
 			query: ({ query }) => ({
 				url: '/',
 				method: 'GET',
-				params: { ...query }
+				params: query
 			}),
 			providesTags: (results) =>
 				results
@@ -77,8 +77,8 @@ const apiSlice = createApi({
 				params: UpdateVenueParamsDto;
 			}
 		>({
-			query: (body) => ({
-				url: '/',
+			query: ({ body, params }) => ({
+				url: `/${params.venue_id}`,
 				method: 'PUT',
 				body
 			}),

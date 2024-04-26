@@ -1,4 +1,4 @@
-import { ApiIdentifier } from 'src/types';
+import { ApiIdentifier } from '@types';
 import { BaseGallery, GalleryRefType } from '../gallery.entity';
 
 export interface CreateGalleryBodyDto {

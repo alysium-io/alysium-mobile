@@ -1,4 +1,4 @@
-import { ApiIdentifier } from 'src/types';
+import { ApiIdentifier } from '@types';
 import { Host } from '../host.entity';
 
 export interface UpdateHostParamsDto {

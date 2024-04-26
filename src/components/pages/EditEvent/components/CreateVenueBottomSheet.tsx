@@ -12,12 +12,7 @@ interface CreateVenueStartBottomSheetProps {
 const CreateVenueStartBottomSheet: React.FC<
 	CreateVenueStartBottomSheetProps
 > = ({ sheetApi }) => {
-	const { createVenueSheetApi } = useEditEventPageContext();
-	// const { createVenue } = useVenues();
-	const createVenue = () =>
-		console.log(
-			'CreateVenueBottomSheet.tsx: createVenue() not implemented yet.'
-		);
+	const { createVenueSheetApi, createVenue } = useEditEventPageContext();
 
 	const textInputApi = useTextInput();
 	const { buttonState: createVenueButtonState, setButtonState } =
@@ -35,7 +30,8 @@ const CreateVenueStartBottomSheet: React.FC<
 	};
 
 	const _createVenue = async () => {
-		createVenue();
+		if (venueName.length === 0) return;
+		createVenue(venueName);
 		createVenueSheetApi.close();
 	};
 

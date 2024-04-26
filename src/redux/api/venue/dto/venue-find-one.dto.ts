@@ -1,4 +1,4 @@
-import { ApiIdentifier } from 'src/types';
+import { ApiIdentifier } from '@types';
 import { Venue } from '../venue.entity';
 
 export interface FindOneVenueParamsDto {

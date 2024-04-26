@@ -77,8 +77,8 @@ const apiSlice = createApi({
 				params: UpdateHostParamsDto;
 			}
 		>({
-			query: (body) => ({
-				url: '/',
+			query: ({ body, params }) => ({
+				url: `/${params.host_id}`,
 				method: 'PUT',
 				body
 			}),

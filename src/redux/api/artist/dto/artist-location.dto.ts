@@ -1,4 +1,4 @@
-import { ApiIdentifier } from 'src/types';
+import { ApiIdentifier } from '@types';
 import { Artist } from '../artist.entity';
 
 export interface UpdateArtistLocationParamsDto {

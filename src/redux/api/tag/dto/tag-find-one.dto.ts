@@ -1,4 +1,4 @@
-import { ApiIdentifier } from 'src/types';
+import { ApiIdentifier } from '@types';
 import { Tag } from '../tag.entity';
 
 export interface FindOneTagParamsDto {

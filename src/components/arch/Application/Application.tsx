@@ -1,3 +1,4 @@
+import { ConditionalRenderer } from '@atomic';
 import { Persona } from '@types';
 import React from 'react';
 import ArtistApp from './apps/Artist.app';
@@ -18,27 +19,24 @@ const Application = () => {
 		return <></>;
 	}
 
-	if (personaType === Persona.user) {
-		return <UserApp />;
-	}
-
-	if (personaType === Persona.host) {
-		return (
-			<HostAppProvider>
-				<HostApp />
-			</HostAppProvider>
-		);
-	}
-
-	if (personaType === Persona.artist) {
-		return (
-			<ArtistAppProvider>
-				<ArtistApp />
-			</ArtistAppProvider>
-		);
-	}
-
-	return <></>;
+	return (
+		<ConditionalRenderer
+			componentKey={personaType}
+			componentMap={{
+				[Persona.user]: UserApp,
+				[Persona.host]: () => (
+					<HostAppProvider>
+						<HostApp />
+					</HostAppProvider>
+				),
+				[Persona.artist]: () => (
+					<ArtistAppProvider>
+						<ArtistApp />
+					</ArtistAppProvider>
+				)
+			}}
+		/>
+	);
 };
 
 export default () => (

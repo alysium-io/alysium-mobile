@@ -1,9 +1,9 @@
 import { useSelector } from '@flux';
 import { createTheme } from '@shopify/restyle';
+import { Theme, ThemeMode, ThemeNames } from '@types';
 import { useContext } from 'react';
 import { SharedValue, withTiming } from 'react-native-reanimated';
 import { themes } from 'src/restyle';
-import { Theme, ThemeMode, ThemeNames } from 'src/types';
 import { ThemeContext } from '../contexts/ThemeContext';
 import usePersistedAppState from './usePersistedAppState';
 

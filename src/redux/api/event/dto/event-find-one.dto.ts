@@ -1,4 +1,4 @@
-import { ApiIdentifier } from 'src/types';
+import { ApiIdentifier } from '@types';
 import { Event } from '../event.entity';
 
 export interface FindOneEventParamsDto {

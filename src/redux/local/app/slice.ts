@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { AppState, Persona, ThemeMode } from 'src/types';
+import { AppState, Persona, ThemeMode } from '@types';
 
 const initialState: AppState = {
 	token: null,

@@ -4,13 +4,13 @@ import React from 'react';
 import { useEditEventPageContext } from '../EditEvent.context';
 
 const PrimaryImage = () => {
-	const { eventData, changeEventImage } = useEditEventPageContext();
+	const { eventData, setEventProfileImage } = useEditEventPageContext();
 
 	return (
 		<View marginTop='l' flexDirection='row' justifyContent='center'>
 			<EditableProfileImage
 				image={eventData.profile_image?.url || ''}
-				onChooseImage={changeEventImage}
+				onChooseImage={setEventProfileImage}
 			/>
 		</View>
 	);
