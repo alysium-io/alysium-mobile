@@ -74,7 +74,9 @@ export const EditEventPageProvider: React.FC<ProviderProps> = ({
 	const { back, eventCandidatesPage } = useNavigation();
 	const { hostData } = useHostAppContext();
 	const [updateEventMutation] = eventApiSlice.useUpdateMutation();
+	const [deleteEventMutation] = eventApiSlice.useDeleteMutation();
 	const [createVenueMutation] = venueApiSlice.useCreateMutation();
+	const [updateEventVenueMutation] = eventApiSlice.useUpdateVenueMutation();
 
 	const {
 		data: eventData,
@@ -151,8 +153,7 @@ export const EditEventPageProvider: React.FC<ProviderProps> = ({
 	};
 
 	const onDeleteEvent = () => {
-		// deleteEvent(route.params.eventId);
-		console.log('TODO: EditEventPageContext.tsx, line 142');
+		deleteEventMutation({ params: { event_id: route.params.eventId } });
 		back();
 	};
 
@@ -160,8 +161,14 @@ export const EditEventPageProvider: React.FC<ProviderProps> = ({
 	 * OnChange form actions
 	 * (Mostly just preprocessing)
 	 */
-	const onChangeVenue = (venueId: ApiIdentifier) =>
-		console.log('TODO: onChangeVenue');
+	const onChangeVenue = (venueId: ApiIdentifier) => {
+		if (eventData) {
+			updateEventVenueMutation({
+				params: { event_id: eventData.event_id },
+				body: { venue_id: venueId }
+			});
+		}
+	};
 
 	const onChangeStartTime = (startTime: Date) =>
 		formMethods.setValue('start_time', Formatting.toUtcIsoFormat(startTime));

@@ -18,6 +18,11 @@ import {
 	FindOneEventResponseDto
 } from './dto/event-find-one.dto';
 import {
+	UpdateEventVenueBodyDto,
+	UpdateEventVenueParamsDto,
+	UpdateEventVenueResponseDto
+} from './dto/event-update-venue.dto';
+import {
 	UpdateEventBodyDto,
 	UpdateEventParamsDto,
 	UpdateEventResponseDto
@@ -99,9 +104,49 @@ const apiSlice = createApi({
 				url: `/${params.event_id}`,
 				method: 'DELETE'
 			}),
+			onQueryStarted: async ({ params }, { queryFulfilled, dispatch }) => {
+				let patchResult;
+				try {
+					patchResult = dispatch(
+						apiSlice.util.updateQueryData(
+							'findAll',
+							{ query: { page: 1, limit: 10 } },
+							(draft) => {
+								const index = draft.findIndex(
+									(event) => event.event_id === params.event_id
+								);
+								if (index !== -1) {
+									draft.splice(index, 1);
+								}
+							}
+						)
+					);
+
+					await queryFulfilled;
+				} catch (error) {
+					if (patchResult) {
+						patchResult.undo();
+					}
+					console.error('Error fulfilling query:', error);
+				}
+			},
 			invalidatesTags: (result, error, { params }) => [
-				{ type: 'Event', id: params.event_id }
+				{ type: 'Event', id: params.event_id },
+				{ type: 'Event', id: 'LIST' }
 			]
+		}),
+		updateVenue: builder.mutation<
+			UpdateEventVenueResponseDto,
+			{
+				body: UpdateEventVenueBodyDto;
+				params: UpdateEventVenueParamsDto;
+			}
+		>({
+			query: ({ body, params }) => ({
+				url: `/${params.event_id}/venue`,
+				method: 'PUT',
+				body
+			})
 		})
 	})
 });

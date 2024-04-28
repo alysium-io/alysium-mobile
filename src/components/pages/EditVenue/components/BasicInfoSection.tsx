@@ -1,7 +1,13 @@
 import { Section } from '@atomic';
+import { Formatting } from '@etc';
 import { useTextInput } from '@hooks';
-import { SectionHeader } from '@molecules';
+import {
+	EditableNumericInputWithLabel,
+	EditableTextInputWithLabel,
+	SectionHeader
+} from '@molecules';
 import React from 'react';
+import { Controller } from 'react-hook-form';
 import { useEditVenuePageContext } from '../EditVenue.context';
 
 const BasicInfoSection = () => {
@@ -14,12 +20,12 @@ const BasicInfoSection = () => {
 	return (
 		<Section marginTop='xl' marginHorizontal='m'>
 			<SectionHeader text='Basic Info' />
-			{/* <Controller
-				name='address'
+			<Controller
+				name='street'
 				control={formMethods.control}
 				render={({ field: { onChange, onBlur, value } }) => (
 					<EditableTextInputWithLabel
-						label='address'
+						label='street'
 						placeholder='10028 N. Virginia Ave.'
 						onChangeText={onChange}
 						onBlur={onBlur}
@@ -56,14 +62,14 @@ const BasicInfoSection = () => {
 						placeholder='Max # of people'
 						keyboardType='numeric'
 						onBlur={onBlur}
-						value={value}
+						value={Formatting.formatCommaSeparatedNumber(value)}
 						maxLength={9}
 						onChangeText={(text: string) =>
 							onChange(Formatting.formatCommaSeparatedNumber(text))
 						}
 					/>
 				)}
-			/> */}
+			/>
 		</Section>
 	);
 };

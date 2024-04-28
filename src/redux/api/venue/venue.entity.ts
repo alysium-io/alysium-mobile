@@ -9,6 +9,8 @@ export interface Venue {
 	host: Host;
 	gallery: VenueGallery[];
 	name: string;
+	phone_number: string | null;
+	capacity: number;
 	latitude: number | null;
 	longitude: number | null;
 	street: string | null;
@@ -16,4 +18,5 @@ export interface Venue {
 	state: string | null;
 	postal_code: string | null;
 	country: string | null;
+	description: string | null;
 }

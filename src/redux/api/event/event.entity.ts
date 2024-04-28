@@ -2,6 +2,7 @@ import { ApiIdentifier } from '@types';
 import { EventGallery } from '../gallery/gallery.entity';
 import { HostEvent } from '../host-event/host-event.entity';
 import { Media } from '../media/media.entity';
+import { Venue } from '../venue';
 
 export interface Event {
 	event_id: ApiIdentifier;
@@ -16,4 +17,5 @@ export interface Event {
 	serves_food_and_drink: boolean;
 	has_security: boolean;
 	pets_allowed: boolean;
+	venue: Venue | null;
 }

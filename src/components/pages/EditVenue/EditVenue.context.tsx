@@ -1,9 +1,11 @@
+import { MediaRefType } from '@flux/api/media/media.entity';
 import { venueApiSlice } from '@flux/api/venue';
 import { FindAllVenuesResponseDto } from '@flux/api/venue/dto/venue-find-all.dto';
 import { UpdateVenueBodyDto } from '@flux/api/venue/dto/venue-update.dto';
 import {
 	SheetApi,
 	createUseContextHook,
+	useMedia,
 	useNavigation,
 	useSheet
 } from '@hooks';
@@ -21,13 +23,16 @@ import { Asset } from 'react-native-image-picker';
 
 const initialValues: UpdateVenueBodyDto = {
 	name: '',
+	phone_number: '',
+	capacity: 0,
 	latitude: 0,
 	longitude: 0,
 	street: '',
 	city: '',
 	state: '',
 	postal_code: '',
-	country: ''
+	country: '',
+	description: ''
 };
 
 export type EditVenuePageContextType = {
@@ -39,7 +44,7 @@ export type EditVenuePageContextType = {
 	venueIsLoading: boolean;
 	createLinkSheetApi: SheetApi;
 	confirmDelete: () => void;
-	changeVenueImage: (imagePickerAsset: Asset) => void;
+	setVenueProfileImage: (imagePickerAsset: Asset) => void;
 };
 
 export const EditVenuePageContext = createContext(
@@ -50,10 +55,10 @@ export const EditVenuePageProvider: React.FC<ProviderProps> = ({
 	children
 }) => {
 	const route = useRoute<EditVenuePageRouteProp>();
-
+	const createLinkSheetApi = useSheet();
 	const [editVenue] = venueApiSlice.useUpdateMutation();
 	const [deleteVenue] = venueApiSlice.useDeleteMutation();
-
+	const { uploadMedia } = useMedia();
 	const { back } = useNavigation();
 
 	const {
@@ -71,18 +76,10 @@ export const EditVenuePageProvider: React.FC<ProviderProps> = ({
 	const onValid: SubmitHandler<UpdateVenueBodyDto> = (
 		data: UpdateVenueBodyDto
 	) => {
+		console.log(data);
 		editVenue({
 			params: { venue_id: route.params.venueId },
-			body: {
-				name: data.name,
-				latitude: data.latitude,
-				longitude: data.longitude,
-				street: data.street,
-				city: data.city,
-				state: data.state,
-				postal_code: data.postal_code,
-				country: data.country
-			}
+			body: data
 		});
 	};
 
@@ -92,37 +89,24 @@ export const EditVenuePageProvider: React.FC<ProviderProps> = ({
 	};
 
 	const loadForm = () => {
-		// TODO: EditVenue.context.tsx line 93 (add phone number and capacity)
-		const phone_number = 6306668677;
-		const capacity = 100;
-
 		if (venueData) {
-			// formMethods.reset({
-			// 	name: venueData.name,
-			// 	address: venueData.city || initialValues.name,
-			// 	phone_number: venueData.postal_code
-			// 		? Formatting.formatPhoneNumber(phone_number)
-			// 		: initialValues.phone_number,
-			// 	capacity: 100
-			// 		? Formatting.formatCommaSeparatedNumber(capacity)
-			// 		: initialValues.capacity
-			// });
 			formMethods.reset({
 				name: venueData.name,
-				latitude: venueData.latitude || initialValues.latitude,
-				longitude: venueData.longitude || initialValues.longitude,
-				street: venueData.street || initialValues.street,
-				city: venueData.city || initialValues.city,
-				state: venueData.state || initialValues.state,
-				postal_code: venueData.postal_code || initialValues.postal_code,
-				country: venueData.country || initialValues.country
+				phone_number: venueData.phone_number ?? initialValues.phone_number,
+				capacity: venueData.capacity ?? initialValues.capacity,
+				latitude: venueData.latitude ?? initialValues.latitude,
+				longitude: venueData.longitude ?? initialValues.longitude,
+				street: venueData.street ?? initialValues.street,
+				city: venueData.city ?? initialValues.city,
+				state: venueData.state ?? initialValues.state,
+				postal_code: venueData.postal_code ?? initialValues.postal_code,
+				country: venueData.country ?? initialValues.country,
+				description: venueData.description ?? initialValues.description
 			});
 		}
 	};
 
 	const onSubmit = formMethods.handleSubmit(onValid, onInvalid);
-
-	const createLinkSheetApi = useSheet();
 
 	const confirmDelete = () => {
 		Alert.alert(
@@ -148,18 +132,16 @@ export const EditVenuePageProvider: React.FC<ProviderProps> = ({
 		back();
 	};
 
-	const changeVenueImage = (imagePickerAsset: Asset) => {
-		if (
-			imagePickerAsset.uri &&
-			imagePickerAsset.type &&
-			imagePickerAsset.fileName
-		) {
-			console.log('TODO: EditVenue.context.tsx line 162 (uploadVenueImage)');
-			// uploadVenueImage(route.params.venueId, {
-			// 	name: imagePickerAsset.fileName,
-			// 	uri: imagePickerAsset.uri,
-			// 	type: imagePickerAsset.type
-			// });
+	const setVenueProfileImage = (image: Asset) => {
+		if (venueData) {
+			uploadMedia(
+				{
+					ref: MediaRefType.venue,
+					refId: venueData.venue_id,
+					field: 'profile_image'
+				},
+				image
+			);
 		}
 	};
 
@@ -178,7 +160,7 @@ export const EditVenuePageProvider: React.FC<ProviderProps> = ({
 				venueIsLoading,
 				createLinkSheetApi,
 				confirmDelete,
-				changeVenueImage
+				setVenueProfileImage
 			}}
 		>
 			{children}

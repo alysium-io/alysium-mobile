@@ -13,7 +13,7 @@ const CreateEventStartBottomSheet: React.FC<
 	CreateEventStartBottomSheetProps
 > = ({ sheetApi }) => {
 	const textInputApi = useTextInput();
-	const { hostId } = useHostAppContext();
+	const { hostData } = useHostAppContext();
 	const { editEventPage } = useNavigation();
 	const { buttonState: createEventButtonState, setButtonState } =
 		useButton('disabled');
@@ -32,10 +32,9 @@ const CreateEventStartBottomSheet: React.FC<
 	};
 
 	const _createEvent = async () => {
-		console.log(hostId);
 		const data = await createEvent({
 			body: {
-				host_id: hostId,
+				host_id: hostData.host_id,
 				name: eventName
 			}
 		}).unwrap();

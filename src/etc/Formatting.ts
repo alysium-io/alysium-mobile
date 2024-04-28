@@ -45,20 +45,22 @@ class Formatting {
 		return input.replace(/\D/g, '');
 	};
 
-	static formatCommaSeparatedNumber = (input: string): string => {
+	static formatCommaSeparatedNumber = (input: number | string): string => {
 		/**
 		 * Function that formats a number to include commas
 		 */
 
-		if (input === '') {
+		if (input === null || input === '') {
 			return '';
 		}
 
-		// Strip all characters from the input except digits
-		input = Formatting.cleanStringToNumber(input);
+		if (typeof input === 'string') {
+			// Strip all characters from the input except digits
+			input = parseInt(Formatting.cleanStringToNumber(input));
+		}
 
 		// You must pass a number to the `toLocaleString` function
-		return parseInt(input).toLocaleString();
+		return input.toLocaleString();
 	};
 
 	static toUtcIsoFormat = (timestamp: Date | string | null): string | null => {

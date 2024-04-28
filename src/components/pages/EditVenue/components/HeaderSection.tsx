@@ -5,14 +5,14 @@ import { Controller } from 'react-hook-form';
 import { useEditVenuePageContext } from '../EditVenue.context';
 
 const HeaderSection = () => {
-	const { formMethods, venueData, changeVenueImage } =
+	const { formMethods, venueData, setVenueProfileImage } =
 		useEditVenuePageContext();
 
 	return (
 		<View marginTop='l' marginHorizontal='m' alignItems='center'>
 			<EditableProfileImage
 				image={venueData.profile_image?.url || ''}
-				onChooseImage={changeVenueImage}
+				onChooseImage={setVenueProfileImage}
 			/>
 			<Text
 				marginTop='l'

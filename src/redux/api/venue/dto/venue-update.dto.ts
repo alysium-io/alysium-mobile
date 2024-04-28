@@ -7,6 +7,8 @@ export interface UpdateVenueParamsDto {
 
 export interface UpdateVenueBodyDto {
 	name: string;
+	phone_number: string;
+	capacity: number;
 	latitude: number;
 	longitude: number;
 	street: string;
@@ -14,6 +16,7 @@ export interface UpdateVenueBodyDto {
 	state: string;
 	postal_code: string;
 	country: string;
+	description: string;
 }
 
 export interface UpdateVenueResponseDto extends Venue {}

@@ -5,6 +5,7 @@ import { eventApiSlice } from '../event';
 import { hostApiSlice } from '../host';
 import { userApiSlice } from '../user';
 import baseQueryConfig from '../utils/baseQueryConfig';
+import { venueApiSlice } from '../venue';
 import {
 	CreateMediaBodyDto,
 	CreateMediaResponseDto
@@ -91,6 +92,19 @@ const apiSlice = createApi({
 						);
 						dispatch(
 							eventApiSlice.util.invalidateTags([{ type: 'Event', id: 'LIST' }])
+						);
+					} else if (body.ref === MediaRefType.venue) {
+						dispatch(
+							venueApiSlice.util.updateQueryData(
+								'findOne',
+								{ params: { venue_id: body.refId } },
+								(draft) => {
+									draft.profile_image = result.data;
+								}
+							)
+						);
+						dispatch(
+							venueApiSlice.util.invalidateTags([{ type: 'Venue', id: 'LIST' }])
 						);
 					}
 				} catch (error) {

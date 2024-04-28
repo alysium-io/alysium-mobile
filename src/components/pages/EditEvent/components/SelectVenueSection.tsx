@@ -10,7 +10,7 @@ import React from 'react';
 import { useEditEventPageContext } from '../EditEvent.context';
 
 const SelectVenueSection = () => {
-	const { createVenueSheetApi, venuesData, onChangeVenue } =
+	const { createVenueSheetApi, venuesData, onChangeVenue, eventData } =
 		useEditEventPageContext();
 	const { editVenuePage } = useNavigation();
 
@@ -26,7 +26,7 @@ const SelectVenueSection = () => {
 				subtitleFirst={true}
 			/>
 			<ContentListItemToggler
-				defaultId={1}
+				defaultId={eventData.venue?.venue_id ?? null}
 				subtitleFirst={true}
 				onPressToggle={(id) => onChangeVenue(id)}
 				items={
