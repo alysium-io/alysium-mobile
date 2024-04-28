@@ -2,6 +2,7 @@ import { MediaRefType } from '@flux/api/media/media.entity';
 import { venueApiSlice } from '@flux/api/venue';
 import { FindAllVenuesResponseDto } from '@flux/api/venue/dto/venue-find-all.dto';
 import { UpdateVenueBodyDto } from '@flux/api/venue/dto/venue-update.dto';
+import { VenueType } from '@flux/api/venue/types';
 import {
 	SheetApi,
 	createUseContextHook,
@@ -32,7 +33,8 @@ const initialValues: UpdateVenueBodyDto = {
 	state: '',
 	postal_code: '',
 	country: '',
-	description: ''
+	description: '',
+	venue_type: null
 };
 
 export type EditVenuePageContextType = {
@@ -45,6 +47,7 @@ export type EditVenuePageContextType = {
 	createLinkSheetApi: SheetApi;
 	confirmDelete: () => void;
 	setVenueProfileImage: (imagePickerAsset: Asset) => void;
+	onChangeVenueType: (venueType: VenueType) => void;
 };
 
 export const EditVenuePageContext = createContext(
@@ -101,7 +104,8 @@ export const EditVenuePageProvider: React.FC<ProviderProps> = ({
 				state: venueData.state ?? initialValues.state,
 				postal_code: venueData.postal_code ?? initialValues.postal_code,
 				country: venueData.country ?? initialValues.country,
-				description: venueData.description ?? initialValues.description
+				description: venueData.description ?? initialValues.description,
+				venue_type: venueData.venue_type ?? initialValues.venue_type
 			});
 		}
 	};
@@ -132,6 +136,10 @@ export const EditVenuePageProvider: React.FC<ProviderProps> = ({
 		back();
 	};
 
+	const onChangeVenueType = (venueType: VenueType) => {
+		formMethods.setValue('venue_type', venueType);
+	};
+
 	const setVenueProfileImage = (image: Asset) => {
 		if (venueData) {
 			uploadMedia(
@@ -160,7 +168,8 @@ export const EditVenuePageProvider: React.FC<ProviderProps> = ({
 				venueIsLoading,
 				createLinkSheetApi,
 				confirmDelete,
-				setVenueProfileImage
+				setVenueProfileImage,
+				onChangeVenueType
 			}}
 		>
 			{children}

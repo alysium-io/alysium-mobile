@@ -6,16 +6,16 @@ import { LargeSelectableItemData } from './shared';
 
 interface LargeSelectableItemRadioListProps {
 	data: LargeSelectableItemData[];
-	defaultId: number;
-	onPress?: (id: number) => void;
+	defaultId: any;
+	onPress?: (id: any) => void;
 }
 
 const LargeSelectableItemRadioList: React.FC<
 	LargeSelectableItemRadioListProps
 > = ({ data, defaultId, onPress }) => {
-	const [selected, setSelected] = useState<number>(defaultId);
+	const [selected, setSelected] = useState<any>(defaultId);
 
-	const _onPress = (id: number) => {
+	const _onPress = (id: any) => {
 		setSelected(id);
 		onPress && onPress(id);
 	};

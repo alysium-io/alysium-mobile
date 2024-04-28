@@ -1,37 +1,41 @@
 import { Section } from '@atomic';
+import { VenueType } from '@flux/api/venue/types';
 import { SectionHeader } from '@molecules';
 import { LargeSelectableItemRadioList } from '@organisms';
 import React from 'react';
+import { useEditVenuePageContext } from '../EditVenue.context';
 
 const VenueTypeSection = () => {
+	const { onChangeVenueType, venueData } = useEditVenuePageContext();
+
 	return (
 		<Section margin='m'>
 			<SectionHeader text='VenueType' />
 			<LargeSelectableItemRadioList
-				defaultId={1}
+				defaultId={venueData.venue_type}
 				data={[
 					{
-						id: 1,
+						id: VenueType.club,
 						title: 'Club',
 						icon: 'club'
 					},
 					{
-						id: 2,
+						id: VenueType.outdoor,
 						title: 'Outdoor',
 						icon: 'outdoors'
 					},
 					{
-						id: 3,
+						id: VenueType.restaurant,
 						title: 'Restaurant',
 						icon: 'restaurant'
 					},
 					{
-						id: 4,
+						id: VenueType.area,
 						title: 'arena',
 						icon: 'arena'
 					}
 				]}
-				onPress={() => {}}
+				onPress={onChangeVenueType}
 			/>
 		</Section>
 	);

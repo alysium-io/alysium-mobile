@@ -1,4 +1,5 @@
 import { ApiIdentifier } from '@types';
+import { VenueType } from '../types';
 import { Venue } from '../venue.entity';
 
 export interface UpdateVenueParamsDto {
@@ -17,6 +18,7 @@ export interface UpdateVenueBodyDto {
 	postal_code: string;
 	country: string;
 	description: string;
+	venue_type: VenueType | null;
 }
 
 export interface UpdateVenueResponseDto extends Venue {}

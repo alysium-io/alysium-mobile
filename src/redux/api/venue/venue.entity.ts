@@ -2,6 +2,7 @@ import { ApiIdentifier } from '@types';
 import { VenueGallery } from '../gallery/gallery.entity';
 import { Host } from '../host/host.entity';
 import { Media } from '../media/media.entity';
+import { VenueType } from './types';
 
 export interface Venue {
 	venue_id: ApiIdentifier;
@@ -19,4 +20,5 @@ export interface Venue {
 	postal_code: string | null;
 	country: string | null;
 	description: string | null;
+	venue_type: VenueType | null;
 }
