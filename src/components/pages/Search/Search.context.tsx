@@ -1,9 +1,12 @@
 import { searchApiSlice } from '@flux/api/search';
 import { Search } from '@flux/api/search/search.entity';
-import { createUseContextHook, useNavigation } from '@hooks';
+import {
+	createUseContextHook,
+	useNavigation,
+	usePersistedSearchState
+} from '@hooks';
 import { ProviderProps } from '@types';
 import React, { createContext, useState } from 'react';
-import useSearch from 'src/utils/hooks/useSearch';
 
 export type SearchPageContextType = {
 	searchText: string;
@@ -23,12 +26,10 @@ export const SearchPageContext = createContext({} as SearchPageContextType);
 
 export const SearchPageProvider: React.FC<ProviderProps> = ({ children }) => {
 	const [isSearchActive, setIsSearchActive] = useState<boolean>(false);
-
 	const { artistPage } = useNavigation();
+	const { addRecentSearch, recentSearches } = usePersistedSearchState();
 	const [searchText, setSearchText] = useState<string>('');
 	const clearSearchText = () => setSearchText('');
-
-	const { addRecentSearch, recentSearches } = useSearch();
 
 	const onPressSearchResult = (item: Search) => {
 		addRecentSearch(item);

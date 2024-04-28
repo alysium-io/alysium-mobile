@@ -1,5 +1,5 @@
+import { useAuthenticationAppContext } from '@arch/Authentication/Authentication.context';
 import { Icon, View } from '@atomic';
-import { useAuth } from '@hooks';
 import { Button, LargeTextInput } from '@molecules';
 import React, { useState } from 'react';
 import { Keyboard, StyleSheet, TouchableWithoutFeedback } from 'react-native';
@@ -13,7 +13,7 @@ const LogIn: React.FC<LogInProps> = ({ toggleAuthScreen }) => {
 	const [email, setEmail] = useState<string>('alec@alysium.io');
 	const [password, setPassword] = useState<string>('password');
 
-	const { login } = useAuth();
+	const { login } = useAuthenticationAppContext();
 
 	return (
 		<View

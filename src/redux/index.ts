@@ -25,25 +25,14 @@ import { searchApiSlice } from './api/search';
 import { tagApiSlice } from './api/tag';
 import { userApiSlice } from './api/user';
 import { venueApiSlice } from './api/venue';
-import {
-	authReducer,
-	eventReducer,
-	hostReducer,
-	persistedAppReducer,
-	personaReducer,
-	userReducer
-} from './local';
+import { persistedAppReducer, persistedSearchReducer } from './local';
 
 import { apiErrorUnauthorizedMiddleware } from './middleware';
 
 const store = configureStore({
 	reducer: {
 		persistedApp: persistedAppReducer,
-		auth: authReducer,
-		user: userReducer,
-		host: hostReducer,
-		persona: personaReducer,
-		event: eventReducer,
+		persistedSearch: persistedSearchReducer,
 		[artistApiSlice.reducerPath]: artistApiSlice.reducer,
 		[hostApiSlice.reducerPath]: hostApiSlice.reducer,
 		[venueApiSlice.reducerPath]: venueApiSlice.reducer,

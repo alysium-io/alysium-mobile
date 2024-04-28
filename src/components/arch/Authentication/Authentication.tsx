@@ -1,8 +1,10 @@
-import { useAuth, useUser } from '@hooks';
 import { AuthStage } from '@types';
 import React, { useEffect } from 'react';
 import SplashScreen from 'react-native-splash-screen';
-import usePersistedAppState from 'src/utils/hooks/usePersistedAppState';
+import {
+	AuthenticationAppProvider,
+	useAuthenticationAppContext
+} from './Authentication.context';
 import AuthScreens from './screens';
 
 interface AuthenticationProps {
@@ -10,9 +12,7 @@ interface AuthenticationProps {
 }
 
 const Authentication: React.FC<AuthenticationProps> = ({ children }) => {
-	const { token } = usePersistedAppState();
-	const { auth } = useAuth();
-	const { me } = useUser();
+	const { me, token, authStage } = useAuthenticationAppContext();
 
 	useEffect(() => {
 		me()
@@ -20,11 +20,17 @@ const Authentication: React.FC<AuthenticationProps> = ({ children }) => {
 			.catch(() => SplashScreen.hide());
 	}, [token]);
 
-	if (auth.stage === AuthStage.loggedIn) {
+	if (authStage === AuthStage.loggedIn) {
 		return children;
 	}
 
 	return <AuthScreens />;
 };
 
-export default Authentication;
+const AuthenticationWrapper: React.FC<AuthenticationProps> = ({ children }) => (
+	<AuthenticationAppProvider>
+		<Authentication>{children}</Authentication>
+	</AuthenticationAppProvider>
+);
+
+export default AuthenticationWrapper;

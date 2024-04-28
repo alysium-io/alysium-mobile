@@ -1,12 +1,14 @@
 // Redux
 export { default as useArtist } from './useArtist';
-export { default as useAuth } from './useAuth';
 export { default as useHost } from './useHost';
 export { default as useMedia } from './useMedia';
 export { default as usePersona } from './usePersona';
 export { default as useTheme } from './useTheme';
-export { default as useUser } from './useUser';
 export { default as useVenues } from './useVenues';
+
+// State
+export { default as usePersistedAppState } from './usePersistedAppState';
+export { default as usePersistedSearchState } from './usePersistedSearchState';
 
 // Etc
 export { default as createUseContextHook } from './createUseContextHook';
