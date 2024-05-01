@@ -8,6 +8,7 @@ export type ArtistPageContextType = {
 	moreSheetApi: SheetApi;
 	notificationsSheetApi: SheetApi;
 	linksSheetApi: SheetApi;
+	addArtistToEventCandidatesSheetApi: SheetApi;
 	onPressFollowers: () => void;
 	onPressShows: () => void;
 	openLinks: () => void;
@@ -31,6 +32,7 @@ export const ArtistPageProvider: React.FC<ProviderProps> = ({ children }) => {
 	const moreSheetApi = useSheet();
 	const notificationsSheetApi = useSheet();
 	const linksSheetApi = useSheet();
+	const addArtistToEventCandidatesSheetApi = useSheet();
 
 	const onPressFollowers = () => console.log('Followers');
 	const onPressShows = () => console.log('Shows');
@@ -46,6 +48,7 @@ export const ArtistPageProvider: React.FC<ProviderProps> = ({ children }) => {
 				moreSheetApi,
 				notificationsSheetApi,
 				linksSheetApi,
+				addArtistToEventCandidatesSheetApi,
 				onPressFollowers,
 				onPressShows,
 				openLinks,

@@ -110,7 +110,7 @@ const apiSlice = createApi({
 					patchResult = dispatch(
 						apiSlice.util.updateQueryData(
 							'findAll',
-							{ query: { page: 1, limit: 10 } },
+							{ query: { page: 1, limit: 10, host_id: 1 } },
 							(draft) => {
 								const index = draft.findIndex(
 									(event) => event.event_id === params.event_id

@@ -7,13 +7,19 @@ interface ComponentMap {
 interface ConditionalRendererProps {
 	componentMap: ComponentMap;
 	componentKey: keyof ComponentMap;
+	DefaultComponent?: React.ComponentType<any>;
 }
 
 // Define the ConditionalRenderer component
 const ConditionalRenderer: React.FC<ConditionalRendererProps> = ({
 	componentMap,
-	componentKey
+	componentKey,
+	DefaultComponent = null
 }) => {
+	if (!componentMap[componentKey]) {
+		return DefaultComponent ? <DefaultComponent /> : null;
+	}
+
 	const ComponentToRender = componentMap[componentKey];
 	return <ComponentToRender />;
 };

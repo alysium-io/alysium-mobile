@@ -34,20 +34,18 @@ export const UserAppProvider: React.FC<ProviderProps> = ({ children }) => {
 	const { initializePersona } = usePersona();
 	if (userData) initializePersona(userData.user_id);
 
-	if (!userData) {
-		return <></>;
-	}
-
 	const { uploadMedia } = useMedia();
 	const setUserProfileImage = (image: Asset) => {
-		uploadMedia(
-			{
-				ref: MediaRefType.user,
-				refId: userData.user_id,
-				field: 'profile_image'
-			},
-			image
-		);
+		if (userData) {
+			uploadMedia(
+				{
+					ref: MediaRefType.user,
+					refId: userData.user_id,
+					field: 'profile_image'
+				},
+				image
+			);
+		}
 	};
 
 	const {
@@ -62,7 +60,7 @@ export const UserAppProvider: React.FC<ProviderProps> = ({ children }) => {
 		isLoading: userHostsIsLoading
 	} = hostApiSlice.useFindAllQuery({ query: { page: 1, limit: 10 } });
 
-	if (!userArtists || !userHosts) {
+	if (!userData || !userArtists || !userHosts) {
 		return <></>;
 	}
 

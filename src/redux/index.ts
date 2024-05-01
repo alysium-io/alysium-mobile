@@ -15,6 +15,7 @@ import {
 } from 'redux-persist';
 import { artistApiSlice } from './api/artist';
 import { artistTagApiSlice } from './api/artist-tag';
+import { candidateApiSlice } from './api/candidate';
 import { eventApiSlice } from './api/event';
 import { galleryApiSlice } from './api/gallery';
 import { hostApiSlice } from './api/host';
@@ -37,6 +38,7 @@ const store = configureStore({
 		[hostApiSlice.reducerPath]: hostApiSlice.reducer,
 		[venueApiSlice.reducerPath]: venueApiSlice.reducer,
 		[eventApiSlice.reducerPath]: eventApiSlice.reducer,
+		[candidateApiSlice.reducerPath]: candidateApiSlice.reducer,
 		[artistTagApiSlice.reducerPath]: artistTagApiSlice.reducer,
 		[galleryApiSlice.reducerPath]: galleryApiSlice.reducer,
 		[hostEventApiSlice.reducerPath]: hostEventApiSlice.reducer,
@@ -56,6 +58,7 @@ const store = configureStore({
 			.concat(hostApiSlice.middleware)
 			.concat(venueApiSlice.middleware)
 			.concat(eventApiSlice.middleware)
+			.concat(candidateApiSlice.middleware)
 			.concat(artistTagApiSlice.middleware)
 			.concat(galleryApiSlice.middleware)
 			.concat(hostEventApiSlice.middleware)

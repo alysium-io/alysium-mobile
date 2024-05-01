@@ -1,3 +1,4 @@
+import { useHostAppContext } from '@arch/Application/contexts/Host.context';
 import { eventApiSlice } from '@flux/api/event';
 import { FindAllEventsResponseDto } from '@flux/api/event/dto/event-find-all.dto';
 import { SheetApi, createUseContextHook, useSheet } from '@hooks';
@@ -18,11 +19,14 @@ export const EventManagerPageContext = createContext(
 export const EventManagerPageProvider: React.FC<ProviderProps> = ({
 	children
 }) => {
+	const { hostData } = useHostAppContext();
 	const {
 		data: eventsData,
 		error: eventsError,
 		isLoading: eventsIsLoading
-	} = eventApiSlice.useFindAllQuery({ query: { page: 1, limit: 10 } });
+	} = eventApiSlice.useFindAllQuery({
+		query: { page: 1, limit: 10, host_id: hostData.host_id }
+	});
 
 	const createEventStartSheetApi = useSheet();
 

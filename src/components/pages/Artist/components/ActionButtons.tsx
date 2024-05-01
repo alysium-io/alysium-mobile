@@ -1,19 +1,21 @@
-import { View } from '@atomic';
-import { ToggleButton } from '@molecules';
-import React, { useState } from 'react';
+import { usePersonaAppContext } from '@arch/Application/contexts/Persona.context';
+import { ConditionalRenderer } from '@atomic';
+import { Persona } from '@types';
+import React from 'react';
+import HostActionButtons from './ActionButtons.host';
+import UserActionButtons from './ActionButtons.user';
 
 const ActionButtons = () => {
-	const [state, setState] = useState(true);
+	const { personaType } = usePersonaAppContext();
 
 	return (
-		<View margin='m'>
-			<ToggleButton
-				value={state}
-				text='Follow'
-				inactiveText='Following'
-				onPress={() => setState(!state)}
-			/>
-		</View>
+		<ConditionalRenderer
+			componentKey={personaType}
+			componentMap={{
+				[Persona.host]: HostActionButtons,
+				[Persona.user]: UserActionButtons
+			}}
+		/>
 	);
 };
 

@@ -9,7 +9,6 @@ import { ThemeMode } from '@types';
 import React, { useMemo } from 'react';
 import { Easing } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useBottomSheetMaxHeight } from '../hooks';
 import BottomSheetBackdrop from './BottomSheetBackdrop';
 import BottomSheetHandle from './BottomSheetHandle';
 
@@ -40,7 +39,6 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
 	sheetRef,
 	backgroundColor,
 	borderColor,
-	maxHeight = '90%',
 	customHandle = BottomSheetHandle,
 	enablePanDownToClose = true,
 	enableContentPanningGesture = false,
@@ -55,11 +53,9 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
 	const easingConfig = useMemo(() => Easing.inOut(Easing.cubic), []);
 
 	const animationConfigs = useBottomSheetTimingConfigs({
-		duration: 400,
+		duration: 300,
 		easing: easingConfig
 	});
-
-	const maxHeightStyle = useBottomSheetMaxHeight(maxHeight);
 
 	return (
 		<BottomSheetModal
@@ -80,17 +76,7 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
 			}}
 			{...props}
 		>
-			<BottomSheetView
-				style={[
-					{
-						maxHeight: maxHeightStyle,
-						paddingBottom: isVisible ? 0 : insets.bottom
-					},
-					contentContainerStyle
-				]}
-			>
-				{children}
-			</BottomSheetView>
+			{children}
 		</BottomSheetModal>
 	);
 };
