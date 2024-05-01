@@ -6,8 +6,9 @@ import { Media } from '../media/media.entity';
 
 export interface User {
 	user_id: ApiIdentifier;
-	name: string;
-	email: string;
+	name: string | null;
+	email: string | null;
+	phone_number: string | null;
 	profile_image: Media | null;
 	hosts: Host[];
 	artists: Artist[];

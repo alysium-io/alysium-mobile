@@ -10,8 +10,8 @@ const TogglerSection = () => {
 		<Section margin='m' marginTop='none'>
 			<TabToggler
 				data={[
-					{ id: 0, text: 'all' },
-					{ id: 1, text: 'active' }
+					{ id: 0, text: 'candidates' },
+					{ id: 1, text: 'contracts' }
 				]}
 				defaultActiveTab={0}
 				onChange={(id: number) => setToggleFilterId(id)}

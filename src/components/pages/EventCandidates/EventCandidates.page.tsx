@@ -1,19 +1,19 @@
-import { HeaderSafeArea, ScrollView, Text } from '@atomic';
+import { HeaderSafeArea, ScrollView, View } from '@atomic';
 import { BasePage } from '@organisms';
 import React from 'react';
 import { EventCandidatesPageProvider } from './EventCandidates.context';
-import { CandidatesSection, TogglerSection } from './components';
+import TogglerBodySection from './components/TogglerBodySection';
+import TogglerSection from './components/TogglerSection';
 
 const EventCandidatesPage = () => {
 	return (
 		<BasePage>
 			<HeaderSafeArea>
 				<ScrollView alwaysBounceVertical>
-					<Text variant='page-header' margin='m'>
-						Event Candidates
-					</Text>
-					<TogglerSection />
-					<CandidatesSection />
+					<View marginTop='l'>
+						<TogglerSection />
+						<TogglerBodySection />
+					</View>
 				</ScrollView>
 			</HeaderSafeArea>
 		</BasePage>

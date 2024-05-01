@@ -2,16 +2,16 @@ import { View } from '@atomic';
 import { ContentListItemWithStatus } from '@organisms';
 import { ContentType } from '@types';
 import React from 'react';
-import { FadeInLeft, FadeOutLeft } from 'react-native-reanimated';
+import { FadeInRight, FadeOutRight } from 'react-native-reanimated';
 import { useEventCandidatesPageContext } from '../EventCandidates.context';
 
-const CandidatesSection = () => {
+const ContractsSection = () => {
 	const { candidatesData } = useEventCandidatesPageContext();
 	return (
 		<View
 			animated
-			entering={FadeInLeft.duration(200)}
-			exiting={FadeOutLeft.duration(200)}
+			entering={FadeInRight.duration(200)}
+			exiting={FadeOutRight.duration(200)}
 		>
 			{candidatesData.map((candidate) => (
 				<ContentListItemWithStatus
@@ -33,4 +33,4 @@ const CandidatesSection = () => {
 	);
 };
 
-export default CandidatesSection;
+export default ContractsSection;
