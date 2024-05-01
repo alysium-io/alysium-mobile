@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { AppState, Persona, ThemeMode } from '@types';
+import { AppState, AuthStage, Persona, ThemeMode } from '@types';
 
 const initialState: AppState = {
 	token: null,
@@ -7,7 +7,7 @@ const initialState: AppState = {
 	personaId: null,
 	themeName: 'main',
 	mode: ThemeMode.dark,
-	recentSearches: []
+	authStage: AuthStage.loading
 };
 
 const appSlice = createSlice({

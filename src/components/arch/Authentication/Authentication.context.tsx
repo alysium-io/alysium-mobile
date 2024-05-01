@@ -1,12 +1,11 @@
 import { userApiSlice } from '@flux/api/user';
 import { createUseContextHook, usePersistedAppState } from '@hooks';
 import { AuthStage, ProviderProps } from '@types';
-import React, { createContext, useState } from 'react';
+import React, { createContext, useEffect } from 'react';
+import SplashScreen from 'react-native-splash-screen';
 
 export type AuthenticationAppContextType = {
 	authStage: AuthStage;
-	setAuthStage: React.Dispatch<React.SetStateAction<AuthStage>>;
-	me: () => Promise<void>;
 	token: string | null;
 	logout: () => void;
 	login: (email: string, password: string) => Promise<void>;
@@ -19,23 +18,45 @@ export const AuthenticationAppContext = createContext(
 export const AuthenticationAppProvider: React.FC<ProviderProps> = ({
 	children
 }) => {
-	const { token, setPersistedAppState } = usePersistedAppState();
-	const [meQuery] = userApiSlice.useLazyMeQuery();
+	const { token, setPersistedAppState, resetPersistedAppState, authStage } =
+		usePersistedAppState();
 	const [loginQuery] = userApiSlice.useLazyLoginQuery();
-	const [authStage, setAuthStage] = useState<AuthStage>(AuthStage.loading);
+	const [meQuery] = userApiSlice.useLazyMeQuery();
 
-	const me = async () => {
-		if (token) {
-			await meQuery();
-			setAuthStage(AuthStage.loggedIn);
-		} else {
-			setAuthStage(AuthStage.loggedOut);
-		}
-	};
+	useEffect(() => {
+		const fetchMe = async () => {
+			if (token !== null) {
+				if (authStage !== AuthStage.loggedIn) {
+					console.log(`Existing token found: ${token}`);
+					const { error } = await meQuery();
+
+					if (error) {
+						console.log('Failed to fetch user data.', error);
+						setPersistedAppState({
+							authStage: AuthStage.loggedOut
+						});
+					} else {
+						console.log('Successfully fetched user data.');
+						setPersistedAppState({
+							authStage: AuthStage.loggedIn
+						});
+					}
+				}
+			} else {
+				if (authStage !== AuthStage.loggedOut) {
+					console.log('No token found, setting user to logged out.');
+					setPersistedAppState({
+						authStage: AuthStage.loggedOut
+					});
+				}
+			}
+			SplashScreen.hide();
+		};
+		fetchMe();
+	}, [token]);
 
 	const logout = () => {
-		setPersistedAppState({ token: null });
-		setAuthStage(AuthStage.loggedOut);
+		resetPersistedAppState();
 	};
 
 	const login = async (email: string, password: string) => {
@@ -46,8 +67,10 @@ export const AuthenticationAppProvider: React.FC<ProviderProps> = ({
 			logout();
 		}
 		if (data) {
-			setPersistedAppState({ token: data.token });
-			setAuthStage(AuthStage.loggedIn);
+			setPersistedAppState({
+				token: data.token,
+				authStage: AuthStage.loggedIn
+			});
 		}
 	};
 
@@ -55,8 +78,6 @@ export const AuthenticationAppProvider: React.FC<ProviderProps> = ({
 		<AuthenticationAppContext.Provider
 			value={{
 				authStage,
-				setAuthStage,
-				me,
 				token,
 				logout,
 				login

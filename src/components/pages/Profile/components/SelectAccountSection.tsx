@@ -7,8 +7,9 @@ import { Persona } from '@types';
 import React from 'react';
 
 const SelectAccountSection = () => {
-	const { userData, userArtists, userHosts } = useUserAppContext();
-	const { personaType, personaId, changePersona } = usePersonaAppContext();
+	const { userData, userArtists, userHosts, personaId, personaType } =
+		useUserAppContext();
+	const { changePersona } = usePersonaAppContext();
 	return (
 		<Section marginBottom='xl'>
 			<View marginHorizontal='m'>

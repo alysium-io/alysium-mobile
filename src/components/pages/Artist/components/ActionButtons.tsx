@@ -1,4 +1,4 @@
-import { usePersonaAppContext } from '@arch/Application/contexts/Persona.context';
+import { useUserAppContext } from '@arch/Application/contexts/User.context';
 import { ConditionalRenderer } from '@atomic';
 import { Persona } from '@types';
 import React from 'react';
@@ -6,7 +6,7 @@ import HostActionButtons from './ActionButtons.host';
 import UserActionButtons from './ActionButtons.user';
 
 const ActionButtons = () => {
-	const { personaType } = usePersonaAppContext();
+	const { personaType } = useUserAppContext();
 
 	return (
 		<ConditionalRenderer

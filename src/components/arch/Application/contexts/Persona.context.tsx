@@ -4,7 +4,7 @@ import React, { createContext, useState } from 'react';
 import usePersistedAppState from 'src/utils/hooks/usePersistedAppState';
 
 export type PersonaAppContextType = {
-	personaId: ApiIdentifier;
+	personaId: ApiIdentifier | null;
 	personaType: Persona;
 	changePersona: (newPersonaType: Persona, newPersonaId: ApiIdentifier) => void;
 	isLoading: boolean;
@@ -14,9 +14,7 @@ export const PersonaAppContext = createContext({} as PersonaAppContextType);
 
 export const PersonaAppProvider: React.FC<ProviderProps> = ({ children }) => {
 	const { changePersona: setNewPersona } = usePersona();
-
 	const [isLoading, setIsLoading] = useState(false);
-
 	const { personaId, personaType } = usePersistedAppState();
 
 	const changePersona = (
@@ -31,10 +29,6 @@ export const PersonaAppProvider: React.FC<ProviderProps> = ({ children }) => {
 			}, 500);
 		}
 	};
-
-	if (personaId === null) {
-		return <></>;
-	}
 
 	return (
 		<PersonaAppContext.Provider

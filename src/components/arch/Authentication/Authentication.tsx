@@ -1,6 +1,5 @@
 import { AuthStage } from '@types';
-import React, { useEffect } from 'react';
-import SplashScreen from 'react-native-splash-screen';
+import React from 'react';
 import {
 	AuthenticationAppProvider,
 	useAuthenticationAppContext
@@ -12,13 +11,7 @@ interface AuthenticationProps {
 }
 
 const Authentication: React.FC<AuthenticationProps> = ({ children }) => {
-	const { me, token, authStage } = useAuthenticationAppContext();
-
-	useEffect(() => {
-		me()
-			.then(() => SplashScreen.hide())
-			.catch(() => SplashScreen.hide());
-	}, [token]);
+	const { authStage } = useAuthenticationAppContext();
 
 	if (authStage === AuthStage.loggedIn) {
 		return children;

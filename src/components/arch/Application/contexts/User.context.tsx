@@ -6,11 +6,13 @@ import { MediaRefType } from '@flux/api/media/media.entity';
 import { userApiSlice } from '@flux/api/user';
 import { User } from '@flux/api/user/user.entity';
 import { createUseContextHook, useMedia, usePersona } from '@hooks';
-import { ProviderProps } from '@types';
-import React, { createContext } from 'react';
+import { ApiIdentifier, Persona, ProviderProps } from '@types';
+import React, { createContext, useEffect } from 'react';
 import { Asset } from 'react-native-image-picker';
 
 export type UserAppContextType = {
+	personaId: ApiIdentifier;
+	personaType: Persona;
 	userData: User;
 	userError: any;
 	userIsLoading: boolean;
@@ -26,15 +28,19 @@ export type UserAppContextType = {
 export const UserAppContext = createContext({} as UserAppContextType);
 
 export const UserAppProvider: React.FC<ProviderProps> = ({ children }) => {
+	const { personaId, personaType } = usePersona();
 	const {
 		data: userData,
 		error: userError,
 		isLoading: userIsLoading
 	} = userApiSlice.useMeQuery();
 	const { initializePersona } = usePersona();
-	if (userData) initializePersona(userData.user_id);
-
 	const { uploadMedia } = useMedia();
+
+	useEffect(() => {
+		if (userData) initializePersona(userData.user_id);
+	}, [userData]);
+
 	const setUserProfileImage = (image: Asset) => {
 		if (userData) {
 			uploadMedia(
@@ -60,13 +66,15 @@ export const UserAppProvider: React.FC<ProviderProps> = ({ children }) => {
 		isLoading: userHostsIsLoading
 	} = hostApiSlice.useFindAllQuery({ query: { page: 1, limit: 10 } });
 
-	if (!userData || !userArtists || !userHosts) {
+	if (!userData || !userArtists || !userHosts || personaId === null) {
 		return <></>;
 	}
 
 	return (
 		<UserAppContext.Provider
 			value={{
+				personaId,
+				personaType,
 				userData,
 				userError,
 				userIsLoading,

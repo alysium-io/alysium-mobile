@@ -1,7 +1,9 @@
+import { appActions } from '@flux/local/app';
 import { Middleware } from '@reduxjs/toolkit';
+import { AuthStage } from '@types';
 
 const apiErrorUnauthorizedMiddleware: Middleware =
-	({ dispatch }) =>
+	({ dispatch, getState }) =>
 	(next) =>
 	(action) => {
 		/**
@@ -16,9 +18,13 @@ const apiErrorUnauthorizedMiddleware: Middleware =
 			console.log(action.type);
 			console.log(action.payload.data);
 			const errorStatus = action?.payload?.status;
-			if (errorStatus === 400) {
+			if (
+				errorStatus === 401 &&
+				(getState().persistedApp.authStage === AuthStage.loggedIn ||
+					getState().persistedApp.token !== null)
+			) {
 				console.log('Should log user out');
-				console.log(action.payload);
+				dispatch(appActions.reset());
 			}
 		}
 

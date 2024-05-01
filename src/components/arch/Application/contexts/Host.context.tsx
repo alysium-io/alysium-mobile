@@ -5,7 +5,7 @@ import { createUseContextHook, useMedia } from '@hooks';
 import { ProviderProps } from '@types';
 import React, { createContext } from 'react';
 import { Asset } from 'react-native-image-picker';
-import { usePersonaAppContext } from './Persona.context';
+import { useUserAppContext } from './User.context';
 
 export type HostAppContextType = {
 	hostData: Host;
@@ -17,7 +17,7 @@ export type HostAppContextType = {
 export const HostAppContext = createContext({} as HostAppContextType);
 
 export const HostAppProvider: React.FC<ProviderProps> = ({ children }) => {
-	const { personaId } = usePersonaAppContext();
+	const { personaId } = useUserAppContext();
 
 	const {
 		data: hostData,

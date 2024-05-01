@@ -23,7 +23,7 @@ const usePersistedAppState = (): IUsePersistedAppState => {
 		themeName: persistedApp.themeName,
 		mode: persistedApp.mode,
 		token: persistedApp.token,
-		recentSearches: persistedApp.recentSearches,
+		authStage: persistedApp.authStage,
 		setPersistedAppState,
 		resetPersistedAppState
 	};
