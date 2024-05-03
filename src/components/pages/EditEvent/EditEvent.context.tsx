@@ -90,7 +90,13 @@ export const EditEventPageProvider: React.FC<ProviderProps> = ({
 		data: venuesData,
 		error: venuesError,
 		isLoading: venuesIsLoading
-	} = venueApiSlice.useFindAllQuery({ query: { page: 1, limit: 10 } });
+	} = venueApiSlice.useFindAllQuery({
+		query: {
+			host_id: hostData.host_id,
+			page: 1,
+			limit: 10
+		}
+	});
 
 	/**
 	 * Form actions

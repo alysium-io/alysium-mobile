@@ -1,13 +1,13 @@
 import { ApiIdentifier } from '@types';
 import { EventGallery } from '../gallery/gallery.entity';
-import { HostEvent } from '../host-event/host-event.entity';
+import { HostEventLink } from '../host-event-link/host-event-link.entity';
 import { Media } from '../media/media.entity';
 import { Venue } from '../venue';
 
 export interface Event {
 	event_id: ApiIdentifier;
 	profile_image: Media | null;
-	hosts: HostEvent[];
+	hosts: HostEventLink[];
 	gallery: EventGallery[];
 	name: string;
 	start_time: string | null;

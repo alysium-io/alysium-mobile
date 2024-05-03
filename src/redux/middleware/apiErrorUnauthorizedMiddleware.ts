@@ -19,7 +19,10 @@ const apiErrorUnauthorizedMiddleware: Middleware =
 			console.log(action.payload.data);
 			const errorStatus = action?.payload?.status;
 			if (
-				errorStatus === 401 &&
+				// TODO: 404 is not an unauthorized error, but it's often returned when
+				// we fail to find a resource (even if the real reason is that the user
+				// requested access to a resource that they don't have access to).
+				(errorStatus === 401 || errorStatus === 404) &&
 				(getState().persistedApp.authStage === AuthStage.loggedIn ||
 					getState().persistedApp.token !== null)
 			) {

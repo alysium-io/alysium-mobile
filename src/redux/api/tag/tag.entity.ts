@@ -1,8 +1,8 @@
 import { ApiIdentifier } from '@types';
-import { ArtistTag } from '../artist-tag/artist-tag.entity';
+import { ArtistTagLink } from '../artist-tag-link/artist-tag-link.entity';
 
 export interface Tag {
 	tag_id: ApiIdentifier;
-	artists: ArtistTag[];
+	artists: ArtistTagLink[];
 	name: string;
 }

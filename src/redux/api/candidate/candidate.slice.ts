@@ -20,7 +20,7 @@ import {
 const apiSlice = createApi({
 	baseQuery: baseQueryConfig({ basePath: '/candidate' }),
 	reducerPath: 'eventArtistCandidatesApi',
-	tagTypes: ['Candidates'],
+	tagTypes: ['EventCandidates', 'CandidateEvents'],
 	endpoints: (builder) => ({
 		findAllEventCandidates: builder.query<
 			FindAllEventCandidatesResponseDto[],
@@ -30,7 +30,11 @@ const apiSlice = createApi({
 				url: '/event-candidates',
 				method: 'GET',
 				params: query
-			})
+			}),
+			providesTags: (result, error, { query }) => [
+				{ type: 'EventCandidates', id: 'LIST' },
+				{ type: 'EventCandidates', id: query.event_id }
+			]
 		}),
 		findAllCandidateEvents: builder.query<
 			FindAllCandidateEventsResponseDto[],
@@ -40,7 +44,11 @@ const apiSlice = createApi({
 				url: '/candidate-events',
 				method: 'GET',
 				params: query
-			})
+			}),
+			providesTags: (result, error, { query }) => [
+				{ type: 'CandidateEvents', id: 'LIST' },
+				{ type: 'CandidateEvents', id: query.artist_id }
+			]
 		}),
 		createCandidate: builder.mutation<
 			CreateCandidateResponseDto,
@@ -51,17 +59,22 @@ const apiSlice = createApi({
 				method: 'POST',
 				body
 			}),
+			invalidatesTags: (result, error, { body }) => [
+				{ type: 'CandidateEvents', id: 'LIST' },
+				{ type: 'CandidateEvents', id: body.artist_id },
+				{ type: 'EventCandidates', id: body.event_id }
+			],
 			onQueryStarted: async ({ body }, { dispatch, queryFulfilled }) => {
-				// const result = await queryFulfilled;
-				// dispatch(
-				// 	apiSlice.util.updateQueryData(
-				// 		'findAllCandidates',
-				// 		{ query: { page: 1, limit: 10 } },
-				// 		(draft) => {
-				// 			draft.push(result.data);
-				// 		}
-				// 	)
-				// );
+				const result = await queryFulfilled;
+				dispatch(
+					apiSlice.util.updateQueryData(
+						'findAllEventCandidates',
+						{ query: { page: 1, limit: 10, event_id: body.event_id } },
+						(draft) => {
+							draft.push(result.data);
+						}
+					)
+				);
 			}
 		}),
 		deleteCandidate: builder.mutation<
@@ -75,30 +88,29 @@ const apiSlice = createApi({
 			}),
 			onQueryStarted: async ({ body }, { queryFulfilled, dispatch }) => {
 				let patchResult;
-				// try {
-				// 	patchResult = dispatch(
-				// 		apiSlice.util.updateQueryData(
-				// 			'findAllCandidates',
-				// 			{ query: { page: 1, limit: 10 } },
-				// 			(draft) => {
-				// 				const index = draft.findIndex(
-				// 					(event_artist_candidate) =>
-				// 						event_artist_candidate.event_id === params.event_id
-				// 				);
-				// 				if (index !== -1) {
-				// 					draft.splice(index, 1);
-				// 				}
-				// 			}
-				// 		)
-				// 	);
+				try {
+					patchResult = dispatch(
+						apiSlice.util.updateQueryData(
+							'findAllEventCandidates',
+							{ query: { page: 1, limit: 10, event_id: body.event_id } },
+							(draft) => {
+								const index = draft.findIndex(
+									(candidate) => candidate.event_id === body.event_id
+								);
+								if (index !== -1) {
+									draft.splice(index, 1);
+								}
+							}
+						)
+					);
 
-				// 	await queryFulfilled;
-				// } catch (error) {
-				// 	if (patchResult) {
-				// 		patchResult.undo();
-				// 	}
-				// 	console.error('Error fulfilling query:', error);
-				// }
+					await queryFulfilled;
+				} catch (error) {
+					if (patchResult) {
+						patchResult.undo();
+					}
+					console.error('Error fulfilling query:', error);
+				}
 			}
 		})
 	})

@@ -3,7 +3,11 @@ import { KeyboardViewFill, View } from '@atomic';
 import { eventApiSlice } from '@flux/api/event';
 import { SheetApi, useButton, useNavigation, useTextInput } from '@hooks';
 import { Button, TextInput } from '@molecules';
-import { BottomSheet, BottomSheetHeader } from '@organisms';
+import {
+	BottomSheet,
+	BottomSheetHeader,
+	BottomSheetViewWithMaxHeight
+} from '@organisms';
 import React, { useState } from 'react';
 interface CreateEventStartBottomSheetProps {
 	sheetApi: SheetApi;
@@ -62,34 +66,36 @@ const CreateEventStartBottomSheet: React.FC<
 			onChange={onChange}
 			onDismiss={onDismiss}
 		>
-			<BottomSheetHeader text='Create Event' />
-			<View margin='m' marginTop='l'>
-				<TextInput
-					textInputApi={textInputApi}
-					placeholder='Event Name'
-					onChangeText={_setEventName}
-				/>
-			</View>
-			<View margin='m' flexDirection='row'>
-				<View flex={1} marginRight='s'>
-					<Button
-						text='Cancel'
-						colorVariant='default'
-						variant='outlined'
-						onPress={() => sheetApi.close()}
+			<BottomSheetViewWithMaxHeight>
+				<BottomSheetHeader text='Create Event' />
+				<View margin='m' marginTop='l'>
+					<TextInput
+						textInputApi={textInputApi}
+						placeholder='Event Name'
+						onChangeText={_setEventName}
 					/>
 				</View>
-				<View flex={1} marginLeft='s'>
-					<Button
-						text='Create'
-						onPress={_createEvent}
-						colorVariant='default'
-						buttonState={createEventButtonState}
-						disabled={eventName.length === 0}
-					/>
+				<View margin='m' flexDirection='row'>
+					<View flex={1} marginRight='s'>
+						<Button
+							text='Cancel'
+							colorVariant='default'
+							variant='outlined'
+							onPress={() => sheetApi.close()}
+						/>
+					</View>
+					<View flex={1} marginLeft='s'>
+						<Button
+							text='Create'
+							onPress={_createEvent}
+							colorVariant='default'
+							buttonState={createEventButtonState}
+							disabled={eventName.length === 0}
+						/>
+					</View>
 				</View>
-			</View>
-			<KeyboardViewFill />
+				<KeyboardViewFill />
+			</BottomSheetViewWithMaxHeight>
 		</BottomSheet>
 	);
 };

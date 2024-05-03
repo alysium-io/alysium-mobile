@@ -14,12 +14,12 @@ import {
 	persistStore
 } from 'redux-persist';
 import { artistApiSlice } from './api/artist';
-import { artistTagApiSlice } from './api/artist-tag';
+import { artistTagLinkApiSlice } from './api/artist-tag-link';
 import { candidateApiSlice } from './api/candidate';
 import { eventApiSlice } from './api/event';
 import { galleryApiSlice } from './api/gallery';
 import { hostApiSlice } from './api/host';
-import { hostEventApiSlice } from './api/host-event';
+import { hostEventLinkApiSlice } from './api/host-event-link';
 import { locationApiSlice } from './api/location';
 import { mediaApiSlice } from './api/media';
 import { searchApiSlice } from './api/search';
@@ -39,9 +39,9 @@ const store = configureStore({
 		[venueApiSlice.reducerPath]: venueApiSlice.reducer,
 		[eventApiSlice.reducerPath]: eventApiSlice.reducer,
 		[candidateApiSlice.reducerPath]: candidateApiSlice.reducer,
-		[artistTagApiSlice.reducerPath]: artistTagApiSlice.reducer,
+		[artistTagLinkApiSlice.reducerPath]: artistTagLinkApiSlice.reducer,
 		[galleryApiSlice.reducerPath]: galleryApiSlice.reducer,
-		[hostEventApiSlice.reducerPath]: hostEventApiSlice.reducer,
+		[hostEventLinkApiSlice.reducerPath]: hostEventLinkApiSlice.reducer,
 		[locationApiSlice.reducerPath]: locationApiSlice.reducer,
 		[mediaApiSlice.reducerPath]: mediaApiSlice.reducer,
 		[tagApiSlice.reducerPath]: tagApiSlice.reducer,
@@ -59,9 +59,9 @@ const store = configureStore({
 			.concat(venueApiSlice.middleware)
 			.concat(eventApiSlice.middleware)
 			.concat(candidateApiSlice.middleware)
-			.concat(artistTagApiSlice.middleware)
+			.concat(artistTagLinkApiSlice.middleware)
 			.concat(galleryApiSlice.middleware)
-			.concat(hostEventApiSlice.middleware)
+			.concat(hostEventLinkApiSlice.middleware)
 			.concat(locationApiSlice.middleware)
 			.concat(mediaApiSlice.middleware)
 			.concat(tagApiSlice.middleware)
