@@ -18,8 +18,12 @@ export const AuthenticationAppContext = createContext(
 export const AuthenticationAppProvider: React.FC<ProviderProps> = ({
 	children
 }) => {
-	const { token, setPersistedAppState, resetPersistedAppState, authStage } =
-		usePersistedAppState();
+	const {
+		token,
+		setPersistedAppState,
+		setPersistedAppStateWithDefaults,
+		authStage
+	} = usePersistedAppState();
 	const [loginQuery] = userApiSlice.useLazyLoginQuery();
 	const [meQuery] = userApiSlice.useLazyMeQuery();
 
@@ -32,9 +36,7 @@ export const AuthenticationAppProvider: React.FC<ProviderProps> = ({
 
 					if (error) {
 						console.log('Failed to fetch user data.', error);
-						setPersistedAppState({
-							authStage: AuthStage.loggedOut
-						});
+						logout();
 					} else {
 						console.log('Successfully fetched user data.');
 						setPersistedAppState({
@@ -45,9 +47,7 @@ export const AuthenticationAppProvider: React.FC<ProviderProps> = ({
 			} else {
 				if (authStage !== AuthStage.loggedOut) {
 					console.log('No token found, setting user to logged out.');
-					setPersistedAppState({
-						authStage: AuthStage.loggedOut
-					});
+					logout();
 				}
 			}
 			SplashScreen.hide();
@@ -56,13 +56,19 @@ export const AuthenticationAppProvider: React.FC<ProviderProps> = ({
 	}, [token]);
 
 	const logout = () => {
-		resetPersistedAppState();
+		setPersistedAppStateWithDefaults({
+			authStage: AuthStage.loggedOut,
+			token: null
+		});
 	};
 
 	const login = async (email: string, password: string) => {
+		setPersistedAppState({ authStage: AuthStage.loading });
+		console.log('Starting: ', { email, password });
 		const { data, error } = await loginQuery({
 			body: { email, password }
 		});
+		console.log('Finished: ', { data, error });
 		if (error) {
 			logout();
 		}

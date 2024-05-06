@@ -16,6 +16,7 @@ import {
 import { artistApiSlice } from './api/artist';
 import { artistTagLinkApiSlice } from './api/artist-tag-link';
 import { candidateApiSlice } from './api/candidate';
+import { contractApiSlice } from './api/contract';
 import { eventApiSlice } from './api/event';
 import { galleryApiSlice } from './api/gallery';
 import { hostApiSlice } from './api/host';
@@ -46,7 +47,8 @@ const store = configureStore({
 		[mediaApiSlice.reducerPath]: mediaApiSlice.reducer,
 		[tagApiSlice.reducerPath]: tagApiSlice.reducer,
 		[userApiSlice.reducerPath]: userApiSlice.reducer,
-		[searchApiSlice.reducerPath]: searchApiSlice.reducer
+		[searchApiSlice.reducerPath]: searchApiSlice.reducer,
+		[contractApiSlice.reducerPath]: contractApiSlice.reducer
 	},
 	middleware: (getDefaultMiddleware) => {
 		return getDefaultMiddleware({
@@ -67,6 +69,7 @@ const store = configureStore({
 			.concat(tagApiSlice.middleware)
 			.concat(userApiSlice.middleware)
 			.concat(searchApiSlice.middleware)
+			.concat(contractApiSlice.middleware)
 			.concat(apiErrorUnauthorizedMiddleware);
 	}
 });

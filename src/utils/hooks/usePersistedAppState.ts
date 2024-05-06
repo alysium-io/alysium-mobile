@@ -5,6 +5,7 @@ import { AppState } from '@types';
 export type IUsePersistedAppState = AppState & {
 	setPersistedAppState: (state: Partial<AppState>) => void;
 	resetPersistedAppState: () => void;
+	setPersistedAppStateWithDefaults: (state: Partial<AppState>) => void;
 };
 
 const usePersistedAppState = (): IUsePersistedAppState => {
@@ -17,6 +18,10 @@ const usePersistedAppState = (): IUsePersistedAppState => {
 		dispatch(appActions.reset());
 	};
 
+	const setPersistedAppStateWithDefaults = (state: Partial<AppState>) => {
+		dispatch(appActions.setWithDefaults(state));
+	};
+
 	return {
 		personaId: persistedApp.personaId,
 		personaType: persistedApp.personaType,
@@ -25,7 +30,8 @@ const usePersistedAppState = (): IUsePersistedAppState => {
 		token: persistedApp.token,
 		authStage: persistedApp.authStage,
 		setPersistedAppState,
-		resetPersistedAppState
+		resetPersistedAppState,
+		setPersistedAppStateWithDefaults
 	};
 };
 

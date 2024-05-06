@@ -1,4 +1,5 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
+import { eventApiSlice } from '../event';
 import baseQueryConfig from '../utils/baseQueryConfig';
 import {
 	CreateCandidateBodyDto,
@@ -67,6 +68,11 @@ const apiSlice = createApi({
 			onQueryStarted: async ({ body }, { dispatch, queryFulfilled }) => {
 				const result = await queryFulfilled;
 				dispatch(
+					eventApiSlice.util.invalidateTags([
+						{ type: 'Event', id: body.event_id }
+					])
+				);
+				dispatch(
 					apiSlice.util.updateQueryData(
 						'findAllEventCandidates',
 						{ query: { page: 1, limit: 10, event_id: body.event_id } },
@@ -95,7 +101,7 @@ const apiSlice = createApi({
 							{ query: { page: 1, limit: 10, event_id: body.event_id } },
 							(draft) => {
 								const index = draft.findIndex(
-									(candidate) => candidate.event_id === body.event_id
+									(candidate) => candidate.artist_id === body.artist_id
 								);
 								if (index !== -1) {
 									draft.splice(index, 1);
@@ -105,6 +111,13 @@ const apiSlice = createApi({
 					);
 
 					await queryFulfilled;
+
+					// num_candidates update
+					dispatch(
+						eventApiSlice.util.invalidateTags([
+							{ type: 'Event', id: body.event_id }
+						])
+					);
 				} catch (error) {
 					if (patchResult) {
 						patchResult.undo();

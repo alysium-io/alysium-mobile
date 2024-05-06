@@ -25,6 +25,11 @@ const appSlice = createSlice({
 			Object.entries(initialState).forEach(([key, value]) => {
 				(state as any)[key] = value;
 			});
+		},
+		setWithDefaults(state, action: PayloadAction<Partial<AppState>>) {
+			Object.entries(initialState).forEach(([key, value]) => {
+				(state as any)[key] = (action.payload as any)[key] ?? value;
+			});
 		}
 	}
 });
