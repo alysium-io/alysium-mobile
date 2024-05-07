@@ -6,7 +6,8 @@ export interface UpdateContractParamsDto {
 }
 
 export interface UpdateContractBodyDto {
-	contract_id: ApiIdentifier;
+	start_time: string | null;
+	end_time: string | null;
 	host_provides_equipment: boolean;
 }
 

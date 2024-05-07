@@ -1,6 +1,6 @@
 import { HeaderSafeArea, ScrollView, Separator } from '@atomic';
 import { BasePage } from '@organisms';
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
 	EditEventPageProvider,
 	useEditEventPageContext
@@ -20,10 +20,6 @@ import {
 const EditEventPage = () => {
 	const { eventData, loadForm, createVenueSheetApi } =
 		useEditEventPageContext();
-
-	useEffect(() => {
-		loadForm();
-	}, [eventData]);
 
 	return (
 		<BasePage FooterComponent={EditEventPageFooter}>

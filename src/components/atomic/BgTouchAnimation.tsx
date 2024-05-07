@@ -1,7 +1,7 @@
 import { View } from '@atomic';
 import { Colors } from '@etc';
 import React, { useEffect } from 'react';
-import { TouchableWithoutFeedback } from 'react-native';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import {
 	useAnimatedStyle,
 	useSharedValue,

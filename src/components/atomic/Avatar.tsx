@@ -56,15 +56,14 @@ const Avatar: React.FC<AvatarProps> = ({
 
 	if (!image)
 		return (
-			<DefaultIconImage icon={defaultAvatarImageIconScheme[contentType]} />
+			<View style={containerStyles}>
+				<DefaultIconImage icon={defaultAvatarImageIconScheme[contentType]} />
+			</View>
 		);
 
 	return (
 		<View style={containerStyles}>
-			<Image
-				source={{ uri: image }}
-				style={[styles.image, { borderRadius: getBorderRadius() }]}
-			/>
+			<Image source={{ uri: image }} style={styles.image} />
 		</View>
 	);
 };
@@ -74,7 +73,8 @@ const styles = StyleSheet.create({
 		height: '100%',
 		aspectRatio: 1,
 		justifyContent: 'center',
-		alignItems: 'center'
+		alignItems: 'center',
+		overflow: 'hidden'
 	},
 	image: {
 		height: '100%',

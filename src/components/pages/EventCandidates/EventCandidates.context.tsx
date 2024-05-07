@@ -1,5 +1,7 @@
 import { candidateApiSlice } from '@flux/api/candidate';
 import { FindAllEventCandidatesResponseDto } from '@flux/api/candidate/dto/find-all-event-candidates.dto';
+import { contractApiSlice } from '@flux/api/contract';
+import { FindAllContractsResponseDto } from '@flux/api/contract/dto/find-all-contracts.dto';
 import { createUseContextHook } from '@hooks';
 import { useRoute } from '@react-navigation/native';
 import { EventCandidatesPageRouteProp, ProviderProps } from '@types';
@@ -9,6 +11,9 @@ export type EventCandidatesPageContextType = {
 	candidatesData: FindAllEventCandidatesResponseDto[];
 	candidatesError: any;
 	candidatesIsLoading: boolean;
+	contractsData: FindAllContractsResponseDto[];
+	contractsError: any;
+	contractsIsLoading: boolean;
 	toggleFilterId: number;
 	setToggleFilterId: (value: number) => void;
 };
@@ -31,7 +36,15 @@ export const EventCandidatesPageProvider: React.FC<ProviderProps> = ({
 		query: { event_id: route.params.eventId, page: 1, limit: 10 }
 	});
 
-	if (!candidatesData) {
+	const {
+		data: contractsData,
+		error: contractsError,
+		isLoading: contractsIsLoading
+	} = contractApiSlice.useFindAllQuery({
+		query: { event_id: route.params.eventId, page: 1, limit: 10 }
+	});
+
+	if (!candidatesData || !contractsData) {
 		return <></>;
 	}
 
@@ -41,6 +54,9 @@ export const EventCandidatesPageProvider: React.FC<ProviderProps> = ({
 				candidatesData,
 				candidatesError,
 				candidatesIsLoading,
+				contractsData,
+				contractsError,
+				contractsIsLoading,
 				toggleFilterId,
 				setToggleFilterId
 			}}

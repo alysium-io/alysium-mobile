@@ -15,7 +15,7 @@ import {
 } from '@hooks';
 import { useRoute } from '@react-navigation/native';
 import { ApiIdentifier, EditEventPageRouteProp, ProviderProps } from '@types';
-import React, { createContext } from 'react';
+import React, { createContext, useEffect } from 'react';
 import {
 	SubmitErrorHandler,
 	SubmitHandler,
@@ -97,6 +97,10 @@ export const EditEventPageProvider: React.FC<ProviderProps> = ({
 			limit: 10
 		}
 	});
+
+	useEffect(() => {
+		loadForm();
+	}, [eventData]);
 
 	/**
 	 * Form actions

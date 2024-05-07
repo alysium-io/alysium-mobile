@@ -1,7 +1,11 @@
 import { DatetimePicker, View } from '@atomic';
 import { useSheet } from '@hooks';
 import { Button } from '@molecules';
-import { BottomSheet, BottomSheetHeader } from '@organisms';
+import {
+	BottomSheet,
+	BottomSheetHeader,
+	BottomSheetViewWithMaxHeight
+} from '@organisms';
 import React, { useEffect, useState } from 'react';
 
 interface DatetimePickerWithModalProps {
@@ -54,16 +58,18 @@ const DatetimePickerWithModal: React.FC<DatetimePickerWithModalProps> = ({
 
 	return (
 		<BottomSheet sheetRef={sheetRef} onDismiss={onDismiss}>
-			<BottomSheetHeader text={title} />
-			<DatetimePicker date={date} onDateChange={_onChange} />
-			<View margin='m' flexDirection='row'>
-				<View flex={1} marginRight='s'>
-					<Button onPress={_onCancelled} text='cancel' variant='outlined' />
+			<BottomSheetViewWithMaxHeight>
+				<BottomSheetHeader text={title} />
+				<DatetimePicker date={date} onDateChange={_onChange} />
+				<View margin='m' flexDirection='row'>
+					<View flex={1} marginRight='s'>
+						<Button onPress={_onCancelled} text='cancel' variant='outlined' />
+					</View>
+					<View flex={1} marginLeft='s'>
+						<Button onPress={_onConfirm} text='confirm' />
+					</View>
 				</View>
-				<View flex={1} marginLeft='s'>
-					<Button onPress={_onConfirm} text='confirm' />
-				</View>
-			</View>
+			</BottomSheetViewWithMaxHeight>
 		</BottomSheet>
 	);
 };

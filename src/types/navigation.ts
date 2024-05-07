@@ -241,3 +241,7 @@ export type EventPageRouteProp = RouteProp<
 	CompositeStackNavigatorParamList,
 	'EventPage'
 >;
+export type EditContractPageRouteProp = RouteProp<
+	CompositeStackNavigatorParamList,
+	'EditContractPage'
+>;

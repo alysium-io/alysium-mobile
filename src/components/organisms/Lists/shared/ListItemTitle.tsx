@@ -34,7 +34,7 @@ const propsScheme = new Map([
 
 interface ListItemTitleProps {
 	title: string;
-	subtitle: string;
+	subtitle?: string;
 	subtitleFirst?: boolean;
 }
 
@@ -50,11 +50,11 @@ const ListItemTitle: React.FC<ListItemTitleProps> = ({
 			{title}
 		</Text>
 	);
-	const subtitleComponent = (
+	const subtitleComponent = subtitle ? (
 		<Text {...props?.subtitle} numberOfLines={1} ellipsizeMode='tail' key={1}>
 			{subtitle}
 		</Text>
-	);
+	) : null;
 
 	return (
 		<View flex={1} marginLeft='m'>

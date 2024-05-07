@@ -1,32 +1,26 @@
-import { HeaderSafeArea, ScrollView, Separator, Text, View } from '@atomic';
+import { HeaderSafeArea, ScrollView } from '@atomic';
 import { BasePage } from '@organisms';
 import React from 'react';
-import {
-	PartiesInvolvedSection,
-	SelectEventSection,
-	SlotDetailsSection,
-	SummarySection
-} from './components';
+import { EditContractPageProvider } from './EditContract.context';
+import EditContractPageFooter from './components/EditContractPageFooter';
+import PartiesInvolvedSection from './components/PartiesInvolvedSection';
+import SlotTimeSection from './components/SlotTimeSection';
 
 const EditContractPage = () => {
 	return (
-		<BasePage>
+		<BasePage FooterComponent={EditContractPageFooter}>
 			<HeaderSafeArea>
 				<ScrollView alwaysBounceVertical>
-					<View margin='m'>
-						<Text variant='page-header'>Edit Contract</Text>
-					</View>
 					<PartiesInvolvedSection />
-					<Separator size='large' />
-					<SelectEventSection />
-					<Separator size='large' marginVertical='l' />
-					<SlotDetailsSection />
-					<Separator marginVertical='l' />
-					<SummarySection />
+					<SlotTimeSection />
 				</ScrollView>
 			</HeaderSafeArea>
 		</BasePage>
 	);
 };
 
-export default EditContractPage;
+export default () => (
+	<EditContractPageProvider>
+		<EditContractPage />
+	</EditContractPageProvider>
+);

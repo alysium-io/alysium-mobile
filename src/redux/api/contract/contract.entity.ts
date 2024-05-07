@@ -12,5 +12,7 @@ export interface Contract {
 	host_approved: boolean;
 	artist_approved: boolean;
 	status: ContractStatus;
+	start_time: string;
+	end_time: string;
 	host_provides_equipment: boolean;
 }

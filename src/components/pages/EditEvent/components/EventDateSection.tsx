@@ -36,20 +36,6 @@ const EventDateSection = () => {
 			</View>
 			<View>
 				<Controller
-					name='start_time'
-					control={formMethods.control}
-					render={({ field: { value } }) => (
-						<MenuListItem
-							title='Event Start'
-							secondaryText={
-								value ? day(value).format('MMM D, h:mma') : 'No Date Selected'
-							}
-							onPress={() => toggleOpen('startTimeOpen')}
-							color='ion'
-						/>
-					)}
-				/>
-				<Controller
 					name='doors_open_time'
 					control={formMethods.control}
 					render={({ field: { value } }) => (
@@ -59,6 +45,20 @@ const EventDateSection = () => {
 								value ? day(value).format('MMM D, h:mma') : 'No Date Selected'
 							}
 							onPress={() => toggleOpen('doorsOpenTimeOpen')}
+							color='ion'
+						/>
+					)}
+				/>
+				<Controller
+					name='start_time'
+					control={formMethods.control}
+					render={({ field: { value } }) => (
+						<MenuListItem
+							title='Event Start'
+							secondaryText={
+								value ? day(value).format('MMM D, h:mma') : 'No Date Selected'
+							}
+							onPress={() => toggleOpen('startTimeOpen')}
 							color='ion'
 						/>
 					)}
