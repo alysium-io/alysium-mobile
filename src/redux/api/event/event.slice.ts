@@ -131,7 +131,6 @@ const apiSlice = createApi({
 				}
 			},
 			invalidatesTags: (result, error, { params }) => [
-				{ type: 'Event', id: params.event_id },
 				{ type: 'Event', id: 'LIST' }
 			]
 		}),

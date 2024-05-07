@@ -15,4 +15,5 @@ export interface Contract {
 	start_time: string;
 	end_time: string;
 	host_provides_equipment: boolean;
+	additional_notes: string | null;
 }

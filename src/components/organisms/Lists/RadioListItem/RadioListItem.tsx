@@ -34,7 +34,7 @@ const RadioListItem: React.FC<RadioListItemProps> = ({
 			<View flex={1}>
 				<RadioListItemTitle text={title} />
 				{subtitle && (
-					<View marginTop='xs'>
+					<View marginTop='s'>
 						<DeclarativeText textItems={subtitle} />
 					</View>
 				)}

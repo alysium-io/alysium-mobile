@@ -1,4 +1,5 @@
 import { Icon, View } from '@atomic';
+import { Vibrator } from '@etc';
 import { useTheme } from '@hooks';
 import { FeatureColors, ThemeMode } from '@types';
 import React, { useMemo } from 'react';
@@ -21,11 +22,12 @@ const Radio: React.FC<RadioProps> = ({
 		if (mode === ThemeMode.dark) {
 			return { color: colorVariant === 'default' ? 'white' : colorVariant };
 		} else {
-			return { color: colorVariant === 'default' ? 'black' : colorVariant };
+			return { color: colorVariant === 'default' ? 't2' : colorVariant };
 		}
 	}, [mode, colorVariant]);
 
 	const _onPress = () => {
+		Vibrator.clockTick();
 		onPress();
 	};
 
@@ -64,11 +66,11 @@ const Radio: React.FC<RadioProps> = ({
 
 const styles = StyleSheet.create({
 	container: {
-		borderWidth: 2,
+		borderWidth: 2.5,
 		flexDirection: 'row',
 		alignItems: 'center',
 		justifyContent: 'center',
-		borderRadius: 3,
+		borderRadius: 5,
 		padding: 4
 	}
 });

@@ -6,7 +6,7 @@ import { useEditContractPageContext } from '../EditContract.context';
 const PartiesInvolvedSection = () => {
 	const { contractData } = useEditContractPageContext();
 	return (
-		<Section marginVertical='xl' marginHorizontal='m'>
+		<Section marginTop='xl' marginHorizontal='m'>
 			<View alignItems='center'>
 				<Icon name='logo' size='large' color='t2' />
 			</View>

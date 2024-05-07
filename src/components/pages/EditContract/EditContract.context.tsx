@@ -17,7 +17,8 @@ import { Alert } from 'react-native';
 const initialValues: UpdateContractBodyDto = {
 	start_time: null,
 	end_time: null,
-	host_provides_equipment: false
+	host_provides_equipment: false,
+	additional_notes: null
 };
 
 export type EditContractPageContextType = {
@@ -69,6 +70,8 @@ export const EditContractPageProvider: React.FC<ProviderProps> = ({
 	const onValid: SubmitHandler<UpdateContractBodyDto> = (
 		data: UpdateContractBodyDto
 	) => {
+		data.start_time = Formatting.toUtcIsoFormat(data.start_time);
+		data.end_time = Formatting.toUtcIsoFormat(data.end_time);
 		updateContractMutation({
 			body: data,
 			params: { contract_id: route.params.contractId }
@@ -88,7 +91,9 @@ export const EditContractPageProvider: React.FC<ProviderProps> = ({
 				end_time: contractData.end_time ?? initialValues.end_time,
 				host_provides_equipment:
 					contractData.host_provides_equipment ??
-					initialValues.host_provides_equipment
+					initialValues.host_provides_equipment,
+				additional_notes:
+					contractData.additional_notes ?? initialValues.additional_notes
 			});
 		}
 	};

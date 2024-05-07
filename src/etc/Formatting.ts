@@ -67,6 +67,9 @@ class Formatting {
 		/**
 		 * Function that formats a JS date object to a string that can be used in a Postgres timestamp (US Standard Format)
 		 */
+		if (timestamp === null) {
+			return null;
+		}
 		return day(timestamp).utc().format();
 	};
 }

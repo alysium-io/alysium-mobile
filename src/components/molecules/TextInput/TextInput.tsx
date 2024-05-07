@@ -94,8 +94,8 @@ const TextInput: React.FC<TextInputProps> = ({
 
 const styles = StyleSheet.create({
 	container: {
-		borderWidth: 2,
-		borderRadius: 5
+		borderWidth: 2.5,
+		borderRadius: 8
 	}
 });
 
