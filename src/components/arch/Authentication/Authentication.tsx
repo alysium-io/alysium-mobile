@@ -1,10 +1,11 @@
+import { ConditionalRenderer } from '@atomic';
 import { AuthStage } from '@types';
 import React from 'react';
 import {
 	AuthenticationAppProvider,
 	useAuthenticationAppContext
 } from './Authentication.context';
-import AuthScreens from './screens';
+import LoggedOut from './components/LoggedOut';
 
 interface AuthenticationProps {
 	children?: React.ReactNode;
@@ -13,11 +14,15 @@ interface AuthenticationProps {
 const Authentication: React.FC<AuthenticationProps> = ({ children }) => {
 	const { authStage } = useAuthenticationAppContext();
 
-	if (authStage === AuthStage.loggedIn) {
-		return children;
-	}
-
-	return <AuthScreens />;
+	return (
+		<ConditionalRenderer
+			componentKey={authStage}
+			componentMap={{
+				[AuthStage.loggedOut]: LoggedOut,
+				[AuthStage.loggedIn]: () => <>{children}</>
+			}}
+		/>
+	);
 };
 
 const AuthenticationWrapper: React.FC<AuthenticationProps> = ({ children }) => (

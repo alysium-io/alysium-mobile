@@ -1,14 +1,35 @@
+import { Formatting } from '@etc';
 import { userApiSlice } from '@flux/api/user';
 import { createUseContextHook, usePersistedAppState } from '@hooks';
 import { AuthStage, ProviderProps } from '@types';
-import React, { createContext, useEffect } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import SplashScreen from 'react-native-splash-screen';
+
+export type ScreenState = 'login-phone' | 'continue-phone';
+export type AuthenticationState = {
+	screen: ScreenState;
+	phone_number: string;
+	passcode: string;
+	isLoading: boolean;
+};
+
+const initialState: AuthenticationState = {
+	screen: 'continue-phone',
+	phone_number: '',
+	passcode: '',
+	isLoading: false
+};
 
 export type AuthenticationAppContextType = {
 	authStage: AuthStage;
 	token: string | null;
+	state: AuthenticationState;
 	logout: () => void;
-	login: (email: string, password: string) => Promise<void>;
+	loginEmail: (email: string, password: string) => Promise<void>;
+	continuePhoneNumber: () => Promise<void>;
+	loginPhoneNumber: () => void;
+	setPhoneNumber: (phone_number: string) => void;
+	setCode: (passcode: string) => void;
 };
 
 export const AuthenticationAppContext = createContext(
@@ -26,6 +47,52 @@ export const AuthenticationAppProvider: React.FC<ProviderProps> = ({
 	} = usePersistedAppState();
 	const [loginQuery] = userApiSlice.useLazyLoginQuery();
 	const [meQuery] = userApiSlice.useLazyMeQuery();
+	const [registerPhoneNumberQuery] =
+		userApiSlice.useLazyRegisterPhoneNumberQuery();
+	const [loginPhoneNumberQuery] = userApiSlice.useLazyLoginPhoneNumberQuery();
+
+	const [state, setState] = useState<AuthenticationState>(initialState);
+
+	const setPhoneNumber = (phone_number: string) => {
+		setState({
+			...state,
+			phone_number: Formatting.formatPhoneNumber(phone_number)
+		});
+	};
+
+	const setCode = (passcode: string) => {
+		setState({
+			...state,
+			passcode
+		});
+	};
+
+	const goToContinuePhone = () => {
+		setState({
+			...state,
+			phone_number: '',
+			screen: 'continue-phone'
+		});
+	};
+
+	const goToOneTimeCode = () => {
+		setState({
+			...state,
+			isLoading: false,
+			screen: 'login-phone'
+		});
+	};
+
+	const resetState = () => {
+		setState(initialState);
+	};
+
+	const setIsLoading = (isLoading: boolean) => {
+		setState({
+			...state,
+			isLoading
+		});
+	};
 
 	useEffect(() => {
 		const fetchMe = async () => {
@@ -60,23 +127,63 @@ export const AuthenticationAppProvider: React.FC<ProviderProps> = ({
 			authStage: AuthStage.loggedOut,
 			token: null
 		});
+		resetState();
 	};
 
-	const login = async (email: string, password: string) => {
+	const login = (token: string) => {
+		setPersistedAppState({
+			token,
+			authStage: AuthStage.loggedIn
+		});
+		resetState();
+	};
+
+	const loginEmail = async (email: string, password: string) => {
 		setPersistedAppState({ authStage: AuthStage.loading });
-		console.log('Starting: ', { email, password });
 		const { data, error } = await loginQuery({
 			body: { email, password }
 		});
-		console.log('Finished: ', { data, error });
+
 		if (error) {
 			logout();
 		}
 		if (data) {
-			setPersistedAppState({
-				token: data.token,
-				authStage: AuthStage.loggedIn
-			});
+			login(data.token);
+		}
+	};
+
+	const continuePhoneNumber = async () => {
+		setIsLoading(true);
+		const { data, error } = await registerPhoneNumberQuery({
+			body: {
+				phone_number: '+1' + Formatting.cleanStringToNumber(state.phone_number)
+			}
+		});
+
+		if (error) {
+			logout();
+		}
+
+		if (data) {
+			goToOneTimeCode();
+		}
+	};
+
+	const loginPhoneNumber = async () => {
+		const { data, error } = await loginPhoneNumberQuery({
+			body: {
+				phone_number: '+1' + Formatting.cleanStringToNumber(state.phone_number),
+				passcode: state.passcode
+			}
+		});
+
+		if (error) {
+			console.log('Failed to login with phone number.', error);
+			logout();
+		}
+
+		if (data) {
+			login(data.token);
 		}
 	};
 
@@ -86,7 +193,12 @@ export const AuthenticationAppProvider: React.FC<ProviderProps> = ({
 				authStage,
 				token,
 				logout,
-				login
+				loginEmail,
+				state,
+				continuePhoneNumber,
+				loginPhoneNumber,
+				setPhoneNumber,
+				setCode
 			}}
 		>
 			{children}

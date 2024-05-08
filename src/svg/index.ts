@@ -35,6 +35,7 @@ import Menu from './Menu';
 import Mobile from './Mobile';
 import Outdoors from './Outdoors';
 import Pencil from './Pencil';
+import Phone from './Phone';
 import Plus from './Plus';
 import Profile from './Profile';
 import Restaurant from './Restaurant';
@@ -99,7 +100,8 @@ export const SvgIcons = {
 	arena: Arena,
 	at: At,
 	plus: Plus,
-	'edit-image': EditImage
+	'edit-image': EditImage,
+	phone: Phone
 };
 
 export type IconNames = keyof typeof SvgIcons;

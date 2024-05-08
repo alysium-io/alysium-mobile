@@ -13,7 +13,7 @@ const LogIn: React.FC<LogInProps> = ({ toggleAuthScreen }) => {
 	const [email, setEmail] = useState<string>('alec@alysium.io');
 	const [password, setPassword] = useState<string>('password');
 
-	const { login } = useAuthenticationAppContext();
+	const { loginEmail } = useAuthenticationAppContext();
 
 	return (
 		<View
@@ -53,7 +53,7 @@ const LogIn: React.FC<LogInProps> = ({ toggleAuthScreen }) => {
 						</View>
 						<Button
 							text='Log In'
-							onPress={() => login(email, password)}
+							onPress={() => loginEmail(email, password)}
 							colorVariant='positive'
 						/>
 					</View>

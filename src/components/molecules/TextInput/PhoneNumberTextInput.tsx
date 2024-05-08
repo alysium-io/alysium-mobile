@@ -1,8 +1,8 @@
-import { Icon, TextInput as RNTextInput, View } from '@atomic';
+import { TextInput as RNTextInput, Text, View } from '@atomic';
+import { Formatting } from '@etc';
 import { TextInputApi, useTheme } from '@hooks';
-import { IconNames } from '@svg';
 import React, { useEffect } from 'react';
-import { TextInputProps as RNTextInputProps, StyleSheet } from 'react-native';
+import { StyleSheet, TextInputProps } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import {
 	useAnimatedStyle,
@@ -10,7 +10,7 @@ import {
 	withTiming
 } from 'react-native-reanimated';
 
-interface TextInputProps extends RNTextInputProps {
+interface PhoneNumberTextInputProps extends TextInputProps {
 	textInputApi: TextInputApi;
 	defaultValue?: string;
 	placeholder: string;
@@ -20,12 +20,11 @@ interface TextInputProps extends RNTextInputProps {
 	onBlur?: () => void;
 	textAlign?: 'left' | 'center';
 	containerProps?: React.ComponentProps<typeof View>;
-	icon?: IconNames;
 	value?: string;
 	color?: string;
 }
 
-const TextInput: React.FC<TextInputProps> = ({
+const PhoneNumberTextInput: React.FC<PhoneNumberTextInputProps> = ({
 	textInputApi,
 	defaultValue,
 	placeholder,
@@ -33,18 +32,17 @@ const TextInput: React.FC<TextInputProps> = ({
 	onFocus,
 	onBlur,
 	containerProps,
-	icon,
 	value,
 	color,
 	...props
 }) => {
 	useEffect(() => {
-		borderColor.value = withTiming(color || theme.colors.ion);
+		borderColor.value = withTiming(color || theme.colors.ion_dark);
 	}, [color]);
 
 	const { theme } = useTheme();
 
-	const borderColor = useSharedValue<string>(theme.colors.ion);
+	const borderColor = useSharedValue<string>(theme.colors.ion_dark);
 
 	const animatedContainerStyle = useAnimatedStyle(() => {
 		return {
@@ -53,12 +51,12 @@ const TextInput: React.FC<TextInputProps> = ({
 	});
 
 	const _onFocus = () => {
-		borderColor.value = withTiming(theme.colors.ion_dark);
+		borderColor.value = withTiming(theme.colors.t1);
 		onFocus && onFocus();
 	};
 
 	const _onBlur = () => {
-		borderColor.value = withTiming(theme.colors.ion);
+		borderColor.value = withTiming(theme.colors.ion_dark);
 		onBlur && onBlur();
 	};
 
@@ -75,13 +73,13 @@ const TextInput: React.FC<TextInputProps> = ({
 				]}
 				{...containerProps}
 			>
-				<View padding='m' flexDirection='row' alignItems='center'>
-					{icon && (
-						<View marginRight='s'>
-							<Icon name={icon} size='regular' color='ion' />
-						</View>
-					)}
-					<View flex={1}>
+				<View flexDirection='row' width='100%'>
+					<View padding='m' height='100%' backgroundColor='t1'>
+						<Text variant='paragraph-medium' color='bg2'>
+							+1
+						</Text>
+					</View>
+					<View flex={1} padding='m'>
 						<RNTextInput
 							ref={textInputApi.ref}
 							defaultValue={defaultValue}
@@ -89,7 +87,7 @@ const TextInput: React.FC<TextInputProps> = ({
 							onChangeText={onChangeText}
 							onFocus={_onFocus}
 							onBlur={_onBlur}
-							value={value}
+							value={value ? Formatting.formatPhoneNumber(value) : value}
 							variant='paragraph-medium'
 							placeholderTextColor={theme.colors.t3}
 							style={{ color: theme.colors.t1 }}
@@ -105,8 +103,9 @@ const TextInput: React.FC<TextInputProps> = ({
 const styles = StyleSheet.create({
 	container: {
 		borderWidth: 0.5,
-		borderRadius: 8
+		borderRadius: 8,
+		overflow: 'hidden'
 	}
 });
 
-export default TextInput;
+export default PhoneNumberTextInput;

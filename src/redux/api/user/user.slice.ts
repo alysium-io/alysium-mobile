@@ -1,5 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import baseQueryConfig from '../utils/baseQueryConfig';
+import { ContinueUserPhoneNumberBodyDto } from './dto/user-continue-phone.dto';
 import {
 	CreateUserBodyDto,
 	CreateUserResponseDto
@@ -10,8 +11,10 @@ import {
 	FindOneUserParamsDto,
 	FindOneUserResponseDto
 } from './dto/user-find-one.dto';
+import { LoginUserPhoneNumberBodyDto } from './dto/user-login-phone.dto';
 import { LoginBodyDto, LoginResponseDto } from './dto/user-login.dto';
 import { GetMeResponseDto } from './dto/user-me.dto';
+import { RegisterUserPhoneNumberBodyDto } from './dto/user-register-phone.dto';
 import {
 	UpdateUserBodyDto,
 	UpdateUserResponseDto
@@ -72,6 +75,36 @@ const apiSlice = createApi({
 		login: builder.query<LoginResponseDto, { body: LoginBodyDto }>({
 			query: ({ body }) => ({
 				url: '/login',
+				method: 'POST',
+				body
+			})
+		}),
+		registerPhoneNumber: builder.query<
+			LoginResponseDto,
+			{ body: RegisterUserPhoneNumberBodyDto }
+		>({
+			query: ({ body }) => ({
+				url: '/register-phone',
+				method: 'POST',
+				body
+			})
+		}),
+		continuePhoneNumber: builder.query<
+			LoginResponseDto,
+			{ body: ContinueUserPhoneNumberBodyDto }
+		>({
+			query: ({ body }) => ({
+				url: '/continue-phone',
+				method: 'POST',
+				body
+			})
+		}),
+		loginPhoneNumber: builder.query<
+			LoginResponseDto,
+			{ body: LoginUserPhoneNumberBodyDto }
+		>({
+			query: ({ body }) => ({
+				url: '/login-phone',
 				method: 'POST',
 				body
 			})

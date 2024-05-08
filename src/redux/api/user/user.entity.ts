@@ -7,6 +7,7 @@ import { Media } from '../media/media.entity';
 export interface User {
 	user_id: ApiIdentifier;
 	name: string | null;
+	handle: string;
 	email: string | null;
 	phone_number: string | null;
 	profile_image: Media | null;

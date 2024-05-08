@@ -12,13 +12,13 @@ export interface TextInputApi {
 	reset: () => void;
 }
 
-const useTextInput = (): TextInputApi => {
+const useTextInput = (defaultText: string = ''): TextInputApi => {
 	const ref = useRef<RNTextInput>(null);
 	const focus = () => ref.current?.focus();
 	const blur = () => ref.current?.blur();
 	const clear = () => ref.current?.clear();
 
-	const text = useRef<string>('');
+	const text = useRef<string>(defaultText);
 	const setText = (newText: string) => (text.current = newText);
 	const clearText = () => (text.current = '');
 
