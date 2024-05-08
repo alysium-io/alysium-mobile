@@ -1,5 +1,5 @@
 import { useHostAppContext } from '@arch/Application/contexts/Host.context';
-import { View } from '@atomic';
+import { PersonaView, View } from '@atomic';
 import { candidateApiSlice } from '@flux/api/candidate';
 import { eventApiSlice } from '@flux/api/event';
 import { BottomSheetView } from '@gorhom/bottom-sheet';
@@ -10,7 +10,7 @@ import {
 	BottomSheetHeader,
 	ContentListItemRadioToggler
 } from '@organisms';
-import { ApiIdentifier } from '@types';
+import { ApiIdentifier, Persona } from '@types';
 import dayjs from 'dayjs';
 import React from 'react';
 import { useWindowDimensions } from 'react-native';
@@ -106,4 +106,8 @@ const AddArtistToEventCandidatesBottomSheet: React.FC<
 	);
 };
 
-export default AddArtistToEventCandidatesBottomSheet;
+export default (props: AddArtistToEventCandidatesBottomSheetProps) => (
+	<PersonaView personaType={Persona.host}>
+		<AddArtistToEventCandidatesBottomSheet {...props} />
+	</PersonaView>
+);

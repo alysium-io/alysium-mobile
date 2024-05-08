@@ -17,7 +17,7 @@ const Body: React.FC = () => {
 			<View height='100%' justifyContent='center'>
 				<View margin='m'>
 					<View marginBottom='xl' alignItems='center'>
-						<Icon name='logo' size='large' color='t2' />
+						<Icon name='logo' size='large' color='t1' />
 					</View>
 					<ConditionalRenderer
 						componentKey={state.screen}

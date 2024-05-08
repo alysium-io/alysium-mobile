@@ -26,6 +26,7 @@
  */
 export { default as Image } from './Image';
 export { default as KeyboardAvoidingView } from './KeyboardAvoidingView';
+export { default as PersonaView } from './PersonaView';
 export { default as Radio } from './Radio';
 export { default as ScrollView } from './ScrollView';
 export { default as Switch } from './Switch';

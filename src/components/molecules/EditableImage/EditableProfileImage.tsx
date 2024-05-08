@@ -1,5 +1,6 @@
-import { Image, View } from '@atomic';
+import { Avatar, View } from '@atomic';
 import { usePhotosAndCamera } from '@hooks';
+import { ContentType, Persona } from '@types';
 import React from 'react';
 import { StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import { Asset } from 'react-native-image-picker';
@@ -8,11 +9,13 @@ import EditIcon from './EditIcon';
 interface EditableProfileImageProps {
 	image: string;
 	onChooseImage?: (imagePickerAsset: Asset) => void;
+	contentType?: ContentType;
 }
 
 const EditableProfileImage: React.FC<EditableProfileImageProps> = ({
 	image,
-	onChooseImage
+	onChooseImage,
+	contentType = Persona.user
 }) => {
 	const { chooseImageOrTakeNewPhoto } = usePhotosAndCamera();
 
@@ -31,7 +34,12 @@ const EditableProfileImage: React.FC<EditableProfileImageProps> = ({
 	return (
 		<TouchableWithoutFeedback onPress={onPress}>
 			<View style={styles.container}>
-				<Image source={{ uri: image }} style={styles.image} />
+				<Avatar
+					image={image}
+					contentType={contentType}
+					size='100%'
+					borderRadius='round'
+				/>
 				<View style={styles.iconContainer}>
 					<EditIcon />
 				</View>

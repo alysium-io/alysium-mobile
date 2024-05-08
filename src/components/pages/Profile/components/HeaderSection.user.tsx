@@ -18,17 +18,6 @@ const HeaderSection = () => {
 			/>
 			<View margin='m' alignItems='center'>
 				<UsernameDisplay />
-				<View marginTop='s'>
-					<DeclarativeText
-						textItems={[
-							{
-								variant: 'paragraph',
-								text: 'Fan',
-								color: 't3'
-							}
-						]}
-					/>
-				</View>
 				<View marginTop='m'>
 					<DeclarativeText
 						textItems={[

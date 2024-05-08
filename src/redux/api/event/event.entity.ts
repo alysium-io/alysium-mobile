@@ -19,4 +19,5 @@ export interface Event {
 	pets_allowed: boolean;
 	venue: Venue | null;
 	num_candidates: number;
+	num_contracts: number;
 }

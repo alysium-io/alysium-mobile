@@ -16,6 +16,8 @@ const UsernameDisplay = () => {
 			</View>
 		);
 	}
+
+	return null;
 };
 
 export default UsernameDisplay;

@@ -18,7 +18,7 @@ const SelectAccountSection = () => {
 			{userData && (
 				<ContentListItem
 					key={userData.user_id}
-					title={userData.name || 'Unknown'}
+					title={'@' + userData.handle}
 					subtitle={'user'}
 					onPress={() => changePersona(Persona.user, userData.user_id)}
 					contentType={Persona.user}

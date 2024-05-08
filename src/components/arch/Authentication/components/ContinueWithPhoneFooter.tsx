@@ -16,7 +16,7 @@ const ContinueWithPhoneFooter = () => {
 		>
 			<View style={{ marginBottom: insets.bottom }} padding='m'>
 				<Button
-					text='Continue Phone'
+					text='Send Text'
 					onPress={continuePhoneNumber}
 					colorVariant='positive'
 					buttonState={state.isLoading ? 'loading' : 'default'}
