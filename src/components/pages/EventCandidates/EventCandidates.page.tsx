@@ -1,4 +1,5 @@
 import { HeaderSafeArea, ScrollView, View } from '@atomic';
+import { withProvider } from '@hooks';
 import { BasePage } from '@organisms';
 import React from 'react';
 import { EventCandidatesPageProvider } from './EventCandidates.context';
@@ -20,8 +21,4 @@ const EventCandidatesPage = () => {
 	);
 };
 
-export default () => (
-	<EventCandidatesPageProvider>
-		<EventCandidatesPage />
-	</EventCandidatesPageProvider>
-);
+export default withProvider(EventCandidatesPage, EventCandidatesPageProvider);

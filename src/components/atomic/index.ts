@@ -46,6 +46,7 @@ export { default as Svg } from './Svg';
 /**
  * Custom Components
  */
+export { default as ActivityIndicator } from './ActivityIndicator';
 export { default as AppTransitionWrapper } from './AppTransitionWrapper';
 export { default as Avatar } from './Avatar';
 export { default as BgTouchAnimation } from './BgTouchAnimation';
@@ -58,6 +59,8 @@ export { default as KeyboardViewFill } from './KeyboardViewFill';
 export { default as NotchMargin } from './NotchMargin';
 export { default as Section } from './Section';
 export { default as Separator } from './Separator';
+export { default as SlideInOutSequenceView } from './SlideInOutSequenceView';
+export { default as SlideInOutView } from './SlideInOutView';
 export { default as StatusBar } from './StatusBar';
 export { default as TagAvatar } from './TagAvatar';
 export { default as Touchable } from './Touchable';

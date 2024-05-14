@@ -1,5 +1,4 @@
 import { persistor, store } from '@flux';
-import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { PortalProvider } from '@gorhom/portal';
 import { ThemeProvider } from '@restyle';
 import React from 'react';
@@ -22,11 +21,7 @@ const Dependencies: React.FC<DependenciesProps> = ({ children }) => {
 					<RootProvider>
 						<GestureHandlerRootView style={styles.gesture}>
 							<SafeAreaProvider>
-								<PortalProvider>
-									<BottomSheetModalProvider>
-										{children}
-									</BottomSheetModalProvider>
-								</PortalProvider>
+								<PortalProvider>{children}</PortalProvider>
 							</SafeAreaProvider>
 						</GestureHandlerRootView>
 					</RootProvider>

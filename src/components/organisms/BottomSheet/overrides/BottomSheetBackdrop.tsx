@@ -10,6 +10,7 @@ const BottomSheetBackdrop: React.FC<RNBottomSheetBackdropProps> = (props) => {
 			{...props}
 			enableTouchThrough={true}
 			disappearsOnIndex={-1}
+			opacity={0.9}
 		/>
 	);
 };

@@ -1,4 +1,5 @@
 import { HeaderSafeArea, ScrollView } from '@atomic';
+import { withProvider } from '@hooks';
 import { BasePage } from '@organisms';
 import React from 'react';
 import { ProfilePageProvider } from './Profile.context';
@@ -25,8 +26,4 @@ const ProfilePage = () => {
 	);
 };
 
-export default () => (
-	<ProfilePageProvider>
-		<ProfilePage />
-	</ProfilePageProvider>
-);
+export default withProvider(ProfilePage, ProfilePageProvider);

@@ -1,4 +1,5 @@
 import { HeaderSafeArea, ScrollView } from '@atomic';
+import { withProvider } from '@hooks';
 import { BasePage } from '@organisms';
 import React from 'react';
 import { TagPageContextProvider } from './Tag.context';
@@ -18,8 +19,4 @@ const TagPage = () => {
 	);
 };
 
-export default () => (
-	<TagPageContextProvider>
-		<TagPage />
-	</TagPageContextProvider>
-);
+export default withProvider(TagPage, TagPageContextProvider);

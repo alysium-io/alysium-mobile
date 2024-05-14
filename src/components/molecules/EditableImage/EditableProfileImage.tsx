@@ -7,7 +7,7 @@ import { Asset } from 'react-native-image-picker';
 import EditIcon from './EditIcon';
 
 interface EditableProfileImageProps {
-	image: string;
+	image?: string;
 	onChooseImage?: (imagePickerAsset: Asset) => void;
 	contentType?: ContentType;
 }

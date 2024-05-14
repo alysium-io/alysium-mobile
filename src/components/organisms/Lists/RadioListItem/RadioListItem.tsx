@@ -31,10 +31,13 @@ const RadioListItem: React.FC<RadioListItemProps> = ({
 					<RadioListItemIcon icon={icon} />
 				</View>
 			)}
-			<View flex={1}>
+			<View flex={1} minHeight={50}>
 				<RadioListItemTitle text={title} />
+				{/* <Text variant='paragraph-small' color='matt' marginTop='xs'>
+					{subtitle}
+				</Text> */}
 				{subtitle && (
-					<View marginTop='s'>
+					<View marginTop='xs'>
 						<DeclarativeText textItems={subtitle} />
 					</View>
 				)}

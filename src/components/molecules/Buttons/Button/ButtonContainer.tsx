@@ -25,6 +25,7 @@ const ButtonContainer: React.FC<ButtonContainerProps> = ({
 			activeOpacity={0.9}
 		>
 			<View
+				padding='m'
 				style={[
 					styles.container,
 					{
@@ -45,8 +46,7 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'center',
 		alignItems: 'center',
-		borderWidth: 0.3,
-		height: 50
+		borderWidth: 0.3
 	}
 });
 

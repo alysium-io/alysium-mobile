@@ -1,4 +1,5 @@
 import { HeaderSafeArea, ScrollView, View } from '@atomic';
+import { withProvider } from '@hooks';
 import { BasePage, SearchBar } from '@organisms';
 import React from 'react';
 import { LayoutAnimationConfig } from 'react-native-reanimated';
@@ -37,8 +38,4 @@ const SearchPage = () => {
 	);
 };
 
-export default () => (
-	<SearchPageProvider>
-		<SearchPage />
-	</SearchPageProvider>
-);
+export default withProvider(SearchPage, SearchPageProvider);

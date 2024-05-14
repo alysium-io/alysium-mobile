@@ -9,7 +9,7 @@ const sizeScheme = {
 };
 
 interface ListItemImageProps {
-	image: string | null;
+	image?: string;
 	contentType: ContentType | Persona;
 	size?: keyof typeof sizeScheme;
 	borderRadius?: 'round' | 'sharp' | 'smooth' | number;

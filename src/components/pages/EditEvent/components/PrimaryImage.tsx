@@ -10,7 +10,7 @@ const PrimaryImage = () => {
 	return (
 		<View marginTop='l' flexDirection='row' justifyContent='center'>
 			<EditableProfileImage
-				image={eventData.profile_image?.url || ''}
+				image={eventData.profile_image?.url}
 				onChooseImage={setEventProfileImage}
 				contentType={ContentType.event}
 			/>

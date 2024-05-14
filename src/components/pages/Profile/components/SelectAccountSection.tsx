@@ -22,10 +22,7 @@ const SelectAccountSection = () => {
 					subtitle={'user'}
 					onPress={() => changePersona(Persona.user, userData.user_id)}
 					contentType={Persona.user}
-					image={
-						userData.profile_image?.url ||
-						'https://www.w3schools.com/howto/img_avatar.png'
-					}
+					image={userData.profile_image?.url}
 					border
 					markerIcon={
 						personaType === Persona.user && personaId === userData.user_id
@@ -41,10 +38,7 @@ const SelectAccountSection = () => {
 					subtitle={'artist'}
 					onPress={() => changePersona(Persona.artist, artist.artist_id)}
 					contentType={Persona.artist}
-					image={
-						artist.profile_image?.url ||
-						'https://www.w3schools.com/howto/img_avatar.png'
-					}
+					image={artist.profile_image?.url}
 					border
 					markerIcon={
 						personaType === Persona.artist && personaId === artist.artist_id
@@ -60,10 +54,7 @@ const SelectAccountSection = () => {
 					subtitle={'host'}
 					onPress={() => changePersona(Persona.host, host.host_id)}
 					contentType={Persona.host}
-					image={
-						host.profile_image?.url ||
-						'https://www.w3schools.com/howto/img_avatar.png'
-					}
+					image={host.profile_image?.url}
 					border
 					markerIcon={
 						personaType === Persona.host && personaId === host.host_id

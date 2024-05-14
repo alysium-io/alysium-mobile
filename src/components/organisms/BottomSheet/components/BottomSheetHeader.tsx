@@ -18,7 +18,7 @@ const BottomSheetHeader: React.FC<BottomSheetHeaderProps> = ({ text }) => {
 				{
 					borderBottomWidth: 0.5,
 					borderBottomColor:
-						mode === ThemeMode.dark ? getRawColor('bg3') : getRawColor('ion')
+						mode === ThemeMode.dark ? getRawColor('bg3') : getRawColor('bg2')
 				}
 			]}
 			paddingBottom='l'

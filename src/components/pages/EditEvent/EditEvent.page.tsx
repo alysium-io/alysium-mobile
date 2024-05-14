@@ -1,4 +1,5 @@
 import { HeaderSafeArea, ScrollView, Separator } from '@atomic';
+import { withProvider } from '@hooks';
 import { BasePage } from '@organisms';
 import React from 'react';
 import {
@@ -18,8 +19,7 @@ import {
 } from './components';
 
 const EditEventPage = () => {
-	const { eventData, loadForm, createVenueSheetApi } =
-		useEditEventPageContext();
+	const { createVenueSheetApi } = useEditEventPageContext();
 
 	return (
 		<BasePage FooterComponent={EditEventPageFooter}>
@@ -43,8 +43,4 @@ const EditEventPage = () => {
 	);
 };
 
-export default () => (
-	<EditEventPageProvider>
-		<EditEventPage />
-	</EditEventPageProvider>
-);
+export default withProvider(EditEventPage, EditEventPageProvider);

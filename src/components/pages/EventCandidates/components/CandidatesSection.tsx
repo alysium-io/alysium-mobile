@@ -1,71 +1,67 @@
-import { Icon, Text, View } from '@atomic';
+import { Icon, SlideInOutView, Text, View } from '@atomic';
+import { useNavigation } from '@hooks';
 import { ContentListItemWithButton } from '@organisms';
-import { ContentType } from '@types';
-import React from 'react';
+import { CreateContractBottomSheet } from '@templates';
+import { ApiIdentifier, ContentType } from '@types';
+import React, { useState } from 'react';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
-import { FadeInLeft, FadeOutLeft } from 'react-native-reanimated';
 import { useEventCandidatesPageContext } from '../EventCandidates.context';
 
-interface StartContractButtonProps {
-	onPress: () => void;
-	text: string;
-}
-
-const StartContractButton: React.FC<StartContractButtonProps> = ({
-	onPress,
-	text
-}) => {
-	return (
-		<TouchableWithoutFeedback onPress={onPress}>
-			<View
-				paddingVertical='s'
-				paddingHorizontal='m'
-				backgroundColor='bg1'
-				style={{
-					flexDirection: 'row',
-					alignItems: 'center',
-					justifyContent: 'space-between',
-					borderRadius: 999,
-					borderWidth: 0.3,
-					borderColor: 'black'
-				}}
-			>
-				<Text paddingRight='s' variant='paragraph-small'>
-					{text}
-				</Text>
-				<Icon name='arrow-right' size='small' />
-			</View>
-		</TouchableWithoutFeedback>
-	);
-};
-
 const CandidatesSection = () => {
-	const { candidatesData } = useEventCandidatesPageContext();
+	const { candidatesData, createContractSheetApi, eventId } =
+		useEventCandidatesPageContext();
+	const { artistPage } = useNavigation();
+
+	const [artistId, setArtistId] = useState<ApiIdentifier | null>(null);
+
+	const start = (artistId: ApiIdentifier) => {
+		setArtistId(artistId);
+		createContractSheetApi.open();
+	};
+
 	return (
-		<View
-			animated
-			entering={FadeInLeft.duration(200)}
-			exiting={FadeOutLeft.duration(200)}
-		>
-			{candidatesData.map((candidate) => (
-				<ContentListItemWithButton
-					key={candidate.artist_id}
-					title={candidate.artist.name}
-					contentType={ContentType.artist}
-					image={
-						candidate.artist.profile_image?.url ||
-						'https://via.placeholder.com/150'
-					}
-					onPress={() => console.log('hi')}
-					Button={() => (
-						<StartContractButton
-							onPress={() => console.log('hi')}
-							text='Start Contract'
-						/>
-					)}
-				/>
-			))}
-		</View>
+		<>
+			<SlideInOutView direction='left'>
+				{candidatesData.map((candidate) => (
+					<ContentListItemWithButton
+						key={candidate.artist_id}
+						title={candidate.artist.name}
+						contentType={ContentType.artist}
+						image={candidate.artist.profile_image?.url}
+						onPress={() => artistPage(candidate.artist_id)}
+						Button={() => (
+							<TouchableWithoutFeedback
+								onPress={() => start(candidate.artist.artist_id)}
+							>
+								<View
+									paddingVertical='s'
+									paddingHorizontal='m'
+									backgroundColor='bg1'
+									style={{
+										flexDirection: 'row',
+										alignItems: 'center',
+										justifyContent: 'space-between',
+										borderRadius: 999,
+										borderWidth: 0.3,
+										borderColor: 'black'
+									}}
+								>
+									<Text paddingRight='s' variant='paragraph-small'>
+										Start Contract
+									</Text>
+									<Icon name='arrow-right' size='small' />
+								</View>
+							</TouchableWithoutFeedback>
+						)}
+					/>
+				))}
+			</SlideInOutView>
+			<CreateContractBottomSheet
+				sheetApi={createContractSheetApi}
+				eventId={eventId}
+				artistId={artistId}
+			/>
+		</>
 	);
 };
 

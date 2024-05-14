@@ -4,11 +4,10 @@ import {
 	BottomSheetView,
 	useBottomSheetTimingConfigs
 } from '@gorhom/bottom-sheet';
-import { SheetRef, useKeyboard, useTheme } from '@hooks';
+import { SheetRef, useTheme } from '@hooks';
 import { ThemeMode } from '@types';
 import React, { useMemo } from 'react';
 import { Easing } from 'react-native-reanimated';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import BottomSheetBackdrop from './BottomSheetBackdrop';
 import BottomSheetHandle from './BottomSheetHandle';
 
@@ -46,9 +45,7 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
 	contentContainerStyle,
 	...props
 }) => {
-	const { isVisible } = useKeyboard();
 	const { mode, getRawColor } = useTheme();
-	const insets = useSafeAreaInsets();
 
 	const easingConfig = useMemo(() => Easing.inOut(Easing.cubic), []);
 

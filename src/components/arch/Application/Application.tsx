@@ -1,4 +1,5 @@
 import { ConditionalRenderer } from '@atomic';
+import { withProvider } from '@hooks';
 import { Persona } from '@types';
 import React from 'react';
 import ArtistApp from './apps/Artist.app';
@@ -39,10 +40,4 @@ const Application = () => {
 	);
 };
 
-export default () => (
-	<PersonaAppProvider>
-		<UserAppProvider>
-			<Application />
-		</UserAppProvider>
-	</PersonaAppProvider>
-);
+export default withProvider(Application, [PersonaAppProvider, UserAppProvider]);

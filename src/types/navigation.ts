@@ -110,6 +110,7 @@ export type EventManagerStackNavigatorParamList = {
 	EditVenuePage: EditVenuePage;
 	EventCandidatesPage: EventCandidatesPage;
 	EditContractPage: EditContractPage;
+	ArtistPage: ArtistPage;
 };
 
 export type ContractManagerStackNavigatorParamList = {

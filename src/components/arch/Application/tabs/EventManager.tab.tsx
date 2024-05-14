@@ -1,4 +1,6 @@
 import {
+	ArtistPage,
+	ArtistPageHeader,
 	EditContractPage,
 	EditContractPageHeader,
 	EditEventPage,
@@ -58,6 +60,12 @@ const EventManagerTab = () => {
 				name='EditContractPage'
 				component={EditContractPage}
 				options={{ header: EditContractPageHeader }}
+			/>
+
+			<EventManagerStack.Screen
+				name='ArtistPage'
+				component={ArtistPage}
+				options={{ header: ArtistPageHeader }}
 			/>
 		</EventManagerStack.Navigator>
 	);

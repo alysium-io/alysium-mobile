@@ -1,3 +1,4 @@
+import { withProvider } from '@hooks';
 import { BasePage } from '@organisms';
 import { ParallaxPageOutline } from '@templates';
 import React from 'react';
@@ -32,8 +33,4 @@ const HostPage = () => {
 	);
 };
 
-export default () => (
-	<HostPageProvider>
-		<HostPage />
-	</HostPageProvider>
-);
+export default withProvider(HostPage, HostPageProvider);

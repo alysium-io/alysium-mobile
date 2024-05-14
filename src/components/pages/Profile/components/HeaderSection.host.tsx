@@ -2,6 +2,7 @@ import { useHostAppContext } from '@arch/Application/contexts/Host.context';
 import { Section, View } from '@atomic';
 import { DeclarativeText, EditableProfileImage } from '@molecules';
 import { Stats } from '@organisms';
+import { ContentType } from '@types';
 import React from 'react';
 import UsernameDisplay from './UsernameDisplay';
 
@@ -11,10 +12,8 @@ const HeaderSection = () => {
 	return (
 		<Section margin='m' alignItems='center'>
 			<EditableProfileImage
-				image={
-					hostData.profile_image?.url ||
-					'https://www.w3schools.com/howto/img_avatar.png'
-				}
+				image={hostData.profile_image?.url}
+				contentType={ContentType.host}
 				onChooseImage={setHostProfileImage}
 			/>
 			<View margin='m' alignItems='center'>

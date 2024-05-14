@@ -1,4 +1,5 @@
 import { HeaderSafeArea, ScrollView, Text } from '@atomic';
+import { withProvider } from '@hooks';
 import { BasePage } from '@organisms';
 import React from 'react';
 import { LocationPageContextProvider } from './Location.context';
@@ -17,8 +18,4 @@ const LocationPage = () => {
 	);
 };
 
-export default () => (
-	<LocationPageContextProvider>
-		<LocationPage />
-	</LocationPageContextProvider>
-);
+export default withProvider(LocationPage, LocationPageContextProvider);

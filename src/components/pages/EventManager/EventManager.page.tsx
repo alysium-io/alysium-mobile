@@ -1,4 +1,5 @@
 import { HeaderSafeArea, ScrollView, Text, View } from '@atomic';
+import { withProvider } from '@hooks';
 import { BasePage } from '@organisms';
 import React from 'react';
 import { EventManagerPageProvider } from './EventManager.context';
@@ -19,8 +20,4 @@ const EventManagerPage = () => {
 	);
 };
 
-export default () => (
-	<EventManagerPageProvider>
-		<EventManagerPage />
-	</EventManagerPageProvider>
-);
+export default withProvider(EventManagerPage, EventManagerPageProvider);

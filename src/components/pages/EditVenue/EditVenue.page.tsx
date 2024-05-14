@@ -1,4 +1,5 @@
 import { HeaderSafeArea, KeyboardAvoidingView, ScrollView } from '@atomic';
+import { withProvider } from '@hooks';
 import { BasePage } from '@organisms';
 import React, { useEffect } from 'react';
 import {
@@ -40,8 +41,4 @@ const EditVenuePage = () => {
 	);
 };
 
-export default () => (
-	<EditVenuePageProvider>
-		<EditVenuePage />
-	</EditVenuePageProvider>
-);
+export default withProvider(EditVenuePage, EditVenuePageProvider);

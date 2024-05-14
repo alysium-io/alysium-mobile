@@ -11,10 +11,7 @@ const HeaderSection = () => {
 	return (
 		<Section margin='m' alignItems='center'>
 			<EditableProfileImage
-				image={
-					artistData.profile_image?.url ||
-					'https://www.w3schools.com/howto/img_avatar.png'
-				}
+				image={artistData.profile_image?.url}
 				onChooseImage={setArtistProfileImage}
 			/>
 			<View margin='m' alignItems='center'>

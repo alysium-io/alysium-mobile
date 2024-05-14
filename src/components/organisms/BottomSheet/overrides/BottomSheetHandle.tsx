@@ -15,7 +15,7 @@ const BottomSheetHandle: React.FC<BottomSheetHandleProps> = () => {
 					styles.handle,
 					{
 						backgroundColor:
-							mode === ThemeMode.dark ? getRawColor('bg3') : getRawColor('ion')
+							mode === ThemeMode.dark ? getRawColor('bg3') : getRawColor('t2')
 					}
 				]}
 			/>

@@ -1,4 +1,5 @@
 import { Section, View } from '@atomic';
+import { withProvider } from '@hooks';
 import { SectionHeader } from '@molecules';
 import { BasePage } from '@organisms';
 import { ParallaxPageOutline } from '@templates';
@@ -28,8 +29,4 @@ const EventPage = () => {
 	);
 };
 
-export default () => (
-	<EventPageProvider>
-		<EventPage />
-	</EventPageProvider>
-);
+export default withProvider(EventPage, EventPageProvider);
