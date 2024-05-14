@@ -1,9 +1,6 @@
 import React from 'react';
-import {
-	Keyboard,
-	ScrollView as RNScrollView,
-	ScrollViewProps
-} from 'react-native';
+import { Keyboard, ScrollViewProps } from 'react-native';
+import { ScrollView as RNScrollView } from 'react-native-gesture-handler';
 
 const ScrollView = React.forwardRef<RNScrollView, ScrollViewProps>(
 	(props, ref) => {

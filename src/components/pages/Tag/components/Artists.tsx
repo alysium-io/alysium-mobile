@@ -1,4 +1,5 @@
 import { Section, View } from '@atomic';
+import { useNavigation } from '@hooks';
 import { SectionHeader } from '@molecules';
 import { ContentListItem } from '@organisms';
 import { ContentType } from '@types';
@@ -7,6 +8,7 @@ import { useTagPageContext } from '../Tag.context';
 
 const Artists = () => {
 	const { tagData } = useTagPageContext();
+	const { artistPage } = useNavigation();
 
 	return (
 		<Section marginTop='l'>
@@ -19,11 +21,10 @@ const Artists = () => {
 					rnk={index + 1}
 					title={artist.artist.name || 'Unknown'}
 					subtitle={'Los Angeles, CA'}
-					onPress={() => console.log('pressed')}
+					onPress={() => artistPage(artist.artist_id)}
 					contentType={ContentType.artist}
 					image={artist.artist.profile_image?.url || ''}
 					size='large'
-					onPressMenu={() => console.log('pressed')}
 				/>
 			))}
 		</Section>

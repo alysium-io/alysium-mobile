@@ -1,8 +1,10 @@
 import { AppTransitionWrapper, Icon } from '@atomic';
+import { withProvider } from '@hooks';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { BottomTabNavigatorParamList } from '@types';
 import React from 'react';
+import { ArtistAppProvider } from '../contexts/Artist.context';
 import { ContractManagerTab, ProfileTab, SearchTab } from '../tabs';
 import { useNavigationSettings } from '../tabs/settings';
 import AppDependencies from './AppDependencies';
@@ -56,4 +58,4 @@ const ArtistApp = () => {
 	);
 };
 
-export default ArtistApp;
+export default withProvider(ArtistApp, ArtistAppProvider);

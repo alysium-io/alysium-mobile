@@ -1,8 +1,10 @@
 import { AppTransitionWrapper, Icon } from '@atomic';
+import { withProvider } from '@hooks';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { BottomTabNavigatorParamList } from '@types';
 import React from 'react';
+import { HostAppProvider } from '../contexts/Host.context';
 import { EventManagerTab, ProfileTab, SearchTab } from '../tabs';
 import { useNavigationSettings } from '../tabs/settings';
 import AppDependencies from './AppDependencies';
@@ -59,4 +61,4 @@ const HostApp = () => {
 	);
 };
 
-export default HostApp;
+export default withProvider(HostApp, HostAppProvider);

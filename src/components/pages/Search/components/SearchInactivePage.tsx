@@ -7,7 +7,7 @@ import React from 'react';
 import { FadeInUp, FadeOut } from 'react-native-reanimated';
 
 const SearchInactivePage = () => {
-	const { locationPage } = useNavigation();
+	const { locationPage, tagPage } = useNavigation();
 
 	return (
 		<View
@@ -49,7 +49,7 @@ const SearchInactivePage = () => {
 						title='Electro House'
 						subtitle='1.2k followers'
 						color='ion'
-						onPress={() => console.log('pressed')}
+						onPress={() => tagPage(3668)}
 					/>
 				</View>
 				<View marginBottom='m'>
@@ -58,7 +58,7 @@ const SearchInactivePage = () => {
 						title='Los Angeles'
 						subtitle='5.1M followers'
 						color='ion'
-						onPress={() => console.log('pressed')}
+						onPress={() => tagPage(1)}
 					/>
 				</View>
 				<View marginBottom='m'>
@@ -67,7 +67,7 @@ const SearchInactivePage = () => {
 						title='house'
 						subtitle='2.6M followers'
 						color='ion'
-						onPress={() => console.log('pressed')}
+						onPress={() => tagPage(1)}
 					/>
 				</View>
 			</Section>

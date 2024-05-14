@@ -24,6 +24,7 @@
 /**
  * React Native Overrides
  */
+export { default as GestureHandlerRootView } from './GestureHandlerRootView';
 export { default as Image } from './Image';
 export { default as KeyboardAvoidingView } from './KeyboardAvoidingView';
 export { default as PersonaView } from './PersonaView';

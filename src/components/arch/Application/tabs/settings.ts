@@ -73,11 +73,15 @@ interface IUseTabSettings {
 }
 
 export const useTabSettings = (): IUseTabSettings => {
+	const { theme } = useTheme();
 	return {
 		screenOptions: {
 			headerShown: useIsFocused(),
 			headerBackTitleVisible: false,
-			headerTransparent: true
+			headerTransparent: true,
+			cardStyle: {
+				backgroundColor: theme.colors.bg1
+			}
 		}
 	};
 };

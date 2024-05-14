@@ -5,8 +5,6 @@ import React from 'react';
 import ArtistApp from './apps/Artist.app';
 import HostApp from './apps/Host.app';
 import UserApp from './apps/User.app';
-import { ArtistAppProvider } from './contexts/Artist.context';
-import { HostAppProvider } from './contexts/Host.context';
 import {
 	PersonaAppProvider,
 	usePersonaAppContext
@@ -25,16 +23,8 @@ const Application = () => {
 			componentKey={personaType}
 			componentMap={{
 				[Persona.user]: UserApp,
-				[Persona.host]: () => (
-					<HostAppProvider>
-						<HostApp />
-					</HostAppProvider>
-				),
-				[Persona.artist]: () => (
-					<ArtistAppProvider>
-						<ArtistApp />
-					</ArtistAppProvider>
-				)
+				[Persona.host]: HostApp,
+				[Persona.artist]: ArtistApp
 			}}
 		/>
 	);
