@@ -1,24 +1,16 @@
-import React from 'react'
-import {
-    StyleSheet,
-    View,
-    Text
-} from 'react-native'
-
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 
 const Test = () => {
-
-    return (
-        <View style={styles.container}>
-            <Text>Test</Text>
-        </View>
-    )
-}
+	return (
+		<View style={styles.container}>
+			<Text>Test</Text>
+		</View>
+	);
+};
 
 const styles = StyleSheet.create({
-    container: {
-        
-    }
-})
+	container: {}
+});
 
-export default Test
+export default Test;

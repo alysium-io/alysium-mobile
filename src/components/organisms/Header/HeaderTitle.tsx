@@ -1,34 +1,29 @@
-import React from 'react'
-import { View, Text } from '@atomic'
-import { StyleSheet } from 'react-native'
-
+import { Text, View } from '@atomic';
+import React from 'react';
+import { StyleSheet } from 'react-native';
 
 interface HeaderTitleProps {
-    title: string
-    subtitle?: string
+	title: string;
+	subtitle?: string;
 }
 
-const HeaderTitle : React.FC<HeaderTitleProps> = ({
-    title,
-    subtitle
-}) => {
-
-    return (
-        <View style={styles.container}>
-            <Text variant='paragraph' color='t1'>{title}</Text>
-            {
-                subtitle && (
-                    <Text variant='paragraph' color='t2'>{subtitle}</Text>
-                )
-            }
-        </View>
-    )
-}
+const HeaderTitle: React.FC<HeaderTitleProps> = ({ title, subtitle }) => {
+	return (
+		<View style={styles.container}>
+			<Text variant='paragraph' color='t1'>
+				{title}
+			</Text>
+			{subtitle && (
+				<Text variant='paragraph' color='t2'>
+					{subtitle}
+				</Text>
+			)}
+		</View>
+	);
+};
 
 const styles = StyleSheet.create({
-    container: {
-        
-    }
-})
+	container: {}
+});
 
-export default HeaderTitle
+export default HeaderTitle;

@@ -1,23 +1,17 @@
-import React from 'react'
-import { View } from '@atomic'
-import { useHeader } from '@organisms'
-
+import { View } from '@atomic';
+import { useHeader } from '@organisms';
+import React from 'react';
 
 interface HeaderSafeAreaProps {
-    children?: React.ReactNode
+	children?: React.ReactNode;
 }
 
-const HeaderSafeArea : React.FC<HeaderSafeAreaProps> = ({
-    children
-}) => {
+const HeaderSafeArea: React.FC<HeaderSafeAreaProps> = ({ children }) => {
+	const { totalHeaderHeight } = useHeader();
 
-    const { totalHeaderHeight } = useHeader()
+	return (
+		<View style={{ paddingTop: totalHeaderHeight, flex: 1 }}>{children}</View>
+	);
+};
 
-    return (
-        <View style={{ paddingTop: totalHeaderHeight, flex: 1 }}>
-            {children}
-        </View>
-    )
-}
-
-export default HeaderSafeArea
+export default HeaderSafeArea;

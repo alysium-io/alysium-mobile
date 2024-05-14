@@ -1,37 +1,46 @@
-import { useState, useEffect } from 'react'
-import { Keyboard, KeyboardEvent } from 'react-native'
+import { useEffect, useState } from 'react';
+import { Keyboard, KeyboardEvent } from 'react-native';
 
 const useKeyboard = () => {
-    const [keyboardInfo, setKeyboardInfo] = useState<{ isVisible: boolean, height: number }>({
-        isVisible: false,
-        height: 0,
-    })
+	const [keyboardInfo, setKeyboardInfo] = useState<{
+		isVisible: boolean;
+		height: number;
+	}>({
+		isVisible: false,
+		height: 0
+	});
 
-    const onKeyboardShow = (e: KeyboardEvent) => {
-        setKeyboardInfo({
-            isVisible: true,
-            height: e.endCoordinates.height,
-        })
-    }
+	const onKeyboardShow = (e: KeyboardEvent) => {
+		setKeyboardInfo({
+			isVisible: true,
+			height: e.endCoordinates.height
+		});
+	};
 
-    const onKeyboardHide = () => {
-        setKeyboardInfo({
-            isVisible: false,
-            height: 0,
-        })
-    }
+	const onKeyboardHide = () => {
+		setKeyboardInfo({
+			isVisible: false,
+			height: 0
+		});
+	};
 
-    useEffect(() => {
-        const showSubscription = Keyboard.addListener('keyboardDidShow', onKeyboardShow)
-        const hideSubscription = Keyboard.addListener('keyboardDidHide', onKeyboardHide)
+	useEffect(() => {
+		const showSubscription = Keyboard.addListener(
+			'keyboardDidShow',
+			onKeyboardShow
+		);
+		const hideSubscription = Keyboard.addListener(
+			'keyboardDidHide',
+			onKeyboardHide
+		);
 
-        return () => {
-            showSubscription.remove()
-            hideSubscription.remove()
-        }
-    }, [])
+		return () => {
+			showSubscription.remove();
+			hideSubscription.remove();
+		};
+	}, []);
 
-    return keyboardInfo
-}
+	return keyboardInfo;
+};
 
-export default useKeyboard
+export default useKeyboard;

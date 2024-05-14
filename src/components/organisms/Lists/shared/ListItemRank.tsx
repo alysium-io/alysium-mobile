@@ -1,13 +1,18 @@
-import React from 'react'
-import { Text } from '@atomic'
-
+import { Text } from '@atomic';
+import React from 'react';
 
 interface ListItemRankProps {
-    rnk?: number
+	rnk?: number;
 }
 
-const ListItemRank : React.FC<ListItemRankProps> = ({ rnk }) => {
-    return rnk ? <Text variant='paragraph-medium' marginRight='m'>{rnk}</Text> : <></>
-}
+const ListItemRank: React.FC<ListItemRankProps> = ({ rnk }) => {
+	return rnk ? (
+		<Text variant='paragraph-medium' marginRight='m'>
+			{rnk}
+		</Text>
+	) : (
+		<></>
+	);
+};
 
-export default ListItemRank
+export default ListItemRank;

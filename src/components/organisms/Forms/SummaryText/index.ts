@@ -1,1 +1,1 @@
-export { default as SummaryTextBlock } from './SummaryTextBlock'
+export { default as SummaryTextBlock } from './SummaryTextBlock';

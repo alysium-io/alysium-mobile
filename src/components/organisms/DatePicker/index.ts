@@ -1,1 +1,1 @@
-export { default as DatetimePickerWithModal } from './DatetimePickerWithModal'
+export { default as DatetimePickerWithModal } from './DatetimePickerWithModal';

@@ -1,16 +1,14 @@
-import { useContext } from 'react'
-import { BasePageContext, BasePageContextType } from './context'
+import { useContext } from 'react';
+import { BasePageContext, BasePageContextType } from './context';
 
+const useBasePage = (): BasePageContextType => {
+	const context = useContext(BasePageContext);
 
-const useBasePage = () : BasePageContextType => {
+	if (!context) {
+		throw new Error('useBasePage must be used within a BasePageProvider');
+	}
 
-    const context = useContext(BasePageContext)
+	return context;
+};
 
-    if (!context) {
-        throw new Error('useBasePage must be used within a BasePageProvider')
-    }
-    
-    return context
-}
-
-export default useBasePage
+export default useBasePage;

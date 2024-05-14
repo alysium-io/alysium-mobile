@@ -1,1 +1,1 @@
-export { default as ContentListItem } from './ContentListItem'
+export { default as ContentListItem } from './ContentListItem';

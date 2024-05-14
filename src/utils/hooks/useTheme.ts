@@ -1,77 +1,74 @@
-import { useContext } from 'react'
-import { useSelector, useDispatch } from 'src/redux'
-import { ThemeNames, Theme, ThemeState, ThemeMode, AppType } from 'src/types'
-import { themes } from 'src/restyle'
-import { createTheme } from '@shopify/restyle'
-import { ThemeContext } from '../contexts/ThemeContext'
-import { themeActions } from 'src/redux/theme'
-import {
-    SharedValue,
-    withTiming
-} from 'react-native-reanimated'
-
+import { useSelector } from '@flux';
+import { createTheme } from '@shopify/restyle';
+import { Theme, ThemeMode, ThemeNames } from '@types';
+import { useContext } from 'react';
+import { SharedValue, withTiming } from 'react-native-reanimated';
+import { themes } from 'src/restyle';
+import { ThemeContext } from '../contexts/ThemeContext';
+import usePersistedAppState from './usePersistedAppState';
 
 interface IUseTheme {
-    themeName: string
-    mode: ThemeMode
-    animatedValue: SharedValue<number>
-    setTheme: (theme: ThemeNames) => void
-    theme: Theme
-    otherTheme: Theme
-    toggleMode: () => void
-    setMode: (mode: ThemeMode) => void
-    getRawColor: (color: string) => string
-    isValidColor: (color: string) => boolean
+	themeName: string;
+	mode: ThemeMode;
+	animatedValue: SharedValue<number>;
+	setTheme: (theme: ThemeNames) => void;
+	theme: Theme;
+	otherTheme: Theme;
+	setMode: (mode: ThemeMode) => void;
+	getRawColor: (color: string) => string;
+	isValidColor: (color: string) => boolean;
 }
 
-const useTheme = () : IUseTheme => {
+const useTheme = (): IUseTheme => {
+	const { setPersistedAppState } = usePersistedAppState();
+	const { animatedValue } = useContext(ThemeContext);
 
-    const { animatedValue } = useContext(ThemeContext)
+	const themeName: ThemeNames = useSelector(
+		(state) => state.persistedApp.themeName
+	);
+	const mode: ThemeMode = useSelector((state) => state.persistedApp.mode);
 
-    const themeState : ThemeState = useSelector(state => state.theme)
-    const dispatch = useDispatch()
+	const theme = createTheme(themes[themeName][mode]);
+	const otherTheme = createTheme(
+		themes[themeName][
+			mode === ThemeMode.light ? ThemeMode.dark : ThemeMode.light
+		]
+	);
 
-    const theme = createTheme(themes[themeState.themeName][themeState.mode])
-    const otherTheme = createTheme(themes[themeState.themeName][themeState.mode === ThemeMode.light ? ThemeMode.dark : ThemeMode.light])
+	const setTheme = (themeName: ThemeNames) => {
+		setPersistedAppState({ themeName });
+	};
 
-    const setTheme = (themeName: ThemeNames) => {
-        dispatch(themeActions.setTheme(themeName))
-    }
+	const setMode = (mode: ThemeMode) => {
+		animatedValue.value = withTiming(mode === ThemeMode.light ? 0 : 1, {
+			duration: 200
+		});
+		setPersistedAppState({ mode });
+	};
 
-    const toggleMode = () => {
-        animatedValue.value = withTiming(themeState.mode === ThemeMode.light ? 0 : 1, { duration: 200 })
-        dispatch(themeActions.toggleMode())
-    }
+	const getRawColor = (colorName: string): string => {
+		if (!isValidColor(colorName)) {
+			return colorName;
+		}
 
-    const setMode = (mode: ThemeMode) => {
-        animatedValue.value = withTiming(mode === ThemeMode.light ? 0 : 1, { duration: 200 })
-        dispatch(themeActions.setMode(mode))
-    }
+		return theme.colors[colorName];
+	};
 
-    const getRawColor = (colorName: string) : string => {
-        if (!isValidColor(colorName)) {
-            return colorName
-        }
+	const isValidColor = (color: string): boolean => {
+		return color in theme.colors;
+	};
 
-        return theme.colors[colorName]
-    }
+	return {
+		setTheme,
+		mode,
+		themeName,
+		theme,
+		otherTheme,
+		setMode,
+		animatedValue,
+		getRawColor,
+		isValidColor
+	};
+};
 
-    const isValidColor = (color: string) : boolean => {
-        return color in theme.colors
-    }
-
-    return {
-        setTheme,
-        mode: themeState.mode,
-        themeName: themeState.themeName,
-        theme,
-        otherTheme,
-        toggleMode,
-        setMode,
-        animatedValue,
-        getRawColor,
-        isValidColor
-    }
-}
-
-export default useTheme
+export default useTheme;

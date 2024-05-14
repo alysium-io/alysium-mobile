@@ -1,7 +1,7 @@
-import { IconNames } from '@svg'
+import { IconNames } from '@svg';
 
 export type LargeSelectableItemData = {
-    id: number
-    title: string
-    icon: IconNames
-}
+	id: any;
+	title: string;
+	icon: IconNames;
+};

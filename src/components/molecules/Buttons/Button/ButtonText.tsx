@@ -1,25 +1,22 @@
-import React from 'react'
-import { Text } from '@atomic'
-
+import { Text } from '@atomic';
+import React from 'react';
 
 interface ButtonTextProps {
-    text: string
-    color: string
+	text: string;
+	color: string;
 }
 
-const ButtonText : React.FC<ButtonTextProps> = ({
-    text,
-    color
-}) => {
+const ButtonText: React.FC<ButtonTextProps> = ({ text, color }) => {
+	return (
+		<Text
+			animated
+			variant='paragraph-medium'
+			style={{ letterSpacing: 0.5 }}
+			color={color}
+		>
+			{text}
+		</Text>
+	);
+};
 
-    return (
-        <Text
-            animated
-            variant='paragraph-medium'
-            style={{ letterSpacing: 0.5 }}
-            color={color}
-        >{text}</Text>
-    )
-}
-
-export default ButtonText
+export default ButtonText;

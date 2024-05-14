@@ -1,18 +1,21 @@
-import React from 'react'
-import { Icon, Touchable } from '@atomic'
-import { useGenericNavigation, useTheme } from '@hooks'
-
+import { Icon, Touchable } from '@atomic';
+import { useNavigation, useTheme } from '@hooks';
+import React from 'react';
 
 const BackButton = () => {
+	const { back } = useNavigation();
+	const { theme } = useTheme();
 
-    const { back } = useGenericNavigation()
-    const { theme } = useTheme()
+	return (
+		<Touchable onPress={back}>
+			<Icon
+				name='arrow'
+				direction='left'
+				size='regular'
+				color={theme.colors.t1}
+			/>
+		</Touchable>
+	);
+};
 
-    return (
-        <Touchable onPress={back}>
-            <Icon name='arrow' direction='left' size={25} color={theme.colors.t1} />
-        </Touchable>
-    )
-}
-
-export default BackButton
+export default BackButton;

@@ -1,1 +1,1 @@
-export { default as CreateArtistBottomSheet } from './CreateArtistBottomSheet'
+export { default as CreateArtistBottomSheet } from './CreateArtistBottomSheet';

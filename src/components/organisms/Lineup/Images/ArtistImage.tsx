@@ -1,26 +1,18 @@
-import React from 'react'
-import { Avatar } from '@atomic'
-import ImageContainer from './ImageContainer'
-import { ContentType } from '@types'
-
+import { Avatar } from '@atomic';
+import { ContentType } from '@types';
+import React from 'react';
+import ImageContainer from './ImageContainer';
 
 interface ArtistImageProps {
-    image: string
+	image: string;
 }
 
-const ArtistImage : React.FC<ArtistImageProps> = ({
-    image
-}) => {
+const ArtistImage: React.FC<ArtistImageProps> = ({ image }) => {
+	return (
+		<ImageContainer>
+			<Avatar contentType={ContentType.artist} image={image} size='90%' />
+		</ImageContainer>
+	);
+};
 
-    return (
-        <ImageContainer>
-            <Avatar
-                contentType={ContentType.artist}
-                image={image}
-                size='90%'
-            />
-        </ImageContainer>
-    )
-}
-
-export default ArtistImage
+export default ArtistImage;

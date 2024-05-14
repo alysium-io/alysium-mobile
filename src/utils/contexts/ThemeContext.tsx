@@ -1,25 +1,23 @@
-import React, { createContext } from 'react'
-import { ProviderProps } from '@types'
-import { SharedValue, useSharedValue } from 'react-native-reanimated'
-
+import { ProviderProps } from '@types';
+import React, { createContext } from 'react';
+import { SharedValue, useSharedValue } from 'react-native-reanimated';
 
 export type ThemeContextType = {
-    animatedValue: SharedValue<number>
-}
+	animatedValue: SharedValue<number>;
+};
 
-export const ThemeContext = createContext({} as ThemeContextType)
+export const ThemeContext = createContext({} as ThemeContextType);
 
-export const ThemeProvider : React.FC<ProviderProps> = ({ children }) => {
+export const ThemeProvider: React.FC<ProviderProps> = ({ children }) => {
+	const animatedValue = useSharedValue<number>(0);
 
-    const animatedValue = useSharedValue<number>(0)
-
-    return (
-        <ThemeContext.Provider
-            value={{
-                animatedValue
-            }}
-        >
-            {children}
-        </ThemeContext.Provider>
-    )
-}
+	return (
+		<ThemeContext.Provider
+			value={{
+				animatedValue
+			}}
+		>
+			{children}
+		</ThemeContext.Provider>
+	);
+};

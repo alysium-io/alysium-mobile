@@ -1,12 +1,12 @@
-import { RestyleTextVariant, RestyleTextColor } from '@types'
+import { RestyleTextVariant } from '@types';
 
 export type DeclarativeTextItemProps = {
-    text: string
-    variant?: RestyleTextVariant
-    color?: string
-    underline?: boolean
-    newline?: boolean
-    onPress?: () => void
-}
+	text: string;
+	variant?: RestyleTextVariant;
+	color?: string;
+	underline?: boolean;
+	newline?: boolean;
+	onPress?: () => void;
+};
 
-export type DeclarativeTextItems = DeclarativeTextItemProps[]
+export type DeclarativeTextItems = DeclarativeTextItemProps[];
