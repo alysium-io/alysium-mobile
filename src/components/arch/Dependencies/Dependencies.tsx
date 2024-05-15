@@ -1,6 +1,5 @@
-import { store } from '@flux';
 import React from 'react';
-import { Provider } from 'react-redux';
+import { View } from 'react-native';
 
 interface DependenciesProps {
 	children?: React.ReactNode;
@@ -24,7 +23,7 @@ interface DependenciesProps {
 // 	);
 // };
 const Dependencies: React.FC<DependenciesProps> = ({ children }) => {
-	return <Provider store={store}>{children}</Provider>;
+	return <View>{children}</View>;
 };
 
 export default Dependencies;
