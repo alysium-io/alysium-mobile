@@ -1,3 +1,4 @@
+import { env } from '@etc';
 import { RootState } from '@flux';
 import {
 	FetchArgs,
@@ -22,8 +23,7 @@ const baseQueryConfig = (
 	FetchBaseQueryMeta
 > => {
 	const config: FetchBaseQueryArgs = {
-		// baseUrl: env.apiUrl + (options?.basePath ?? ''),
-		baseUrl: 'http://localhost:3000' + (options?.basePath ?? ''),
+		baseUrl: env.apiUrl + (options?.basePath ?? ''),
 		headers: {
 			'Content-Type': 'application/json',
 			Accept: 'application/json'
