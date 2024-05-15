@@ -14,13 +14,14 @@ import {
 	persistStore
 } from 'redux-persist';
 
+import { artistApiSlice } from './api/artist';
 import { persistedAppReducer } from './local';
 
 const store = configureStore({
 	reducer: {
-		persistedApp: persistedAppReducer
+		persistedApp: persistedAppReducer,
 		// persistedSearch: persistedSearchReducer,
-		// [artistApiSlice.reducerPath]: artistApiSlice.reducer
+		[artistApiSlice.reducerPath]: artistApiSlice.reducer
 		// [hostApiSlice.reducerPath]: hostApiSlice.reducer,
 		// [venueApiSlice.reducerPath]: venueApiSlice.reducer,
 		// [eventApiSlice.reducerPath]: eventApiSlice.reducer,
@@ -40,8 +41,7 @@ const store = configureStore({
 			serializableCheck: {
 				ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
 			}
-		});
-		// .concat(artistApiSlice.middleware)
+		}).concat(artistApiSlice.middleware);
 		// .concat(hostApiSlice.middleware)
 		// .concat(venueApiSlice.middleware)
 		// .concat(eventApiSlice.middleware)
