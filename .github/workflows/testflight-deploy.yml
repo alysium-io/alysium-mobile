@@ -46,7 +46,6 @@ jobs:
     steps:
     
     # Init
-    steps:
     - name: Checkout the repository
       uses: actions/checkout@v4
       with:
@@ -121,7 +120,6 @@ jobs:
     steps:
 
     # Init
-    steps:
     - name: Checkout the repository
       uses: actions/checkout@v4
       with:
