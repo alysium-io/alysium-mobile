@@ -13,15 +13,14 @@ import {
 	REHYDRATE,
 	persistStore
 } from 'redux-persist';
-import { artistApiSlice } from './api/artist';
 
-import { apiErrorUnauthorizedMiddleware } from './middleware';
+import { persistedAppReducer } from './local';
 
 const store = configureStore({
 	reducer: {
-		// persistedApp: persistedAppReducer,
+		persistedApp: persistedAppReducer
 		// persistedSearch: persistedSearchReducer,
-		[artistApiSlice.reducerPath]: artistApiSlice.reducer
+		// [artistApiSlice.reducerPath]: artistApiSlice.reducer
 		// [hostApiSlice.reducerPath]: hostApiSlice.reducer,
 		// [venueApiSlice.reducerPath]: venueApiSlice.reducer,
 		// [eventApiSlice.reducerPath]: eventApiSlice.reducer,
@@ -37,28 +36,26 @@ const store = configureStore({
 		// [contractApiSlice.reducerPath]: contractApiSlice.reducer
 	},
 	middleware: (getDefaultMiddleware) => {
-		return (
-			getDefaultMiddleware({
-				serializableCheck: {
-					ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
-				}
-			})
-				.concat(artistApiSlice.middleware)
-				// .concat(hostApiSlice.middleware)
-				// .concat(venueApiSlice.middleware)
-				// .concat(eventApiSlice.middleware)
-				// .concat(candidateApiSlice.middleware)
-				// .concat(artistTagLinkApiSlice.middleware)
-				// .concat(galleryApiSlice.middleware)
-				// .concat(hostEventLinkApiSlice.middleware)
-				// .concat(locationApiSlice.middleware)
-				// .concat(mediaApiSlice.middleware)
-				// .concat(tagApiSlice.middleware)
-				// .concat(userApiSlice.middleware)
-				// .concat(searchApiSlice.middleware)
-				// .concat(contractApiSlice.middleware)
-				.concat(apiErrorUnauthorizedMiddleware)
-		);
+		return getDefaultMiddleware({
+			serializableCheck: {
+				ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
+			}
+		});
+		// .concat(artistApiSlice.middleware)
+		// .concat(hostApiSlice.middleware)
+		// .concat(venueApiSlice.middleware)
+		// .concat(eventApiSlice.middleware)
+		// .concat(candidateApiSlice.middleware)
+		// .concat(artistTagLinkApiSlice.middleware)
+		// .concat(galleryApiSlice.middleware)
+		// .concat(hostEventLinkApiSlice.middleware)
+		// .concat(locationApiSlice.middleware)
+		// .concat(mediaApiSlice.middleware)
+		// .concat(tagApiSlice.middleware)
+		// .concat(userApiSlice.middleware)
+		// .concat(searchApiSlice.middleware)
+		// .concat(contractApiSlice.middleware)
+		// .concat(apiErrorUnauthorizedMiddleware)
 	}
 });
 

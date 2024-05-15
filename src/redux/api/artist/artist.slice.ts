@@ -46,7 +46,7 @@ const apiSlice = createApi({
 			query: ({ query }) => ({
 				url: '/',
 				method: 'GET',
-				params: { ...query }
+				params: query
 			}),
 			providesTags: (results) =>
 				results
