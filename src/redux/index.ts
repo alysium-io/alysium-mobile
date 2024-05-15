@@ -13,6 +13,7 @@ import {
 	REHYDRATE,
 	persistStore
 } from 'redux-persist';
+import { artistApiSlice } from './api/artist';
 
 import { apiErrorUnauthorizedMiddleware } from './middleware';
 
@@ -20,7 +21,7 @@ const store = configureStore({
 	reducer: {
 		// persistedApp: persistedAppReducer,
 		// persistedSearch: persistedSearchReducer,
-		// [artistApiSlice.reducerPath]: artistApiSlice.reducer,
+		[artistApiSlice.reducerPath]: artistApiSlice.reducer
 		// [hostApiSlice.reducerPath]: hostApiSlice.reducer,
 		// [venueApiSlice.reducerPath]: venueApiSlice.reducer,
 		// [eventApiSlice.reducerPath]: eventApiSlice.reducer,
@@ -42,7 +43,7 @@ const store = configureStore({
 					ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
 				}
 			})
-				// .concat(artistApiSlice.middleware)
+				.concat(artistApiSlice.middleware)
 				// .concat(hostApiSlice.middleware)
 				// .concat(venueApiSlice.middleware)
 				// .concat(eventApiSlice.middleware)
