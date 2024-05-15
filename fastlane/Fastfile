@@ -24,7 +24,8 @@ platform :ios do
         # Make sure match is set up correctly for the testflight deployment
         match(
             type: 'appstore',
-            readonly: true
+            readonly: true,
+            clone_branch_directly: true
         )
 
         # Build
@@ -62,7 +63,8 @@ platform :ios do
         # Make sure match is set up correctly for the testflight deployment
         match(
             type: 'appstore',
-            readonly: true
+            readonly: true,
+            clone_branch_directly: true
         )
 
         # Build
