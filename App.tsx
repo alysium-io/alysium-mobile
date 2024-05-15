@@ -1,19 +1,10 @@
-import { Dependencies } from '@arch';
 import React from 'react';
 import { Text, View } from 'react-native';
+import { Provider } from 'react-redux';
+import { store } from './src/redux';
 
-// Dependencies: Standard dependencies, app setup, and global state
-// Authentication: Authentication flow
-// Application:  Application navigation/routing (user, artist, host, etc.)
-// const App = () => (
-// 	<Dependencies>
-// 		<Authentication>
-// 			<Application />
-// 		</Authentication>
-// 	</Dependencies>
-// );
 const App = () => (
-	<Dependencies>
+	<Provider store={store}>
 		<View
 			style={{
 				flex: 1,
@@ -24,7 +15,7 @@ const App = () => (
 		>
 			<Text style={{ color: '#000' }}>App</Text>
 		</View>
-	</Dependencies>
+	</Provider>
 );
 
 export default App;
