@@ -3,7 +3,6 @@ import { userApiSlice } from '@flux/api/user';
 import { createUseContextHook, usePersistedAppState } from '@hooks';
 import { AuthStage, ProviderProps } from '@types';
 import React, { createContext, useEffect, useState } from 'react';
-import SplashScreen from 'react-native-splash-screen';
 
 export type ScreenState = 'login-phone' | 'continue-phone';
 export type AuthenticationState = {
@@ -117,7 +116,6 @@ export const AuthenticationAppProvider: React.FC<ProviderProps> = ({
 					logout();
 				}
 			}
-			SplashScreen.hide();
 		};
 		fetchMe();
 	}, [token]);
