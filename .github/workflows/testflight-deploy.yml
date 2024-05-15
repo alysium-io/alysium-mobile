@@ -67,8 +67,8 @@ jobs:
       uses: ./.github/actions/write-env-vars
       with:
         envtype: 'staging'
-        API_URL: ${{ env.API_URL_STAGING }}
-        ENV: ${{ env.ENV_STAGING }}
+        API_URL: ${{ vars.API_URL_STAGING }}
+        ENV: ${{ vars.ENV_STAGING }}
 
     # Set up SSH key for match
     - name: Configure SSH
@@ -135,8 +135,8 @@ jobs:
       uses: ./.github/actions/write-env-vars
       with:
         envtype: 'staging'
-        API_URL: ${{ env.API_URL_STAGING }}
-        ENV: ${{ env.ENV_STAGING }}
+        API_URL: ${{ vars.API_URL_STAGING }}
+        ENV: ${{ vars.ENV_STAGING }}
 
     # Set up Node.js
     - name: Use Node.js
