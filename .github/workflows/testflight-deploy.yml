@@ -46,12 +46,16 @@ jobs:
     steps:
     
     # Init
+    steps:
     - name: Checkout the repository
       uses: actions/checkout@v4
+      with:
+        fetch-depth: 0 # Fetch all history for all branches and tags
     - name: Get the latest commit
       run: |
         git fetch origin testflight
         git checkout testflight
+        git log -1
 
     # Set up Xcode
     - name: Set up Xcode
@@ -117,12 +121,16 @@ jobs:
     steps:
 
     # Init
+    steps:
     - name: Checkout the repository
       uses: actions/checkout@v4
+      with:
+        fetch-depth: 0 # Fetch all history for all branches and tags
     - name: Get the latest commit
       run: |
         git fetch origin testflight
         git checkout testflight
+        git log -1
 
     # Write the env file
     - name: Write .env file
