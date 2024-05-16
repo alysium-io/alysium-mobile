@@ -32,4 +32,5 @@ export const validateEnv = (): Env => {
 };
 
 const env = validateEnv();
+console.log(env);
 export default env;

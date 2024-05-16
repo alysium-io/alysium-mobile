@@ -83,7 +83,9 @@ const AddArtistToEventCandidatesBottomSheet: React.FC<
 								title: event.name,
 								subtitle: dayjs(event.start_time).format('MMM D, YYYY'),
 								defaultIsActive: candidateEventsData.some(
-									(candidateEvent) => candidateEvent.artist_id === artist_id
+									(candidateEvent) =>
+										candidateEvent.artist_id === artist_id &&
+										candidateEvent.event_id === event.event_id
 								),
 								onPress: (event_id: ApiIdentifier, isActive: boolean) =>
 									console.log(event_id, isActive),

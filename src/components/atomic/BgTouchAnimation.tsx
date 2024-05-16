@@ -51,7 +51,9 @@ const BgTouchAnimation: React.FC<BgTouchAnimationProps> = ({
 
 	const animatedValue = useSharedValue<string>(getPrimaryColor());
 
-	const onPressIn = () => (animatedValue.value = getSecondaryColor());
+	const onPressIn = () => {
+		animatedValue.value = getSecondaryColor();
+	};
 	const onPressOut = () =>
 		(animatedValue.value = withTiming(getPrimaryColor()));
 
