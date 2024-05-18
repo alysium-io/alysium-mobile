@@ -27,6 +27,12 @@ jobs:
     - name: Install yarn dependencies
       uses: ./.github/actions/yarn
 
+    - name: Show git status
+      run: git status
+
+    - name: Show git diff
+      run: git diff
+
     # Bump build number
     - name: Bump Build Number
       env:

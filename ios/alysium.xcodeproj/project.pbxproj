@@ -928,7 +928,7 @@
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 3S5R5B5ACT;
 				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = "$(SRCROOT)/alysium/alysium-qa Info.plist";
+				INFOPLIST_FILE = "alysium/alysium-qa Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = alysium;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -961,7 +961,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 3S5R5B5ACT;
-				INFOPLIST_FILE = "$(SRCROOT)/alysium/alysium-qa Info.plist";
+				INFOPLIST_FILE = "alysium/alysium-qa Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = alysium;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -994,7 +994,7 @@
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 3S5R5B5ACT;
 				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = "$(SRCROOT)/alysium/alysium-demo Info.plist";
+				INFOPLIST_FILE = "alysium/alysium-demo Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = alysium;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1027,7 +1027,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 3S5R5B5ACT;
-				INFOPLIST_FILE = "$(SRCROOT)/alysium/alysium-demo Info.plist";
+				INFOPLIST_FILE = "alysium/alysium-demo Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = alysium;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1057,7 +1057,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3S5R5B5ACT;
 				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = "$(SRCROOT)/alysium/alysium-dev Info.plist";
+				INFOPLIST_FILE = "alysium/alysium-dev Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = alysium;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
@@ -1091,7 +1091,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3S5R5B5ACT;
-				INFOPLIST_FILE = "$(SRCROOT)/alysium/alysium-dev Info.plist";
+				INFOPLIST_FILE = "alysium/alysium-dev Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = alysium;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
