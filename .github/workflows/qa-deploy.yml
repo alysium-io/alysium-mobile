@@ -26,18 +26,14 @@ jobs:
     # yarn
     - name: Install yarn dependencies
       uses: ./.github/actions/yarn
-
-    - name: Show git status
-      run: git status
-
-    - name: Show git diff
-      run: git diff
-
+      
     # Bump build number
     - name: Bump Build Number
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
+        git status
+        git diff
         git config --global user.name 'github-actions'
         git config --global user.email 'github-actions@github.com'
         yarn bump-build
