@@ -2,11 +2,18 @@ import { Section, View } from '@atomic';
 import { useNavigation } from '@hooks';
 import { Button, SectionHeader } from '@molecules';
 import { MenuListItem, SummaryTextBlock } from '@organisms';
+import { ApiIdentifier } from '@types';
 import React from 'react';
-import { useEditEventPageContext } from '../EditEvent.context';
 
-const SummarySection = () => {
-	const { confirmDelete, eventId } = useEditEventPageContext();
+interface SummarySectionProps {
+	confirmDelete: () => void;
+	eventId: ApiIdentifier;
+}
+
+const SummarySection: React.FC<SummarySectionProps> = ({
+	confirmDelete,
+	eventId
+}) => {
 	const { eventPage } = useNavigation();
 
 	return (

@@ -3,7 +3,7 @@ name: Alysium Test Build
 on:
   push:
     branches:
-      - testflight
+      - qa
 
 jobs:
   pre-build:
@@ -35,7 +35,7 @@ jobs:
         git config --global user.name 'github-actions'
         git config --global user.email 'github-actions@github.com'
         yarn bump-build
-        git push https://${{ secrets.GITHUB_TOKEN }}@github.com/alysium-io/alysium-mobile.git HEAD:testflight
+        git push https://${{ secrets.GITHUB_TOKEN }}@github.com/alysium-io/alysium-mobile.git HEAD:qa
 
   ios:
 
@@ -52,8 +52,8 @@ jobs:
         fetch-depth: 0
     - name: Get the latest commit
       run: |
-        git fetch origin testflight
-        git checkout testflight
+        git fetch origin qa
+        git checkout qa
         git log -1
 
     # Set up Xcode
@@ -66,9 +66,9 @@ jobs:
     - name: Write .env file
       uses: ./.github/actions/write-env-vars
       with:
-        envtype: 'staging'
-        API_URL: ${{ vars.API_URL_STAGING }}
-        ENV: ${{ vars.ENV_STAGING }}
+        envtype: 'qa'
+        API_URL: ${{ vars.API_URL_QA }}
+        ENV: ${{ vars.ENV_QA }}
 
     # Set up SSH key for match
     - name: Configure SSH
@@ -126,17 +126,17 @@ jobs:
         fetch-depth: 0
     - name: Get the latest commit
       run: |
-        git fetch origin testflight
-        git checkout testflight
+        git fetch origin qa
+        git checkout qa
         git log -1
 
     # Write the env file
     - name: Write .env file
       uses: ./.github/actions/write-env-vars
       with:
-        envtype: 'staging'
-        API_URL: ${{ vars.API_URL_STAGING }}
-        ENV: ${{ vars.ENV_STAGING }}
+        envtype: 'qa'
+        API_URL: ${{ vars.API_URL_QA }}
+        ENV: ${{ vars.ENV_QA }}
 
     # Set up Node.js
     - name: Use Node.js

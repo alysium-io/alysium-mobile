@@ -1,7 +1,7 @@
 import { Icon, SlideInOutView, Text, View } from '@atomic';
 import { useNavigation } from '@hooks';
 import { ContentListItemWithButton } from '@organisms';
-import { CreateContractBottomSheet } from '@templates';
+import { CreateContractBottomSheet } from '@popups';
 import { ApiIdentifier, ContentType } from '@types';
 import React, { useState } from 'react';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';

@@ -1,5 +1,6 @@
 import { Section, View } from '@atomic';
-import { useNavigation } from '@hooks';
+import { FindAllVenuesResponseDto } from '@flux/api/venue/dto/venue-find-all.dto';
+import { SheetApi, useNavigation } from '@hooks';
 import { SectionHeader } from '@molecules';
 import {
 	ContentListItemToggler,
@@ -7,11 +8,20 @@ import {
 } from '@organisms';
 import { ApiIdentifier } from '@types';
 import React from 'react';
-import { useEditEventPageContext } from '../EditEvent.context';
 
-const SelectVenueSection = () => {
-	const { createVenueSheetApi, venuesData, onChangeVenue, eventData } =
-		useEditEventPageContext();
+interface SelectVenueSectionProps {
+	createVenueSheetApi: SheetApi;
+	venuesData: FindAllVenuesResponseDto[];
+	onChangeVenue: (venueId: ApiIdentifier) => void;
+	defaultVenueId?: ApiIdentifier;
+}
+
+const SelectVenueSection: React.FC<SelectVenueSectionProps> = ({
+	createVenueSheetApi,
+	venuesData,
+	onChangeVenue,
+	defaultVenueId
+}) => {
 	const { editVenuePage } = useNavigation();
 
 	return (
@@ -26,11 +36,11 @@ const SelectVenueSection = () => {
 				subtitleFirst={true}
 			/>
 			<ContentListItemToggler
-				defaultId={eventData.venue?.venue_id ?? null}
+				defaultId={defaultVenueId}
 				subtitleFirst={true}
 				onPressToggle={(id) => onChangeVenue(id)}
 				items={
-					venuesData?.map((venue) => ({
+					venuesData.map((venue) => ({
 						id: venue.venue_id,
 						image: venue.profile_image?.url || '',
 						title: venue.name,

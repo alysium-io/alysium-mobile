@@ -63,7 +63,7 @@ buck-out/
 /ios/Pods/
 /vendor/bundle/
 
-# Any environment files (we'll create 3: prod, staging, dev)
+# Any environment files
 **/.env*
 
 # Passwords

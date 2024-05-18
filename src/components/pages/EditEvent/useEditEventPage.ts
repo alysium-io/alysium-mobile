@@ -6,16 +6,8 @@ import { UpdateEventBodyDto } from '@flux/api/event/dto/event-update.dto';
 import { MediaRefType } from '@flux/api/media/media.entity';
 import { venueApiSlice } from '@flux/api/venue';
 import { FindAllVenuesResponseDto } from '@flux/api/venue/dto/venue-find-all.dto';
-import {
-	SheetApi,
-	createUseContextHook,
-	useMedia,
-	useNavigation,
-	useSheet
-} from '@hooks';
-import { useRoute } from '@react-navigation/native';
-import { ApiIdentifier, EditEventPageRouteProp, ProviderProps } from '@types';
-import React, { createContext, useEffect } from 'react';
+import { SheetApi, useMedia, useNavigation, useSheet } from '@hooks';
+import { ApiIdentifier } from '@types';
 import {
 	SubmitErrorHandler,
 	SubmitHandler,
@@ -36,9 +28,8 @@ const initialValues: UpdateEventBodyDto = {
 	pets_allowed: false
 };
 
-export type EditEventPageContextType = {
-	eventId: ApiIdentifier;
-	eventData: FindOneEventResponseDto;
+interface IUseEditEvent {
+	eventData?: FindOneEventResponseDto;
 	eventError: any;
 	eventIsLoading: boolean;
 	venuesData?: FindAllVenuesResponseDto[];
@@ -46,44 +37,33 @@ export type EditEventPageContextType = {
 	venuesIsLoading: boolean;
 	formMethods: UseFormReturn<UpdateEventBodyDto>;
 	createVenueSheetApi: SheetApi;
-	createVenue: (name: string) => void;
 	onSubmit: (e?: React.BaseSyntheticEvent<object, any, any>) => Promise<void>;
 	loadForm: () => void;
-	confirmDelete: () => void;
+	onDeleteEvent: () => void;
 	setEventProfileImage: (image: Asset) => void;
 	onChangeVenue: (venueId: number) => void;
-	goToEventCandidatesPage: () => void;
 	onChangeStartTime: (startTime: Date) => void;
 	onChangeEndTime: (endTime: Date) => void;
 	onChangeDoorsOpenTime: (doorsOpenTime: Date) => void;
-};
+	goToEventCandidatesPage: () => void;
+	confirmDelete: () => void;
+}
 
-export const EditEventPageContext = createContext(
-	{} as EditEventPageContextType
-);
-
-export const EditEventPageProvider: React.FC<ProviderProps> = ({
-	children
-}) => {
-	/**
-	 * Config
-	 */
-	const route = useRoute<EditEventPageRouteProp>();
-	const createVenueSheetApi = useSheet();
-	const { uploadMedia } = useMedia();
+const useEditEventPage = (eventId: ApiIdentifier): IUseEditEvent => {
 	const { back, eventCandidatesPage } = useNavigation();
 	const { hostData } = useHostAppContext();
-	const [updateEventMutation] = eventApiSlice.useUpdateMutation();
+	const { uploadMedia } = useMedia();
 	const [deleteEventMutation] = eventApiSlice.useDeleteMutation();
-	const [createVenueMutation] = venueApiSlice.useCreateMutation();
+	const [updateEventMutation] = eventApiSlice.useUpdateMutation();
 	const [updateEventVenueMutation] = eventApiSlice.useUpdateVenueMutation();
+	const createVenueSheetApi = useSheet();
 
 	const {
 		data: eventData,
 		error: eventError,
 		isLoading: eventIsLoading
 	} = eventApiSlice.useFindOneQuery({
-		params: { event_id: route.params.eventId }
+		params: { event_id: eventId }
 	});
 
 	const {
@@ -98,13 +78,6 @@ export const EditEventPageProvider: React.FC<ProviderProps> = ({
 		}
 	});
 
-	useEffect(() => {
-		loadForm();
-	}, [eventData]);
-
-	/**
-	 * Form actions
-	 */
 	const formMethods = useForm<UpdateEventBodyDto>({
 		defaultValues: initialValues
 	});
@@ -114,7 +87,7 @@ export const EditEventPageProvider: React.FC<ProviderProps> = ({
 	) => {
 		updateEventMutation({
 			body: data,
-			params: { event_id: route.params.eventId }
+			params: { event_id: eventId }
 		});
 	};
 
@@ -141,8 +114,6 @@ export const EditEventPageProvider: React.FC<ProviderProps> = ({
 		}
 	};
 
-	const onSubmit = formMethods.handleSubmit(onValid, onInvalid);
-
 	const confirmDelete = () => {
 		Alert.alert(
 			'Delete Event',
@@ -162,23 +133,7 @@ export const EditEventPageProvider: React.FC<ProviderProps> = ({
 		);
 	};
 
-	const onDeleteEvent = () => {
-		deleteEventMutation({ params: { event_id: route.params.eventId } });
-		back();
-	};
-
-	/**
-	 * OnChange form actions
-	 * (Mostly just preprocessing)
-	 */
-	const onChangeVenue = (venueId: ApiIdentifier) => {
-		if (eventData) {
-			updateEventVenueMutation({
-				params: { event_id: eventData.event_id },
-				body: { venue_id: venueId }
-			});
-		}
-	};
+	const onSubmit = formMethods.handleSubmit(onValid, onInvalid);
 
 	const onChangeStartTime = (startTime: Date) =>
 		formMethods.setValue('start_time', Formatting.toUtcIsoFormat(startTime));
@@ -203,54 +158,44 @@ export const EditEventPageProvider: React.FC<ProviderProps> = ({
 		}
 	};
 
-	/**
-	 * Etc
-	 */
+	const onChangeVenue = (venueId: ApiIdentifier) => {
+		if (eventData) {
+			updateEventVenueMutation({
+				params: { event_id: eventData.event_id },
+				body: { venue_id: venueId }
+			});
+		}
+	};
+
+	const onDeleteEvent = () => {
+		deleteEventMutation({ params: { event_id: eventId } });
+		back();
+	};
+
 	const goToEventCandidatesPage = () => {
-		eventCandidatesPage(route.params.eventId);
+		eventCandidatesPage(eventId);
 	};
 
-	const createVenue = (name: string) => {
-		createVenueMutation({
-			body: { name, host_id: hostData.host_id }
-		});
+	return {
+		eventData,
+		eventError,
+		eventIsLoading,
+		venuesData,
+		venuesError,
+		venuesIsLoading,
+		formMethods,
+		createVenueSheetApi,
+		onSubmit,
+		loadForm,
+		onDeleteEvent,
+		setEventProfileImage,
+		onChangeVenue,
+		onChangeStartTime,
+		onChangeEndTime,
+		onChangeDoorsOpenTime,
+		goToEventCandidatesPage,
+		confirmDelete
 	};
-
-	if (!eventData) {
-		return <></>;
-	}
-
-	return (
-		<EditEventPageContext.Provider
-			value={{
-				eventId: route.params.eventId,
-				eventData,
-				eventError,
-				eventIsLoading,
-				venuesData,
-				venuesError,
-				venuesIsLoading,
-				formMethods,
-				createVenueSheetApi,
-				createVenue,
-				onSubmit,
-				loadForm,
-				confirmDelete,
-				onChangeVenue,
-				goToEventCandidatesPage,
-				setEventProfileImage,
-				onChangeStartTime,
-				onChangeEndTime,
-				onChangeDoorsOpenTime
-			}}
-		>
-			{children}
-		</EditEventPageContext.Provider>
-	);
 };
 
-export const useEditEventPageContext =
-	createUseContextHook<EditEventPageContextType>(
-		EditEventPageContext,
-		'EditEventPageContext'
-	);
+export default useEditEventPage;

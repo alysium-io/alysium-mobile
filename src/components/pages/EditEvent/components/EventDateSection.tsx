@@ -1,10 +1,10 @@
 import { Section, View } from '@atomic';
+import { UpdateEventBodyDto } from '@flux/api/event/dto/event-update.dto';
 import { SectionHeader } from '@molecules';
 import { DatetimePickerWithModal, MenuListItem } from '@organisms';
 import day from 'dayjs';
 import React, { useState } from 'react';
-import { Controller } from 'react-hook-form';
-import { useEditEventPageContext } from '../EditEvent.context';
+import { Controller, UseFormReturn } from 'react-hook-form';
 
 type EventDateState = {
 	startTimeOpen: boolean;
@@ -12,14 +12,19 @@ type EventDateState = {
 	endTimeOpen: boolean;
 };
 
-const EventDateSection = () => {
-	const {
-		formMethods,
-		onChangeStartTime,
-		onChangeDoorsOpenTime,
-		onChangeEndTime
-	} = useEditEventPageContext();
+interface EventDateSectionProps {
+	formMethods: UseFormReturn<UpdateEventBodyDto>;
+	onChangeStartTime: (startTime: Date) => void;
+	onChangeDoorsOpenTime: (doorsOpenTime: Date) => void;
+	onChangeEndTime: (endTime: Date) => void;
+}
 
+const EventDateSection: React.FC<EventDateSectionProps> = ({
+	formMethods,
+	onChangeStartTime,
+	onChangeDoorsOpenTime,
+	onChangeEndTime
+}) => {
 	const [state, setState] = useState<EventDateState>({
 		startTimeOpen: false,
 		doorsOpenTimeOpen: false,

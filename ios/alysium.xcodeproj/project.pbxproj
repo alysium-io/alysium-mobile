@@ -35,26 +35,44 @@
 		5F514992D2FA4DDF99CAF628 /* HelveticaNeueBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 583D20ED4CDB496D9AE8E7CD /* HelveticaNeueBold.ttf */; };
 		609053FFC3F64A0798C49AA4 /* HelveticaNeue-UltraLigCond.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4FFC153343E34AEBB120571C /* HelveticaNeue-UltraLigCond.otf */; };
 		64FA718E36A74960BB9868F1 /* HelveticaNeue-LightCondObl.otf in Resources */ = {isa = PBXBuildFile; fileRef = B2713E2F84C5458985139FF1 /* HelveticaNeue-LightCondObl.otf */; };
-		6A8F013D2A958C23008F7710 /* default_profile_image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 134FBB9FCF404731B1A18150 /* default_profile_image.jpg */; };
-		6A8F013E2A958C23008F7710 /* Lato-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5BF371F5DA7241E6A77A26D2 /* Lato-BlackItalic.ttf */; };
-		6A8F013F2A958C23008F7710 /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4214FAFE2C1B46FBA2E0F0A7 /* Lato-Bold.ttf */; };
-		6A8F01402A958C23008F7710 /* Lato-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AF91B0711AB04339B52E06BB /* Lato-BoldItalic.ttf */; };
-		6A8F01412A958C23008F7710 /* Lato-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C71AA1D06C04D7F8343099C /* Lato-Italic.ttf */; };
-		6A8F01422A958C23008F7710 /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B7C46FD299684727A3A2532D /* Lato-Light.ttf */; };
-		6A8F01432A958C23008F7710 /* Lato-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 82231414BDFD49FD991FE2B9 /* Lato-LightItalic.ttf */; };
-		6A8F01442A958C23008F7710 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6F479C58037149F5BDB548D5 /* Lato-Regular.ttf */; };
-		6A8F01452A958C23008F7710 /* Lato-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E1DD21B29944E1898342EDE /* Lato-Thin.ttf */; };
-		6A8F01462A958C23008F7710 /* Lato-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A1E9A0111B234D1587E45FB0 /* Lato-ThinItalic.ttf */; };
-		6A8F01472A958C23008F7710 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5BFF6D41DFF6454283EC80F4 /* Lato-Black.ttf */; };
+		6A4C6A092BF8FBE3009B660D /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
+		6A4C6A0A2BF8FBE3009B660D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		6A4C6A0E2BF8FBE3009B660D /* default_profile_image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 134FBB9FCF404731B1A18150 /* default_profile_image.jpg */; };
+		6A4C6A0F2BF8FBE3009B660D /* Lato-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5BF371F5DA7241E6A77A26D2 /* Lato-BlackItalic.ttf */; };
+		6A4C6A102BF8FBE3009B660D /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4214FAFE2C1B46FBA2E0F0A7 /* Lato-Bold.ttf */; };
+		6A4C6A112BF8FBE3009B660D /* Lato-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AF91B0711AB04339B52E06BB /* Lato-BoldItalic.ttf */; };
+		6A4C6A122BF8FBE3009B660D /* Lato-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C71AA1D06C04D7F8343099C /* Lato-Italic.ttf */; };
+		6A4C6A132BF8FBE3009B660D /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B7C46FD299684727A3A2532D /* Lato-Light.ttf */; };
+		6A4C6A142BF8FBE3009B660D /* Lato-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 82231414BDFD49FD991FE2B9 /* Lato-LightItalic.ttf */; };
+		6A4C6A152BF8FBE3009B660D /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6F479C58037149F5BDB548D5 /* Lato-Regular.ttf */; };
+		6A4C6A162BF8FBE3009B660D /* Lato-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E1DD21B29944E1898342EDE /* Lato-Thin.ttf */; };
+		6A4C6A172BF8FBE3009B660D /* Lato-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A1E9A0111B234D1587E45FB0 /* Lato-ThinItalic.ttf */; };
+		6A4C6A182BF8FBE3009B660D /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5BFF6D41DFF6454283EC80F4 /* Lato-Black.ttf */; };
+		6A4C6A192BF8FBE3009B660D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		6A4C6A1A2BF8FBE3009B660D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
+		6A4C6A232BF8FDD7009B660D /* alysium-qa Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6A4C6A222BF8FBE3009B660D /* alysium-qa Info.plist */; };
+		6A4C6A242BF8FDDB009B660D /* alysium-dev Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6AF109542A95344B00DB24EC /* alysium-dev Info.plist */; };
+		6A4C6A292BF8FE90009B660D /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
+		6A4C6A2A2BF8FE90009B660D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		6A4C6A2E2BF8FE90009B660D /* default_profile_image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 134FBB9FCF404731B1A18150 /* default_profile_image.jpg */; };
+		6A4C6A2F2BF8FE90009B660D /* Lato-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5BF371F5DA7241E6A77A26D2 /* Lato-BlackItalic.ttf */; };
+		6A4C6A302BF8FE90009B660D /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4214FAFE2C1B46FBA2E0F0A7 /* Lato-Bold.ttf */; };
+		6A4C6A312BF8FE90009B660D /* Lato-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AF91B0711AB04339B52E06BB /* Lato-BoldItalic.ttf */; };
+		6A4C6A322BF8FE90009B660D /* Lato-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C71AA1D06C04D7F8343099C /* Lato-Italic.ttf */; };
+		6A4C6A332BF8FE90009B660D /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B7C46FD299684727A3A2532D /* Lato-Light.ttf */; };
+		6A4C6A352BF8FE90009B660D /* Lato-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 82231414BDFD49FD991FE2B9 /* Lato-LightItalic.ttf */; };
+		6A4C6A362BF8FE90009B660D /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6F479C58037149F5BDB548D5 /* Lato-Regular.ttf */; };
+		6A4C6A372BF8FE90009B660D /* Lato-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E1DD21B29944E1898342EDE /* Lato-Thin.ttf */; };
+		6A4C6A382BF8FE90009B660D /* Lato-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A1E9A0111B234D1587E45FB0 /* Lato-ThinItalic.ttf */; };
+		6A4C6A392BF8FE90009B660D /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5BFF6D41DFF6454283EC80F4 /* Lato-Black.ttf */; };
+		6A4C6A3A2BF8FE90009B660D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		6A4C6A3B2BF8FE90009B660D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
+		6A4C6A442BF8FF17009B660D /* alysium-demo Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6A4C6A432BF8FE90009B660D /* alysium-demo Info.plist */; };
 		6A8F01482A958C30008F7710 /* default_profile_image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 134FBB9FCF404731B1A18150 /* default_profile_image.jpg */; };
 		6AF109462A95344A00DB24EC /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		6AF109472A95344A00DB24EC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		6AF1094B2A95344A00DB24EC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		6AF1094C2A95344A00DB24EC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
-		6AF109592A95344D00DB24EC /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
-		6AF1095A2A95344D00DB24EC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		6AF1095E2A95344D00DB24EC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		6AF1095F2A95344D00DB24EC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		6CB3C5CB78614350A41A1998 /* Lato-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C71AA1D06C04D7F8343099C /* Lato-Italic.ttf */; };
 		71E53B8595B9425D803B129C /* HelveticaNeue-ThinCond.otf in Resources */ = {isa = PBXBuildFile; fileRef = D799AEA46C4C482AAC81388C /* HelveticaNeue-ThinCond.otf */; };
 		76D0B5BB493E45359C458D5C /* HelveticaNeueUltraLightItal.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A2D7AC49F20A4D348CEFC243 /* HelveticaNeueUltraLightItal.ttf */; };
@@ -75,9 +93,10 @@
 		AAF21E01BCD34153A3CEDC4F /* HelveticaNeue-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 32DEDE727E654978AE587958 /* HelveticaNeue-Black.otf */; };
 		ACCE78FCF432418C89D587F5 /* HelveticaNeue-ExtBlackCondObl.otf in Resources */ = {isa = PBXBuildFile; fileRef = 588EC9C2E7EE4742A7689314 /* HelveticaNeue-ExtBlackCondObl.otf */; };
 		AE9DA59EE8B840E9A80B1EEA /* HelveticaNeue-Extended.otf in Resources */ = {isa = PBXBuildFile; fileRef = A89BF0DD61F741A6BD53DBDE /* HelveticaNeue-Extended.otf */; };
-		B063B1E74F2D0171619A34DB /* libPods-alysiumCommonPods-alysium-staging.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E48C34E55077B24CE6DD01F1 /* libPods-alysiumCommonPods-alysium-staging.a */; };
+		B3B5ADD1F0BB1BA325CF44C4 /* libPods-alysiumCommonPods-alysium-demo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E82E171A949239398311226 /* libPods-alysiumCommonPods-alysium-demo.a */; };
 		BE702FF7BDEC497D8A1B66C1 /* HelveticaNeueBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A5B3F31F7791403486779DF1 /* HelveticaNeueBoldItalic.ttf */; };
 		C31FDBD4243F4FD6A983ADB9 /* HelveticaNeue-BoldExtObl.otf in Resources */ = {isa = PBXBuildFile; fileRef = AF13FBAA66744F6DA7FA9683 /* HelveticaNeue-BoldExtObl.otf */; };
+		C32B2C5EB76CA18DA93833D4 /* libPods-alysiumCommonPods-alysium-qa.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BCDEDECFA6C1C41D346C58F /* libPods-alysiumCommonPods-alysium-qa.a */; };
 		C97B44544E8F43E3A67FDF4D /* HelveticaNeue-UltraLigExt.otf in Resources */ = {isa = PBXBuildFile; fileRef = EA495EF4CA53405A8F3104F7 /* HelveticaNeue-UltraLigExt.otf */; };
 		CED74292C0BE4AF694950628 /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B7C46FD299684727A3A2532D /* Lato-Light.ttf */; };
 		CFD890826ECC4E9F87ADEB9D /* HelveticaNeue-Roman.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8E3FC4BC8ADD4CC4B7FC3A54 /* HelveticaNeue-Roman.otf */; };
@@ -97,21 +116,21 @@
 /* Begin PBXFileReference section */
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* alysiumTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = alysiumTests.m; sourceTree = "<group>"; };
-		103094CA7A91A65095FAB950 /* Pods-alysiumCommonPods-alysiumTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alysiumCommonPods-alysiumTests.debug.xcconfig"; path = "Target Support Files/Pods-alysiumCommonPods-alysiumTests/Pods-alysiumCommonPods-alysiumTests.debug.xcconfig"; sourceTree = "<group>"; };
+		0DA88675E2AD5A0575265AA1 /* Pods-alysiumCommonPods-alysium-qa.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alysiumCommonPods-alysium-qa.release.xcconfig"; path = "Target Support Files/Pods-alysiumCommonPods-alysium-qa/Pods-alysiumCommonPods-alysium-qa.release.xcconfig"; sourceTree = "<group>"; };
+		0E82E171A949239398311226 /* libPods-alysiumCommonPods-alysium-demo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-alysiumCommonPods-alysium-demo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		134FBB9FCF404731B1A18150 /* default_profile_image.jpg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = default_profile_image.jpg; path = ../src/assets/images/default_profile_image.jpg; sourceTree = "<group>"; };
-		13850B915C3B4CD1FC45FD48 /* Pods-alysiumCommonPods-alysium-staging.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alysiumCommonPods-alysium-staging.release.xcconfig"; path = "Target Support Files/Pods-alysiumCommonPods-alysium-staging/Pods-alysiumCommonPods-alysium-staging.release.xcconfig"; sourceTree = "<group>"; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = alysium/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = alysium/AppDelegate.mm; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = alysium/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = alysium/main.m; sourceTree = "<group>"; };
 		15A7ABDFF03D4E9DA738179C /* HelveticaNeue-MediumCondObl.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "HelveticaNeue-MediumCondObl.otf"; path = "../src/assets/fonts/HelveticaNeue-MediumCondObl.otf"; sourceTree = "<group>"; };
+		1BCDEDECFA6C1C41D346C58F /* libPods-alysiumCommonPods-alysium-qa.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-alysiumCommonPods-alysium-qa.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2726CEFB352D47859AF63ABC /* HelveticaNeue-BlackExtObl.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "HelveticaNeue-BlackExtObl.otf"; path = "../src/assets/fonts/HelveticaNeue-BlackExtObl.otf"; sourceTree = "<group>"; };
+		2A9ADE1B7F3D46174E1E6E2E /* Pods-alysiumCommonPods-alysium-demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alysiumCommonPods-alysium-demo.release.xcconfig"; path = "Target Support Files/Pods-alysiumCommonPods-alysium-demo/Pods-alysiumCommonPods-alysium-demo.release.xcconfig"; sourceTree = "<group>"; };
 		31634737770ADD4E48CC41D4 /* Pods-alysiumCommonPods-alysium-dev.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alysiumCommonPods-alysium-dev.release.xcconfig"; path = "Target Support Files/Pods-alysiumCommonPods-alysium-dev/Pods-alysiumCommonPods-alysium-dev.release.xcconfig"; sourceTree = "<group>"; };
-		321AE85584F5D15779C5F104 /* Pods-alysiumCommonPods-alysium.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alysiumCommonPods-alysium.debug.xcconfig"; path = "Target Support Files/Pods-alysiumCommonPods-alysium/Pods-alysiumCommonPods-alysium.debug.xcconfig"; sourceTree = "<group>"; };
 		32DEDE727E654978AE587958 /* HelveticaNeue-Black.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "HelveticaNeue-Black.otf"; path = "../src/assets/fonts/HelveticaNeue-Black.otf"; sourceTree = "<group>"; };
 		359CA4A7B1D14670AE663C44 /* HelveticaNeueLight.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = HelveticaNeueLight.ttf; path = ../src/assets/fonts/HelveticaNeueLight.ttf; sourceTree = "<group>"; };
 		3A0EB8D9FD134A3685810379 /* HelveticaNeueItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = HelveticaNeueItalic.ttf; path = ../src/assets/fonts/HelveticaNeueItalic.ttf; sourceTree = "<group>"; };
-		3B4392A12AC88292D35C810B /* Pods-alysium.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alysium.debug.xcconfig"; path = "Target Support Files/Pods-alysium/Pods-alysium.debug.xcconfig"; sourceTree = "<group>"; };
 		3E5085850F0B49BDB5F67CBE /* HelveticaBlkIt.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = HelveticaBlkIt.ttf; path = ../src/assets/fonts/HelveticaBlkIt.ttf; sourceTree = "<group>"; };
 		4214FAFE2C1B46FBA2E0F0A7 /* Lato-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Bold.ttf"; path = "../src/assets/fonts/Lato-Bold.ttf"; sourceTree = "<group>"; };
 		46D229F98DC94A8E85F81DB6 /* HelveticaNeue-ThinCondObl.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "HelveticaNeue-ThinCondObl.otf"; path = "../src/assets/fonts/HelveticaNeue-ThinCondObl.otf"; sourceTree = "<group>"; };
@@ -122,31 +141,31 @@
 		52EB01738FEF4DD3AE91D40A /* HelveticaNeue-BlackExt.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "HelveticaNeue-BlackExt.otf"; path = "../src/assets/fonts/HelveticaNeue-BlackExt.otf"; sourceTree = "<group>"; };
 		53CBAEC3D46D48C1BCCCF1B6 /* HelveticaNeue-BlackCond.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "HelveticaNeue-BlackCond.otf"; path = "../src/assets/fonts/HelveticaNeue-BlackCond.otf"; sourceTree = "<group>"; };
 		5433521EA551F9F8ECB29560 /* libPods-alysiumCommonPods-alysium-dev.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-alysiumCommonPods-alysium-dev.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		5709B34CF0A7D63546082F79 /* Pods-alysium.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alysium.release.xcconfig"; path = "Target Support Files/Pods-alysium/Pods-alysium.release.xcconfig"; sourceTree = "<group>"; };
 		583D20ED4CDB496D9AE8E7CD /* HelveticaNeueBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = HelveticaNeueBold.ttf; path = ../src/assets/fonts/HelveticaNeueBold.ttf; sourceTree = "<group>"; };
 		585A69740EAA489787DC5716 /* HelveticaNeue-HeavyItalic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "HelveticaNeue-HeavyItalic.otf"; path = "../src/assets/fonts/HelveticaNeue-HeavyItalic.otf"; sourceTree = "<group>"; };
 		588EC9C2E7EE4742A7689314 /* HelveticaNeue-ExtBlackCondObl.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "HelveticaNeue-ExtBlackCondObl.otf"; path = "../src/assets/fonts/HelveticaNeue-ExtBlackCondObl.otf"; sourceTree = "<group>"; };
 		59685A6C83DF4830A8F407A5 /* HelveticaNeue-HeavyExtObl.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "HelveticaNeue-HeavyExtObl.otf"; path = "../src/assets/fonts/HelveticaNeue-HeavyExtObl.otf"; sourceTree = "<group>"; };
-		5AB420890CCAAB9D34B99EAD /* Pods-alysiumCommonPods-alysium-staging.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alysiumCommonPods-alysium-staging.debug.xcconfig"; path = "Target Support Files/Pods-alysiumCommonPods-alysium-staging/Pods-alysiumCommonPods-alysium-staging.debug.xcconfig"; sourceTree = "<group>"; };
-		5B7EB9410499542E8C5724F5 /* Pods-alysium-alysiumTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alysium-alysiumTests.debug.xcconfig"; path = "Target Support Files/Pods-alysium-alysiumTests/Pods-alysium-alysiumTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5BF371F5DA7241E6A77A26D2 /* Lato-BlackItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-BlackItalic.ttf"; path = "../src/assets/fonts/Lato-BlackItalic.ttf"; sourceTree = "<group>"; };
 		5BFF6D41DFF6454283EC80F4 /* Lato-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Black.ttf"; path = "../src/assets/fonts/Lato-Black.ttf"; sourceTree = "<group>"; };
 		5E1DD21B29944E1898342EDE /* Lato-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Thin.ttf"; path = "../src/assets/fonts/Lato-Thin.ttf"; sourceTree = "<group>"; };
 		5F097B54DAA0F1E75E1C61A1 /* Pods-alysiumCommonPods-alysium-dev.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alysiumCommonPods-alysium-dev.debug.xcconfig"; path = "Target Support Files/Pods-alysiumCommonPods-alysium-dev/Pods-alysiumCommonPods-alysium-dev.debug.xcconfig"; sourceTree = "<group>"; };
 		665DF0027D47418390863457 /* HelveticaNeue-CondensedObl.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "HelveticaNeue-CondensedObl.otf"; path = "../src/assets/fonts/HelveticaNeue-CondensedObl.otf"; sourceTree = "<group>"; };
 		68275777787B499BB89EFEA4 /* helvetica-46-light-italic-587ebdb0ea724.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "helvetica-46-light-italic-587ebdb0ea724.ttf"; path = "../src/assets/fonts/helvetica-46-light-italic-587ebdb0ea724.ttf"; sourceTree = "<group>"; };
+		682B7D637AED01443F294F1B /* Pods-alysiumCommonPods-alysium-qa.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alysiumCommonPods-alysium-qa.debug.xcconfig"; path = "Target Support Files/Pods-alysiumCommonPods-alysium-qa/Pods-alysiumCommonPods-alysium-qa.debug.xcconfig"; sourceTree = "<group>"; };
+		6A4C6A212BF8FBE3009B660D /* alysium-qa.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "alysium-qa.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6A4C6A222BF8FBE3009B660D /* alysium-qa Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "alysium-qa Info.plist"; path = "/Users/alecmather/Desktop/projects/alysium-mobile/ios/alysium-qa Info.plist"; sourceTree = "<absolute>"; };
+		6A4C6A422BF8FE90009B660D /* alysium-demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "alysium-demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6A4C6A432BF8FE90009B660D /* alysium-demo Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "alysium-demo Info.plist"; path = "/Users/alecmather/Desktop/projects/alysium-mobile/ios/alysium-demo Info.plist"; sourceTree = "<absolute>"; };
 		6AE6E68920C741FC9F39CC01 /* HelveticaNeue-HeavyExt.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "HelveticaNeue-HeavyExt.otf"; path = "../src/assets/fonts/HelveticaNeue-HeavyExt.otf"; sourceTree = "<group>"; };
 		6AF109532A95344A00DB24EC /* alysium-dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "alysium-dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		6AF109542A95344B00DB24EC /* alysium-dev Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "alysium-dev Info.plist"; path = "/Users/alecmather/Desktop/Projects/alysium/alysium-mobile/ios/alysium-dev Info.plist"; sourceTree = "<absolute>"; };
-		6AF109662A95344D00DB24EC /* alysium-staging.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "alysium-staging.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		6AF109672A95344D00DB24EC /* alysium-staging Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "alysium-staging Info.plist"; path = "/Users/alecmather/Desktop/Projects/alysium/alysium-mobile/ios/alysium-staging Info.plist"; sourceTree = "<absolute>"; };
+		6AF109542A95344B00DB24EC /* alysium-dev Info.plist */ = {isa = PBXFileReference; explicitFileType = text.plist.info; name = "alysium-dev Info.plist"; path = "/Users/alecmather/Desktop/projects/alysium-mobile/ios/alysium-dev Info.plist"; sourceTree = "<absolute>"; };
 		6F479C58037149F5BDB548D5 /* Lato-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Regular.ttf"; path = "../src/assets/fonts/Lato-Regular.ttf"; sourceTree = "<group>"; };
+		6FC20CA38F57C1ADDDC4FF47 /* Pods-alysiumCommonPods-alysium-demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alysiumCommonPods-alysium-demo.debug.xcconfig"; path = "Target Support Files/Pods-alysiumCommonPods-alysium-demo/Pods-alysiumCommonPods-alysium-demo.debug.xcconfig"; sourceTree = "<group>"; };
 		7AA9A596CF87485D8A143E3D /* HelveticaNeue-BoldExt.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "HelveticaNeue-BoldExt.otf"; path = "../src/assets/fonts/HelveticaNeue-BoldExt.otf"; sourceTree = "<group>"; };
 		7D2EF4D8F6B44373A938E7B1 /* HelveticaNeue-UltraLigCondObl.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "HelveticaNeue-UltraLigCondObl.otf"; path = "../src/assets/fonts/HelveticaNeue-UltraLigCondObl.otf"; sourceTree = "<group>"; };
 		8135C99D1EA347F8A83039E0 /* HelveticaNeue-BoldCondObl.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "HelveticaNeue-BoldCondObl.otf"; path = "../src/assets/fonts/HelveticaNeue-BoldCondObl.otf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = alysium/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		82231414BDFD49FD991FE2B9 /* Lato-LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-LightItalic.ttf"; path = "../src/assets/fonts/Lato-LightItalic.ttf"; sourceTree = "<group>"; };
-		89C6BE57DB24E9ADA2F236DE /* Pods-alysium-alysiumTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alysium-alysiumTests.release.xcconfig"; path = "Target Support Files/Pods-alysium-alysiumTests/Pods-alysium-alysiumTests.release.xcconfig"; sourceTree = "<group>"; };
 		8B0BE6EC708B4C73986048CA /* HelveticaNeue-MediumExt.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "HelveticaNeue-MediumExt.otf"; path = "../src/assets/fonts/HelveticaNeue-MediumExt.otf"; sourceTree = "<group>"; };
 		8C71AA1D06C04D7F8343099C /* Lato-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Italic.ttf"; path = "../src/assets/fonts/Lato-Italic.ttf"; sourceTree = "<group>"; };
 		8CEA5AEEB0CA4F73A8288920 /* HelveticaNeue-ThinItalic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "HelveticaNeue-ThinItalic.otf"; path = "../src/assets/fonts/HelveticaNeue-ThinItalic.otf"; sourceTree = "<group>"; };
@@ -157,7 +176,6 @@
 		9DDDDEC053124E7690405597 /* HelveticaNeue-MediumExtObl.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "HelveticaNeue-MediumExtObl.otf"; path = "../src/assets/fonts/HelveticaNeue-MediumExtObl.otf"; sourceTree = "<group>"; };
 		A1E9A0111B234D1587E45FB0 /* Lato-ThinItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-ThinItalic.ttf"; path = "../src/assets/fonts/Lato-ThinItalic.ttf"; sourceTree = "<group>"; };
 		A2D7AC49F20A4D348CEFC243 /* HelveticaNeueUltraLightItal.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = HelveticaNeueUltraLightItal.ttf; path = ../src/assets/fonts/HelveticaNeueUltraLightItal.ttf; sourceTree = "<group>"; };
-		A478EDB3118F037C81007270 /* Pods-alysiumCommonPods-alysiumTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alysiumCommonPods-alysiumTests.release.xcconfig"; path = "Target Support Files/Pods-alysiumCommonPods-alysiumTests/Pods-alysiumCommonPods-alysiumTests.release.xcconfig"; sourceTree = "<group>"; };
 		A5B3F31F7791403486779DF1 /* HelveticaNeueBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = HelveticaNeueBoldItalic.ttf; path = ../src/assets/fonts/HelveticaNeueBoldItalic.ttf; sourceTree = "<group>"; };
 		A79A30893F964EA3B39F8FE3 /* HelveticaNeue-ExtBlackCond.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "HelveticaNeue-ExtBlackCond.otf"; path = "../src/assets/fonts/HelveticaNeue-ExtBlackCond.otf"; sourceTree = "<group>"; };
 		A89BF0DD61F741A6BD53DBDE /* HelveticaNeue-Extended.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "HelveticaNeue-Extended.otf"; path = "../src/assets/fonts/HelveticaNeue-Extended.otf"; sourceTree = "<group>"; };
@@ -179,29 +197,35 @@
 		DD1706B7FDBE489D84F5FA39 /* HelveticaNeue-ExtendedObl.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "HelveticaNeue-ExtendedObl.otf"; path = "../src/assets/fonts/HelveticaNeue-ExtendedObl.otf"; sourceTree = "<group>"; };
 		DF5DADCB57584186BDED793A /* brooks.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = brooks.png; path = ../src/assets/images/brooks.png; sourceTree = "<group>"; };
 		E20128A8A6A5474E96D64E67 /* HelveticaNeueCondensedBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = HelveticaNeueCondensedBold.ttf; path = ../src/assets/fonts/HelveticaNeueCondensedBold.ttf; sourceTree = "<group>"; };
-		E48C34E55077B24CE6DD01F1 /* libPods-alysiumCommonPods-alysium-staging.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-alysiumCommonPods-alysium-staging.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA495EF4CA53405A8F3104F7 /* HelveticaNeue-UltraLigExt.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "HelveticaNeue-UltraLigExt.otf"; path = "../src/assets/fonts/HelveticaNeue-UltraLigExt.otf"; sourceTree = "<group>"; };
 		EA63A274D9954ED5A1B1BE4A /* HelveticaNeue-BlackCondObl.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "HelveticaNeue-BlackCondObl.otf"; path = "../src/assets/fonts/HelveticaNeue-BlackCondObl.otf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		F10F7522078AED966C1E9B66 /* Pods-alysiumCommonPods-alysium.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alysiumCommonPods-alysium.release.xcconfig"; path = "Target Support Files/Pods-alysiumCommonPods-alysium/Pods-alysiumCommonPods-alysium.release.xcconfig"; sourceTree = "<group>"; };
 		F7257E89D6EF437F9AA9DAD8 /* HelveticaNeue-Thin.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "HelveticaNeue-Thin.otf"; path = "../src/assets/fonts/HelveticaNeue-Thin.otf"; sourceTree = "<group>"; };
 		FE06E691CC2E402A98834975 /* helvetica-75-bold-outline-587ebe00b76ba.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "helvetica-75-bold-outline-587ebe00b76ba.ttf"; path = "../src/assets/fonts/helvetica-75-bold-outline-587ebe00b76ba.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		6A4C6A0B2BF8FBE3009B660D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C32B2C5EB76CA18DA93833D4 /* libPods-alysiumCommonPods-alysium-qa.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6A4C6A2B2BF8FE90009B660D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B3B5ADD1F0BB1BA325CF44C4 /* libPods-alysiumCommonPods-alysium-demo.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6AF109482A95344A00DB24EC /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				FA1210A7CE040408AC01B47C /* libPods-alysiumCommonPods-alysium-dev.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		6AF1095B2A95344D00DB24EC /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				B063B1E74F2D0171619A34DB /* libPods-alysiumCommonPods-alysium-staging.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -241,9 +265,10 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				E48C34E55077B24CE6DD01F1 /* libPods-alysiumCommonPods-alysium-staging.a */,
 				8E4AFCA6B473F8EECA057181 /* libPods-alysiumCommonPods-alysiumTests.a */,
 				5433521EA551F9F8ECB29560 /* libPods-alysiumCommonPods-alysium-dev.a */,
+				0E82E171A949239398311226 /* libPods-alysiumCommonPods-alysium-demo.a */,
+				1BCDEDECFA6C1C41D346C58F /* libPods-alysiumCommonPods-alysium-qa.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -336,8 +361,9 @@
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
 				6AF109542A95344B00DB24EC /* alysium-dev Info.plist */,
-				6AF109672A95344D00DB24EC /* alysium-staging Info.plist */,
 				69D1DBCD8F6E4115BC93B8DC /* Resources */,
+				6A4C6A222BF8FBE3009B660D /* alysium-qa Info.plist */,
+				6A4C6A432BF8FE90009B660D /* alysium-demo Info.plist */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -348,7 +374,8 @@
 			isa = PBXGroup;
 			children = (
 				6AF109532A95344A00DB24EC /* alysium-dev.app */,
-				6AF109662A95344D00DB24EC /* alysium-staging.app */,
+				6A4C6A212BF8FBE3009B660D /* alysium-qa.app */,
+				6A4C6A422BF8FE90009B660D /* alysium-demo.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -356,18 +383,12 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				3B4392A12AC88292D35C810B /* Pods-alysium.debug.xcconfig */,
-				5709B34CF0A7D63546082F79 /* Pods-alysium.release.xcconfig */,
-				5B7EB9410499542E8C5724F5 /* Pods-alysium-alysiumTests.debug.xcconfig */,
-				89C6BE57DB24E9ADA2F236DE /* Pods-alysium-alysiumTests.release.xcconfig */,
 				5F097B54DAA0F1E75E1C61A1 /* Pods-alysiumCommonPods-alysium-dev.debug.xcconfig */,
 				31634737770ADD4E48CC41D4 /* Pods-alysiumCommonPods-alysium-dev.release.xcconfig */,
-				5AB420890CCAAB9D34B99EAD /* Pods-alysiumCommonPods-alysium-staging.debug.xcconfig */,
-				13850B915C3B4CD1FC45FD48 /* Pods-alysiumCommonPods-alysium-staging.release.xcconfig */,
-				103094CA7A91A65095FAB950 /* Pods-alysiumCommonPods-alysiumTests.debug.xcconfig */,
-				A478EDB3118F037C81007270 /* Pods-alysiumCommonPods-alysiumTests.release.xcconfig */,
-				321AE85584F5D15779C5F104 /* Pods-alysiumCommonPods-alysium.debug.xcconfig */,
-				F10F7522078AED966C1E9B66 /* Pods-alysiumCommonPods-alysium.release.xcconfig */,
+				6FC20CA38F57C1ADDDC4FF47 /* Pods-alysiumCommonPods-alysium-demo.debug.xcconfig */,
+				2A9ADE1B7F3D46174E1E6E2E /* Pods-alysiumCommonPods-alysium-demo.release.xcconfig */,
+				682B7D637AED01443F294F1B /* Pods-alysiumCommonPods-alysium-qa.debug.xcconfig */,
+				0DA88675E2AD5A0575265AA1 /* Pods-alysiumCommonPods-alysium-qa.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -375,6 +396,50 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		6A4C6A052BF8FBE3009B660D /* alysium-qa */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6A4C6A1E2BF8FBE3009B660D /* Build configuration list for PBXNativeTarget "alysium-qa" */;
+			buildPhases = (
+				6A4C6A062BF8FBE3009B660D /* [CP] Check Pods Manifest.lock */,
+				6A4C6A072BF8FBE3009B660D /* Start Packager */,
+				6A4C6A082BF8FBE3009B660D /* Sources */,
+				6A4C6A0B2BF8FBE3009B660D /* Frameworks */,
+				6A4C6A0D2BF8FBE3009B660D /* Resources */,
+				6A4C6A1B2BF8FBE3009B660D /* Bundle React Native code and images */,
+				6A4C6A1C2BF8FBE3009B660D /* [CP] Embed Pods Frameworks */,
+				6A4C6A1D2BF8FBE3009B660D /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "alysium-qa";
+			productName = alysium;
+			productReference = 6A4C6A212BF8FBE3009B660D /* alysium-qa.app */;
+			productType = "com.apple.product-type.application";
+		};
+		6A4C6A252BF8FE90009B660D /* alysium-demo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6A4C6A3F2BF8FE90009B660D /* Build configuration list for PBXNativeTarget "alysium-demo" */;
+			buildPhases = (
+				6A4C6A262BF8FE90009B660D /* [CP] Check Pods Manifest.lock */,
+				6A4C6A272BF8FE90009B660D /* Start Packager */,
+				6A4C6A282BF8FE90009B660D /* Sources */,
+				6A4C6A2B2BF8FE90009B660D /* Frameworks */,
+				6A4C6A2D2BF8FE90009B660D /* Resources */,
+				6A4C6A3C2BF8FE90009B660D /* Bundle React Native code and images */,
+				6A4C6A3D2BF8FE90009B660D /* [CP] Embed Pods Frameworks */,
+				6A4C6A3E2BF8FE90009B660D /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "alysium-demo";
+			productName = alysium;
+			productReference = 6A4C6A422BF8FE90009B660D /* alysium-demo.app */;
+			productType = "com.apple.product-type.application";
+		};
 		6AF109422A95344A00DB24EC /* alysium-dev */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6AF109502A95344A00DB24EC /* Build configuration list for PBXNativeTarget "alysium-dev" */;
@@ -395,28 +460,6 @@
 			name = "alysium-dev";
 			productName = alysium;
 			productReference = 6AF109532A95344A00DB24EC /* alysium-dev.app */;
-			productType = "com.apple.product-type.application";
-		};
-		6AF109552A95344D00DB24EC /* alysium-staging */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 6AF109632A95344D00DB24EC /* Build configuration list for PBXNativeTarget "alysium-staging" */;
-			buildPhases = (
-				6AF109562A95344D00DB24EC /* [CP] Check Pods Manifest.lock */,
-				6AF109572A95344D00DB24EC /* Start Packager */,
-				6AF109582A95344D00DB24EC /* Sources */,
-				6AF1095B2A95344D00DB24EC /* Frameworks */,
-				6AF1095D2A95344D00DB24EC /* Resources */,
-				6AF109602A95344D00DB24EC /* Bundle React Native code and images */,
-				6AF109612A95344D00DB24EC /* [CP] Embed Pods Frameworks */,
-				6AF109622A95344D00DB24EC /* [CP] Copy Pods Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "alysium-staging";
-			productName = alysium;
-			productReference = 6AF109662A95344D00DB24EC /* alysium-staging.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -441,12 +484,55 @@
 			projectRoot = "";
 			targets = (
 				6AF109422A95344A00DB24EC /* alysium-dev */,
-				6AF109552A95344D00DB24EC /* alysium-staging */,
+				6A4C6A052BF8FBE3009B660D /* alysium-qa */,
+				6A4C6A252BF8FE90009B660D /* alysium-demo */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		6A4C6A0D2BF8FBE3009B660D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6A4C6A0E2BF8FBE3009B660D /* default_profile_image.jpg in Resources */,
+				6A4C6A0F2BF8FBE3009B660D /* Lato-BlackItalic.ttf in Resources */,
+				6A4C6A102BF8FBE3009B660D /* Lato-Bold.ttf in Resources */,
+				6A4C6A112BF8FBE3009B660D /* Lato-BoldItalic.ttf in Resources */,
+				6A4C6A122BF8FBE3009B660D /* Lato-Italic.ttf in Resources */,
+				6A4C6A132BF8FBE3009B660D /* Lato-Light.ttf in Resources */,
+				6A4C6A232BF8FDD7009B660D /* alysium-qa Info.plist in Resources */,
+				6A4C6A142BF8FBE3009B660D /* Lato-LightItalic.ttf in Resources */,
+				6A4C6A152BF8FBE3009B660D /* Lato-Regular.ttf in Resources */,
+				6A4C6A162BF8FBE3009B660D /* Lato-Thin.ttf in Resources */,
+				6A4C6A172BF8FBE3009B660D /* Lato-ThinItalic.ttf in Resources */,
+				6A4C6A182BF8FBE3009B660D /* Lato-Black.ttf in Resources */,
+				6A4C6A192BF8FBE3009B660D /* LaunchScreen.storyboard in Resources */,
+				6A4C6A1A2BF8FBE3009B660D /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6A4C6A2D2BF8FE90009B660D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6A4C6A2E2BF8FE90009B660D /* default_profile_image.jpg in Resources */,
+				6A4C6A2F2BF8FE90009B660D /* Lato-BlackItalic.ttf in Resources */,
+				6A4C6A302BF8FE90009B660D /* Lato-Bold.ttf in Resources */,
+				6A4C6A312BF8FE90009B660D /* Lato-BoldItalic.ttf in Resources */,
+				6A4C6A442BF8FF17009B660D /* alysium-demo Info.plist in Resources */,
+				6A4C6A322BF8FE90009B660D /* Lato-Italic.ttf in Resources */,
+				6A4C6A332BF8FE90009B660D /* Lato-Light.ttf in Resources */,
+				6A4C6A352BF8FE90009B660D /* Lato-LightItalic.ttf in Resources */,
+				6A4C6A362BF8FE90009B660D /* Lato-Regular.ttf in Resources */,
+				6A4C6A372BF8FE90009B660D /* Lato-Thin.ttf in Resources */,
+				6A4C6A382BF8FE90009B660D /* Lato-ThinItalic.ttf in Resources */,
+				6A4C6A392BF8FE90009B660D /* Lato-Black.ttf in Resources */,
+				6A4C6A3A2BF8FE90009B660D /* LaunchScreen.storyboard in Resources */,
+				6A4C6A3B2BF8FE90009B660D /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6AF1094A2A95344A00DB24EC /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -471,6 +557,7 @@
 				E185562416FD4DAF90C3016D /* HelveticaNeue-BlackExt.otf in Resources */,
 				ED49D5D483B340C08D1C3ED4 /* HelveticaNeue-BlackExtObl.otf in Resources */,
 				A490F03F9EDB482B8131313C /* HelveticaNeue-BoldCondObl.otf in Resources */,
+				6A4C6A242BF8FDDB009B660D /* alysium-dev Info.plist in Resources */,
 				332B6E3266014D39A81166A9 /* HelveticaNeue-BoldExt.otf in Resources */,
 				C31FDBD4243F4FD6A983ADB9 /* HelveticaNeue-BoldExtObl.otf in Resources */,
 				4476434AA9E846A18D888AC2 /* HelveticaNeue-Condensed.otf in Resources */,
@@ -520,29 +607,191 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6AF1095D2A95344D00DB24EC /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6A8F013D2A958C23008F7710 /* default_profile_image.jpg in Resources */,
-				6A8F013E2A958C23008F7710 /* Lato-BlackItalic.ttf in Resources */,
-				6A8F013F2A958C23008F7710 /* Lato-Bold.ttf in Resources */,
-				6A8F01402A958C23008F7710 /* Lato-BoldItalic.ttf in Resources */,
-				6A8F01412A958C23008F7710 /* Lato-Italic.ttf in Resources */,
-				6A8F01422A958C23008F7710 /* Lato-Light.ttf in Resources */,
-				6A8F01432A958C23008F7710 /* Lato-LightItalic.ttf in Resources */,
-				6A8F01442A958C23008F7710 /* Lato-Regular.ttf in Resources */,
-				6A8F01452A958C23008F7710 /* Lato-Thin.ttf in Resources */,
-				6A8F01462A958C23008F7710 /* Lato-ThinItalic.ttf in Resources */,
-				6A8F01472A958C23008F7710 /* Lato-Black.ttf in Resources */,
-				6AF1095E2A95344D00DB24EC /* LaunchScreen.storyboard in Resources */,
-				6AF1095F2A95344D00DB24EC /* Images.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		6A4C6A062BF8FBE3009B660D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-alysiumCommonPods-alysium-qa-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6A4C6A072BF8FBE3009B660D /* Start Packager */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Start Packager";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export RCT_METRO_PORT=\"${RCT_METRO_PORT:=8081}\"\necho \"export RCT_METRO_PORT=${RCT_METRO_PORT}\" > \"${SRCROOT}/../node_modules/react-native/scripts/.packager.env\"\nif [ -z \"${RCT_NO_LAUNCH_PACKAGER+xxx}\" ] ; then\n  if nc -w 5 -z localhost ${RCT_METRO_PORT} ; then\n    if ! curl -s \"http://localhost:${RCT_METRO_PORT}/status\" | grep -q \"packager-status:running\" ; then\n      echo \"Port ${RCT_METRO_PORT} already in use, packager is either not running or not running correctly\"\n      exit 2\n    fi\n  else\n    open \"$SRCROOT/../node_modules/react-native/scripts/launchPackager.command\" || echo \"Can't start packager automatically\"\n  fi\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		6A4C6A1B2BF8FBE3009B660D /* Bundle React Native code and images */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/.xcode.env.local",
+				"$(SRCROOT)/.xcode.env",
+			);
+			name = "Bundle React Native code and images";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
+		};
+		6A4C6A1C2BF8FBE3009B660D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-alysiumCommonPods-alysium-qa/Pods-alysiumCommonPods-alysium-qa-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-alysiumCommonPods-alysium-qa/Pods-alysiumCommonPods-alysium-qa-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-alysiumCommonPods-alysium-qa/Pods-alysiumCommonPods-alysium-qa-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6A4C6A1D2BF8FBE3009B660D /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-alysiumCommonPods-alysium-qa/Pods-alysiumCommonPods-alysium-qa-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-alysiumCommonPods-alysium-qa/Pods-alysiumCommonPods-alysium-qa-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-alysiumCommonPods-alysium-qa/Pods-alysiumCommonPods-alysium-qa-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6A4C6A262BF8FE90009B660D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-alysiumCommonPods-alysium-demo-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6A4C6A272BF8FE90009B660D /* Start Packager */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Start Packager";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export RCT_METRO_PORT=\"${RCT_METRO_PORT:=8081}\"\necho \"export RCT_METRO_PORT=${RCT_METRO_PORT}\" > \"${SRCROOT}/../node_modules/react-native/scripts/.packager.env\"\nif [ -z \"${RCT_NO_LAUNCH_PACKAGER+xxx}\" ] ; then\n  if nc -w 5 -z localhost ${RCT_METRO_PORT} ; then\n    if ! curl -s \"http://localhost:${RCT_METRO_PORT}/status\" | grep -q \"packager-status:running\" ; then\n      echo \"Port ${RCT_METRO_PORT} already in use, packager is either not running or not running correctly\"\n      exit 2\n    fi\n  else\n    open \"$SRCROOT/../node_modules/react-native/scripts/launchPackager.command\" || echo \"Can't start packager automatically\"\n  fi\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		6A4C6A3C2BF8FE90009B660D /* Bundle React Native code and images */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/.xcode.env.local",
+				"$(SRCROOT)/.xcode.env",
+			);
+			name = "Bundle React Native code and images";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
+		};
+		6A4C6A3D2BF8FE90009B660D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-alysiumCommonPods-alysium-demo/Pods-alysiumCommonPods-alysium-demo-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-alysiumCommonPods-alysium-demo/Pods-alysiumCommonPods-alysium-demo-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-alysiumCommonPods-alysium-demo/Pods-alysiumCommonPods-alysium-demo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6A4C6A3E2BF8FE90009B660D /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-alysiumCommonPods-alysium-demo/Pods-alysiumCommonPods-alysium-demo-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-alysiumCommonPods-alysium-demo/Pods-alysiumCommonPods-alysium-demo-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-alysiumCommonPods-alysium-demo/Pods-alysiumCommonPods-alysium-demo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		6AF109432A95344A00DB24EC /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -634,100 +883,27 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-alysiumCommonPods-alysium-dev/Pods-alysiumCommonPods-alysium-dev-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		6AF109562A95344D00DB24EC /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-alysiumCommonPods-alysium-staging-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		6AF109572A95344D00DB24EC /* Start Packager */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Start Packager";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "export RCT_METRO_PORT=\"${RCT_METRO_PORT:=8081}\"\necho \"export RCT_METRO_PORT=${RCT_METRO_PORT}\" > \"${SRCROOT}/../node_modules/react-native/scripts/.packager.env\"\nif [ -z \"${RCT_NO_LAUNCH_PACKAGER+xxx}\" ] ; then\n  if nc -w 5 -z localhost ${RCT_METRO_PORT} ; then\n    if ! curl -s \"http://localhost:${RCT_METRO_PORT}/status\" | grep -q \"packager-status:running\" ; then\n      echo \"Port ${RCT_METRO_PORT} already in use, packager is either not running or not running correctly\"\n      exit 2\n    fi\n  else\n    open \"$SRCROOT/../node_modules/react-native/scripts/launchPackager.command\" || echo \"Can't start packager automatically\"\n  fi\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		6AF109602A95344D00DB24EC /* Bundle React Native code and images */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/.xcode.env.local",
-				"$(SRCROOT)/.xcode.env",
-			);
-			name = "Bundle React Native code and images";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
-		};
-		6AF109612A95344D00DB24EC /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-alysiumCommonPods-alysium-staging/Pods-alysiumCommonPods-alysium-staging-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-alysiumCommonPods-alysium-staging/Pods-alysiumCommonPods-alysium-staging-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-alysiumCommonPods-alysium-staging/Pods-alysiumCommonPods-alysium-staging-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		6AF109622A95344D00DB24EC /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-alysiumCommonPods-alysium-staging/Pods-alysiumCommonPods-alysium-staging-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-alysiumCommonPods-alysium-staging/Pods-alysiumCommonPods-alysium-staging-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-alysiumCommonPods-alysium-staging/Pods-alysiumCommonPods-alysium-staging-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		6A4C6A082BF8FBE3009B660D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6A4C6A092BF8FBE3009B660D /* AppDelegate.mm in Sources */,
+				6A4C6A0A2BF8FBE3009B660D /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6A4C6A282BF8FE90009B660D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6A4C6A292BF8FE90009B660D /* AppDelegate.mm in Sources */,
+				6A4C6A2A2BF8FE90009B660D /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6AF109452A95344A00DB24EC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -737,18 +913,141 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6AF109582A95344D00DB24EC /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6AF109592A95344D00DB24EC /* AppDelegate.mm in Sources */,
-				6AF1095A2A95344D00DB24EC /* main.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		6A4C6A1F2BF8FBE3009B660D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 682B7D637AED01443F294F1B /* Pods-alysiumCommonPods-alysium-qa.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 3S5R5B5ACT;
+				ENABLE_BITCODE = NO;
+				INFOPLIST_FILE = "alysium-qa Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = alysium;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.alysium;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AppStore io.alysium";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Debug;
+		};
+		6A4C6A202BF8FBE3009B660D /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0DA88675E2AD5A0575265AA1 /* Pods-alysiumCommonPods-alysium-qa.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 3S5R5B5ACT;
+				INFOPLIST_FILE = "alysium-qa Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = alysium;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.alysium;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AppStore io.alysium";
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Release;
+		};
+		6A4C6A402BF8FE90009B660D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6FC20CA38F57C1ADDDC4FF47 /* Pods-alysiumCommonPods-alysium-demo.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 3S5R5B5ACT;
+				ENABLE_BITCODE = NO;
+				INFOPLIST_FILE = "alysium-demo Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = alysium;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.alysium;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AppStore io.alysium";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Debug;
+		};
+		6A4C6A412BF8FE90009B660D /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2A9ADE1B7F3D46174E1E6E2E /* Pods-alysiumCommonPods-alysium-demo.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 3S5R5B5ACT;
+				INFOPLIST_FILE = "alysium-demo Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = alysium;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.alysium;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AppStore io.alysium";
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Release;
+		};
 		6AF109512A95344A00DB24EC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5F097B54DAA0F1E75E1C61A1 /* Pods-alysiumCommonPods-alysium-dev.debug.xcconfig */;
@@ -813,72 +1112,6 @@
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
-				VERSIONING_SYSTEM = "apple-generic";
-			};
-			name = Release;
-		};
-		6AF109642A95344D00DB24EC /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5AB420890CCAAB9D34B99EAD /* Pods-alysiumCommonPods-alysium-staging.debug.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_MODULES = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 3S5R5B5ACT;
-				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = "alysium-staging Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = alysium;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-ObjC",
-					"-lc++",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = io.alysium;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AppStore io.alysium";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-				VERSIONING_SYSTEM = "apple-generic";
-			};
-			name = Debug;
-		};
-		6AF109652A95344D00DB24EC /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 13850B915C3B4CD1FC45FD48 /* Pods-alysiumCommonPods-alysium-staging.release.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_MODULES = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 3S5R5B5ACT;
-				INFOPLIST_FILE = "alysium-staging Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = alysium;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-ObjC",
-					"-lc++",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = io.alysium;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AppStore io.alysium";
-				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -1040,20 +1273,29 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		6A4C6A1E2BF8FBE3009B660D /* Build configuration list for PBXNativeTarget "alysium-qa" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6A4C6A1F2BF8FBE3009B660D /* Debug */,
+				6A4C6A202BF8FBE3009B660D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6A4C6A3F2BF8FE90009B660D /* Build configuration list for PBXNativeTarget "alysium-demo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6A4C6A402BF8FE90009B660D /* Debug */,
+				6A4C6A412BF8FE90009B660D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		6AF109502A95344A00DB24EC /* Build configuration list for PBXNativeTarget "alysium-dev" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6AF109512A95344A00DB24EC /* Debug */,
 				6AF109522A95344A00DB24EC /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		6AF109632A95344D00DB24EC /* Build configuration list for PBXNativeTarget "alysium-staging" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				6AF109642A95344D00DB24EC /* Debug */,
-				6AF109652A95344D00DB24EC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

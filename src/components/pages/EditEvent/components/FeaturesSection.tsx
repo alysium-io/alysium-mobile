@@ -1,14 +1,15 @@
 import { Section, View } from '@atomic';
+import { UpdateEventBodyDto } from '@flux/api/event/dto/event-update.dto';
 import { SectionHeader } from '@molecules';
 import { RadioListItem } from '@organisms';
-import React, { useState } from 'react';
-import { Controller } from 'react-hook-form';
-import { useEditEventPageContext } from '../EditEvent.context';
+import React from 'react';
+import { Controller, UseFormReturn } from 'react-hook-form';
 
-const FeaturesSection = () => {
-	const [checked, setChecked] = useState(false);
-	const { formMethods } = useEditEventPageContext();
+interface FeaturesSectionProps {
+	formMethods: UseFormReturn<UpdateEventBodyDto>;
+}
 
+const FeaturesSection: React.FC<FeaturesSectionProps> = ({ formMethods }) => {
 	return (
 		<Section margin='m'>
 			<SectionHeader text='Features' titleVariant='large' />

@@ -69,15 +69,19 @@ abstract_target 'alysiumCommonPods' do
   )
 
   pod 'react-native-config', :path => '../node_modules/react-native-config'
-	pod 'react-native-config/Extension', :path => '../node_modules/react-native-config'
-	
-	target 'alysium-dev' do
-		inherit! :complete
-	end
-	
-	target 'alysium-staging' do
-		inherit! :complete
-	end
+  pod 'react-native-config/Extension', :path => '../node_modules/react-native-config'
+
+  target 'alysium-dev' do
+    inherit! :complete
+  end
+
+  target 'alysium-qa' do
+    inherit! :complete
+  end
+
+  target 'alysium-demo' do
+    inherit! :complete
+  end
 
   post_install do |installer|
     react_native_post_install(

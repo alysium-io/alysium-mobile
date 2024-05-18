@@ -2,14 +2,13 @@ import { Env } from '@types';
 import Config from 'react-native-config';
 import * as yup from 'yup';
 
+const envNames = ['dev', 'qa', 'demo', 'prod'] as const;
+
 export const envSchema = yup.object().shape({
 	apiUrl: yup.string().required('API_URL is required'),
 	env: yup
 		.string()
-		.oneOf(
-			['dev', 'staging', 'prod'],
-			'ENV must be one of the following: dev, staging, prod'
-		)
+		.oneOf(envNames, 'ENV must be one of the following: ' + envNames.join(', '))
 		.required()
 });
 
@@ -32,5 +31,4 @@ export const validateEnv = (): Env => {
 };
 
 const env = validateEnv();
-console.log(env);
 export default env;

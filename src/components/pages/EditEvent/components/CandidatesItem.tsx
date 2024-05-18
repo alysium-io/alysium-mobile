@@ -1,11 +1,18 @@
 import { View } from '@atomic';
+import { FindOneEventResponseDto } from '@flux/api/event/dto/event-find-one.dto';
 import { MenuListItem } from '@organisms';
 import React from 'react';
-import { useEditEventPageContext } from '../EditEvent.context';
 
-const CandidatesItem = () => {
-	const { goToEventCandidatesPage, eventData } = useEditEventPageContext();
+interface CandidatesItemProps {
+	goToEventCandidatesPage: () => void;
+	eventData?: FindOneEventResponseDto;
+}
 
+const CandidatesItem: React.FC<CandidatesItemProps> = ({
+	goToEventCandidatesPage,
+	eventData
+}) => {
+	if (!eventData) return null;
 	return (
 		<View>
 			<MenuListItem

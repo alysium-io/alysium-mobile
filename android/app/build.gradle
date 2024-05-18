@@ -5,8 +5,8 @@ import com.android.build.OutputFile
 project.ext.envConfigFiles = [
 	prodDebug: ".env.prod",
 	prodRelease: ".env.prod",
-	stagingRelease: ".env.staging",
-	stagingDebug: ".env.staging",
+	qaRelease: ".env.qa",
+	qaDebug: ".env.qa",
 	devDebug: ".env.dev",
 	devRelease: ".env.dev"
 ]
@@ -118,7 +118,7 @@ android {
             targetSdkVersion rootProject.ext.targetSdkVersion
             resValue "string", "build_config_package", "io.alysium"
         }
-        staging {
+        qa {
             minSdkVersion rootProject.ext.minSdkVersion
             applicationId "io.alysium"
             targetSdkVersion rootProject.ext.targetSdkVersion

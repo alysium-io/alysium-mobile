@@ -56,9 +56,6 @@ export const CreateContractBottomSheetProvider: React.FC<
 	const [height, setHeight] = useState<number>(0);
 	const [createContractMutation] = contractApiSlice.useCreateMutation();
 
-	/**
-	 * Form actions
-	 */
 	const formMethods = useForm<UpdateContractBodyDto>({
 		defaultValues: initialValues
 	});
@@ -81,8 +78,6 @@ export const CreateContractBottomSheetProvider: React.FC<
 		}
 	};
 
-	const resetForm = () => formMethods.reset(initialValues);
-
 	const onInvalid: SubmitErrorHandler<CreateContractBodyDto> = (
 		errors: any
 	) => {
@@ -95,12 +90,6 @@ export const CreateContractBottomSheetProvider: React.FC<
 		formMethods.setValue('start_time', Formatting.toUtcIsoFormat(startTime));
 	const onChangeEndTime = (endTime: Date) =>
 		formMethods.setValue('end_time', Formatting.toUtcIsoFormat(endTime));
-
-	const resetAll = () => {
-		sequenceApi.reset();
-		resetForm();
-		sheetApi.close();
-	};
 
 	if (!artistId) {
 		return <></>;

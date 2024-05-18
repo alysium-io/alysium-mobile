@@ -30,11 +30,11 @@ platform :ios do
 
         # Build
         gym(
-            scheme: 'alysium-staging',
+            scheme: 'alysium-qa',
             export_method: 'app-store',
             workspace: './ios/alysium.xcworkspace',
             output_directory: './ios/build',
-            output_name: 'alysium-staging.ipa',
+            output_name: 'alysium-qa.ipa',
             silent: true,
             export_xcargs: '-jobs $(sysctl -n hw.ncpu)'
         )
@@ -69,11 +69,11 @@ platform :ios do
 
         # Build
         gym(
-            scheme: 'alysium-staging',
+            scheme: 'alysium-qa',
             export_method: 'app-store',
             workspace: './ios/alysium.xcworkspace',
             output_directory: './ios/build',
-            output_name: 'alysium-staging.ipa',
+            output_name: 'alysium-qa.ipa',
             silent: true
         )
 
@@ -97,7 +97,7 @@ platform :ios do
             changelog: changelog,
             beta_app_feedback_email: 'aymather@gmail.com',
             beta_app_description: 'Alysium Beta: Build Live Music Business',
-            groups: ['memyselfandi']
+            groups: ['QA']
         )
 
     end
@@ -108,7 +108,7 @@ platform :android do
 
     lane :test_build do
 
-        ENV['ENVFILE'] = '.env.staging'
+        ENV['ENVFILE'] = '.env.qa'
 
         prepare_android_changelog
 
@@ -122,7 +122,7 @@ platform :android do
             task: 'bundle',
             project_dir: './android',
             gradle_path: './gradlew',
-            flavor: 'staging',
+            flavor: 'qa',
             build_type: 'Release'
         )
 
@@ -130,7 +130,7 @@ platform :android do
 
     lane :internal_beta do
 
-        ENV['ENVFILE'] = '.env.staging'
+        ENV['ENVFILE'] = '.env.qa'
 
         prepare_android_changelog
 
@@ -144,13 +144,13 @@ platform :android do
             task: 'bundle',
             project_dir: './android',
             gradle_path: './gradlew',
-            flavor: 'staging',
+            flavor: 'qa',
             build_type: 'Release'
         )
 
         upload_to_play_store(
             track: 'internal',
-            aab: './android/app/build/outputs/bundle/stagingRelease/app-staging-release.aab',
+            aab: './android/app/build/outputs/bundle/qaRelease/app-qa-release.aab',
             metadata_path: android_metadata_path,
             version_code: version_code,
 

@@ -48,6 +48,7 @@
       "@molecules": ["./src/components/molecules"],
       "@organisms": ["./src/components/organisms"],
       "@templates": ["./src/components/templates"],
+      "@popups": ["./src/components/popups"],
       "@pages": ["./src/components/pages"],
       "@flux": ["./src/redux"],
       "@flux/*": ["./src/redux/*"],

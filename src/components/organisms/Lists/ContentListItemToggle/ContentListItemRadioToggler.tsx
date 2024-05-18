@@ -6,7 +6,7 @@ import ContentListItemToggle from './ContentListItemToggle';
 
 type ContentListItem = {
 	id: ApiIdentifier;
-	image: string | null;
+	image?: string;
 	title: string;
 	subtitle: string;
 	defaultIsActive: boolean;

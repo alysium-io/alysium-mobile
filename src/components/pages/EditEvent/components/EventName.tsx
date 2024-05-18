@@ -1,14 +1,14 @@
 import { View } from '@atomic';
+import { UpdateEventBodyDto } from '@flux/api/event/dto/event-update.dto';
 import { LargeTextInput } from '@molecules';
 import React from 'react';
-import { Controller } from 'react-hook-form';
-import { useEditEventPageContext } from '../EditEvent.context';
+import { Controller, UseFormReturn } from 'react-hook-form';
 
-const defaultEventName = 'Event name';
+interface EventNameProps {
+	formMethods: UseFormReturn<UpdateEventBodyDto>;
+}
 
-const EventName = () => {
-	const { formMethods } = useEditEventPageContext();
-
+const EventName: React.FC<EventNameProps> = ({ formMethods }) => {
 	return (
 		<View marginHorizontal='m' marginTop='l'>
 			<Controller
@@ -17,7 +17,7 @@ const EventName = () => {
 				rules={{ required: true }}
 				render={({ field: { onChange, onBlur, value } }) => (
 					<LargeTextInput
-						placeholder={defaultEventName}
+						placeholder='Event name'
 						onChangeText={onChange}
 						textAlign='center'
 						onBlur={onBlur}

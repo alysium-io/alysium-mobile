@@ -10,13 +10,13 @@
             ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
             <ActionContent
                title = "Run Script"
-               scriptText = "# Type a script or drag a script file from your workspace to insert its path.&#10;cp &quot;${PROJECT_DIR}/../.env.staging&quot; &quot;${PROJECT_DIR}/../.env&quot;&#10;">
+               scriptText = "# Type a script or drag a script file from your workspace to insert its path.&#10;cp &quot;${PROJECT_DIR}/../.env.demo&quot; &quot;${PROJECT_DIR}/../.env&quot;&#10;">
                <EnvironmentBuildable>
                   <BuildableReference
                      BuildableIdentifier = "primary"
-                     BlueprintIdentifier = "6AF109552A95344D00DB24EC"
-                     BuildableName = "alysium-staging.app"
-                     BlueprintName = "alysium-staging"
+                     BlueprintIdentifier = "6A4C6A252BF8FE90009B660D"
+                     BuildableName = "alysium-demo.app"
+                     BlueprintName = "alysium-demo"
                      ReferencedContainer = "container:alysium.xcodeproj">
                   </BuildableReference>
                </EnvironmentBuildable>
@@ -32,9 +32,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6AF109552A95344D00DB24EC"
-               BuildableName = "alysium-staging.app"
-               BlueprintName = "alysium-staging"
+               BlueprintIdentifier = "6A4C6A252BF8FE90009B660D"
+               BuildableName = "alysium-demo.app"
+               BlueprintName = "alysium-demo"
                ReferencedContainer = "container:alysium.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -62,13 +62,13 @@
             ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
             <ActionContent
                title = "Run Script"
-               scriptText = "# Type a script or drag a script file from your workspace to insert its path.&#10;cp &quot;${PROJECT_DIR}/../.env.staging&quot; &quot;${PROJECT_DIR}/../.env&quot;&#10;">
+               scriptText = "# Type a script or drag a script file from your workspace to insert its path.&#10;cp &quot;${PROJECT_DIR}/../.env.demo&quot; &quot;${PROJECT_DIR}/../.env&quot;&#10;">
                <EnvironmentBuildable>
                   <BuildableReference
                      BuildableIdentifier = "primary"
-                     BlueprintIdentifier = "6AF109552A95344D00DB24EC"
-                     BuildableName = "alysium-staging.app"
-                     BlueprintName = "alysium-staging"
+                     BlueprintIdentifier = "6A4C6A252BF8FE90009B660D"
+                     BuildableName = "alysium-demo.app"
+                     BlueprintName = "alysium-demo"
                      ReferencedContainer = "container:alysium.xcodeproj">
                   </BuildableReference>
                </EnvironmentBuildable>
@@ -79,9 +79,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6AF109552A95344D00DB24EC"
-            BuildableName = "alysium-staging.app"
-            BlueprintName = "alysium-staging"
+            BlueprintIdentifier = "6A4C6A252BF8FE90009B660D"
+            BuildableName = "alysium-demo.app"
+            BlueprintName = "alysium-demo"
             ReferencedContainer = "container:alysium.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -92,16 +92,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6AF109552A95344D00DB24EC"
-            BuildableName = "alysium-staging.app"
-            BlueprintName = "alysium-staging"
+            BlueprintIdentifier = "6A4C6A252BF8FE90009B660D"
+            BuildableName = "alysium-demo.app"
+            BlueprintName = "alysium-demo"
             ReferencedContainer = "container:alysium.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

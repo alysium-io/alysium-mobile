@@ -12,6 +12,7 @@ module.exports = {
 					'@molecules': './src/components/molecules',
 					'@organisms': './src/components/organisms',
 					'@templates': './src/components/templates',
+					'@popups': './src/components/popups',
 					'@pages': './src/components/pages',
 					'@flux': './src/redux',
 					'@flux/*': './src/redux/*',
@@ -23,7 +24,7 @@ module.exports = {
 					'@etc': './src/etc',
 					'@types': './src/types',
 					'@images': './src/assets/images',
-					'@src/*': './src/*',
+					'@src/*': './src/*'
 				}
 			}
 		],

@@ -2,15 +2,21 @@ import { View } from '@atomic';
 import { EditableProfileImage } from '@molecules';
 import { ContentType } from '@types';
 import React from 'react';
-import { useEditEventPageContext } from '../EditEvent.context';
+import { Asset } from 'react-native-image-picker';
 
-const PrimaryImage = () => {
-	const { eventData, setEventProfileImage } = useEditEventPageContext();
+interface PrimaryImageProps {
+	imageUrl?: string;
+	setEventProfileImage: (image: Asset) => void;
+}
 
+const PrimaryImage: React.FC<PrimaryImageProps> = ({
+	imageUrl,
+	setEventProfileImage
+}) => {
 	return (
 		<View marginTop='l' flexDirection='row' justifyContent='center'>
 			<EditableProfileImage
-				image={eventData.profile_image?.url}
+				image={imageUrl}
 				onChooseImage={setEventProfileImage}
 				contentType={ContentType.event}
 			/>

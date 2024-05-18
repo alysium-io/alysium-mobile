@@ -1,10 +1,10 @@
 import { withProvider } from '@hooks';
 import { BasePage } from '@organisms';
+import { AddArtistToEventCandidatesBottomSheet } from '@popups';
 import { ParallaxPageOutline } from '@templates';
 import React from 'react';
 import { ArtistPageProvider, useArtistPageContext } from './Artist.context';
 import ActionButtons from './components/ActionButtons';
-import AddArtistToEventCandidatesBottomSheet from './components/AddArtistToEventCandidatesBottomSheet.host';
 import LinksBottomSheet from './components/LinksBottomSheet';
 import MoreOptionsBottomSheet from './components/MoreOptionsBottomSheet';
 import NotificationsOptionsBottomSheet from './components/NotificationsOptionsBottomSheet';

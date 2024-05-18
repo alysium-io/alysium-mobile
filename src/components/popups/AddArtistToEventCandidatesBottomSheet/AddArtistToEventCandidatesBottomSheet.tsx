@@ -79,7 +79,7 @@ const AddArtistToEventCandidatesBottomSheet: React.FC<
 							subtitleFirst={true}
 							items={eventsData.map((event) => ({
 								id: event.event_id,
-								image: event.profile_image?.url || null,
+								image: event.profile_image?.url,
 								title: event.name,
 								subtitle: dayjs(event.start_time).format('MMM D, YYYY'),
 								defaultIsActive: candidateEventsData.some(

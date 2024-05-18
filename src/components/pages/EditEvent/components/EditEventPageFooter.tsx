@@ -1,11 +1,14 @@
 import { View } from '@atomic';
 import { Button } from '@molecules';
 import React from 'react';
-import { useEditEventPageContext } from '../EditEvent.context';
 
-const EditEventPageFooter = () => {
-	const { onSubmit } = useEditEventPageContext();
+interface EditEventPageFooterProps {
+	onSubmit: () => void;
+}
 
+const EditEventPageFooter: React.FC<EditEventPageFooterProps> = ({
+	onSubmit
+}) => {
 	return (
 		<View margin='m' flex={1}>
 			<Button
