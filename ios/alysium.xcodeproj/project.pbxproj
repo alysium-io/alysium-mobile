@@ -50,8 +50,6 @@
 		6A4C6A182BF8FBE3009B660D /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5BFF6D41DFF6454283EC80F4 /* Lato-Black.ttf */; };
 		6A4C6A192BF8FBE3009B660D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		6A4C6A1A2BF8FBE3009B660D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
-		6A4C6A232BF8FDD7009B660D /* alysium-qa Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6A4C6A222BF8FBE3009B660D /* alysium-qa Info.plist */; };
-		6A4C6A242BF8FDDB009B660D /* alysium-dev Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6AF109542A95344B00DB24EC /* alysium-dev Info.plist */; };
 		6A4C6A292BF8FE90009B660D /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		6A4C6A2A2BF8FE90009B660D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		6A4C6A2E2BF8FE90009B660D /* default_profile_image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 134FBB9FCF404731B1A18150 /* default_profile_image.jpg */; };
@@ -67,8 +65,10 @@
 		6A4C6A392BF8FE90009B660D /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5BFF6D41DFF6454283EC80F4 /* Lato-Black.ttf */; };
 		6A4C6A3A2BF8FE90009B660D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		6A4C6A3B2BF8FE90009B660D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
-		6A4C6A442BF8FF17009B660D /* alysium-demo Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6A4C6A432BF8FE90009B660D /* alysium-demo Info.plist */; };
 		6A8F01482A958C30008F7710 /* default_profile_image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 134FBB9FCF404731B1A18150 /* default_profile_image.jpg */; };
+		6AB7FF3E2BF92F9B00D4F277 /* alysium-dev Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6AB7FF3D2BF92F9B00D4F277 /* alysium-dev Info.plist */; };
+		6AB7FF452BF92FFB00D4F277 /* alysium-demo Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6AB7FF412BF92FFB00D4F277 /* alysium-demo Info.plist */; };
+		6AB7FF472BF92FFB00D4F277 /* alysium-qa Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6AB7FF422BF92FFB00D4F277 /* alysium-qa Info.plist */; };
 		6AF109462A95344A00DB24EC /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		6AF109472A95344A00DB24EC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		6AF1094B2A95344A00DB24EC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
@@ -153,12 +153,12 @@
 		68275777787B499BB89EFEA4 /* helvetica-46-light-italic-587ebdb0ea724.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "helvetica-46-light-italic-587ebdb0ea724.ttf"; path = "../src/assets/fonts/helvetica-46-light-italic-587ebdb0ea724.ttf"; sourceTree = "<group>"; };
 		682B7D637AED01443F294F1B /* Pods-alysiumCommonPods-alysium-qa.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alysiumCommonPods-alysium-qa.debug.xcconfig"; path = "Target Support Files/Pods-alysiumCommonPods-alysium-qa/Pods-alysiumCommonPods-alysium-qa.debug.xcconfig"; sourceTree = "<group>"; };
 		6A4C6A212BF8FBE3009B660D /* alysium-qa.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "alysium-qa.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		6A4C6A222BF8FBE3009B660D /* alysium-qa Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "alysium-qa Info.plist"; path = "/Users/alecmather/Desktop/projects/alysium-mobile/ios/alysium-qa Info.plist"; sourceTree = "<absolute>"; };
 		6A4C6A422BF8FE90009B660D /* alysium-demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "alysium-demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		6A4C6A432BF8FE90009B660D /* alysium-demo Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "alysium-demo Info.plist"; path = "/Users/alecmather/Desktop/projects/alysium-mobile/ios/alysium-demo Info.plist"; sourceTree = "<absolute>"; };
+		6AB7FF3D2BF92F9B00D4F277 /* alysium-dev Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "alysium-dev Info.plist"; path = "alysium/alysium-dev Info.plist"; sourceTree = "<group>"; };
+		6AB7FF412BF92FFB00D4F277 /* alysium-demo Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "alysium-demo Info.plist"; path = "alysium/alysium-demo Info.plist"; sourceTree = "<group>"; };
+		6AB7FF422BF92FFB00D4F277 /* alysium-qa Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "alysium-qa Info.plist"; path = "alysium/alysium-qa Info.plist"; sourceTree = "<group>"; };
 		6AE6E68920C741FC9F39CC01 /* HelveticaNeue-HeavyExt.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "HelveticaNeue-HeavyExt.otf"; path = "../src/assets/fonts/HelveticaNeue-HeavyExt.otf"; sourceTree = "<group>"; };
 		6AF109532A95344A00DB24EC /* alysium-dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "alysium-dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		6AF109542A95344B00DB24EC /* alysium-dev Info.plist */ = {isa = PBXFileReference; explicitFileType = text.plist.info; name = "alysium-dev Info.plist"; path = "/Users/alecmather/Desktop/projects/alysium-mobile/ios/alysium-dev Info.plist"; sourceTree = "<absolute>"; };
 		6F479C58037149F5BDB548D5 /* Lato-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Regular.ttf"; path = "../src/assets/fonts/Lato-Regular.ttf"; sourceTree = "<group>"; };
 		6FC20CA38F57C1ADDDC4FF47 /* Pods-alysiumCommonPods-alysium-demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alysiumCommonPods-alysium-demo.debug.xcconfig"; path = "Target Support Files/Pods-alysiumCommonPods-alysium-demo/Pods-alysiumCommonPods-alysium-demo.debug.xcconfig"; sourceTree = "<group>"; };
 		7AA9A596CF87485D8A143E3D /* HelveticaNeue-BoldExt.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "HelveticaNeue-BoldExt.otf"; path = "../src/assets/fonts/HelveticaNeue-BoldExt.otf"; sourceTree = "<group>"; };
@@ -252,6 +252,9 @@
 		13B07FAE1A68108700A75B9A /* alysium */ = {
 			isa = PBXGroup;
 			children = (
+				6AB7FF412BF92FFB00D4F277 /* alysium-demo Info.plist */,
+				6AB7FF422BF92FFB00D4F277 /* alysium-qa Info.plist */,
+				6AB7FF3D2BF92F9B00D4F277 /* alysium-dev Info.plist */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -360,10 +363,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
-				6AF109542A95344B00DB24EC /* alysium-dev Info.plist */,
 				69D1DBCD8F6E4115BC93B8DC /* Resources */,
-				6A4C6A222BF8FBE3009B660D /* alysium-qa Info.plist */,
-				6A4C6A432BF8FE90009B660D /* alysium-demo Info.plist */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -501,13 +501,13 @@
 				6A4C6A112BF8FBE3009B660D /* Lato-BoldItalic.ttf in Resources */,
 				6A4C6A122BF8FBE3009B660D /* Lato-Italic.ttf in Resources */,
 				6A4C6A132BF8FBE3009B660D /* Lato-Light.ttf in Resources */,
-				6A4C6A232BF8FDD7009B660D /* alysium-qa Info.plist in Resources */,
 				6A4C6A142BF8FBE3009B660D /* Lato-LightItalic.ttf in Resources */,
 				6A4C6A152BF8FBE3009B660D /* Lato-Regular.ttf in Resources */,
 				6A4C6A162BF8FBE3009B660D /* Lato-Thin.ttf in Resources */,
 				6A4C6A172BF8FBE3009B660D /* Lato-ThinItalic.ttf in Resources */,
 				6A4C6A182BF8FBE3009B660D /* Lato-Black.ttf in Resources */,
 				6A4C6A192BF8FBE3009B660D /* LaunchScreen.storyboard in Resources */,
+				6AB7FF472BF92FFB00D4F277 /* alysium-qa Info.plist in Resources */,
 				6A4C6A1A2BF8FBE3009B660D /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -520,7 +520,7 @@
 				6A4C6A2F2BF8FE90009B660D /* Lato-BlackItalic.ttf in Resources */,
 				6A4C6A302BF8FE90009B660D /* Lato-Bold.ttf in Resources */,
 				6A4C6A312BF8FE90009B660D /* Lato-BoldItalic.ttf in Resources */,
-				6A4C6A442BF8FF17009B660D /* alysium-demo Info.plist in Resources */,
+				6AB7FF452BF92FFB00D4F277 /* alysium-demo Info.plist in Resources */,
 				6A4C6A322BF8FE90009B660D /* Lato-Italic.ttf in Resources */,
 				6A4C6A332BF8FE90009B660D /* Lato-Light.ttf in Resources */,
 				6A4C6A352BF8FE90009B660D /* Lato-LightItalic.ttf in Resources */,
@@ -557,7 +557,7 @@
 				E185562416FD4DAF90C3016D /* HelveticaNeue-BlackExt.otf in Resources */,
 				ED49D5D483B340C08D1C3ED4 /* HelveticaNeue-BlackExtObl.otf in Resources */,
 				A490F03F9EDB482B8131313C /* HelveticaNeue-BoldCondObl.otf in Resources */,
-				6A4C6A242BF8FDDB009B660D /* alysium-dev Info.plist in Resources */,
+				6AB7FF3E2BF92F9B00D4F277 /* alysium-dev Info.plist in Resources */,
 				332B6E3266014D39A81166A9 /* HelveticaNeue-BoldExt.otf in Resources */,
 				C31FDBD4243F4FD6A983ADB9 /* HelveticaNeue-BoldExtObl.otf in Resources */,
 				4476434AA9E846A18D888AC2 /* HelveticaNeue-Condensed.otf in Resources */,
@@ -928,7 +928,7 @@
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 3S5R5B5ACT;
 				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = "alysium-qa Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/alysium/alysium-qa Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = alysium;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -961,7 +961,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 3S5R5B5ACT;
-				INFOPLIST_FILE = "alysium-qa Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/alysium/alysium-qa Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = alysium;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -994,7 +994,7 @@
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 3S5R5B5ACT;
 				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = "alysium-demo Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/alysium/alysium-demo Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = alysium;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1027,7 +1027,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 3S5R5B5ACT;
-				INFOPLIST_FILE = "alysium-demo Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/alysium/alysium-demo Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = alysium;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1057,7 +1057,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3S5R5B5ACT;
 				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = "alysium-dev Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/alysium/alysium-dev Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = alysium;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
@@ -1091,7 +1091,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3S5R5B5ACT;
-				INFOPLIST_FILE = "alysium-dev Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/alysium/alysium-dev Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = alysium;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
