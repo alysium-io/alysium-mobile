@@ -93,7 +93,7 @@ platform :ios do
             skip_waiting_for_build_processing: true,
             username: 'aymather@gmail.com',
             app_identifier: 'io.alysium',
-            distribute_external: true,
+            distribute_external: false,
             changelog: changelog,
             beta_app_feedback_email: 'aymather@gmail.com',
             beta_app_description: 'Alysium Beta: Build Live Music Business',
