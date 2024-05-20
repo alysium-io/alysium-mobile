@@ -7,6 +7,9 @@ on:
 
 jobs:
   bump-build-number:
+    runs-on: ubuntu-latest
+
+    steps:
 
     # Node.js 20 & yarn
     # All we do here is bump the build number using some node tools
