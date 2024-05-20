@@ -1,7 +1,7 @@
 {
 	"name": "alysium",
 	"version": "0.0.1",
-	"build_number": 62,
+	"build_number": 63,
 	"private": true,
 	"scripts": {
 		"android": "react-native run-android",
