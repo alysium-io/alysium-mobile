@@ -40,7 +40,7 @@ jobs:
           event-type: trigger-build
 
   ios:
-    if: github.event_name == 'repository_dispatch' && github.event.action == 'trigger-build'
+    if: github.event_name == 'repository_dispatch' && github.event.client_payload.action == 'trigger-build'
     runs-on: macos-13
     steps:
       - name: Checkout the repository
@@ -93,7 +93,7 @@ jobs:
         working-directory: fastlane
 
   android:
-    if: github.event_name == 'repository_dispatch' && github.event.action == 'trigger-build'
+    if: github.event_name == 'repository_dispatch' && github.event.client_payload.action == 'trigger-build'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
