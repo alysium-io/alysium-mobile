@@ -5,6 +5,8 @@ import com.android.build.OutputFile
 project.ext.envConfigFiles = [
 	prodDebug: ".env.prod",
 	prodRelease: ".env.prod",
+    demoDebug: ".env.demo",
+    demoRelease: ".env.demo",
 	qaRelease: ".env.qa",
 	qaDebug: ".env.qa",
 	devDebug: ".env.dev",
@@ -113,6 +115,12 @@ android {
 
     productFlavors {
         prod {
+            minSdkVersion rootProject.ext.minSdkVersion
+            applicationId "io.alysium"
+            targetSdkVersion rootProject.ext.targetSdkVersion
+            resValue "string", "build_config_package", "io.alysium"
+        }
+        demo {
             minSdkVersion rootProject.ext.minSdkVersion
             applicationId "io.alysium"
             targetSdkVersion rootProject.ext.targetSdkVersion

@@ -21,6 +21,8 @@
 		"bump-build": "yarn check-git-clean && yarn increment-package-json-build-number && npx react-native-version --increment-build && yarn commit-version",
 		"android:prod": "npx react-native run-android --variant=prodDebug",
 		"android:prod-release": "npx react-native run-android --variant=prodRelease",
+		"android:demo": "npx react-native run-android --variant=demoDebug",
+		"android:demo-release": "npx react-native run-android --variant=demoRelease",
 		"android:qa": "npx react-native run-android --variant=qaDebug",
 		"android:qa-release": "npx react-native run-android --variant=qaRelease",
 		"android:dev": "npx react-native run-android --variant=devDebug",
