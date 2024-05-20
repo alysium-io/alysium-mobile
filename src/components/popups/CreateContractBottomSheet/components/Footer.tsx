@@ -1,9 +1,9 @@
 import { ConditionalRenderer, View } from '@atomic';
 import { BottomSheetFooterProps } from '@gorhom/bottom-sheet';
+import { SequenceApi, SheetApi } from '@hooks';
 import { BottomSheetFooter } from '@organisms';
-import { IChildrenProps } from '@types';
+import { IChildrenProps, OnSubmitHandler } from '@types';
 import React, { useCallback } from 'react';
-import { useCreateContractBottomSheetContext } from '../CreateContractBottomSheet.context';
 import AdditionalNotesFooter from './AdditionalNotesFooter';
 import ConfirmPartiesInvolvedFooter from './ConfirmPartiesInvolvedFooter';
 import SelectFeaturesFooter from './SelectFeaturesFooter';
@@ -28,10 +28,39 @@ const SequenceFooterWrapper: React.FC<SequenceFooterWrapperProps> = ({
 	);
 };
 
-const Footer: React.FC<BottomSheetFooterProps> = (
-	props: BottomSheetFooterProps
-) => {
-	const { sequenceApi, setHeight } = useCreateContractBottomSheetContext();
+interface FooterProps extends BottomSheetFooterProps {
+	sheetApi: SheetApi;
+	sequenceApi: SequenceApi;
+	setHeight: (height: number) => void;
+	onSubmit: OnSubmitHandler;
+}
+
+const Footer: React.FC<FooterProps> = ({
+	sheetApi,
+	sequenceApi,
+	setHeight,
+	onSubmit,
+	...props
+}) => {
+	const feet = [
+		useCallback(
+			() => (
+				<ConfirmPartiesInvolvedFooter
+					sheetApi={sheetApi}
+					sequenceApi={sequenceApi}
+				/>
+			),
+			[]
+		),
+		useCallback(() => <SelectSlotTimeFooter sequenceApi={sequenceApi} />, []),
+		useCallback(() => <SelectFeaturesFooter sequenceApi={sequenceApi} />, []),
+		useCallback(
+			() => (
+				<AdditionalNotesFooter sequenceApi={sequenceApi} onSubmit={onSubmit} />
+			),
+			[sequenceApi, onSubmit]
+		)
+	];
 
 	const Foot = useCallback(
 		(props: BottomSheetFooterProps) => (
@@ -39,12 +68,7 @@ const Footer: React.FC<BottomSheetFooterProps> = (
 				<ConditionalRenderer
 					componentKey={sequenceApi.state}
 					componentMap={Object.fromEntries(
-						[
-							ConfirmPartiesInvolvedFooter,
-							SelectSlotTimeFooter,
-							SelectFeaturesFooter,
-							AdditionalNotesFooter
-						].map((FooterComponent, index) => [
+						feet.map((FooterComponent, index) => [
 							index,
 							() => (
 								<SequenceFooterWrapper setHeight={setHeight} key={index}>
@@ -56,7 +80,7 @@ const Footer: React.FC<BottomSheetFooterProps> = (
 				/>
 			</BottomSheetFooter>
 		),
-		[sequenceApi.state]
+		[sequenceApi.state, setHeight]
 	);
 
 	return <Foot {...props} />;

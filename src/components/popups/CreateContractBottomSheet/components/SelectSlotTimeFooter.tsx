@@ -1,10 +1,14 @@
+import { SequenceApi } from '@hooks';
 import React from 'react';
-import { useCreateContractBottomSheetContext } from '../CreateContractBottomSheet.context';
 import FooterButtons from './FooterButtons';
 
-const SelectSlotTimeFooter = () => {
-	const { sequenceApi } = useCreateContractBottomSheetContext();
+interface SelectSlotTimeFooterProps {
+	sequenceApi: SequenceApi;
+}
 
+const SelectSlotTimeFooter: React.FC<SelectSlotTimeFooterProps> = ({
+	sequenceApi
+}) => {
 	return (
 		<FooterButtons
 			buttons={[

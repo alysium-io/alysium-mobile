@@ -1,13 +1,16 @@
 import { Section, View } from '@atomic';
+import { UpdateContractBodyDto } from '@flux/api/contract/dto/update-contract.dto';
 import { BottomSheetHeader, RadioListItem } from '@organisms';
 import React from 'react';
-import { Controller } from 'react-hook-form';
+import { Controller, UseFormReturn } from 'react-hook-form';
 import { useWindowDimensions } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { useCreateContractBottomSheetContext } from '../CreateContractBottomSheet.context';
 
-const SelectFeatures = () => {
-	const { formMethods } = useCreateContractBottomSheetContext();
+interface SelectFeaturesProps {
+	formMethods: UseFormReturn<UpdateContractBodyDto>;
+}
+
+const SelectFeatures: React.FC<SelectFeaturesProps> = ({ formMethods }) => {
 	const { height: screenHeight } = useWindowDimensions();
 
 	return (
