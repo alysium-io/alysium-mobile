@@ -7,7 +7,7 @@ import { MediaRefType } from '@flux/api/media/media.entity';
 import { venueApiSlice } from '@flux/api/venue';
 import { FindAllVenuesResponseDto } from '@flux/api/venue/dto/venue-find-all.dto';
 import { SheetApi, useMedia, useNavigation, useSheet } from '@hooks';
-import { ApiIdentifier } from '@types';
+import { ApiIdentifier, OnSubmitHandler } from '@types';
 import {
 	SubmitErrorHandler,
 	SubmitHandler,
@@ -37,7 +37,7 @@ interface IUseEditEvent {
 	venuesIsLoading: boolean;
 	formMethods: UseFormReturn<UpdateEventBodyDto>;
 	createVenueSheetApi: SheetApi;
-	onSubmit: (e?: React.BaseSyntheticEvent<object, any, any>) => Promise<void>;
+	onSubmit: OnSubmitHandler;
 	loadForm: () => void;
 	onDeleteEvent: () => void;
 	setEventProfileImage: (image: Asset) => void;

@@ -4,4 +4,6 @@ export interface SearchArtistsBodyDto {
 	q: string;
 }
 
-export interface SearchArtistsResponseDto extends Search {}
+export interface SearchArtistsResponseDto {
+	hits: Search[];
+}

@@ -1,10 +1,12 @@
+import { FindOneHostResponseDto } from '@flux/api/host/dto/host-find-one.dto';
 import { ImageGallery } from '@organisms';
 import React from 'react';
-import { useHostPageContext } from '../Host.context';
 
-const Gallery = () => {
-	const { hostData } = useHostPageContext();
+interface GalleryProps {
+	hostData: FindOneHostResponseDto;
+}
 
+const Gallery: React.FC<GalleryProps> = ({ hostData }) => {
 	return (
 		<ImageGallery images={hostData.gallery.map((i) => i.media?.url || '')} />
 	);

@@ -2,10 +2,8 @@ import { Formatting } from '@etc';
 import { contractApiSlice } from '@flux/api/contract';
 import { FindOneContractResponseDto } from '@flux/api/contract/dto/find-one-contract.dto';
 import { UpdateContractBodyDto } from '@flux/api/contract/dto/update-contract.dto';
-import { createUseContextHook, useNavigation } from '@hooks';
-import { useRoute } from '@react-navigation/native';
-import { EditContractPageRouteProp, ProviderProps } from '@types';
-import React, { createContext, useEffect } from 'react';
+import { TextInputApi, useNavigation, useTextInput } from '@hooks';
+import { ApiIdentifier, OnSubmitHandler } from '@types';
 import {
 	SubmitErrorHandler,
 	SubmitHandler,
@@ -21,44 +19,37 @@ const initialValues: UpdateContractBodyDto = {
 	additional_notes: null
 };
 
-export type EditContractPageContextType = {
-	contractData: FindOneContractResponseDto;
+interface IUseEditContractPage {
+	contractData?: FindOneContractResponseDto;
 	contractError: any;
 	contractIsLoading: boolean;
 	formMethods: UseFormReturn<UpdateContractBodyDto>;
 	onValid: SubmitHandler<UpdateContractBodyDto>;
 	onInvalid: SubmitErrorHandler<UpdateContractBodyDto>;
 	loadForm: () => void;
-	onSubmit: (e?: React.BaseSyntheticEvent<object, any, any>) => Promise<void>;
+	onSubmit: OnSubmitHandler;
 	confirmDelete: () => void;
 	onDeleteEvent: () => void;
 	onChangeStartTime: (startTime: Date) => void;
 	onChangeEndTime: (endTime: Date) => void;
-};
+	additionalNotesTextInputApi: TextInputApi;
+}
 
-export const EditContractPageContext = createContext(
-	{} as EditContractPageContextType
-);
-
-export const EditContractPageProvider: React.FC<ProviderProps> = ({
-	children
-}) => {
-	const route = useRoute<EditContractPageRouteProp>();
+const useEditContractPage = (
+	contractId: ApiIdentifier
+): IUseEditContractPage => {
 	const [updateContractMutation] = contractApiSlice.useUpdateMutation();
 	const [deleteContractMutation] = contractApiSlice.useDeleteMutation();
 	const { back } = useNavigation();
+	const additionalNotesTextInputApi = useTextInput();
 
 	const {
 		data: contractData,
 		error: contractError,
 		isLoading: contractIsLoading
 	} = contractApiSlice.useFindOneQuery({
-		params: { contract_id: route.params.contractId }
+		params: { contract_id: contractId }
 	});
-
-	useEffect(() => {
-		loadForm();
-	}, [contractData]);
 
 	/**
 	 * Form actions
@@ -74,7 +65,7 @@ export const EditContractPageProvider: React.FC<ProviderProps> = ({
 		data.end_time = Formatting.toUtcIsoFormat(data.end_time);
 		updateContractMutation({
 			body: data,
-			params: { contract_id: route.params.contractId }
+			params: { contract_id: contractId }
 		});
 	};
 
@@ -121,7 +112,7 @@ export const EditContractPageProvider: React.FC<ProviderProps> = ({
 
 	const onDeleteEvent = () => {
 		deleteContractMutation({
-			params: { contract_id: route.params.contractId }
+			params: { contract_id: contractId }
 		});
 		back();
 	};
@@ -134,34 +125,21 @@ export const EditContractPageProvider: React.FC<ProviderProps> = ({
 	const onChangeEndTime = (endTime: Date) =>
 		formMethods.setValue('end_time', Formatting.toUtcIsoFormat(endTime));
 
-	if (!contractData) {
-		return <></>;
-	}
-
-	return (
-		<EditContractPageContext.Provider
-			value={{
-				contractData,
-				contractError,
-				contractIsLoading,
-				formMethods,
-				onValid,
-				onInvalid,
-				loadForm,
-				onSubmit,
-				confirmDelete,
-				onDeleteEvent,
-				onChangeStartTime,
-				onChangeEndTime
-			}}
-		>
-			{children}
-		</EditContractPageContext.Provider>
-	);
+	return {
+		contractData,
+		contractError,
+		contractIsLoading,
+		formMethods,
+		onValid,
+		onInvalid,
+		loadForm,
+		onSubmit,
+		confirmDelete,
+		onDeleteEvent,
+		onChangeStartTime,
+		onChangeEndTime,
+		additionalNotesTextInputApi
+	};
 };
 
-export const useEditContractPageContext =
-	createUseContextHook<EditContractPageContextType>(
-		EditContractPageContext,
-		'EditContractPageContext'
-	);
+export default useEditContractPage;

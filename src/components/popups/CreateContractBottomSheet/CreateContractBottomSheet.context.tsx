@@ -9,7 +9,7 @@ import {
 	createUseContextHook,
 	useSequence
 } from '@hooks';
-import { ApiIdentifier, ProviderProps } from '@types';
+import { ApiIdentifier, OnSubmitHandler, ProviderProps } from '@types';
 import React, { createContext, useState } from 'react';
 import {
 	SubmitErrorHandler,
@@ -30,7 +30,7 @@ export type CreateContractBottomSheetContextType = {
 	eventId: ApiIdentifier;
 	sequenceApi: SequenceApi;
 	formMethods: UseFormReturn<UpdateContractBodyDto>;
-	onSubmit: (e?: React.BaseSyntheticEvent<object, any, any>) => Promise<void>;
+	onSubmit: OnSubmitHandler;
 	height: number;
 	setHeight: React.Dispatch<React.SetStateAction<number>>;
 	onChangeStartTime: (startTime: Date) => void;

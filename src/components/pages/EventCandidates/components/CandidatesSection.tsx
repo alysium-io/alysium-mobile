@@ -1,15 +1,23 @@
 import { Icon, SlideInOutView, Text, View } from '@atomic';
+import { FindAllEventCandidatesResponseDto } from '@flux/api/candidate/dto/find-all-event-candidates.dto';
 import { useNavigation } from '@hooks';
 import { ContentListItemWithButton } from '@organisms';
 import { CreateContractBottomSheet } from '@popups';
 import { ApiIdentifier, ContentType } from '@types';
 import React, { useState } from 'react';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
-import { useEventCandidatesPageContext } from '../EventCandidates.context';
 
-const CandidatesSection = () => {
-	const { candidatesData, createContractSheetApi, eventId } =
-		useEventCandidatesPageContext();
+interface CandidatesSectionProps {
+	candidatesData: FindAllEventCandidatesResponseDto[];
+	createContractSheetApi: any;
+	eventId: ApiIdentifier;
+}
+
+const CandidatesSection: React.FC<CandidatesSectionProps> = ({
+	candidatesData,
+	createContractSheetApi,
+	eventId
+}) => {
 	const { artistPage } = useNavigation();
 
 	const [artistId, setArtistId] = useState<ApiIdentifier | null>(null);

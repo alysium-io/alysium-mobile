@@ -1,12 +1,17 @@
 import { Section } from '@atomic';
+import { FindAllEventsResponseDto } from '@flux/api/event/dto/event-find-all.dto';
 import { useNavigation } from '@hooks';
 import { ContentListItem } from '@organisms';
 import { ContentType, EventStatus } from '@types';
 import React from 'react';
-import { useEventManagerPageContext } from '../EventManager.context';
 
-const EventsListSection = () => {
-	const { eventsData } = useEventManagerPageContext();
+interface EventsListSectionProps {
+	eventsData: FindAllEventsResponseDto[];
+}
+
+const EventsListSection: React.FC<EventsListSectionProps> = ({
+	eventsData
+}) => {
 	const { editEventPage } = useNavigation();
 
 	return (

@@ -1,13 +1,16 @@
 import { Section, View } from '@atomic';
+import { FindOneTagResponseDto } from '@flux/api/tag/dto/tag-find-one.dto';
 import { useNavigation } from '@hooks';
 import { SectionHeader } from '@molecules';
 import { ContentListItem } from '@organisms';
 import { ContentType } from '@types';
 import React from 'react';
-import { useTagPageContext } from '../Tag.context';
 
-const Artists = () => {
-	const { tagData } = useTagPageContext();
+interface ArtistsProps {
+	tagData: FindOneTagResponseDto;
+}
+
+const Artists: React.FC<ArtistsProps> = ({ tagData }) => {
 	const { artistPage } = useNavigation();
 
 	return (

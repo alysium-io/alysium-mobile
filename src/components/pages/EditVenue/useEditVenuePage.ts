@@ -5,14 +5,13 @@ import { UpdateVenueBodyDto } from '@flux/api/venue/dto/venue-update.dto';
 import { VenueType } from '@flux/api/venue/types';
 import {
 	SheetApi,
-	createUseContextHook,
+	TextInputApi,
 	useMedia,
 	useNavigation,
-	useSheet
+	useSheet,
+	useTextInput
 } from '@hooks';
-import { useRoute } from '@react-navigation/native';
-import { EditVenuePageRouteProp, ProviderProps } from '@types';
-import React, { createContext } from 'react';
+import { ApiIdentifier, OnSubmitHandler } from '@types';
 import {
 	SubmitErrorHandler,
 	SubmitHandler,
@@ -37,28 +36,29 @@ const initialValues: UpdateVenueBodyDto = {
 	venue_type: null
 };
 
-export type EditVenuePageContextType = {
-	formMethods: UseFormReturn<UpdateVenueBodyDto>;
-	onSubmit: (e?: React.BaseSyntheticEvent<object, any, any>) => Promise<void>;
-	loadForm: () => void;
-	venueData: FindAllVenuesResponseDto;
+interface IUseEditVenuePage {
+	venueData?: FindAllVenuesResponseDto;
 	venueError: any;
 	venueIsLoading: boolean;
+	formMethods: UseFormReturn<UpdateVenueBodyDto>;
+	onSubmit: OnSubmitHandler;
+	loadForm: () => void;
 	createLinkSheetApi: SheetApi;
 	confirmDelete: () => void;
 	setVenueProfileImage: (imagePickerAsset: Asset) => void;
 	onChangeVenueType: (venueType: VenueType) => void;
-};
+	descriptionTextInputApi: TextInputApi;
+	streetAddressTextInputApi: TextInputApi;
+	phoneNumberTextInputApi: TextInputApi;
+	capacityTextInputApi: TextInputApi;
+}
 
-export const EditVenuePageContext = createContext(
-	{} as EditVenuePageContextType
-);
-
-export const EditVenuePageProvider: React.FC<ProviderProps> = ({
-	children
-}) => {
-	const route = useRoute<EditVenuePageRouteProp>();
+const useEditVenuePage = (venueId: ApiIdentifier): IUseEditVenuePage => {
 	const createLinkSheetApi = useSheet();
+	const descriptionTextInputApi = useTextInput();
+	const streetAddressTextInputApi = useTextInput();
+	const phoneNumberTextInputApi = useTextInput();
+	const capacityTextInputApi = useTextInput();
 	const [editVenue] = venueApiSlice.useUpdateMutation();
 	const [deleteVenue] = venueApiSlice.useDeleteMutation();
 	const { uploadMedia } = useMedia();
@@ -69,7 +69,7 @@ export const EditVenuePageProvider: React.FC<ProviderProps> = ({
 		error: venueError,
 		isLoading: venueIsLoading
 	} = venueApiSlice.useFindOneQuery({
-		params: { venue_id: route.params.venueId }
+		params: { venue_id: venueId }
 	});
 
 	const formMethods = useForm<UpdateVenueBodyDto>({
@@ -81,14 +81,13 @@ export const EditVenuePageProvider: React.FC<ProviderProps> = ({
 	) => {
 		console.log(data);
 		editVenue({
-			params: { venue_id: route.params.venueId },
+			params: { venue_id: venueId },
 			body: data
 		});
 	};
 
 	const onInvalid: SubmitErrorHandler<UpdateVenueBodyDto> = (errors: any) => {
-		console.log('Invalid');
-		console.log(errors);
+		console.log('Invalid: ', errors);
 	};
 
 	const loadForm = () => {
@@ -132,7 +131,7 @@ export const EditVenuePageProvider: React.FC<ProviderProps> = ({
 	};
 
 	const onDeleteVenue = () => {
-		deleteVenue({ params: { venue_id: route.params.venueId } });
+		deleteVenue({ params: { venue_id: venueId } });
 		back();
 	};
 
@@ -153,32 +152,22 @@ export const EditVenuePageProvider: React.FC<ProviderProps> = ({
 		}
 	};
 
-	if (!venueData) {
-		return <></>;
-	}
-
-	return (
-		<EditVenuePageContext.Provider
-			value={{
-				formMethods,
-				onSubmit,
-				loadForm,
-				venueData,
-				venueError,
-				venueIsLoading,
-				createLinkSheetApi,
-				confirmDelete,
-				setVenueProfileImage,
-				onChangeVenueType
-			}}
-		>
-			{children}
-		</EditVenuePageContext.Provider>
-	);
+	return {
+		venueData,
+		venueError,
+		venueIsLoading,
+		formMethods,
+		onSubmit,
+		loadForm,
+		createLinkSheetApi,
+		confirmDelete,
+		setVenueProfileImage,
+		onChangeVenueType,
+		descriptionTextInputApi,
+		streetAddressTextInputApi,
+		phoneNumberTextInputApi,
+		capacityTextInputApi
+	};
 };
 
-export const useEditVenuePageContext =
-	createUseContextHook<EditVenuePageContextType>(
-		EditVenuePageContext,
-		'EditVenuePageContext'
-	);
+export default useEditVenuePage;

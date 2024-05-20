@@ -1,16 +1,16 @@
-import { SheetRef } from '@hooks';
+import { SheetApi } from '@hooks';
 import { BottomSheet, BottomSheetListItem } from '@organisms';
 import React from 'react';
 
 interface MoreOptionsBottomSheetProps {
-	sheetRef: SheetRef;
+	sheetApi: SheetApi;
 }
 
 const MoreOptionsBottomSheet: React.FC<MoreOptionsBottomSheetProps> = ({
-	sheetRef
+	sheetApi
 }) => {
 	return (
-		<BottomSheet sheetRef={sheetRef}>
+		<BottomSheet sheetRef={sheetApi.sheetRef}>
 			<BottomSheetListItem
 				text='send message'
 				icon='dm'
