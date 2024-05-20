@@ -1,27 +1,27 @@
+import { useDispatch, useSelector } from '@flux';
+import { keyboardActions } from '@flux/local/keyboard';
 import { useEffect, useState } from 'react';
 import { Keyboard, KeyboardEvent } from 'react-native';
 
 const useKeyboard = () => {
-	const [keyboardInfo, setKeyboardInfo] = useState<{
-		isVisible: boolean;
-		height: number;
-	}>({
-		isVisible: false,
-		height: 0
-	});
+	const dispatch = useDispatch();
+	const persistedKeyboard = useSelector((state) => state.persistedKeyboard);
+
+	const [isVisible, setIsVisible] = useState(false);
+
+	const setKeyboardHeight = (height: number) => {
+		if (height !== persistedKeyboard.height) {
+			dispatch(keyboardActions.setKeyboardHeight(height));
+		}
+	};
 
 	const onKeyboardShow = (e: KeyboardEvent) => {
-		setKeyboardInfo({
-			isVisible: true,
-			height: e.endCoordinates.height
-		});
+		setKeyboardHeight(e.endCoordinates.height);
+		setIsVisible(true);
 	};
 
 	const onKeyboardHide = () => {
-		setKeyboardInfo({
-			isVisible: false,
-			height: 0
-		});
+		setIsVisible(false);
 	};
 
 	useEffect(() => {
@@ -40,7 +40,10 @@ const useKeyboard = () => {
 		};
 	}, []);
 
-	return keyboardInfo;
+	return {
+		isVisible,
+		height: persistedKeyboard.height
+	};
 };
 
 export default useKeyboard;

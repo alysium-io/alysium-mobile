@@ -69,7 +69,9 @@ const useCreateVenueBottomSheet = (
 		textInputApi.focus();
 	};
 
-	const cancel = () => sheetApi.close();
+	const cancel = () => {
+		sheetApi.close();
+	};
 
 	return {
 		formMethods,

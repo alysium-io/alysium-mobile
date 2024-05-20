@@ -1,10 +1,7 @@
 import { KeyboardViewFill } from '@atomic';
+import { BottomSheetView } from '@gorhom/bottom-sheet';
 import { SheetApi } from '@hooks';
-import {
-	BottomSheet,
-	BottomSheetHeader,
-	BottomSheetViewWithMaxHeight
-} from '@organisms';
+import { BottomSheet, BottomSheetHeader } from '@organisms';
 import React from 'react';
 import ActionButtons from './components/ActionButtons';
 import EventName from './components/EventName';
@@ -35,7 +32,7 @@ const CreateEventBottomSheet: React.FC<CreateEventBottomSheetProps> = ({
 			onChange={onSheetIndexChangeFocusTextInput}
 			onDismiss={onDismiss}
 		>
-			<BottomSheetViewWithMaxHeight>
+			<BottomSheetView>
 				<BottomSheetHeader text='Create Event' />
 				<EventName
 					eventNameTextInputApi={eventNameTextInputApi}
@@ -47,7 +44,7 @@ const CreateEventBottomSheet: React.FC<CreateEventBottomSheetProps> = ({
 					createEventButtonState={createEventButtonState}
 				/>
 				<KeyboardViewFill />
-			</BottomSheetViewWithMaxHeight>
+			</BottomSheetView>
 		</BottomSheet>
 	);
 };
