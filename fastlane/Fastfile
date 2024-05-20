@@ -52,7 +52,7 @@ platform :ios do
     end
 
     # Build and ship to testflight
-    lane :internal_beta do
+    lane :qa do
 
         # Configure ci environment
         # You will run into this error if you don't set up the CI environment:
@@ -102,6 +102,57 @@ platform :ios do
 
     end
 
+    # Build and ship to testflight
+    lane :demo do
+
+        # Configure ci environment
+        # You will run into this error if you don't set up the CI environment:
+        #   Missing password for user example@gmail.com, and running in non-interactive shell
+        # Basically this command sets up the keychain for the CI environment
+        setup_ci
+
+        # Make sure match is set up correctly for the testflight deployment
+        match(
+            type: 'appstore',
+            readonly: true,
+            clone_branch_directly: true
+        )
+
+        # Build
+        gym(
+            scheme: 'alysium-demo',
+            export_method: 'app-store',
+            workspace: './ios/alysium.xcworkspace',
+            output_directory: './ios/build',
+            output_name: 'alysium-demo.ipa',
+            silent: true
+        )
+
+        # Appstoreconnect API key for pilot to upload to TestFlight
+        api_key = app_store_connect_api_key(
+            key_id: ENV['APP_STORE_CONNECT_API_KEY_ID'],
+            issuer_id: ENV['APP_STORE_CONNECT_API_ISSUER_ID'],
+            key_content: Base64.decode64(ENV['APP_STORE_CONNECT_API_KEY_CONTENT'])
+        )
+
+        # Get the latest changelog
+        changelog = get_latest_changelog
+
+        # Upload to TestFlight
+        pilot(
+            skip_submission: true,
+            skip_waiting_for_build_processing: true,
+            username: 'aymather@gmail.com',
+            app_identifier: 'io.alysium',
+            distribute_external: false,
+            changelog: changelog,
+            beta_app_feedback_email: 'aymather@gmail.com',
+            beta_app_description: 'Alysium Beta: Build Live Music Business',
+            groups: ['Demo']
+        )
+
+    end
+
 end
 
 platform :android do
@@ -128,7 +179,7 @@ platform :android do
 
     end
 
-    lane :internal_beta do
+    lane :qa do
 
         ENV['ENVFILE'] = '.env.qa'
 
@@ -152,49 +203,36 @@ platform :android do
             track: 'internal',
             aab: './android/app/build/outputs/bundle/qaRelease/app-qa-release.aab',
             metadata_path: android_metadata_path,
-            version_code: version_code,
+            version_code: version_code
+        )
 
-            # AVAILABLE OPTIONS
-            #
-            # package_name,
-            # version_name,
-            # version_code,
-            # release_status,
-            # track,
-            # rollout,
-            # metadata_path,
-            # key,
-            # issuer,
-            # json_key,
-            # json_key_data,
-            # apk,
-            # apk_paths,
-            # aab,
-            # aab_paths,
-            # skip_upload_apk,
-            # skip_upload_aab,
-            # skip_upload_metadata,
-            # skip_upload_changelogs,
-            # skip_upload_images,
-            # skip_upload_screenshots,
-            # track_promote_to,
-            # track_promote_release_status,
-            # validate_only,
-            # mapping,
-            # mapping_paths,
-            # root_url,
-            # check_superseded_tracks,
-            # timeout,
-            # deactivate_on_promote,
-            # version_codes_to_retain,
-            # changes_not_sent_for_review,
-            # rescue_changes_not_sent_for_review,
-            # in_app_update_priority,
-            # obb_main_references_version,
-            # obb_main_file_size,
-            # obb_patch_references_version,
-            # obb_patch_file_size,
-            # ack_bundle_installation_warning
+    end
+
+    lane :demo do
+
+        ENV['ENVFILE'] = '.env.demo'
+
+        prepare_android_changelog
+
+        gradle(
+            task: 'clean',
+            project_dir: './android',
+            gradle_path: './gradlew'
+        )
+
+        gradle(
+            task: 'bundle',
+            project_dir: './android',
+            gradle_path: './gradlew',
+            flavor: 'demo',
+            build_type: 'Release'
+        )
+
+        upload_to_play_store(
+            track: 'internal',
+            aab: './android/app/build/outputs/bundle/demoRelease/app-demo-release.aab',
+            metadata_path: android_metadata_path,
+            version_code: version_code
         )
 
     end

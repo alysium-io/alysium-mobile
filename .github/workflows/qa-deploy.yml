@@ -1,199 +1,161 @@
-name: Alysium Test Build
+name: Alysium QA Build
 
 on:
   push:
     branches:
       - qa
+  repository_dispatch:
+    types: [trigger-build]
 
 jobs:
-  pre-build:
-
-    if: github.actor != 'github-actions[bot]'
+  bump-build-number:
     runs-on: ubuntu-latest
-
     steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v4
 
-    # Init
-    - name: Checkout the repository
-      uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
 
-    # Set up Node.js
-    - name: Use Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20'
+      - name: Install yarn dependencies
+        uses: ./.github/actions/yarn
 
-    # yarn
-    - name: Install yarn dependencies
-      uses: ./.github/actions/yarn
-      
-    # Bump build number
-    - name: Bump Build Number
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-        git status
-        git diff
-        git config --global user.name 'github-actions'
-        git config --global user.email 'github-actions@github.com'
-        yarn bump-build
-        git push https://${{ secrets.GITHUB_TOKEN }}@github.com/alysium-io/alysium-mobile.git HEAD:qa
+      - name: Bump Build Number
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git status
+          git diff
+          git config --global user.name 'github-actions'
+          git config --global user.email 'github-actions@github.com'
+          yarn bump-build
+          git push https://${{ secrets.GITHUB_TOKEN }}@github.com/alysium-io/alysium-mobile.git HEAD:qa
+
+      - name: Trigger Build Process
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          event-type: trigger-build
 
   ios:
-
-    if: github.actor != 'github-actions[bot]'
+    if: github.event_name == 'repository_dispatch' && github.event.action == 'trigger-build'
     runs-on: macos-13
-    needs: pre-build
-
     steps:
-    
-    # Init
-    - name: Checkout the repository
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
-    - name: Get the latest commit
-      run: |
-        git fetch origin qa
-        git checkout qa
-        git log -1
+      - name: Checkout the repository
+        uses: actions/checkout@v4
 
-    # Set up Xcode
-    - name: Set up Xcode
-      uses: maxim-lobanov/setup-xcode@v1.6.0
-      with:
-        xcode-version: '15.1.0'
+      - name: Set up Xcode
+        uses: maxim-lobanov/setup-xcode@v1.6.0
+        with:
+          xcode-version: '15.1.0'
 
-    # Write the env file
-    - name: Write .env file
-      uses: ./.github/actions/write-env-vars
-      with:
-        envtype: 'qa'
-        API_URL: ${{ vars.API_URL_QA }}
-        ENV: ${{ vars.ENV_QA }}
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
 
-    # Set up SSH key for match
-    - name: Configure SSH
-      uses: ./.github/actions/ssh-config
-      with:
-        match_deploy_key: ${{ secrets.MATCH_DEPLOY_KEY }}
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.0.2'
 
-    # Set up Node.js
-    - name: Use Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20'
+      - name: Install yarn dependencies
+        uses: ./.github/actions/yarn
 
-    # Set up Ruby
-    - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: '3.0.2'
+      - name: Install gem dependencies
+        uses: ./.github/actions/gems
 
-    # yarn
-    - name: Install yarn dependencies
-      uses: ./.github/actions/yarn
+      - name: Install pods
+        uses: ./.github/actions/pods
 
-    # gems
-    - name: Install gem dependencies
-      uses: ./.github/actions/gems
+      - name: Write .env file
+        uses: ./.github/actions/write-env-vars
+        with:
+          envtype: 'qa'
+          API_URL: ${{ vars.API_URL_QA }}
+          ENV: ${{ vars.ENV_QA }}
 
-    # pods
-    - name: Install pods
-      uses: ./.github/actions/pods
+      - name: Configure SSH
+        uses: ./.github/actions/ssh-config
+        with:
+          match_deploy_key: ${{ secrets.MATCH_DEPLOY_KEY }}
 
-    # Build iOS
-    - name: Build iOS
-      env:
-        MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
-        FASTLANE_USER: ${{ secrets.FASTLANE_USER }}
-        APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
-        APP_STORE_CONNECT_API_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}
-        APP_STORE_CONNECT_API_KEY_CONTENT: ${{ secrets.APP_STORE_CONNECT_API_KEY_CONTENT }}
-      run: bundle exec fastlane ios internal_beta
-      working-directory: fastlane
+      - name: Build iOS
+        env:
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+          FASTLANE_USER: ${{ secrets.FASTLANE_USER }}
+          APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
+          APP_STORE_CONNECT_API_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}
+          APP_STORE_CONNECT_API_KEY_CONTENT: ${{ secrets.APP_STORE_CONNECT_API_KEY_CONTENT }}
+        run: bundle exec fastlane ios qa
+        working-directory: fastlane
 
   android:
-
-    if: github.actor != 'github-actions[bot]'
+    if: github.event_name == 'repository_dispatch' && github.event.action == 'trigger-build'
     runs-on: ubuntu-latest
-    needs: pre-build
-
     steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v4
 
-    # Init
-    - name: Checkout the repository
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
-    - name: Get the latest commit
-      run: |
-        git fetch origin qa
-        git checkout qa
-        git log -1
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
 
-    # Write the env file
-    - name: Write .env file
-      uses: ./.github/actions/write-env-vars
-      with:
-        envtype: 'qa'
-        API_URL: ${{ vars.API_URL_QA }}
-        ENV: ${{ vars.ENV_QA }}
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.0.2'
 
-    # Set up Node.js
-    - name: Use Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20'
+      - name: Install yarn dependencies
+        uses: ./.github/actions/yarn
 
-    # Set up Ruby
-    - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: '3.0.2'
+      - name: Install gem dependencies
+        uses: ./.github/actions/gems
 
-    # yarn
-    - name: Install yarn dependencies
-      uses: ./.github/actions/yarn
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: 17
+          distribution: 'temurin'
 
-    # gems
-    - name: Install gem dependencies
-      uses: ./.github/actions/gems
+      - name: Cache Android SDK and NDK
+        id: cache-android
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/Library/Android/sdk/build-tools/33.0.0
+            ~/Library/Android/sdk/platforms/android-33
+            ~/Library/Android/sdk/ndk/23.1.7779620
+          key: ${{ runner.os }}-android-sdk-33-ndk-23.1.7779620
 
-    # java
-    - name: Set up JDK 17
-      uses: actions/setup-java@v4
-      with:
-        java-version: 17
-        distribution: 'temurin'
-    - name: Cache Android SDK and NDK
-      id: cache-android
-      uses: actions/cache@v4
-      with:
-        path: |
-          /Users/runner/Library/Android/sdk/build-tools/33.0.0
-          /Users/runner/Library/Android/sdk/platforms/android-33
-          /Users/runner/Library/Android/sdk/ndk/23.1.7779620
-        key: ${{ runner.os }}-android-sdk-33-ndk-23.1.7779620
-    - name: Set up Android SDK
-      uses: android-actions/setup-android@v3
-    - name: Install Android Build Tools and SDKs
-      if: steps.cache-android.outputs.cache-hit != 'true'
-      run: |
-        yes | sdkmanager "build-tools;33.0.0" "platforms;android-33" "ndk;23.1.7779620"
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
 
-    # android credentials
-    - name: Write Android signing keys to gradle.properties
-      uses: ./.github/actions/android-credentials
-      with:
-        ALYSIUM_UPLOAD_STORE_FILE: ${{ secrets.ALYSIUM_UPLOAD_STORE_FILE }}
-        ALYSIUM_UPLOAD_STORE_PASSWORD: ${{ secrets.ALYSIUM_UPLOAD_STORE_PASSWORD }}
-        ALYSIUM_UPLOAD_KEY_ALIAS: ${{ secrets.ALYSIUM_UPLOAD_KEY_ALIAS }}
-        ALYSIUM_UPLOAD_KEY_PASSWORD: ${{ secrets.ALYSIUM_UPLOAD_KEY_PASSWORD }}
-        ANDROID_ENCRYPTED_KEYSTORE: ${{ secrets.ANDROID_ENCRYPTED_KEYSTORE }}
-        GOOGLE_PLAY_SERVICE_KEY: ${{ secrets.GOOGLE_PLAY_SERVICE_KEY }}
+      - name: Install Android Build Tools and SDKs
+        if: steps.cache-android.outputs.cache-hit != 'true'
+        run: |
+          yes | sdkmanager "build-tools;33.0.0" "platforms;android-33" "ndk;23.1.7779620"
 
-    # android
-    - name: Build android
-      run: bundle exec fastlane android internal_beta
-      working-directory: fastlane
+      - name: Write Android signing keys to gradle.properties
+        uses: ./.github/actions/android-credentials
+        with:
+          ALYSIUM_UPLOAD_STORE_FILE: ${{ secrets.ALYSIUM_UPLOAD_STORE_FILE }}
+          ALYSIUM_UPLOAD_STORE_PASSWORD: ${{ secrets.ALYSIUM_UPLOAD_STORE_PASSWORD }}
+          ALYSIUM_UPLOAD_KEY_ALIAS: ${{ secrets.ALYSIUM_UPLOAD_KEY_ALIAS }}
+          ALYSIUM_UPLOAD_KEY_PASSWORD: ${{ secrets.ALYSIUM_UPLOAD_KEY_PASSWORD }}
+          ANDROID_ENCRYPTED_KEYSTORE: ${{ secrets.ANDROID_ENCRYPTED_KEYSTORE }}
+          GOOGLE_PLAY_SERVICE_KEY: ${{ secrets.GOOGLE_PLAY_SERVICE_KEY }}
+
+      - name: Write .env file
+        uses: ./.github/actions/write-env-vars
+        with:
+          envtype: 'qa'
+          API_URL: ${{ vars.API_URL_QA }}
+          ENV: ${{ vars.ENV_QA }}
+
+      - name: Build android
+        run: bundle exec fastlane android qa
+        working-directory: fastlane
