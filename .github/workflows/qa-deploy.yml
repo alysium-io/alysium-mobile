@@ -34,7 +34,7 @@ jobs:
           git push https://${{ secrets.GITHUB_TOKEN }}@github.com/alysium-io/alysium-mobile.git HEAD:qa
 
       - name: Trigger Build Process
-        uses: peter-evans/repository-dispatch@v1
+        uses: peter-evans/repository-dispatch@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           event-type: trigger-build
