@@ -1,7 +1,7 @@
 {
 	"name": "alysium",
 	"version": "0.0.1",
-	"build_number": 64,
+	"build_number": 65,
 	"private": true,
 	"scripts": {
 		"android": "react-native run-android",
@@ -100,7 +100,13 @@
 	},
 	"jest": {
 		"preset": "react-native",
-		"moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json", "node"]
+		"moduleFileExtensions": [
+			"ts",
+			"tsx",
+			"js",
+			"jsx",
+			"json",
+			"node"
+		]
 	}
 }
-
