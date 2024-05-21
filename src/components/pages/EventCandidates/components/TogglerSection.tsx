@@ -1,11 +1,14 @@
 import { Section } from '@atomic';
 import { TabToggler } from '@molecules';
 import React from 'react';
-import { useEventCandidatesPageContext } from '../EventCandidates.context';
 
-const TogglerSection = () => {
-	const { setToggleFilterId } = useEventCandidatesPageContext();
+interface TogglerSectionProps {
+	setToggleFilterId: (id: number) => void;
+}
 
+const TogglerSection: React.FC<TogglerSectionProps> = ({
+	setToggleFilterId
+}) => {
 	return (
 		<Section margin='m' marginTop='none'>
 			<TabToggler

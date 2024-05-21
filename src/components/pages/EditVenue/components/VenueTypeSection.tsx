@@ -1,13 +1,19 @@
 import { Section } from '@atomic';
+import { FindOneVenueResponseDto } from '@flux/api/venue/dto/venue-find-one.dto';
 import { VenueType } from '@flux/api/venue/types';
 import { SectionHeader } from '@molecules';
 import { LargeSelectableItemRadioList } from '@organisms';
 import React from 'react';
-import { useEditVenuePageContext } from '../EditVenue.context';
 
-const VenueTypeSection = () => {
-	const { onChangeVenueType, venueData } = useEditVenuePageContext();
+interface VenueTypeSectionProps {
+	onChangeVenueType: (venueType: VenueType) => void;
+	venueData: FindOneVenueResponseDto;
+}
 
+const VenueTypeSection: React.FC<VenueTypeSectionProps> = ({
+	onChangeVenueType,
+	venueData
+}) => {
 	return (
 		<Section margin='m'>
 			<SectionHeader text='VenueType' />

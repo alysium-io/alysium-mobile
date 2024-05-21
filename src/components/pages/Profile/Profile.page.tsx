@@ -1,19 +1,28 @@
 import { HeaderSafeArea, ScrollView } from '@atomic';
-import { withProvider } from '@hooks';
 import { BasePage } from '@organisms';
-import React from 'react';
-import { ProfilePageProvider } from './Profile.context';
-import {
-	CreateProfileActionFooter,
-	HeaderSection,
-	LogoutSection,
-	MenuSection,
-	SelectAccountSection
-} from './components';
+import React, { useCallback } from 'react';
+import CreateProfileActionFooter from './components/CreateProfileActionFooter';
+import HeaderSection from './components/HeaderSection';
+import LogoutSection from './components/LogoutSection';
+import MenuSection from './components/MenuSection';
+import SelectAccountSection from './components/SelectAccountSection';
+import useProfilePage from './useProfilePage';
 
 const ProfilePage = () => {
+	const { createArtistSheetApi, createHostSheetApi } = useProfilePage();
+
+	const FooterComponent = useCallback(
+		() => (
+			<CreateProfileActionFooter
+				createArtistSheetApi={createArtistSheetApi}
+				createHostSheetApi={createHostSheetApi}
+			/>
+		),
+		[]
+	);
+
 	return (
-		<BasePage FooterComponent={CreateProfileActionFooter}>
+		<BasePage FooterComponent={FooterComponent}>
 			<HeaderSafeArea>
 				<ScrollView alwaysBounceVertical>
 					<HeaderSection />
@@ -26,4 +35,4 @@ const ProfilePage = () => {
 	);
 };
 
-export default withProvider(ProfilePage, ProfilePageProvider);
+export default ProfilePage;

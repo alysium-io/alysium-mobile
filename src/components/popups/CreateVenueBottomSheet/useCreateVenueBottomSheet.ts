@@ -3,6 +3,7 @@ import { venueApiSlice } from '@flux/api/venue';
 import { CreateVenueBodyDto } from '@flux/api/venue/dto/venue-create.dto';
 import { SheetApi, TextInputApi, useButton, useTextInput } from '@hooks';
 import { ButtonState } from '@molecules';
+import { OnSubmitHandler } from '@types';
 import {
 	SubmitErrorHandler,
 	SubmitHandler,
@@ -14,7 +15,7 @@ interface IUseCreateVenueBottomSheet {
 	formMethods: UseFormReturn<CreateVenueBodyDto>;
 	onChange: () => void;
 	onDismiss: () => void;
-	onSubmit: (e?: React.BaseSyntheticEvent<object, any, any>) => Promise<void>;
+	onSubmit: OnSubmitHandler;
 	cancel: () => void;
 	textInputApi: TextInputApi;
 	createVenueButtonState: ButtonState;
@@ -68,7 +69,9 @@ const useCreateVenueBottomSheet = (
 		textInputApi.focus();
 	};
 
-	const cancel = () => sheetApi.close();
+	const cancel = () => {
+		sheetApi.close();
+	};
 
 	return {
 		formMethods,

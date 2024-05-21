@@ -27,7 +27,11 @@ import { searchApiSlice } from './api/search';
 import { tagApiSlice } from './api/tag';
 import { userApiSlice } from './api/user';
 import { venueApiSlice } from './api/venue';
-import { persistedAppReducer, persistedSearchReducer } from './local';
+import {
+	persistedAppReducer,
+	persistedKeyboardReducer,
+	persistedSearchReducer
+} from './local';
 
 import { apiErrorUnauthorizedMiddleware } from './middleware';
 
@@ -35,6 +39,7 @@ const store = configureStore({
 	reducer: {
 		persistedApp: persistedAppReducer,
 		persistedSearch: persistedSearchReducer,
+		persistedKeyboard: persistedKeyboardReducer,
 		[artistApiSlice.reducerPath]: artistApiSlice.reducer,
 		[hostApiSlice.reducerPath]: hostApiSlice.reducer,
 		[venueApiSlice.reducerPath]: venueApiSlice.reducer,

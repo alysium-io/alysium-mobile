@@ -1,10 +1,14 @@
 import { Section } from '@atomic';
 import { Button } from '@molecules';
 import React from 'react';
-import { useEditContractPageContext } from '../EditContract.context';
 
-const BottomButtonsSection = () => {
-	const { confirmDelete } = useEditContractPageContext();
+interface BottomButtonsSectionProps {
+	confirmDelete: () => void;
+}
+
+const BottomButtonsSection: React.FC<BottomButtonsSectionProps> = ({
+	confirmDelete
+}) => {
 	return (
 		<Section margin='m'>
 			<Button

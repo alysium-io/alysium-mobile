@@ -1,10 +1,15 @@
 import { Avatar, Icon, Section, Text, View } from '@atomic';
+import { FindOneContractResponseDto } from '@flux/api/contract/dto/find-one-contract.dto';
 import { ContentType } from '@types';
 import React from 'react';
-import { useEditContractPageContext } from '../EditContract.context';
 
-const PartiesInvolvedSection = () => {
-	const { contractData } = useEditContractPageContext();
+interface PartiesInvolvedSectionProps {
+	contractData: FindOneContractResponseDto;
+}
+
+const PartiesInvolvedSection: React.FC<PartiesInvolvedSectionProps> = ({
+	contractData
+}) => {
 	return (
 		<Section marginTop='xl' marginHorizontal='m'>
 			<View alignItems='center'>

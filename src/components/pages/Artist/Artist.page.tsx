@@ -1,44 +1,25 @@
-import { withProvider } from '@hooks';
-import { BasePage } from '@organisms';
-import { AddArtistToEventCandidatesBottomSheet } from '@popups';
-import { ParallaxPageOutline } from '@templates';
+import { PersonaPerspective } from '@atomic';
+import { useRoute } from '@react-navigation/native';
+import { ArtistPageRouteProp, Persona } from '@types';
 import React from 'react';
-import { ArtistPageProvider, useArtistPageContext } from './Artist.context';
-import ActionButtons from './components/ActionButtons';
-import LinksBottomSheet from './components/LinksBottomSheet';
-import MoreOptionsBottomSheet from './components/MoreOptionsBottomSheet';
-import NotificationsOptionsBottomSheet from './components/NotificationsOptionsBottomSheet';
-import SubHeader from './components/SubHeader';
+import HostPerspective from './perspectives/host/Host';
+import UserPerspective from './perspectives/user/User';
 
 const ArtistPage = () => {
-	const {
-		moreSheetApi,
-		notificationsSheetApi,
-		linksSheetApi,
-		artistData,
-		addArtistToEventCandidatesSheetApi
-	} = useArtistPageContext();
+	const route = useRoute<ArtistPageRouteProp>();
 
 	return (
-		<BasePage>
-			<ParallaxPageOutline
-				title={artistData.name}
-				image={artistData.profile_image?.url || ''}
-			>
-				<SubHeader />
-				<ActionButtons />
-			</ParallaxPageOutline>
-			<LinksBottomSheet sheetRef={linksSheetApi.sheetRef} />
-			<MoreOptionsBottomSheet sheetRef={moreSheetApi.sheetRef} />
-			<NotificationsOptionsBottomSheet
-				sheetRef={notificationsSheetApi.sheetRef}
-			/>
-			<AddArtistToEventCandidatesBottomSheet
-				sheetApi={addArtistToEventCandidatesSheetApi}
-				artist_id={artistData.artist_id}
-			/>
-		</BasePage>
+		<PersonaPerspective
+			components={{
+				[Persona.host]: () => (
+					<HostPerspective artistId={route.params.artistId} />
+				),
+				[Persona.user]: () => (
+					<UserPerspective artistId={route.params.artistId} />
+				)
+			}}
+		/>
 	);
 };
 
-export default withProvider(ArtistPage, ArtistPageProvider);
+export default ArtistPage;

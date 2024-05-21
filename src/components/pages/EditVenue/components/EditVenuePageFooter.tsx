@@ -1,11 +1,15 @@
 import { View } from '@atomic';
 import { Button } from '@molecules';
+import { OnSubmitHandler } from '@types';
 import React from 'react';
-import { useEditVenuePageContext } from '../EditVenue.context';
 
-const EditVenuePageFooter = () => {
-	const { onSubmit } = useEditVenuePageContext();
+interface EditVenuePageFooterProps {
+	onSubmit: OnSubmitHandler;
+}
 
+const EditVenuePageFooter: React.FC<EditVenuePageFooterProps> = ({
+	onSubmit
+}) => {
 	return (
 		<View margin='m' flex={1}>
 			<Button

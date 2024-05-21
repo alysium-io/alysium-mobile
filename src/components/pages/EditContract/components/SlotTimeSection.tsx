@@ -1,19 +1,26 @@
 import { Section } from '@atomic';
+import { UpdateContractBodyDto } from '@flux/api/contract/dto/update-contract.dto';
 import { DatetimePickerWithModal, MenuListItem } from '@organisms';
 import day from 'dayjs';
 import React, { useState } from 'react';
-import { Controller } from 'react-hook-form';
-import { useEditContractPageContext } from '../EditContract.context';
+import { Controller, UseFormReturn } from 'react-hook-form';
 
 type SlotTimeState = {
 	startTimeOpen: boolean;
 	endTimeOpen: boolean;
 };
 
-const SlotTimeSection = () => {
-	const { formMethods, onChangeStartTime, onChangeEndTime } =
-		useEditContractPageContext();
+interface SlotTimeSectionProps {
+	formMethods: UseFormReturn<UpdateContractBodyDto>;
+	onChangeStartTime: (startTime: Date) => void;
+	onChangeEndTime: (endTime: Date) => void;
+}
 
+const SlotTimeSection: React.FC<SlotTimeSectionProps> = ({
+	formMethods,
+	onChangeStartTime,
+	onChangeEndTime
+}) => {
 	const [state, setState] = useState<SlotTimeState>({
 		startTimeOpen: false,
 		endTimeOpen: false

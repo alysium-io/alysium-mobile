@@ -58,6 +58,7 @@ export { default as HeaderSafeArea } from './HeaderSafeArea';
 export { default as Icon } from './Icon';
 export { default as KeyboardViewFill } from './KeyboardViewFill';
 export { default as NotchMargin } from './NotchMargin';
+export { default as PersonaPerspective } from './PersonaPerspective';
 export { default as Section } from './Section';
 export { default as Separator } from './Separator';
 export { default as SlideInOutSequenceView } from './SlideInOutSequenceView';

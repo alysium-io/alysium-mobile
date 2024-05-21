@@ -1,4 +1,5 @@
 import { Section, Text, View } from '@atomic';
+import { UpdateContractBodyDto } from '@flux/api/contract/dto/update-contract.dto';
 import {
 	BottomSheetHeader,
 	DatetimePickerWithModal,
@@ -6,19 +7,26 @@ import {
 } from '@organisms';
 import day from 'dayjs';
 import React, { useState } from 'react';
-import { Controller } from 'react-hook-form';
+import { Controller, UseFormReturn } from 'react-hook-form';
 import { useWindowDimensions } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { useCreateContractBottomSheetContext } from '../CreateContractBottomSheet.context';
 
 type SlotTimeState = {
 	startTimeOpen: boolean;
 	endTimeOpen: boolean;
 };
 
-const SelectSlotTime = () => {
-	const { formMethods, onChangeStartTime, onChangeEndTime } =
-		useCreateContractBottomSheetContext();
+interface SelectSlotTimeProps {
+	formMethods: UseFormReturn<UpdateContractBodyDto>;
+	onChangeStartTime: (date: Date) => void;
+	onChangeEndTime: (date: Date) => void;
+}
+
+const SelectSlotTime: React.FC<SelectSlotTimeProps> = ({
+	formMethods,
+	onChangeStartTime,
+	onChangeEndTime
+}) => {
 	const { height: screenHeight } = useWindowDimensions();
 
 	const [state, setState] = useState<SlotTimeState>({

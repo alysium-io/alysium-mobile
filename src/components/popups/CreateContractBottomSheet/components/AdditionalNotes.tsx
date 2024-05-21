@@ -1,16 +1,22 @@
 import { Section, View } from '@atomic';
-import { useTextInput } from '@hooks';
+import { UpdateContractBodyDto } from '@flux/api/contract/dto/update-contract.dto';
+import { TextInputApi } from '@hooks';
 import { BottomSheetHeader, EditableDescription } from '@organisms';
 import React from 'react';
-import { Controller } from 'react-hook-form';
+import { Controller, UseFormReturn } from 'react-hook-form';
 import { useWindowDimensions } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { useCreateContractBottomSheetContext } from '../CreateContractBottomSheet.context';
 
-const AdditionalNotes = () => {
-	const { formMethods } = useCreateContractBottomSheetContext();
+interface AdditionalNotesProps {
+	formMethods: UseFormReturn<UpdateContractBodyDto>;
+	additionalNotesTextInputApi: TextInputApi;
+}
+
+const AdditionalNotes: React.FC<AdditionalNotesProps> = ({
+	formMethods,
+	additionalNotesTextInputApi
+}) => {
 	const { height: screenHeight } = useWindowDimensions();
-	const textInput = useTextInput();
 	return (
 		<View>
 			<BottomSheetHeader text='Additional Notes' />
@@ -31,7 +37,7 @@ const AdditionalNotes = () => {
 							<EditableDescription
 								multiline
 								scrollEnabled={false}
-								textInputApi={textInput}
+								textInputApi={additionalNotesTextInputApi}
 								placeholder='Anything else you want to add?...'
 								onChangeText={onChange}
 								onBlur={onBlur}

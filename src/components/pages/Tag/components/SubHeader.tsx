@@ -1,11 +1,13 @@
 import { Text, View } from '@atomic';
+import { FindOneTagResponseDto } from '@flux/api/tag/dto/tag-find-one.dto';
 import { Stats } from '@organisms';
 import React from 'react';
-import { useTagPageContext } from '../Tag.context';
 
-const SubHeader = () => {
-	const { tagData } = useTagPageContext();
+interface SubHeaderProps {
+	tagData: FindOneTagResponseDto;
+}
 
+const SubHeader: React.FC<SubHeaderProps> = ({ tagData }) => {
 	return (
 		<View
 			margin='m'

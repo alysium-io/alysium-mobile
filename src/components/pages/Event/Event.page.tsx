@@ -1,14 +1,21 @@
 import { Section, View } from '@atomic';
-import { withProvider } from '@hooks';
 import { SectionHeader } from '@molecules';
 import { BasePage } from '@organisms';
+import { useRoute } from '@react-navigation/native';
 import { ParallaxPageOutline } from '@templates';
+import { EventPageRouteProp } from '@types';
 import React from 'react';
-import { EventPageProvider, useEventPageContext } from './Event.context';
-import { ArtistLineup, SubHeader } from './components';
+import ArtistLineup from './components/ArtistLineup';
+import SubHeader from './components/SubHeader';
+import useEventPage from './useEventPage';
 
 const EventPage = () => {
-	const { eventData } = useEventPageContext();
+	const route = useRoute<EventPageRouteProp>();
+	const { eventData } = useEventPage(route.params.eventId);
+
+	if (!eventData) {
+		return null;
+	}
 
 	return (
 		<BasePage>
@@ -17,7 +24,7 @@ const EventPage = () => {
 				image={eventData.profile_image?.url || ''}
 				textAlignment='center'
 			>
-				<SubHeader />
+				<SubHeader eventData={eventData} />
 				<Section marginTop='l'>
 					<View marginHorizontal='m'>
 						<SectionHeader text='Lineup' />
@@ -29,4 +36,4 @@ const EventPage = () => {
 	);
 };
 
-export default withProvider(EventPage, EventPageProvider);
+export default EventPage;

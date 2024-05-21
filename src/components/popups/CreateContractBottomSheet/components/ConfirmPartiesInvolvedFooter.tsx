@@ -1,9 +1,15 @@
+import { SequenceApi, SheetApi } from '@hooks';
 import React from 'react';
-import { useCreateContractBottomSheetContext } from '../CreateContractBottomSheet.context';
 import FooterButtons from './FooterButtons';
 
-const ConfirmPartiesInvolvedFooter = () => {
-	const { sheetApi, sequenceApi } = useCreateContractBottomSheetContext();
+interface ConfirmPartiesInvolvedFooterProps {
+	sheetApi: SheetApi;
+	sequenceApi: SequenceApi;
+}
+
+const ConfirmPartiesInvolvedFooter: React.FC<
+	ConfirmPartiesInvolvedFooterProps
+> = ({ sheetApi, sequenceApi }) => {
 	return (
 		<FooterButtons
 			buttons={[

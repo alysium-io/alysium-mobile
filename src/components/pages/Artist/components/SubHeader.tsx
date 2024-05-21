@@ -1,12 +1,14 @@
 import { Section, Text, View } from '@atomic';
+import { SheetApi } from '@hooks';
 import { OpenLinksButton } from '@molecules';
 import { Stats } from '@organisms';
 import React from 'react';
-import { useArtistPageContext } from '../Artist.context';
 
-const SubHeader = () => {
-	const { linksSheetApi } = useArtistPageContext();
+interface SubHeaderProps {
+	linksSheetApi: SheetApi;
+}
 
+const SubHeader: React.FC<SubHeaderProps> = ({ linksSheetApi }) => {
 	return (
 		<Section
 			margin='m'

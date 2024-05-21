@@ -11,7 +11,7 @@ const apiSlice = createApi({
 	tagTypes: ['Search'],
 	endpoints: (builder) => ({
 		searchArtists: builder.query<
-			{ hits: SearchArtistsResponseDto[] },
+			SearchArtistsResponseDto,
 			{ body: SearchArtistsBodyDto }
 		>({
 			query: ({ body }) => ({

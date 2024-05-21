@@ -18,3 +18,7 @@ export type AppState = {
 	mode: ThemeMode;
 	authStage: AuthStage;
 };
+
+export type KeyboardState = {
+	height: number;
+};

@@ -1,10 +1,17 @@
+import { SequenceApi } from '@hooks';
+import { OnSubmitHandler } from '@types';
 import React from 'react';
-import { useCreateContractBottomSheetContext } from '../CreateContractBottomSheet.context';
 import FooterButtons from './FooterButtons';
 
-const AdditionalNotesFooter = () => {
-	const { sequenceApi, onSubmit } = useCreateContractBottomSheetContext();
+interface AdditionalNotesFooterProps {
+	sequenceApi: SequenceApi;
+	onSubmit: OnSubmitHandler;
+}
 
+const AdditionalNotesFooter: React.FC<AdditionalNotesFooterProps> = ({
+	sequenceApi,
+	onSubmit
+}) => {
 	return (
 		<FooterButtons
 			buttons={[

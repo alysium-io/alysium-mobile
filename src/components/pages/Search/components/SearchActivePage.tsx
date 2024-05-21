@@ -1,16 +1,29 @@
 import { View } from '@atomic';
+import { Search } from '@flux/api/search';
+import { SearchArtistsResponseDto } from '@flux/api/search/dto/search-artists.dto';
 import React from 'react';
 import { FadeInUp, FadeOutDown } from 'react-native-reanimated';
-import { useSearchPageContext } from '../Search.context';
 import NoRecentSearches from './NoRecentSearches';
 import RecentSearches from './RecentSearches';
 import SearchResults from './SearchResults';
 import SearchResultsLoading from './SearchResultsLoading';
 
-const SearchActivePage = () => {
-	const { searchText, isLoading, recentSearches } = useSearchPageContext();
+interface SearchActivePageProps {
+	searchText: string;
+	isLoading: boolean;
+	recentSearches: Search[];
+	searchResults?: SearchArtistsResponseDto;
+	onPressSearchResult: (item: Search) => void;
+}
 
-	const render = () => {
+const SearchActivePage: React.FC<SearchActivePageProps> = ({
+	searchText,
+	isLoading,
+	recentSearches,
+	searchResults,
+	onPressSearchResult
+}) => {
+	const Body = () => {
 		if (isLoading) {
 			return <SearchResultsLoading />;
 		} else {
@@ -18,10 +31,20 @@ const SearchActivePage = () => {
 				if (recentSearches.length === 0) {
 					return <NoRecentSearches />;
 				} else {
-					return <RecentSearches />;
+					return (
+						<RecentSearches
+							recentSearches={recentSearches}
+							onPressSearchResult={onPressSearchResult}
+						/>
+					);
 				}
 			} else {
-				return <SearchResults />;
+				return (
+					<SearchResults
+						searchResults={searchResults}
+						onPressSearchResult={onPressSearchResult}
+					/>
+				);
 			}
 		}
 	};
@@ -33,7 +56,7 @@ const SearchActivePage = () => {
 			entering={FadeInUp.duration(250)}
 			exiting={FadeOutDown.duration(250)}
 		>
-			{render()}
+			<Body />
 		</View>
 	);
 };

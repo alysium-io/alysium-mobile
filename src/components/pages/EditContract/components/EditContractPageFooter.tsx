@@ -1,11 +1,15 @@
 import { View } from '@atomic';
 import { Button } from '@molecules';
+import { OnSubmitHandler } from '@types';
 import React from 'react';
-import { useEditContractPageContext } from '../EditContract.context';
 
-const EditContractPageFooter = () => {
-	const { onSubmit } = useEditContractPageContext();
+interface EditContractPageFooterProps {
+	onSubmit: OnSubmitHandler;
+}
 
+const EditContractPageFooter: React.FC<EditContractPageFooterProps> = ({
+	onSubmit
+}) => {
 	return (
 		<View margin='m' flex={1}>
 			<Button

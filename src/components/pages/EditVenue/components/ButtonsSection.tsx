@@ -1,11 +1,12 @@
 import { Section } from '@atomic';
 import { Button } from '@molecules';
 import React from 'react';
-import { useEditVenuePageContext } from '../EditVenue.context';
 
-const ButtonsSection = () => {
-	const { confirmDelete } = useEditVenuePageContext();
+interface ButtonsSectionProps {
+	confirmDelete: () => void;
+}
 
+const ButtonsSection: React.FC<ButtonsSectionProps> = ({ confirmDelete }) => {
 	return (
 		<Section margin='m'>
 			<Button

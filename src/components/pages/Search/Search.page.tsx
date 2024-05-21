@@ -1,14 +1,22 @@
-import { HeaderSafeArea, ScrollView, View } from '@atomic';
-import { withProvider } from '@hooks';
+import { ConditionalRenderer, HeaderSafeArea, ScrollView, View } from '@atomic';
 import { BasePage, SearchBar } from '@organisms';
 import React from 'react';
 import { LayoutAnimationConfig } from 'react-native-reanimated';
-import { SearchPageProvider, useSearchPageContext } from './Search.context';
 import { SearchActivePage, SearchInactivePage } from './components';
+import useSearchPage from './useSearchPage';
 
 const SearchPage = () => {
-	const { setSearchText, clearSearchText, isSearchActive, setIsSearchActive } =
-		useSearchPageContext();
+	const {
+		setSearchText,
+		clearSearchText,
+		isSearchActive,
+		setIsSearchActive,
+		searchText,
+		isLoading,
+		recentSearches,
+		searchResults,
+		onPressSearchResult
+	} = useSearchPage();
 
 	return (
 		<BasePage>
@@ -26,11 +34,22 @@ const SearchPage = () => {
 						/>
 					</View>
 					<LayoutAnimationConfig skipEntering>
-						{isSearchActive ? (
-							<SearchActivePage key='active' />
-						) : (
-							<SearchInactivePage key='inactive' />
-						)}
+						<ConditionalRenderer
+							componentKey={isSearchActive ? 1 : 0}
+							componentMap={{
+								[1]: () => (
+									<SearchActivePage
+										key='active'
+										searchText={searchText}
+										isLoading={isLoading}
+										recentSearches={recentSearches}
+										searchResults={searchResults}
+										onPressSearchResult={onPressSearchResult}
+									/>
+								),
+								[0]: () => <SearchInactivePage key='inactive' />
+							}}
+						/>
 					</LayoutAnimationConfig>
 				</ScrollView>
 			</HeaderSafeArea>
@@ -38,4 +57,4 @@ const SearchPage = () => {
 	);
 };
 
-export default withProvider(SearchPage, SearchPageProvider);
+export default SearchPage;

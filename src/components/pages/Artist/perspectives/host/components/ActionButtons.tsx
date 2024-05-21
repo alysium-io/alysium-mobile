@@ -1,10 +1,15 @@
 import { View } from '@atomic';
+import { SheetApi } from '@hooks';
 import { Button } from '@molecules';
 import React from 'react';
-import { useArtistPageContext } from '../Artist.context';
 
-const ActionButtons = () => {
-	const { addArtistToEventCandidatesSheetApi } = useArtistPageContext();
+interface ActionButtonsProps {
+	addArtistToEventCandidatesSheetApi: SheetApi;
+}
+
+const ActionButtons: React.FC<ActionButtonsProps> = ({
+	addArtistToEventCandidatesSheetApi
+}) => {
 	return (
 		<View margin='m' flexDirection='row' flex={1}>
 			<View marginRight='s' flex={1}>

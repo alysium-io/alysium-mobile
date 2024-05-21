@@ -1,15 +1,20 @@
 import { Section } from '@atomic';
-import { useTextInput } from '@hooks';
+import { UpdateVenueBodyDto } from '@flux/api/venue/dto/venue-update.dto';
+import { TextInputApi } from '@hooks';
 import { SectionHeader } from '@molecules';
 import { EditableAssetImages, EditableDescription } from '@organisms';
 import React from 'react';
-import { Controller } from 'react-hook-form';
-import { useEditVenuePageContext } from '../EditVenue.context';
+import { Controller, UseFormReturn } from 'react-hook-form';
 
-const AssetsSection = () => {
-	const { formMethods } = useEditVenuePageContext();
-	const textInput = useTextInput();
+interface AssetsSectionProps {
+	formMethods: UseFormReturn<UpdateVenueBodyDto>;
+	descriptionTextInputApi: TextInputApi;
+}
 
+const AssetsSection: React.FC<AssetsSectionProps> = ({
+	formMethods,
+	descriptionTextInputApi
+}) => {
 	return (
 		<Section>
 			<SectionHeader margin='m' text='Assets' />
@@ -20,7 +25,7 @@ const AssetsSection = () => {
 					<EditableDescription
 						multiline
 						scrollEnabled={false}
-						textInputApi={textInput}
+						textInputApi={descriptionTextInputApi}
 						placeholder='Describe this venue using cool words and stuff...'
 						onChangeText={onChange}
 						onBlur={onBlur}

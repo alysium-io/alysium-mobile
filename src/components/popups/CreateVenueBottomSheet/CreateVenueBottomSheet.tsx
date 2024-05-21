@@ -1,10 +1,7 @@
 import { KeyboardViewFill } from '@atomic';
+import { BottomSheetView } from '@gorhom/bottom-sheet';
 import { SheetApi } from '@hooks';
-import {
-	BottomSheet,
-	BottomSheetHeader,
-	BottomSheetViewWithMaxHeight
-} from '@organisms';
+import { BottomSheet, BottomSheetHeader } from '@organisms';
 import React, { useEffect } from 'react';
 import BottomButtons from './components/BottomButtons';
 import VenueName from './components/VenueName';
@@ -40,7 +37,7 @@ const CreateVenueStartBottomSheet: React.FC<
 			onChange={onChange}
 			onDismiss={onDismiss}
 		>
-			<BottomSheetViewWithMaxHeight>
+			<BottomSheetView>
 				<BottomSheetHeader text='Create Venue' />
 				<VenueName
 					formMethods={formMethods}
@@ -53,7 +50,7 @@ const CreateVenueStartBottomSheet: React.FC<
 					createVenueButtonState={createVenueButtonState}
 				/>
 				<KeyboardViewFill />
-			</BottomSheetViewWithMaxHeight>
+			</BottomSheetView>
 		</BottomSheet>
 	);
 };
