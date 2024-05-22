@@ -1,5 +1,4 @@
 import { BottomSheetView } from '@gorhom/bottom-sheet';
-import { useKeyboard } from '@hooks';
 import React from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useBottomSheetMaxHeight } from '../hooks';
@@ -14,7 +13,6 @@ const BottomSheetViewWithMaxHeight: React.FC<
 	BottomSheetViewWithMaxHeightProps
 > = ({ maxHeight = '90%', contentContainerStyle, children }) => {
 	const maxHeightStyle = useBottomSheetMaxHeight(maxHeight);
-	const { isVisible } = useKeyboard();
 	const insets = useSafeAreaInsets();
 
 	return (
@@ -22,7 +20,7 @@ const BottomSheetViewWithMaxHeight: React.FC<
 			style={[
 				{
 					maxHeight: maxHeightStyle,
-					paddingBottom: isVisible ? 0 : insets.bottom
+					paddingBottom: insets.bottom
 				},
 				contentContainerStyle
 			]}

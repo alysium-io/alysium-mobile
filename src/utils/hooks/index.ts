@@ -27,5 +27,4 @@ export { default as withProvider } from './withProvider';
 export { default as useNavigation } from './useNavigation';
 
 // APIs
-export { default as useKeyboard } from './useKeyboard';
 export { default as usePhotosAndCamera } from './usePhotosAndCamera';

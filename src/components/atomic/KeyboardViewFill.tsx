@@ -1,10 +1,16 @@
 import { View } from '@atomic';
-import { useKeyboard } from '@hooks';
 import React from 'react';
+import { useAnimatedKeyboard, useAnimatedStyle } from 'react-native-reanimated';
 
 const KeyboardViewFill = () => {
-	const { height } = useKeyboard();
-	return <View style={{ height }} />;
+	const keyboard = useAnimatedKeyboard();
+	const animatedContainerStyle = useAnimatedStyle(() => {
+		return {
+			height: keyboard.height.value
+		};
+	});
+
+	return <View animated style={animatedContainerStyle} />;
 };
 
 export default KeyboardViewFill;
