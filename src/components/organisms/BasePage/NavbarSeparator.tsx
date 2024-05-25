@@ -1,12 +1,16 @@
 import { View } from '@atomic';
 import { useTheme } from '@hooks';
-import { useBasePage } from '@organisms';
 import { ThemeMode } from '@types';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 
-const NavbarSeparator = () => {
-	const { isFooterActive } = useBasePage();
+interface NavbarSeparatorProps {
+	isFooterActive: boolean;
+}
+
+const NavbarSeparator: React.FC<NavbarSeparatorProps> = ({
+	isFooterActive
+}) => {
 	const { mode } = useTheme();
 
 	return (

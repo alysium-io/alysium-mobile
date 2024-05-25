@@ -8,4 +8,5 @@ export { default as BottomSheet } from './BottomSheet';
 export { default as BottomSheetBackdrop } from './BottomSheetBackdrop';
 export { default as BottomSheetFooter } from './BottomSheetFooter';
 export { default as BottomSheetHandle } from './BottomSheetHandle';
+export { default as BottomSheetKeyboardAvoidingView } from './BottomSheetKeyboardAvoidingView';
 export { default as BottomSheetViewWithMaxHeight } from './BottomSheetViewWithMaxHeight';

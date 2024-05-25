@@ -1,7 +1,9 @@
-import { KeyboardViewFill } from '@atomic';
-import { BottomSheetView } from '@gorhom/bottom-sheet';
 import { SheetApi } from '@hooks';
-import { BottomSheet, BottomSheetHeader } from '@organisms';
+import {
+	BottomSheet,
+	BottomSheetHeader,
+	BottomSheetKeyboardAvoidingView
+} from '@organisms';
 import React, { useEffect } from 'react';
 import BottomButtons from './components/BottomButtons';
 import VenueName from './components/VenueName';
@@ -37,7 +39,7 @@ const CreateVenueStartBottomSheet: React.FC<
 			onChange={onChange}
 			onDismiss={onDismiss}
 		>
-			<BottomSheetView>
+			<BottomSheetKeyboardAvoidingView>
 				<BottomSheetHeader text='Create Venue' />
 				<VenueName
 					formMethods={formMethods}
@@ -49,8 +51,7 @@ const CreateVenueStartBottomSheet: React.FC<
 					onSubmit={onSubmit}
 					createVenueButtonState={createVenueButtonState}
 				/>
-				<KeyboardViewFill />
-			</BottomSheetView>
+			</BottomSheetKeyboardAvoidingView>
 		</BottomSheet>
 	);
 };

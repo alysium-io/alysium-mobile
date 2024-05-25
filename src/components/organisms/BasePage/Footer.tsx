@@ -1,6 +1,5 @@
 import { View } from '@atomic';
 import { useTheme } from '@hooks';
-import { useBasePage } from '@organisms';
 import React, { useEffect } from 'react';
 import { StyleSheet } from 'react-native';
 
@@ -8,20 +7,21 @@ interface FooterProps {
 	children?: React.ReactNode;
 	containerProps?: React.ComponentProps<typeof View>;
 	backgroundColor?: string;
+	setIsFooterActive: (isFooterActive: boolean) => void;
 }
 
 const Footer: React.FC<FooterProps> = ({
 	children,
 	containerProps,
-	backgroundColor = 'bg1'
+	backgroundColor = 'bg1',
+	setIsFooterActive
 }) => {
 	const { getRawColor } = useTheme();
-	const { setIsFooterActive } = useBasePage();
 
 	useEffect(() => {
 		setIsFooterActive(true);
 		return () => setIsFooterActive(false);
-	});
+	}, []);
 
 	return (
 		<View
