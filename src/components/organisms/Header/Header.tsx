@@ -1,4 +1,3 @@
-import { Portal } from '@gorhom/portal';
 import { StackHeaderProps, useCardAnimation } from '@react-navigation/stack';
 import React from 'react';
 import HeaderCenterSection from './HeaderCenterSection';
@@ -22,19 +21,17 @@ const Header: React.FC<HeaderProps> = ({
 	const cardAnimationProps = useCardAnimation();
 
 	return (
-		<Portal>
-			<HeaderWrapper cardAnimationProps={cardAnimationProps}>
-				<HeaderLeftSection cardAnimationProps={cardAnimationProps}>
-					{LeftComponent && <LeftComponent />}
-				</HeaderLeftSection>
-				<HeaderCenterSection>
-					{CenterComponent && <CenterComponent />}
-				</HeaderCenterSection>
-				<HeaderRightSection>
-					{RightComponent && <RightComponent />}
-				</HeaderRightSection>
-			</HeaderWrapper>
-		</Portal>
+		<HeaderWrapper cardAnimationProps={cardAnimationProps}>
+			<HeaderLeftSection cardAnimationProps={cardAnimationProps}>
+				{LeftComponent && <LeftComponent />}
+			</HeaderLeftSection>
+			<HeaderCenterSection>
+				{CenterComponent && <CenterComponent />}
+			</HeaderCenterSection>
+			<HeaderRightSection>
+				{RightComponent && <RightComponent />}
+			</HeaderRightSection>
+		</HeaderWrapper>
 	);
 };
 
