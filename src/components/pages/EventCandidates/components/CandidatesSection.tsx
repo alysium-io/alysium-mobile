@@ -1,6 +1,6 @@
-import { Icon, SlideInOutView, Text, View } from '@atomic';
+import { Icon, Text, View } from '@atomic';
 import { FindAllEventCandidatesResponseDto } from '@flux/api/candidate/dto/find-all-event-candidates.dto';
-import { useNavigation } from '@hooks';
+import { useNavigation, useSheet } from '@hooks';
 import { ContentListItemWithButton } from '@organisms';
 import { CreateContractBottomSheet } from '@popups';
 import { ApiIdentifier, ContentType } from '@types';
@@ -9,15 +9,14 @@ import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 interface CandidatesSectionProps {
 	candidatesData: FindAllEventCandidatesResponseDto[];
-	createContractSheetApi: any;
 	eventId: ApiIdentifier;
 }
 
 const CandidatesSection: React.FC<CandidatesSectionProps> = ({
 	candidatesData,
-	createContractSheetApi,
 	eventId
 }) => {
+	const createContractSheetApi = useSheet();
 	const { artistPage } = useNavigation();
 
 	const [artistId, setArtistId] = useState<ApiIdentifier | null>(null);
@@ -29,7 +28,7 @@ const CandidatesSection: React.FC<CandidatesSectionProps> = ({
 
 	return (
 		<>
-			<SlideInOutView direction='left'>
+			<View>
 				{candidatesData.map((candidate) => (
 					<ContentListItemWithButton
 						key={candidate.artist_id}
@@ -63,7 +62,7 @@ const CandidatesSection: React.FC<CandidatesSectionProps> = ({
 						)}
 					/>
 				))}
-			</SlideInOutView>
+			</View>
 			<CreateContractBottomSheet
 				sheetApi={createContractSheetApi}
 				eventId={eventId}

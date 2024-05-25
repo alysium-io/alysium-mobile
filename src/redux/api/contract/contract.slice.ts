@@ -1,4 +1,5 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
+import { eventApiSlice } from '../event';
 import baseQueryConfig from '../utils/baseQueryConfig';
 import {
 	CreateContractBodyDto,
@@ -62,7 +63,15 @@ const apiSlice = createApi({
 				method: 'POST',
 				body
 			}),
-			invalidatesTags: [{ type: 'Contract', id: 'LIST' }]
+			invalidatesTags: [{ type: 'Contract', id: 'LIST' }],
+			onQueryStarted: async ({ body }, { dispatch, queryFulfilled }) => {
+				await queryFulfilled;
+				dispatch(
+					eventApiSlice.util.invalidateTags([
+						{ type: 'Event', id: body.event_id }
+					])
+				);
+			}
 		}),
 		update: builder.mutation<
 			UpdateContractResponseDto,

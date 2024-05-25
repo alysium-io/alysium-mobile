@@ -1,11 +1,9 @@
-import { Section, View } from '@atomic';
+import { Section, Text, View } from '@atomic';
 import { UpdateContractBodyDto } from '@flux/api/contract/dto/update-contract.dto';
 import { TextInputApi } from '@hooks';
 import { BottomSheetHeader, EditableDescription } from '@organisms';
 import React from 'react';
 import { Controller, UseFormReturn } from 'react-hook-form';
-import { useWindowDimensions } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
 
 interface AdditionalNotesProps {
 	formMethods: UseFormReturn<UpdateContractBodyDto>;
@@ -16,37 +14,31 @@ const AdditionalNotes: React.FC<AdditionalNotesProps> = ({
 	formMethods,
 	additionalNotesTextInputApi
 }) => {
-	const { height: screenHeight } = useWindowDimensions();
 	return (
-		<View>
+		<View flex={1}>
 			<BottomSheetHeader text='Additional Notes' />
-			<ScrollView
-				alwaysBounceVertical={false}
-				style={{
-					height: screenHeight / 2
-				}}
-				contentContainerStyle={{
-					flexGrow: 1
-				}}
-			>
-				<Section margin='m' justifyContent='center' flex={1}>
-					<Controller
-						name='additional_notes'
-						control={formMethods.control}
-						render={({ field: { onChange, onBlur, value } }) => (
-							<EditableDescription
-								multiline
-								scrollEnabled={false}
-								textInputApi={additionalNotesTextInputApi}
-								placeholder='Anything else you want to add?...'
-								onChangeText={onChange}
-								onBlur={onBlur}
-								value={value ?? ''}
-							/>
-						)}
-					/>
-				</Section>
-			</ScrollView>
+			<Section margin='m' flex={1}>
+				<View marginVertical='m'>
+					<Text variant='paragraph-small' color='t2'>
+						Anything else you want to add to this contract?
+					</Text>
+				</View>
+				<Controller
+					name='additional_notes'
+					control={formMethods.control}
+					render={({ field: { onChange, onBlur, value } }) => (
+						<EditableDescription
+							multiline
+							scrollEnabled={false}
+							textInputApi={additionalNotesTextInputApi}
+							placeholder='Anything else you want to add?...'
+							onChangeText={onChange}
+							onBlur={onBlur}
+							value={value ?? ''}
+						/>
+					)}
+				/>
+			</Section>
 		</View>
 	);
 };

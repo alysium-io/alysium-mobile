@@ -1,10 +1,10 @@
-import { ConditionalRenderer, SlideInOutSequenceView, View } from '@atomic';
+import { Sequence } from '@atomic';
 import { BottomSheetFooterProps, BottomSheetView } from '@gorhom/bottom-sheet';
 import { SheetApi } from '@hooks';
 import { BottomSheet } from '@organisms';
 import { ApiIdentifier } from '@types';
 import React, { useCallback } from 'react';
-import { FadeIn } from 'react-native-reanimated';
+import { useWindowDimensions } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import AdditionalNotes from './components/AdditionalNotes';
 import ConfirmPartiesInvolved from './components/ConfirmPartiesInvolved';
@@ -27,39 +27,15 @@ const CreateContractBottomSheet: React.FC<CreateContractBottomSheetProps> = ({
 }) => {
 	const insets = useSafeAreaInsets();
 	const {
-		sequenceApi,
 		height,
 		additionalNotesTextInputApi,
 		formMethods,
 		onChangeStartTime,
 		onChangeEndTime,
 		onSubmit,
-		setHeight
+		setHeight,
+		sequenceApi
 	} = useCreateContractBottomSheet(eventId, artistId, sheetApi);
-
-	const bodies = [
-		ConfirmPartiesInvolved,
-		useCallback(
-			() => (
-				<SelectSlotTime
-					formMethods={formMethods}
-					onChangeStartTime={onChangeStartTime}
-					onChangeEndTime={onChangeEndTime}
-				/>
-			),
-			[]
-		),
-		useCallback(() => <SelectFeatures formMethods={formMethods} />, []),
-		useCallback(
-			() => (
-				<AdditionalNotes
-					additionalNotesTextInputApi={additionalNotesTextInputApi}
-					formMethods={formMethods}
-				/>
-			),
-			[]
-		)
-	];
 
 	const FooterComponent = useCallback(
 		(props: BottomSheetFooterProps) => (
@@ -74,42 +50,35 @@ const CreateContractBottomSheet: React.FC<CreateContractBottomSheetProps> = ({
 		[sheetApi, sequenceApi]
 	);
 
+	const { height: screenHeight } = useWindowDimensions();
+
 	return (
 		<BottomSheet
 			sheetRef={sheetApi.sheetRef}
-			enableDynamicSizing
 			footerComponent={FooterComponent}
+			enableDynamicSizing
 		>
 			<BottomSheetView
 				style={{
-					paddingBottom: height + insets.bottom
+					paddingBottom: insets.bottom + height,
+					height: (screenHeight / 3) * 2,
+					justifyContent: 'center'
 				}}
 			>
-				<ConditionalRenderer
-					componentKey={sequenceApi.state}
-					componentMap={{
-						...Object.fromEntries(
-							bodies.map((BodyComponent, index) => [
-								index,
-								() => (
-									<SlideInOutSequenceView
-										sequenceState={sequenceApi.state}
-										prevSequenceState={sequenceApi.prevState}
-										sequenceIndex={index}
-										key={index}
-									>
-										<BodyComponent />
-									</SlideInOutSequenceView>
-								)
-							])
-						),
-						[bodies.length]: () => (
-							<View animated entering={FadeIn.duration(350)}>
-								<Loading />
-							</View>
-						)
-					}}
-				/>
+				<Sequence sequenceIndex={sequenceApi.sequenceIndex}>
+					<ConfirmPartiesInvolved />
+					<SelectSlotTime
+						formMethods={formMethods}
+						onChangeStartTime={onChangeStartTime}
+						onChangeEndTime={onChangeEndTime}
+					/>
+					<SelectFeatures formMethods={formMethods} />
+					<AdditionalNotes
+						additionalNotesTextInputApi={additionalNotesTextInputApi}
+						formMethods={formMethods}
+					/>
+					<Loading />
+				</Sequence>
 			</BottomSheetView>
 		</BottomSheet>
 	);

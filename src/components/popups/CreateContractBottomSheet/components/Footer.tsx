@@ -1,6 +1,6 @@
-import { ConditionalRenderer, View } from '@atomic';
+import { ConditionalRenderer, SequenceApi, View } from '@atomic';
 import { BottomSheetFooterProps } from '@gorhom/bottom-sheet';
-import { SequenceApi, SheetApi } from '@hooks';
+import { SheetApi } from '@hooks';
 import { BottomSheetFooter } from '@organisms';
 import { IChildrenProps, OnSubmitHandler } from '@types';
 import React, { useCallback } from 'react';
@@ -66,7 +66,7 @@ const Footer: React.FC<FooterProps> = ({
 		(props: BottomSheetFooterProps) => (
 			<BottomSheetFooter {...props}>
 				<ConditionalRenderer
-					componentKey={sequenceApi.state}
+					componentKey={sequenceApi.sequenceIndex}
 					componentMap={Object.fromEntries(
 						feet.map((FooterComponent, index) => [
 							index,
@@ -80,7 +80,7 @@ const Footer: React.FC<FooterProps> = ({
 				/>
 			</BottomSheetFooter>
 		),
-		[sequenceApi.state, setHeight]
+		[sequenceApi.sequenceIndex, setHeight]
 	);
 
 	return <Foot {...props} />;
