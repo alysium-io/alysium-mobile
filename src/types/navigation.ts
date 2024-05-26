@@ -183,6 +183,7 @@ export type CompositeScreenNavigationProp = SearchScreenNavigationProp &
 export type CompositeStackNavigatorParamList = SearchStackNavigatorParamList &
 	ProfileStackNavigatorParamList &
 	EventManagerStackNavigatorParamList &
+	ContractManagerStackNavigatorParamList &
 	ExperimentStackNavigatorParamList &
 	PagesStackNavigatorParamList &
 	ComponentsStackNavigatorParamList;
@@ -251,4 +252,12 @@ export type EventPageRouteProp = RouteProp<
 export type EditContractPageRouteProp = RouteProp<
 	CompositeStackNavigatorParamList,
 	'EditContractPage'
+>;
+
+/**
+ * Contract Manager Route Props
+ */
+export type ArtistViewContractPageRouteProp = RouteProp<
+	CompositeStackNavigatorParamList,
+	'ArtistViewContractPage'
 >;
