@@ -16,6 +16,7 @@ interface IUseNavigation {
 	searchPage: () => void;
 	eventManagerPage: () => void;
 	contractManager: () => void;
+	artistViewContract: (contractId: ApiIdentifier) => void;
 
 	/** General */
 	back: () => void;
@@ -49,6 +50,8 @@ const useNavigation = (): IUseNavigation => {
 	const searchPage = () => navigation.navigate('SearchPage');
 	const eventManagerPage = () => navigation.navigate('EventManagerPage');
 	const contractManager = () => navigation.navigate('ContractManagerPage');
+	const artistViewContract = (contractId: ApiIdentifier) =>
+		navigation.navigate('ArtistViewContractPage', { contractId });
 	/**
 	 * General
 	 */
@@ -68,6 +71,7 @@ const useNavigation = (): IUseNavigation => {
 		searchPage,
 		eventManagerPage,
 		contractManager,
+		artistViewContract,
 		back
 	};
 };

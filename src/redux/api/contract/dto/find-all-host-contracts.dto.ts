@@ -1,10 +1,10 @@
 import { ApiIdentifier } from '@types';
 import { Contract } from '../contract.entity';
 
-export interface FindAllContractsQueryDto {
+export interface FindAllHostContractsQueryDto {
 	event_id: ApiIdentifier;
 	page: number;
 	limit: number;
 }
 
-export interface FindAllContractsResponseDto extends Contract {}
+export interface FindAllHostContractsResponseDto extends Contract {}
