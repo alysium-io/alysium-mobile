@@ -12,7 +12,11 @@ const ArtistPage = () => {
 
 	return (
 		<Switch>
-			<Case condition={personaType === Persona.user}>
+			<Case
+				condition={
+					personaType === Persona.user || personaType === Persona.artist
+				}
+			>
 				<UserPerspective artistId={route.params.artistId} />
 			</Case>
 			<Case condition={personaType === Persona.host}>
