@@ -1,5 +1,6 @@
-import { ConditionalRenderer, Icon, View } from '@atomic';
+import { Icon, View } from '@atomic';
 import React from 'react';
+import { Case, Switch } from 'react-if';
 import { Keyboard, StyleSheet } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -20,13 +21,14 @@ const Body: React.FC = () => {
 				<View marginBottom='xl' alignItems='center'>
 					<Icon name='logo' size='large' color='t1' />
 				</View>
-				<ConditionalRenderer
-					componentKey={state.screen}
-					componentMap={{
-						'continue-phone': ContinueWithPhoneBody,
-						'login-phone': EnterCode
-					}}
-				/>
+				<Switch>
+					<Case condition={state.screen === 'continue-phone'}>
+						<ContinueWithPhoneBody />
+					</Case>
+					<Case condition={state.screen === 'login-phone'}>
+						<EnterCode />
+					</Case>
+				</Switch>
 			</View>
 		</TouchableWithoutFeedback>
 	);

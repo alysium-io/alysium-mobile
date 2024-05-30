@@ -1,6 +1,6 @@
-import { ConditionalRenderer } from '@atomic';
 import { AuthStage, ChildrenProps } from '@types';
 import React from 'react';
+import { Case, Default, Switch } from 'react-if';
 import {
 	AuthenticationAppProvider,
 	useAuthenticationAppContext
@@ -11,13 +11,12 @@ const Authentication: React.FC<ChildrenProps> = ({ children }) => {
 	const { authStage } = useAuthenticationAppContext();
 
 	return (
-		<ConditionalRenderer
-			componentKey={authStage}
-			componentMap={{
-				[AuthStage.loggedOut]: LoggedOut,
-				[AuthStage.loggedIn]: () => <>{children}</>
-			}}
-		/>
+		<Switch>
+			<Case condition={authStage === AuthStage.loggedOut}>
+				<LoggedOut />
+			</Case>
+			<Default>{children}</Default>
+		</Switch>
 	);
 };
 

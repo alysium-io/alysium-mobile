@@ -1,8 +1,9 @@
-import { ConditionalRenderer, HeaderSafeArea, ScrollView, View } from '@atomic';
+import { HeaderSafeArea, ScrollView, View } from '@atomic';
 import { BasePage } from '@organisms';
 import { useRoute } from '@react-navigation/native';
 import { EventCandidatesPageRouteProp } from '@types';
 import React, { useCallback } from 'react';
+import { Case, Switch } from 'react-if';
 import CandidatesSection from './components/CandidatesSection';
 import ContractsSection from './components/ContractsSections';
 import TogglerSection from './components/TogglerSection';
@@ -39,13 +40,14 @@ const EventCandidatesPage = () => {
 				<ScrollView alwaysBounceVertical>
 					<View marginTop='l'>
 						<TogglerSection setToggleFilterId={setToggleFilterId} />
-						<ConditionalRenderer
-							componentKey={toggleFilterId}
-							componentMap={{
-								[0]: Candidates,
-								[1]: Contracts
-							}}
-						/>
+						<Switch>
+							<Case condition={toggleFilterId === 0}>
+								<Candidates />
+							</Case>
+							<Case condition={toggleFilterId === 1}>
+								<Contracts />
+							</Case>
+						</Switch>
 					</View>
 				</ScrollView>
 			</HeaderSafeArea>

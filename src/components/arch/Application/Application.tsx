@@ -1,7 +1,7 @@
-import { ConditionalRenderer } from '@atomic';
 import { withProvider } from '@hooks';
 import { Persona } from '@types';
 import React from 'react';
+import { Case, Switch } from 'react-if';
 import ArtistApp from './apps/Artist.app';
 import HostApp from './apps/Host.app';
 import UserApp from './apps/User.app';
@@ -19,14 +19,17 @@ const Application = () => {
 	}
 
 	return (
-		<ConditionalRenderer
-			componentKey={personaType}
-			componentMap={{
-				[Persona.user]: UserApp,
-				[Persona.host]: HostApp,
-				[Persona.artist]: ArtistApp
-			}}
-		/>
+		<Switch>
+			<Case condition={personaType === Persona.user}>
+				<UserApp />
+			</Case>
+			<Case condition={personaType === Persona.host}>
+				<HostApp key={Persona.host} />
+			</Case>
+			<Case condition={personaType === Persona.artist}>
+				<ArtistApp key={Persona.artist} />
+			</Case>
+		</Switch>
 	);
 };
 

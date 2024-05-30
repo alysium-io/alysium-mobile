@@ -28,9 +28,12 @@ const ArtistApp = () => {
 							name='Search'
 							component={SearchTab}
 							options={{
-								tabBarIcon: ({ color }) => (
-									<Icon name='search' size='regular' color={color} />
-								)
+								tabBarIcon: ({ color, focused }) =>
+									focused ? (
+										<Icon name='search-filled' size='regular' color={color} />
+									) : (
+										<Icon name='search' size='regular' color={color} />
+									)
 							}}
 						/>
 						<Tab.Screen
