@@ -38,11 +38,9 @@ platform :ios do
 
     # Build and ship to testflight
     lane :build_deploy do |options|
-        /**
-        * This lane builds the app and uploads it to TestFlight
-        * @param options[:scheme] The scheme to build
-        * @param options[:app_identifier] The app identifier
-        */
+        # This lane builds the app and uploads it to TestFlight
+        # @param options[:scheme] The scheme to build
+        # @param options[:app_identifier] The app identifier
 
         # Configure ci environment
         # You will run into this error if you don't set up the CI environment:
