@@ -1,15 +1,12 @@
 import { SheetRef } from '@hooks';
 import { BottomSheet, BottomSheetHeader } from '@organisms';
 import React from 'react';
-import { useHostPageContext } from '../Host.context';
 
 interface LinksBottomSheetProps {
 	sheetRef: SheetRef;
 }
 
 const LinksBottomSheet: React.FC<LinksBottomSheetProps> = ({ sheetRef }) => {
-	const { hostData } = useHostPageContext();
-
 	return (
 		<BottomSheet sheetRef={sheetRef}>
 			<BottomSheetHeader text='Links' />

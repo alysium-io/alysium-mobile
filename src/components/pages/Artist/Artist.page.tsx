@@ -1,44 +1,29 @@
-import { withProvider } from '@hooks';
-import { BasePage } from '@organisms';
-import { AddArtistToEventCandidatesBottomSheet } from '@popups';
-import { ParallaxPageOutline } from '@templates';
+import { useUserAppContext } from '@arch/Application/contexts/User.context';
+import { useRoute } from '@react-navigation/native';
+import { ArtistPageRouteProp, Persona } from '@types';
 import React from 'react';
-import { ArtistPageProvider, useArtistPageContext } from './Artist.context';
-import ActionButtons from './components/ActionButtons';
-import LinksBottomSheet from './components/LinksBottomSheet';
-import MoreOptionsBottomSheet from './components/MoreOptionsBottomSheet';
-import NotificationsOptionsBottomSheet from './components/NotificationsOptionsBottomSheet';
-import SubHeader from './components/SubHeader';
+import { Case, Switch } from 'react-if';
+import HostPerspective from './perspectives/host/Host';
+import UserPerspective from './perspectives/user/User';
 
 const ArtistPage = () => {
-	const {
-		moreSheetApi,
-		notificationsSheetApi,
-		linksSheetApi,
-		artistData,
-		addArtistToEventCandidatesSheetApi
-	} = useArtistPageContext();
+	const route = useRoute<ArtistPageRouteProp>();
+	const { personaType } = useUserAppContext();
 
 	return (
-		<BasePage>
-			<ParallaxPageOutline
-				title={artistData.name}
-				image={artistData.profile_image?.url || ''}
+		<Switch>
+			<Case
+				condition={
+					personaType === Persona.user || personaType === Persona.artist
+				}
 			>
-				<SubHeader />
-				<ActionButtons />
-			</ParallaxPageOutline>
-			<LinksBottomSheet sheetRef={linksSheetApi.sheetRef} />
-			<MoreOptionsBottomSheet sheetRef={moreSheetApi.sheetRef} />
-			<NotificationsOptionsBottomSheet
-				sheetRef={notificationsSheetApi.sheetRef}
-			/>
-			<AddArtistToEventCandidatesBottomSheet
-				sheetApi={addArtistToEventCandidatesSheetApi}
-				artist_id={artistData.artist_id}
-			/>
-		</BasePage>
+				<UserPerspective artistId={route.params.artistId} />
+			</Case>
+			<Case condition={personaType === Persona.host}>
+				<HostPerspective artistId={route.params.artistId} />
+			</Case>
+		</Switch>
 	);
 };
 
-export default withProvider(ArtistPage, ArtistPageProvider);
+export default ArtistPage;

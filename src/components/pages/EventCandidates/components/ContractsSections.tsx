@@ -1,26 +1,21 @@
-import { SlideInOutView } from '@atomic';
-import { contractApiSlice } from '@flux/api/contract';
+import { View } from '@atomic';
+import { FindAllContractsResponseDto } from '@flux/api/contract/dto/find-all-contracts.dto';
 import { useNavigation } from '@hooks';
 import { ContentListItemWithStatus } from '@organisms';
 import { ContentType } from '@types';
 import React from 'react';
-import { useEventCandidatesPageContext } from '../EventCandidates.context';
 
-const ContractsSection = () => {
-	const { eventId } = useEventCandidatesPageContext();
-	const {
-		data: contractsData,
-		error: contractsError,
-		isLoading: contractsIsLoading
-	} = contractApiSlice.useFindAllQuery({
-		query: { event_id: eventId, page: 1, limit: 10 }
-	});
+interface ContractsSectionProps {
+	contractsData: FindAllContractsResponseDto[];
+}
+
+const ContractsSection: React.FC<ContractsSectionProps> = ({
+	contractsData
+}) => {
 	const { editContractPage } = useNavigation();
-	if (!contractsData) {
-		return null;
-	}
+
 	return (
-		<SlideInOutView direction='right'>
+		<View>
 			{contractsData.map((contract) => (
 				<ContentListItemWithStatus
 					key={contract.contract_id}
@@ -34,7 +29,7 @@ const ContractsSection = () => {
 					statusBarVariant='filled'
 				/>
 			))}
-		</SlideInOutView>
+		</View>
 	);
 };
 

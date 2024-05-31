@@ -1,11 +1,16 @@
 import { Section } from '@atomic';
+import { UpdateContractBodyDto } from '@flux/api/contract/dto/update-contract.dto';
 import { RadioListItem } from '@organisms';
 import React from 'react';
-import { Controller } from 'react-hook-form';
-import { useEditContractPageContext } from '../EditContract.context';
+import { Controller, UseFormReturn } from 'react-hook-form';
 
-const SlotDetailsSection = () => {
-	const { formMethods } = useEditContractPageContext();
+interface SlotDetailsSectionProps {
+	formMethods: UseFormReturn<UpdateContractBodyDto>;
+}
+
+const SlotDetailsSection: React.FC<SlotDetailsSectionProps> = ({
+	formMethods
+}) => {
 	return (
 		<Section margin='m'>
 			<Controller

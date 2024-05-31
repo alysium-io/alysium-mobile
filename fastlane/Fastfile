@@ -6,53 +6,41 @@ android_metadata_path = './fastlane/metadata/android'
 version_code = get_current_build_number_from_package_json
 
 lane :test_lane do
-    # Use this lane to test your Fastfile without uploading to App Store Connect
+    # Use this lane to test your Fastfile
     # Be sure to delete whatever you're testing here before committing tho... >_>
     puts 'Test lane'
 end
 
 platform :ios do
 
-    lane :test_build do
-
-        # Configure ci environment
-        # You will run into this error if you don't set up the CI environment:
-        #   Missing password for user example@gmail.com, and running in non-interactive shell
-        # Basically this command sets up the keychain for the CI environment
-        setup_ci
+    lane :build do |options|
 
         # Make sure match is set up correctly for the testflight deployment
         match(
             type: 'appstore',
             readonly: true,
-            clone_branch_directly: true
+            clone_branch_directly: true,
+            app_identifier: options[:app_identifier]
         )
 
         # Build
         gym(
-            scheme: 'alysium-qa',
+            scheme: options[:scheme],
             export_method: 'app-store',
             workspace: './ios/alysium.xcworkspace',
             output_directory: './ios/build',
-            output_name: 'alysium-qa.ipa',
+            output_name: options[:scheme] + '.ipa',
             silent: true,
             export_xcargs: '-jobs $(sysctl -n hw.ncpu)'
         )
 
-        # Appstoreconnect API key for pilot to upload to TestFlight
-        api_key = app_store_connect_api_key(
-            key_id: ENV['APP_STORE_CONNECT_API_KEY_ID'],
-            issuer_id: ENV['APP_STORE_CONNECT_API_ISSUER_ID'],
-            key_content: Base64.decode64(ENV['APP_STORE_CONNECT_API_KEY_CONTENT'])
-        )
-
-        # Get the latest changelog
-        changelog = get_latest_changelog
-
     end
 
     # Build and ship to testflight
-    lane :qa do
+    lane :build_deploy do |options|
+        # This lane builds the app and uploads it to TestFlight
+        # @param options[:scheme] The scheme to build
+        # @param options[:app_identifier] The app identifier
 
         # Configure ci environment
         # You will run into this error if you don't set up the CI environment:
@@ -60,22 +48,8 @@ platform :ios do
         # Basically this command sets up the keychain for the CI environment
         setup_ci
 
-        # Make sure match is set up correctly for the testflight deployment
-        match(
-            type: 'appstore',
-            readonly: true,
-            clone_branch_directly: true
-        )
-
         # Build
-        gym(
-            scheme: 'alysium-qa',
-            export_method: 'app-store',
-            workspace: './ios/alysium.xcworkspace',
-            output_directory: './ios/build',
-            output_name: 'alysium-qa.ipa',
-            silent: true
-        )
+        build(options)
 
         # Appstoreconnect API key for pilot to upload to TestFlight
         api_key = app_store_connect_api_key(
@@ -92,63 +66,12 @@ platform :ios do
             skip_submission: true,
             skip_waiting_for_build_processing: true,
             username: 'aymather@gmail.com',
-            app_identifier: 'io.alysium',
+            app_identifier: options[:app_identifier],
             distribute_external: false,
             changelog: changelog,
             beta_app_feedback_email: 'aymather@gmail.com',
             beta_app_description: 'Alysium Beta: Build Live Music Business',
-            groups: ['QA']
-        )
-
-    end
-
-    # Build and ship to testflight
-    lane :demo do
-
-        # Configure ci environment
-        # You will run into this error if you don't set up the CI environment:
-        #   Missing password for user example@gmail.com, and running in non-interactive shell
-        # Basically this command sets up the keychain for the CI environment
-        setup_ci
-
-        # Make sure match is set up correctly for the testflight deployment
-        match(
-            type: 'appstore',
-            readonly: true,
-            clone_branch_directly: true
-        )
-
-        # Build
-        gym(
-            scheme: 'alysium-demo',
-            export_method: 'app-store',
-            workspace: './ios/alysium.xcworkspace',
-            output_directory: './ios/build',
-            output_name: 'alysium-demo.ipa',
-            silent: true
-        )
-
-        # Appstoreconnect API key for pilot to upload to TestFlight
-        api_key = app_store_connect_api_key(
-            key_id: ENV['APP_STORE_CONNECT_API_KEY_ID'],
-            issuer_id: ENV['APP_STORE_CONNECT_API_ISSUER_ID'],
-            key_content: Base64.decode64(ENV['APP_STORE_CONNECT_API_KEY_CONTENT'])
-        )
-
-        # Get the latest changelog
-        changelog = get_latest_changelog
-
-        # Upload to TestFlight
-        pilot(
-            skip_submission: true,
-            skip_waiting_for_build_processing: true,
-            username: 'aymather@gmail.com',
-            app_identifier: 'io.alysium',
-            distribute_external: false,
-            changelog: changelog,
-            beta_app_feedback_email: 'aymather@gmail.com',
-            beta_app_description: 'Alysium Beta: Build Live Music Business',
-            groups: ['Demo']
+            groups: []
         )
 
     end

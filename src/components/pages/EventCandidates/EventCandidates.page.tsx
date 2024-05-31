@@ -1,19 +1,53 @@
 import { HeaderSafeArea, ScrollView, View } from '@atomic';
-import { withProvider } from '@hooks';
 import { BasePage } from '@organisms';
-import React from 'react';
-import { EventCandidatesPageProvider } from './EventCandidates.context';
-import TogglerBodySection from './components/TogglerBodySection';
+import { useRoute } from '@react-navigation/native';
+import { EventCandidatesPageRouteProp } from '@types';
+import React, { useCallback } from 'react';
+import { Case, Switch } from 'react-if';
+import CandidatesSection from './components/CandidatesSection';
+import ContractsSection from './components/ContractsSections';
 import TogglerSection from './components/TogglerSection';
+import useEventCandidates from './useEventCandidates';
 
 const EventCandidatesPage = () => {
+	const route = useRoute<EventCandidatesPageRouteProp>();
+	const { toggleFilterId, setToggleFilterId, candidatesData, contractsData } =
+		useEventCandidates(route.params.eventId);
+
+	const Candidates = useCallback(
+		() =>
+			candidatesData && (
+				<CandidatesSection
+					candidatesData={candidatesData}
+					eventId={route.params.eventId}
+				/>
+			),
+		[candidatesData, route.params.eventId]
+	);
+
+	const Contracts = useCallback(
+		() => contractsData && <ContractsSection contractsData={contractsData} />,
+		[contractsData]
+	);
+
+	if (!candidatesData || !contractsData) {
+		return null;
+	}
+
 	return (
 		<BasePage>
 			<HeaderSafeArea>
 				<ScrollView alwaysBounceVertical>
 					<View marginTop='l'>
-						<TogglerSection />
-						<TogglerBodySection />
+						<TogglerSection setToggleFilterId={setToggleFilterId} />
+						<Switch>
+							<Case condition={toggleFilterId === 0}>
+								<Candidates />
+							</Case>
+							<Case condition={toggleFilterId === 1}>
+								<Contracts />
+							</Case>
+						</Switch>
 					</View>
 				</ScrollView>
 			</HeaderSafeArea>
@@ -21,4 +55,4 @@ const EventCandidatesPage = () => {
 	);
 };
 
-export default withProvider(EventCandidatesPage, EventCandidatesPageProvider);
+export default EventCandidatesPage;

@@ -1,10 +1,18 @@
+import { Sequence } from '@atomic';
+import { BottomSheetFooterProps, BottomSheetView } from '@gorhom/bottom-sheet';
 import { SheetApi } from '@hooks';
 import { BottomSheet } from '@organisms';
-import { ApiIdentifier, ChildrenProps } from '@types';
-import React from 'react';
-import { CreateContractBottomSheetProvider } from './CreateContractBottomSheet.context';
-import Body from './components/Body';
+import { ApiIdentifier } from '@types';
+import React, { useCallback } from 'react';
+import { useWindowDimensions } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import AdditionalNotes from './components/AdditionalNotes';
+import ConfirmPartiesInvolved from './components/ConfirmPartiesInvolved';
 import Footer from './components/Footer';
+import Loading from './components/Loading';
+import SelectFeatures from './components/SelectFeatures';
+import SelectSlotTime from './components/SelectSlotTime';
+import useCreateContractBottomSheet from './useCreateContractBottomSheet';
 
 interface CreateContractBottomSheetProps {
 	sheetApi: SheetApi;
@@ -13,18 +21,65 @@ interface CreateContractBottomSheetProps {
 }
 
 const CreateContractBottomSheet: React.FC<CreateContractBottomSheetProps> = ({
-	...props
+	sheetApi,
+	artistId,
+	eventId
 }) => {
+	const insets = useSafeAreaInsets();
+	const {
+		height,
+		additionalNotesTextInputApi,
+		formMethods,
+		onChangeStartTime,
+		onChangeEndTime,
+		onSubmit,
+		setHeight,
+		sequenceApi
+	} = useCreateContractBottomSheet(eventId, artistId, sheetApi);
+
+	const FooterComponent = useCallback(
+		(props: BottomSheetFooterProps) => (
+			<Footer
+				sheetApi={sheetApi}
+				sequenceApi={sequenceApi}
+				setHeight={setHeight}
+				onSubmit={onSubmit}
+				{...props}
+			/>
+		),
+		[sheetApi, sequenceApi]
+	);
+
+	const { height: screenHeight } = useWindowDimensions();
+
 	return (
 		<BottomSheet
-			sheetRef={props.sheetApi.sheetRef}
+			sheetRef={sheetApi.sheetRef}
+			footerComponent={FooterComponent}
 			enableDynamicSizing
-			footerComponent={Footer}
-			containerComponent={(containerProps: ChildrenProps) => (
-				<CreateContractBottomSheetProvider {...props} {...containerProps} />
-			)}
 		>
-			<Body />
+			<BottomSheetView
+				style={{
+					paddingBottom: insets.bottom + height,
+					height: (screenHeight / 3) * 2,
+					justifyContent: 'center'
+				}}
+			>
+				<Sequence sequenceIndex={sequenceApi.sequenceIndex}>
+					<ConfirmPartiesInvolved />
+					<SelectSlotTime
+						formMethods={formMethods}
+						onChangeStartTime={onChangeStartTime}
+						onChangeEndTime={onChangeEndTime}
+					/>
+					<SelectFeatures formMethods={formMethods} />
+					<AdditionalNotes
+						additionalNotesTextInputApi={additionalNotesTextInputApi}
+						formMethods={formMethods}
+					/>
+					<Loading />
+				</Sequence>
+			</BottomSheetView>
 		</BottomSheet>
 	);
 };

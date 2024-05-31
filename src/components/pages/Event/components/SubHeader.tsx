@@ -1,11 +1,13 @@
 import { Section, Text, View } from '@atomic';
+import { FindOneEventResponseDto } from '@flux/api/event/dto/event-find-one.dto';
 import day from 'dayjs';
 import React from 'react';
-import { useEventPageContext } from '../Event.context';
 
-const SubHeader = () => {
-	const { eventData } = useEventPageContext();
+interface SubHeaderProps {
+	eventData: FindOneEventResponseDto;
+}
 
+const SubHeader: React.FC<SubHeaderProps> = ({ eventData }) => {
 	return (
 		<Section
 			margin='m'

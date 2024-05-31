@@ -1,10 +1,12 @@
+import { FindOneArtistResponseDto } from '@flux/api/artist/dto/artist-find-one.dto';
 import { ImageGallery } from '@organisms';
 import React from 'react';
-import { useArtistPageContext } from '../Artist.context';
 
-const Gallery = () => {
-	const { artistData } = useArtistPageContext();
+interface GalleryProps {
+	artistData: FindOneArtistResponseDto;
+}
 
+const Gallery: React.FC<GalleryProps> = ({ artistData }) => {
 	return (
 		<ImageGallery images={artistData.gallery.map((i) => i.media?.url || '')} />
 	);

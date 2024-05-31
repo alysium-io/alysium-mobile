@@ -1,10 +1,14 @@
+import { SequenceApi } from '@atomic';
 import React from 'react';
-import { useCreateContractBottomSheetContext } from '../CreateContractBottomSheet.context';
 import FooterButtons from './FooterButtons';
 
-const SelectFeaturesFooter = () => {
-	const { sequenceApi } = useCreateContractBottomSheetContext();
+interface SelectFeaturesFooterProps {
+	sequenceApi: SequenceApi;
+}
 
+const SelectFeaturesFooter: React.FC<SelectFeaturesFooterProps> = ({
+	sequenceApi
+}) => {
 	return (
 		<FooterButtons
 			buttons={[

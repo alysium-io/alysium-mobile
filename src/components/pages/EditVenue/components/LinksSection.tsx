@@ -1,13 +1,15 @@
 import { Section } from '@atomic';
+import { SheetApi } from '@hooks';
 import { SectionHeader } from '@molecules';
 import { MenuListItem } from '@organisms';
 import React from 'react';
-import { useEditVenuePageContext } from '../EditVenue.context';
 import CreateLinkBottomSheet from './CreateLinkBottomSheet';
 
-const LinksSection = () => {
-	const { createLinkSheetApi } = useEditVenuePageContext();
+interface LinksSectionProps {
+	createLinkSheetApi: SheetApi;
+}
 
+const LinksSection: React.FC<LinksSectionProps> = ({ createLinkSheetApi }) => {
 	return (
 		<>
 			<Section>

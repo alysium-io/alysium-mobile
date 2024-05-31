@@ -9,7 +9,7 @@ import settings from './settings';
 
 interface ParallaxPageOutlineProps {
 	children?: React.ReactNode;
-	image: string;
+	image?: string;
 	title: string;
 	textAlignment?: 'left' | 'center';
 }

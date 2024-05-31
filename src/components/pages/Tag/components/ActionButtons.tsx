@@ -3,7 +3,7 @@ import { ToggleButton } from '@molecules';
 import React, { useState } from 'react';
 
 const ActionButtons = () => {
-	const [state, setState] = useState(true);
+	const [state, setState] = useState(false);
 
 	return (
 		<View margin='m'>

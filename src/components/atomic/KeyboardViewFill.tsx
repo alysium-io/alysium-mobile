@@ -1,10 +1,18 @@
 import { View } from '@atomic';
-import { useKeyboard } from '@hooks';
 import React from 'react';
+import { useAnimatedKeyboard, useAnimatedStyle } from 'react-native-reanimated';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const KeyboardViewFill = () => {
-	const { height } = useKeyboard();
-	return <View style={{ height }} />;
+	const keyboard = useAnimatedKeyboard();
+	const { bottom } = useSafeAreaInsets();
+	const animatedContainerStyle = useAnimatedStyle(() => {
+		return {
+			height: keyboard.height.value + bottom
+		};
+	}, [bottom]);
+
+	return <View animated style={animatedContainerStyle} />;
 };
 
 export default KeyboardViewFill;

@@ -1,13 +1,18 @@
 import { View } from '@atomic';
-import { useSheet } from '@hooks';
+import { SheetApi } from '@hooks';
 import { Button } from '@molecules';
 import { CreateArtistBottomSheet, CreateHostBottomSheet } from '@templates';
 import React from 'react';
 
-const CreateProfileActionFooter = () => {
-	const createHostSheetApi = useSheet();
-	const createArtistSheetApi = useSheet();
+interface CreateProfileActionFooterProps {
+	createHostSheetApi: SheetApi;
+	createArtistSheetApi: SheetApi;
+}
 
+const CreateProfileActionFooter: React.FC<CreateProfileActionFooterProps> = ({
+	createHostSheetApi,
+	createArtistSheetApi
+}) => {
 	return (
 		<>
 			<View flexDirection='row'>

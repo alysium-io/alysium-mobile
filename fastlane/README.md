@@ -26,18 +26,18 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 ## iOS
 
-### ios test_build
+### ios build
 
 ```sh
-[bundle exec] fastlane ios test_build
+[bundle exec] fastlane ios build
 ```
 
 
 
-### ios internal_beta
+### ios build_deploy
 
 ```sh
-[bundle exec] fastlane ios internal_beta
+[bundle exec] fastlane ios build_deploy
 ```
 
 
@@ -55,10 +55,18 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 
 
-### android internal_beta
+### android qa
 
 ```sh
-[bundle exec] fastlane android internal_beta
+[bundle exec] fastlane android qa
+```
+
+
+
+### android demo
+
+```sh
+[bundle exec] fastlane android demo
 ```
 
 

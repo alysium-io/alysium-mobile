@@ -1,22 +1,28 @@
 import { Section } from '@atomic';
 import { Formatting } from '@etc';
-import { useTextInput } from '@hooks';
+import { UpdateVenueBodyDto } from '@flux/api/venue/dto/venue-update.dto';
+import { TextInputApi } from '@hooks';
 import {
 	EditableNumericInputWithLabel,
 	EditableTextInputWithLabel,
 	SectionHeader
 } from '@molecules';
 import React from 'react';
-import { Controller } from 'react-hook-form';
-import { useEditVenuePageContext } from '../EditVenue.context';
+import { Controller, UseFormReturn } from 'react-hook-form';
 
-const BasicInfoSection = () => {
-	const { formMethods } = useEditVenuePageContext();
+interface BasicInfoSectionProps {
+	formMethods: UseFormReturn<UpdateVenueBodyDto>;
+	streetAddressTextInputApi: TextInputApi;
+	phoneNumberTextInputApi: TextInputApi;
+	capacityTextInputApi: TextInputApi;
+}
 
-	const textInput1 = useTextInput();
-	const textInput2 = useTextInput();
-	const textInput3 = useTextInput();
-
+const BasicInfoSection: React.FC<BasicInfoSectionProps> = ({
+	formMethods,
+	streetAddressTextInputApi,
+	phoneNumberTextInputApi,
+	capacityTextInputApi
+}) => {
 	return (
 		<Section marginTop='xl' marginHorizontal='m'>
 			<SectionHeader text='Basic Info' />
@@ -30,7 +36,7 @@ const BasicInfoSection = () => {
 						onChangeText={onChange}
 						onBlur={onBlur}
 						value={value}
-						textInputApi={textInput1}
+						textInputApi={streetAddressTextInputApi}
 					/>
 				)}
 			/>
@@ -40,7 +46,7 @@ const BasicInfoSection = () => {
 				render={({ field: { onChange, onBlur, value } }) => (
 					<EditableNumericInputWithLabel
 						label='phone #'
-						textInputApi={textInput2}
+						textInputApi={phoneNumberTextInputApi}
 						placeholder='(123) 456-7891'
 						keyboardType='phone-pad'
 						onBlur={onBlur}
@@ -58,7 +64,7 @@ const BasicInfoSection = () => {
 				render={({ field: { onChange, onBlur, value } }) => (
 					<EditableNumericInputWithLabel
 						label='capacity'
-						textInputApi={textInput3}
+						textInputApi={capacityTextInputApi}
 						placeholder='Max # of people'
 						keyboardType='numeric'
 						onBlur={onBlur}

@@ -2,11 +2,19 @@ import { Icon, Text, Touchable, View } from '@atomic';
 import { useTheme } from '@hooks';
 import React from 'react';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { useArtistPageContext } from '../Artist.context';
 
-const MainButtons: React.FC = () => {
+interface MainButtonsProps {
+	onPressFollowers: () => void;
+	onPressShows: () => void;
+	openLinks: () => void;
+}
+
+const MainButtons: React.FC<MainButtonsProps> = ({
+	onPressFollowers,
+	onPressShows,
+	openLinks
+}) => {
 	const { theme } = useTheme();
-	const { onPressFollowers, onPressShows, openLinks } = useArtistPageContext();
 
 	return (
 		<View marginBottom='m'>

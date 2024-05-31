@@ -1,4 +1,5 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
+import { eventApiSlice } from '../event';
 import baseQueryConfig from '../utils/baseQueryConfig';
 import {
 	CreateContractBodyDto,
@@ -6,10 +7,17 @@ import {
 } from './dto/create-contract.dto';
 import { DeleteContractResponseDto } from './dto/delete-contract.dto';
 import {
-	FindAllContractsQueryDto,
-	FindAllContractsResponseDto
-} from './dto/find-all-contracts.dto';
-import { FindOneContractParamsDto } from './dto/find-one-contract.dto';
+	FindAllArtistContractsQueryDto,
+	FindAllArtistContractsResponseDto
+} from './dto/find-all-artist-contracts.dto';
+import {
+	FindAllHostContractsQueryDto,
+	FindAllHostContractsResponseDto
+} from './dto/find-all-host-contracts.dto';
+import {
+	FindOneContractParamsDto,
+	FindOneContractResponseDto
+} from './dto/find-one-contract.dto';
 import {
 	UpdateContractBodyDto,
 	UpdateContractParamsDto,
@@ -18,15 +26,15 @@ import {
 
 const apiSlice = createApi({
 	baseQuery: baseQueryConfig({ basePath: '/contract' }),
-	reducerPath: 'eventArtistContractsApi',
-	tagTypes: ['Contract'],
+	reducerPath: 'contractApi',
+	tagTypes: ['HostContract', 'ArtistContract'],
 	endpoints: (builder) => ({
-		findAll: builder.query<
-			FindAllContractsResponseDto[],
-			{ query: FindAllContractsQueryDto }
+		findAllHostContracts: builder.query<
+			FindAllHostContractsResponseDto[],
+			{ query: FindAllHostContractsQueryDto }
 		>({
 			query: ({ query }) => ({
-				url: '/',
+				url: '/host',
 				method: 'GET',
 				params: query
 			}),
@@ -34,23 +42,43 @@ const apiSlice = createApi({
 				results
 					? [
 							...results.map(({ contract_id }) => ({
-								type: 'Contract' as const,
+								type: 'HostContract' as const,
 								id: contract_id
 							})),
-							{ type: 'Contract', id: 'LIST' }
+							{ type: 'HostContract', id: 'LIST' }
 						]
-					: [{ type: 'Contract', id: 'LIST' }]
+					: [{ type: 'HostContract', id: 'LIST' }]
+		}),
+		findAllArtistContracts: builder.query<
+			FindAllArtistContractsResponseDto[],
+			{ query: FindAllArtistContractsQueryDto }
+		>({
+			query: ({ query }) => ({
+				url: '/artist',
+				method: 'GET',
+				params: query
+			}),
+			providesTags: (results) =>
+				results
+					? [
+							...results.map(({ contract_id }) => ({
+								type: 'ArtistContract' as const,
+								id: contract_id
+							})),
+							{ type: 'ArtistContract', id: 'LIST' }
+						]
+					: [{ type: 'ArtistContract', id: 'LIST' }]
 		}),
 		findOne: builder.query<
-			FindAllContractsResponseDto,
+			FindOneContractResponseDto,
 			{ params: FindOneContractParamsDto }
 		>({
 			query: ({ params }) => ({
-				url: `/${params.contract_id}`,
+				url: `/host/${params.contract_id}`,
 				method: 'GET'
 			}),
 			providesTags: (result, error, { params }) => [
-				{ type: 'Contract', id: params.contract_id }
+				{ type: 'HostContract', id: params.contract_id }
 			]
 		}),
 		create: builder.mutation<
@@ -58,11 +86,19 @@ const apiSlice = createApi({
 			{ body: CreateContractBodyDto }
 		>({
 			query: ({ body }) => ({
-				url: '/',
+				url: '/host',
 				method: 'POST',
 				body
 			}),
-			invalidatesTags: [{ type: 'Contract', id: 'LIST' }]
+			invalidatesTags: [{ type: 'HostContract', id: 'LIST' }],
+			onQueryStarted: async ({ body }, { dispatch, queryFulfilled }) => {
+				await queryFulfilled;
+				dispatch(
+					eventApiSlice.util.invalidateTags([
+						{ type: 'Event', id: body.event_id }
+					])
+				);
+			}
 		}),
 		update: builder.mutation<
 			UpdateContractResponseDto,
@@ -72,23 +108,23 @@ const apiSlice = createApi({
 			}
 		>({
 			query: ({ params, body }) => ({
-				url: `/${params.contract_id}`,
+				url: `/host/${params.contract_id}`,
 				method: 'PUT',
 				body
 			}),
 			invalidatesTags: (result) =>
-				result ? [{ type: 'Contract', id: result.contract_id }] : []
+				result ? [{ type: 'HostContract', id: result.contract_id }] : []
 		}),
 		delete: builder.mutation<
 			DeleteContractResponseDto,
 			{ params: UpdateContractParamsDto }
 		>({
 			query: ({ params }) => ({
-				url: `/${params.contract_id}`,
+				url: `/host/${params.contract_id}`,
 				method: 'DELETE'
 			}),
 			invalidatesTags: (result, error, { params }) => [
-				{ type: 'Contract', id: params.contract_id }
+				{ type: 'HostContract', id: params.contract_id }
 			]
 		})
 	})

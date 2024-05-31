@@ -1,13 +1,22 @@
 import { Text, View } from '@atomic';
+import { FindOneVenueResponseDto } from '@flux/api/venue/dto/venue-find-one.dto';
+import { UpdateVenueBodyDto } from '@flux/api/venue/dto/venue-update.dto';
 import { EditableProfileImage, LargeTextInput } from '@molecules';
 import React from 'react';
-import { Controller } from 'react-hook-form';
-import { useEditVenuePageContext } from '../EditVenue.context';
+import { Controller, UseFormReturn } from 'react-hook-form';
+import { Asset } from 'react-native-image-picker';
 
-const HeaderSection = () => {
-	const { formMethods, venueData, setVenueProfileImage } =
-		useEditVenuePageContext();
+interface HeaderSectionProps {
+	formMethods: UseFormReturn<UpdateVenueBodyDto>;
+	venueData: FindOneVenueResponseDto;
+	setVenueProfileImage: (image: Asset) => void;
+}
 
+const HeaderSection: React.FC<HeaderSectionProps> = ({
+	formMethods,
+	venueData,
+	setVenueProfileImage
+}) => {
 	return (
 		<View marginTop='l' marginHorizontal='m' alignItems='center'>
 			<EditableProfileImage
