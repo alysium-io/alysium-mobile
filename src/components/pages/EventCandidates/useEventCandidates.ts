@@ -1,7 +1,7 @@
 import { candidateApiSlice } from '@flux/api/candidate';
 import { FindAllEventCandidatesResponseDto } from '@flux/api/candidate/dto/find-all-event-candidates.dto';
 import { contractApiSlice } from '@flux/api/contract';
-import { FindAllContractsResponseDto } from '@flux/api/contract/dto/find-all-contracts.dto';
+import { FindAllHostContractsResponseDto } from '@flux/api/contract/dto/find-all-host-contracts.dto';
 import { useSheet } from '@hooks';
 import { ApiIdentifier } from '@types';
 import { useState } from 'react';
@@ -10,7 +10,7 @@ interface IuseEventCandidates {
 	candidatesData?: FindAllEventCandidatesResponseDto[];
 	candidatesError: any;
 	candidatesIsLoading: boolean;
-	contractsData?: FindAllContractsResponseDto[];
+	contractsData?: FindAllHostContractsResponseDto[];
 	contractsError: any;
 	contractsIsLoading: boolean;
 	toggleFilterId: number;
@@ -34,7 +34,7 @@ const useEventCandidates = (eventId: ApiIdentifier): IuseEventCandidates => {
 		data: contractsData,
 		error: contractsError,
 		isLoading: contractsIsLoading
-	} = contractApiSlice.useFindAllQuery({
+	} = contractApiSlice.useFindAllHostContractsQuery({
 		query: { event_id: eventId, page: 1, limit: 10 }
 	});
 

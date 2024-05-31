@@ -1,4 +1,4 @@
-import { SlideInOutView } from '@atomic';
+import { View } from '@atomic';
 import { FindAllContractsResponseDto } from '@flux/api/contract/dto/find-all-contracts.dto';
 import { useNavigation } from '@hooks';
 import { ContentListItemWithStatus } from '@organisms';
@@ -15,7 +15,7 @@ const ContractsSection: React.FC<ContractsSectionProps> = ({
 	const { editContractPage } = useNavigation();
 
 	return (
-		<SlideInOutView direction='right'>
+		<View>
 			{contractsData.map((contract) => (
 				<ContentListItemWithStatus
 					key={contract.contract_id}
@@ -29,7 +29,7 @@ const ContractsSection: React.FC<ContractsSectionProps> = ({
 					statusBarVariant='filled'
 				/>
 			))}
-		</SlideInOutView>
+		</View>
 	);
 };
 

@@ -36,13 +36,12 @@ const PhoneNumberTextInput: React.FC<PhoneNumberTextInputProps> = ({
 	color,
 	...props
 }) => {
+	const { theme } = useTheme();
+	const borderColor = useSharedValue<string>(theme.colors.ion_dark);
+
 	useEffect(() => {
 		borderColor.value = withTiming(color || theme.colors.ion_dark);
 	}, [color]);
-
-	const { theme } = useTheme();
-
-	const borderColor = useSharedValue<string>(theme.colors.ion_dark);
 
 	const animatedContainerStyle = useAnimatedStyle(() => {
 		return {

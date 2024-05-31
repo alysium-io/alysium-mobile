@@ -1,3 +1,4 @@
+import { KeyboardViewFill } from '@atomic';
 import { BasePage } from '@organisms';
 import React from 'react';
 import { LayoutAnimationConfig } from 'react-native-reanimated';
@@ -10,6 +11,7 @@ const LoggedOut = () => {
 			<LayoutAnimationConfig skipEntering>
 				<Body />
 				<Footer />
+				<KeyboardViewFill />
 			</LayoutAnimationConfig>
 		</BasePage>
 	);

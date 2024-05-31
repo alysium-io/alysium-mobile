@@ -1,4 +1,6 @@
 import {
+	ArtistViewContractPage,
+	ArtistViewContractPageHeader,
 	ContractManagerPage,
 	ContractManagerPageHeader,
 	EditContractPage,
@@ -27,6 +29,12 @@ const ContractManagerTab = () => {
 				name='EditContractPage'
 				component={EditContractPage}
 				options={{ header: EditContractPageHeader }}
+			/>
+
+			<ContractManagerStack.Screen
+				name='ArtistViewContractPage'
+				component={ArtistViewContractPage}
+				options={{ header: ArtistViewContractPageHeader }}
 			/>
 		</ContractManagerStack.Navigator>
 	);

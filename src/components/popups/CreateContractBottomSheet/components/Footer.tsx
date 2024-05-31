@@ -1,9 +1,10 @@
-import { ConditionalRenderer, View } from '@atomic';
+import { SequenceApi, View } from '@atomic';
 import { BottomSheetFooterProps } from '@gorhom/bottom-sheet';
-import { SequenceApi, SheetApi } from '@hooks';
+import { SheetApi } from '@hooks';
 import { BottomSheetFooter } from '@organisms';
 import { IChildrenProps, OnSubmitHandler } from '@types';
 import React, { useCallback } from 'react';
+import { Case, Switch } from 'react-if';
 import AdditionalNotesFooter from './AdditionalNotesFooter';
 import ConfirmPartiesInvolvedFooter from './ConfirmPartiesInvolvedFooter';
 import SelectFeaturesFooter from './SelectFeaturesFooter';
@@ -65,22 +66,18 @@ const Footer: React.FC<FooterProps> = ({
 	const Foot = useCallback(
 		(props: BottomSheetFooterProps) => (
 			<BottomSheetFooter {...props}>
-				<ConditionalRenderer
-					componentKey={sequenceApi.state}
-					componentMap={Object.fromEntries(
-						feet.map((FooterComponent, index) => [
-							index,
-							() => (
-								<SequenceFooterWrapper setHeight={setHeight} key={index}>
-									<FooterComponent />
-								</SequenceFooterWrapper>
-							)
-						])
-					)}
-				/>
+				<Switch>
+					{feet.map((FooterComponent, index) => (
+						<Case key={index} condition={sequenceApi.sequenceIndex === index}>
+							<SequenceFooterWrapper setHeight={setHeight} key={index}>
+								<FooterComponent />
+							</SequenceFooterWrapper>
+						</Case>
+					))}
+				</Switch>
 			</BottomSheetFooter>
 		),
-		[sequenceApi.state, setHeight]
+		[sequenceApi.sequenceIndex, setHeight]
 	);
 
 	return <Foot {...props} />;

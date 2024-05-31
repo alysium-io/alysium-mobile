@@ -10,7 +10,7 @@ const ButtonText: React.FC<ButtonTextProps> = ({ text, color }) => {
 	return (
 		<Text
 			animated
-			variant='paragraph-medium'
+			variant='paragraph-small-bold'
 			style={{ letterSpacing: 0.5 }}
 			color={color}
 		>

@@ -1,14 +1,22 @@
-import { useContext } from 'react';
-import { BasePageContext, BasePageContextType } from './context';
+import { useState } from 'react';
 
-const useBasePage = (): BasePageContextType => {
-	const context = useContext(BasePageContext);
+interface BasePageApi {
+	isFooterActive: boolean;
+	setIsFooterActive: (value: boolean) => void;
+	footerHeight: number;
+	setFooterHeight: (value: number) => void;
+}
 
-	if (!context) {
-		throw new Error('useBasePage must be used within a BasePageProvider');
-	}
+const useBasePage = (): BasePageApi => {
+	const [isFooterActive, setIsFooterActive] = useState(false);
+	const [footerHeight, setFooterHeight] = useState(0);
 
-	return context;
+	return {
+		isFooterActive,
+		setIsFooterActive,
+		footerHeight,
+		setFooterHeight
+	};
 };
 
 export default useBasePage;

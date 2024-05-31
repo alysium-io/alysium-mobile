@@ -3,19 +3,25 @@ import { useTheme } from '@hooks';
 import React from 'react';
 import Footer from './Footer';
 import NavbarSeparator from './NavbarSeparator';
-import useBasePage from './useBasePage';
 
 interface BasePageContentProps {
 	children?: React.ReactNode;
 	FooterComponent?: React.FC;
+	footerHeight: number;
+	setFooterHeight: (footerHeight: number) => void;
+	isFooterActive: boolean;
+	setIsFooterActive: (isFooterActive: boolean) => void;
 }
 
 const BasePageContent: React.FC<BasePageContentProps> = ({
 	children,
-	FooterComponent
+	FooterComponent,
+	footerHeight,
+	setFooterHeight,
+	isFooterActive,
+	setIsFooterActive
 }) => {
 	const { theme } = useTheme();
-	const { footerHeight, setFooterHeight } = useBasePage();
 
 	return (
 		<View
@@ -28,6 +34,7 @@ const BasePageContent: React.FC<BasePageContentProps> = ({
 		>
 			{FooterComponent && (
 				<Footer
+					setIsFooterActive={setIsFooterActive}
 					containerProps={{
 						onLayout: (e) => setFooterHeight(e.nativeEvent.layout.height)
 					}}
@@ -37,7 +44,7 @@ const BasePageContent: React.FC<BasePageContentProps> = ({
 			)}
 			<StatusBar />
 			{children}
-			<NavbarSeparator />
+			<NavbarSeparator isFooterActive={isFooterActive} />
 		</View>
 	);
 };

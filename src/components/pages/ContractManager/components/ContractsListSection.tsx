@@ -1,20 +1,27 @@
 import { Section } from '@atomic';
-import { global } from '@etc';
+import { FindAllArtistContractsResponseDto } from '@flux/api/contract/dto/find-all-artist-contracts.dto';
+import { useNavigation } from '@hooks';
 import { ContentListItem } from '@organisms';
 import { ContentType } from '@types';
 import React from 'react';
 
-const ContractsListSection = () => {
+interface ContractsListSectionProps {
+	contractsData?: FindAllArtistContractsResponseDto[];
+}
+
+const ContractsListSection: React.FC<ContractsListSectionProps> = ({
+	contractsData
+}) => {
+	const { artistViewContract } = useNavigation();
 	return (
 		<Section>
-			{global.sampleData.sampleEvents.map((event) => (
+			{contractsData?.map((contract) => (
 				<ContentListItem
-					key={event.id}
-					title={event.name}
-					subtitle={event.status}
-					onPress={() => console.log('Event pressed')}
+					key={contract.contract_id}
+					title={contract.event.name}
+					subtitle={contract.status}
+					onPress={() => artistViewContract(contract.contract_id)}
 					contentType={ContentType.event}
-					image={event.image}
 					borderRadius='sharp'
 					border
 				/>

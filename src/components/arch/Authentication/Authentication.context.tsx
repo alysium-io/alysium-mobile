@@ -29,6 +29,7 @@ export type AuthenticationAppContextType = {
 	loginPhoneNumber: () => void;
 	setPhoneNumber: (phone_number: string) => void;
 	setCode: (passcode: string) => void;
+	resetState: () => void;
 };
 
 export const AuthenticationAppContext = createContext(
@@ -63,14 +64,6 @@ export const AuthenticationAppProvider: React.FC<ProviderProps> = ({
 		setState({
 			...state,
 			passcode
-		});
-	};
-
-	const goToContinuePhone = () => {
-		setState({
-			...state,
-			phone_number: '',
-			screen: 'continue-phone'
 		});
 	};
 
@@ -196,7 +189,8 @@ export const AuthenticationAppProvider: React.FC<ProviderProps> = ({
 				continuePhoneNumber,
 				loginPhoneNumber,
 				setPhoneNumber,
-				setCode
+				setCode,
+				resetState
 			}}
 		>
 			{children}

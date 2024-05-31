@@ -2,20 +2,33 @@ import { HeaderSafeArea, ScrollView, View } from '@atomic';
 import { BasePage } from '@organisms';
 import { useRoute } from '@react-navigation/native';
 import { EventCandidatesPageRouteProp } from '@types';
-import React from 'react';
-import TogglerBodySection from './components/TogglerBodySection';
+import React, { useCallback } from 'react';
+import { Case, Switch } from 'react-if';
+import CandidatesSection from './components/CandidatesSection';
+import ContractsSection from './components/ContractsSections';
 import TogglerSection from './components/TogglerSection';
 import useEventCandidates from './useEventCandidates';
 
 const EventCandidatesPage = () => {
 	const route = useRoute<EventCandidatesPageRouteProp>();
-	const {
-		toggleFilterId,
-		setToggleFilterId,
-		candidatesData,
-		contractsData,
-		createContractSheetApi
-	} = useEventCandidates(route.params.eventId);
+	const { toggleFilterId, setToggleFilterId, candidatesData, contractsData } =
+		useEventCandidates(route.params.eventId);
+
+	const Candidates = useCallback(
+		() =>
+			candidatesData && (
+				<CandidatesSection
+					candidatesData={candidatesData}
+					eventId={route.params.eventId}
+				/>
+			),
+		[candidatesData, route.params.eventId]
+	);
+
+	const Contracts = useCallback(
+		() => contractsData && <ContractsSection contractsData={contractsData} />,
+		[contractsData]
+	);
 
 	if (!candidatesData || !contractsData) {
 		return null;
@@ -27,13 +40,14 @@ const EventCandidatesPage = () => {
 				<ScrollView alwaysBounceVertical>
 					<View marginTop='l'>
 						<TogglerSection setToggleFilterId={setToggleFilterId} />
-						<TogglerBodySection
-							toggleFilterId={toggleFilterId}
-							candidatesData={candidatesData}
-							createContractSheetApi={createContractSheetApi}
-							eventId={route.params.eventId}
-							contractsData={contractsData}
-						/>
+						<Switch>
+							<Case condition={toggleFilterId === 0}>
+								<Candidates />
+							</Case>
+							<Case condition={toggleFilterId === 1}>
+								<Contracts />
+							</Case>
+						</Switch>
 					</View>
 				</ScrollView>
 			</HeaderSafeArea>

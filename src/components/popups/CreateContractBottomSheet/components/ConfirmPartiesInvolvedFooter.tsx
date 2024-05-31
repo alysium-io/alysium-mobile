@@ -1,4 +1,5 @@
-import { SequenceApi, SheetApi } from '@hooks';
+import { SequenceApi } from '@atomic';
+import { SheetApi } from '@hooks';
 import React from 'react';
 import FooterButtons from './FooterButtons';
 

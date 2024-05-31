@@ -16,7 +16,6 @@ export { default as useAnimatedState } from './useAnimatedState';
 export { default as useAnimatedValue } from './useAnimatedValue';
 export { default as useButton } from './useButton';
 export { default as useScrollView } from './useScrollView';
-export { default as useSequence, type SequenceApi } from './useSequence';
 export { default as useSet } from './useSet';
 export { default as useSheet, type SheetApi, type SheetRef } from './useSheet';
 export { default as useTextInput, type TextInputApi } from './useTextInput';
@@ -27,5 +26,4 @@ export { default as withProvider } from './withProvider';
 export { default as useNavigation } from './useNavigation';
 
 // APIs
-export { default as useKeyboard } from './useKeyboard';
 export { default as usePhotosAndCamera } from './usePhotosAndCamera';

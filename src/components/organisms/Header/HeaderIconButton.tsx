@@ -14,7 +14,7 @@ interface HeaderIconButtonProps {
 const HeaderIconButton: React.FC<HeaderIconButtonProps> = ({
 	onPress,
 	icon,
-	color = 'matt'
+	color = 't2'
 }) => {
 	const { mode } = useTheme();
 

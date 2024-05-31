@@ -1,6 +1,6 @@
 import React from 'react';
 import BasePageContent from './BasePageContent';
-import { BasePageProvider } from './context';
+import useBasePage from './useBasePage';
 
 interface BasePageProps {
 	children?: React.ReactNode;
@@ -8,12 +8,19 @@ interface BasePageProps {
 }
 
 const BasePage: React.FC<BasePageProps> = ({ children, FooterComponent }) => {
+	const { footerHeight, setFooterHeight, isFooterActive, setIsFooterActive } =
+		useBasePage();
+
 	return (
-		<BasePageProvider>
-			<BasePageContent FooterComponent={FooterComponent}>
-				{children}
-			</BasePageContent>
-		</BasePageProvider>
+		<BasePageContent
+			footerHeight={footerHeight}
+			setFooterHeight={setFooterHeight}
+			isFooterActive={isFooterActive}
+			setIsFooterActive={setIsFooterActive}
+			FooterComponent={FooterComponent}
+		>
+			{children}
+		</BasePageContent>
 	);
 };
 

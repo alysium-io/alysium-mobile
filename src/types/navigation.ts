@@ -50,6 +50,8 @@ type ContractManagerPage = undefined;
 
 type EventCandidatesPage = { eventId: ApiIdentifier };
 
+type ArtistViewContractPage = { contractId: ApiIdentifier };
+
 /**
  * Stack Navigators
  *
@@ -117,6 +119,7 @@ export type ContractManagerStackNavigatorParamList = {
 	ContractManagerPage: ContractManagerPage;
 	EditContractPage: EditContractPage;
 	EditVenuePage: EditVenuePage;
+	ArtistViewContractPage: ArtistViewContractPage;
 };
 
 /**
@@ -160,6 +163,8 @@ export type ProfileScreenNavigationProp =
 	ComposeTabNavigationProp<ProfileStackNavigatorParamList>;
 export type EventManagerScreenNavigationProp =
 	ComposeTabNavigationProp<EventManagerStackNavigatorParamList>;
+export type ContractManagerScreenNavigationProp =
+	ComposeTabNavigationProp<ContractManagerStackNavigatorParamList>;
 export type ExperimentScreenNavigationProp =
 	ComposeTabNavigationProp<ExperimentStackNavigatorParamList>;
 export type ComponentsScreenNavigationProp =
@@ -172,11 +177,13 @@ export type CompositeScreenNavigationProp = SearchScreenNavigationProp &
 	EventManagerScreenNavigationProp &
 	ExperimentScreenNavigationProp &
 	PagesScreenNavigationProp &
-	ComponentsScreenNavigationProp;
+	ComponentsScreenNavigationProp &
+	ContractManagerScreenNavigationProp;
 
 export type CompositeStackNavigatorParamList = SearchStackNavigatorParamList &
 	ProfileStackNavigatorParamList &
 	EventManagerStackNavigatorParamList &
+	ContractManagerStackNavigatorParamList &
 	ExperimentStackNavigatorParamList &
 	PagesStackNavigatorParamList &
 	ComponentsStackNavigatorParamList;
@@ -245,4 +252,12 @@ export type EventPageRouteProp = RouteProp<
 export type EditContractPageRouteProp = RouteProp<
 	CompositeStackNavigatorParamList,
 	'EditContractPage'
+>;
+
+/**
+ * Contract Manager Route Props
+ */
+export type ArtistViewContractPageRouteProp = RouteProp<
+	CompositeStackNavigatorParamList,
+	'ArtistViewContractPage'
 >;

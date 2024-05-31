@@ -1,4 +1,5 @@
 export * from './Artist';
+export * from './ArtistViewContract';
 export * from './ContractManager';
 export * from './EditContract';
 export * from './EditEvent';

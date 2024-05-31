@@ -8,6 +8,7 @@ import ContentAnimationWrapper from './ContentAnimationWrapper';
 const ContinueWithPhoneBody = () => {
 	const textInputApi = useTextInput();
 	const { setPhoneNumber, state } = useAuthenticationAppContext();
+
 	return (
 		<ContentAnimationWrapper>
 			<PhoneNumberTextInput

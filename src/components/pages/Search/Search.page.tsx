@@ -1,8 +1,10 @@
-import { ConditionalRenderer, HeaderSafeArea, ScrollView, View } from '@atomic';
+import { HeaderSafeArea, ScrollView, View } from '@atomic';
 import { BasePage, SearchBar } from '@organisms';
 import React from 'react';
+import { Case, Switch } from 'react-if';
 import { LayoutAnimationConfig } from 'react-native-reanimated';
-import { SearchActivePage, SearchInactivePage } from './components';
+import SearchActivePage from './components/SearchActivePage';
+import SearchInactivePage from './components/SearchInactivePage';
 import useSearchPage from './useSearchPage';
 
 const SearchPage = () => {
@@ -34,22 +36,20 @@ const SearchPage = () => {
 						/>
 					</View>
 					<LayoutAnimationConfig skipEntering>
-						<ConditionalRenderer
-							componentKey={isSearchActive ? 1 : 0}
-							componentMap={{
-								[1]: () => (
-									<SearchActivePage
-										key='active'
-										searchText={searchText}
-										isLoading={isLoading}
-										recentSearches={recentSearches}
-										searchResults={searchResults}
-										onPressSearchResult={onPressSearchResult}
-									/>
-								),
-								[0]: () => <SearchInactivePage key='inactive' />
-							}}
-						/>
+						<Switch>
+							<Case condition={isSearchActive}>
+								<SearchActivePage
+									searchText={searchText}
+									isLoading={isLoading}
+									recentSearches={recentSearches}
+									searchResults={searchResults}
+									onPressSearchResult={onPressSearchResult}
+								/>
+							</Case>
+							<Case condition={!isSearchActive}>
+								<SearchInactivePage />
+							</Case>
+						</Switch>
 					</LayoutAnimationConfig>
 				</ScrollView>
 			</HeaderSafeArea>
