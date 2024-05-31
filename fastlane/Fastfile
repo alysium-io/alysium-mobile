@@ -18,7 +18,7 @@ platform :ios do
         # Make sure match is set up correctly for the testflight deployment
         match(
             type: 'appstore',
-            readonly: false,
+            readonly: true,
             clone_branch_directly: true,
             app_identifier: options[:app_identifier]
         )
