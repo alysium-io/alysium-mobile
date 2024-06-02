@@ -12,7 +12,7 @@ const ContinueWithPhoneBody = () => {
 	return (
 		<ContentAnimationWrapper>
 			<PhoneNumberTextInput
-				placeholder='(630) 666-8677'
+				placeholder='(123) 456-7890'
 				value={state.phone_number}
 				keyboardType='phone-pad'
 				textContentType='telephoneNumber'

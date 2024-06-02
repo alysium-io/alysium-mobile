@@ -2,7 +2,7 @@ import { HeaderSafeArea, ScrollView, View } from '@atomic';
 import { BasePage } from '@organisms';
 import { useRoute } from '@react-navigation/native';
 import { EventCandidatesPageRouteProp } from '@types';
-import React, { useCallback } from 'react';
+import React from 'react';
 import { Case, Switch } from 'react-if';
 import CandidatesSection from './components/CandidatesSection';
 import ContractsSection from './components/ContractsSections';
@@ -13,22 +13,6 @@ const EventCandidatesPage = () => {
 	const route = useRoute<EventCandidatesPageRouteProp>();
 	const { toggleFilterId, setToggleFilterId, candidatesData, contractsData } =
 		useEventCandidates(route.params.eventId);
-
-	const Candidates = useCallback(
-		() =>
-			candidatesData && (
-				<CandidatesSection
-					candidatesData={candidatesData}
-					eventId={route.params.eventId}
-				/>
-			),
-		[candidatesData, route.params.eventId]
-	);
-
-	const Contracts = useCallback(
-		() => contractsData && <ContractsSection contractsData={contractsData} />,
-		[contractsData]
-	);
 
 	if (!candidatesData || !contractsData) {
 		return null;
@@ -42,10 +26,13 @@ const EventCandidatesPage = () => {
 						<TogglerSection setToggleFilterId={setToggleFilterId} />
 						<Switch>
 							<Case condition={toggleFilterId === 0}>
-								<Candidates />
+								<CandidatesSection
+									candidatesData={candidatesData}
+									eventId={route.params.eventId}
+								/>
 							</Case>
 							<Case condition={toggleFilterId === 1}>
-								<Contracts />
+								<ContractsSection contractsData={contractsData} />
 							</Case>
 						</Switch>
 					</View>
