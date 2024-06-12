@@ -13,7 +13,7 @@ import useHostPage from './useHostPage';
 const HostPage = () => {
 	const route = useRoute<HostPageRouteProp>();
 	const { moreSheetApi, linksSheetApi, notificationsSheetApi, hostData } =
-		useHostPage(route.params.hostId);
+		useHostPage(route.params.host_uid);
 
 	if (!hostData) {
 		return null;

@@ -11,7 +11,7 @@ import useEventPage from './useEventPage';
 
 const EventPage = () => {
 	const route = useRoute<EventPageRouteProp>();
-	const { eventData } = useEventPage(route.params.eventId);
+	const { eventData } = useEventPage(route.params.event_uid);
 
 	if (!eventData) {
 		return null;

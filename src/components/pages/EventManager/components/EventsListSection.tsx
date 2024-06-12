@@ -18,10 +18,10 @@ const EventsListSection: React.FC<EventsListSectionProps> = ({
 		<Section>
 			{eventsData.map((event) => (
 				<ContentListItem
-					key={event.event_id}
+					key={event.event_uid}
 					title={event.name}
 					subtitle={EventStatus.draft}
-					onPress={() => editEventPage(event.event_id)}
+					onPress={() => editEventPage(event.event_uid)}
 					contentType={ContentType.event}
 					image={event.profile_image?.url || ''}
 					borderRadius='sharp'

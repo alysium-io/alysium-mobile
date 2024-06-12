@@ -2,7 +2,7 @@ import { ApiIdentifier } from '@types';
 import { Contract } from '../contract.entity';
 
 export interface FindAllHostContractsQueryDto {
-	event_id: ApiIdentifier;
+	event_uid: ApiIdentifier;
 	page: number;
 	limit: number;
 }

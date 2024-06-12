@@ -38,7 +38,7 @@ export const UserAppProvider: React.FC<ProviderProps> = ({ children }) => {
 	const { uploadMedia } = useMedia();
 
 	useEffect(() => {
-		if (userData) initializePersona(userData.user_id);
+		if (userData) initializePersona(userData.user_uid);
 	}, [userData]);
 
 	const setUserProfileImage = (image: Asset) => {
@@ -46,7 +46,7 @@ export const UserAppProvider: React.FC<ProviderProps> = ({ children }) => {
 			uploadMedia(
 				{
 					ref: MediaRefType.user,
-					refId: userData.user_id,
+					refId: userData.user_uid,
 					field: 'profile_image'
 				},
 				image

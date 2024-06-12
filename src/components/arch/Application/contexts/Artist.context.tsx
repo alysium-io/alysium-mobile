@@ -24,7 +24,7 @@ export const ArtistAppProvider: React.FC<ProviderProps> = ({ children }) => {
 		error: artistError,
 		isLoading: artistIsLoading
 	} = artistApiSlice.useFindOneQuery({
-		params: { artist_id: personaId }
+		params: { artist_uid: personaId }
 	});
 
 	const { uploadMedia } = useMedia();
@@ -33,7 +33,7 @@ export const ArtistAppProvider: React.FC<ProviderProps> = ({ children }) => {
 			uploadMedia(
 				{
 					ref: MediaRefType.artist,
-					refId: artistData.artist_id,
+					refId: artistData.artist_uid,
 					field: 'profile_image'
 				},
 				image

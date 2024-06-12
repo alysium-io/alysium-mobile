@@ -27,7 +27,7 @@ const EditVenuePage = () => {
 		createLinkSheetApi,
 		confirmDelete,
 		onSubmit
-	} = useEditVenuePage(route.params.venueId);
+	} = useEditVenuePage(route.params.venue_uid);
 
 	useEffect(() => {
 		loadForm();

@@ -24,7 +24,7 @@ const apiSlice = createApi({
 				body
 			}),
 			invalidatesTags: (result, error, { body }) => [
-				{ type: 'HostEventLink', id: body.event_id }
+				{ type: 'HostEventLink', id: body.event_uid }
 			]
 		}),
 		delete: builder.mutation<
@@ -37,7 +37,7 @@ const apiSlice = createApi({
 				body
 			}),
 			invalidatesTags: (result, error, { body }) => [
-				{ type: 'HostEventLink', id: body.event_id }
+				{ type: 'HostEventLink', id: body.event_uid }
 			]
 		})
 	})

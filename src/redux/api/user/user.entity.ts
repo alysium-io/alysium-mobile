@@ -5,7 +5,7 @@ import { Host } from '../host/host.entity';
 import { Media } from '../media/media.entity';
 
 export interface User {
-	user_id: ApiIdentifier;
+	user_uid: ApiIdentifier;
 	name: string | null;
 	handle: string;
 	email: string | null;

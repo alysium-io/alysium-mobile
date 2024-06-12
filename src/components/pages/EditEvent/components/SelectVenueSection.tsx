@@ -12,7 +12,7 @@ import React from 'react';
 interface SelectVenueSectionProps {
 	createVenueSheetApi: SheetApi;
 	venuesData: FindAllVenuesResponseDto[];
-	onChangeVenue: (venueId: ApiIdentifier) => void;
+	onChangeVenue: (venue_uid: ApiIdentifier) => void;
 	defaultVenueId?: ApiIdentifier;
 }
 
@@ -41,11 +41,11 @@ const SelectVenueSection: React.FC<SelectVenueSectionProps> = ({
 				onPressToggle={(id) => onChangeVenue(id)}
 				items={
 					venuesData.map((venue) => ({
-						id: venue.venue_id,
+						id: venue.venue_uid,
 						image: venue.profile_image?.url || '',
 						title: venue.name,
 						subtitle: venue.street || 'Unknown Address',
-						onPress: (venue_id: ApiIdentifier) => editVenuePage(venue_id)
+						onPress: (venue_uid: ApiIdentifier) => editVenuePage(venue_uid)
 					})) ?? []
 				}
 			/>

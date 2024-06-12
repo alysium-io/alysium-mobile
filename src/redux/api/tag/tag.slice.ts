@@ -16,11 +16,11 @@ const apiSlice = createApi({
 			{ params: FindOneTagParamsDto }
 		>({
 			query: ({ params }) => ({
-				url: `/${params.tag_id}`,
+				url: `/${params.tag_uid}`,
 				method: 'GET'
 			}),
 			providesTags: (result, error, { params }) => [
-				{ type: 'Tag', id: params.tag_id }
+				{ type: 'Tag', id: params.tag_uid }
 			]
 		}),
 		create: builder.mutation<CreateTagResponseDto, { body: CreateTagBodyDto }>({

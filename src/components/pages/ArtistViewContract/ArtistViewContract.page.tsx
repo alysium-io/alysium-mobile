@@ -9,7 +9,7 @@ import useArtistViewContractPage from './useArtistViewContractPage';
 
 const ArtistViewContractPage = () => {
 	const route = useRoute<ArtistViewContractPageRouteProp>();
-	const { contractData } = useArtistViewContractPage(route.params.contractId);
+	const { contractData } = useArtistViewContractPage(route.params.contract_uid);
 
 	if (!contractData) {
 		return null;

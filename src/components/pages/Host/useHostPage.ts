@@ -14,13 +14,13 @@ interface IUseHostPage {
 	openLinks: () => void;
 }
 
-const useHostPage = (hostId: ApiIdentifier): IUseHostPage => {
+const useHostPage = (host_uid: ApiIdentifier): IUseHostPage => {
 	const {
 		data: hostData,
 		isLoading: hostIsLoading,
 		error: hostError
 	} = hostApiSlice.useFindOneQuery({
-		params: { host_id: hostId }
+		params: { host_uid: host_uid }
 	});
 
 	const moreSheetApi = useSheet();

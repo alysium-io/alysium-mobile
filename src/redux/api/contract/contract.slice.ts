@@ -41,9 +41,9 @@ const apiSlice = createApi({
 			providesTags: (results) =>
 				results
 					? [
-							...results.map(({ contract_id }) => ({
+							...results.map(({ contract_uid }) => ({
 								type: 'HostContract' as const,
-								id: contract_id
+								id: contract_uid
 							})),
 							{ type: 'HostContract', id: 'LIST' }
 						]
@@ -61,9 +61,9 @@ const apiSlice = createApi({
 			providesTags: (results) =>
 				results
 					? [
-							...results.map(({ contract_id }) => ({
+							...results.map(({ contract_uid }) => ({
 								type: 'ArtistContract' as const,
-								id: contract_id
+								id: contract_uid
 							})),
 							{ type: 'ArtistContract', id: 'LIST' }
 						]
@@ -74,11 +74,11 @@ const apiSlice = createApi({
 			{ params: FindOneContractParamsDto }
 		>({
 			query: ({ params }) => ({
-				url: `/host/${params.contract_id}`,
+				url: `/host/${params.contract_uid}`,
 				method: 'GET'
 			}),
 			providesTags: (result, error, { params }) => [
-				{ type: 'HostContract', id: params.contract_id }
+				{ type: 'HostContract', id: params.contract_uid }
 			]
 		}),
 		create: builder.mutation<
@@ -95,7 +95,7 @@ const apiSlice = createApi({
 				await queryFulfilled;
 				dispatch(
 					eventApiSlice.util.invalidateTags([
-						{ type: 'Event', id: body.event_id }
+						{ type: 'Event', id: body.event_uid }
 					])
 				);
 			}
@@ -108,23 +108,23 @@ const apiSlice = createApi({
 			}
 		>({
 			query: ({ params, body }) => ({
-				url: `/host/${params.contract_id}`,
+				url: `/host/${params.contract_uid}`,
 				method: 'PUT',
 				body
 			}),
 			invalidatesTags: (result) =>
-				result ? [{ type: 'HostContract', id: result.contract_id }] : []
+				result ? [{ type: 'HostContract', id: result.contract_uid }] : []
 		}),
 		delete: builder.mutation<
 			DeleteContractResponseDto,
 			{ params: UpdateContractParamsDto }
 		>({
 			query: ({ params }) => ({
-				url: `/host/${params.contract_id}`,
+				url: `/host/${params.contract_uid}`,
 				method: 'DELETE'
 			}),
 			invalidatesTags: (result, error, { params }) => [
-				{ type: 'HostContract', id: params.contract_id }
+				{ type: 'HostContract', id: params.contract_uid }
 			]
 		})
 	})

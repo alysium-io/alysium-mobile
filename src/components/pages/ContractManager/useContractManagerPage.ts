@@ -15,7 +15,7 @@ const useContractManagerPage = (): IUseContractManagerPage => {
 		error: contractsError,
 		isLoading: contractsIsLoading
 	} = contractApiSlice.useFindAllArtistContractsQuery({
-		query: { page: 1, limit: 10, artist_id: artistData.artist_id }
+		query: { page: 1, limit: 10, artist_uid: artistData.artist_uid }
 	});
 
 	return {

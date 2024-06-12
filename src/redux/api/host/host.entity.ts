@@ -5,7 +5,7 @@ import { Media } from '../media/media.entity';
 import { Venue } from '../venue/venue.entity';
 
 export interface Host {
-	host_id: ApiIdentifier;
+	host_uid: ApiIdentifier;
 	profile_image: Media | null;
 	gallery: HostGallery[];
 	venues: Venue[];

@@ -34,7 +34,7 @@ const apiSlice = createApi({
 			}),
 			providesTags: (result, error, { query }) => [
 				{ type: 'EventCandidates', id: 'LIST' },
-				{ type: 'EventCandidates', id: query.event_id }
+				{ type: 'EventCandidates', id: query.event_uid }
 			]
 		}),
 		findAllCandidateEvents: builder.query<
@@ -48,7 +48,7 @@ const apiSlice = createApi({
 			}),
 			providesTags: (result, error, { query }) => [
 				{ type: 'CandidateEvents', id: 'LIST' },
-				{ type: 'CandidateEvents', id: query.artist_id }
+				{ type: 'CandidateEvents', id: query.artist_uid }
 			]
 		}),
 		createCandidate: builder.mutation<
@@ -62,20 +62,20 @@ const apiSlice = createApi({
 			}),
 			invalidatesTags: (result, error, { body }) => [
 				{ type: 'CandidateEvents', id: 'LIST' },
-				{ type: 'CandidateEvents', id: body.artist_id },
-				{ type: 'EventCandidates', id: body.event_id }
+				{ type: 'CandidateEvents', id: body.artist_uid },
+				{ type: 'EventCandidates', id: body.event_uid }
 			],
 			onQueryStarted: async ({ body }, { dispatch, queryFulfilled }) => {
 				const result = await queryFulfilled;
 				dispatch(
 					eventApiSlice.util.invalidateTags([
-						{ type: 'Event', id: body.event_id }
+						{ type: 'Event', id: body.event_uid }
 					])
 				);
 				dispatch(
 					apiSlice.util.updateQueryData(
 						'findAllEventCandidates',
-						{ query: { page: 1, limit: 10, event_id: body.event_id } },
+						{ query: { page: 1, limit: 10, event_uid: body.event_uid } },
 						(draft) => {
 							draft.push(result.data);
 						}
@@ -98,10 +98,10 @@ const apiSlice = createApi({
 					patchResult = dispatch(
 						apiSlice.util.updateQueryData(
 							'findAllEventCandidates',
-							{ query: { page: 1, limit: 10, event_id: body.event_id } },
+							{ query: { page: 1, limit: 10, event_uid: body.event_uid } },
 							(draft) => {
 								const index = draft.findIndex(
-									(candidate) => candidate.artist_id === body.artist_id
+									(candidate) => candidate.artist_uid === body.artist_uid
 								);
 								if (index !== -1) {
 									draft.splice(index, 1);
@@ -115,7 +115,7 @@ const apiSlice = createApi({
 					// num_candidates update
 					dispatch(
 						eventApiSlice.util.invalidateTags([
-							{ type: 'Event', id: body.event_id }
+							{ type: 'Event', id: body.event_uid }
 						])
 					);
 				} catch (error) {

@@ -30,7 +30,7 @@ const apiSlice = createApi({
 			{ params: FindOneUserParamsDto }
 		>({
 			query: ({ params }) => ({
-				url: `/${params.user_id}`,
+				url: `/${params.user_uid}`,
 				method: 'GET'
 			})
 		}),

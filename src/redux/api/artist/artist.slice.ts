@@ -32,11 +32,11 @@ const apiSlice = createApi({
 			{ params: FindOneArtistParamsDto }
 		>({
 			query: ({ params }) => ({
-				url: `/${params.artist_id}`,
+				url: `/${params.artist_uid}`,
 				method: 'GET'
 			}),
 			providesTags: (result, error, { params }) => [
-				{ type: 'Artist', id: params.artist_id }
+				{ type: 'Artist', id: params.artist_uid }
 			]
 		}),
 		findAll: builder.query<
@@ -51,9 +51,9 @@ const apiSlice = createApi({
 			providesTags: (results) =>
 				results
 					? [
-							...results.map(({ artist_id }) => ({
+							...results.map(({ artist_uid }) => ({
 								type: 'Artist' as const,
-								id: artist_id
+								id: artist_uid
 							})),
 							{ type: 'Artist', id: 'LIST' }
 						]
@@ -83,18 +83,18 @@ const apiSlice = createApi({
 				body
 			}),
 			invalidatesTags: (result) =>
-				result ? [{ type: 'Artist', id: result.artist_id }] : []
+				result ? [{ type: 'Artist', id: result.artist_uid }] : []
 		}),
 		delete: builder.mutation<
 			DeleteArtistResponseDto,
 			{ params: DeleteArtistParamsDto }
 		>({
 			query: ({ params }) => ({
-				url: `/${params.artist_id}`,
+				url: `/${params.artist_uid}`,
 				method: 'DELETE'
 			}),
 			invalidatesTags: (result, error, { params }) => [
-				{ type: 'Artist', id: params.artist_id }
+				{ type: 'Artist', id: params.artist_uid }
 			]
 		})
 	})

@@ -19,12 +19,12 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface AddArtistToEventCandidatesBottomSheetProps {
 	sheetApi: SheetApi;
-	artist_id: ApiIdentifier;
+	artist_uid: ApiIdentifier;
 }
 
 const AddArtistToEventCandidatesBottomSheet: React.FC<
 	AddArtistToEventCandidatesBottomSheetProps
-> = ({ sheetApi, artist_id }) => {
+> = ({ sheetApi, artist_uid }) => {
 	const insets = useSafeAreaInsets();
 	const { height } = useWindowDimensions();
 	const { hostData } = useHostAppContext();
@@ -37,7 +37,7 @@ const AddArtistToEventCandidatesBottomSheet: React.FC<
 		query: {
 			page: 1,
 			limit: 10,
-			host_id: hostData.host_id
+			host_uid: hostData.host_uid
 		}
 	});
 
@@ -46,22 +46,22 @@ const AddArtistToEventCandidatesBottomSheet: React.FC<
 			query: {
 				page: 1,
 				limit: 10,
-				host_id: hostData.host_id,
-				artist_id
+				host_uid: hostData.host_uid,
+				artist_uid
 			}
 		});
 
 	const toggleCandidate = async (
-		event_id: ApiIdentifier,
+		event_uid: ApiIdentifier,
 		isActive: boolean
 	) => {
 		if (isActive) {
 			await createCandidateMutation({
-				body: { event_id, artist_id }
+				body: { event_uid, artist_uid }
 			});
 		} else {
 			await deleteCandidateMutation({
-				body: { event_id, artist_id }
+				body: { event_uid, artist_uid }
 			});
 		}
 	};
@@ -78,17 +78,17 @@ const AddArtistToEventCandidatesBottomSheet: React.FC<
 						<ContentListItemRadioToggler
 							subtitleFirst={true}
 							items={eventsData.map((event) => ({
-								id: event.event_id,
+								id: event.event_uid,
 								image: event.profile_image?.url,
 								title: event.name,
 								subtitle: dayjs(event.start_time).format('MMM D, YYYY'),
 								defaultIsActive: candidateEventsData.some(
 									(candidateEvent) =>
-										candidateEvent.artist_id === artist_id &&
-										candidateEvent.event_id === event.event_id
+										candidateEvent.artist_uid === artist_uid &&
+										candidateEvent.event_uid === event.event_uid
 								),
-								onPress: (event_id: ApiIdentifier, isActive: boolean) =>
-									console.log(event_id, isActive),
+								onPress: (event_uid: ApiIdentifier, isActive: boolean) =>
+									console.log(event_uid, isActive),
 								onPressToggle: toggleCandidate
 							}))}
 						/>

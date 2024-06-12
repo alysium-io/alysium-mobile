@@ -41,7 +41,7 @@ interface IUseEditEvent {
 	loadForm: () => void;
 	onDeleteEvent: () => void;
 	setEventProfileImage: (image: Asset) => void;
-	onChangeVenue: (venueId: number) => void;
+	onChangeVenue: (venue_uid: number) => void;
 	onChangeStartTime: (startTime: Date) => void;
 	onChangeEndTime: (endTime: Date) => void;
 	onChangeDoorsOpenTime: (doorsOpenTime: Date) => void;
@@ -49,7 +49,7 @@ interface IUseEditEvent {
 	confirmDelete: () => void;
 }
 
-const useEditEventPage = (eventId: ApiIdentifier): IUseEditEvent => {
+const useEditEventPage = (event_uid: ApiIdentifier): IUseEditEvent => {
 	const { back, eventCandidatesPage } = useNavigation();
 	const { hostData } = useHostAppContext();
 	const { uploadMedia } = useMedia();
@@ -63,7 +63,7 @@ const useEditEventPage = (eventId: ApiIdentifier): IUseEditEvent => {
 		error: eventError,
 		isLoading: eventIsLoading
 	} = eventApiSlice.useFindOneQuery({
-		params: { event_id: eventId }
+		params: { event_uid: event_uid }
 	});
 
 	const {
@@ -72,7 +72,7 @@ const useEditEventPage = (eventId: ApiIdentifier): IUseEditEvent => {
 		isLoading: venuesIsLoading
 	} = venueApiSlice.useFindAllQuery({
 		query: {
-			host_id: hostData.host_id,
+			host_uid: hostData.host_uid,
 			page: 1,
 			limit: 10
 		}
@@ -87,7 +87,7 @@ const useEditEventPage = (eventId: ApiIdentifier): IUseEditEvent => {
 	) => {
 		updateEventMutation({
 			body: data,
-			params: { event_id: eventId }
+			params: { event_uid: event_uid }
 		});
 	};
 
@@ -150,7 +150,7 @@ const useEditEventPage = (eventId: ApiIdentifier): IUseEditEvent => {
 			uploadMedia(
 				{
 					ref: MediaRefType.event,
-					refId: eventData.event_id,
+					refId: eventData.event_uid,
 					field: 'profile_image'
 				},
 				image
@@ -158,22 +158,22 @@ const useEditEventPage = (eventId: ApiIdentifier): IUseEditEvent => {
 		}
 	};
 
-	const onChangeVenue = (venueId: ApiIdentifier) => {
+	const onChangeVenue = (venue_uid: ApiIdentifier) => {
 		if (eventData) {
 			updateEventVenueMutation({
-				params: { event_id: eventData.event_id },
-				body: { venue_id: venueId }
+				params: { event_uid: eventData.event_uid },
+				body: { venue_uid: venue_uid }
 			});
 		}
 	};
 
 	const onDeleteEvent = () => {
-		deleteEventMutation({ params: { event_id: eventId } });
+		deleteEventMutation({ params: { event_uid: event_uid } });
 		back();
 	};
 
 	const goToEventCandidatesPage = () => {
-		eventCandidatesPage(eventId);
+		eventCandidatesPage(event_uid);
 	};
 
 	return {

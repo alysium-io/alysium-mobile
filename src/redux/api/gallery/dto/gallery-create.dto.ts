@@ -3,7 +3,7 @@ import { BaseGallery, GalleryRefType } from '../gallery.entity';
 
 export interface CreateGalleryBodyDto {
 	entity_type: GalleryRefType;
-	entity_id: ApiIdentifier;
+	entity_uid: ApiIdentifier;
 	order: number;
 }
 

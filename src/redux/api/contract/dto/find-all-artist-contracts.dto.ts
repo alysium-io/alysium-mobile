@@ -2,7 +2,7 @@ import { ApiIdentifier } from '@types';
 import { Contract } from '../contract.entity';
 
 export interface FindAllArtistContractsQueryDto {
-	artist_id: ApiIdentifier;
+	artist_uid: ApiIdentifier;
 	page: number;
 	limit: number;
 }

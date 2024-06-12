@@ -24,7 +24,7 @@ export const HostAppProvider: React.FC<ProviderProps> = ({ children }) => {
 		error: hostError,
 		isLoading: hostIsLoading
 	} = hostApiSlice.useFindOneQuery({
-		params: { host_id: personaId }
+		params: { host_uid: personaId }
 	});
 
 	const { uploadMedia } = useMedia();
@@ -33,7 +33,7 @@ export const HostAppProvider: React.FC<ProviderProps> = ({ children }) => {
 			uploadMedia(
 				{
 					ref: MediaRefType.host,
-					refId: hostData.host_id,
+					refId: hostData.host_uid,
 					field: 'profile_image'
 				},
 				image

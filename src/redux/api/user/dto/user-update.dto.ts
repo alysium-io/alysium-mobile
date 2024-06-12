@@ -2,7 +2,7 @@ import { ApiIdentifier } from '@types';
 import { User } from '../user.entity';
 
 export interface UpdateUserBodyDto {
-	user_id: ApiIdentifier;
+	user_uid: ApiIdentifier;
 	name: string;
 	email: string;
 }

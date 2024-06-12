@@ -5,7 +5,7 @@ import { Location } from '../location/location.entity';
 import { Media } from '../media/media.entity';
 
 export interface Artist {
-	artist_id: ApiIdentifier;
+	artist_uid: ApiIdentifier;
 	name: string;
 	profile_image: Media | null;
 	gallery: ArtistGallery[];

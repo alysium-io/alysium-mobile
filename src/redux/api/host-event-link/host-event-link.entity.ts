@@ -3,8 +3,8 @@ import { Event } from '../event/event.entity';
 import { Host } from '../host/host.entity';
 
 export interface HostEventLink {
-	event_id: ApiIdentifier;
-	host_id: ApiIdentifier;
+	event_uid: ApiIdentifier;
+	host_uid: ApiIdentifier;
 	event: Event;
 	host: Host;
 }

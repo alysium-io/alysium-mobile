@@ -53,7 +53,7 @@ interface IUseEditVenuePage {
 	capacityTextInputApi: TextInputApi;
 }
 
-const useEditVenuePage = (venueId: ApiIdentifier): IUseEditVenuePage => {
+const useEditVenuePage = (venue_uid: ApiIdentifier): IUseEditVenuePage => {
 	const createLinkSheetApi = useSheet();
 	const descriptionTextInputApi = useTextInput();
 	const streetAddressTextInputApi = useTextInput();
@@ -69,7 +69,7 @@ const useEditVenuePage = (venueId: ApiIdentifier): IUseEditVenuePage => {
 		error: venueError,
 		isLoading: venueIsLoading
 	} = venueApiSlice.useFindOneQuery({
-		params: { venue_id: venueId }
+		params: { venue_uid: venue_uid }
 	});
 
 	const formMethods = useForm<UpdateVenueBodyDto>({
@@ -81,7 +81,7 @@ const useEditVenuePage = (venueId: ApiIdentifier): IUseEditVenuePage => {
 	) => {
 		console.log(data);
 		editVenue({
-			params: { venue_id: venueId },
+			params: { venue_uid: venue_uid },
 			body: data
 		});
 	};
@@ -131,7 +131,7 @@ const useEditVenuePage = (venueId: ApiIdentifier): IUseEditVenuePage => {
 	};
 
 	const onDeleteVenue = () => {
-		deleteVenue({ params: { venue_id: venueId } });
+		deleteVenue({ params: { venue_uid: venue_uid } });
 		back();
 	};
 
@@ -144,7 +144,7 @@ const useEditVenuePage = (venueId: ApiIdentifier): IUseEditVenuePage => {
 			uploadMedia(
 				{
 					ref: MediaRefType.venue,
-					refId: venueData.venue_id,
+					refId: venueData.venue_uid,
 					field: 'profile_image'
 				},
 				image

@@ -56,7 +56,7 @@ const apiSlice = createApi({
 						dispatch(
 							hostApiSlice.util.updateQueryData(
 								'findOne',
-								{ params: { host_id: body.refId } },
+								{ params: { host_uid: body.refId } },
 								(draft) => {
 									draft.profile_image = result.data;
 								}
@@ -69,7 +69,7 @@ const apiSlice = createApi({
 						dispatch(
 							artistApiSlice.util.updateQueryData(
 								'findOne',
-								{ params: { artist_id: body.refId } },
+								{ params: { artist_uid: body.refId } },
 								(draft) => {
 									draft.profile_image = result.data;
 								}
@@ -84,7 +84,7 @@ const apiSlice = createApi({
 						dispatch(
 							eventApiSlice.util.updateQueryData(
 								'findOne',
-								{ params: { event_id: body.refId } },
+								{ params: { event_uid: body.refId } },
 								(draft) => {
 									draft.profile_image = result.data;
 								}
@@ -97,7 +97,7 @@ const apiSlice = createApi({
 						dispatch(
 							venueApiSlice.util.updateQueryData(
 								'findOne',
-								{ params: { venue_id: body.refId } },
+								{ params: { venue_uid: body.refId } },
 								(draft) => {
 									draft.profile_image = result.data;
 								}

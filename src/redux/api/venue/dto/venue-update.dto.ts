@@ -3,7 +3,7 @@ import { VenueType } from '../types';
 import { Venue } from '../venue.entity';
 
 export interface UpdateVenueParamsDto {
-	venue_id: ApiIdentifier;
+	venue_uid: ApiIdentifier;
 }
 
 export interface UpdateVenueBodyDto {

@@ -1,1 +1,1 @@
-export type ApiIdentifier = number;
+export type ApiIdentifier = string;

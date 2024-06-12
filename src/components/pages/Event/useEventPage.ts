@@ -8,13 +8,13 @@ interface IUseEventPage {
 	eventIsLoading: boolean;
 }
 
-const useEventPage = (eventId: ApiIdentifier): IUseEventPage => {
+const useEventPage = (event_uid: ApiIdentifier): IUseEventPage => {
 	const {
 		data: eventData,
 		error: eventError,
 		isLoading: eventIsLoading
 	} = eventApiSlice.useFindOneQuery({
-		params: { event_id: eventId }
+		params: { event_uid: event_uid }
 	});
 
 	return {

@@ -3,8 +3,8 @@ import { Artist } from '../artist';
 import { Event } from '../event';
 
 export interface Candidate {
-	artist_id: ApiIdentifier;
-	event_id: ApiIdentifier;
+	artist_uid: ApiIdentifier;
+	event_uid: ApiIdentifier;
 	event: Event;
 	artist: Artist;
 	created_at: Date;

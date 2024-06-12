@@ -16,14 +16,14 @@ import useCreateContractBottomSheet from './useCreateContractBottomSheet';
 
 interface CreateContractBottomSheetProps {
 	sheetApi: SheetApi;
-	artistId: ApiIdentifier | null;
-	eventId: ApiIdentifier;
+	artist_uid: ApiIdentifier | null;
+	event_uid: ApiIdentifier;
 }
 
 const CreateContractBottomSheet: React.FC<CreateContractBottomSheetProps> = ({
 	sheetApi,
-	artistId,
-	eventId
+	artist_uid,
+	event_uid
 }) => {
 	const insets = useSafeAreaInsets();
 	const {
@@ -35,7 +35,7 @@ const CreateContractBottomSheet: React.FC<CreateContractBottomSheetProps> = ({
 		onSubmit,
 		setHeight,
 		sequenceApi
-	} = useCreateContractBottomSheet(eventId, artistId, sheetApi);
+	} = useCreateContractBottomSheet(event_uid, artist_uid, sheetApi);
 
 	const FooterComponent = useCallback(
 		(props: BottomSheetFooterProps) => (

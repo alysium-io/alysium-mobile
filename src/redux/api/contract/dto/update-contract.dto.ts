@@ -2,7 +2,7 @@ import { ApiIdentifier } from '@types';
 import { Contract } from '../contract.entity';
 
 export interface UpdateContractParamsDto {
-	contract_id: ApiIdentifier;
+	contract_uid: ApiIdentifier;
 }
 
 export interface UpdateContractBodyDto {

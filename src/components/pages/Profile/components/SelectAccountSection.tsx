@@ -17,15 +17,15 @@ const SelectAccountSection = () => {
 			</View>
 			{userData && (
 				<ContentListItem
-					key={userData.user_id}
+					key={userData.user_uid}
 					title={'@' + userData.handle}
 					subtitle={'user'}
-					onPress={() => changePersona(Persona.user, userData.user_id)}
+					onPress={() => changePersona(Persona.user, userData.user_uid)}
 					contentType={Persona.user}
 					image={userData.profile_image?.url}
 					border
 					markerIcon={
-						personaType === Persona.user && personaId === userData.user_id
+						personaType === Persona.user && personaId === userData.user_uid
 							? 'checkmark'
 							: undefined
 					}
@@ -33,15 +33,15 @@ const SelectAccountSection = () => {
 			)}
 			{userArtists.map((artist) => (
 				<ContentListItem
-					key={artist.artist_id}
+					key={artist.artist_uid}
 					title={artist.name}
 					subtitle={'artist'}
-					onPress={() => changePersona(Persona.artist, artist.artist_id)}
+					onPress={() => changePersona(Persona.artist, artist.artist_uid)}
 					contentType={Persona.artist}
 					image={artist.profile_image?.url}
 					border
 					markerIcon={
-						personaType === Persona.artist && personaId === artist.artist_id
+						personaType === Persona.artist && personaId === artist.artist_uid
 							? 'checkmark'
 							: undefined
 					}
@@ -49,15 +49,15 @@ const SelectAccountSection = () => {
 			))}
 			{userHosts.map((host) => (
 				<ContentListItem
-					key={host.host_id}
+					key={host.host_uid}
 					title={host.name}
 					subtitle={'host'}
-					onPress={() => changePersona(Persona.host, host.host_id)}
+					onPress={() => changePersona(Persona.host, host.host_uid)}
 					contentType={Persona.host}
 					image={host.profile_image?.url}
 					border
 					markerIcon={
-						personaType === Persona.host && personaId === host.host_id
+						personaType === Persona.host && personaId === host.host_uid
 							? 'checkmark'
 							: undefined
 					}

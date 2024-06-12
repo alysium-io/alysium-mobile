@@ -17,10 +17,10 @@ const ArtistPage = () => {
 					personaType === Persona.user || personaType === Persona.artist
 				}
 			>
-				<UserPerspective artistId={route.params.artistId} />
+				<UserPerspective artist_uid={route.params.artist_uid} />
 			</Case>
 			<Case condition={personaType === Persona.host}>
-				<HostPerspective artistId={route.params.artistId} />
+				<HostPerspective artist_uid={route.params.artist_uid} />
 			</Case>
 		</Switch>
 	);

@@ -12,7 +12,7 @@ import useEventCandidates from './useEventCandidates';
 const EventCandidatesPage = () => {
 	const route = useRoute<EventCandidatesPageRouteProp>();
 	const { toggleFilterId, setToggleFilterId, candidatesData, contractsData } =
-		useEventCandidates(route.params.eventId);
+		useEventCandidates(route.params.event_uid);
 
 	if (!candidatesData || !contractsData) {
 		return null;
@@ -28,7 +28,7 @@ const EventCandidatesPage = () => {
 							<Case condition={toggleFilterId === 0}>
 								<CandidatesSection
 									candidatesData={candidatesData}
-									eventId={route.params.eventId}
+									event_uid={route.params.event_uid}
 								/>
 							</Case>
 							<Case condition={toggleFilterId === 1}>

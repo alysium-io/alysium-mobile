@@ -30,7 +30,7 @@ const EditEventPage = () => {
 		onChangeDoorsOpenTime,
 		goToEventCandidatesPage,
 		confirmDelete
-	} = useEditEventPage(route.params.eventId);
+	} = useEditEventPage(route.params.event_uid);
 
 	useEffect(() => {
 		loadForm();
@@ -70,14 +70,14 @@ const EditEventPage = () => {
 						createVenueSheetApi={createVenueSheetApi}
 						venuesData={venuesData}
 						onChangeVenue={onChangeVenue}
-						defaultVenueId={eventData.venue?.venue_id}
+						defaultVenueId={eventData.venue?.venue_uid}
 					/>
 					<Separator />
 					<FeaturesSection formMethods={formMethods} />
 					<Separator />
 					<SummarySection
 						confirmDelete={confirmDelete}
-						eventId={route.params.eventId}
+						event_uid={route.params.event_uid}
 					/>
 					<CreateVenueBottomSheet sheetApi={createVenueSheetApi} />
 				</ScrollView>

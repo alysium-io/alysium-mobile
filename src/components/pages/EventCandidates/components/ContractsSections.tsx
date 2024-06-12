@@ -18,12 +18,12 @@ const ContractsSection: React.FC<ContractsSectionProps> = ({
 		<View>
 			{contractsData.map((contract) => (
 				<ContentListItemWithStatus
-					key={contract.contract_id}
+					key={contract.contract_uid}
 					title={contract.artist.name}
 					subtitle={contract.status}
 					contentType={ContentType.artist}
 					image={contract.artist.profile_image?.url}
-					onPress={() => editContractPage(contract.contract_id)}
+					onPress={() => editContractPage(contract.contract_uid)}
 					statusText='Waiting'
 					statusColor='t2'
 					statusBarVariant='filled'

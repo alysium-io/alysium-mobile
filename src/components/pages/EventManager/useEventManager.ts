@@ -18,7 +18,7 @@ const useEventManager = (): IUseEventManager => {
 		error: eventsError,
 		isLoading: eventsIsLoading
 	} = eventApiSlice.useFindAllQuery({
-		query: { page: 1, limit: 10, host_id: hostData.host_id }
+		query: { page: 1, limit: 10, host_uid: hostData.host_uid }
 	});
 
 	return {

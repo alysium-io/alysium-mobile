@@ -3,9 +3,9 @@ import { Contract } from '../contract.entity';
 import { UpdateContractBodyDto } from './update-contract.dto';
 
 export interface CreateContractBodyDto extends UpdateContractBodyDto {
-	host_id: ApiIdentifier;
-	artist_id: ApiIdentifier;
-	event_id: ApiIdentifier;
+	host_uid: ApiIdentifier;
+	artist_uid: ApiIdentifier;
+	event_uid: ApiIdentifier;
 }
 
 export interface CreateContractResponseDto extends Contract {}

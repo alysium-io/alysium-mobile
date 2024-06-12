@@ -13,44 +13,44 @@ import { ApiIdentifier } from './api';
 type SearchPage = undefined;
 type ComponentsPage = undefined;
 
-type HostPage = { hostId: ApiIdentifier };
+type HostPage = { host_uid: ApiIdentifier };
 type HostFollowersAndShowsPage = {
-	hostId: ApiIdentifier;
+	host_uid: ApiIdentifier;
 	defaultTabIndex: number;
 };
 
-type ArtistPage = { artistId: ApiIdentifier };
+type ArtistPage = { artist_uid: ApiIdentifier };
 type ArtistFollowersAndShowsPage = {
-	artistId: ApiIdentifier;
+	artist_uid: ApiIdentifier;
 	defaultTabIndex: number;
 };
 
-type TagPage = { tagId: ApiIdentifier };
-type TagFollowersPage = { tagId: ApiIdentifier };
+type TagPage = { tag_uid: ApiIdentifier };
+type TagFollowersPage = { tag_uid: ApiIdentifier };
 
-type LocationPage = { locationId: ApiIdentifier };
+type LocationPage = { location_uid: ApiIdentifier };
 
 type ProfilePage = undefined;
 
 type EventManagerPage = undefined;
-type EditEventPage = { eventId: ApiIdentifier };
+type EditEventPage = { event_uid: ApiIdentifier };
 
-type EditVenuePage = { venueId: ApiIdentifier };
+type EditVenuePage = { venue_uid: ApiIdentifier };
 
-type EventPage = { eventId: ApiIdentifier };
+type EventPage = { event_uid: ApiIdentifier };
 
 type ExperimentPageOne = undefined;
 type ExperimentPageTwo = undefined;
 
 type PagesPage = undefined;
 
-type EditContractPage = { contractId: ApiIdentifier };
+type EditContractPage = { contract_uid: ApiIdentifier };
 
 type ContractManagerPage = undefined;
 
-type EventCandidatesPage = { eventId: ApiIdentifier };
+type EventCandidatesPage = { event_uid: ApiIdentifier };
 
-type ArtistViewContractPage = { contractId: ApiIdentifier };
+type ArtistViewContractPage = { contract_uid: ApiIdentifier };
 
 /**
  * Stack Navigators

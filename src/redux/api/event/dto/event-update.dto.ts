@@ -2,7 +2,7 @@ import { ApiIdentifier } from '@types';
 import { Event } from '../event.entity';
 
 export interface UpdateEventParamsDto {
-	event_id: ApiIdentifier;
+	event_uid: ApiIdentifier;
 }
 
 export interface UpdateEventBodyDto {

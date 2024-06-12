@@ -17,10 +17,10 @@ const ContractsListSection: React.FC<ContractsListSectionProps> = ({
 		<Section>
 			{contractsData?.map((contract) => (
 				<ContentListItem
-					key={contract.contract_id}
+					key={contract.contract_uid}
 					title={contract.event.name}
 					subtitle={contract.status}
-					onPress={() => artistViewContract(contract.contract_id)}
+					onPress={() => artistViewContract(contract.contract_uid)}
 					contentType={ContentType.event}
 					borderRadius='sharp'
 					border

@@ -11,7 +11,7 @@ interface IUsePersona {
 	personaType: Persona;
 	personaId: ApiIdentifier | null;
 	changePersona: (newPersonaType: Persona, newPersonaId: ApiIdentifier) => void;
-	initializePersona: (user_id: ApiIdentifier) => void;
+	initializePersona: (user_uid: ApiIdentifier) => void;
 }
 
 const usePersona = (): IUsePersona => {
@@ -29,7 +29,7 @@ const usePersona = (): IUsePersona => {
 		});
 	};
 
-	const initializePersona = (user_id: ApiIdentifier) => {
+	const initializePersona = (user_uid: ApiIdentifier) => {
 		/**
 		 * The purpose of this is to set the persona for the first
 		 * time the user opens the app. Which we are only going to
@@ -39,7 +39,7 @@ const usePersona = (): IUsePersona => {
 		if (personaId === null) {
 			setPersistedAppState({
 				personaType: Persona.user,
-				personaId: user_id
+				personaId: user_uid
 			});
 		}
 	};

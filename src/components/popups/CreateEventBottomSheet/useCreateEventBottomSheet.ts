@@ -41,7 +41,7 @@ const useCreateEventBottomSheet = (
 	const formMethods = useForm<CreateEventBodyDto>({
 		defaultValues: {
 			name: '',
-			host_id: hostData.host_id
+			host_uid: hostData.host_uid
 		}
 	});
 
@@ -53,7 +53,7 @@ const useCreateEventBottomSheet = (
 		}).unwrap();
 
 		sheetApi.close();
-		editEventPage(response.event_id);
+		editEventPage(response.event_uid);
 	};
 
 	const onInvalid: SubmitErrorHandler<CreateEventBodyDto> = (errors: any) => {

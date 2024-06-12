@@ -34,7 +34,7 @@ const useCreateVenueBottomSheet = (
 	const formMethods = useForm<CreateVenueBodyDto>({
 		defaultValues: {
 			name: '',
-			host_id: hostData.host_id
+			host_uid: hostData.host_uid
 		}
 	});
 

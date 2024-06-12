@@ -5,7 +5,7 @@ import { Media } from '../media/media.entity';
 import { VenueType } from './types';
 
 export interface Venue {
-	venue_id: ApiIdentifier;
+	venue_uid: ApiIdentifier;
 	profile_image: Media | null;
 	host: Host;
 	gallery: VenueGallery[];

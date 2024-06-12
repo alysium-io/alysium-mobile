@@ -16,7 +16,7 @@ const TagPage = () => {
 		isTagDataError,
 		moreSheetApi,
 		onPressFollowers
-	} = useTagPage(route.params.tagId);
+	} = useTagPage(route.params.tag_uid);
 
 	if (!tagData) {
 		return null;

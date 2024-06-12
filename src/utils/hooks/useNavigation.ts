@@ -3,20 +3,20 @@ import { ApiIdentifier, CompositeScreenNavigationProp } from '@types';
 
 interface IUseNavigation {
 	/** Pages */
-	hostPage: (hostId: ApiIdentifier) => void;
-	artistPage: (artistId: ApiIdentifier) => void;
-	tagPage: (tagId: ApiIdentifier) => void;
-	locationPage: (locationId: ApiIdentifier) => void;
+	hostPage: (host_uid: ApiIdentifier) => void;
+	artistPage: (artist_uid: ApiIdentifier) => void;
+	tagPage: (tag_uid: ApiIdentifier) => void;
+	locationPage: (location_uid: ApiIdentifier) => void;
 	profilePage: () => void;
-	eventPage: (eventId: ApiIdentifier) => void;
-	editEventPage: (eventId: ApiIdentifier) => void;
-	eventCandidatesPage: (eventId: ApiIdentifier) => void;
-	editVenuePage: (venueId: ApiIdentifier) => void;
-	editContractPage: (contractId: ApiIdentifier) => void;
+	eventPage: (event_uid: ApiIdentifier) => void;
+	editEventPage: (event_uid: ApiIdentifier) => void;
+	eventCandidatesPage: (event_uid: ApiIdentifier) => void;
+	editVenuePage: (venue_uid: ApiIdentifier) => void;
+	editContractPage: (contract_uid: ApiIdentifier) => void;
 	searchPage: () => void;
 	eventManagerPage: () => void;
 	contractManager: () => void;
-	artistViewContract: (contractId: ApiIdentifier) => void;
+	artistViewContract: (contract_uid: ApiIdentifier) => void;
 
 	/** General */
 	back: () => void;
@@ -28,30 +28,30 @@ const useNavigation = (): IUseNavigation => {
 	/**
 	 * Pages
 	 */
-	const hostPage = (hostId: ApiIdentifier) =>
-		navigation.navigate('HostPage', { hostId });
-	const artistPage = (artistId: ApiIdentifier) =>
-		navigation.navigate('ArtistPage', { artistId });
-	const tagPage = (tagId: ApiIdentifier) =>
-		navigation.navigate('TagPage', { tagId });
-	const locationPage = (locationId: ApiIdentifier) =>
-		navigation.navigate('LocationPage', { locationId });
+	const hostPage = (host_uid: ApiIdentifier) =>
+		navigation.navigate('HostPage', { host_uid });
+	const artistPage = (artist_uid: ApiIdentifier) =>
+		navigation.navigate('ArtistPage', { artist_uid });
+	const tagPage = (tag_uid: ApiIdentifier) =>
+		navigation.navigate('TagPage', { tag_uid });
+	const locationPage = (location_uid: ApiIdentifier) =>
+		navigation.navigate('LocationPage', { location_uid });
 	const profilePage = () => navigation.navigate('ProfilePage');
-	const eventPage = (eventId: ApiIdentifier) =>
-		navigation.navigate('EventPage', { eventId });
-	const eventCandidatesPage = (eventId: ApiIdentifier) =>
-		navigation.navigate('EventCandidatesPage', { eventId });
-	const editEventPage = (eventId: ApiIdentifier) =>
-		navigation.navigate('EditEventPage', { eventId });
-	const editVenuePage = (venueId: ApiIdentifier) =>
-		navigation.navigate('EditVenuePage', { venueId });
-	const editContractPage = (contractId: ApiIdentifier) =>
-		navigation.navigate('EditContractPage', { contractId });
+	const eventPage = (event_uid: ApiIdentifier) =>
+		navigation.navigate('EventPage', { event_uid });
+	const eventCandidatesPage = (event_uid: ApiIdentifier) =>
+		navigation.navigate('EventCandidatesPage', { event_uid });
+	const editEventPage = (event_uid: ApiIdentifier) =>
+		navigation.navigate('EditEventPage', { event_uid });
+	const editVenuePage = (venue_uid: ApiIdentifier) =>
+		navigation.navigate('EditVenuePage', { venue_uid });
+	const editContractPage = (contract_uid: ApiIdentifier) =>
+		navigation.navigate('EditContractPage', { contract_uid });
 	const searchPage = () => navigation.navigate('SearchPage');
 	const eventManagerPage = () => navigation.navigate('EventManagerPage');
 	const contractManager = () => navigation.navigate('ContractManagerPage');
-	const artistViewContract = (contractId: ApiIdentifier) =>
-		navigation.navigate('ArtistViewContractPage', { contractId });
+	const artistViewContract = (contract_uid: ApiIdentifier) =>
+		navigation.navigate('ArtistViewContractPage', { contract_uid });
 	/**
 	 * General
 	 */

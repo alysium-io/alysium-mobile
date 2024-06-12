@@ -15,7 +15,7 @@ const apiSlice = createApi({
 			{ params: FindOneLocationParamsDto }
 		>({
 			query: ({ params }) => ({
-				url: `/${params.location_id}`,
+				url: `/${params.location_uid}`,
 				method: 'GET'
 			})
 		})

@@ -10,16 +10,16 @@ import ActionButtons from './components/ActionButtons';
 import useHostPage from './useHostPage';
 
 interface HostProps {
-	artistId: ApiIdentifier;
+	artist_uid: ApiIdentifier;
 }
 
-const Host: React.FC<HostProps> = ({ artistId }) => {
+const Host: React.FC<HostProps> = ({ artist_uid }) => {
 	const {
 		artistData,
 		linksSheetApi,
 		moreSheetApi,
 		addArtistToEventCandidatesSheetApi
-	} = useHostPage(artistId);
+	} = useHostPage(artist_uid);
 
 	if (!artistData) {
 		return null;
@@ -42,7 +42,7 @@ const Host: React.FC<HostProps> = ({ artistId }) => {
 			<MoreOptionsBottomSheet sheetApi={moreSheetApi} />
 			<AddArtistToEventCandidatesBottomSheet
 				sheetApi={addArtistToEventCandidatesSheetApi}
-				artist_id={artistData.artist_id}
+				artist_uid={artistData.artist_uid}
 			/>
 		</BasePage>
 	);

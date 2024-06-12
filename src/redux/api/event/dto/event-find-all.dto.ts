@@ -2,7 +2,7 @@ import { ApiIdentifier } from '@types';
 import { Event } from '../event.entity';
 
 export interface FindAllEventsQueryDto {
-	host_id: ApiIdentifier;
+	host_uid: ApiIdentifier;
 	page: number;
 	limit: number;
 }

@@ -5,7 +5,7 @@ import { Host } from '../host';
 import { ContractStatus } from './types';
 
 export interface Contract {
-	contract_id: ApiIdentifier;
+	contract_uid: ApiIdentifier;
 	host: Host;
 	artist: Artist;
 	event: Event;

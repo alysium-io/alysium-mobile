@@ -15,7 +15,7 @@ export enum GalleryRefType {
 }
 
 export interface BaseGallery {
-	gallery_id: ApiIdentifier;
+	gallery_uid: ApiIdentifier;
 	media: Media | null;
 	order: number;
 }

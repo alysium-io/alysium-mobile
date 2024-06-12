@@ -18,7 +18,7 @@ interface IuseEventCandidates {
 	createContractSheetApi: any;
 }
 
-const useEventCandidates = (eventId: ApiIdentifier): IuseEventCandidates => {
+const useEventCandidates = (event_uid: ApiIdentifier): IuseEventCandidates => {
 	const createContractSheetApi = useSheet();
 	const [toggleFilterId, setToggleFilterId] = useState<number>(0);
 
@@ -27,7 +27,7 @@ const useEventCandidates = (eventId: ApiIdentifier): IuseEventCandidates => {
 		error: candidatesError,
 		isLoading: candidatesIsLoading
 	} = candidateApiSlice.useFindAllEventCandidatesQuery({
-		query: { event_id: eventId, page: 1, limit: 10 }
+		query: { event_uid: event_uid, page: 1, limit: 10 }
 	});
 
 	const {
@@ -35,7 +35,7 @@ const useEventCandidates = (eventId: ApiIdentifier): IuseEventCandidates => {
 		error: contractsError,
 		isLoading: contractsIsLoading
 	} = contractApiSlice.useFindAllHostContractsQuery({
-		query: { event_id: eventId, page: 1, limit: 10 }
+		query: { event_uid: event_uid, page: 1, limit: 10 }
 	});
 
 	return {

@@ -11,12 +11,12 @@ interface IUseTagPage {
 	onPressFollowers: () => void;
 }
 
-const useTagPage = (tagId: ApiIdentifier): IUseTagPage => {
+const useTagPage = (tag_uid: ApiIdentifier): IUseTagPage => {
 	const {
 		data: tagData,
 		isLoading: isTagDataLoading,
 		isError: isTagDataError
-	} = tagApiSlice.useFindOneQuery({ params: { tag_id: tagId } });
+	} = tagApiSlice.useFindOneQuery({ params: { tag_uid: tag_uid } });
 
 	const moreSheetApi = useSheet();
 

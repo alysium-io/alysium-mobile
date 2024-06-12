@@ -22,7 +22,7 @@ const EditContractPage = () => {
 		additionalNotesTextInputApi,
 		confirmDelete,
 		onSubmit
-	} = useEditContractPage(route.params.contractId);
+	} = useEditContractPage(route.params.contract_uid);
 
 	useEffect(() => {
 		loadForm();

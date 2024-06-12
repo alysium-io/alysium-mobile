@@ -5,7 +5,7 @@ import { Media } from '../media/media.entity';
 import { Venue } from '../venue';
 
 export interface Event {
-	event_id: ApiIdentifier;
+	event_uid: ApiIdentifier;
 	profile_image: Media | null;
 	hosts: HostEventLink[];
 	gallery: EventGallery[];

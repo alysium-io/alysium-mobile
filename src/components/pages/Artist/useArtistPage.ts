@@ -15,13 +15,13 @@ interface IUseArtistPage {
 	openLinks: () => void;
 }
 
-const useArtistPage = (artistId: ApiIdentifier): IUseArtistPage => {
+const useArtistPage = (artist_uid: ApiIdentifier): IUseArtistPage => {
 	const {
 		data: artistData,
 		isLoading: artistIsLoading,
 		error: artistError
 	} = artistApiSlice.useFindOneQuery({
-		params: { artist_id: artistId }
+		params: { artist_uid: artist_uid }
 	});
 
 	const moreSheetApi = useSheet();

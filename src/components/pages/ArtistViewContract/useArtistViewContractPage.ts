@@ -9,14 +9,14 @@ interface IUseArtistViewContractPage {
 }
 
 const useArtistViewContractPage = (
-	contractId: ApiIdentifier
+	contract_uid: ApiIdentifier
 ): IUseArtistViewContractPage => {
 	const {
 		data: contractData,
 		error: contractError,
 		isLoading: contractIsLoading
 	} = contractApiSlice.useFindOneQuery({
-		params: { contract_id: contractId }
+		params: { contract_uid: contract_uid }
 	});
 
 	return {

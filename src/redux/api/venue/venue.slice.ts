@@ -32,11 +32,11 @@ const apiSlice = createApi({
 			{ params: FindOneVenueParamsDto }
 		>({
 			query: ({ params }) => ({
-				url: `/${params.venue_id}`,
+				url: `/${params.venue_uid}`,
 				method: 'GET'
 			}),
 			providesTags: (result, error, { params }) => [
-				{ type: 'Venue', id: params.venue_id }
+				{ type: 'Venue', id: params.venue_uid }
 			]
 		}),
 		findAll: builder.query<
@@ -51,9 +51,9 @@ const apiSlice = createApi({
 			providesTags: (results) =>
 				results
 					? [
-							...results.map(({ venue_id }) => ({
+							...results.map(({ venue_uid }) => ({
 								type: 'Venue' as const,
-								id: venue_id
+								id: venue_uid
 							})),
 							{ type: 'Venue', id: 'LIST' }
 						]
@@ -78,23 +78,23 @@ const apiSlice = createApi({
 			}
 		>({
 			query: ({ body, params }) => ({
-				url: `/${params.venue_id}`,
+				url: `/${params.venue_uid}`,
 				method: 'PUT',
 				body
 			}),
 			invalidatesTags: (result) =>
-				result ? [{ type: 'Venue', id: result.venue_id }] : []
+				result ? [{ type: 'Venue', id: result.venue_uid }] : []
 		}),
 		delete: builder.mutation<
 			DeleteVenueResponseDto,
 			{ params: DeleteVenueParamsDto }
 		>({
 			query: ({ params }) => ({
-				url: `/${params.venue_id}`,
+				url: `/${params.venue_uid}`,
 				method: 'DELETE'
 			}),
 			invalidatesTags: (result, error, { params }) => [
-				{ type: 'Venue', id: params.venue_id }
+				{ type: 'Venue', id: params.venue_uid }
 			]
 		})
 	})

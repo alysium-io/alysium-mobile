@@ -24,7 +24,7 @@ const Artists: React.FC<ArtistsProps> = ({ tagData }) => {
 					rnk={index + 1}
 					title={artist.artist.name || 'Unknown'}
 					subtitle={'Los Angeles, CA'}
-					onPress={() => artistPage(artist.artist_id)}
+					onPress={() => artistPage(artist.artist_uid)}
 					contentType={ContentType.artist}
 					image={artist.artist.profile_image?.url || ''}
 					size='large'

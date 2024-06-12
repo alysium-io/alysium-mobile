@@ -32,11 +32,11 @@ const apiSlice = createApi({
 			{ params: FindOneHostParamsDto }
 		>({
 			query: ({ params }) => ({
-				url: `/${params.host_id}`,
+				url: `/${params.host_uid}`,
 				method: 'GET'
 			}),
 			providesTags: (result, error, { params }) => [
-				{ type: 'Host', id: params.host_id }
+				{ type: 'Host', id: params.host_uid }
 			]
 		}),
 		findAll: builder.query<
@@ -51,9 +51,9 @@ const apiSlice = createApi({
 			providesTags: (results) =>
 				results
 					? [
-							...results.map(({ host_id }) => ({
+							...results.map(({ host_uid }) => ({
 								type: 'Host' as const,
-								id: host_id
+								id: host_uid
 							})),
 							{ type: 'Host', id: 'LIST' }
 						]
@@ -78,23 +78,23 @@ const apiSlice = createApi({
 			}
 		>({
 			query: ({ body, params }) => ({
-				url: `/${params.host_id}`,
+				url: `/${params.host_uid}`,
 				method: 'PUT',
 				body
 			}),
 			invalidatesTags: (result) =>
-				result ? [{ type: 'Host', id: result.host_id }] : []
+				result ? [{ type: 'Host', id: result.host_uid }] : []
 		}),
 		delete: builder.mutation<
 			DeleteHostResponseDto,
 			{ params: DeleteHostParamsDto }
 		>({
 			query: ({ params }) => ({
-				url: `/${params.host_id}`,
+				url: `/${params.host_uid}`,
 				method: 'DELETE'
 			}),
 			invalidatesTags: (result, error, { params }) => [
-				{ type: 'Host', id: params.host_id }
+				{ type: 'Host', id: params.host_uid }
 			]
 		})
 	})

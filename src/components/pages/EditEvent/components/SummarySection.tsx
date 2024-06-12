@@ -7,12 +7,12 @@ import React from 'react';
 
 interface SummarySectionProps {
 	confirmDelete: () => void;
-	eventId: ApiIdentifier;
+	event_uid: ApiIdentifier;
 }
 
 const SummarySection: React.FC<SummarySectionProps> = ({
 	confirmDelete,
-	eventId
+	event_uid
 }) => {
 	const { eventPage } = useNavigation();
 
@@ -37,7 +37,7 @@ const SummarySection: React.FC<SummarySectionProps> = ({
 			<View>
 				<MenuListItem
 					title='Preview'
-					onPress={() => eventPage(eventId)}
+					onPress={() => eventPage(event_uid)}
 					titleProps={{ color: 't2' }}
 					border
 				/>

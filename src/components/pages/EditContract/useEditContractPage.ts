@@ -36,7 +36,7 @@ interface IUseEditContractPage {
 }
 
 const useEditContractPage = (
-	contractId: ApiIdentifier
+	contract_uid: ApiIdentifier
 ): IUseEditContractPage => {
 	const [updateContractMutation] = contractApiSlice.useUpdateMutation();
 	const [deleteContractMutation] = contractApiSlice.useDeleteMutation();
@@ -48,7 +48,7 @@ const useEditContractPage = (
 		error: contractError,
 		isLoading: contractIsLoading
 	} = contractApiSlice.useFindOneQuery({
-		params: { contract_id: contractId }
+		params: { contract_uid: contract_uid }
 	});
 
 	/**
@@ -65,7 +65,7 @@ const useEditContractPage = (
 		data.end_time = Formatting.toUtcIsoFormat(data.end_time);
 		updateContractMutation({
 			body: data,
-			params: { contract_id: contractId }
+			params: { contract_uid: contract_uid }
 		});
 	};
 
@@ -112,7 +112,7 @@ const useEditContractPage = (
 
 	const onDeleteEvent = () => {
 		deleteContractMutation({
-			params: { contract_id: contractId }
+			params: { contract_uid: contract_uid }
 		});
 		back();
 	};

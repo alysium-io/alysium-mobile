@@ -2,8 +2,8 @@ import { ApiIdentifier } from '@types';
 import { Candidate } from '../candidate.entity';
 
 export interface FindAllCandidateEventsQueryDto {
-	host_id: ApiIdentifier;
-	artist_id: ApiIdentifier;
+	host_uid: ApiIdentifier;
+	artist_uid: ApiIdentifier;
 	page: number;
 	limit: number;
 }

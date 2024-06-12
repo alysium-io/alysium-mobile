@@ -9,20 +9,20 @@ import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 interface CandidatesSectionProps {
 	candidatesData: FindAllEventCandidatesResponseDto[];
-	eventId: ApiIdentifier;
+	event_uid: ApiIdentifier;
 }
 
 const CandidatesSection: React.FC<CandidatesSectionProps> = ({
 	candidatesData,
-	eventId
+	event_uid
 }) => {
 	const createContractSheetApi = useSheet();
 	const { artistPage } = useNavigation();
 
-	const [artistId, setArtistId] = useState<ApiIdentifier | null>(null);
+	const [artist_uid, setArtistId] = useState<ApiIdentifier | null>(null);
 
-	const start = (artistId: ApiIdentifier) => {
-		setArtistId(artistId);
+	const start = (artist_uid: ApiIdentifier) => {
+		setArtistId(artist_uid);
 		createContractSheetApi.open();
 	};
 
@@ -31,14 +31,14 @@ const CandidatesSection: React.FC<CandidatesSectionProps> = ({
 			<View>
 				{candidatesData.map((candidate) => (
 					<ContentListItemWithButton
-						key={candidate.artist_id}
+						key={candidate.artist_uid}
 						title={candidate.artist.name}
 						contentType={ContentType.artist}
 						image={candidate.artist.profile_image?.url}
-						onPress={() => artistPage(candidate.artist_id)}
+						onPress={() => artistPage(candidate.artist_uid)}
 						Button={() => (
 							<TouchableWithoutFeedback
-								onPress={() => start(candidate.artist.artist_id)}
+								onPress={() => start(candidate.artist.artist_uid)}
 							>
 								<View
 									paddingVertical='s'
@@ -65,8 +65,8 @@ const CandidatesSection: React.FC<CandidatesSectionProps> = ({
 			</View>
 			<CreateContractBottomSheet
 				sheetApi={createContractSheetApi}
-				eventId={eventId}
-				artistId={artistId}
+				event_uid={event_uid}
+				artist_uid={artist_uid}
 			/>
 		</>
 	);

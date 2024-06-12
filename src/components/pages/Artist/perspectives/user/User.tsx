@@ -9,11 +9,11 @@ import ActionButtons from './components/ActionButtons';
 import useUserPage from './useUserPage';
 
 interface UserProps {
-	artistId: ApiIdentifier;
+	artist_uid: ApiIdentifier;
 }
 
-const User: React.FC<UserProps> = ({ artistId }) => {
-	const { artistData, linksSheetApi, moreSheetApi } = useUserPage(artistId);
+const User: React.FC<UserProps> = ({ artist_uid }) => {
+	const { artistData, linksSheetApi, moreSheetApi } = useUserPage(artist_uid);
 
 	if (!artistData) {
 		return null;

@@ -2,8 +2,8 @@ import { ApiIdentifier } from '@types';
 import { Contract } from '../contract.entity';
 
 export interface DeleteContractBodyDto {
-	event_id: ApiIdentifier;
-	artist_id: ApiIdentifier;
+	event_uid: ApiIdentifier;
+	artist_uid: ApiIdentifier;
 }
 
 export interface DeleteContractResponseDto extends Contract {}

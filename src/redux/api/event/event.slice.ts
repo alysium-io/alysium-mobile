@@ -38,11 +38,11 @@ const apiSlice = createApi({
 			{ params: FindOneEventParamsDto }
 		>({
 			query: ({ params }) => ({
-				url: `/${params.event_id}`,
+				url: `/${params.event_uid}`,
 				method: 'GET'
 			}),
 			providesTags: (result, error, { params }) => [
-				{ type: 'Event', id: params.event_id }
+				{ type: 'Event', id: params.event_uid }
 			]
 		}),
 		findAll: builder.query<
@@ -57,9 +57,9 @@ const apiSlice = createApi({
 			providesTags: (results) =>
 				results
 					? [
-							...results.map(({ event_id }) => ({
+							...results.map(({ event_uid }) => ({
 								type: 'Event' as const,
-								id: event_id
+								id: event_uid
 							})),
 							{ type: 'Event', id: 'LIST' }
 						]
@@ -88,20 +88,20 @@ const apiSlice = createApi({
 				body.end_time = Formatting.toUtcIsoFormat(body.end_time);
 				body.doors_open_time = Formatting.toUtcIsoFormat(body.doors_open_time);
 				return {
-					url: `/${params.event_id}`,
+					url: `/${params.event_uid}`,
 					method: 'PUT',
 					body
 				};
 			},
 			invalidatesTags: (result) =>
-				result ? [{ type: 'Event', id: result.event_id }] : []
+				result ? [{ type: 'Event', id: result.event_uid }] : []
 		}),
 		delete: builder.mutation<
 			DeleteEventResponseDto,
 			{ params: DeleteEventParamsDto }
 		>({
 			query: ({ params }) => ({
-				url: `/${params.event_id}`,
+				url: `/${params.event_uid}`,
 				method: 'DELETE'
 			}),
 			onQueryStarted: async ({ params }, { queryFulfilled, dispatch }) => {
@@ -110,10 +110,10 @@ const apiSlice = createApi({
 					patchResult = dispatch(
 						apiSlice.util.updateQueryData(
 							'findAll',
-							{ query: { page: 1, limit: 10, host_id: 1 } },
+							{ query: { page: 1, limit: 10, host_uid: 1 } },
 							(draft) => {
 								const index = draft.findIndex(
-									(event) => event.event_id === params.event_id
+									(event) => event.event_uid === params.event_uid
 								);
 								if (index !== -1) {
 									draft.splice(index, 1);
@@ -142,7 +142,7 @@ const apiSlice = createApi({
 			}
 		>({
 			query: ({ body, params }) => ({
-				url: `/${params.event_id}/venue`,
+				url: `/${params.event_uid}/venue`,
 				method: 'PUT',
 				body
 			})

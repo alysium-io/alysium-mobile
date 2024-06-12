@@ -35,7 +35,7 @@ const apiSlice = createApi({
 				body
 			}),
 			invalidatesTags: (result, error, { body }) => [
-				{ type: 'ArtistTagLink', id: body.artist_id }
+				{ type: 'ArtistTagLink', id: body.artist_uid }
 			]
 		})
 	})

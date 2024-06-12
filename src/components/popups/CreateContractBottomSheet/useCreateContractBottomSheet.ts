@@ -23,8 +23,8 @@ const initialValues: UpdateContractBodyDto = {
 
 interface IuseCreateContractBottomSheet {
 	sheetApi: SheetApi;
-	artistId: ApiIdentifier | null;
-	eventId: ApiIdentifier;
+	artist_uid: ApiIdentifier | null;
+	event_uid: ApiIdentifier;
 	sequenceApi: SequenceApi;
 	additionalNotesTextInputApi: TextInputApi;
 	formMethods: UseFormReturn<UpdateContractBodyDto>;
@@ -36,8 +36,8 @@ interface IuseCreateContractBottomSheet {
 }
 
 const useCreateContractBottomSheet = (
-	eventId: ApiIdentifier,
-	artistId: ApiIdentifier | null,
+	event_uid: ApiIdentifier,
+	artist_uid: ApiIdentifier | null,
 	sheetApi: SheetApi
 ): IuseCreateContractBottomSheet => {
 	const { hostData } = useHostAppContext();
@@ -53,15 +53,15 @@ const useCreateContractBottomSheet = (
 	const onValid: SubmitHandler<UpdateContractBodyDto> = async (
 		data: UpdateContractBodyDto
 	) => {
-		if (artistId) {
+		if (artist_uid) {
 			sequenceApi.next();
 			data.start_time = Formatting.toUtcIsoFormat(data.start_time);
 			data.end_time = Formatting.toUtcIsoFormat(data.end_time);
 			const body: CreateContractBodyDto = {
 				...data,
-				host_id: hostData.host_id,
-				artist_id: artistId,
-				event_id: eventId
+				host_uid: hostData.host_uid,
+				artist_uid: artist_uid,
+				event_uid: event_uid
 			};
 			await createContractMutation({ body });
 			sheetApi.close();
@@ -85,8 +85,8 @@ const useCreateContractBottomSheet = (
 
 	return {
 		sheetApi,
-		artistId,
-		eventId,
+		artist_uid,
+		event_uid,
 		sequenceApi,
 		additionalNotesTextInputApi,
 		formMethods,
