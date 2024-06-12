@@ -41,7 +41,7 @@ interface IUseEditEvent {
 	loadForm: () => void;
 	onDeleteEvent: () => void;
 	setEventProfileImage: (image: Asset) => void;
-	onChangeVenue: (venue_uid: number) => void;
+	onChangeVenue: (venue_uid: ApiIdentifier) => void;
 	onChangeStartTime: (startTime: Date) => void;
 	onChangeEndTime: (endTime: Date) => void;
 	onChangeDoorsOpenTime: (doorsOpenTime: Date) => void;
@@ -63,7 +63,7 @@ const useEditEventPage = (event_uid: ApiIdentifier): IUseEditEvent => {
 		error: eventError,
 		isLoading: eventIsLoading
 	} = eventApiSlice.useFindOneQuery({
-		params: { event_uid: event_uid }
+		params: { event_uid }
 	});
 
 	const {
@@ -87,7 +87,7 @@ const useEditEventPage = (event_uid: ApiIdentifier): IUseEditEvent => {
 	) => {
 		updateEventMutation({
 			body: data,
-			params: { event_uid: event_uid }
+			params: { event_uid }
 		});
 	};
 
@@ -162,13 +162,13 @@ const useEditEventPage = (event_uid: ApiIdentifier): IUseEditEvent => {
 		if (eventData) {
 			updateEventVenueMutation({
 				params: { event_uid: eventData.event_uid },
-				body: { venue_uid: venue_uid }
+				body: { venue_uid }
 			});
 		}
 	};
 
 	const onDeleteEvent = () => {
-		deleteEventMutation({ params: { event_uid: event_uid } });
+		deleteEventMutation({ params: { event_uid } });
 		back();
 	};
 

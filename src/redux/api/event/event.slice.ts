@@ -79,8 +79,8 @@ const apiSlice = createApi({
 		update: builder.mutation<
 			UpdateEventResponseDto,
 			{
-				body: UpdateEventBodyDto;
 				params: UpdateEventParamsDto;
+				body: UpdateEventBodyDto;
 			}
 		>({
 			query: ({ body, params }) => {
@@ -110,7 +110,7 @@ const apiSlice = createApi({
 					patchResult = dispatch(
 						apiSlice.util.updateQueryData(
 							'findAll',
-							{ query: { page: 1, limit: 10, host_uid: 1 } },
+							{ query: { page: 1, limit: 10, host_uid: '1' } },
 							(draft) => {
 								const index = draft.findIndex(
 									(event) => event.event_uid === params.event_uid
