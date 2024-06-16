@@ -15,27 +15,27 @@ export enum GalleryRefType {
 }
 
 export interface BaseGallery {
-	gallery_uid: ApiIdentifier;
-	media: Media | null;
-	order: number;
+	readonly gallery_uid: ApiIdentifier;
+	readonly media: Media | null;
+	readonly order: number;
 }
 
 export interface EventGallery extends BaseGallery {
-	event: Event;
+	readonly event: Event;
 }
 
 export interface ArtistGallery extends BaseGallery {
-	artist: Artist;
+	readonly artist: Artist;
 }
 
 export interface HostGallery extends BaseGallery {
-	host: Host;
+	readonly host: Host;
 }
 
 export interface VenueGallery extends BaseGallery {
-	venue: Venue;
+	readonly venue: Venue;
 }
 
 export interface UserGallery extends BaseGallery {
-	user: User;
+	readonly user: User;
 }

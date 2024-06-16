@@ -3,6 +3,8 @@ export * from './ArtistViewContract';
 export * from './ContractManager';
 export * from './EditContract';
 export * from './EditEvent';
+export * from './EditEventTicketTypes';
+export * from './EditTicketType';
 export * from './EditVenue';
 export * from './Event';
 export * from './EventCandidates';

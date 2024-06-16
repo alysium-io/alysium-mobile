@@ -6,14 +6,14 @@ import ContentListItemToggle from './ContentListItemToggle';
 
 interface ContentListItemTogglerProps {
 	subtitleFirst?: boolean;
-	onPressToggle?: (id: number) => void;
-	defaultId?: number;
+	onPressToggle?: (id: string) => void;
+	defaultId?: string;
 	items: {
-		id: number;
+		id: string;
 		image?: string;
 		title: string;
 		subtitle: string;
-		onPress: (id: number) => void;
+		onPress: (id: string) => void;
 	}[];
 }
 
@@ -27,9 +27,9 @@ const ContentListItemToggler: React.FC<ContentListItemTogglerProps> = ({
 		setSelected(defaultId);
 	}, [defaultId]);
 
-	const [selected, setSelected] = useState<number | undefined>(defaultId);
+	const [selected, setSelected] = useState<string | undefined>(defaultId);
 
-	const handlePressToggle = (id: number) => {
+	const handlePressToggle = (id: string) => {
 		Vibrator.contextClick();
 		setSelected(id);
 		onPressToggle && onPressToggle(id);

@@ -47,6 +47,7 @@ import Share from './Share';
 import Star from './Star';
 import Tag from './Tag';
 import TailedArrow from './TailedArrow';
+import Ticket from './Ticket';
 import User from './User';
 import X from './X';
 
@@ -101,7 +102,8 @@ export const SvgIcons = {
 	at: At,
 	plus: Plus,
 	'edit-image': EditImage,
-	phone: Phone
+	phone: Phone,
+	ticket: Ticket
 };
 
 export type IconNames = keyof typeof SvgIcons;

@@ -5,15 +5,15 @@ import { Host } from '../host';
 import { ContractStatus } from './types';
 
 export interface Contract {
-	contract_uid: ApiIdentifier;
-	host: Host;
-	artist: Artist;
-	event: Event;
-	host_approved: boolean;
-	artist_approved: boolean;
-	status: ContractStatus;
-	start_time: string;
-	end_time: string;
-	host_provides_equipment: boolean;
-	additional_notes: string | null;
+	readonly contract_uid: ApiIdentifier;
+	readonly host: Host;
+	readonly artist: Artist;
+	readonly event: Event;
+	readonly host_approved: boolean;
+	readonly artist_approved: boolean;
+	readonly status: ContractStatus;
+	readonly start_time: string;
+	readonly end_time: string;
+	readonly host_provides_equipment: boolean;
+	readonly additional_notes: string | null;
 }

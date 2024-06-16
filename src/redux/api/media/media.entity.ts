@@ -9,11 +9,11 @@ export enum MediaRefType {
 }
 
 export interface Media {
-	media_uid: ApiIdentifier;
-	url: string;
-	filename: string;
-	key: string;
-	encoding: string;
-	mimetype: string;
-	size: number;
+	readonly media_uid: ApiIdentifier;
+	readonly url: string;
+	readonly filename: string;
+	readonly key: string;
+	readonly encoding: string;
+	readonly mimetype: string;
+	readonly size: number;
 }

@@ -3,9 +3,9 @@ import { Artist } from '../artist';
 import { Event } from '../event';
 
 export interface Candidate {
-	artist_uid: ApiIdentifier;
-	event_uid: ApiIdentifier;
-	event: Event;
-	artist: Artist;
-	created_at: Date;
+	readonly artist_uid: ApiIdentifier;
+	readonly event_uid: ApiIdentifier;
+	readonly event: Event;
+	readonly artist: Artist;
+	readonly created_at: Date;
 }

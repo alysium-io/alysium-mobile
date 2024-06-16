@@ -1,18 +1,18 @@
 import { useHostAppContext } from '@arch/Application/contexts/Host.context';
-import { SequenceApi, useSequence } from '@atomic';
 import { Formatting } from '@etc';
 import { contractApiSlice } from '@flux/api/contract';
 import { CreateContractBodyDto } from '@flux/api/contract/dto/create-contract.dto';
 import { UpdateContractBodyDto } from '@flux/api/contract/dto/update-contract.dto';
 import { SheetApi, TextInputApi, useTextInput } from '@hooks';
+import { SequenceApi, useSequence } from '@organisms';
 import { ApiIdentifier, OnSubmitHandler } from '@types';
-import { useState } from 'react';
 import {
 	SubmitErrorHandler,
 	SubmitHandler,
 	UseFormReturn,
 	useForm
 } from 'react-hook-form';
+import { Keyboard } from 'react-native';
 
 const initialValues: UpdateContractBodyDto = {
 	start_time: null,
@@ -29,10 +29,11 @@ interface IuseCreateContractBottomSheet {
 	additionalNotesTextInputApi: TextInputApi;
 	formMethods: UseFormReturn<UpdateContractBodyDto>;
 	onSubmit: OnSubmitHandler;
-	height: number;
-	setHeight: React.Dispatch<React.SetStateAction<number>>;
 	onChangeStartTime: (startTime: Date) => void;
 	onChangeEndTime: (endTime: Date) => void;
+	done: () => void;
+	cancel: () => void;
+	resetAll: () => void;
 }
 
 const useCreateContractBottomSheet = (
@@ -41,20 +42,25 @@ const useCreateContractBottomSheet = (
 	sheetApi: SheetApi
 ): IuseCreateContractBottomSheet => {
 	const { hostData } = useHostAppContext();
-	const sequenceApi = useSequence(5);
+	const sequenceApi = useSequence(4);
 	const additionalNotesTextInputApi = useTextInput();
-	const [height, setHeight] = useState<number>(0);
 	const [createContractMutation] = contractApiSlice.useCreateMutation();
 
 	const formMethods = useForm<UpdateContractBodyDto>({
 		defaultValues: initialValues
 	});
 
+	const resetAll = () => {
+		Keyboard.dismiss();
+		additionalNotesTextInputApi.reset();
+		sequenceApi.reset();
+		formMethods.reset(initialValues);
+	};
+
 	const onValid: SubmitHandler<UpdateContractBodyDto> = async (
 		data: UpdateContractBodyDto
 	) => {
 		if (artist_uid) {
-			sequenceApi.next();
 			data.start_time = Formatting.toUtcIsoFormat(data.start_time);
 			data.end_time = Formatting.toUtcIsoFormat(data.end_time);
 			const body: CreateContractBodyDto = {
@@ -78,6 +84,15 @@ const useCreateContractBottomSheet = (
 
 	const onSubmit = formMethods.handleSubmit(onValid, onInvalid);
 
+	const done = () => {
+		sheetApi.close();
+		onSubmit();
+	};
+
+	const cancel = () => {
+		sheetApi.close();
+	};
+
 	const onChangeStartTime = (startTime: Date) =>
 		formMethods.setValue('start_time', Formatting.toUtcIsoFormat(startTime));
 	const onChangeEndTime = (endTime: Date) =>
@@ -91,10 +106,11 @@ const useCreateContractBottomSheet = (
 		additionalNotesTextInputApi,
 		formMethods,
 		onSubmit,
-		height,
-		setHeight,
 		onChangeStartTime,
-		onChangeEndTime
+		onChangeEndTime,
+		done,
+		cancel,
+		resetAll
 	};
 };
 

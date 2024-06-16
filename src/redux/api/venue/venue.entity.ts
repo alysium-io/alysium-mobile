@@ -5,20 +5,20 @@ import { Media } from '../media/media.entity';
 import { VenueType } from './types';
 
 export interface Venue {
-	venue_uid: ApiIdentifier;
-	profile_image: Media | null;
-	host: Host;
-	gallery: VenueGallery[];
-	name: string;
-	phone_number: string | null;
-	capacity: number;
-	latitude: number | null;
-	longitude: number | null;
-	street: string | null;
-	city: string | null;
-	state: string | null;
-	postal_code: string | null;
-	country: string | null;
-	description: string | null;
-	venue_type: VenueType | null;
+	readonly venue_uid: ApiIdentifier;
+	readonly profile_image: Media | null;
+	readonly host: Host;
+	readonly gallery: VenueGallery[];
+	readonly name: string;
+	readonly phone_number: string | null;
+	readonly capacity: number;
+	readonly latitude: number | null;
+	readonly longitude: number | null;
+	readonly street: string | null;
+	readonly city: string | null;
+	readonly state: string | null;
+	readonly postal_code: string | null;
+	readonly country: string | null;
+	readonly description: string | null;
+	readonly venue_type: VenueType | null;
 }

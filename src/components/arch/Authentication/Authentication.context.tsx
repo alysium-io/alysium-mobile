@@ -3,6 +3,7 @@ import { userApiSlice } from '@flux/api/user';
 import { createUseContextHook, usePersistedAppState } from '@hooks';
 import { AuthStage, ProviderProps } from '@types';
 import React, { createContext, useEffect, useState } from 'react';
+import { Keyboard } from 'react-native';
 
 export type ScreenState = 'login-phone' | 'continue-phone';
 export type AuthenticationState = {
@@ -144,6 +145,7 @@ export const AuthenticationAppProvider: React.FC<ProviderProps> = ({
 	};
 
 	const continuePhoneNumber = async () => {
+		Keyboard.dismiss();
 		setIsLoading(true);
 		const { data, error } = await registerPhoneNumberQuery({
 			body: {

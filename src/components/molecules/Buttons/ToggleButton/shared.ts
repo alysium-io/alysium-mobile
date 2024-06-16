@@ -17,13 +17,13 @@ export const colorScheme = {
 	},
 	[ThemeMode.light]: {
 		active: {
-			background: 'black',
+			background: 'bg3',
 			border: 'white',
 			text: 'white',
 			icon: 'white'
 		},
 		inactive: {
-			background: 'bg2',
+			background: 'bg1',
 			border: 'bg3',
 			text: 't2',
 			icon: 't2'

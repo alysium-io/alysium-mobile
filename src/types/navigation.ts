@@ -50,6 +50,13 @@ type ContractManagerPage = undefined;
 
 type EventCandidatesPage = { event_uid: ApiIdentifier };
 
+type EditEventTicketTypesPage = { event_uid: ApiIdentifier };
+
+type EditTicketTypePage = {
+	ticket_collection_uid: ApiIdentifier;
+	ticket_type_uid: ApiIdentifier;
+};
+
 type ArtistViewContractPage = { contract_uid: ApiIdentifier };
 
 /**
@@ -111,6 +118,8 @@ export type EventManagerStackNavigatorParamList = {
 	EventPage: EventPage;
 	EditVenuePage: EditVenuePage;
 	EventCandidatesPage: EventCandidatesPage;
+	EditEventTicketTypesPage: EditEventTicketTypesPage;
+	EditTicketTypePage: EditTicketTypePage;
 	EditContractPage: EditContractPage;
 	ArtistPage: ArtistPage;
 };
@@ -208,7 +217,6 @@ export type ArtistFollowersAndShowsPageRouteProp = RouteProp<
 	CompositeStackNavigatorParamList,
 	'ArtistFollowersAndShowsPage'
 >;
-
 export type TagPageRouteProp = RouteProp<
 	CompositeStackNavigatorParamList,
 	'TagPage'
@@ -240,6 +248,14 @@ export type EditEventPageRouteProp = RouteProp<
 export type EventCandidatesPageRouteProp = RouteProp<
 	CompositeStackNavigatorParamList,
 	'EventCandidatesPage'
+>;
+export type EditEventTicketTypesPageRouteProp = RouteProp<
+	CompositeStackNavigatorParamList,
+	'EditEventTicketTypesPage'
+>;
+export type EditTicketTypePageRouteProp = RouteProp<
+	CompositeStackNavigatorParamList,
+	'EditTicketTypePage'
 >;
 export type EditVenuePageRouteProp = RouteProp<
 	CompositeStackNavigatorParamList,

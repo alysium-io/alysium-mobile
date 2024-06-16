@@ -2,11 +2,13 @@ import { View } from '@atomic';
 import { Button } from '@molecules';
 import React from 'react';
 
-interface FooterButtonProps {
+interface SequenceFooterButtonsProps {
 	buttons: React.ComponentProps<typeof Button>[];
 }
 
-const FooterButtons: React.FC<FooterButtonProps> = ({ buttons }) => {
+const SequenceFooterButtons: React.FC<SequenceFooterButtonsProps> = ({
+	buttons
+}) => {
 	const marginSize = 's';
 	return (
 		<View padding='m' flexDirection='row'>
@@ -25,4 +27,4 @@ const FooterButtons: React.FC<FooterButtonProps> = ({ buttons }) => {
 	);
 };
 
-export default FooterButtons;
+export default SequenceFooterButtons;

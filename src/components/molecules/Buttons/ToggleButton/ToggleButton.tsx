@@ -2,7 +2,8 @@ import { Icon, Text, View } from '@atomic';
 import { useTheme } from '@hooks';
 import { IconNames } from '@svg';
 import React, { useEffect } from 'react';
-import { StyleSheet, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet } from 'react-native';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import {
 	interpolateColor,
 	useAnimatedProps,

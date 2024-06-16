@@ -45,7 +45,9 @@ class Formatting {
 		return input.replace(/\D/g, '');
 	};
 
-	static formatCommaSeparatedNumber = (input: number | string): string => {
+	static formatCommaSeparatedNumber = (
+		input: number | string | null
+	): string => {
 		/**
 		 * Function that formats a number to include commas
 		 */

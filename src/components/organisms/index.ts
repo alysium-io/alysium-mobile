@@ -9,5 +9,7 @@ export * from './Lists';
 export * from './PillList';
 export * from './ProjectAssets';
 export * from './SearchBar';
+export * from './Sequence';
 export * from './Stats';
 export * from './TabToggle';
+export * from './Table';

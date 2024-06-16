@@ -12,6 +12,7 @@ import FeaturesSection from './components/FeaturesSection';
 import PrimaryImage from './components/PrimaryImage';
 import SelectVenueSection from './components/SelectVenueSection';
 import SummarySection from './components/SummarySection';
+import TicketsItem from './components/TicketsItem';
 import useEditEventPage from './useEditEventPage';
 
 const EditEventPage = () => {
@@ -29,7 +30,8 @@ const EditEventPage = () => {
 		onChangeEndTime,
 		onChangeDoorsOpenTime,
 		goToEventCandidatesPage,
-		confirmDelete
+		confirmDelete,
+		goToEditEventTicketTypesPage
 	} = useEditEventPage(route.params.event_uid);
 
 	useEffect(() => {
@@ -56,6 +58,10 @@ const EditEventPage = () => {
 					<EventName formMethods={formMethods} />
 					<CandidatesItem
 						goToEventCandidatesPage={goToEventCandidatesPage}
+						eventData={eventData}
+					/>
+					<TicketsItem
+						goToEditEventTicketTypesPage={goToEditEventTicketTypesPage}
 						eventData={eventData}
 					/>
 					<Separator size='large' marginTop='none' />

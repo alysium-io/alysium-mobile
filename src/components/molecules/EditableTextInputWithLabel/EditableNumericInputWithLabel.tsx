@@ -1,7 +1,7 @@
 import { Text, TextInput, View } from '@atomic';
 import { TextInputApi, useTheme } from '@hooks';
 import React from 'react';
-import { TouchableWithoutFeedback } from 'react-native';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 interface EditableNumericInputWithLabelProps
 	extends React.ComponentProps<typeof TextInput> {
@@ -11,7 +11,7 @@ interface EditableNumericInputWithLabelProps
 
 const EditableNumericInputWithLabel: React.FC<
 	EditableNumericInputWithLabelProps
-> = ({ textInputApi, label, ...props }) => {
+> = ({ textInputApi, label, keyboardType = 'numeric', ...props }) => {
 	const { theme } = useTheme();
 
 	return (
@@ -39,6 +39,7 @@ const EditableNumericInputWithLabel: React.FC<
 						variant='paragraph'
 						color='t2'
 						placeholderTextColor={theme.colors.t3}
+						keyboardType={keyboardType}
 						{...props}
 					/>
 				</View>

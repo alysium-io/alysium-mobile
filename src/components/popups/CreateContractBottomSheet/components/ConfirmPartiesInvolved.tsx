@@ -5,14 +5,14 @@ import React from 'react';
 
 const ConfirmPartiesInvolved = () => {
 	return (
-		<View flex={1}>
+		<View>
 			<BottomSheetHeader text='Start Contract' />
-			<Section margin='m' justifyContent='space-around' flex={1}>
-				<View alignItems='center'>
+			<Section margin='m'>
+				<View marginVertical='xl' alignItems='center'>
 					<Icon name='logo' size='large' color='t2' />
 				</View>
 				<View
-					marginVertical='xl'
+					marginVertical='l'
 					flexDirection='row'
 					justifyContent='space-around'
 				>
@@ -37,7 +37,7 @@ const ConfirmPartiesInvolved = () => {
 						</Text>
 					</View>
 				</View>
-				<Text variant='paragraph' color='t2' textAlign='center'>
+				<Text variant='paragraph' color='t2' textAlign='center' marginTop='xl'>
 					Please confirm that the above parties are correct.
 				</Text>
 			</Section>

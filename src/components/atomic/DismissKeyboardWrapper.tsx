@@ -1,20 +1,16 @@
-import { View } from '@atomic';
+import { ChildrenProps } from '@types';
 import React from 'react';
-import { Keyboard, TouchableWithoutFeedback } from 'react-native';
+import { Keyboard } from 'react-native';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
-type DismissKeyboardWrapperProps = React.ComponentProps<typeof View> & {
-	children?: React.ReactNode;
-};
-
-const DismissKeyboardWrapper: React.FC<DismissKeyboardWrapperProps> = ({
-	children,
-	...props
-}) => {
+const DismissKeyboardWrapper: React.FC<ChildrenProps> = ({ children }) => {
 	return (
-		<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-			<View {...props} flex={1}>
-				{children}
-			</View>
+		<TouchableWithoutFeedback
+			onPress={Keyboard.dismiss}
+			style={{ flex: 1 }}
+			containerStyle={{ flex: 1 }}
+		>
+			{children}
 		</TouchableWithoutFeedback>
 	);
 };

@@ -5,13 +5,13 @@ import { Host } from '../host/host.entity';
 import { Media } from '../media/media.entity';
 
 export interface User {
-	user_uid: ApiIdentifier;
-	name: string | null;
-	handle: string;
-	email: string | null;
-	phone_number: string | null;
-	profile_image: Media | null;
-	hosts: Host[];
-	artists: Artist[];
-	gallery: UserGallery[];
+	readonly user_uid: ApiIdentifier;
+	readonly name: string | null;
+	readonly handle: string;
+	readonly email: string | null;
+	readonly phone_number: string | null;
+	readonly profile_image: Media | null;
+	readonly hosts: Host[];
+	readonly artists: Artist[];
+	readonly gallery: UserGallery[];
 }

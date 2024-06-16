@@ -2,7 +2,6 @@ export * from './api';
 export * from './bottom-tabs';
 export * from './enums';
 export * from './env';
-export * from './etc';
 export * from './image-picker';
 export * from './navigation';
 export * from './react-hook-form';

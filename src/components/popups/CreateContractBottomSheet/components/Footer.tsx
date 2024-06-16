@@ -1,86 +1,82 @@
-import { SequenceApi, View } from '@atomic';
-import { BottomSheetFooterProps } from '@gorhom/bottom-sheet';
-import { SheetApi } from '@hooks';
-import { BottomSheetFooter } from '@organisms';
-import { IChildrenProps, OnSubmitHandler } from '@types';
-import React, { useCallback } from 'react';
-import { Case, Switch } from 'react-if';
-import AdditionalNotesFooter from './AdditionalNotesFooter';
-import ConfirmPartiesInvolvedFooter from './ConfirmPartiesInvolvedFooter';
-import SelectFeaturesFooter from './SelectFeaturesFooter';
-import SelectSlotTimeFooter from './SelectSlotTimeFooter';
+import {
+	BottomSheetFooter,
+	SequenceApi,
+	SequenceFooterButtons
+} from '@organisms';
+import React from 'react';
+import { Case, Default, Switch } from 'react-if';
 
-interface SequenceFooterWrapperProps extends IChildrenProps {
-	setHeight: (height: number) => void;
-}
-
-const SequenceFooterWrapper: React.FC<SequenceFooterWrapperProps> = ({
-	children,
-	setHeight
-}) => {
-	return (
-		<View
-			onLayout={({ nativeEvent }) => {
-				setHeight(nativeEvent.layout.height);
-			}}
-		>
-			{children}
-		</View>
-	);
-};
-
-interface FooterProps extends BottomSheetFooterProps {
-	sheetApi: SheetApi;
+interface FooterProps {
+	cancel: () => void;
+	done: () => void;
 	sequenceApi: SequenceApi;
-	setHeight: (height: number) => void;
-	onSubmit: OnSubmitHandler;
 }
 
-const Footer: React.FC<FooterProps> = ({
-	sheetApi,
-	sequenceApi,
-	setHeight,
-	onSubmit,
-	...props
-}) => {
-	const feet = [
-		useCallback(
-			() => (
-				<ConfirmPartiesInvolvedFooter
-					sheetApi={sheetApi}
-					sequenceApi={sequenceApi}
-				/>
-			),
-			[]
-		),
-		useCallback(() => <SelectSlotTimeFooter sequenceApi={sequenceApi} />, []),
-		useCallback(() => <SelectFeaturesFooter sequenceApi={sequenceApi} />, []),
-		useCallback(
-			() => (
-				<AdditionalNotesFooter sequenceApi={sequenceApi} onSubmit={onSubmit} />
-			),
-			[sequenceApi, onSubmit]
-		)
-	];
-
-	const Foot = useCallback(
-		(props: BottomSheetFooterProps) => (
-			<BottomSheetFooter {...props}>
-				<Switch>
-					{feet.map((FooterComponent, index) => (
-						<Case key={index} condition={sequenceApi.sequenceIndex === index}>
-							<SequenceFooterWrapper setHeight={setHeight} key={index}>
-								<FooterComponent />
-							</SequenceFooterWrapper>
-						</Case>
-					))}
-				</Switch>
-			</BottomSheetFooter>
-		),
-		[sequenceApi.sequenceIndex, setHeight]
+const Footer: React.FC<FooterProps> = ({ cancel, done, sequenceApi }) => {
+	return (
+		<BottomSheetFooter>
+			<Switch>
+				<Case condition={sequenceApi.sequenceIndex === 0}>
+					<SequenceFooterButtons
+						buttons={[
+							{
+								onPress: cancel,
+								text: 'cancel',
+								variant: 'outlined',
+								colorVariant: 'default'
+							},
+							{
+								onPress: sequenceApi.next,
+								text: 'Start',
+								variant: 'filled',
+								colorVariant: 'default',
+								icon: 'arrow-right'
+							}
+						]}
+					/>
+				</Case>
+				<Case
+					condition={sequenceApi.sequenceIndex === sequenceApi.numItems - 1}
+				>
+					<SequenceFooterButtons
+						buttons={[
+							{
+								onPress: sequenceApi.back,
+								text: 'back',
+								variant: 'outlined',
+								colorVariant: 'default'
+							},
+							{
+								onPress: done,
+								text: 'Done',
+								variant: 'filled',
+								colorVariant: 'default'
+							}
+						]}
+					/>
+				</Case>
+				<Default>
+					<SequenceFooterButtons
+						buttons={[
+							{
+								onPress: sequenceApi.back,
+								text: 'back',
+								variant: 'outlined',
+								colorVariant: 'default'
+							},
+							{
+								onPress: sequenceApi.next,
+								text: 'next',
+								variant: 'filled',
+								colorVariant: 'default',
+								icon: 'arrow-right'
+							}
+						]}
+					/>
+				</Default>
+			</Switch>
+		</BottomSheetFooter>
 	);
-
-	return <Foot {...props} />;
 };
 
 export default Footer;

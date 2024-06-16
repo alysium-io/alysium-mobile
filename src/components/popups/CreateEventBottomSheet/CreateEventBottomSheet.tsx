@@ -25,6 +25,7 @@ const CreateEventBottomSheet: React.FC<CreateEventBottomSheetProps> = ({
 		createEventButtonState,
 		cancel
 	} = useCreateEventBottomSheet(sheetApi);
+
 	return (
 		<BottomSheet
 			sheetRef={sheetApi.sheetRef}

@@ -1,5 +1,6 @@
 import { Icon, View } from '@atomic';
 import React from 'react';
+import { Else, If, Then } from 'react-if';
 import { TouchableWithoutFeedback } from 'react-native';
 
 const ArrowIcon: React.FC = () => (
@@ -31,13 +32,16 @@ const ListItemActionIcon: React.FC<ListItemActionIconProps> = ({
 	actionIcon = 'arrow',
 	onPress
 }) => {
-	if (actionIcon === 'arrow') {
-		return <ArrowIcon />;
-	}
-
-	if (actionIcon === 'menu') {
-		return <MenuIcon onPress={onPress} />;
-	}
+	return (
+		<If condition={actionIcon === 'arrow'}>
+			<Then>
+				<ArrowIcon />
+			</Then>
+			<Else>
+				<MenuIcon onPress={onPress} />
+			</Else>
+		</If>
+	);
 };
 
 export default ListItemActionIcon;

@@ -47,10 +47,12 @@ interface IUseEditEvent {
 	onChangeDoorsOpenTime: (doorsOpenTime: Date) => void;
 	goToEventCandidatesPage: () => void;
 	confirmDelete: () => void;
+	goToEditEventTicketTypesPage: () => void;
 }
 
 const useEditEventPage = (event_uid: ApiIdentifier): IUseEditEvent => {
-	const { back, eventCandidatesPage } = useNavigation();
+	const { back, eventCandidatesPage, editEventTicketTypesPage } =
+		useNavigation();
 	const { hostData } = useHostAppContext();
 	const { uploadMedia } = useMedia();
 	const [deleteEventMutation] = eventApiSlice.useDeleteMutation();
@@ -176,6 +178,10 @@ const useEditEventPage = (event_uid: ApiIdentifier): IUseEditEvent => {
 		eventCandidatesPage(event_uid);
 	};
 
+	const goToEditEventTicketTypesPage = () => {
+		editEventTicketTypesPage(event_uid);
+	};
+
 	return {
 		eventData,
 		eventError,
@@ -194,7 +200,8 @@ const useEditEventPage = (event_uid: ApiIdentifier): IUseEditEvent => {
 		onChangeEndTime,
 		onChangeDoorsOpenTime,
 		goToEventCandidatesPage,
-		confirmDelete
+		confirmDelete,
+		goToEditEventTicketTypesPage
 	};
 };
 

@@ -2,6 +2,7 @@ import { View } from '@atomic';
 import React, { useEffect, useState } from 'react';
 import { LayoutChangeEvent, StyleSheet } from 'react-native';
 import {
+	Easing,
 	Extrapolation,
 	interpolate,
 	useAnimatedStyle,
@@ -24,7 +25,10 @@ const SequenceItem: React.FC<SequenceItemProps> = ({
 	const value = useSharedValue<number>(sequenceIndex * width + width * index);
 
 	useEffect(() => {
-		value.value = withTiming(sequenceIndex);
+		value.value = withTiming(sequenceIndex, {
+			duration: 200,
+			easing: Easing.inOut(Easing.ease)
+		});
 	}, [sequenceIndex, width]);
 
 	const animatedContainerStyle = useAnimatedStyle(() => {
@@ -57,48 +61,7 @@ const SequenceItem: React.FC<SequenceItemProps> = ({
 	);
 };
 
-interface SequenceProps {
-	children: React.ReactNode[];
-	sequenceIndex: number;
-}
-
-const Sequence: React.FC<SequenceProps> = ({ children, sequenceIndex }) => (
-	<View style={styles.sequence}>
-		{children?.map((child: React.ReactNode, index: number) => {
-			return (
-				<SequenceItem sequenceIndex={sequenceIndex} index={index} key={index}>
-					{child}
-				</SequenceItem>
-			);
-		})}
-	</View>
-);
-
-export interface SequenceApi {
-	next: () => void;
-	back: () => void;
-	reset: () => void;
-	sequenceIndex: number;
-}
-
-export const useSequence = (numItems: number): SequenceApi => {
-	const [sequenceIndex, setSequenceIndex] = useState<number>(0);
-	const next = () => setSequenceIndex(Math.min(numItems, sequenceIndex + 1));
-	const back = () => setSequenceIndex(Math.max(0, sequenceIndex - 1));
-	const reset = () => setSequenceIndex(0);
-	return {
-		next,
-		back,
-		reset,
-		sequenceIndex
-	};
-};
-
 const styles = StyleSheet.create({
-	sequence: {
-		flex: 1,
-		flexDirection: 'row'
-	},
 	sequenceItem: {
 		position: 'absolute',
 		width: '100%',
@@ -106,4 +69,4 @@ const styles = StyleSheet.create({
 	}
 });
 
-export default Sequence;
+export default SequenceItem;

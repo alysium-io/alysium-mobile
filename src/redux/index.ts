@@ -29,6 +29,9 @@ import { userApiSlice } from './api/user';
 import { venueApiSlice } from './api/venue';
 import { persistedAppReducer, persistedSearchReducer } from './local';
 
+import { ticketApiSlice } from './api/ticket';
+import { ticketCollectionApiSlice } from './api/ticket-collection';
+import { ticketTypeApiSlice } from './api/ticket-type';
 import { apiErrorUnauthorizedMiddleware } from './middleware';
 
 const store = configureStore({
@@ -48,7 +51,10 @@ const store = configureStore({
 		[tagApiSlice.reducerPath]: tagApiSlice.reducer,
 		[userApiSlice.reducerPath]: userApiSlice.reducer,
 		[searchApiSlice.reducerPath]: searchApiSlice.reducer,
-		[contractApiSlice.reducerPath]: contractApiSlice.reducer
+		[contractApiSlice.reducerPath]: contractApiSlice.reducer,
+		[ticketCollectionApiSlice.reducerPath]: ticketCollectionApiSlice.reducer,
+		[ticketTypeApiSlice.reducerPath]: ticketTypeApiSlice.reducer,
+		[ticketApiSlice.reducerPath]: ticketApiSlice.reducer
 	},
 	middleware: (getDefaultMiddleware) => {
 		return getDefaultMiddleware({
@@ -70,6 +76,9 @@ const store = configureStore({
 			.concat(userApiSlice.middleware)
 			.concat(searchApiSlice.middleware)
 			.concat(contractApiSlice.middleware)
+			.concat(ticketCollectionApiSlice.middleware)
+			.concat(ticketTypeApiSlice.middleware)
+			.concat(ticketApiSlice.middleware)
 			.concat(apiErrorUnauthorizedMiddleware);
 	}
 });

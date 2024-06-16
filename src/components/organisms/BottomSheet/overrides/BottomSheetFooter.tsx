@@ -1,29 +1,26 @@
-import {
-	BottomSheetFooter as RNBottomSheetFooter,
-	BottomSheetFooterProps as RNBottomSheetFooterProps
-} from '@gorhom/bottom-sheet';
+import { View } from '@atomic';
 import React from 'react';
+import { useAnimatedKeyboard, useAnimatedStyle } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-interface BottomSheetFooterProps extends RNBottomSheetFooterProps {
+interface BottomSheetFooterProps {
 	children?: React.ReactNode;
 }
 
-const BottomSheetFooter: React.FC<BottomSheetFooterProps> = ({
-	children,
-	animatedFooterPosition,
-	...props
-}) => {
+const BottomSheetFooter: React.FC<BottomSheetFooterProps> = ({ children }) => {
 	const insets = useSafeAreaInsets();
+	const keyboardPosition = useAnimatedKeyboard();
+
+	const animatedPosition = useAnimatedStyle(() => {
+		return {
+			bottom: insets.bottom + keyboardPosition.height.value
+		};
+	}, [keyboardPosition.height.value, insets.bottom]);
 
 	return (
-		<RNBottomSheetFooter
-			{...props}
-			animatedFooterPosition={animatedFooterPosition}
-			bottomInset={insets.bottom}
-		>
+		<View animated style={animatedPosition}>
 			{children}
-		</RNBottomSheetFooter>
+		</View>
 	);
 };
 
