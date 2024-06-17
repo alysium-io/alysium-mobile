@@ -14,17 +14,14 @@ const SearchResults: React.FC<SearchResultsProps> = ({
 	searchResults,
 	onPressSearchResult
 }) => {
-	if (!searchResults?.hits) {
-		return null;
-	}
 	return (
 		<Section>
 			<View marginHorizontal='m'>
 				<SectionHeader text='Search Results' titleVariant='large' />
 			</View>
-			{searchResults.hits?.map((result) => (
+			{searchResults?.hits?.map((result) => (
 				<ContentListItem
-					key={result.id}
+					key={result.uid}
 					title={result.name}
 					subtitle='artist'
 					onPress={() => onPressSearchResult(result)}

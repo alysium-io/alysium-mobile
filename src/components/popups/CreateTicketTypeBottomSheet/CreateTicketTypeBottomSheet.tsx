@@ -34,7 +34,8 @@ const CreateTicketTypeBottomSheet: React.FC<
 		onChangeStartSaleTime,
 		onChangeEndSaleTime,
 		cancel,
-		done
+		done,
+		onSheetIndexChangeFocusTextInput
 	} = useCreateTicketTypeBottomSheet(sheetApi, ticket_collection_uid);
 
 	const { animatedMarginBottom } = useAnimatedFooterHeight();
@@ -44,6 +45,7 @@ const CreateTicketTypeBottomSheet: React.FC<
 			sheetRef={sheetApi.sheetRef}
 			snapPoints={['90%']}
 			onDismiss={resetAll}
+			onChange={onSheetIndexChangeFocusTextInput}
 		>
 			<DismissKeyboardWrapper>
 				<BottomSheetView style={[{ flex: 1 }, animatedMarginBottom]}>

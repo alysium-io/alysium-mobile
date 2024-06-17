@@ -21,7 +21,7 @@ const RecentSearches: React.FC<RecentSearchesProps> = ({
 			</View>
 			{recentSearches?.map((result) => (
 				<ContentListItem
-					key={result.id}
+					key={result.uid}
 					title={result.name}
 					subtitle='artist'
 					onPress={() => onPressSearchResult(result)}

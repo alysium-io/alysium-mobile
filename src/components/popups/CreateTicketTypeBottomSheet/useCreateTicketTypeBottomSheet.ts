@@ -35,6 +35,7 @@ interface IUseCreateTicketTypeBottomSheet {
 	onChangeEndSaleTime: (endSaleTime: Date) => void;
 	done: () => Promise<void>;
 	cancel: () => void;
+	onSheetIndexChangeFocusTextInput: (index: number) => void;
 }
 
 const useCreateTicketTypeBottomSheet = (
@@ -52,7 +53,7 @@ const useCreateTicketTypeBottomSheet = (
 		ticketTypeNameTextInputApi.reset();
 		numberOfTicketsTextInputApi.reset();
 		ticketPriceTextInputApi.reset();
-		formMethods.reset(initialValues);
+		formMethods.reset();
 		setTitle('New Ticket');
 		sequenceApi.reset();
 	};
@@ -96,6 +97,12 @@ const useCreateTicketTypeBottomSheet = (
 		sheetApi.close();
 	};
 
+	const onSheetIndexChangeFocusTextInput = (index: number) => {
+		if (index === 0) {
+			ticketTypeNameTextInputApi.focus();
+		}
+	};
+
 	return {
 		sequenceApi,
 		resetAll,
@@ -109,7 +116,8 @@ const useCreateTicketTypeBottomSheet = (
 		onChangeStartSaleTime,
 		onChangeEndSaleTime,
 		done,
-		cancel
+		cancel,
+		onSheetIndexChangeFocusTextInput
 	};
 };
 

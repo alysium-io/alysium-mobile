@@ -1,32 +1,33 @@
-import { DismissKeyboardWrapper } from '@atomic';
+import { DismissKeyboardWrapper, View } from '@atomic';
 import { BottomSheetView } from '@gorhom/bottom-sheet';
 import { SheetApi } from '@hooks';
+import { EditableProfileImage } from '@molecules';
 import {
 	BottomSheet,
 	BottomSheetFooter,
-	BottomSheetHeader,
 	SequenceFooterButtons,
 	useAnimatedFooterHeight
 } from '@organisms';
+import { ContentType } from '@types';
 import React from 'react';
-import EventName from './components/EventName';
-import useCreateEventBottomSheet from './useCreateEventBottomSheet';
+import ArtistName from './components/ArtistName';
+import useCreateArtistBottomSheet from './useCreateArtistBottomSheet';
 
-interface CreateEventBottomSheetProps {
+interface CreateArtistBottomSheetProps {
 	sheetApi: SheetApi;
 }
 
-const CreateEventBottomSheet: React.FC<CreateEventBottomSheetProps> = ({
+const CreateArtistBottomSheet: React.FC<CreateArtistBottomSheetProps> = ({
 	sheetApi
 }) => {
 	const {
-		onSubmit,
-		onSheetIndexChangeFocusTextInput,
-		eventNameTextInputApi,
-		cancel,
 		resetAll,
+		cancel,
+		onSubmit,
+		artistNameTextInputApi,
+		onSheetIndexChangeFocusTextInput,
 		formMethods
-	} = useCreateEventBottomSheet(sheetApi);
+	} = useCreateArtistBottomSheet(sheetApi);
 	const { animatedMarginBottom } = useAnimatedFooterHeight();
 
 	return (
@@ -38,10 +39,15 @@ const CreateEventBottomSheet: React.FC<CreateEventBottomSheetProps> = ({
 		>
 			<DismissKeyboardWrapper>
 				<BottomSheetView style={[{ flex: 1 }, animatedMarginBottom]}>
-					<BottomSheetHeader text='Create Event' />
-					<EventName
-						eventNameTextInputApi={eventNameTextInputApi}
+					<View margin='m' justifyContent='center' alignItems='center'>
+						<EditableProfileImage
+							image={undefined}
+							contentType={ContentType.artist}
+						/>
+					</View>
+					<ArtistName
 						formMethods={formMethods}
+						artistNameTextInputApi={artistNameTextInputApi}
 					/>
 				</BottomSheetView>
 			</DismissKeyboardWrapper>
@@ -58,7 +64,7 @@ const CreateEventBottomSheet: React.FC<CreateEventBottomSheetProps> = ({
 							onPress: onSubmit,
 							text: 'Create',
 							variant: 'filled',
-							colorVariant: 'default',
+							colorVariant: 'positive',
 							buttonState:
 								formMethods.watch('name') === '' ? 'disabled' : 'default'
 						}
@@ -69,4 +75,4 @@ const CreateEventBottomSheet: React.FC<CreateEventBottomSheetProps> = ({
 	);
 };
 
-export default CreateEventBottomSheet;
+export default CreateArtistBottomSheet;

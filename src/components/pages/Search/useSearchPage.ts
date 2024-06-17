@@ -24,7 +24,7 @@ const useSearchPage = (): IUseSearchPage => {
 
 	const onPressSearchResult = (item: Search) => {
 		addRecentSearch(item);
-		artistPage(item.id);
+		artistPage(item.uid);
 	};
 
 	const {

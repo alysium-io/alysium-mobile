@@ -1,11 +1,14 @@
+import { DismissKeyboardWrapper } from '@atomic';
+import { BottomSheetView } from '@gorhom/bottom-sheet';
 import { SheetApi } from '@hooks';
 import {
 	BottomSheet,
+	BottomSheetFooter,
 	BottomSheetHeader,
-	BottomSheetKeyboardAvoidingView
+	SequenceFooterButtons,
+	useAnimatedFooterHeight
 } from '@organisms';
-import React, { useEffect } from 'react';
-import BottomButtons from './components/BottomButtons';
+import React from 'react';
 import VenueName from './components/VenueName';
 import useCreateVenueBottomSheet from './useCreateVenueBottomSheet';
 
@@ -18,40 +21,51 @@ const CreateVenueStartBottomSheet: React.FC<
 > = ({ sheetApi }) => {
 	const {
 		formMethods,
-		onDismiss,
-		textInputApi,
 		cancel,
 		onSubmit,
-		createVenueButtonState,
-		setVenueName,
-		onChange
+		venueNameTextInputApi,
+		resetAll,
+		onSheetIndexChangeFocusTextInput
 	} = useCreateVenueBottomSheet(sheetApi);
 
-	useEffect(() => {
-		textInputApi.focus();
-	}, []);
+	const { animatedMarginBottom } = useAnimatedFooterHeight();
 
 	return (
 		<BottomSheet
 			sheetRef={sheetApi.sheetRef}
-			borderRadius={false}
-			borderColor='ion_dark'
-			onChange={onChange}
-			onDismiss={onDismiss}
+			onChange={onSheetIndexChangeFocusTextInput}
+			onDismiss={resetAll}
+			snapPoints={['90%']}
 		>
-			<BottomSheetKeyboardAvoidingView>
-				<BottomSheetHeader text='Create Venue' />
-				<VenueName
-					formMethods={formMethods}
-					textInputApi={textInputApi}
-					setVenueName={setVenueName}
+			<DismissKeyboardWrapper>
+				<BottomSheetView style={[{ flex: 1 }, animatedMarginBottom]}>
+					<BottomSheetHeader text='Create Venue' />
+					<VenueName
+						formMethods={formMethods}
+						venueNameTextInputApi={venueNameTextInputApi}
+					/>
+				</BottomSheetView>
+			</DismissKeyboardWrapper>
+			<BottomSheetFooter>
+				<SequenceFooterButtons
+					buttons={[
+						{
+							onPress: cancel,
+							text: 'cancel',
+							variant: 'outlined',
+							colorVariant: 'default'
+						},
+						{
+							onPress: onSubmit,
+							text: 'Create',
+							variant: 'filled',
+							colorVariant: 'default',
+							buttonState:
+								formMethods.watch('name') === '' ? 'disabled' : 'default'
+						}
+					]}
 				/>
-				<BottomButtons
-					cancel={cancel}
-					onSubmit={onSubmit}
-					createVenueButtonState={createVenueButtonState}
-				/>
-			</BottomSheetKeyboardAvoidingView>
+			</BottomSheetFooter>
 		</BottomSheet>
 	);
 };

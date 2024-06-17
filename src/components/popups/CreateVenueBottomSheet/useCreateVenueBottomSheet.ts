@@ -1,8 +1,7 @@
 import { useHostAppContext } from '@arch/Application/contexts/Host.context';
 import { venueApiSlice } from '@flux/api/venue';
 import { CreateVenueBodyDto } from '@flux/api/venue/dto/venue-create.dto';
-import { SheetApi, TextInputApi, useButton, useTextInput } from '@hooks';
-import { ButtonState } from '@molecules';
+import { SheetApi, TextInputApi, useTextInput } from '@hooks';
 import { OnSubmitHandler } from '@types';
 import {
 	SubmitErrorHandler,
@@ -13,13 +12,11 @@ import {
 
 interface IUseCreateVenueBottomSheet {
 	formMethods: UseFormReturn<CreateVenueBodyDto>;
-	onChange: () => void;
-	onDismiss: () => void;
 	onSubmit: OnSubmitHandler;
 	cancel: () => void;
-	textInputApi: TextInputApi;
-	createVenueButtonState: ButtonState;
-	setVenueName: (text: string) => void;
+	venueNameTextInputApi: TextInputApi;
+	resetAll: () => void;
+	onSheetIndexChangeFocusTextInput: (index: number) => void;
 }
 
 const useCreateVenueBottomSheet = (
@@ -27,9 +24,7 @@ const useCreateVenueBottomSheet = (
 ): IUseCreateVenueBottomSheet => {
 	const { hostData } = useHostAppContext();
 	const [createVenueMutation] = venueApiSlice.useCreateMutation();
-	const textInputApi = useTextInput();
-	const { buttonState: createVenueButtonState, setButtonState } =
-		useButton('disabled');
+	const venueNameTextInputApi = useTextInput();
 
 	const formMethods = useForm<CreateVenueBodyDto>({
 		defaultValues: {
@@ -41,7 +36,7 @@ const useCreateVenueBottomSheet = (
 	const onValid: SubmitHandler<CreateVenueBodyDto> = async (
 		data: CreateVenueBodyDto
 	) => {
-		await createVenueMutation({ body: data });
+		createVenueMutation({ body: data });
 		sheetApi.close();
 	};
 
@@ -51,37 +46,28 @@ const useCreateVenueBottomSheet = (
 
 	const onSubmit = formMethods.handleSubmit(onValid, onInvalid);
 
-	const setVenueName = (text: string) => {
-		formMethods.setValue('name', text);
-		if (text.length > 0 && createVenueButtonState !== 'default') {
-			setButtonState('default');
-		} else if (text.length === 0 && createVenueButtonState !== 'disabled') {
-			setButtonState('disabled');
-		}
-	};
-
-	const onDismiss = () => {
-		setButtonState('disabled');
-		setVenueName('');
-	};
-
-	const onChange = () => {
-		textInputApi.focus();
+	const resetAll = () => {
+		venueNameTextInputApi.reset();
+		formMethods.reset();
 	};
 
 	const cancel = () => {
 		sheetApi.close();
 	};
 
+	const onSheetIndexChangeFocusTextInput = (index: number) => {
+		if (index === 0) {
+			venueNameTextInputApi.focus();
+		}
+	};
+
 	return {
 		formMethods,
-		onChange,
-		onDismiss,
+		resetAll,
 		onSubmit,
 		cancel,
-		textInputApi,
-		createVenueButtonState,
-		setVenueName
+		venueNameTextInputApi,
+		onSheetIndexChangeFocusTextInput
 	};
 };
 

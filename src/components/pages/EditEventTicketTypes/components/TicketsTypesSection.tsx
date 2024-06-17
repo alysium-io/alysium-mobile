@@ -18,7 +18,6 @@ const TicketsTypesSection: React.FC<TicketsTypesSectionProps> = ({
 	createTicketSheetApi,
 	goToEditTicketTypePage
 }) => {
-	console.log(ticketCollectionData);
 	return (
 		<Section marginVertical='m'>
 			<View margin='m' alignItems='center'>

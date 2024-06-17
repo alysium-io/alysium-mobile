@@ -54,7 +54,7 @@ const useCreateContractBottomSheet = (
 		Keyboard.dismiss();
 		additionalNotesTextInputApi.reset();
 		sequenceApi.reset();
-		formMethods.reset(initialValues);
+		formMethods.reset();
 	};
 
 	const onValid: SubmitHandler<UpdateContractBodyDto> = async (

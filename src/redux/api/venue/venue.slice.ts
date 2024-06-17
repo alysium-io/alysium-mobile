@@ -94,7 +94,7 @@ const apiSlice = createApi({
 				method: 'DELETE'
 			}),
 			invalidatesTags: (result, error, { params }) => [
-				{ type: 'Venue', id: params.venue_uid }
+				{ type: 'Venue', id: 'LIST' }
 			]
 		})
 	})

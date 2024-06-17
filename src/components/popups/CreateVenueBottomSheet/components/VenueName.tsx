@@ -1,35 +1,34 @@
 import { View } from '@atomic';
 import { CreateVenueBodyDto } from '@flux/api/venue/dto/venue-create.dto';
 import { TextInputApi } from '@hooks';
-import { TextInput } from '@molecules';
+import { EditableTextInputWithLabel } from '@molecules';
 import React from 'react';
 import { Controller, UseFormReturn } from 'react-hook-form';
 
 interface VenueNameProps {
 	formMethods: UseFormReturn<CreateVenueBodyDto>;
-	textInputApi: TextInputApi;
-	setVenueName: (text: string) => void;
+	venueNameTextInputApi: TextInputApi;
 }
 
 const VenueName: React.FC<VenueNameProps> = ({
 	formMethods,
-	textInputApi,
-	setVenueName
+	venueNameTextInputApi
 }) => {
 	return (
 		<View margin='m' marginTop='l'>
 			<Controller
+				name='name'
 				control={formMethods.control}
-				render={({ field: { onBlur, value } }) => (
-					<TextInput
-						textInputApi={textInputApi}
-						placeholder='Venue Name'
-						onChangeText={setVenueName}
+				render={({ field: { onChange, onBlur, value } }) => (
+					<EditableTextInputWithLabel
+						textInputApi={venueNameTextInputApi}
+						placeholder='EDX Nightclub, My Backyard, etc.'
+						label='Venue Name'
+						onChangeText={onChange}
 						onBlur={onBlur}
 						value={value}
 					/>
 				)}
-				name='name'
 			/>
 		</View>
 	);

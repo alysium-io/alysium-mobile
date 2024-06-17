@@ -1,14 +1,7 @@
 import { useHostAppContext } from '@arch/Application/contexts/Host.context';
 import { eventApiSlice } from '@flux/api/event';
 import { CreateEventBodyDto } from '@flux/api/event/dto/event-create.dto';
-import {
-	SheetApi,
-	TextInputApi,
-	useButton,
-	useNavigation,
-	useTextInput
-} from '@hooks';
-import { ButtonState } from '@molecules';
+import { SheetApi, TextInputApi, useNavigation, useTextInput } from '@hooks';
 import { OnSubmitHandler } from '@types';
 import {
 	SubmitErrorHandler,
@@ -20,11 +13,9 @@ import {
 interface IUseCreateEventBottomSheet {
 	formMethods: UseFormReturn<CreateEventBodyDto>;
 	onSubmit: OnSubmitHandler;
-	setEventName: (text: string) => void;
 	onSheetIndexChangeFocusTextInput: (index: number) => void;
-	onDismiss: () => void;
+	resetAll: () => void;
 	eventNameTextInputApi: TextInputApi;
-	createEventButtonState: ButtonState;
 	cancel: () => void;
 }
 
@@ -35,8 +26,6 @@ const useCreateEventBottomSheet = (
 	const { hostData } = useHostAppContext();
 	const { editEventPage } = useNavigation();
 	const [createEventMutation] = eventApiSlice.useCreateMutation();
-	const { buttonState: createEventButtonState, setButtonState } =
-		useButton('disabled');
 
 	const formMethods = useForm<CreateEventBodyDto>({
 		defaultValues: {
@@ -62,36 +51,26 @@ const useCreateEventBottomSheet = (
 
 	const onSubmit = formMethods.handleSubmit(onValid, onInvalid);
 
-	const setEventName = (text: string) => {
-		formMethods.setValue('name', text);
-		if (text.length > 0 && createEventButtonState !== 'default') {
-			setButtonState('default');
-		} else if (text.length === 0 && createEventButtonState !== 'disabled') {
-			setButtonState('disabled');
-		}
-	};
-
 	const onSheetIndexChangeFocusTextInput = (index: number) => {
 		if (index === 0) {
 			eventNameTextInputApi.focus();
 		}
 	};
 
-	const onDismiss = () => {
-		setButtonState('disabled');
+	const resetAll = () => {
 		formMethods.reset();
 	};
 
-	const cancel = () => sheetApi.close();
+	const cancel = () => {
+		sheetApi.close();
+	};
 
 	return {
 		formMethods,
 		onSubmit,
-		setEventName,
 		onSheetIndexChangeFocusTextInput,
-		onDismiss,
+		resetAll,
 		eventNameTextInputApi,
-		createEventButtonState,
 		cancel
 	};
 };

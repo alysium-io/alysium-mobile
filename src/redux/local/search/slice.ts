@@ -15,7 +15,7 @@ const searchSlice = createSlice({
 
 			// First remove it if it exists
 			recentSearchesCopy = recentSearchesCopy.filter(
-				(item) => item.id !== action.payload.id
+				(item) => item.uid !== action.payload.uid
 			);
 
 			// Add it to the beginning

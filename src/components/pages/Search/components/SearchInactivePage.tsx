@@ -38,7 +38,7 @@ const SearchInactivePage = () => {
 					contentType={ContentType.location}
 					title='Locations'
 					subtitle='1 following'
-					onPress={() => locationPage(2)}
+					onPress={() => console.log(2)}
 				/>
 			</Section>
 			<Section margin='m'>
@@ -49,7 +49,7 @@ const SearchInactivePage = () => {
 						title='Electro House'
 						subtitle='1.2k followers'
 						color='ion'
-						onPress={() => tagPage(3668)}
+						onPress={() => console.log(3668)}
 					/>
 				</View>
 				<View marginBottom='m'>
@@ -58,7 +58,7 @@ const SearchInactivePage = () => {
 						title='Los Angeles'
 						subtitle='5.1M followers'
 						color='ion'
-						onPress={() => tagPage(1)}
+						onPress={() => console.log(1)}
 					/>
 				</View>
 				<View marginBottom='m'>
@@ -67,7 +67,7 @@ const SearchInactivePage = () => {
 						title='house'
 						subtitle='2.6M followers'
 						color='ion'
-						onPress={() => tagPage(1)}
+						onPress={() => console.log(1)}
 					/>
 				</View>
 			</Section>

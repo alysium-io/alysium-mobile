@@ -1,23 +1,33 @@
 import { View } from '@atomic';
+import { CreateEventBodyDto } from '@flux/api/event/dto/event-create.dto';
 import { TextInputApi } from '@hooks';
-import { TextInput } from '@molecules';
+import { EditableTextInputWithLabel } from '@molecules';
 import React from 'react';
+import { Controller, UseFormReturn } from 'react-hook-form';
 
 interface EventNameProps {
 	eventNameTextInputApi: TextInputApi;
-	setEventName: (text: string) => void;
+	formMethods: UseFormReturn<CreateEventBodyDto>;
 }
 
 const EventName: React.FC<EventNameProps> = ({
 	eventNameTextInputApi,
-	setEventName
+	formMethods
 }) => {
 	return (
 		<View margin='m' marginTop='l'>
-			<TextInput
-				textInputApi={eventNameTextInputApi}
-				placeholder='Event Name'
-				onChangeText={setEventName}
+			<Controller
+				name='name'
+				control={formMethods.control}
+				render={({ field: { value, onChange } }) => (
+					<EditableTextInputWithLabel
+						textInputApi={eventNameTextInputApi}
+						placeholder='SubSessions, Block Party, etc.'
+						onChangeText={onChange}
+						value={value}
+						label='Event Name'
+					/>
+				)}
 			/>
 		</View>
 	);

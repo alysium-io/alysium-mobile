@@ -10,8 +10,8 @@ type ContentListItem = {
 	title: string;
 	subtitle: string;
 	defaultIsActive: boolean;
-	onPress: (id: number, isActive: boolean) => void;
-	onPressToggle: (id: number, isActive: boolean) => void;
+	onPress: (id: ApiIdentifier, isActive: boolean) => void;
+	onPressToggle: (id: ApiIdentifier, isActive: boolean) => void;
 };
 
 interface ContentListItemRadioTogglerProps {
@@ -22,7 +22,7 @@ interface ContentListItemRadioTogglerProps {
 const ContentListItemRadioToggler: React.FC<
 	ContentListItemRadioTogglerProps
 > = ({ subtitleFirst = true, items = [] }) => {
-	const [selected, setSelected] = useState<{ [key: number]: boolean }>(
+	const [selected, setSelected] = useState<{ [key: ApiIdentifier]: boolean }>(
 		Object.fromEntries(items.map((item) => [item.id, item.defaultIsActive]))
 	);
 

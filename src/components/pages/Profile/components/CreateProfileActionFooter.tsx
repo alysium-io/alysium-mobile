@@ -1,7 +1,7 @@
 import { View } from '@atomic';
 import { SheetApi } from '@hooks';
 import { Button } from '@molecules';
-import { CreateArtistBottomSheet, CreateHostBottomSheet } from '@templates';
+import { CreateArtistBottomSheet, CreateHostBottomSheet } from '@popups';
 import React from 'react';
 
 interface CreateProfileActionFooterProps {
