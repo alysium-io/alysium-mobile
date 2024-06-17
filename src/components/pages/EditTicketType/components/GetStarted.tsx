@@ -10,7 +10,7 @@ interface GetStartedProps {
 const GetStarted: React.FC<GetStartedProps> = ({ createTicketCollection }) => {
 	return (
 		<View style={styles.container}>
-			<Text variant='section-header'>Get Started</Text>
+			<Text variant='section-header-1'>Get Started</Text>
 			<Button text='Create Tickets' onPress={createTicketCollection} />
 		</View>
 	);

@@ -1,4 +1,5 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
+import { eventApiSlice } from '../event';
 import baseQueryConfig from '../utils/baseQueryConfig';
 import {
 	CreateTicketCollectionBodyDto,
@@ -43,7 +44,19 @@ const apiSlice = createApi({
 				method: 'POST',
 				params: query,
 				body
-			})
+			}),
+			onQueryStarted: async ({ query }, { queryFulfilled, dispatch }) => {
+				const result = await queryFulfilled;
+				dispatch(
+					eventApiSlice.util.updateQueryData(
+						'findOne',
+						{ params: { event_uid: query.event_uid } },
+						(draft) => {
+							draft.ticket_collection_uid = result.data.ticket_collection_uid;
+						}
+					)
+				);
+			}
 		}),
 		delete: builder.mutation<
 			DeleteTicketCollectionResponseDto,

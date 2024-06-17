@@ -40,11 +40,12 @@ const useEditEventTicketsPage = (
 		data: ticketCollectionData,
 		error: ticketCollectionError,
 		isLoading: ticketCollectionIsLoading
-	} = eventData?.ticket_collection_uid
-		? ticketCollectionApiSlice.useFindOneQuery({
-				params: { ticket_collection_uid: eventData.ticket_collection_uid }
-			})
-		: { data: undefined, error: undefined, isLoading: false };
+	} = ticketCollectionApiSlice.useFindOneQuery(
+		{
+			params: { ticket_collection_uid: eventData?.ticket_collection_uid ?? '' }
+		},
+		{ skip: !eventData?.ticket_collection_uid }
+	);
 
 	const createTicketCollection = () => {
 		if (eventData) {
