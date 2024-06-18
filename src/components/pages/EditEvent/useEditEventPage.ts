@@ -87,6 +87,9 @@ const useEditEventPage = (event_uid: ApiIdentifier): IUseEditEvent => {
 	const onValid: SubmitHandler<UpdateEventBodyDto> = (
 		data: UpdateEventBodyDto
 	) => {
+		data.start_time = Formatting.toUtcIsoFormat(data.start_time);
+		data.end_time = Formatting.toUtcIsoFormat(data.end_time);
+		data.doors_open_time = Formatting.toUtcIsoFormat(data.doors_open_time);
 		updateEventMutation({
 			body: data,
 			params: { event_uid }

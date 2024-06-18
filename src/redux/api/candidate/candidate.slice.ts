@@ -101,7 +101,7 @@ const apiSlice = createApi({
 							{ query: { page: 1, limit: 10, event_uid: body.event_uid } },
 							(draft) => {
 								const index = draft.findIndex(
-									(candidate) => candidate.artist_uid === body.artist_uid
+									(candidate) => candidate.artist.artist_uid === body.artist_uid
 								);
 								if (index !== -1) {
 									draft.splice(index, 1);

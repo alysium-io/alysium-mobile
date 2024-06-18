@@ -31,11 +31,11 @@ const CandidatesSection: React.FC<CandidatesSectionProps> = ({
 			<View>
 				{candidatesData.map((candidate) => (
 					<ContentListItemWithButton
-						key={candidate.artist_uid}
+						key={candidate.artist.artist_uid}
 						title={candidate.artist.name}
 						contentType={ContentType.artist}
 						image={candidate.artist.profile_image?.url}
-						onPress={() => artistPage(candidate.artist_uid)}
+						onPress={() => artistPage(candidate.artist.artist_uid)}
 						Button={() => (
 							<TouchableWithoutFeedback
 								onPress={() => start(candidate.artist.artist_uid)}

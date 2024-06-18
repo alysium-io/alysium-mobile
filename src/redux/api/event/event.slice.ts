@@ -1,4 +1,3 @@
-import { Formatting } from '@etc';
 import { createApi } from '@reduxjs/toolkit/query/react';
 import baseQueryConfig from '../utils/baseQueryConfig';
 import {
@@ -83,16 +82,11 @@ const apiSlice = createApi({
 				body: UpdateEventBodyDto;
 			}
 		>({
-			query: ({ body, params }) => {
-				body.start_time = Formatting.toUtcIsoFormat(body.start_time);
-				body.end_time = Formatting.toUtcIsoFormat(body.end_time);
-				body.doors_open_time = Formatting.toUtcIsoFormat(body.doors_open_time);
-				return {
-					url: `/${params.event_uid}`,
-					method: 'PUT',
-					body
-				};
-			},
+			query: ({ body, params }) => ({
+				url: `/${params.event_uid}`,
+				method: 'PUT',
+				body
+			}),
 			invalidatesTags: (result) =>
 				result ? [{ type: 'Event', id: result.event_uid }] : []
 		}),

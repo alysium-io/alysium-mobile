@@ -74,7 +74,9 @@ const apiSlice = createApi({
 				method: 'PUT',
 				params: query,
 				body
-			})
+			}),
+			invalidatesTags: (result) =>
+				result ? [{ type: 'TicketType', id: result.ticket_type_uid }] : []
 		}),
 		delete: builder.mutation<
 			DeleteTicketTypeResponseDto,
