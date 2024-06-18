@@ -2,14 +2,19 @@ import { Section, View } from '@atomic';
 import { UpdateEventBodyDto } from '@flux/api/event/dto/event-update.dto';
 import { SectionHeader } from '@molecules';
 import { RadioListItem } from '@organisms';
+import { OnSubmitHandler } from '@types';
 import React from 'react';
 import { Controller, UseFormReturn } from 'react-hook-form';
 
 interface FeaturesSectionProps {
 	formMethods: UseFormReturn<UpdateEventBodyDto>;
+	onSubmit: OnSubmitHandler;
 }
 
-const FeaturesSection: React.FC<FeaturesSectionProps> = ({ formMethods }) => {
+const FeaturesSection: React.FC<FeaturesSectionProps> = ({
+	formMethods,
+	onSubmit
+}) => {
 	return (
 		<Section margin='m'>
 			<SectionHeader text='Features' titleVariant='large' />
@@ -20,7 +25,10 @@ const FeaturesSection: React.FC<FeaturesSectionProps> = ({ formMethods }) => {
 					render={({ field: { value } }) => (
 						<RadioListItem
 							checked={value}
-							onPress={() => formMethods.setValue('serves_alcohol', !value)}
+							onPress={() => {
+								formMethods.setValue('serves_alcohol', !value);
+								onSubmit();
+							}}
 							icon='alcohol'
 							title='Alcohol'
 							colorVariant='matt'
@@ -52,9 +60,10 @@ const FeaturesSection: React.FC<FeaturesSectionProps> = ({ formMethods }) => {
 					render={({ field: { value } }) => (
 						<RadioListItem
 							checked={value}
-							onPress={() =>
-								formMethods.setValue('serves_food_and_drink', !value)
-							}
+							onPress={() => {
+								formMethods.setValue('serves_food_and_drink', !value);
+								onSubmit();
+							}}
 							icon='cheeseburger'
 							title='Food & Drink'
 							colorVariant='matt'
@@ -80,7 +89,10 @@ const FeaturesSection: React.FC<FeaturesSectionProps> = ({ formMethods }) => {
 					render={({ field: { value } }) => (
 						<RadioListItem
 							checked={value}
-							onPress={() => formMethods.setValue('has_security', !value)}
+							onPress={() => {
+								formMethods.setValue('has_security', !value);
+								onSubmit();
+							}}
 							icon='security'
 							title='Security'
 							colorVariant='matt'
@@ -112,7 +124,10 @@ const FeaturesSection: React.FC<FeaturesSectionProps> = ({ formMethods }) => {
 					render={({ field: { value } }) => (
 						<RadioListItem
 							checked={value}
-							onPress={() => formMethods.setValue('pets_allowed', !value)}
+							onPress={() => {
+								formMethods.setValue('pets_allowed', !value);
+								onSubmit();
+							}}
 							icon='dog'
 							title='Pet Friendly'
 							colorVariant='matt'

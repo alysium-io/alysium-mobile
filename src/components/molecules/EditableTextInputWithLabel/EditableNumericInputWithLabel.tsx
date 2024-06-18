@@ -7,11 +7,18 @@ interface EditableNumericInputWithLabelProps
 	extends React.ComponentProps<typeof TextInput> {
 	textInputApi: TextInputApi;
 	label: string;
+	labelColor?: React.ComponentProps<typeof Text>['color'];
 }
 
 const EditableNumericInputWithLabel: React.FC<
 	EditableNumericInputWithLabelProps
-> = ({ textInputApi, label, keyboardType = 'numeric', ...props }) => {
+> = ({
+	textInputApi,
+	label,
+	keyboardType = 'numeric',
+	labelColor = 't2',
+	...props
+}) => {
 	const { theme } = useTheme();
 
 	return (
@@ -25,7 +32,7 @@ const EditableNumericInputWithLabel: React.FC<
 				<View style={{ marginBottom: 5 }}>
 					<Text
 						variant='paragraph-small'
-						color='t2'
+						color={labelColor}
 						marginRight='m'
 						ellipsizeMode='tail'
 						numberOfLines={1}

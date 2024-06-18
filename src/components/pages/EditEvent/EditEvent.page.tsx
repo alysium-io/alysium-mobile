@@ -3,9 +3,8 @@ import { BasePage } from '@organisms';
 import { CreateVenueBottomSheet } from '@popups';
 import { useRoute } from '@react-navigation/native';
 import { EditEventPageRouteProp } from '@types';
-import React, { useCallback, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import CandidatesItem from './components/CandidatesItem';
-import EditEventPageFooter from './components/EditEventPageFooter';
 import EventDateSection from './components/EventDateSection';
 import EventName from './components/EventName';
 import FeaturesSection from './components/FeaturesSection';
@@ -38,17 +37,12 @@ const EditEventPage = () => {
 		loadForm();
 	}, [eventData]);
 
-	const FooterComponent = useCallback(
-		() => <EditEventPageFooter onSubmit={onSubmit} />,
-		[]
-	);
-
 	if (!eventData || !venuesData) {
 		return null;
 	}
 
 	return (
-		<BasePage FooterComponent={FooterComponent}>
+		<BasePage>
 			<HeaderSafeArea>
 				<ScrollView>
 					<PrimaryImage
@@ -79,7 +73,7 @@ const EditEventPage = () => {
 						defaultVenueId={eventData.venue?.venue_uid}
 					/>
 					<Separator />
-					<FeaturesSection formMethods={formMethods} />
+					<FeaturesSection formMethods={formMethods} onSubmit={onSubmit} />
 					<Separator />
 					<SummarySection
 						confirmDelete={confirmDelete}

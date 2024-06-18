@@ -90,7 +90,11 @@ const ToggleButton: React.FC<ToggleButtonProps> = ({
 	return (
 		<TouchableWithoutFeedback onPress={onPress}>
 			<View animated style={[styles.container, animatedContainerStyles]}>
-				<Text animated variant='paragraph' style={animatedTextStyles}>
+				<Text
+					animated
+					variant='paragraph-small-bold'
+					style={animatedTextStyles}
+				>
 					{inactiveText && value === false ? inactiveText : text}
 				</Text>
 				{icon && value === true && (

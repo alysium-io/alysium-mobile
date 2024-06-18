@@ -8,7 +8,6 @@ import {
 import day from 'dayjs';
 import React, { useState } from 'react';
 import { Controller, UseFormReturn } from 'react-hook-form';
-import { useWindowDimensions } from 'react-native';
 
 type SlotTimeState = {
 	startTimeOpen: boolean;
@@ -26,8 +25,6 @@ const SelectSlotTime: React.FC<SelectSlotTimeProps> = ({
 	onChangeStartTime,
 	onChangeEndTime
 }) => {
-	const { height: screenHeight } = useWindowDimensions();
-
 	const [state, setState] = useState<SlotTimeState>({
 		startTimeOpen: false,
 		endTimeOpen: false

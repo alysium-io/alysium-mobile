@@ -137,15 +137,23 @@ const useEditEventPage = (event_uid: ApiIdentifier): IUseEditEvent => {
 
 	const onSubmit = formMethods.handleSubmit(onValid, onInvalid);
 
-	const onChangeStartTime = (startTime: Date) =>
+	const onChangeStartTime = (startTime: Date) => {
 		formMethods.setValue('start_time', Formatting.toUtcIsoFormat(startTime));
-	const onChangeEndTime = (endTime: Date) =>
+		onSubmit();
+	};
+
+	const onChangeEndTime = (endTime: Date) => {
 		formMethods.setValue('end_time', Formatting.toUtcIsoFormat(endTime));
-	const onChangeDoorsOpenTime = (doorsOpenTime: Date) =>
+		onSubmit();
+	};
+
+	const onChangeDoorsOpenTime = (doorsOpenTime: Date) => {
 		formMethods.setValue(
 			'doors_open_time',
 			Formatting.toUtcIsoFormat(doorsOpenTime)
 		);
+		onSubmit();
+	};
 
 	const setEventProfileImage = (image: Asset) => {
 		if (eventData) {

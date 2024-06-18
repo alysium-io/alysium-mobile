@@ -10,11 +10,11 @@ export interface UpdateTicketTypeQueryDto {
 }
 
 export interface UpdateTicketTypeBodyDto {
-	name?: string;
-	num_available?: number;
-	price?: number;
-	sale_start_time?: string;
-	sale_end_time?: string;
+	name: string;
+	num_available: number | null;
+	price: number | null;
+	sale_start_time: string | null;
+	sale_end_time: string | null;
 }
 
 export interface UpdateTicketTypeResponseDto extends TicketType {}
