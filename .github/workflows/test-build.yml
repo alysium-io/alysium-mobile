@@ -29,30 +29,30 @@ jobs:
         ruby-version: '3.0.2'
     - name: Install yarn dependencies # yarn
       uses: ./.github/actions/yarn
-    # - name: Install gem dependencies # gems
-    #   uses: ./.github/actions/gems
-    # - name: Install pods # cocoapods
-    #   uses: ./.github/actions/pods
+    - name: Install gem dependencies # gems
+      uses: ./.github/actions/gems
+    - name: Install pods # cocoapods
+      uses: ./.github/actions/pods
 
-    # # ENV variables
-    # - name: Write .env file
-    #   uses: ./.github/actions/write-env-vars
-    #   with:
-    #     envtype: 'qa'
-    #     API_URL: ${{ vars.API_URL_QA }}
-    #     ENV: ${{ vars.ENV_QA }}
+    # ENV variables
+    - name: Write .env file
+      uses: ./.github/actions/write-env-vars
+      with:
+        envtype: 'qa'
+        API_URL: ${{ vars.API_URL_QA }}
+        ENV: ${{ vars.ENV_QA }}
 
-    # # Build iOS
-    # - name: Configure SSH # match deploy key
-    #   uses: ./.github/actions/ssh-config
-    #   with:
-    #     match_deploy_key: ${{ secrets.MATCH_DEPLOY_KEY }}
-    # - name: Build iOS # fastlane
-    #   env:
-    #     MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
-    #     FASTLANE_USER: ${{ secrets.FASTLANE_USER }}
-    #     APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
-    #     APP_STORE_CONNECT_API_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}
-    #     APP_STORE_CONNECT_API_KEY_CONTENT: ${{ secrets.APP_STORE_CONNECT_API_KEY_CONTENT }}
-    #   run: bundle exec fastlane ios build_deploy app_identifier:"io.alysium.qa" scheme:"alysium-qa"
-    #   working-directory: fastlane
+    # Build iOS
+    - name: Configure SSH # match deploy key
+      uses: ./.github/actions/ssh-config
+      with:
+        match_deploy_key: ${{ secrets.MATCH_DEPLOY_KEY }}
+    - name: Build iOS # fastlane
+      env:
+        MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+        FASTLANE_USER: ${{ secrets.FASTLANE_USER }}
+        APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
+        APP_STORE_CONNECT_API_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}
+        APP_STORE_CONNECT_API_KEY_CONTENT: ${{ secrets.APP_STORE_CONNECT_API_KEY_CONTENT }}
+      run: bundle exec fastlane ios build app_identifier:"io.alysium.qa" scheme:"alysium-qa"
+      working-directory: fastlane
