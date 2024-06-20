@@ -1,4 +1,4 @@
-name: Manual Trigger Workflow
+name: Alysium QA Build
 
 on:
   push:
@@ -6,23 +6,53 @@ on:
       - react-native-upgrade
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  ios:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: macos-13
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
+    
+    # Configure all dependencies
+    - name: Checkout the repository # repo
+      uses: actions/checkout@v4
+    - name: Set up Xcode # xcode 15.1.0
+      uses: maxim-lobanov/setup-xcode@v1.6.0
       with:
-        node-version: '14'
+        xcode-version: '15.1.0'
+    - name: Use Node.js # node 20
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+    - name: Set up Ruby # ruby 3.0.2
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.0.2'
+    - name: Install yarn dependencies # yarn
+      uses: ./.github/actions/yarn
+    # - name: Install gem dependencies # gems
+    #   uses: ./.github/actions/gems
+    # - name: Install pods # cocoapods
+    #   uses: ./.github/actions/pods
 
-    - name: Install dependencies
-      run: yarn install
+    # # ENV variables
+    # - name: Write .env file
+    #   uses: ./.github/actions/write-env-vars
+    #   with:
+    #     envtype: 'qa'
+    #     API_URL: ${{ vars.API_URL_QA }}
+    #     ENV: ${{ vars.ENV_QA }}
 
-    - name: Run tests
-      run: yarn test
-
-    - name: Deploy
-      run: yarn deploy
+    # # Build iOS
+    # - name: Configure SSH # match deploy key
+    #   uses: ./.github/actions/ssh-config
+    #   with:
+    #     match_deploy_key: ${{ secrets.MATCH_DEPLOY_KEY }}
+    # - name: Build iOS # fastlane
+    #   env:
+    #     MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+    #     FASTLANE_USER: ${{ secrets.FASTLANE_USER }}
+    #     APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
+    #     APP_STORE_CONNECT_API_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}
+    #     APP_STORE_CONNECT_API_KEY_CONTENT: ${{ secrets.APP_STORE_CONNECT_API_KEY_CONTENT }}
+    #   run: bundle exec fastlane ios build_deploy app_identifier:"io.alysium.qa" scheme:"alysium-qa"
+    #   working-directory: fastlane
