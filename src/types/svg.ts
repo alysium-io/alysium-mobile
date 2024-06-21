@@ -1,4 +1,4 @@
-import { AnimateProps } from 'react-native-reanimated';
+import { AnimatedProps } from 'react-native-reanimated';
 import {
 	PathProps as RNPathProps,
 	SvgProps as RNSvgProps
@@ -20,7 +20,7 @@ export type CustomSvgProps = RNSvgProps & Inanimate & BaseCustomSvgProps;
 export type CustomAnimatedSvgProps = RNSvgProps &
 	Animate &
 	BaseCustomSvgProps & {
-		animatedProps?: AnimateProps<RNSvgProps>;
+		animatedProps?: AnimatedProps<RNSvgProps>;
 	};
 
 /**
@@ -34,7 +34,7 @@ export type CustomPathProps = RNPathProps & Inanimate & BaseCustomPathProps;
 export type CustomAnimatedPathProps = RNPathProps &
 	Animate &
 	BaseCustomPathProps & {
-		animatedProps?: AnimateProps<RNPathProps>;
+		animatedProps?: AnimatedProps<RNPathProps>;
 	};
 
 /**
@@ -46,8 +46,8 @@ export type CustomSvgWrapperProps = CustomSvgProps &
 export type CustomAnimatedSvgWrapperProps = CustomAnimatedSvgProps &
 	CustomAnimatedPathProps &
 	Animate & {
-		animatedSvgProps?: AnimateProps<RNSvgProps>;
-		animatedPathProps?: AnimateProps<RNPathProps>;
+		animatedSvgProps?: AnimatedProps<RNSvgProps>;
+		animatedPathProps?: AnimatedProps<RNPathProps>;
 	};
 
 export type IconProps = CustomSvgWrapperProps | CustomAnimatedSvgWrapperProps;

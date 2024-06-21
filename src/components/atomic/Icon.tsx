@@ -2,6 +2,7 @@ import { useTheme } from '@hooks';
 import { IconNames, SvgIcons } from '@svg';
 import { IconProps as CustomIconProps, IconSize } from '@types';
 import React from 'react';
+import { useAnimatedProps } from 'react-native-reanimated';
 
 type IconProps = CustomIconProps & {
 	name: IconNames;
@@ -19,12 +20,16 @@ const Icon: React.FC<IconProps> = (props) => {
 
 	const SvgIcon = SvgIcons[props.name];
 
+	const defaultAnimateSvgProps = useAnimatedProps(() => ({}));
+	const defaultAnimatePathProps = useAnimatedProps(() => ({}));
+
 	if (props.animated) {
 		return (
 			<SvgIcon
-				animatedSvgProps={props.animatedSvgProps || {}}
-				animatedPathProps={props.animatedPathProps || {}}
+				animatedSvgProps={props.animatedSvgProps || defaultAnimateSvgProps}
+				animatedPathProps={props.animatedPathProps || defaultAnimatePathProps}
 				{...props}
+				color={props.color}
 				size={size}
 			/>
 		);
