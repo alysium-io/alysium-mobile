@@ -1,4 +1,4 @@
-name: Alysium QA Build
+name: Alysium Test Build
 
 on:
   workflow_dispatch:
