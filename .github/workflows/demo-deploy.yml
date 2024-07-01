@@ -1,5 +1,8 @@
 name: Alysium Demo Build
 
+on:
+  workflow_dispatch:
+
 jobs:
   bump-build-number:
     runs-on: ubuntu-latest

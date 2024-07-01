@@ -1,5 +1,8 @@
 name: Alysium QA Build
 
+on:
+  workflow_dispatch:
+
 jobs:
   ios:
     if: github.actor != 'github-actions[bot]'
