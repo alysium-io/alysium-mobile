@@ -3,7 +3,12 @@ import { IconNames } from '@svg';
 import React from 'react';
 import ButtonContainer from './ButtonContainer';
 import ButtonForeground from './ButtonForeground';
-import { ButtonColorVariants, ButtonState, ButtonVariants } from './shared';
+import {
+	ButtonColorConfig,
+	ButtonColorVariants,
+	ButtonState,
+	ButtonVariants
+} from './shared';
 import useButton from './useButton';
 
 interface ButtonProps {
@@ -14,6 +19,7 @@ interface ButtonProps {
 	icon?: IconNames;
 	buttonState?: ButtonState;
 	disabled?: boolean;
+	buttonColorConfig?: Partial<ButtonColorConfig>;
 }
 
 const Button: React.FC<Partial<ButtonProps>> = ({
@@ -23,9 +29,11 @@ const Button: React.FC<Partial<ButtonProps>> = ({
 	colorVariant = 'default',
 	icon,
 	buttonState = 'default',
-	disabled = false
+	disabled = false,
+	buttonColorConfig = {}
 }) => {
 	const { borderColor, backgroundColor, textColor } = useButton(
+		buttonColorConfig,
 		buttonState,
 		variant,
 		colorVariant

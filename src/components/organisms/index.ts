@@ -11,5 +11,6 @@ export * from './ProjectAssets';
 export * from './SearchBar';
 export * from './Sequence';
 export * from './Stats';
+export * from './SwipeUpToSubmit';
 export * from './TabToggle';
 export * from './Table';

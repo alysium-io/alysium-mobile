@@ -1,6 +1,7 @@
 import { Colors } from '@etc';
 import { useTheme } from '@hooks';
 import {
+	ButtonColorConfig,
 	ButtonColorVariants,
 	ButtonState,
 	ButtonVariants,
@@ -15,30 +16,39 @@ interface IUseButton {
 }
 
 const useButton = (
+	buttonColorConfig: Partial<ButtonColorConfig>,
 	buttonState: ButtonState,
 	variant: ButtonVariants,
 	colorVariant: ButtonColorVariants
 ): IUseButton => {
-	const { getRawColor } = useTheme();
+	const { getRawColor, theme } = useTheme();
+
+	const background =
+		buttonColorConfig.background !== undefined
+			? getRawColor(buttonColorConfig.background)
+			: getRawColor(colorScheme[variant][colorVariant].background);
+	const borderColor =
+		buttonColorConfig.borderColor !== undefined
+			? getRawColor(buttonColorConfig.borderColor)
+			: getRawColor(colorScheme[variant][colorVariant].borderColor);
+	const textColor =
+		buttonColorConfig.text !== undefined
+			? buttonColorConfig.text
+			: colorScheme[variant][colorVariant].text;
 
 	const getBackgroundColor = () => {
-		if (buttonState === 'default')
-			return getRawColor(colorScheme[variant][colorVariant].background);
+		if (buttonState === 'default') return background;
 		if (buttonState === 'disabled')
 			return getRawColor(disabledColorScheme[variant].background);
 		return getBackgroundColorDark();
 	};
 
 	const getBackgroundColorDark = () => {
-		return Colors.darken(
-			getRawColor(colorScheme[variant][colorVariant].background),
-			0.3
-		);
+		return Colors.darken(background, 0.3);
 	};
 
 	const getBorderColor = () => {
-		if (buttonState === 'default')
-			return getRawColor(colorScheme[variant][colorVariant].borderColor);
+		if (buttonState === 'default') return borderColor;
 		if (buttonState === 'disabled')
 			return getRawColor(disabledColorScheme[variant].borderColor);
 		return getBackgroundColorDark();
@@ -46,7 +56,7 @@ const useButton = (
 
 	const getTextColor = () => {
 		if (buttonState === 'disabled') return disabledColorScheme[variant].text;
-		return colorScheme[variant][colorVariant].text;
+		return textColor;
 	};
 
 	return {

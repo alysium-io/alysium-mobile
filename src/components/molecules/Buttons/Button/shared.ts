@@ -6,13 +6,15 @@ export type ButtonColorVariants =
 	| 'warning';
 export type ButtonState = 'default' | 'disabled' | 'loading';
 
+export type ButtonColorConfig = {
+	background: string;
+	text: string;
+	borderColor: string;
+};
+
 export type ButtonColorScheme = {
 	[key in ButtonVariants]: {
-		[key in ButtonColorVariants]: {
-			background: string;
-			text: string;
-			borderColor: string;
-		};
+		[key in ButtonColorVariants]: ButtonColorConfig;
 	};
 };
 

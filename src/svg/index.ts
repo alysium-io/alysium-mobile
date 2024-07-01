@@ -1,8 +1,10 @@
 import Alcohol from './Alcohol';
 import Arena from './Arena';
 import Arrow from './Arrow';
+import ArrowDown from './ArrowDown';
 import ArrowLeft from './ArrowLeft';
 import ArrowRight from './ArrowRight';
+import ArrowUp from './ArrowUp';
 import Artist from './Artist';
 import At from './At';
 import Bell from './Bell';
@@ -103,7 +105,9 @@ export const SvgIcons = {
 	plus: Plus,
 	'edit-image': EditImage,
 	phone: Phone,
-	ticket: Ticket
+	ticket: Ticket,
+	'arrow-up': ArrowUp,
+	'arrow-down': ArrowDown
 };
 
 export type IconNames = keyof typeof SvgIcons;
