@@ -1,10 +1,5 @@
 name: Alysium Demo Build
 
-on:
-  push:
-    branches:
-      - demo
-
 jobs:
   bump-build-number:
     runs-on: ubuntu-latest

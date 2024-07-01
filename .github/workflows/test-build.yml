@@ -1,10 +1,5 @@
 name: Alysium QA Build
 
-on:
-  push:
-    branches:
-      - react-native-upgrade
-
 jobs:
   ios:
     if: github.actor != 'github-actions[bot]'

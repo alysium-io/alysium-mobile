@@ -1,10 +1,5 @@
 name: Alysium QA Build
 
-on:
-  push:
-    branches:
-      - qa
-
 jobs:
   bump-build-number:
     runs-on: ubuntu-latest
