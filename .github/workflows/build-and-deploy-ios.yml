@@ -69,7 +69,7 @@ jobs:
         REPO_OWNER: alysium-io
         REPO_NAME: alysium-mobile
       run: |
-        NEW_BUILD_NUMBER=$((BUILD_NUMBER + 1))
+        NEW_BUILD_NUMBER=$((${{ vars.CURRENT_BUILD_NUMBER }} + 1))
         curl -X PATCH \
           -H "Authorization: token $GH_PAT" \
           -H "Accept: application/vnd.github.v3+json" \
