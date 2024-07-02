@@ -3,7 +3,7 @@ name: Alysium Build & Deploy iOS
 on:
   workflow_dispatch:
     inputs:
-      environment:
+      env:
         description: 'Environment to deploy to'
         required: true
         type: choice
