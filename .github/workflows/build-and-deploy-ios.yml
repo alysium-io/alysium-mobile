@@ -34,8 +34,8 @@ jobs:
       run: |
         RESPONSE=$(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
           -H "Accept: application/vnd.github.v3+json" \
-          https://api.github.com/repos/${{ github.repository }}/actions/variables/CURRENT_BUILD_NUMBER)
-        CURRENT_BUILD_NUMBER=$(echo $RESPONSE | jq -r .value)
+          https://api.github.com/repos/${{ github.repository_owner }}/${{ github.repository_name }}/actions/variables)
+        CURRENT_BUILD_NUMBER=$(echo $RESPONSE | jq -r '.variables[] | select(.name=="CURRENT_BUILD_NUMBER") | .value')
         echo "CURRENT_BUILD_NUMBER=${CURRENT_BUILD_NUMBER}"
         echo "CURRENT_BUILD_NUMBER=${CURRENT_BUILD_NUMBER}" >> $GITHUB_ENV
 
@@ -50,7 +50,7 @@ jobs:
       run: |
         curl -X PATCH -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
           -H "Accept: application/vnd.github.v3+json" \
-          https://api.github.com/repos/${{ github.repository }}/actions/variables/CURRENT_BUILD_NUMBER \
+          https://api.github.com/repos/${{ github.repository_owner }}/${{ github.repository_name }}/actions/variables/CURRENT_BUILD_NUMBER \
           -d '{"name":"CURRENT_BUILD_NUMBER","value":"'${NEW_BUILD_NUMBER}'"}'
 
     - name: Print New Build Number
