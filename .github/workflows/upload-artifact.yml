@@ -12,7 +12,9 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Create a file with text
-        run: echo "Hello, this is a test file." > build/ios/testfile.txt
+        run: |
+          mkdir -p build/ios
+          echo "Hello, this is a test file." > build/ios/testfile.txt
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
