@@ -19,6 +19,9 @@ on:
 jobs:
   ios:
     runs-on: macos-13
+    permissions:
+      contents: read
+      issues: write
 
     steps:
     
