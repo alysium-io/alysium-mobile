@@ -14,6 +14,10 @@ project.ext.envConfigFiles = [
 ]
 apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
 
+def getBuildNumber() {
+    return System.getenv("BUILD_NUMBER") ?: "1" // Default to 1 if not set
+}
+
 /**
  * This is the configuration block to customize your React Native Android app.
  * By default you don't need to apply any configuration, just uncomment the lines you need.
@@ -91,7 +95,7 @@ android {
         applicationId "io.alysium"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 76
+        versionCode getBuildNumber().toInteger()
         versionName "0.0.1"
     }
 

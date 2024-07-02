@@ -14,6 +14,9 @@ end
 platform :ios do
 
     lane :build do |options|
+        # This lane builds the app and uploads it to TestFlight
+        # @param options[:scheme] The scheme to build
+        # @param options[:app_identifier] The app identifier
 
         # Configure ci environment
         # You will run into this error if you don't set up the CI environment:
@@ -34,22 +37,19 @@ platform :ios do
             scheme: options[:scheme],
             export_method: 'app-store',
             workspace: './ios/alysium.xcworkspace',
+            xcconfig: './CustomIOSBuild.xcconfig',
             output_directory: './ios/build',
             output_name: options[:scheme] + '.ipa',
             silent: true,
             export_xcargs: '-jobs $(sysctl -n hw.ncpu)'
         )
-
     end
 
     # Build and ship to testflight
-    lane :build_deploy do |options|
-        # This lane builds the app and uploads it to TestFlight
-        # @param options[:scheme] The scheme to build
+    lane :deploy do |options|
+        # This lane uploads the artifact to TestFlight
+        # @param options[:ipa_filename] The path to the IPA file to upload
         # @param options[:app_identifier] The app identifier
-
-        # Build
-        build(options)
 
         # Appstoreconnect API key for pilot to upload to TestFlight
         api_key = app_store_connect_api_key(
@@ -63,6 +63,7 @@ platform :ios do
 
         # Upload to TestFlight
         pilot(
+            ipa: './ios/build' + options[:ipa_filename],
             skip_submission: true,
             skip_waiting_for_build_processing: true,
             username: 'aymather@gmail.com',
@@ -73,7 +74,6 @@ platform :ios do
             beta_app_description: 'Alysium Beta: Build Live Music Business',
             groups: []
         )
-
     end
 
 end

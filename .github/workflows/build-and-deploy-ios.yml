@@ -10,6 +10,11 @@ on:
         options:
           - qa
           - demo
+      deploy:
+        description: 'Whether to deploy the build'
+        required: true
+        default: 'false'
+        type: boolean
 
 jobs:
   ios:
@@ -20,35 +25,44 @@ jobs:
     # Configure all dependencies
     - name: Checkout the repository # repo
       uses: actions/checkout@v4
-    - name: Set up Xcode # xcode 15.1.0
-      uses: maxim-lobanov/setup-xcode@v1.6.0
-      with:
-        xcode-version: '15.1.0'
-    - name: Use Node.js # node 20
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20'
-    - name: Set up Ruby # ruby 3.0.2
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: '3.0.2'
-    - name: Install yarn dependencies # yarn
-      uses: ./.github/actions/yarn
-    - name: Install gem dependencies # gems
-      uses: ./.github/actions/gems
-    - name: Install pods # cocoapods
-      uses: ./.github/actions/pods
 
-    - name: Write .env file
+    - name: Generate CustomIOSBuild.xcconfig for build number
+      run: echo "CURRENT_PROJECT_VERSION = \$(BUILD_NUMBER)" > CustomIOSBuild.xcconfig
+
+    - name: Something
       run: |
-        echo "API_URL=https://${{ github.event.inputs.env }}-api.alysium.ninja" >> .env.${{ github.event.inputs.env }} # (e.g. https://qa-api.alysium.ninja)
-        echo "ENV=${{ github.event.inputs.env }}" >> .env.${{ github.event.inputs.env }}
+        echo ${{ github.run_number }}
+        cat CustomIOSBuild.xcconfig
+    
+    # - name: Set up Xcode # xcode 15.1.0
+    #   uses: maxim-lobanov/setup-xcode@v1.6.0
+    #   with:
+    #     xcode-version: '15.1.0'
+    # - name: Use Node.js # node 20
+    #   uses: actions/setup-node@v4
+    #   with:
+    #     node-version: '20'
+    # - name: Set up Ruby # ruby 3.0.2
+    #   uses: ruby/setup-ruby@v1
+    #   with:
+    #     ruby-version: '3.0.2'
+    # - name: Install yarn dependencies # yarn
+    #   uses: ./.github/actions/yarn
+    # - name: Install gem dependencies # gems
+    #   uses: ./.github/actions/gems
+    # - name: Install pods # cocoapods
+    #   uses: ./.github/actions/pods
 
-    # Build iOS
-    - name: Configure SSH # match deploy key
-      uses: ./.github/actions/ssh-config
-      with:
-        match_deploy_key: ${{ secrets.MATCH_DEPLOY_KEY }}
+    # - name: Write .env file
+    #   run: |
+    #     echo "API_URL=https://${{ github.event.inputs.env }}-api.alysium.ninja" >> .env.${{ github.event.inputs.env }} # (e.g. https://qa-api.alysium.ninja)
+    #     echo "ENV=${{ github.event.inputs.env }}" >> .env.${{ github.event.inputs.env }}
+
+    # # Build iOS
+    # - name: Configure SSH # match deploy key
+    #   uses: ./.github/actions/ssh-config
+    #   with:
+    #     match_deploy_key: ${{ secrets.MATCH_DEPLOY_KEY }}
     # - name: Build iOS # fastlane
     #   env:
     #     MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
@@ -57,4 +71,15 @@ jobs:
     #     APP_STORE_CONNECT_API_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}
     #     APP_STORE_CONNECT_API_KEY_CONTENT: ${{ secrets.APP_STORE_CONNECT_API_KEY_CONTENT }}
     #   run: bundle exec fastlane ios build app_identifier:"io.alysium.${{ github.event.inputs.env }}" scheme:"alysium-${{ github.event.inputs.env }}"
+    #   working-directory: fastlane
+
+    # # Deploy iOS
+    # - name: Deploy iOS
+    #   if: ${{ github.event.inputs.deploy == 'true' }}
+    #   env:
+    #     FASTLANE_USER: ${{ secrets.FASTLANE_USER }}
+    #     APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
+    #     APP_STORE_CONNECT_API_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}
+    #     APP_STORE_CONNECT_API_KEY_CONTENT: ${{ secrets.APP_STORE_CONNECT_API_KEY_CONTENT }}
+    #   run: bundle exec fastlane ios deploy app_identifier:"io.alysium.${{ github.event.inputs.env }}" ipa_filename:"alysium-${{ github.event.inputs.env }}.ipa"
     #   working-directory: fastlane
