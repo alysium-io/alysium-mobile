@@ -2,6 +2,18 @@ name: Alysium Build & Deploy iOS
 
 on:
   workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to deploy to'
+        required: true
+        type: choice
+        options:
+          - qa
+          - demo
+      api_url:
+        description: 'API_URL for the environment (e.g. https://qa-api.alysium.ninja)'
+        required: true
+        type: text
 
 jobs:
   ios:
@@ -36,11 +48,11 @@ jobs:
         echo "API_URL=${{ github.event.inputs.api_url }}" >> .env.${{ github.event.inputs.env }}
         echo "ENV=${{ github.event.inputs.env }}" >> .env.${{ github.event.inputs.env }}
 
-    # # Build iOS
-    # - name: Configure SSH # match deploy key
-    #   uses: ./.github/actions/ssh-config
-    #   with:
-    #     match_deploy_key: ${{ secrets.MATCH_DEPLOY_KEY }}
+    # Build iOS
+    - name: Configure SSH # match deploy key
+      uses: ./.github/actions/ssh-config
+      with:
+        match_deploy_key: ${{ secrets.MATCH_DEPLOY_KEY }}
     # - name: Build iOS # fastlane
     #   env:
     #     MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
@@ -48,5 +60,5 @@ jobs:
     #     APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
     #     APP_STORE_CONNECT_API_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}
     #     APP_STORE_CONNECT_API_KEY_CONTENT: ${{ secrets.APP_STORE_CONNECT_API_KEY_CONTENT }}
-    #   run: bundle exec fastlane ios build app_identifier:"io.alysium.qa" scheme:"alysium-qa"
+    #   run: bundle exec fastlane ios build app_identifier:"io.alysium.${{ github.event.inputs.env }}" scheme:"alysium-${{ github.event.inputs.env }}"
     #   working-directory: fastlane
