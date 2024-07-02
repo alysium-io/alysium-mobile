@@ -1,0 +1,21 @@
+name: Upload Artifact
+
+on:
+  workflow_dispatch:
+
+jobs:
+  create-and-upload:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Create a file with text
+        run: echo "Hello, this is a test file." > testfile.txt
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-artifact
+          path: build/ios/

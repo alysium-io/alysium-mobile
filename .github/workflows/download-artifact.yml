@@ -1,0 +1,21 @@
+name: Download and Print Artifact
+
+on:
+  workflow_dispatch:
+
+jobs:
+  download-and-print:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: test-artifact
+          path: build/ios/
+
+      - name: Print file contents
+        run: cat testfile.txt
