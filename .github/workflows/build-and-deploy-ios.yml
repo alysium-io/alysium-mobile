@@ -29,32 +29,37 @@ jobs:
     # - name: Generate CustomIOSBuild.xcconfig for build number
     #   run: echo "CURRENT_PROJECT_VERSION = \$(BUILD_NUMBER)" > CustomIOSBuild.xcconfig
 
-    - name: Retrieve Current Build Number
-      id: get_build_number
-      run: |
-        RESPONSE=$(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-          -H "Accept: application/vnd.github.v3+json" \
-          https://api.github.com/repos/${{ github.repository_owner }}/${{ github.repository_name }}/actions/variables)
-        CURRENT_BUILD_NUMBER=$(echo $RESPONSE | jq -r '.variables[] | select(.name=="CURRENT_BUILD_NUMBER") | .value')
-        echo "CURRENT_BUILD_NUMBER=${CURRENT_BUILD_NUMBER}"
-        echo "CURRENT_BUILD_NUMBER=${CURRENT_BUILD_NUMBER}" >> $GITHUB_ENV
+    - name: Get CURRENT_BUILD_NUMBER
+        id: get_build_number
+        run: |
+          GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}"
+          REPO_OWNER="alysium-io"
+          REPO_NAME="alysium-mobile"
+          VARIABLE_NAME="CURRENT_BUILD_NUMBER"
 
-    - name: Increment Build Number
-      id: increment_build_number
-      run: |
-        NEW_BUILD_NUMBER=$((CURRENT_BUILD_NUMBER + 1))
-        echo "NEW_BUILD_NUMBER=${NEW_BUILD_NUMBER}"
-        echo "NEW_BUILD_NUMBER=${NEW_BUILD_NUMBER}" >> $GITHUB_ENV
+          # Get the current build number
+          CURRENT_BUILD_NUMBER=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+            -H "Accept: application/vnd.github.v3+json" \
+            "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/actions/variables/$VARIABLE_NAME" | jq -r '.value')
 
-    - name: Update Build Number Variable
-      run: |
-        curl -X PATCH -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-          -H "Accept: application/vnd.github.v3+json" \
-          https://api.github.com/repos/${{ github.repository_owner }}/${{ github.repository_name }}/actions/variables/CURRENT_BUILD_NUMBER \
-          -d '{"name":"CURRENT_BUILD_NUMBER","value":"'${NEW_BUILD_NUMBER}'"}'
+          echo "Current Build Number: $CURRENT_BUILD_NUMBER"
 
-    - name: Print New Build Number
-      run: echo "New build number is ${{ env.NEW_BUILD_NUMBER }}"
+          # Increment the build number
+          NEW_BUILD_NUMBER=$((CURRENT_BUILD_NUMBER + 1))
+          echo "New Build Number: $NEW_BUILD_NUMBER"
+
+          # Set the new build number as a repository variable
+          curl -X PATCH -H "Authorization: token $GITHUB_TOKEN" \
+            -H "Accept: application/vnd.github.v3+json" \
+            "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/actions/variables/$VARIABLE_NAME" \
+            -d "{\"value\":\"$NEW_BUILD_NUMBER\"}"
+
+          # Set the new build number as an environment variable
+          echo "BUILD_NUMBER=$NEW_BUILD_NUMBER" >> $GITHUB_ENV
+
+      - name: Print BUILD_NUMBER
+        run: |
+          echo "BUILD_NUMBER: $BUILD_NUMBER"
     
     # - name: Set up Xcode # xcode 15.1.0
     #   uses: maxim-lobanov/setup-xcode@v1.6.0
