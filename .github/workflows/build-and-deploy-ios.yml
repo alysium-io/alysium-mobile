@@ -32,36 +32,40 @@ jobs:
     # - name: Generate CustomIOSBuild.xcconfig for build number
     #   run: echo "CURRENT_PROJECT_VERSION = \$(BUILD_NUMBER)" > CustomIOSBuild.xcconfig
 
+    # - name: Get CURRENT_BUILD_NUMBER
+    #   id: get_build_number
+    #   run: |
+    #     GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}"
+    #     REPO_OWNER="alysium-io"
+    #     REPO_NAME="alysium-mobile"
+    #     VARIABLE_NAME="CURRENT_BUILD_NUMBER"
+
+    #     # Get the current build number
+    #     RESPONSE=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+    #       -H "Accept: application/vnd.github.v3+json" \
+    #       "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/actions/variables/$VARIABLE_NAME")
+
+    #     # Extract the value field from the response
+    #     CURRENT_BUILD_NUMBER=$(echo "$RESPONSE" | sed -n 's/.*"value": "\(.*\)",.*/\1/p')
+
+    #     echo "Current Build Number: $CURRENT_BUILD_NUMBER"
+
+    #     # Increment the build number
+    #     NEW_BUILD_NUMBER=$((CURRENT_BUILD_NUMBER + 1))
+    #     echo "New Build Number: $NEW_BUILD_NUMBER"
+
+    #     # Set the new build number as a repository variable
+    #     curl -X PATCH -H "Authorization: token $GITHUB_TOKEN" \
+    #       -H "Accept: application/vnd.github.v3+json" \
+    #       "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/actions/variables/$VARIABLE_NAME" \
+    #       -d "{\"value\":\"$NEW_BUILD_NUMBER\"}"
+
+    #     # Set the new build number as an environment variable
+    #     echo "BUILD_NUMBER=$NEW_BUILD_NUMBER" >> $GITHUB_ENV
+
     - name: Get CURRENT_BUILD_NUMBER
-      id: get_build_number
       run: |
-        GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}"
-        REPO_OWNER="alysium-io"
-        REPO_NAME="alysium-mobile"
-        VARIABLE_NAME="CURRENT_BUILD_NUMBER"
-
-        # Get the current build number
-        RESPONSE=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
-          -H "Accept: application/vnd.github.v3+json" \
-          "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/actions/variables/$VARIABLE_NAME")
-
-        # Extract the value field from the response
-        CURRENT_BUILD_NUMBER=$(echo "$RESPONSE" | sed -n 's/.*"value": "\(.*\)",.*/\1/p')
-
-        echo "Current Build Number: $CURRENT_BUILD_NUMBER"
-
-        # Increment the build number
-        NEW_BUILD_NUMBER=$((CURRENT_BUILD_NUMBER + 1))
-        echo "New Build Number: $NEW_BUILD_NUMBER"
-
-        # Set the new build number as a repository variable
-        curl -X PATCH -H "Authorization: token $GITHUB_TOKEN" \
-          -H "Accept: application/vnd.github.v3+json" \
-          "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/actions/variables/$VARIABLE_NAME" \
-          -d "{\"value\":\"$NEW_BUILD_NUMBER\"}"
-
-        # Set the new build number as an environment variable
-        echo "BUILD_NUMBER=$NEW_BUILD_NUMBER" >> $GITHUB_ENV
+        BUILD_NUMBER=${{ vars.CURRENT_BUILD_NUMBER }}
 
     - name: Print BUILD_NUMBER
       run: |
