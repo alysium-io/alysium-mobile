@@ -38,9 +38,12 @@ jobs:
         VARIABLE_NAME="CURRENT_BUILD_NUMBER"
 
         # Get the current build number
-        CURRENT_BUILD_NUMBER=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+        RESPONSE=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
           -H "Accept: application/vnd.github.v3+json" \
-          "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/actions/variables/$VARIABLE_NAME" | jq -r '.value')
+          "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/actions/variables/$VARIABLE_NAME")
+
+        # Extract the value field from the response
+        CURRENT_BUILD_NUMBER=$(echo "$RESPONSE" | sed -n 's/.*"value": "\(.*\)",.*/\1/p')
 
         echo "Current Build Number: $CURRENT_BUILD_NUMBER"
 
