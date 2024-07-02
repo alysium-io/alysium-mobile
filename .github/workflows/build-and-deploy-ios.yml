@@ -65,7 +65,7 @@ jobs:
 
     - name: Get CURRENT_BUILD_NUMBER
       run: |
-        BUILD_NUMBER=${{ vars.CURRENT_BUILD_NUMBER }}
+        echo "BUILD_NUMBER=${{ vars.CURRENT_BUILD_NUMBER }}" >> $GITHUB_ENV
 
     - name: Print BUILD_NUMBER
       run: |
