@@ -32,6 +32,7 @@ jobs:
     - name: Something
       run: |
         echo ${{ github.run_number }}
+        echo ${{ github.run_id }}
         cat CustomIOSBuild.xcconfig
     
     # - name: Set up Xcode # xcode 15.1.0
