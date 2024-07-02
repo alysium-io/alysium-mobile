@@ -10,10 +10,6 @@ on:
         options:
           - qa
           - demo
-      api_url:
-        description: 'API_URL for the environment (e.g. https://qa-api.alysium.ninja)'
-        required: true
-        type: text
 
 jobs:
   ios:
@@ -45,7 +41,7 @@ jobs:
 
     - name: Write .env file
       run: |
-        echo "API_URL=${{ github.event.inputs.api_url }}" >> .env.${{ github.event.inputs.env }}
+        echo "API_URL=https://${{ github.event.inputs.env }}-api.alysium.ninja" >> .env.${{ github.event.inputs.env }} # (e.g. https://qa-api.alysium.ninja)
         echo "ENV=${{ github.event.inputs.env }}" >> .env.${{ github.event.inputs.env }}
 
     # Build iOS
