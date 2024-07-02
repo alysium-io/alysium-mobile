@@ -70,6 +70,19 @@ jobs:
     - name: Print BUILD_NUMBER
       run: |
         echo "BUILD_NUMBER: $BUILD_NUMBER"
+
+    - name: Update CURRENT_BUILD_NUMBER
+      env:
+        GH_PAT: ${{ secrets.GH_PAT }}
+        REPO_OWNER: alysium-io
+        REPO_NAME: alysium-mobile
+        NEW_BUILD_NUMBER: $((BUILD_NUMBER + 1))
+      run: |
+        curl -X PATCH \
+          -H "Authorization: token $GH_PAT" \
+          -H "Accept: application/vnd.github.v3+json" \
+          https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/actions/variables/CURRENT_BUILD_NUMBER \
+          -d "{\"name\":\"CURRENT_BUILD_NUMBER\",\"value\":\"$NEW_BUILD_NUMBER\"}"
     
     # - name: Set up Xcode # xcode 15.1.0
     #   uses: maxim-lobanov/setup-xcode@v1.6.0
