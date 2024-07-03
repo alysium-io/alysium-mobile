@@ -44,6 +44,7 @@ jobs:
     - name: Generate CustomIOSBuild.xcconfig for build number
       run: |
         echo "CURRENT_BUILD_NUMBER = $BUILD_NUMBER" >> CustomIOSBuild.xcconfig
+        cat CustomIOSBuild.xcconfig
     
     # - name: Set up Xcode # xcode 15.1.0
     #   uses: maxim-lobanov/setup-xcode@v1.6.0
