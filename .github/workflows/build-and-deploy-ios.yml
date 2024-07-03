@@ -69,32 +69,40 @@ jobs:
       with:
         match_deploy_key: ${{ secrets.MATCH_DEPLOY_KEY }}
 
-    # Build iOS
-    - name: Build iOS # fastlane
-      env:
-        MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
-        FASTLANE_USER: ${{ secrets.FASTLANE_USER }}
-        APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
-        APP_STORE_CONNECT_API_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}
-        APP_STORE_CONNECT_API_KEY_CONTENT: ${{ secrets.APP_STORE_CONNECT_API_KEY_CONTENT }}
-      run: bundle exec fastlane ios build app_identifier:"io.alysium.${{ github.event.inputs.env }}" scheme:"alysium-${{ github.event.inputs.env }}"
-      working-directory: fastlane
+    - name: Print debug info for the following error
+      run: |
+        cat .env.${{ github.event.inputs.env }}
+        cat CustomIOSBuild.xcconfig
+        ls -la
+        ls -la ios
+        ls -la ios/build
 
-    # Save the .ipa artifact
-    - name: Upload .ipa artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: Alysium iOS
-        path: ios/build/alysium-${{ github.event.inputs.env }}.ipa
-        retention-days: 1
+    # # Build iOS
+    # - name: Build iOS # fastlane
+    #   env:
+    #     MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+    #     FASTLANE_USER: ${{ secrets.FASTLANE_USER }}
+    #     APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
+    #     APP_STORE_CONNECT_API_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}
+    #     APP_STORE_CONNECT_API_KEY_CONTENT: ${{ secrets.APP_STORE_CONNECT_API_KEY_CONTENT }}
+    #   run: bundle exec fastlane ios build app_identifier:"io.alysium.${{ github.event.inputs.env }}" scheme:"alysium-${{ github.event.inputs.env }}"
+    #   working-directory: fastlane
 
-    # Deploy iOS
-    - name: Deploy iOS
-      if: ${{ github.event.inputs.deploy == 'true' }}
-      env:
-        FASTLANE_USER: ${{ secrets.FASTLANE_USER }}
-        APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
-        APP_STORE_CONNECT_API_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}
-        APP_STORE_CONNECT_API_KEY_CONTENT: ${{ secrets.APP_STORE_CONNECT_API_KEY_CONTENT }}
-      run: bundle exec fastlane ios deploy app_identifier:"io.alysium.${{ github.event.inputs.env }}" ipa_filename:"alysium-${{ github.event.inputs.env }}.ipa"
-      working-directory: fastlane
+    # # Save the .ipa artifact
+    # - name: Upload .ipa artifact
+    #   uses: actions/upload-artifact@v4
+    #   with:
+    #     name: Alysium iOS
+    #     path: ios/build/alysium-${{ github.event.inputs.env }}.ipa
+    #     retention-days: 1
+
+    # # Deploy iOS
+    # - name: Deploy iOS
+    #   if: ${{ github.event.inputs.deploy == 'true' }}
+    #   env:
+    #     FASTLANE_USER: ${{ secrets.FASTLANE_USER }}
+    #     APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
+    #     APP_STORE_CONNECT_API_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}
+    #     APP_STORE_CONNECT_API_KEY_CONTENT: ${{ secrets.APP_STORE_CONNECT_API_KEY_CONTENT }}
+    #   run: bundle exec fastlane ios deploy app_identifier:"io.alysium.${{ github.event.inputs.env }}" ipa_filename:"alysium-${{ github.event.inputs.env }}.ipa"
+    #   working-directory: fastlane
