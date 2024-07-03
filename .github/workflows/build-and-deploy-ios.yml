@@ -85,24 +85,24 @@ jobs:
     - name: Print the git status to see if there are any changes in the working directory
       run: git status
 
-    # # Build iOS
-    # - name: Build iOS # fastlane
-    #   env:
-    #     MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
-    #     FASTLANE_USER: ${{ secrets.FASTLANE_USER }}
-    #     APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
-    #     APP_STORE_CONNECT_API_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}
-    #     APP_STORE_CONNECT_API_KEY_CONTENT: ${{ secrets.APP_STORE_CONNECT_API_KEY_CONTENT }}
-    #   run: bundle exec fastlane ios build app_identifier:"io.alysium.${{ github.event.inputs.env }}" scheme:"alysium-${{ github.event.inputs.env }}"
-    #   working-directory: fastlane
+    # Build iOS
+    - name: Build iOS # fastlane
+      env:
+        MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+        FASTLANE_USER: ${{ secrets.FASTLANE_USER }}
+        APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
+        APP_STORE_CONNECT_API_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}
+        APP_STORE_CONNECT_API_KEY_CONTENT: ${{ secrets.APP_STORE_CONNECT_API_KEY_CONTENT }}
+      run: bundle exec fastlane ios build app_identifier:"io.alysium.${{ github.event.inputs.env }}" scheme:"alysium-${{ github.event.inputs.env }}"
+      working-directory: fastlane
 
-    # # Save the .ipa artifact
-    # - name: Upload .ipa artifact
-    #   uses: actions/upload-artifact@v4
-    #   with:
-    #     name: Alysium iOS
-    #     path: ios/build/alysium-${{ github.event.inputs.env }}.ipa
-    #     retention-days: 1
+    # Save the .ipa artifact
+    - name: Upload .ipa artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: Alysium iOS
+        path: ios/build/alysium-${{ github.event.inputs.env }}.ipa
+        retention-days: 1
 
     # # Deploy iOS
     # - name: Deploy iOS
