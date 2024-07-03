@@ -76,6 +76,7 @@ jobs:
         ls -la
         ls -la ios
         ls -la ios/Pods
+        cat ios/Pods/.last_build_configuration
 
     - name: Print the git status to see if there are any changes in the working directory
       run: git status
