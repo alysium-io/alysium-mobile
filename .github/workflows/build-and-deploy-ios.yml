@@ -75,7 +75,7 @@ jobs:
         cat CustomIOSBuild.xcconfig
         ls -la
         ls -la ios
-        ls -la ios/build
+        ls -la ios/Pods
 
     # # Build iOS
     # - name: Build iOS # fastlane
