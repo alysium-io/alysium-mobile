@@ -69,6 +69,10 @@ jobs:
       with:
         match_deploy_key: ${{ secrets.MATCH_DEPLOY_KEY }}
 
+    - name: Run pod install
+      run: bundle exec pod install
+      working-directory: ios
+
     - name: Print debug info for the following error
       run: |
         cat .env.${{ github.event.inputs.env }}
