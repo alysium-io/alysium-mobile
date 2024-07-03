@@ -77,6 +77,9 @@ jobs:
         ls -la ios
         ls -la ios/Pods
 
+    - name: Print the git status to see if there are any changes in the working directory
+      run: git status
+
     # # Build iOS
     # - name: Build iOS # fastlane
     #   env:
