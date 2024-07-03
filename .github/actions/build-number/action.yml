@@ -1,14 +1,33 @@
 name: 'build-number'
 description: 'Bump the build number and add to environment'
 
+inputs:
+  current-build-number:
+    description: 'Current build number'
+    required: true
+  gh-pat:
+    description: 'GitHub Personal Access Token'
+    required: true
+  repo-owner:
+    description: 'Repository owner'
+    required: true
+  repo-name:
+    description: 'Repository name'
+    required: true
+
 runs:
   using: 'composite'
   steps:
     - name: Get & update CURRENT_BUILD_NUMBER
       shell: bash
       run: |
+        # Get the inputs
+        GH_PAT=${{ inputs.gh-pat }}
+        REPO_OWNER=${{ inputs.repo-owner }}
+        REPO_NAME=${{ inputs.repo-name }}
+
         # Get the current build number & increment it
-        BUILD_NUMBER=$(( ${{ vars.CURRENT_BUILD_NUMBER }} + 1 ))
+        BUILD_NUMBER=$(( ${{ inputs.current-build-number }} + 1 ))
 
         # Set the new build number as an environment variable
         echo "BUILD_NUMBER=$BUILD_NUMBER" >> $GITHUB_ENV

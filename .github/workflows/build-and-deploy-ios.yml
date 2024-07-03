@@ -31,10 +31,11 @@ jobs:
 
     - name: Build Number
       uses: ./.github/actions/build-number
-      env:
-        GH_PAT: ${{ secrets.GH_PAT }}
-        REPO_OWNER: alysium-io
-        REPO_NAME: alysium-mobile
+      with:
+          current-build-number: ${{ vars.CURRENT_BUILD_NUMBER }}
+          gh-pat: ${{ secrets.GH_PAT }}
+          repo-owner: alysium-io
+          repo-name: alysium-mobile
 
     - name: Print BUILD_NUMBER in separate step
       run: |
