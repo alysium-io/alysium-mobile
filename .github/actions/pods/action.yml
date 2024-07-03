@@ -10,8 +10,37 @@ runs:
       with:
         path: ios/Pods
         key: ${{ runner.os }}-cocoapods-${{ hashFiles('ios/Podfile.lock') }}
-    - name: Install CocoaPods dependencies
-      if: steps.cache-cocoapods.outputs.cache-hit != 'true'
+
+    # This is a temporary workaround to a deeper issue. Here's the issue:
+    #   Ever since I upgraded react native from ^0.71.0 -> 0.74.2 I have started having issues with pod installations during the build process.
+    #   The issue is that the cache only restores the <PROJECT ROOT>/ios/Pods directory. However, during the upgrade, I have noticed that 
+    #   there is another directory that gets generated when I run `bundle exec pod install` which appears as `ios/build`. This is an artifact of
+    #   the pod installation process. This directory is not cached and is not restored during the build process. This causes the build to fail.
+    #   Here is the full error:
+    #     Error: error: Build input file cannot be found: '/Users/runner/work/alysium-mobile/alysium-mobile/ios/build/generated/ios/safeareacontext/safeareacontext-generated.mm'. Did you forget to declare this file as an output of a script phase or custom build rule which produces it? (in target 'React-Codegen' from project 'Pods')
+    #     [React-Codegen] Compiling safeareacontextJSI-generated.cpp
+    #     Error: error: Build input file cannot be found: '/Users/runner/work/alysium-mobile/alysium-mobile/ios/build/generated/ios/safeareacontextJSI-generated.cpp'. Did you forget to declare this file as an output of a script phase or custom build rule which produces it? (in target 'React-Codegen' from project 'Pods')
+    #     [React-Codegen] Compiling rnskiaJSI-generated.cpp
+    #     Error: error: Build input file cannot be found: '/Users/runner/work/alysium-mobile/alysium-mobile/ios/build/generated/ios/rnskiaJSI-generated.cpp'. Did you forget to declare this file as an output of a script phase or custom build rule which produces it? (in target 'React-Codegen' from project 'Pods')
+    #     [React-Codegen] Compiling rnskia-generated.mm
+    #     Error: error: Build input file cannot be found: '/Users/runner/work/alysium-mobile/alysium-mobile/ios/build/generated/ios/rnskia/rnskia-generated.mm'. Did you forget to declare this file as an output of a script phase or custom build rule which produces it? (in target 'React-Codegen' from project 'Pods')
+    #     [React-Codegen] Compiling rnscreensJSI-generated.cpp
+    #     Error: error: Build input file cannot be found: '/Users/runner/work/alysium-mobile/alysium-mobile/ios/build/generated/ios/rnscreensJSI-generated.cpp'. Did you forget to declare this file as an output of a script phase or custom build rule which produces it? (in target 'React-Codegen' from project 'Pods')
+    #   This `ios/build` directory is being generated from `node_modules/react-native/scripts/react_native_pods.rb` which is a script that is run
+    #   from the `Podfile`. Here is the line that runs it (which was introduced by react-native-upgrade-helper during the upgrade):
+    #     # Resolve react_native_pods.rb with node to allow for hoisting
+    #     require Pod::Executable.execute_command('node', ['-p',
+    #       'require.resolve(
+    #         "react-native/scripts/react_native_pods.rb",
+    #         {paths: [process.argv[1]]},
+    #       )', __dir__]).strip
+    - name: Install CocoaPods dependencies (temporary workaround)
       run: bundle exec pod install
       working-directory: ios
       shell: bash
+
+    # - name: Install CocoaPods dependencies
+    #   if: steps.cache-cocoapods.outputs.cache-hit != 'true'
+    #   run: bundle exec pod install
+    #   working-directory: ios
+    #   shell: bash
