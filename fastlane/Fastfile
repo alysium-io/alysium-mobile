@@ -37,7 +37,7 @@ platform :ios do
             scheme: options[:scheme],
             export_method: 'app-store',
             workspace: './ios/alysium.xcworkspace',
-            xcconfig: './CustomIOSBuild.xcconfig',
+            # xcconfig: './CustomIOSBuild.xcconfig',
             output_directory: './ios/build',
             output_name: options[:scheme] + '.ipa',
             silent: true,
