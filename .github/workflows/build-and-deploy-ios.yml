@@ -36,7 +36,11 @@ jobs:
         REPO_NAME: alysium-mobile
       run: |
         # Get the current build number, increment it, and set it as an environment variable
-        echo "BUILD_NUMBER=$((${{ vars.CURRENT_BUILD_NUMBER }} + 1))" >> $GITHUB_ENV
+        BUILD_NUMBER=$(( ${{ vars.CURRENT_BUILD_NUMBER }} + 1 ))
+        echo "BUILD_NUMBER=$BUILD_NUMBER" >> $GITHUB_ENV
+
+        # Print the updated build number for debugging purposes
+        echo "BUILD_NUMBER: $BUILD_NUMBER"
 
         # Update the CURRENT_BUILD_NUMBER repository variable with the incremented build number
         curl -X PATCH \
@@ -45,15 +49,13 @@ jobs:
           https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/actions/variables/CURRENT_BUILD_NUMBER \
           -d "{\"name\":\"CURRENT_BUILD_NUMBER\",\"value\":\"$BUILD_NUMBER\"}"
 
-        # Print the updated build number
-        echo "BUILD_NUMBER: $BUILD_NUMBER"
-
     - name: Print BUILD_NUMBER in separate step
       run: |
         echo "BUILD_NUMBER: $BUILD_NUMBER"
 
     - name: Generate CustomIOSBuild.xcconfig for build number
-      run: echo "CURRENT_PROJECT_VERSION = \$(BUILD_NUMBER)" > CustomIOSBuild.xcconfig
+      run: |
+        echo "CURRENT_BUILD_NUMBER = $BUILD_NUMBER" >> CustomIOSBuild.xcconfig
 
     - name: Print CustomIOSBuild.xcconfig
       run: cat CustomIOSBuild.xcconfig
