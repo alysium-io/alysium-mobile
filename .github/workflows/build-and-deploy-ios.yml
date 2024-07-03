@@ -25,6 +25,8 @@ jobs:
     # Init
     - name: Checkout the repository # repo
       uses: actions/checkout@v4
+      # with:
+      #   ref: ${{ github.event.inputs.env }}
 
     # Build number
     - name: Build Number
@@ -61,7 +63,7 @@ jobs:
         echo "API_URL=https://${{ github.event.inputs.env }}-api.alysium.ninja" >> .env.${{ github.event.inputs.env }} # (e.g. https://qa-api.alysium.ninja)
         echo "ENV=${{ github.event.inputs.env }}" >> .env.${{ github.event.inputs.env }}
     - name: Generate CustomIOSBuild.xcconfig for build number
-      run: echo "CURRENT_PROJECT_VERSION = $BUILD_NUMBER" >> CustomIOSBuild.xcconfig
+      run: echo "CURRENT_BUILD_NUMBER=$BUILD_NUMBER" >> CustomIOSBuild.xcconfig
     - name: Configure SSH # match deploy key
       uses: ./.github/actions/ssh-config
       with:
