@@ -80,6 +80,14 @@ jobs:
       run: bundle exec fastlane ios build app_identifier:"io.alysium.${{ github.event.inputs.env }}" scheme:"alysium-${{ github.event.inputs.env }}"
       working-directory: fastlane
 
+    # Save the .ipa artifact
+    - name: Upload .ipa artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: Alysium iOS
+        path: ios/build/alysium-${{ github.event.inputs.env }}.ipa
+        retention-days: 1
+
     # Deploy iOS
     - name: Deploy iOS
       if: ${{ github.event.inputs.deploy == 'true' }}
