@@ -1,0 +1,24 @@
+name: 'build-number'
+description: 'Bump the build number and add to environment'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Get & update CURRENT_BUILD_NUMBER
+      shell: bash
+      run: |
+        # Get the current build number & increment it
+        BUILD_NUMBER=$(( ${{ vars.CURRENT_BUILD_NUMBER }} + 1 ))
+
+        # Set the new build number as an environment variable
+        echo "BUILD_NUMBER=$BUILD_NUMBER" >> $GITHUB_ENV
+
+        # Print the updated build number for debugging purposes
+        echo "BUILD_NUMBER: $BUILD_NUMBER"
+
+        # Update the CURRENT_BUILD_NUMBER repository variable with the incremented build number
+        curl -X PATCH \
+          -H "Authorization: token $GH_PAT" \
+          -H "Accept: application/vnd.github.v3+json" \
+          https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/actions/variables/CURRENT_BUILD_NUMBER \
+          -d "{\"name\":\"CURRENT_BUILD_NUMBER\",\"value\":\"$BUILD_NUMBER\"}"
