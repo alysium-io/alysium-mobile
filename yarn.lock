@@ -3567,7 +3567,7 @@ __metadata:
     react-native-date-picker: "npm:^4.3.3"
     react-native-encrypted-storage: "npm:^4.0.3"
     react-native-fast-image: "npm:^8.6.3"
-    react-native-gesture-handler: "npm:2.9.0"
+    react-native-gesture-handler: "npm:^2.17.1"
     react-native-haptic-feedback: "npm:^2.0.3"
     react-native-image-picker: "npm:^7.1.0"
     react-native-image-zoom-viewer: "npm:^3.0.1"
@@ -9073,19 +9073,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-gesture-handler@npm:2.9.0":
-  version: 2.9.0
-  resolution: "react-native-gesture-handler@npm:2.9.0"
+"react-native-gesture-handler@npm:^2.17.1":
+  version: 2.17.1
+  resolution: "react-native-gesture-handler@npm:2.17.1"
   dependencies:
     "@egjs/hammerjs": "npm:^2.0.17"
     hoist-non-react-statics: "npm:^3.3.0"
     invariant: "npm:^2.2.4"
-    lodash: "npm:^4.17.21"
     prop-types: "npm:^15.7.2"
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: 10c0/722e7674b30d8db030212b253d6390d1b8e813b13177762aa0ccf798607191c99c53593a3e51c919c095a6b2267ee0fcc05ee11e18c527414f7335030e97e535
+  checksum: 10c0/01ea97f347df2505c58be8551c62e9fd0bae7814346a41f3367ec0b4836877fd8b9b710619f8bc10c6cdbb0e2670dd6c131124d27aabc4745383aab690dae6b3
   languageName: node
   linkType: hard
 
