@@ -100,7 +100,6 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: Alysium Android
-        path: android/app/build/outputs/apk/release/app-release.apk
         path: "./android/app/build/outputs/bundle/${{ github.event.inputs.env }}Release/app-${{ github.event.inputs.env }}-release.aab"
         retention-days: 1
 
