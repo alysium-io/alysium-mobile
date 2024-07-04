@@ -13,19 +13,13 @@ on:
       deploy:
         description: 'Whether to deploy the build'
         required: false
-        default: 'false'
-        type: choice
-        options:
-          - 'true'
-          - 'false'
+        type: boolean
+        default: false
       save:
         description: 'Whether to save the build as an artifact'
         required: false
-        default: 'false'
-        type: choice
-        options:
-          - 'true'
-          - 'false'
+        type: boolean
+        default: false
 
 jobs:
   build-and-deploy:

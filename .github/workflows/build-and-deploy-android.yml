@@ -13,16 +13,13 @@ on:
       deploy:
         description: 'Whether to deploy the build'
         required: false
-        default: 'false'
-        type: choice
-        options:
-          - 'true'
-          - 'false'
+        type: boolean
+        default: false
       save:
         description: 'Whether to save the build as an artifact'
         required: false
-        default: false
         type: boolean
+        default: false
 
 jobs:
   build-and-deploy:
@@ -43,61 +40,54 @@ jobs:
           repo-owner: alysium-io
           repo-name: alysium-mobile
 
-    # Echo out dispatch inputs for debugging
-    - name: Debug
+    # Environment configuration
+    - name: Use Node.js # node 20
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+    - name: Set up Ruby # ruby 3.0.2
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.0.2'
+    - name: Install yarn dependencies # yarn
+      uses: ./.github/actions/yarn
+    - name: Install gem dependencies # gems
+      uses: ./.github/actions/gems
+    - name: Set up JDK 17 # java 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: 17
+        distribution: 'temurin'
+    - name: Cache Android SDK and NDK # android sdk 33, ndk 23.1.7779620
+      id: cache-android
+      uses: actions/cache@v4
+      with:
+        path: |
+          /Users/runner/Library/Android/sdk/build-tools/33.0.0
+          /Users/runner/Library/Android/sdk/platforms/android-33
+          /Users/runner/Library/Android/sdk/ndk/23.1.7779620
+        key: ${{ runner.os }}-android-sdk-33-ndk-23.1.7779620
+    - name: Set up Android SDK
+      uses: android-actions/setup-android@v3
+    - name: Install Android Build Tools and SDKs
+      if: steps.cache-android.outputs.cache-hit != 'true'
       run: |
-        echo "Environment: ${{ github.event.inputs.env }}"
-        echo "Deploy: ${{ github.event.inputs.deploy }}"
-        echo "Save: ${{ github.event.inputs.save }}"
+        yes | sdkmanager "build-tools;33.0.0" "platforms;android-33" "ndk;23.1.7779620"
 
-    # # Environment configuration
-    # - name: Use Node.js # node 20
-    #   uses: actions/setup-node@v4
-    #   with:
-    #     node-version: '20'
-    # - name: Set up Ruby # ruby 3.0.2
-    #   uses: ruby/setup-ruby@v1
-    #   with:
-    #     ruby-version: '3.0.2'
-    # - name: Install yarn dependencies # yarn
-    #   uses: ./.github/actions/yarn
-    # - name: Install gem dependencies # gems
-    #   uses: ./.github/actions/gems
-    # - name: Set up JDK 17 # java 17
-    #   uses: actions/setup-java@v4
-    #   with:
-    #     java-version: 17
-    #     distribution: 'temurin'
-    # - name: Cache Android SDK and NDK # android sdk 33, ndk 23.1.7779620
-    #   id: cache-android
-    #   uses: actions/cache@v4
-    #   with:
-    #     path: |
-    #       /Users/runner/Library/Android/sdk/build-tools/33.0.0
-    #       /Users/runner/Library/Android/sdk/platforms/android-33
-    #       /Users/runner/Library/Android/sdk/ndk/23.1.7779620
-    #     key: ${{ runner.os }}-android-sdk-33-ndk-23.1.7779620
-    # - name: Set up Android SDK
-    #   uses: android-actions/setup-android@v3
-    # - name: Install Android Build Tools and SDKs
-    #   if: steps.cache-android.outputs.cache-hit != 'true'
-    #   run: |
-    #     yes | sdkmanager "build-tools;33.0.0" "platforms;android-33" "ndk;23.1.7779620"
-
-    # # Android specific configuration
-    # - name: Write .env file
-    #   uses: ./.github/actions/write-env-vars
-    #   with:
-    #     ENV: ${{ github.event.inputs.env }}
-    # - name: Write Android signing keys to gradle.properties
-    #   uses: ./.github/actions/android-credentials
-    #   with:
-    #     ALYSIUM_UPLOAD_STORE_FILE: ${{ secrets.ALYSIUM_UPLOAD_STORE_FILE }}
-    #     ALYSIUM_UPLOAD_STORE_PASSWORD: ${{ secrets.ALYSIUM_UPLOAD_STORE_PASSWORD }}
-    #     ALYSIUM_UPLOAD_KEY_ALIAS: ${{ secrets.ALYSIUM_UPLOAD_KEY_ALIAS }}
-    #     ALYSIUM_UPLOAD_KEY_PASSWORD: ${{ secrets.ALYSIUM_UPLOAD_KEY_PASSWORD }}
-    #     ANDROID_ENCRYPTED_KEYSTORE: ${{ secrets.ANDROID_ENCRYPTED_KEYSTORE }}
-    #     GOOGLE_PLAY_SERVICE_KEY: ${{ secrets.GOOGLE_PLAY_SERVICE_KEY }}
+    # Android specific configuration
+    - name: Write .env file
+      uses: ./.github/actions/write-env-vars
+      with:
+        ENV: ${{ github.event.inputs.env }}
+    - name: Write Android signing keys to gradle.properties
+      uses: ./.github/actions/android-credentials
+      with:
+        ALYSIUM_UPLOAD_STORE_FILE: ${{ secrets.ALYSIUM_UPLOAD_STORE_FILE }}
+        ALYSIUM_UPLOAD_STORE_PASSWORD: ${{ secrets.ALYSIUM_UPLOAD_STORE_PASSWORD }}
+        ALYSIUM_UPLOAD_KEY_ALIAS: ${{ secrets.ALYSIUM_UPLOAD_KEY_ALIAS }}
+        ALYSIUM_UPLOAD_KEY_PASSWORD: ${{ secrets.ALYSIUM_UPLOAD_KEY_PASSWORD }}
+        ANDROID_ENCRYPTED_KEYSTORE: ${{ secrets.ANDROID_ENCRYPTED_KEYSTORE }}
+        GOOGLE_PLAY_SERVICE_KEY: ${{ secrets.GOOGLE_PLAY_SERVICE_KEY }}
 
     # # android
     # - name: Build android
