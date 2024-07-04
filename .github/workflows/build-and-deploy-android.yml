@@ -21,11 +21,8 @@ on:
       save:
         description: 'Whether to save the build as an artifact'
         required: false
-        default: 'false'
-        type: choice
-        options:
-          - 'true'
-          - 'false'
+        default: false
+        type: boolean
 
 jobs:
   build-and-deploy:
@@ -45,6 +42,13 @@ jobs:
           gh-pat: ${{ secrets.GH_PAT }}
           repo-owner: alysium-io
           repo-name: alysium-mobile
+
+    # Echo out dispatch inputs for debugging
+    - name: Debug
+      run: |
+        echo "Environment: ${{ github.event.inputs.env }}"
+        echo "Deploy: ${{ github.event.inputs.deploy }}"
+        echo "Save: ${{ github.event.inputs.save }}"
 
     # # Environment configuration
     # - name: Use Node.js # node 20
