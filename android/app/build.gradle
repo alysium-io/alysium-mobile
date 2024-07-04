@@ -25,9 +25,7 @@ def getBuildNumber() {
 }
 
 def getVersionNameFromPackageJson() {
-    println rootProject
-    println rootProject.projectDir
-    def packageJsonFile = new File(rootProject.projectDir, "package.json")
+    def packageJsonFile = new File(rootProject.projectDir, "../package.json")
     def packageJson = new JsonSlurper().parseText(packageJsonFile.text)
     def versionName = packageJson.version
     if (versionName == null) {
