@@ -80,9 +80,11 @@ end
 
 platform :android do
 
-    lane :test_build do
+    lane :build do |options|
+        # This lane builds the app
+        # @param options[:env] The environment to build for
 
-        ENV['ENVFILE'] = '.env.qa'
+        ENV['ENVFILE'] = '.env.' + options[:env]
 
         prepare_android_changelog
 
@@ -96,69 +98,21 @@ platform :android do
             task: 'bundle',
             project_dir: './android',
             gradle_path: './gradlew',
-            flavor: 'qa',
+            flavor: options[:env],
             build_type: 'Release'
         )
-
     end
 
-    lane :qa do
-
-        ENV['ENVFILE'] = '.env.qa'
-
-        prepare_android_changelog
-
-        gradle(
-            task: 'clean',
-            project_dir: './android',
-            gradle_path: './gradlew'
-        )
-
-        gradle(
-            task: 'bundle',
-            project_dir: './android',
-            gradle_path: './gradlew',
-            flavor: 'qa',
-            build_type: 'Release'
-        )
+    lane :deploy do |options|
+        # This lane uploads the artifact to TestFlight
+        # @param options[:env] The flavor to upload
 
         upload_to_play_store(
             track: 'internal',
-            aab: './android/app/build/outputs/bundle/qaRelease/app-qa-release.aab',
+            aab: "./android/app/build/outputs/bundle/#{options[:env]}Release/app-#{options[:env]}-release.aab",
             metadata_path: android_metadata_path,
             version_code: version_code
         )
-
     end
-
-    lane :demo do
-
-        ENV['ENVFILE'] = '.env.demo'
-
-        prepare_android_changelog
-
-        gradle(
-            task: 'clean',
-            project_dir: './android',
-            gradle_path: './gradlew'
-        )
-
-        gradle(
-            task: 'bundle',
-            project_dir: './android',
-            gradle_path: './gradlew',
-            flavor: 'demo',
-            build_type: 'Release'
-        )
-
-        upload_to_play_store(
-            track: 'internal',
-            aab: './android/app/build/outputs/bundle/demoRelease/app-demo-release.aab',
-            metadata_path: android_metadata_path,
-            version_code: version_code
-        )
-
-    end
-
 end
 

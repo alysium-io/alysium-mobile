@@ -15,7 +15,21 @@ project.ext.envConfigFiles = [
 apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
 
 def getBuildNumber() {
-    return System.getenv("BUILD_NUMBER") ?: "1" // Default to 1 if not set
+    def buildNumber = System.getenv("BUILD_NUMBER")
+    if (buildNumber == null) {
+        throw new IllegalStateException("BUILD_NUMBER environment variable is not set")
+    }
+    return buildNumber.toInteger()
+}
+
+def getVersionNameFromPackageJson() {
+    def packageJsonFile = file("${rootProject.projectDir}/package.json")
+    def packageJson = new JsonSlurper().parseText(packageJsonFile.text)
+    def versionName = packageJson.version
+    if (versionName == null) {
+        throw new IllegalStateException("version field is not set in package.json")
+    }
+    return versionName
 }
 
 /**
@@ -95,8 +109,8 @@ android {
         applicationId "io.alysium"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode getBuildNumber().toInteger()
-        versionName "0.0.1"
+        versionCode getBuildNumber()
+        versionName getVersionNameFromPackageJson()
     }
 
     flavorDimensions "default"

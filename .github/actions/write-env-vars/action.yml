@@ -1,20 +1,22 @@
 name: 'Write Environment Variables'
 description: 'Write environment variables to .env.* file'
 inputs:
-  envtype:
-    description: 'Environment type'
-    required: true
-  API_URL:
-    description: 'API URL environment variable name'
-    required: true
   ENV:
     description: 'ENV environment variable name'
+    type: choice
+    options:
+      - qa
+      - demo
     required: true
 
 runs:
   using: 'composite'
   steps:
     - run: |
-        echo "API_URL=${{ inputs.API_URL }}" >> .env.${{ inputs.envtype }}
-        echo "ENV=${{ inputs.ENV }}" >> .env.${{ inputs.envtype }}
+        # Environment name
+        echo "ENV=${{ inputs.ENV }}" >> .env.${{ inputs.ENV }}
+
+        # Api url (e.g. https://qa-api.alysium.ninja)
+        echo "API_URL=https://${{ inputs.ENV }}-api.alysium.ninja" >> .env.${{ inputs.ENV }}
+
       shell: bash

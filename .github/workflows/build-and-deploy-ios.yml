@@ -12,16 +12,23 @@ on:
           - demo
       deploy:
         description: 'Whether to deploy the build'
-        required: true
+        required: false
         default: 'false'
-        type: boolean
+        type: choice
+        options:
+          - 'true'
+          - 'false'
       save:
         description: 'Whether to save the build as an artifact'
-        required: true
+        required: false
         default: 'false'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
 
 jobs:
-  ios:
+  build-and-deploy:
     runs-on: macos-13
 
     steps:
@@ -63,9 +70,9 @@ jobs:
 
     # iOS specific configuration
     - name: Write .env file
-      run: |
-        echo "API_URL=https://${{ github.event.inputs.env }}-api.alysium.ninja" >> .env.${{ github.event.inputs.env }} # (e.g. https://qa-api.alysium.ninja)
-        echo "ENV=${{ github.event.inputs.env }}" >> .env.${{ github.event.inputs.env }}
+      uses: ./.github/actions/write-env-vars
+      with:
+        ENV: ${{ github.event.inputs.env }}
     - name: Generate CustomIOSBuild.xcconfig for build number
       run: echo "CURRENT_BUILD_NUMBER=$BUILD_NUMBER" >> CustomIOSBuild.xcconfig
     - name: Configure SSH # match deploy key
