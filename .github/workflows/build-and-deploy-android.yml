@@ -30,6 +30,8 @@ jobs:
     # Init
     - name: Checkout the repository # repo
       uses: actions/checkout@v4
+      # with:
+      #   ref: ${{ github.event.inputs.env }}
 
     # Build number
     - name: Build Number
@@ -103,8 +105,8 @@ jobs:
         path: "./android/app/build/outputs/bundle/${{ github.event.inputs.env }}Release/app-${{ github.event.inputs.env }}-release.aab"
         retention-days: 1
 
-    # Deploy android
-    - name: Deploy android
-      if: ${{ github.event.inputs.deploy == 'true' }}
-      run: bundle exec fastlane android deploy env:${{ github.event.inputs.env }}
-      working-directory: fastlane
+    # # Deploy android
+    # - name: Deploy android
+    #   if: ${{ github.event.inputs.deploy == 'true' }}
+    #   run: bundle exec fastlane android deploy env:${{ github.event.inputs.env }}
+    #   working-directory: fastlane
