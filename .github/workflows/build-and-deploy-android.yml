@@ -91,6 +91,9 @@ jobs:
         ANDROID_ENCRYPTED_KEYSTORE: ${{ secrets.ANDROID_ENCRYPTED_KEYSTORE }}
         GOOGLE_PLAY_SERVICE_KEY: ${{ secrets.GOOGLE_PLAY_SERVICE_KEY }}
 
+    - name: Install yarn deps
+      run: yarn install
+
     # android
     - name: Build android
       run: bundle exec fastlane android build env:${{ github.event.inputs.env }}
