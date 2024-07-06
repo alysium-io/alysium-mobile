@@ -92,7 +92,7 @@ jobs:
         GOOGLE_PLAY_SERVICE_KEY: ${{ secrets.GOOGLE_PLAY_SERVICE_KEY }}
 
     - name: Install yarn deps
-      run: yarn install
+      run: yarn rebuild
 
     # android
     - name: Build android
