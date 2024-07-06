@@ -55,26 +55,46 @@ jobs:
       uses: ./.github/actions/yarn
     - name: Install gem dependencies # gems
       uses: ./.github/actions/gems
-    - name: Set up JDK 17 # Java 17
-      uses: actions/setup-java@v4
+
+    - name: Set up JDK
+      uses: actions/setup-java@v3
       with:
-        java-version: 17
+        java-version: '17'
         distribution: 'temurin'
-    - name: Cache Android SDK and NDK # Cache SDK 34 and NDK 26.1.10909125
-      id: cache-android
-      uses: actions/cache@v4
+
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v3
+
+    - name: Cache Gradle packages
+      uses: actions/cache@v3
       with:
         path: |
-          /Users/runner/Library/Android/sdk/build-tools/34.0.0
-          /Users/runner/Library/Android/sdk/platforms/android-34
-          /Users/runner/Library/Android/sdk/ndk/26.1.10909125
-        key: ${{ runner.os }}-android-sdk-34-ndk-26.1.10909125
-    - name: Set up Android SDK
-      uses: android-actions/setup-android@v3
-    - name: Install Android Build Tools and SDKs
-      if: steps.cache-android.outputs.cache-hit != 'true'
-      run: |
-        yes | sdkmanager "build-tools;34.0.0" "platforms;android-34" "ndk;26.1.10909125"
+          ~/.gradle/caches
+          ~/.gradle/wrapper
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+        restore-keys: |
+          ${{ runner.os }}-gradle-
+
+    # - name: Set up JDK 17 # Java 17
+    #   uses: actions/setup-java@v4
+    #   with:
+    #     java-version: 17
+    #     distribution: 'temurin'
+    # - name: Cache Android SDK and NDK # Cache SDK 34 and NDK 26.1.10909125
+    #   id: cache-android
+    #   uses: actions/cache@v4
+    #   with:
+    #     path: |
+    #       /Users/runner/Library/Android/sdk/build-tools/34.0.0
+    #       /Users/runner/Library/Android/sdk/platforms/android-34
+    #       /Users/runner/Library/Android/sdk/ndk/26.1.10909125
+    #     key: ${{ runner.os }}-android-sdk-34-ndk-26.1.10909125
+    # - name: Set up Android SDK
+    #   uses: android-actions/setup-android@v3
+    # - name: Install Android Build Tools and SDKs
+    #   if: steps.cache-android.outputs.cache-hit != 'true'
+    #   run: |
+    #     yes | sdkmanager "build-tools;34.0.0" "platforms;android-34" "ndk;26.1.10909125"
 
     # Android specific configuration
     - name: Write .env file
