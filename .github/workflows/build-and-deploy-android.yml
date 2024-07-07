@@ -111,9 +111,6 @@ jobs:
         ANDROID_ENCRYPTED_KEYSTORE: ${{ secrets.ANDROID_ENCRYPTED_KEYSTORE }}
         GOOGLE_PLAY_SERVICE_KEY: ${{ secrets.GOOGLE_PLAY_SERVICE_KEY }}
 
-    - name: Install yarn deps
-      run: yarn rebuild
-
     # android
     - name: Build android
       run: bundle exec fastlane android build env:${{ github.event.inputs.env }}
@@ -128,8 +125,8 @@ jobs:
         path: "./android/app/build/outputs/bundle/${{ github.event.inputs.env }}Release/app-${{ github.event.inputs.env }}-release.aab"
         retention-days: 1
 
-    # # Deploy android
-    # - name: Deploy android
-    #   if: ${{ github.event.inputs.deploy == 'true' }}
-    #   run: bundle exec fastlane android deploy env:${{ github.event.inputs.env }}
-    #   working-directory: fastlane
+    # Deploy android
+    - name: Deploy android
+      if: ${{ github.event.inputs.deploy == 'true' }}
+      run: bundle exec fastlane android deploy env:${{ github.event.inputs.env }}
+      working-directory: fastlane
