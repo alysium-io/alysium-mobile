@@ -91,7 +91,8 @@ platform :android do
         gradle(
             task: 'clean',
             project_dir: './android',
-            gradle_path: './gradlew'
+            gradle_path: './gradlew',
+            options: "--debug"
         )
 
         gradle(
