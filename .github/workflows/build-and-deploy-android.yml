@@ -86,26 +86,27 @@ jobs:
         ANDROID_ENCRYPTED_KEYSTORE: ${{ secrets.ANDROID_ENCRYPTED_KEYSTORE }}
         GOOGLE_PLAY_SERVICE_KEY: ${{ secrets.GOOGLE_PLAY_SERVICE_KEY }}
 
-    - name: Debug logs 1
+    - name: Delete the gradle cache if it exists
+      run: rm -rf ~/.gradle/caches
+
+    - name: Debug logs
       run: |
         ls -la ~
         ls -la ~/.gradle
-        ls -la ~/.gradle/caches
-        ls -la ~/.gradle/wrapper
 
-    # # android
-    # - name: Build android
-    #   run: bundle exec fastlane android build env:${{ github.event.inputs.env }}
-    #   working-directory: fastlane
+    # android
+    - name: Build android
+      run: bundle exec fastlane android build env:${{ github.event.inputs.env }}
+      working-directory: fastlane
 
-    # # Save the .aab artifacts
-    # - name: Upload .apk Artifact
-    #   if: ${{ github.event.inputs.save == 'true' }}
-    #   uses: actions/upload-artifact@v4
-    #   with:
-    #     name: Alysium Android
-    #     path: "./android/app/build/outputs/bundle/${{ github.event.inputs.env }}Release/app-${{ github.event.inputs.env }}-release.aab"
-    #     retention-days: 1
+    # Save the .aab artifacts
+    - name: Upload .apk Artifact
+      if: ${{ github.event.inputs.save == 'true' }}
+      uses: actions/upload-artifact@v4
+      with:
+        name: Alysium Android
+        path: "./android/app/build/outputs/bundle/${{ github.event.inputs.env }}Release/app-${{ github.event.inputs.env }}-release.aab"
+        retention-days: 1
 
     # # Deploy android
     # - name: Deploy android
