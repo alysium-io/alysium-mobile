@@ -31,77 +31,84 @@ jobs:
     - name: Checkout the repository # repo
       uses: actions/checkout@v4
 
-    # Build number
-    - name: Build Number
-      uses: ./.github/actions/build-number
-      with:
-          current-build-number: ${{ vars.CURRENT_BUILD_NUMBER }}
-          gh-pat: ${{ secrets.GH_PAT }}
-          repo-owner: alysium-io
-          repo-name: alysium-mobile
+    - name: Debug logs
+      run: |
+        ls -la ~
+        ls -la ~/.gradle
+        ls -la ~/.gradle/caches
+        ls -la ~/.gradle/wrapper
 
-    # Environment configuration
-    - name: Use Node.js # node 20
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20'
-    - name: Set up Ruby # ruby 3.0.2
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: '3.0.2'
-    - name: Install yarn dependencies # yarn
-      uses: ./.github/actions/yarn
-    - name: Install gem dependencies # gems
-      uses: ./.github/actions/gems
+    # # Build number
+    # - name: Build Number
+    #   uses: ./.github/actions/build-number
+    #   with:
+    #       current-build-number: ${{ vars.CURRENT_BUILD_NUMBER }}
+    #       gh-pat: ${{ secrets.GH_PAT }}
+    #       repo-owner: alysium-io
+    #       repo-name: alysium-mobile
 
-    - name: Set up JDK
-      uses: actions/setup-java@v3
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-    - name: Setup Android SDK
-      uses: android-actions/setup-android@v3
-    - name: Cache Gradle packages
-      uses: actions/cache@v4
-      with:
-        path: |
-          ~/.gradle/caches
-          ~/.gradle/wrapper
-        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-        restore-keys: |
-          ${{ runner.os }}-gradle-
+    # # Environment configuration
+    # - name: Use Node.js # node 20
+    #   uses: actions/setup-node@v4
+    #   with:
+    #     node-version: '20'
+    # - name: Set up Ruby # ruby 3.0.2
+    #   uses: ruby/setup-ruby@v1
+    #   with:
+    #     ruby-version: '3.0.2'
+    # - name: Install yarn dependencies # yarn
+    #   uses: ./.github/actions/yarn
+    # - name: Install gem dependencies # gems
+    #   uses: ./.github/actions/gems
 
-    # Android specific configuration
-    - name: Write .env file
-      uses: ./.github/actions/write-env-vars
-      with:
-        ENV: ${{ github.event.inputs.env }}
-    - name: Write Android signing keys to gradle.properties
-      uses: ./.github/actions/android-credentials
-      with:
-        ALYSIUM_UPLOAD_STORE_FILE: ${{ secrets.ALYSIUM_UPLOAD_STORE_FILE }}
-        ALYSIUM_UPLOAD_STORE_PASSWORD: ${{ secrets.ALYSIUM_UPLOAD_STORE_PASSWORD }}
-        ALYSIUM_UPLOAD_KEY_ALIAS: ${{ secrets.ALYSIUM_UPLOAD_KEY_ALIAS }}
-        ALYSIUM_UPLOAD_KEY_PASSWORD: ${{ secrets.ALYSIUM_UPLOAD_KEY_PASSWORD }}
-        ANDROID_ENCRYPTED_KEYSTORE: ${{ secrets.ANDROID_ENCRYPTED_KEYSTORE }}
-        GOOGLE_PLAY_SERVICE_KEY: ${{ secrets.GOOGLE_PLAY_SERVICE_KEY }}
+    # - name: Set up JDK
+    #   uses: actions/setup-java@v3
+    #   with:
+    #     java-version: '17'
+    #     distribution: 'temurin'
+    # - name: Setup Android SDK
+    #   uses: android-actions/setup-android@v3
+    # - name: Cache Gradle packages
+    #   uses: actions/cache@v4
+    #   with:
+    #     path: |
+    #       ~/.gradle/caches
+    #       ~/.gradle/wrapper
+    #     key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+    #     restore-keys: |
+    #       ${{ runner.os }}-gradle-
 
-    # android
-    - name: Build android
-      run: bundle exec fastlane android build env:${{ github.event.inputs.env }}
-      working-directory: fastlane
+    # # Android specific configuration
+    # - name: Write .env file
+    #   uses: ./.github/actions/write-env-vars
+    #   with:
+    #     ENV: ${{ github.event.inputs.env }}
+    # - name: Write Android signing keys to gradle.properties
+    #   uses: ./.github/actions/android-credentials
+    #   with:
+    #     ALYSIUM_UPLOAD_STORE_FILE: ${{ secrets.ALYSIUM_UPLOAD_STORE_FILE }}
+    #     ALYSIUM_UPLOAD_STORE_PASSWORD: ${{ secrets.ALYSIUM_UPLOAD_STORE_PASSWORD }}
+    #     ALYSIUM_UPLOAD_KEY_ALIAS: ${{ secrets.ALYSIUM_UPLOAD_KEY_ALIAS }}
+    #     ALYSIUM_UPLOAD_KEY_PASSWORD: ${{ secrets.ALYSIUM_UPLOAD_KEY_PASSWORD }}
+    #     ANDROID_ENCRYPTED_KEYSTORE: ${{ secrets.ANDROID_ENCRYPTED_KEYSTORE }}
+    #     GOOGLE_PLAY_SERVICE_KEY: ${{ secrets.GOOGLE_PLAY_SERVICE_KEY }}
 
-    # Save the .aab artifacts
-    - name: Upload .apk Artifact
-      if: ${{ github.event.inputs.save == 'true' }}
-      uses: actions/upload-artifact@v4
-      with:
-        name: Alysium Android
-        path: "./android/app/build/outputs/bundle/${{ github.event.inputs.env }}Release/app-${{ github.event.inputs.env }}-release.aab"
-        retention-days: 1
+    # # android
+    # - name: Build android
+    #   run: bundle exec fastlane android build env:${{ github.event.inputs.env }}
+    #   working-directory: fastlane
 
-    # Deploy android
-    - name: Deploy android
-      if: ${{ github.event.inputs.deploy == 'true' }}
-      run: bundle exec fastlane android deploy env:${{ github.event.inputs.env }}
-      working-directory: fastlane
+    # # Save the .aab artifacts
+    # - name: Upload .apk Artifact
+    #   if: ${{ github.event.inputs.save == 'true' }}
+    #   uses: actions/upload-artifact@v4
+    #   with:
+    #     name: Alysium Android
+    #     path: "./android/app/build/outputs/bundle/${{ github.event.inputs.env }}Release/app-${{ github.event.inputs.env }}-release.aab"
+    #     retention-days: 1
+
+    # # Deploy android
+    # - name: Deploy android
+    #   if: ${{ github.event.inputs.deploy == 'true' }}
+    #   run: bundle exec fastlane android deploy env:${{ github.event.inputs.env }}
+    #   working-directory: fastlane
