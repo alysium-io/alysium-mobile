@@ -88,12 +88,13 @@ platform :android do
 
         prepare_android_changelog
 
-        gradle(
-            task: 'clean',
-            project_dir: './android',
-            gradle_path: './gradlew',
-            options: "--debug"
-        )
+        sh "./android/gradlew clean --debug -p ./android"
+
+        # gradle(
+        #     task: 'clean',
+        #     project_dir: './android',
+        #     gradle_path: './gradlew'
+        # )
 
         gradle(
             task: 'bundle',
