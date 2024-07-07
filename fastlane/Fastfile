@@ -88,7 +88,7 @@ platform :android do
 
         prepare_android_changelog
 
-        sh "./android/gradlew clean --debug -p ./android"
+        sh "./gradlew clean --debug -p ./android"
 
         # gradle(
         #     task: 'clean',
