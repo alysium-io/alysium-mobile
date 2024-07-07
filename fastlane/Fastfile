@@ -63,7 +63,7 @@ platform :ios do
 
         # Upload to TestFlight
         pilot(
-            ipa: './ios/build' + options[:ipa_filename],
+            ipa: './ios/build/' + options[:ipa_filename],
             skip_submission: true,
             skip_waiting_for_build_processing: true,
             username: 'aymather@gmail.com',
