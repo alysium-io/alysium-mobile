@@ -31,43 +31,36 @@ jobs:
     - name: Checkout the repository # repo
       uses: actions/checkout@v4
 
-    - name: Debug logs
-      run: |
-        ls -la ~
-        ls -la ~/.gradle
-        ls -la ~/.gradle/caches
-        ls -la ~/.gradle/wrapper
+    # Build number
+    - name: Build Number
+      uses: ./.github/actions/build-number
+      with:
+          current-build-number: ${{ vars.CURRENT_BUILD_NUMBER }}
+          gh-pat: ${{ secrets.GH_PAT }}
+          repo-owner: alysium-io
+          repo-name: alysium-mobile
 
-    # # Build number
-    # - name: Build Number
-    #   uses: ./.github/actions/build-number
-    #   with:
-    #       current-build-number: ${{ vars.CURRENT_BUILD_NUMBER }}
-    #       gh-pat: ${{ secrets.GH_PAT }}
-    #       repo-owner: alysium-io
-    #       repo-name: alysium-mobile
+    # Environment configuration
+    - name: Use Node.js # node 20
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+    - name: Set up Ruby # ruby 3.0.2
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.0.2'
+    - name: Install yarn dependencies # yarn
+      uses: ./.github/actions/yarn
+    - name: Install gem dependencies # gems
+      uses: ./.github/actions/gems
 
-    # # Environment configuration
-    # - name: Use Node.js # node 20
-    #   uses: actions/setup-node@v4
-    #   with:
-    #     node-version: '20'
-    # - name: Set up Ruby # ruby 3.0.2
-    #   uses: ruby/setup-ruby@v1
-    #   with:
-    #     ruby-version: '3.0.2'
-    # - name: Install yarn dependencies # yarn
-    #   uses: ./.github/actions/yarn
-    # - name: Install gem dependencies # gems
-    #   uses: ./.github/actions/gems
-
-    # - name: Set up JDK
-    #   uses: actions/setup-java@v3
-    #   with:
-    #     java-version: '17'
-    #     distribution: 'temurin'
-    # - name: Setup Android SDK
-    #   uses: android-actions/setup-android@v3
+    - name: Set up JDK
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v3
     # - name: Cache Gradle packages
     #   uses: actions/cache@v4
     #   with:
@@ -78,20 +71,27 @@ jobs:
     #     restore-keys: |
     #       ${{ runner.os }}-gradle-
 
-    # # Android specific configuration
-    # - name: Write .env file
-    #   uses: ./.github/actions/write-env-vars
-    #   with:
-    #     ENV: ${{ github.event.inputs.env }}
-    # - name: Write Android signing keys to gradle.properties
-    #   uses: ./.github/actions/android-credentials
-    #   with:
-    #     ALYSIUM_UPLOAD_STORE_FILE: ${{ secrets.ALYSIUM_UPLOAD_STORE_FILE }}
-    #     ALYSIUM_UPLOAD_STORE_PASSWORD: ${{ secrets.ALYSIUM_UPLOAD_STORE_PASSWORD }}
-    #     ALYSIUM_UPLOAD_KEY_ALIAS: ${{ secrets.ALYSIUM_UPLOAD_KEY_ALIAS }}
-    #     ALYSIUM_UPLOAD_KEY_PASSWORD: ${{ secrets.ALYSIUM_UPLOAD_KEY_PASSWORD }}
-    #     ANDROID_ENCRYPTED_KEYSTORE: ${{ secrets.ANDROID_ENCRYPTED_KEYSTORE }}
-    #     GOOGLE_PLAY_SERVICE_KEY: ${{ secrets.GOOGLE_PLAY_SERVICE_KEY }}
+    # Android specific configuration
+    - name: Write .env file
+      uses: ./.github/actions/write-env-vars
+      with:
+        ENV: ${{ github.event.inputs.env }}
+    - name: Write Android signing keys to gradle.properties
+      uses: ./.github/actions/android-credentials
+      with:
+        ALYSIUM_UPLOAD_STORE_FILE: ${{ secrets.ALYSIUM_UPLOAD_STORE_FILE }}
+        ALYSIUM_UPLOAD_STORE_PASSWORD: ${{ secrets.ALYSIUM_UPLOAD_STORE_PASSWORD }}
+        ALYSIUM_UPLOAD_KEY_ALIAS: ${{ secrets.ALYSIUM_UPLOAD_KEY_ALIAS }}
+        ALYSIUM_UPLOAD_KEY_PASSWORD: ${{ secrets.ALYSIUM_UPLOAD_KEY_PASSWORD }}
+        ANDROID_ENCRYPTED_KEYSTORE: ${{ secrets.ANDROID_ENCRYPTED_KEYSTORE }}
+        GOOGLE_PLAY_SERVICE_KEY: ${{ secrets.GOOGLE_PLAY_SERVICE_KEY }}
+
+    - name: Debug logs 1
+      run: |
+        ls -la ~
+        ls -la ~/.gradle
+        ls -la ~/.gradle/caches
+        ls -la ~/.gradle/wrapper
 
     # # android
     # - name: Build android
