@@ -61,7 +61,7 @@ const CompleteModal: React.FC<CompleteModalProps> = ({
 					flexDirection='row'
 					justifyContent='center'
 				>
-					<Icon name='logo' color='bg2' />
+					<Icon name='logo' color='t2' />
 				</View>
 				{CompleteModalContent && <CompleteModalContent />}
 				<View margin='m'>

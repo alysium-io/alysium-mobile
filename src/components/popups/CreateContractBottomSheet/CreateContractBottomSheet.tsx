@@ -1,11 +1,18 @@
 import { DismissKeyboardWrapper } from '@atomic';
 import { BottomSheetView } from '@gorhom/bottom-sheet';
 import { SheetApi } from '@hooks';
-import { BottomSheet, Sequence, useAnimatedFooterHeight } from '@organisms';
+import {
+	BottomSheet,
+	Sequence,
+	SwipeUpToSubmit,
+	useAnimatedFooterHeight
+} from '@organisms';
 import { ApiIdentifier } from '@types';
 import React from 'react';
 import AdditionalNotes from './components/AdditionalNotes';
 import ConfirmPartiesInvolved from './components/ConfirmPartiesInvolved';
+import CreateContractSTSCompleteModalContent from './components/CreateContractSTSCompleteModalContent';
+import CreateContractSTSSheetContent from './components/CreateContractSTSSheetContent';
 import Footer from './components/Footer';
 import SelectFeatures from './components/SelectFeatures';
 import SelectSlotTime from './components/SelectSlotTime';
@@ -27,10 +34,13 @@ const CreateContractBottomSheet: React.FC<CreateContractBottomSheetProps> = ({
 		formMethods,
 		onChangeStartTime,
 		onChangeEndTime,
-		done,
+		sequenceFormComplete,
 		sequenceApi,
 		cancel,
-		resetAll
+		resetAll,
+		swipeToSubmitModalApi,
+		onSubmit,
+		onComplete
 	} = useCreateContractBottomSheet(event_uid, artist_uid, sheetApi);
 	const { animatedMarginBottom } = useAnimatedFooterHeight();
 
@@ -57,7 +67,18 @@ const CreateContractBottomSheet: React.FC<CreateContractBottomSheetProps> = ({
 					</Sequence>
 				</BottomSheetView>
 			</DismissKeyboardWrapper>
-			<Footer sequenceApi={sequenceApi} done={done} cancel={cancel} />
+			<Footer
+				sequenceApi={sequenceApi}
+				done={sequenceFormComplete}
+				cancel={cancel}
+			/>
+			<SwipeUpToSubmit
+				modalApi={swipeToSubmitModalApi}
+				onSubmit={onSubmit}
+				onComplete={onComplete}
+				CompleteModalContent={CreateContractSTSCompleteModalContent}
+				SheetContent={CreateContractSTSSheetContent}
+			/>
 		</BottomSheet>
 	);
 };

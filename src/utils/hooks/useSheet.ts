@@ -7,6 +7,7 @@ export type SheetApi = {
 	sheetRef: SheetRef;
 	open: () => void;
 	close: () => void;
+	instantClose: () => void;
 };
 
 const useSheet = (): SheetApi => {
@@ -20,10 +21,15 @@ const useSheet = (): SheetApi => {
 		sheetRef.current?.dismiss();
 	};
 
+	const instantClose = () => {
+		sheetRef.current?.dismiss({ duration: 0 });
+	};
+
 	return {
 		sheetRef,
 		open,
-		close
+		close,
+		instantClose
 	};
 };
 

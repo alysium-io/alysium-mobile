@@ -1,6 +1,6 @@
 import { View } from '@atomic';
 import { Portal } from '@gorhom/portal';
-import { useLayoutDimensions } from '@hooks';
+import { ModalApi, useLayoutDimensions } from '@hooks';
 import React from 'react';
 import { Case, If, Switch, Then } from 'react-if';
 import { FadeIn } from 'react-native-reanimated';
@@ -14,15 +14,17 @@ import SwipeUpToSubmitText from './components/SwipeUpToSubmitText';
 import useSwipeUpToSubmit from './useSwipeUpToSubmit';
 
 interface SwipeUpToSubmitProps {
-	isOpen: boolean;
-	dismiss: () => void;
+	modalApi: ModalApi;
+	onSubmit: () => Promise<void>;
+	onComplete?: () => void;
 	CompleteModalContent?: () => React.JSX.Element;
 	SheetContent?: () => React.JSX.Element;
 }
 
 const SwipeUpToSubmit: React.FC<SwipeUpToSubmitProps> = ({
-	isOpen,
-	dismiss,
+	modalApi,
+	onSubmit,
+	onComplete,
 	CompleteModalContent,
 	SheetContent
 }) => {
@@ -36,16 +38,21 @@ const SwipeUpToSubmit: React.FC<SwipeUpToSubmitProps> = ({
 		swipeUpToSubmitTextContainerStyles,
 		onDragUpdate,
 		onCancelCommit
-	} = useSwipeUpToSubmit();
+	} = useSwipeUpToSubmit(onSubmit);
 
 	const _dismiss = () => {
 		setTimeout(resetAll, 300);
-		dismiss();
+		modalApi.close();
+	};
+
+	const _onComplete = () => {
+		_dismiss();
+		onComplete && onComplete();
 	};
 
 	return (
 		<Portal>
-			<If condition={isOpen}>
+			<If condition={modalApi.isOpen}>
 				<Then>
 					<Backdrop>
 						<Switch>
@@ -71,14 +78,13 @@ const SwipeUpToSubmit: React.FC<SwipeUpToSubmitProps> = ({
 									alignItems='center'
 									animated
 									entering={FadeIn.duration(300).delay(300)}
-									onLayout={() => setTimeout(onCommitSuccess, 2000)}
 								>
 									<Loader />
 								</View>
 							</Case>
 							<Case condition={stage === 'submitSuccess'}>
 								<CompleteModal
-									dismiss={_dismiss}
+									dismiss={_onComplete}
 									CompleteModalContent={CompleteModalContent}
 								/>
 							</Case>

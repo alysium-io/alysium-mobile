@@ -70,14 +70,14 @@ const SelectSlotTime: React.FC<SelectSlotTimeProps> = ({
 					)}
 				/>
 				<DatetimePickerWithModal
-					title='Event Start'
+					title='Slot Start'
 					isOpen={state.startTimeOpen}
 					toggleModal={() => toggleOpen('startTimeOpen')}
 					onConfirm={onChangeStartTime}
 					onCancelled={() => console.log('Cancelled')}
 				/>
 				<DatetimePickerWithModal
-					title='Event End'
+					title='Slot End'
 					isOpen={state.endTimeOpen}
 					toggleModal={() => toggleOpen('endTimeOpen')}
 					onConfirm={onChangeEndTime}

@@ -16,6 +16,7 @@ export { default as useAnimatedState } from './useAnimatedState';
 export { default as useAnimatedValue } from './useAnimatedValue';
 export { default as useButton } from './useButton';
 export { default as useLayoutDimensions } from './useLayoutDimensions';
+export { default as useModal, type ModalApi } from './useModal';
 export { default as useScrollView } from './useScrollView';
 export { default as useSet } from './useSet';
 export { default as useSheet, type SheetApi, type SheetRef } from './useSheet';

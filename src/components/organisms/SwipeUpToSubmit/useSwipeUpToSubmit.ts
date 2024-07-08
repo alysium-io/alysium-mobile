@@ -20,7 +20,9 @@ interface IUseSwipeUpToSubmit {
 	resetAll: () => void;
 }
 
-const useSwipeUpToSubmit = (): IUseSwipeUpToSubmit => {
+const useSwipeUpToSubmit = (
+	onSubmit: () => Promise<void>
+): IUseSwipeUpToSubmit => {
 	const [stage, setStage] = useState<SwipeUpToSubmitStage>('start');
 
 	const swipeUpToSubmitTextOpacity = useSharedValue<number>(1);
@@ -32,6 +34,7 @@ const useSwipeUpToSubmit = (): IUseSwipeUpToSubmit => {
 
 	const onCommit = () => {
 		setStage('submitted');
+		onSubmit().then(onCommitSuccess);
 	};
 
 	const onCommitSuccess = () => {

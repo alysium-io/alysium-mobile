@@ -3,7 +3,13 @@ import { Formatting } from '@etc';
 import { contractApiSlice } from '@flux/api/contract';
 import { CreateContractBodyDto } from '@flux/api/contract/dto/create-contract.dto';
 import { UpdateContractBodyDto } from '@flux/api/contract/dto/update-contract.dto';
-import { SheetApi, TextInputApi, useTextInput } from '@hooks';
+import {
+	ModalApi,
+	SheetApi,
+	TextInputApi,
+	useModal,
+	useTextInput
+} from '@hooks';
 import { SequenceApi, useSequence } from '@organisms';
 import { ApiIdentifier, OnSubmitHandler } from '@types';
 import {
@@ -31,9 +37,11 @@ interface IuseCreateContractBottomSheet {
 	onSubmit: OnSubmitHandler;
 	onChangeStartTime: (startTime: Date) => void;
 	onChangeEndTime: (endTime: Date) => void;
-	done: () => void;
+	sequenceFormComplete: () => void;
 	cancel: () => void;
 	resetAll: () => void;
+	swipeToSubmitModalApi: ModalApi;
+	onComplete: () => void;
 }
 
 const useCreateContractBottomSheet = (
@@ -45,6 +53,7 @@ const useCreateContractBottomSheet = (
 	const sequenceApi = useSequence(4);
 	const additionalNotesTextInputApi = useTextInput();
 	const [createContractMutation] = contractApiSlice.useCreateMutation();
+	const swipeToSubmitModalApi = useModal();
 
 	const formMethods = useForm<UpdateContractBodyDto>({
 		defaultValues: initialValues
@@ -70,8 +79,6 @@ const useCreateContractBottomSheet = (
 				event_uid: event_uid
 			};
 			await createContractMutation({ body });
-			sheetApi.close();
-			sequenceApi.reset();
 		}
 	};
 
@@ -84,13 +91,16 @@ const useCreateContractBottomSheet = (
 
 	const onSubmit = formMethods.handleSubmit(onValid, onInvalid);
 
-	const done = () => {
-		sheetApi.close();
-		onSubmit();
+	const sequenceFormComplete = () => {
+		swipeToSubmitModalApi.open();
 	};
 
 	const cancel = () => {
 		sheetApi.close();
+	};
+
+	const onComplete = () => {
+		sheetApi.instantClose();
 	};
 
 	const onChangeStartTime = (startTime: Date) =>
@@ -108,9 +118,11 @@ const useCreateContractBottomSheet = (
 		onSubmit,
 		onChangeStartTime,
 		onChangeEndTime,
-		done,
+		sequenceFormComplete,
 		cancel,
-		resetAll
+		resetAll,
+		swipeToSubmitModalApi,
+		onComplete
 	};
 };
 
