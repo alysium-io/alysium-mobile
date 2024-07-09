@@ -1,11 +1,14 @@
 import { useUserAppContext } from '@arch/Application/contexts/User.context';
 import { Section, View } from '@atomic';
+import { useSheet } from '@hooks';
 import { DeclarativeText, EditableProfileImage } from '@molecules';
+import { EditUserProfileBottomSheet } from '@popups';
 import React from 'react';
 import UsernameDisplay from './UsernameDisplay';
 
 const HeaderSection = () => {
 	const { userData, setUserProfileImage } = useUserAppContext();
+	const editUserProfileSheetApi = useSheet();
 
 	return (
 		<Section margin='m' alignItems='center'>
@@ -23,12 +26,13 @@ const HeaderSection = () => {
 								underline: true,
 								text: 'Edit Profile',
 								color: 'matt',
-								onPress: () => console.log('Edit Profile')
+								onPress: editUserProfileSheetApi.open
 							}
 						]}
 					/>
 				</View>
 			</View>
+			<EditUserProfileBottomSheet sheetApi={editUserProfileSheetApi} />
 		</Section>
 	);
 };

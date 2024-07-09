@@ -6,3 +6,4 @@ export * from './CreateHostBottomSheet';
 export * from './CreateTicketTypeBottomSheet';
 export * from './CreateVenueBottomSheet';
 export * from './EditTicketTypeOnOffSaleBottomSheet';
+export * from './EditUserProfileBottomSheet';

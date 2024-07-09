@@ -1,5 +1,4 @@
 import {
-	BottomSheetHandleProps,
 	BottomSheetModal,
 	BottomSheetView,
 	useBottomSheetTimingConfigs
@@ -13,7 +12,7 @@ import BottomSheetHandle from './BottomSheetHandle';
 
 const colorScheme = {
 	[ThemeMode.dark]: {
-		background: 'bg2',
+		background: 'bg1',
 		border: 'bg3'
 	},
 	[ThemeMode.light]: {
@@ -26,7 +25,6 @@ type BottomSheetProps = React.ComponentProps<typeof BottomSheetModal> & {
 	children?: React.ReactNode;
 	sheetRef: SheetRef;
 	maxHeight?: string;
-	customHandle?: React.FC<BottomSheetHandleProps>;
 	borderRadius?: boolean;
 	backgroundColor?: string;
 	borderColor?: string;
@@ -38,7 +36,7 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
 	sheetRef,
 	backgroundColor,
 	borderColor,
-	customHandle = BottomSheetHandle,
+	handleComponent = BottomSheetHandle,
 	enablePanDownToClose = true,
 	enableContentPanningGesture = false,
 	borderRadius = true,
@@ -59,14 +57,15 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
 			ref={sheetRef}
 			index={0}
 			backdropComponent={BottomSheetBackdrop}
-			handleComponent={customHandle}
+			handleComponent={handleComponent}
 			enablePanDownToClose={enablePanDownToClose}
 			animationConfigs={animationConfigs}
 			enableDynamicSizing={props.snapPoints ? false : true}
 			enableContentPanningGesture={enableContentPanningGesture}
 			backgroundStyle={{
-				backgroundColor:
-					backgroundColor || getRawColor(colorScheme[mode].background),
+				backgroundColor: backgroundColor
+					? getRawColor(backgroundColor)
+					: getRawColor(colorScheme[mode].background),
 				borderRadius: borderRadius ? 25 : 0,
 				borderTopWidth: borderColor ? 1 : 0,
 				borderTopColor: borderColor || getRawColor(colorScheme[mode].border)
