@@ -1,76 +1,62 @@
 import { View } from '@atomic';
 import { Colors } from '@etc';
-import React, { useEffect } from 'react';
+import { useTheme } from '@hooks';
+import { SemanticColor } from '@types';
+import React from 'react';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import {
+	interpolateColor,
 	useAnimatedStyle,
 	useSharedValue,
 	withTiming
 } from 'react-native-reanimated';
 
 interface BgTouchAnimationProps {
-	color: string;
-	onPress?: () => void;
-	disabled?: boolean;
 	children?: React.ReactNode;
-	style?: React.ComponentProps<typeof View>['style'];
-	animationType?: 'default' | 'highlight';
+	onPress?: () => void;
+	color?: SemanticColor;
+	activeOpacity?: number;
+	disabled?: boolean;
 }
 
 const BgTouchAnimation: React.FC<BgTouchAnimationProps> = ({
-	color,
-	onPress,
 	children,
-	disabled = false,
-	style,
-	animationType = 'default'
+	onPress = () => console.log('Touched BgTouchAnimation'),
+	color = 'bg-touch-animation.background.p',
+	activeOpacity = 0.2,
+	disabled = false
 }) => {
-	useEffect(() => {
-		animatedValue.value = withTiming(getPrimaryColor());
-	}, [color]);
+	const { theme } = useTheme();
+	const backgroundAnimation = useSharedValue(0);
+	const transparentColor = Colors.hex2RGBAString(theme.colors[color], 0);
+	const opaqueColor = Colors.hex2RGBAString(theme.colors[color], activeOpacity);
 
-	const getSecondaryColor = () => {
-		if (animationType === 'default') {
-			if (color === 'transparent') {
-				return 'transparent';
-			} else {
-				return Colors.darken(color, 0.1);
-			}
-		} else {
-			return color;
-		}
-	};
-
-	const getPrimaryColor = () => {
-		if (animationType === 'default') {
-			return color;
-		} else {
-			return 'transparent';
-		}
-	};
-
-	const animatedValue = useSharedValue<string>(getPrimaryColor());
+	const animatedStyle = useAnimatedStyle(() => {
+		return {
+			backgroundColor: interpolateColor(
+				backgroundAnimation.value,
+				[0, 1],
+				[transparentColor, opaqueColor]
+			)
+		};
+	}, []);
 
 	const onPressIn = () => {
-		animatedValue.value = getSecondaryColor();
+		backgroundAnimation.value = 1;
 	};
-	const onPressOut = () =>
-		(animatedValue.value = withTiming(getPrimaryColor()));
 
-	const animatedBgStyles = useAnimatedStyle(() => {
-		return {
-			backgroundColor: animatedValue.value
-		};
-	}, [color]);
+	const onPressOut = () => {
+		backgroundAnimation.value = withTiming(0, { duration: 250 });
+	};
 
 	return (
 		<TouchableWithoutFeedback
-			onPress={onPress}
+			disabled={disabled}
 			onPressIn={onPressIn}
 			onPressOut={onPressOut}
-			disabled={disabled}
+			onPress={onPress}
 		>
-			<View animated style={[style, animatedBgStyles]}>
+			<View animated style={animatedStyle}>
 				{children}
 			</View>
 		</TouchableWithoutFeedback>

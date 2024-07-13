@@ -4,22 +4,10 @@ import {
 	useBottomSheetTimingConfigs
 } from '@gorhom/bottom-sheet';
 import { SheetRef, useTheme } from '@hooks';
-import { ThemeMode } from '@types';
 import React, { useMemo } from 'react';
 import { Easing } from 'react-native-reanimated';
 import BottomSheetBackdrop from './BottomSheetBackdrop';
 import BottomSheetHandle from './BottomSheetHandle';
-
-const colorScheme = {
-	[ThemeMode.dark]: {
-		background: 'bg1',
-		border: 'bg3'
-	},
-	[ThemeMode.light]: {
-		background: 'bg1',
-		border: 'bg2'
-	}
-};
 
 type BottomSheetProps = React.ComponentProps<typeof BottomSheetModal> & {
 	children?: React.ReactNode;
@@ -43,7 +31,7 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
 	contentContainerStyle,
 	...props
 }) => {
-	const { mode, getRawColor } = useTheme();
+	const { theme } = useTheme();
 
 	const easingConfig = useMemo(() => Easing.inOut(Easing.cubic), []);
 
@@ -63,12 +51,8 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
 			enableDynamicSizing={props.snapPoints ? false : true}
 			enableContentPanningGesture={enableContentPanningGesture}
 			backgroundStyle={{
-				backgroundColor: backgroundColor
-					? getRawColor(backgroundColor)
-					: getRawColor(colorScheme[mode].background),
-				borderRadius: borderRadius ? 25 : 0,
-				borderTopWidth: borderColor ? 1 : 0,
-				borderTopColor: borderColor || getRawColor(colorScheme[mode].border)
+				backgroundColor: theme.colors['bg.p'],
+				borderRadius: 25
 			}}
 			{...props}
 		>

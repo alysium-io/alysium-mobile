@@ -19,7 +19,7 @@ const Text = React.forwardRef<React.ElementRef<typeof RNText>, TextProps>(
 				<AnimatedText
 					ref={ref as any}
 					{...animatedBoxProps}
-					color={props.color || 't1'}
+					color={props.color || 'text.p'}
 				/>
 			);
 		} else {
@@ -28,7 +28,7 @@ const Text = React.forwardRef<React.ElementRef<typeof RNText>, TextProps>(
 				<InanimateText
 					ref={ref as any}
 					{...boxProps}
-					color={props.color || 't1'}
+					color={props.color || 'text.p'}
 				/>
 			);
 		}

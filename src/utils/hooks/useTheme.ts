@@ -1,73 +1,63 @@
 import { useSelector } from '@flux';
-import { createTheme } from '@shopify/restyle';
-import { Theme, ThemeMode, ThemeNames } from '@types';
-import { useContext } from 'react';
-import { SharedValue, withTiming } from 'react-native-reanimated';
-import { themes } from 'src/restyle';
-import { ThemeContext } from '../contexts/ThemeContext';
+import { ColorModeState, Theme, ThemeMode, ThemeName } from '@types';
+import { createTheme } from 'src/restyle/createTheme';
 import usePersistedAppState from './usePersistedAppState';
 
 interface IUseTheme {
-	themeName: string;
-	mode: ThemeMode;
-	animatedValue: SharedValue<number>;
-	setTheme: (theme: ThemeNames) => void;
 	theme: Theme;
-	otherTheme: Theme;
-	setMode: (mode: ThemeMode) => void;
-	getRawColor: (color: string) => string;
-	isValidColor: (color: string) => boolean;
+	themeName: ThemeName;
+	themeMode: ThemeMode;
+	colorModeState: ColorModeState;
+	setThemeName: (themeName: ThemeName) => void;
+	setThemeMode: (themeMode: ThemeMode) => void;
+	setColorModeState: (colorModeState: ColorModeState) => void;
 }
 
 const useTheme = (): IUseTheme => {
 	const { setPersistedAppState } = usePersistedAppState();
-	const { animatedValue } = useContext(ThemeContext);
 
-	const themeName: ThemeNames = useSelector(
+	const themeName: ThemeName = useSelector(
 		(state) => state.persistedApp.themeName
 	);
-	const mode: ThemeMode = useSelector((state) => state.persistedApp.mode);
-
-	const theme = createTheme(themes[themeName][mode]);
-	const otherTheme = createTheme(
-		themes[themeName][
-			mode === ThemeMode.light ? ThemeMode.dark : ThemeMode.light
-		]
+	const themeMode: ThemeMode = useSelector(
+		(state) => state.persistedApp.themeMode
+	);
+	const colorModeState = useSelector(
+		(state) => state.persistedApp.colorModeState
 	);
 
-	const setTheme = (themeName: ThemeNames) => {
+	const setThemeName = (themeName: ThemeName) => {
 		setPersistedAppState({ themeName });
 	};
 
-	const setMode = (mode: ThemeMode) => {
-		animatedValue.value = withTiming(mode === ThemeMode.light ? 0 : 1, {
-			duration: 200
-		});
-		setPersistedAppState({ mode });
+	const setThemeMode = (themeMode: ThemeMode) => {
+		setPersistedAppState({ themeMode });
 	};
 
-	const getRawColor = (colorName: string): string => {
-		if (!isValidColor(colorName)) {
-			return colorName;
+	const setColorModeState = (colorModeState: ColorModeState) => {
+		setPersistedAppState({ colorModeState });
+	};
+
+	const _getThemeMode = (): ThemeMode => {
+		if (colorModeState === 'alwaysLight') {
+			return ThemeMode.light;
+		} else if (colorModeState === 'alwaysDark') {
+			return ThemeMode.dark;
+		} else {
+			return themeMode;
 		}
-
-		return theme.colors[colorName];
 	};
 
-	const isValidColor = (color: string): boolean => {
-		return color in theme.colors;
-	};
+	const theme = createTheme(themeName, _getThemeMode());
 
 	return {
-		setTheme,
-		mode,
-		themeName,
 		theme,
-		otherTheme,
-		setMode,
-		animatedValue,
-		getRawColor,
-		isValidColor
+		themeName,
+		themeMode,
+		colorModeState,
+		setThemeName,
+		setThemeMode,
+		setColorModeState
 	};
 };
 

@@ -5,8 +5,9 @@ const initialState: AppState = {
 	token: null,
 	personaType: Persona.user,
 	personaId: null,
-	themeName: 'main',
-	mode: ThemeMode.dark,
+	themeName: 'alysium',
+	themeMode: ThemeMode.dark,
+	colorModeState: 'default',
 	authStage: AuthStage.loading
 };
 

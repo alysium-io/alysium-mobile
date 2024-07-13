@@ -1,7 +1,7 @@
 import { ApiIdentifier } from './api';
 import { Persona } from './enums';
 import { ThemeMode } from './restyle';
-import { ThemeNames } from './themes';
+import { ThemeName } from './themes';
 
 export enum AuthStage {
 	loggedOut = 'loggedOut',
@@ -10,11 +10,14 @@ export enum AuthStage {
 	error = 'error'
 }
 
+export type ColorModeState = 'default' | 'alwaysLight' | 'alwaysDark';
+
 export type AppState = {
 	token: string | null;
 	personaType: Persona;
 	personaId: ApiIdentifier | null;
-	themeName: ThemeNames;
-	mode: ThemeMode;
+	themeName: ThemeName;
+	themeMode: ThemeMode;
+	colorModeState: ColorModeState;
 	authStage: AuthStage;
 };

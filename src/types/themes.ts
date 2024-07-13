@@ -1,15 +1,9 @@
-import { themes } from '@restyle';
 import { BaseTheme } from '@shopify/restyle';
-import { ContentType, ThemeMode } from '@types';
-import { ViewStyle } from 'react-native';
-
-export type IconSize = {
-	small: number;
-	regular: number;
-	large: number;
-	xlarge: number;
-	expanded: string;
-};
+import { borderRadii } from '@src/restyle/borderRadii';
+import { ThemeMode } from '@types';
+import { borderWidth } from 'src/restyle/borderWidth';
+import { iconSize } from 'src/restyle/iconSize';
+import { spacing } from 'src/restyle/spacing';
 
 export type BlurColor =
 	| 'dark'
@@ -34,117 +28,127 @@ export type BlurColor =
 	| 'thinMaterialLight'
 	| 'ultraThinMaterialLight';
 
-export type Spacing = {
-	none: number;
-	xs: number;
-	s: number;
-	m: number;
-	l: number;
-	xl: number;
+export type ColorPalette = {
+	p1: string;
+	p2: string;
+	p3: string;
+	p4: string;
+	p5: string;
+	p6: string;
+	p7: string;
+	p8: string;
+	p9: string;
 };
 
-export type BorderRadii = {
-	none: number;
-	s: number;
-	m: number;
-	l: number;
-	xl: number;
-	round: number;
-	[ContentType.user]: number;
-	[ContentType.artist]: number;
-	[ContentType.host]: number;
-	[ContentType.tag]: number;
+export type HexColor = string;
+export type SemanticColors = {
+	// Background
+	'bg.p': HexColor;
+	'bg.s': HexColor;
+	'bg.t': HexColor;
+	'bg.q': HexColor;
+
+	// Text
+	'text.p': HexColor;
+	'text.s': HexColor;
+	'text.t': HexColor;
+	'text.q': HexColor;
+
+	'subtext.p': HexColor;
+	'subtext.s': HexColor;
+	'subtext.t': HexColor;
+	'subtext.q': HexColor;
+
+	// Touchables
+	'bg-touch-animation.background.p': HexColor;
+
+	// Borders
+	'border.light': HexColor;
+
+	// Icons
+	'icon.p': HexColor;
+
+	// Sheets
+	'sheet.handle': HexColor;
+
+	// Buttons
+	'button.solid.loading.background': HexColor;
+	'button.solid.loading.activity-indicator': HexColor;
+	'button.solid.disabled.background': HexColor;
+	'button.solid.disabled.text': HexColor;
+	'button.solid.active.background.default': HexColor;
+	'button.solid.active.text.default': HexColor;
+	'button.solid.active.background.p': HexColor;
+	'button.solid.active.text.p': HexColor;
+	'button.solid.active.background.s': HexColor;
+	'button.solid.active.text.s': HexColor;
+	'button.solid.active.background.t': HexColor;
+	'button.solid.active.text.t': HexColor;
+	'button.solid.active.background.q': HexColor;
+	'button.solid.active.text.q': HexColor;
+	'button.outlined.loading.border': HexColor;
+	'button.outlined.loading.activity-indicator': HexColor;
+	'button.outlined.disabled.background': HexColor;
+	'button.outlined.disabled.text': HexColor;
+	'button.outlined.disabled.border': HexColor;
+	'button.outlined.active.background.default': HexColor;
+	'button.outlined.active.text.default': HexColor;
+	'button.outlined.active.border.default': HexColor;
+	'button.outlined.active.background.p': HexColor;
+	'button.outlined.active.text.p': HexColor;
+	'button.outlined.active.border.p': HexColor;
+	'button.outlined.active.background.s': HexColor;
+	'button.outlined.active.text.s': HexColor;
+	'button.outlined.active.border.s': HexColor;
+	'button.outlined.active.background.t': HexColor;
+	'button.outlined.active.text.t': HexColor;
+	'button.outlined.active.border.t': HexColor;
+	'button.outlined.active.background.q': HexColor;
+	'button.outlined.active.text.q': HexColor;
+	'button.outlined.active.border.q': HexColor;
+
+	'radio.default': HexColor;
+	'radio.p': HexColor;
+
+	'checkbox.bg.default': HexColor;
+	'checkbox.icon.default': HexColor;
+	'checkbox.bg.p': HexColor;
+	'checkbox.icon.p': HexColor;
+
+	'theme-picker.checkbox.bg': HexColor;
+	'theme-picker.checkbox.icon': HexColor;
+
+	// Etc
+	transparent: 'transparent';
+	'etc.activity-indicator': HexColor;
 };
+export type SemanticColor = keyof SemanticColors;
 
-export type BorderSettings = {
-	borderBottomWidth?: number;
-	borderBottomColor?: string;
-	borderLeftWidth?: number;
-	borderLeftColor?: string;
-	borderRightWidth?: number;
-	borderRightColor?: string;
-	borderTopWidth?: number;
-	borderTopColor?: string;
-	borderWidth?: number;
-	borderColor?: string;
-};
-
-export type BorderSet = {
-	bottom: BorderSettings;
-	left: BorderSettings;
-	right: BorderSettings;
-	top: BorderSettings;
-	vertical: BorderSettings;
-	horizontal: BorderSettings;
-	all: BorderSettings;
-};
-
-export type Borders = {
-	underline: BorderSet;
-	xthin: BorderSet;
-	thin: BorderSet;
-	regular: BorderSet;
-	thick: BorderSet;
-	none: BorderSet;
-};
-
-export type EtcColors = {
-	notchBlur: string;
-	statusBar: string;
-	cursor: string;
-	keyboard: string;
-};
-
-export type ColorTypes = 'default' | 'ion' | 'meteor' | 'matt' | 'haze';
-
-export type FeatureColors = {
-	default_light: string;
-	default: string;
-	default_dark: string;
-	ion_light: string;
-	ion: string;
-	ion_dark: string;
-	matt_light: string;
-	matt: string;
-	matt_dark: string;
-	haze_light: string;
-	haze: string;
-	haze_dark: string;
-	meteor_light: string;
-	meteor: string;
-	meteor_dark: string;
-};
-
-export type Colors = FeatureColors & {
-	black: string;
-	white: string;
-	transparent: string;
-
-	bg1: string;
-	bg2: string;
-	bg3: string;
-	t1: string;
-	t2: string;
-	t3: string;
-};
+export type IconSize = typeof iconSize;
+export type BorderWidth = typeof borderWidth;
+export type BorderRadii = typeof borderRadii;
+export type Spacing = typeof spacing;
 
 export type Theme = BaseTheme & {
 	name: string;
-	colors: Colors;
-	spacing: Spacing;
-	iconSize: IconSize;
-	cardVariants: {
-		defaults: ViewStyle;
-		primary: ViewStyle;
-		secondary: ViewStyle;
-	};
+	colors: SemanticColors;
+	borderWidth: BorderWidth;
 	borderRadii: BorderRadii;
-	borders: Borders;
+	iconSize: IconSize;
+	spacing: Spacing;
 };
 
-export type ThemeNames = keyof typeof themes;
+export type SemanticVariants = {
+	[ThemeMode.dark]: SemanticColors;
+	[ThemeMode.light]: SemanticColors;
+};
 
 export type ThemeState = {
-	mode: ThemeMode;
-	themeName: ThemeNames;
+	themeMode: ThemeMode;
+	themeName: ThemeName;
 };
+
+export type ThemeName = 'alysium' | 'sunset';
+
+export type AccentColorSet = { t: ColorPalette; q: ColorPalette };
+export type AccentColors = { [K in ThemeName]: AccentColorSet };

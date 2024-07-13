@@ -7,3 +7,5 @@ export * from './ContentListItemWithStatus';
 export * from './MenuListItem';
 export * from './RadioListItem';
 export * from './shared';
+
+export { default as SingleOptionRadioToggler } from './SingleOptionRadioToggler';

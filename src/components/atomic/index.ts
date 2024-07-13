@@ -24,6 +24,7 @@
 /**
  * React Native Overrides
  */
+export { default as Checkbox } from './Checkbox';
 export { default as GestureHandlerRootView } from './GestureHandlerRootView';
 export { default as Image } from './Image';
 export { default as KeyboardAvoidingView } from './KeyboardAvoidingView';
@@ -51,6 +52,7 @@ export { default as ActivityIndicator } from './ActivityIndicator';
 export { default as AppTransitionWrapper } from './AppTransitionWrapper';
 export { default as Avatar } from './Avatar';
 export { default as BgTouchAnimation } from './BgTouchAnimation';
+export { default as Button } from './Button';
 export { default as DefaultIconImage } from './DefaultIconImage';
 export { default as DismissKeyboardWrapper } from './DismissKeyboardWrapper';
 export { default as HeaderSafeArea } from './HeaderSafeArea';

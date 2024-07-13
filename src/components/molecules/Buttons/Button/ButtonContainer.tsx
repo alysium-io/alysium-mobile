@@ -26,6 +26,7 @@ const ButtonContainer: React.FC<ButtonContainerProps> = ({
 		>
 			<View
 				padding='m'
+				borderRadius='round'
 				style={[
 					styles.container,
 					{
@@ -42,7 +43,6 @@ const ButtonContainer: React.FC<ButtonContainerProps> = ({
 
 const styles = StyleSheet.create({
 	container: {
-		borderRadius: 100,
 		flexDirection: 'row',
 		justifyContent: 'center',
 		alignItems: 'center',

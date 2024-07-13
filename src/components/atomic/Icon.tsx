@@ -1,24 +1,24 @@
 import { useTheme } from '@hooks';
 import { IconNames, SvgIcons } from '@svg';
-import { IconProps as CustomIconProps, IconSize } from '@types';
+import { IconProps as CustomIconProps, IconSize, SemanticColor } from '@types';
 import React from 'react';
 import { useAnimatedProps } from 'react-native-reanimated';
 
 type IconProps = CustomIconProps & {
 	name: IconNames;
-	size?: keyof IconSize;
+	color?: SemanticColor;
+	size?: keyof IconSize | number;
 };
 
-const Icon: React.FC<IconProps> = (props) => {
-	const { theme, getRawColor } = useTheme();
+const Icon: React.FC<IconProps> = ({
+	name,
+	color = 'icon.p',
+	size = 'regular',
+	...props
+}) => {
+	const { theme } = useTheme();
 
-	// default: regular
-	const size = props.size ? theme.iconSize[props.size] : theme.iconSize.regular;
-
-	// default: t1
-	const color = props.color ? getRawColor(props.color) : theme.colors.t1;
-
-	const SvgIcon = SvgIcons[props.name];
+	const SvgIcon = SvgIcons[name];
 
 	const defaultAnimateSvgProps = useAnimatedProps(() => ({}));
 	const defaultAnimatePathProps = useAnimatedProps(() => ({}));
@@ -29,13 +29,19 @@ const Icon: React.FC<IconProps> = (props) => {
 				animatedSvgProps={props.animatedSvgProps || defaultAnimateSvgProps}
 				animatedPathProps={props.animatedPathProps || defaultAnimatePathProps}
 				{...props}
-				color={props.color}
+				color={theme.colors[color]}
 				size={size}
 			/>
 		);
 	}
 
-	return <SvgIcon {...props} size={size} color={color} />;
+	return (
+		<SvgIcon
+			{...props}
+			size={typeof size === 'string' ? theme.iconSize[size] : size}
+			color={theme.colors[color]}
+		/>
+	);
 };
 
 export default Icon;
