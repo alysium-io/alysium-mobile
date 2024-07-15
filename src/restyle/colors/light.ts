@@ -12,10 +12,14 @@ export const createSemanticLightTheme = (
 		'bg.t': palette.neutral.p3,
 		'bg.q': palette.neutral.p4,
 
+		'bg.negative.p': palette.neutral.p9,
+
 		'text.p': palette.neutral.p9,
 		'text.s': palette.neutral.p8,
 		'text.t': palette.neutral.p7,
 		'text.q': palette.neutral.p6,
+
+		'text.negative.p': palette.neutral.p1,
 
 		'subtext.p': palette.neutral.p8,
 		'subtext.s': palette.neutral.p7,
@@ -25,6 +29,8 @@ export const createSemanticLightTheme = (
 		'bg-touch-animation.background.p': palette.neutral.p2,
 
 		'border.light': palette.neutral.p2,
+		'border.medium': palette.neutral.p5,
+		'border.heavy': palette.neutral.p7,
 
 		'icon.p': palette.neutral.p8,
 
@@ -37,7 +43,7 @@ export const createSemanticLightTheme = (
 		'button.solid.active.background.default': palette.neutral.p9,
 		'button.solid.active.text.default': palette.neutral.p1,
 		'button.solid.active.background.p': palette.p.p5,
-		'button.solid.active.text.p': palette.neutral.p9,
+		'button.solid.active.text.p': palette.neutral.p1,
 		'button.solid.active.background.s': palette.s.p5,
 		'button.solid.active.text.s': palette.neutral.p9,
 		'button.solid.active.background.t': palette.t.p5,
@@ -74,10 +80,11 @@ export const createSemanticLightTheme = (
 		'checkbox.bg.p': palette.s.p4,
 		'checkbox.icon.p': palette.s.p1,
 
-		'theme-picker.checkbox.bg': palette.neutral.p9,
-		'theme-picker.checkbox.icon': palette.neutral.p1,
+		'navbar.border-top': palette.neutral.p2,
 
 		transparent: 'transparent',
-		'etc.activity-indicator': palette.neutral.p8
+		'etc.activity-indicator': palette.neutral.p8,
+		'etc.status-bar': 'dark-content',
+		'etc.keyboard': 'light'
 	};
 };

@@ -52,15 +52,19 @@ export { default as ActivityIndicator } from './ActivityIndicator';
 export { default as AppTransitionWrapper } from './AppTransitionWrapper';
 export { default as Avatar } from './Avatar';
 export { default as BgTouchAnimation } from './BgTouchAnimation';
-export { default as Button } from './Button';
 export { default as DefaultIconImage } from './DefaultIconImage';
 export { default as DismissKeyboardWrapper } from './DismissKeyboardWrapper';
 export { default as HeaderSafeArea } from './HeaderSafeArea';
 export { default as Icon } from './Icon';
+export { default as KeyboardAvoidingFooter } from './KeyboardAvoidingFooter';
 export { default as KeyboardViewFill } from './KeyboardViewFill';
 export { default as Loading } from './Loading';
 export { default as NotchMargin } from './NotchMargin';
 export { default as Or } from './Or';
+export {
+	default as PhoneNumberTextInput,
+	type PhoneNumberTextInputProps
+} from './PhoneNumberTextInput';
 export { default as Section } from './Section';
 export { default as Separator } from './Separator';
 export { default as SlideInOutView } from './SlideInOutView';

@@ -1,6 +1,7 @@
 import { BaseTheme } from '@shopify/restyle';
 import { borderRadii } from '@src/restyle/borderRadii';
 import { ThemeMode } from '@types';
+import { StatusBarStyle } from 'react-native';
 import { borderWidth } from 'src/restyle/borderWidth';
 import { iconSize } from 'src/restyle/iconSize';
 import { spacing } from 'src/restyle/spacing';
@@ -28,6 +29,8 @@ export type BlurColor =
 	| 'thinMaterialLight'
 	| 'ultraThinMaterialLight';
 
+export type KeyboardColor = 'default' | 'light' | 'dark' | undefined;
+
 export type ColorPalette = {
 	p1: string;
 	p2: string;
@@ -48,11 +51,15 @@ export type SemanticColors = {
 	'bg.t': HexColor;
 	'bg.q': HexColor;
 
+	'bg.negative.p': HexColor;
+
 	// Text
 	'text.p': HexColor;
 	'text.s': HexColor;
 	'text.t': HexColor;
 	'text.q': HexColor;
+
+	'text.negative.p': HexColor;
 
 	'subtext.p': HexColor;
 	'subtext.s': HexColor;
@@ -64,6 +71,8 @@ export type SemanticColors = {
 
 	// Borders
 	'border.light': HexColor;
+	'border.medium': HexColor;
+	'border.heavy': HexColor;
 
 	// Icons
 	'icon.p': HexColor;
@@ -115,13 +124,15 @@ export type SemanticColors = {
 	'checkbox.bg.p': HexColor;
 	'checkbox.icon.p': HexColor;
 
-	'theme-picker.checkbox.bg': HexColor;
-	'theme-picker.checkbox.icon': HexColor;
+	'navbar.border-top': HexColor;
 
 	// Etc
 	transparent: 'transparent';
 	'etc.activity-indicator': HexColor;
+	'etc.status-bar': StatusBarStyle;
+	'etc.keyboard': KeyboardColor;
 };
+
 export type SemanticColor = keyof SemanticColors;
 
 export type IconSize = typeof iconSize;

@@ -7,11 +7,13 @@ import {
 } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-interface BottomSheetFooterProps {
+interface KeyboardAvoidingFooterProps {
 	children?: React.ReactNode;
 }
 
-const BottomSheetFooter: React.FC<BottomSheetFooterProps> = ({ children }) => {
+const KeyboardAvoidingFooter: React.FC<KeyboardAvoidingFooterProps> = ({
+	children
+}) => {
 	const insets = useSafeAreaInsets();
 	const keyboardPosition = useAnimatedKeyboard();
 
@@ -30,9 +32,14 @@ const BottomSheetFooter: React.FC<BottomSheetFooterProps> = ({ children }) => {
 		return {
 			bottom:
 				keyboardPosition.height.value +
-				interpolate(keyboardPosition.height.value, [0, 100], [insets.bottom, 0])
+				interpolate(
+					keyboardPosition.height.value,
+					[0, 100],
+					[insets.bottom, 0],
+					'clamp'
+				)
 		};
-	}, [keyboardPosition.height.value, insets.bottom]);
+	}, [insets.bottom]);
 
 	return (
 		<View animated style={animatedPosition}>
@@ -41,4 +48,4 @@ const BottomSheetFooter: React.FC<BottomSheetFooterProps> = ({ children }) => {
 	);
 };
 
-export default BottomSheetFooter;
+export default KeyboardAvoidingFooter;

@@ -6,46 +6,54 @@ import {
 } from 'react-native-reanimated';
 
 const defaultUserConfig: TimingConfig = {
-	duration: 500
+	duration: 200
 };
 
 interface IUseAnimatedState {
-	state: SharedValue<number>;
-	setState: (value: number) => void;
+	animatedValue: SharedValue<number>;
+	set: (value: number) => void;
 	toggle: () => void;
+	on: () => void;
+	off: () => void;
 }
 
 const useAnimatedState = (
-	initialValue: number | boolean = 0,
-	userConfig?: TimingConfig | undefined
+	initialValue: number = 0,
+	userConfig: TimingConfig | undefined = {}
 ): IUseAnimatedState => {
 	/**
 	 * This is specifically for integer-related
 	 * animated values.
 	 */
 
-	const state = useSharedValue<number>(
-		typeof initialValue === 'number' ? initialValue : +initialValue
-	);
+	const animatedValue = useSharedValue<number>(initialValue);
+	const animatedConfig = Object.assign(userConfig, defaultUserConfig);
 
-	const setState = (value: number) => {
-		state.value = withTiming(
-			value,
-			Object.assign(userConfig || {}, defaultUserConfig)
-		);
+	const set = (value: number) => {
+		animatedValue.value = withTiming(value, animatedConfig);
 	};
 
 	const toggle = () => {
-		state.value = withTiming(
-			state.value === 0 ? 1 : 0,
-			Object.assign(userConfig || {}, defaultUserConfig)
+		animatedValue.value = withTiming(
+			animatedValue.value === 0 ? 1 : 0,
+			animatedConfig
 		);
 	};
 
+	const on = () => {
+		animatedValue.value = withTiming(1, animatedConfig);
+	};
+
+	const off = () => {
+		animatedValue.value = withTiming(0, animatedConfig);
+	};
+
 	return {
-		state,
-		setState,
-		toggle
+		animatedValue,
+		set,
+		toggle,
+		on,
+		off
 	};
 };
 

@@ -1,24 +1,24 @@
 import { View } from '@atomic';
 import { useTextInput } from '@hooks';
-import { DeclarativeText, PhoneNumberTextInput } from '@molecules';
+import {
+	Button,
+	DeclarativeText,
+	InternationalPhoneNumberTextInput
+} from '@molecules';
 import React from 'react';
 import { useAuthenticationAppContext } from '../Authentication.context';
 import ContentAnimationWrapper from './ContentAnimationWrapper';
 
 const ContinueWithPhoneBody = () => {
 	const textInputApi = useTextInput();
-	const { setPhoneNumber, state } = useAuthenticationAppContext();
+	const { continuePhoneNumber, setPhoneNumber, state } =
+		useAuthenticationAppContext();
 
 	return (
 		<ContentAnimationWrapper>
-			<PhoneNumberTextInput
-				placeholder='(123) 456-7890'
-				value={state.phone_number}
-				keyboardType='phone-pad'
-				textContentType='telephoneNumber'
+			<InternationalPhoneNumberTextInput
 				textInputApi={textInputApi}
-				onChangeText={(text) => setPhoneNumber(text)}
-				maxLength={14}
+				onChangeText={(text: string) => setPhoneNumber(text)}
 			/>
 			<View margin='m'>
 				<DeclarativeText
@@ -30,11 +30,19 @@ const ContinueWithPhoneBody = () => {
 						{
 							text: 'Privacy Policy',
 							variant: 'paragraph-small',
-							color: 'matt_light',
+							color: 'subtext.s',
 							underline: true,
 							newline: false
 						}
 					]}
+				/>
+			</View>
+			<View marginVertical='m'>
+				<Button
+					text='Send Text'
+					onPress={continuePhoneNumber}
+					color='p'
+					buttonState={state.isLoading ? 'loading' : 'active'}
 				/>
 			</View>
 		</ContentAnimationWrapper>

@@ -13,12 +13,14 @@ type IconProps = CustomIconProps & {
 const Icon: React.FC<IconProps> = ({
 	name,
 	color = 'icon.p',
-	size = 'regular',
+	size = 'regular' as keyof IconSize,
 	...props
 }) => {
 	const { theme } = useTheme();
 
 	const SvgIcon = SvgIcons[name];
+
+	const iconSize = typeof size === 'string' ? theme.iconSize[size] : size;
 
 	const defaultAnimateSvgProps = useAnimatedProps(() => ({}));
 	const defaultAnimatePathProps = useAnimatedProps(() => ({}));
@@ -30,18 +32,12 @@ const Icon: React.FC<IconProps> = ({
 				animatedPathProps={props.animatedPathProps || defaultAnimatePathProps}
 				{...props}
 				color={theme.colors[color]}
-				size={size}
+				size={iconSize}
 			/>
 		);
 	}
 
-	return (
-		<SvgIcon
-			{...props}
-			size={typeof size === 'string' ? theme.iconSize[size] : size}
-			color={theme.colors[color]}
-		/>
-	);
+	return <SvgIcon {...props} size={iconSize} color={theme.colors[color]} />;
 };
 
 export default Icon;

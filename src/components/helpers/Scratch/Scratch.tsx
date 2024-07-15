@@ -3,7 +3,7 @@ import React from 'react';
 import { ScrollView } from 'react-native';
 import ConfigMenuBottomSheet from './components/ConfigMenuBottomSheet';
 import Header from './components/Header';
-import Radios from './displays/Radios';
+import Inputs from './displays/Inputs';
 import useScratch from './useScratch';
 
 const Scratch = () => {
@@ -12,8 +12,8 @@ const Scratch = () => {
 	return (
 		<View flex={1} backgroundColor='bg.p'>
 			<Header configMenuSheetApi={configMenuSheetApi} />
-			<ScrollView>
-				<Radios />
+			<ScrollView contentContainerStyle={{ flex: 1 }}>
+				<Inputs />
 			</ScrollView>
 			<ConfigMenuBottomSheet sheetApi={configMenuSheetApi} />
 		</View>

@@ -1,22 +1,19 @@
 import { View } from '@atomic';
-import { useTextInput } from '@hooks';
-import { DeclarativeText, TextInput } from '@molecules';
+import { Button, DeclarativeText, TextInputWithLabel } from '@molecules';
 import React from 'react';
 import { useAuthenticationAppContext } from '../Authentication.context';
 import ContentAnimationWrapper from './ContentAnimationWrapper';
 
 const EnterCodeWithPhoneBody = () => {
-	const textInputApi = useTextInput();
-	const { setCode } = useAuthenticationAppContext();
+	const { loginPhoneNumber, setCode, resetState } =
+		useAuthenticationAppContext();
 	return (
 		<ContentAnimationWrapper>
-			<TextInput
+			<TextInputWithLabel
 				placeholder='Enter One Time Code'
 				keyboardType='number-pad'
 				textContentType='oneTimeCode'
-				textInputApi={textInputApi}
-				onChangeText={(text) => setCode(text)}
-				icon='phone'
+				onChangeText={(text: string) => setCode(text)}
 			/>
 			<View margin='m'>
 				<DeclarativeText
@@ -27,6 +24,14 @@ const EnterCodeWithPhoneBody = () => {
 						}
 					]}
 				/>
+			</View>
+			<View padding='m' flexDirection='row'>
+				<View flex={1} marginRight='s'>
+					<Button text='Back' onPress={resetState} variant='outlined' />
+				</View>
+				<View flex={1} marginLeft='s'>
+					<Button text='Log In' onPress={loginPhoneNumber} color='t' />
+				</View>
 			</View>
 		</ContentAnimationWrapper>
 	);

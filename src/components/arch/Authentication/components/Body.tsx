@@ -19,7 +19,7 @@ const Body: React.FC = () => {
 		>
 			<View margin='m'>
 				<View marginBottom='xl' alignItems='center'>
-					<Icon name='logo' size='large' color='t1' />
+					<Icon name='logo' size='large' color='bg.p' />
 				</View>
 				<Switch>
 					<Case condition={state.screen === 'continue-phone'}>

@@ -1,10 +1,11 @@
-import { Button, View } from '@atomic';
+import { View } from '@atomic';
 import {
 	BottomSheetFooter,
 	BottomSheetFooterProps,
 	BottomSheetView
 } from '@gorhom/bottom-sheet';
 import { SheetApi, useLayoutDimensions, useTheme } from '@hooks';
+import { Button } from '@molecules';
 import {
 	BottomSheet,
 	BottomSheetHeader,
@@ -13,7 +14,7 @@ import {
 import { ThemePicker } from '@templates';
 import { ColorModeState } from '@types';
 import React, { useCallback } from 'react';
-import { ScrollView } from 'react-native-gesture-handler';
+import { ScrollView } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface ConfigMenuBottomSheetProps {

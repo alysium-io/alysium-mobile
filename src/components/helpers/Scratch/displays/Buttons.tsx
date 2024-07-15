@@ -1,4 +1,5 @@
-import { Button, Text, View } from '@atomic';
+import { Text, View } from '@atomic';
+import { Button } from '@molecules';
 import React from 'react';
 import { ScrollView } from 'react-native-gesture-handler';
 

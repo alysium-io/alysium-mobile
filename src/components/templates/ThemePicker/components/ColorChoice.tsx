@@ -46,7 +46,7 @@ const ColorChoice: React.FC<ColorChoiceProps> = ({
 							style={[
 								styles.checkmark,
 								{
-									backgroundColor: theme.colors['theme-picker.checkbox.bg'],
+									backgroundColor: theme.colors['bg.negative.p'],
 									borderRadius: theme.borderRadii.round,
 									borderWidth: theme.borderWidth.thick,
 									borderColor: theme.colors['bg.p'],
@@ -54,11 +54,7 @@ const ColorChoice: React.FC<ColorChoiceProps> = ({
 								}
 							]}
 						>
-							<Icon
-								name='checkmark'
-								color='theme-picker.checkbox.icon'
-								size='expanded'
-							/>
+							<Icon name='checkmark' color='text.negative.p' size='expanded' />
 						</MotiView>
 					)}
 				</AnimatePresence>

@@ -10,18 +10,9 @@
  * programming tool.
  *
  */
-
-/**
- * Individual components
- */
-export { default as BackButton } from './BackButton';
-export { default as OpenLinksButton } from './OpenLinksButton';
-
 export * from './Buttons';
 export * from './DeclarativeText';
 export * from './EditableImage';
-export * from './EditableTextInputWithLabel';
-export * from './LargeTextInput';
 export * from './ListItem';
 export * from './SectionHeaders';
 export * from './TabToggler';

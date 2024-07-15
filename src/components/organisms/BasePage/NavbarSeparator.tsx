@@ -1,6 +1,5 @@
 import { View } from '@atomic';
 import { useTheme } from '@hooks';
-import { ThemeMode } from '@types';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 
@@ -11,12 +10,14 @@ interface NavbarSeparatorProps {
 const NavbarSeparator: React.FC<NavbarSeparatorProps> = ({
 	isFooterActive
 }) => {
-	const { mode } = useTheme();
-
+	const { theme } = useTheme();
 	return (
 		<View
-			style={[styles.container, { height: isFooterActive ? 0 : 0.5 }]}
-			backgroundColor={mode === ThemeMode.dark ? 'bg2' : 'ion'}
+			style={[
+				styles.container,
+				{ height: isFooterActive ? 0 : theme.borderWidth.normal }
+			]}
+			backgroundColor='navbar.border-top'
 		/>
 	);
 };

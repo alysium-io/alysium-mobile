@@ -24,13 +24,13 @@ const Container: React.FC<ContainerProps> = ({
 			onPress={() => onPress && onPress(id)}
 		>
 			<View
-				paddingVertical='m'
+				paddingVertical='l'
 				marginHorizontal='m'
 				flexDirection='row'
 				alignItems='center'
 				justifyContent='space-between'
 				borderBottomColor='border.light'
-				borderBottomWidth={theme.borderWidth.normal}
+				borderBottomWidth={border ? theme.borderWidth.normal : 0}
 			>
 				{children}
 			</View>

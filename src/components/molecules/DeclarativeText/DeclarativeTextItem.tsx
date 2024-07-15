@@ -1,5 +1,4 @@
 import { Text } from '@atomic';
-import { useTheme } from '@hooks';
 import React from 'react';
 import { DeclarativeTextItemProps } from './shared';
 
@@ -11,8 +10,6 @@ const DeclarativeTextItem: React.FC<DeclarativeTextItemProps> = ({
 	newline,
 	onPress
 }) => {
-	const { getRawColor } = useTheme();
-
 	return (
 		<>
 			{newline && '\n'}

@@ -1,5 +1,4 @@
 import { StatusBar, View } from '@atomic';
-import { useTheme } from '@hooks';
 import React from 'react';
 import Footer from './Footer';
 import NavbarSeparator from './NavbarSeparator';
@@ -21,14 +20,12 @@ const BasePageContent: React.FC<BasePageContentProps> = ({
 	isFooterActive,
 	setIsFooterActive
 }) => {
-	const { theme } = useTheme();
-
 	return (
 		<View
 			animated
+			backgroundColor='bg.p'
 			style={{
 				flex: 1,
-				backgroundColor: theme.colors.bg1,
 				paddingBottom: footerHeight
 			}}
 		>
