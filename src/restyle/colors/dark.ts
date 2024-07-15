@@ -26,6 +26,13 @@ export const createSemanticDarkTheme = (
 		'subtext.t': palette.p.p6,
 		'subtext.q': palette.s.p6,
 
+		'text.color.p.light': palette.p.p1,
+		'text.color.p.medium': palette.p.p3,
+		'text.color.p.heavy': palette.p.p5,
+		'text.color.s.light': palette.s.p1,
+		'text.color.s.medium': palette.s.p3,
+		'text.color.s.heavy': palette.s.p5,
+
 		'bg-touch-animation.background.p': palette.neutral.p8,
 
 		'border.light': palette.neutral.p8,
@@ -85,6 +92,7 @@ export const createSemanticDarkTheme = (
 		transparent: 'transparent',
 		'etc.activity-indicator': palette.neutral.p1,
 		'etc.status-bar': 'light-content',
-		'etc.keyboard': 'dark'
+		'etc.keyboard': 'dark',
+		'etc.blur': 'dark'
 	};
 };

@@ -5,18 +5,12 @@ import { StyleSheet } from 'react-native';
 
 interface DefaultIconImageProps {
 	icon: IconNames;
-	backgroundColor?: React.ComponentProps<typeof View>['backgroundColor'];
-	iconColor?: React.ComponentProps<typeof Icon>['color'];
 }
 
-const DefaultIconImage: React.FC<DefaultIconImageProps> = ({
-	icon,
-	backgroundColor = 'ion_light',
-	iconColor = 't2'
-}) => {
+const DefaultIconImage: React.FC<DefaultIconImageProps> = ({ icon }) => {
 	return (
-		<View style={styles.container} backgroundColor={backgroundColor}>
-			<Icon name={icon} color={iconColor} size='regular' />
+		<View style={styles.container} backgroundColor='bg.t'>
+			<Icon name={icon} color='text.t' size='regular' />
 		</View>
 	);
 };

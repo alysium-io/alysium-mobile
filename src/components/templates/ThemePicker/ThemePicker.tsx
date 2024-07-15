@@ -16,8 +16,8 @@ const ThemePicker = () => {
 			flexDirection='row'
 			flexWrap='wrap'
 		>
-			{Object.keys(accentColors).map((themeName) => (
-				<View margin='m'>
+			{Object.keys(accentColors).map((themeName, idx) => (
+				<View margin='m' key={idx}>
 					<ColorChoice
 						themeName={themeName as ThemeName}
 						active={themeName === activeThemeName}

@@ -7,7 +7,7 @@ const ProfilePageHeader: React.FC<StackHeaderProps> = (stackHeaderProps) => {
 		<Header
 			stackHeaderProps={stackHeaderProps}
 			LeftComponent={undefined}
-			CenterComponent={() => <HeaderTitle title='profile page' />}
+			CenterComponent={() => <HeaderTitle title='account' />}
 			RightComponent={undefined}
 		/>
 	);

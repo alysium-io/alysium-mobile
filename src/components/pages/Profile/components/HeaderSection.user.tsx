@@ -25,7 +25,7 @@ const HeaderSection = () => {
 								variant: 'paragraph-medium',
 								underline: true,
 								text: 'Edit Profile',
-								color: 'matt',
+								color: 'text.color.p.medium',
 								onPress: editUserProfileSheetApi.open
 							}
 						]}

@@ -66,6 +66,13 @@ export type SemanticColors = {
 	'subtext.t': HexColor;
 	'subtext.q': HexColor;
 
+	'text.color.p.light': HexColor;
+	'text.color.p.medium': HexColor;
+	'text.color.p.heavy': HexColor;
+	'text.color.s.light': HexColor;
+	'text.color.s.medium': HexColor;
+	'text.color.s.heavy': HexColor;
+
 	// Touchables
 	'bg-touch-animation.background.p': HexColor;
 
@@ -131,6 +138,7 @@ export type SemanticColors = {
 	'etc.activity-indicator': HexColor;
 	'etc.status-bar': StatusBarStyle;
 	'etc.keyboard': KeyboardColor;
+	'etc.blur': BlurColor;
 };
 
 export type SemanticColor = keyof SemanticColors;

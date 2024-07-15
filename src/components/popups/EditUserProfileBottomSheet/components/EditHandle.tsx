@@ -2,7 +2,7 @@ import { useUserAppContext } from '@arch/Application/contexts/User.context';
 import { View } from '@atomic';
 import { UpdateUserBodyDto } from '@flux/api/user/dto/user-update.dto';
 import { TextInputApi } from '@hooks';
-import { EditableTextInputWithLabel } from '@molecules';
+import { TextInputWithLabel } from '@molecules';
 import React from 'react';
 import { Controller, UseFormReturn } from 'react-hook-form';
 
@@ -22,13 +22,11 @@ const EditHandle: React.FC<EditHandleProps> = ({
 				name='handle'
 				control={formMethods.control}
 				rules={{ required: 'Handle is required' }}
-				render={({ field: { value, onChange } }) => (
-					<EditableTextInputWithLabel
+				render={({ field: { onChange } }) => (
+					<TextInputWithLabel
 						label='Handle'
 						placeholder={userData.handle}
-						textInputApi={handleTextInputApi}
 						onChangeText={onChange}
-						value={value}
 					/>
 				)}
 			/>

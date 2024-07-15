@@ -7,10 +7,12 @@ import {
 import { SheetApi } from '@hooks';
 import { Button } from '@molecules';
 import { BottomSheet } from '@organisms';
+import { ThemePicker } from '@templates';
 import React, { useCallback } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import EditHandle from './components/EditHandle';
 import EditProfileImage from './components/EditProfileImage';
+import ThemeModeSettings from './components/ThemeModeSettings';
 import useEditUserProfileBottomSheet from './useEditUserProfileBottomSheet';
 
 interface EditUserProfileBottomSheetProps {
@@ -59,6 +61,8 @@ const EditUserProfileBottomSheet: React.FC<EditUserProfileBottomSheetProps> = ({
 						formMethods={formMethods}
 						handleTextInputApi={handleTextInputApi}
 					/>
+					<ThemePicker />
+					<ThemeModeSettings />
 				</BottomSheetView>
 			</DismissKeyboardWrapper>
 		</BottomSheet>

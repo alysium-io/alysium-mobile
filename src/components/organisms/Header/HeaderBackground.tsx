@@ -2,40 +2,33 @@ import { BlurView, LinearGradient, View } from '@atomic';
 import { Colors } from '@etc';
 import { useTheme } from '@hooks';
 import { useHeader } from '@organisms';
-import { ThemeMode } from '@types';
-import React, { useMemo } from 'react';
+import React from 'react';
 import { StyleSheet } from 'react-native';
 
 const HeaderBackground = () => {
-	const { mode, getRawColor } = useTheme();
+	const { theme } = useTheme();
 	const { totalHeaderHeight } = useHeader();
 
-	const backgroundStyle = useMemo(() => {
-		return [styles.background, { height: totalHeaderHeight }];
-	}, [totalHeaderHeight]);
+	const backgroundStyle = [styles.background, { height: totalHeaderHeight }];
 
 	return (
 		<>
 			<LinearGradient
 				colors={[
-					getRawColor('bg1'),
-					Colors.RGBA2String(Colors.hex2RGBA(getRawColor('bg1'), 0.7))
+					theme.colors['bg.p'],
+					Colors.hex2RGBAString(theme.colors['bg.p'], 0.7)
 				]}
 				style={backgroundStyle}
 			/>
 			<BlurView
 				blurAmount={25}
-				blurType={mode === ThemeMode.dark ? 'dark' : 'xlight'}
+				blurType={theme.colors['etc.blur']}
 				style={backgroundStyle}
 			/>
 			<View
-				style={[
-					backgroundStyle,
-					{
-						borderBottomWidth: 0.5,
-						borderBottomColor: Colors.brighten(getRawColor('bg1'), 0.1)
-					}
-				]}
+				borderBottomWidth={theme.borderWidth.normal}
+				borderBottomColor='border.medium'
+				style={backgroundStyle}
 			/>
 		</>
 	);

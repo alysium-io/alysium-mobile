@@ -1,9 +1,8 @@
-import { HeaderSafeArea, ScrollView } from '@atomic';
+import { HeaderSafeArea } from '@atomic';
 import { BasePage } from '@organisms';
 import React from 'react';
+import { ScrollView } from 'react-native';
 import HeaderSection from './components/HeaderSection';
-import LogoutSection from './components/LogoutSection';
-import MenuSection from './components/MenuSection';
 
 const ProfilePage = () => {
 	// Create Host & Artist footer (on hold)
@@ -22,8 +21,8 @@ const ProfilePage = () => {
 			<HeaderSafeArea>
 				<ScrollView alwaysBounceVertical>
 					<HeaderSection />
-					<MenuSection />
-					<LogoutSection />
+					{/* <MenuSection /> */}
+					{/* <LogoutSection /> */}
 				</ScrollView>
 			</HeaderSafeArea>
 		</BasePage>

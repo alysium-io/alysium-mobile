@@ -34,12 +34,7 @@ const EditableProfileImage: React.FC<EditableProfileImageProps> = ({
 	return (
 		<TouchableWithoutFeedback onPress={onPress}>
 			<View style={styles.container}>
-				<Avatar
-					image={image}
-					contentType={contentType}
-					size='100%'
-					borderRadius='round'
-				/>
+				<Avatar image={image} contentType={contentType} />
 				<View style={styles.iconContainer}>
 					<EditIcon />
 				</View>

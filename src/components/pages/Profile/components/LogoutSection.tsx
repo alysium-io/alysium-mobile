@@ -8,12 +8,7 @@ const LogoutSection = () => {
 
 	return (
 		<View margin='m'>
-			<Button
-				variant='outlined'
-				colorVariant='negative'
-				text='Logout'
-				onPress={logout}
-			/>
+			<Button variant='outlined' color='t' text='Logout' onPress={logout} />
 		</View>
 	);
 };

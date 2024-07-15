@@ -26,6 +26,13 @@ export const createSemanticLightTheme = (
 		'subtext.t': palette.p.p6,
 		'subtext.q': palette.s.p6,
 
+		'text.color.p.light': palette.p.p4,
+		'text.color.p.medium': palette.p.p5,
+		'text.color.p.heavy': palette.p.p6,
+		'text.color.s.light': palette.s.p4,
+		'text.color.s.medium': palette.s.p5,
+		'text.color.s.heavy': palette.s.p6,
+
 		'bg-touch-animation.background.p': palette.neutral.p2,
 
 		'border.light': palette.neutral.p2,
@@ -85,6 +92,7 @@ export const createSemanticLightTheme = (
 		transparent: 'transparent',
 		'etc.activity-indicator': palette.neutral.p8,
 		'etc.status-bar': 'dark-content',
-		'etc.keyboard': 'light'
+		'etc.keyboard': 'light',
+		'etc.blur': 'xlight'
 	};
 };

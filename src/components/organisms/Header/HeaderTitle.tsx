@@ -10,11 +10,11 @@ interface HeaderTitleProps {
 const HeaderTitle: React.FC<HeaderTitleProps> = ({ title, subtitle }) => {
 	return (
 		<View style={styles.container}>
-			<Text variant='paragraph' color='t1'>
+			<Text variant='paragraph' color='text.p'>
 				{title}
 			</Text>
 			{subtitle && (
-				<Text variant='paragraph' color='t2'>
+				<Text variant='paragraph' color='subtext.p'>
 					{subtitle}
 				</Text>
 			)}

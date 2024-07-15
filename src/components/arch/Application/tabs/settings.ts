@@ -4,29 +4,6 @@ import { StackNavigationOptions } from '@react-navigation/stack';
 import { BottomTabNavigatorParamList, ScreenOptions } from '@types';
 import { StyleProp, ViewStyle } from 'react-native';
 
-export const navigationConfig = {
-	screenOptions: {
-		headerShown: false,
-		tabBarShowLabel: false,
-		tabBarInactiveTintColor: undefined,
-		tabBarActiveTintColor: undefined,
-		tabBarStyle: {
-			backgroundColor: undefined,
-			borderTopWidth: 0.5,
-			borderTopColor: undefined
-		}
-	},
-	sceneContainerStyle: {
-		backgroundColor: undefined
-	},
-	routes: {
-		initialArtistAppTab: 'Profile' as keyof BottomTabNavigatorParamList,
-		initialHostAppTab: 'Profile' as keyof BottomTabNavigatorParamList,
-		initialTestAppTab: 'Pages' as keyof BottomTabNavigatorParamList,
-		initialUserAppTab: 'Profile' as keyof BottomTabNavigatorParamList
-	}
-};
-
 interface IUseNavigationSettings {
 	screenOptions: ScreenOptions;
 	sceneContainerStyle: StyleProp<ViewStyle>;
@@ -41,19 +18,42 @@ interface IUseNavigationSettings {
 export const useNavigationSettings = (): IUseNavigationSettings => {
 	const { theme } = useTheme();
 
+	const navigationConfig = {
+		screenOptions: {
+			headerShown: false,
+			tabBarShowLabel: false,
+			tabBarInactiveTintColor: undefined,
+			tabBarActiveTintColor: undefined,
+			tabBarStyle: {
+				backgroundColor: undefined,
+				borderTopWidth: theme.borderWidth.normal,
+				borderTopColor: undefined
+			}
+		},
+		sceneContainerStyle: {
+			backgroundColor: undefined
+		},
+		routes: {
+			initialArtistAppTab: 'Profile' as keyof BottomTabNavigatorParamList,
+			initialHostAppTab: 'Profile' as keyof BottomTabNavigatorParamList,
+			initialTestAppTab: 'Pages' as keyof BottomTabNavigatorParamList,
+			initialUserAppTab: 'Profile' as keyof BottomTabNavigatorParamList
+		}
+	};
+
 	const screenOptions = {
 		...navigationConfig.screenOptions,
-		tabBarInactiveTintColor: theme.colors.bg2,
-		tabBarActiveTintColor: theme.colors.t1,
+		tabBarInactiveTintColor: theme.colors['bg.s'],
+		tabBarActiveTintColor: theme.colors['text.p'],
 		tabBarStyle: {
-			backgroundColor: theme.colors.bg1,
+			backgroundColor: theme.colors['bg.p'],
 			borderTopWidth: 0
 		}
 	};
 
 	const sceneContainerStyle = {
 		...navigationConfig.sceneContainerStyle,
-		backgroundColor: theme.colors.bg1
+		backgroundColor: theme.colors['bg.p']
 	};
 
 	return {
@@ -80,7 +80,7 @@ export const useTabSettings = (): IUseTabSettings => {
 			headerBackTitleVisible: false,
 			headerTransparent: true,
 			cardStyle: {
-				backgroundColor: theme.colors.bg1
+				backgroundColor: theme.colors['bg.p']
 			}
 		}
 	};

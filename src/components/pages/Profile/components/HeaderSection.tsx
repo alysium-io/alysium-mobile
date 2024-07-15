@@ -2,8 +2,6 @@ import { usePersona } from '@hooks';
 import { Persona } from '@types';
 import React from 'react';
 import { Case, Switch } from 'react-if';
-import ArtistHeaderSection from './HeaderSection.artist';
-import HostHeaderSection from './HeaderSection.host';
 import UserHeaderSection from './HeaderSection.user';
 
 const HeaderSection = () => {
@@ -11,15 +9,15 @@ const HeaderSection = () => {
 
 	return (
 		<Switch>
-			<Case condition={personaType === Persona.artist}>
+			{/* <Case condition={personaType === Persona.artist}>
 				<ArtistHeaderSection />
-			</Case>
+			</Case> */}
 			<Case condition={personaType === Persona.user}>
 				<UserHeaderSection />
 			</Case>
-			<Case condition={personaType === Persona.host}>
+			{/* <Case condition={personaType === Persona.host}>
 				<HostHeaderSection />
-			</Case>
+			</Case> */}
 		</Switch>
 	);
 };
