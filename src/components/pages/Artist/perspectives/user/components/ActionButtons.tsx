@@ -1,17 +1,19 @@
 import { View } from '@atomic';
 import { ToggleButton } from '@molecules';
-import React, { useState } from 'react';
+import React from 'react';
 
 const ActionButtons = () => {
-	const [state, setState] = useState(false);
-
 	return (
 		<View margin='m'>
 			<ToggleButton
-				value={state}
-				text='Follow'
-				inactiveText='Following'
-				onPress={() => setState(!state)}
+				defaultState={true}
+				onChange={(x) => console.log(x)}
+				activeButtonProps={{
+					text: 'Follow'
+				}}
+				inactiveButtonProps={{
+					text: 'Following'
+				}}
 			/>
 		</View>
 	);

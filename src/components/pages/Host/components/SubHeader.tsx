@@ -1,14 +1,10 @@
 import { Section, Text, View } from '@atomic';
-import { SheetApi } from '@hooks';
-import { OpenLinksButton } from '@molecules';
 import { Stats } from '@organisms';
 import React from 'react';
 
-interface SubHeaderProps {
-	linksSheetApi: SheetApi;
-}
+interface SubHeaderProps {}
 
-const SubHeader: React.FC<SubHeaderProps> = ({ linksSheetApi }) => {
+const SubHeader: React.FC<SubHeaderProps> = () => {
 	return (
 		<Section
 			margin='m'
@@ -20,7 +16,6 @@ const SubHeader: React.FC<SubHeaderProps> = ({ linksSheetApi }) => {
 				<Text variant='paragraph-medium' color='t1' style={{ marginBottom: 6 }}>
 					Amsterdam, NE
 				</Text>
-				<OpenLinksButton onPress={linksSheetApi.open} />
 			</View>
 			<Stats
 				items={[

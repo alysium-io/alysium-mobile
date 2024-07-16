@@ -12,12 +12,8 @@ const StatsItem: React.FC<StatsItemProps> = ({ title, subtitle, onPress }) => {
 	return (
 		<TouchableWithoutFeedback onPress={onPress}>
 			<View alignItems='center'>
-				<Text variant='paragraph-medium' marginBottom='xs'>
-					{title}
-				</Text>
-				<Text variant='paragraph-small' color='t1'>
-					{subtitle}
-				</Text>
+				<Text variant='paragraph-medium'>{title}</Text>
+				<Text variant='paragraph-small'>{subtitle}</Text>
 			</View>
 		</TouchableWithoutFeedback>
 	);

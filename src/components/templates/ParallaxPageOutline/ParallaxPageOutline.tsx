@@ -65,7 +65,7 @@ const ParallaxPageOutline: React.FC<ParallaxPageOutlineProps> = ({
 							margin='m'
 							numberOfLines={1}
 							textAlign={textAlignment}
-							color='white'
+							color='palette.neutral.p1'
 						>
 							{title}
 						</Text>

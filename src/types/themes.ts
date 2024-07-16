@@ -158,6 +158,15 @@ export type SemanticColors = {
 	'search.search-bar.icon': HexColor;
 	'search.search-bar.clear-btn-icon': HexColor;
 
+	'palette.neutral.p1': HexColor;
+	'palette.neutral.p2': HexColor;
+	'palette.neutral.p3': HexColor;
+	'palette.neutral.p4': HexColor;
+	'palette.neutral.p5': HexColor;
+	'palette.neutral.p6': HexColor;
+	'palette.neutral.p7': HexColor;
+	'palette.neutral.p8': HexColor;
+	'palette.neutral.p9': HexColor;
 	'palette.p.light': HexColor;
 	'palette.p.medium': HexColor;
 	'palette.p.dark': HexColor;

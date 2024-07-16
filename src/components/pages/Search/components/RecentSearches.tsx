@@ -14,7 +14,7 @@ const RecentSearches: React.FC<RecentSearchesProps> = ({
 }) => {
 	return (
 		<Section>
-			<Text variant='section-header-2' marginHorizontal='m'>
+			<Text variant='section-header-2' marginHorizontal='m' marginBottom='m'>
 				Recent Searches
 			</Text>
 			{recentSearches?.map((result) => (

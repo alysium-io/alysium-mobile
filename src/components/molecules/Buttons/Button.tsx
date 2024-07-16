@@ -1,9 +1,11 @@
-import { ActivityIndicator, Text, View } from '@atomic';
+import { ActivityIndicator } from '@atomic';
 import { useTheme } from '@hooks';
 import { SemanticColor } from '@types';
 import React, { useMemo } from 'react';
 import { Else, If, Then } from 'react-if';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import Container from './components/Container';
+import Content from './components/Content';
 
 type ButtonThemeSettings = {
 	backgroundColor: SemanticColor;
@@ -19,6 +21,8 @@ interface ButtonProps {
 	buttonState?: 'active' | 'loading' | 'disabled';
 	color?: 'default' | 'p' | 's' | 't' | 'q';
 	variant?: 'solid' | 'outlined';
+	buttonThemeSettings?: Partial<ButtonThemeSettings>;
+	buttonContent?: React.ComponentProps<typeof Content>;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -26,7 +30,9 @@ const Button: React.FC<ButtonProps> = ({
 	onPress = () => console.log('I am a button :)'),
 	buttonState = 'active',
 	color = 'default',
-	variant = 'solid'
+	variant = 'solid',
+	buttonThemeSettings,
+	buttonContent
 }) => {
 	const { theme } = useTheme();
 
@@ -36,44 +42,53 @@ const Button: React.FC<ButtonProps> = ({
 			`button.${variant}.loading.activity-indicator` as SemanticColor;
 
 		if (buttonState === 'disabled') {
-			return {
-				backgroundColor: `button.${variant}.disabled.bg` as SemanticColor,
-				textColor: `button.${variant}.disabled.text` as SemanticColor,
-				borderColor:
-					variant === 'outlined'
-						? (`button.${variant}.disabled.border` as SemanticColor)
-						: ('transparent' as SemanticColor),
-				borderWidth,
-				activityIndicatorColor
-			};
+			return Object.assign(
+				{
+					backgroundColor: `button.${variant}.disabled.bg` as SemanticColor,
+					textColor: `button.${variant}.disabled.text` as SemanticColor,
+					borderColor:
+						variant === 'outlined'
+							? (`button.${variant}.disabled.border` as SemanticColor)
+							: ('transparent' as SemanticColor),
+					borderWidth,
+					activityIndicatorColor
+				},
+				buttonThemeSettings
+			);
 		} else if (buttonState === 'loading') {
-			return {
-				backgroundColor:
-					variant === 'solid'
-						? (`button.${variant}.loading.bg` as SemanticColor)
-						: ('transparent' as SemanticColor),
-				textColor: `button.${variant}.loading.text` as SemanticColor,
-				borderColor:
-					variant === 'outlined'
-						? (`button.${variant}.loading.border` as SemanticColor)
-						: ('transparent' as SemanticColor),
-				borderWidth,
-				activityIndicatorColor
-			};
+			return Object.assign(
+				{
+					backgroundColor:
+						variant === 'solid'
+							? (`button.${variant}.loading.bg` as SemanticColor)
+							: ('transparent' as SemanticColor),
+					textColor: `button.${variant}.loading.text` as SemanticColor,
+					borderColor:
+						variant === 'outlined'
+							? (`button.${variant}.loading.border` as SemanticColor)
+							: ('transparent' as SemanticColor),
+					borderWidth,
+					activityIndicatorColor
+				},
+				buttonThemeSettings
+			);
 		} else {
-			return {
-				backgroundColor:
-					`button.${variant}.active.bg.${color}` as SemanticColor,
-				textColor: `button.${variant}.active.text.${color}` as SemanticColor,
-				borderColor:
-					variant === 'outlined'
-						? (`button.${variant}.active.border.${color}` as SemanticColor)
-						: ('transparent' as SemanticColor),
-				borderWidth,
-				activityIndicatorColor
-			};
+			return Object.assign(
+				{
+					backgroundColor:
+						`button.${variant}.active.bg.${color}` as SemanticColor,
+					textColor: `button.${variant}.active.text.${color}` as SemanticColor,
+					borderColor:
+						variant === 'outlined'
+							? (`button.${variant}.active.border.${color}` as SemanticColor)
+							: ('transparent' as SemanticColor),
+					borderWidth,
+					activityIndicatorColor
+				},
+				buttonThemeSettings
+			);
 		}
-	}, [buttonState, color, variant]);
+	}, [buttonState, color, variant, buttonThemeSettings, theme]);
 
 	return (
 		<TouchableOpacity
@@ -81,27 +96,26 @@ const Button: React.FC<ButtonProps> = ({
 			disabled={buttonState === 'disabled' || buttonState === 'loading'}
 			activeOpacity={0.9}
 		>
-			<View
-				backgroundColor={settings.bgColor}
+			<Container
+				backgroundColor={settings.backgroundColor}
 				borderWidth={settings.borderWidth}
 				borderColor={settings.borderColor}
-				flexDirection='row'
-				alignItems='center'
-				justifyContent='center'
-				borderRadius='round'
-				padding='m'
 			>
 				<If condition={buttonState === 'loading'}>
 					<Then>
 						<ActivityIndicator color={settings.activityIndicatorColor} />
 					</Then>
 					<Else>
-						<Text color={settings.textColor} variant='paragraph-small-medium'>
+						<Content
+							color={settings.textColor}
+							variant='paragraph-small-medium'
+							{...buttonContent}
+						>
 							{text}
-						</Text>
+						</Content>
 					</Else>
 				</If>
-			</View>
+			</Container>
 		</TouchableOpacity>
 	);
 };

@@ -2,8 +2,6 @@ import { BasePage } from '@organisms';
 import { ParallaxPageOutline } from '@templates';
 import { ApiIdentifier } from '@types';
 import React from 'react';
-import LinksBottomSheet from '../../components/LinksBottomSheet';
-import MoreOptionsBottomSheet from '../../components/MoreOptionsBottomSheet';
 import SubHeader from '../../components/SubHeader';
 import ActionButtons from './components/ActionButtons';
 import useUserPage from './useUserPage';
@@ -13,7 +11,7 @@ interface UserProps {
 }
 
 const User: React.FC<UserProps> = ({ artist_uid }) => {
-	const { artistData, linksSheetApi, moreSheetApi } = useUserPage(artist_uid);
+	const { artistData } = useUserPage(artist_uid);
 
 	if (!artistData) {
 		return null;
@@ -25,11 +23,9 @@ const User: React.FC<UserProps> = ({ artist_uid }) => {
 				title={artistData.name}
 				image={artistData.profile_image?.url}
 			>
-				<SubHeader linksSheetApi={linksSheetApi} />
+				<SubHeader />
 				<ActionButtons />
 			</ParallaxPageOutline>
-			<LinksBottomSheet sheetApi={linksSheetApi} />
-			<MoreOptionsBottomSheet sheetApi={moreSheetApi} />
 		</BasePage>
 	);
 };

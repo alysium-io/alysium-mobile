@@ -3,7 +3,6 @@ import { useRoute } from '@react-navigation/native';
 import { ArtistPageRouteProp, Persona } from '@types';
 import React from 'react';
 import { Case, Switch } from 'react-if';
-import HostPerspective from './perspectives/host/Host';
 import UserPerspective from './perspectives/user/User';
 
 const ArtistPage = () => {
@@ -19,9 +18,9 @@ const ArtistPage = () => {
 			>
 				<UserPerspective artist_uid={route.params.artist_uid} />
 			</Case>
-			<Case condition={personaType === Persona.host}>
+			{/* <Case condition={personaType === Persona.host}>
 				<HostPerspective artist_uid={route.params.artist_uid} />
-			</Case>
+			</Case> */}
 		</Switch>
 	);
 };
