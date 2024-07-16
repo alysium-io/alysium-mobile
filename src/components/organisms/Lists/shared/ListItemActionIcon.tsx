@@ -4,7 +4,7 @@ import { Else, If, Then } from 'react-if';
 import { TouchableWithoutFeedback } from 'react-native';
 
 const ArrowIcon: React.FC = () => (
-	<Icon name='arrow-right' color='ion' size='small' />
+	<Icon name='arrow-right' color='ion' size='s' />
 );
 
 const MenuIcon: React.FC<{ onPress?: () => void }> = ({ onPress }) => (

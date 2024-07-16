@@ -1,8 +1,6 @@
-import { Section, View } from '@atomic';
+import { Section, Text } from '@atomic';
 import { SearchArtistsResponseDto } from '@flux/api/search/dto/search-artists.dto';
-import { SectionHeader } from '@molecules';
-import { ContentListItem } from '@organisms';
-import { ContentType } from '@types';
+import { ContentListItem } from '@molecules';
 import React from 'react';
 
 interface SearchResultsProps {
@@ -16,17 +14,17 @@ const SearchResults: React.FC<SearchResultsProps> = ({
 }) => {
 	return (
 		<Section>
-			<View marginHorizontal='m'>
-				<SectionHeader text='Search Results' titleVariant='large' />
-			</View>
+			<Text variant='section-header-2' marginHorizontal='m'>
+				Search Results
+			</Text>
 			{searchResults?.hits?.map((result) => (
 				<ContentListItem
 					key={result.uid}
-					title={result.name}
-					subtitle='artist'
 					onPress={() => onPressSearchResult(result)}
-					contentType={ContentType.artist}
-					border
+					titleTextProps={{
+						title: result.name,
+						bottomSubtext: 'artist'
+					}}
 				/>
 			))}
 		</Section>

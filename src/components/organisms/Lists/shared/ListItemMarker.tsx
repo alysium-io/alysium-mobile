@@ -12,7 +12,7 @@ const ListItemMarker: React.FC<ListItemMarkerProps> = ({
 	markerColor = 't3'
 }) => (
 	<View marginHorizontal='m'>
-		<Icon name={markerIcon} size='small' color={markerColor} />
+		<Icon name={markerIcon} size='s' color={markerColor} />
 	</View>
 );
 

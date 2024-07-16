@@ -25,7 +25,7 @@ const TestApp = () => {
 						component={ExperimentTab}
 						options={{
 							tabBarIcon: ({ color }) => (
-								<Icon name='experiment' size='regular' color={color} />
+								<Icon name='experiment' size='m' color={color} />
 							)
 						}}
 					/>
@@ -34,7 +34,7 @@ const TestApp = () => {
 						component={PagesTab}
 						options={{
 							tabBarIcon: ({ color }) => (
-								<Icon name='mobile' size='regular' color={color} />
+								<Icon name='mobile' size='m' color={color} />
 							)
 						}}
 					/>
@@ -43,7 +43,7 @@ const TestApp = () => {
 						component={ComponentsTab}
 						options={{
 							tabBarIcon: ({ color }) => (
-								<Icon name='components' size='regular' color={color} />
+								<Icon name='components' size='m' color={color} />
 							)
 						}}
 					/>

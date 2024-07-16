@@ -23,7 +23,7 @@ const HeaderIconButton: React.FC<HeaderIconButtonProps> = ({
 			<View>
 				<Icon
 					name={icon}
-					size='regular'
+					size='m'
 					color={mode === ThemeMode.dark ? 't1' : color}
 				/>
 			</View>

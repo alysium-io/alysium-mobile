@@ -1,7 +1,8 @@
-import { HeaderSafeArea, ScrollView, View } from '@atomic';
+import { HeaderSafeArea, View } from '@atomic';
 import { BasePage, SearchBar } from '@organisms';
 import React from 'react';
 import { Case, Switch } from 'react-if';
+import { ScrollView } from 'react-native';
 import { LayoutAnimationConfig } from 'react-native-reanimated';
 import SearchActivePage from './components/SearchActivePage';
 import SearchInactivePage from './components/SearchInactivePage';
@@ -23,10 +24,7 @@ const SearchPage = () => {
 	return (
 		<BasePage>
 			<HeaderSafeArea>
-				<ScrollView
-					alwaysBounceVertical
-					contentContainerStyle={{ minHeight: '100%' }}
-				>
+				<ScrollView alwaysBounceVertical keyboardShouldPersistTaps='always'>
 					<View margin='m'>
 						<SearchBar
 							onChangeText={setSearchText}

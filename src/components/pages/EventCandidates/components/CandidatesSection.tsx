@@ -56,7 +56,7 @@ const CandidatesSection: React.FC<CandidatesSectionProps> = ({
 									<Text paddingRight='s' variant='paragraph-small'>
 										Start Contract
 									</Text>
-									<Icon name='arrow-right' size='small' />
+									<Icon name='arrow-right' size='s' />
 								</View>
 							</TouchableWithoutFeedback>
 						)}

@@ -1,7 +1,9 @@
 export const iconSize = {
-	small: 12,
-	regular: 18,
-	large: 24,
-	xlarge: 36,
+	xxs: 8,
+	xs: 10,
+	s: 12,
+	m: 16,
+	l: 24,
+	xl: 36,
 	expanded: '100%'
 };

@@ -14,7 +14,7 @@ const ButtonIcon: React.FC<ButtonIconProps> = ({ icon, color }) => {
 
 	return (
 		<View marginLeft='s'>
-			<Icon name={icon} color={color} size='small' />
+			<Icon name={icon} color={color} size='s' />
 		</View>
 	);
 };

@@ -30,9 +30,9 @@ const ArtistApp = () => {
 							options={{
 								tabBarIcon: ({ color, focused }) =>
 									focused ? (
-										<Icon name='search-filled' size='regular' color={color} />
+										<Icon name='search-filled' size='m' color={color} />
 									) : (
-										<Icon name='search' size='regular' color={color} />
+										<Icon name='search' size='m' color={color} />
 									)
 							}}
 						/>
@@ -41,7 +41,7 @@ const ArtistApp = () => {
 							component={ContractManagerTab}
 							options={{
 								tabBarIcon: ({ color }) => (
-									<Icon name='contract' size='regular' color={color} />
+									<Icon name='contract' size='m' color={color} />
 								)
 							}}
 						/> */}
@@ -49,9 +49,7 @@ const ArtistApp = () => {
 							name='Profile'
 							component={ProfileTab}
 							options={{
-								tabBarIcon: ({ color }) => (
-									<Icon name='profile' size='regular' />
-								)
+								tabBarIcon: ({ color }) => <Icon name='profile' size='m' />
 							}}
 						/>
 					</Tab.Navigator>

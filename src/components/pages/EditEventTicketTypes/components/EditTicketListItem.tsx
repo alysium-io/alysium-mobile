@@ -32,7 +32,7 @@ const EditTicketListItem: React.FC<EditTicketListItemProps> = ({
 				</Text>
 			</View>
 			<View margin='m'>
-				<Icon name='arrow-right' color='t2' size='small' />
+				<Icon name='arrow-right' color='t2' size='s' />
 			</View>
 		</ListItemContainer>
 	);

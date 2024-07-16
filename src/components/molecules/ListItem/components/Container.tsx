@@ -1,40 +1,32 @@
-import { BgTouchAnimation, View } from '@atomic';
+import { View } from '@atomic';
 import { useTheme } from '@hooks';
-import { IChildrenProps } from '@types';
+import { ChildrenProps } from '@types';
 import React from 'react';
 
-interface ContainerProps extends IChildrenProps {
-	id: string;
-	onPress?: (id: string) => void;
-	border?: boolean;
-	disabled?: boolean;
-}
+type ContainerProps = ChildrenProps &
+	React.ComponentProps<typeof View> & {
+		border?: boolean;
+	};
 
 const Container: React.FC<ContainerProps> = ({
 	children,
-	id,
-	onPress,
 	border = true,
-	disabled = false
+	...props
 }) => {
 	const { theme } = useTheme();
 	return (
-		<BgTouchAnimation
-			disabled={disabled}
-			onPress={() => onPress && onPress(id)}
+		<View
+			paddingVertical='l'
+			marginHorizontal='m'
+			flexDirection='row'
+			alignItems='center'
+			justifyContent='space-between'
+			borderBottomColor='border.light'
+			borderBottomWidth={border ? theme.borderWidth.normal : 0}
+			{...props}
 		>
-			<View
-				paddingVertical='l'
-				marginHorizontal='m'
-				flexDirection='row'
-				alignItems='center'
-				justifyContent='space-between'
-				borderBottomColor='border.light'
-				borderBottomWidth={border ? theme.borderWidth.normal : 0}
-			>
-				{children}
-			</View>
-		</BgTouchAnimation>
+			{children}
+		</View>
 	);
 };
 

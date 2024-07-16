@@ -1,12 +1,12 @@
-import { View } from '@atomic';
+import { ActivityIndicator, View } from '@atomic';
 import { Search } from '@flux/api/search';
 import { SearchArtistsResponseDto } from '@flux/api/search/dto/search-artists.dto';
 import React from 'react';
+import { Case, Switch } from 'react-if';
 import { FadeInUp, FadeOutDown } from 'react-native-reanimated';
 import NoRecentSearches from './NoRecentSearches';
 import RecentSearches from './RecentSearches';
 import SearchResults from './SearchResults';
-import SearchResultsLoading from './SearchResultsLoading';
 
 interface SearchActivePageProps {
 	searchText: string;
@@ -23,32 +23,6 @@ const SearchActivePage: React.FC<SearchActivePageProps> = ({
 	searchResults,
 	onPressSearchResult
 }) => {
-	const Body = () => {
-		if (isLoading) {
-			return <SearchResultsLoading />;
-		} else {
-			if (searchText.length === 0) {
-				if (recentSearches.length === 0) {
-					return <NoRecentSearches />;
-				} else {
-					return (
-						<RecentSearches
-							recentSearches={recentSearches}
-							onPressSearchResult={onPressSearchResult}
-						/>
-					);
-				}
-			} else {
-				return (
-					<SearchResults
-						searchResults={searchResults}
-						onPressSearchResult={onPressSearchResult}
-					/>
-				);
-			}
-		}
-	};
-
 	return (
 		<View
 			marginTop='m'
@@ -56,7 +30,28 @@ const SearchActivePage: React.FC<SearchActivePageProps> = ({
 			entering={FadeInUp.duration(250)}
 			exiting={FadeOutDown.duration(250)}
 		>
-			<Body />
+			<Switch>
+				<Case condition={isLoading}>
+					<ActivityIndicator />
+				</Case>
+				<Case
+					condition={searchText.length === 0 && recentSearches.length === 0}
+				>
+					<NoRecentSearches />
+				</Case>
+				<Case condition={searchText.length === 0}>
+					<RecentSearches
+						recentSearches={recentSearches}
+						onPressSearchResult={onPressSearchResult}
+					/>
+				</Case>
+				<Case condition={searchText.length > 0}>
+					<SearchResults
+						searchResults={searchResults}
+						onPressSearchResult={onPressSearchResult}
+					/>
+				</Case>
+			</Switch>
 		</View>
 	);
 };

@@ -18,7 +18,7 @@ const TagAvatar: React.FC<TagAvatarProps> = ({ color }) => {
 			borderRadius={ContentType.tag}
 			style={[styles.container, { backgroundColor }]}
 		>
-			<Icon name='tag' size='regular' color='#fff' />
+			<Icon name='tag' size='m' color='#fff' />
 		</View>
 	);
 };

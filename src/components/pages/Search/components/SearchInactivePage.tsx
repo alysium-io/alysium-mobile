@@ -1,14 +1,9 @@
-import { Section, View } from '@atomic';
-import { useNavigation } from '@hooks';
-import { SectionHeader } from '@molecules';
-import { BlockListItem, CategoricalListItemForContentType } from '@organisms';
-import { ContentType } from '@types';
+import { Section, Text, View } from '@atomic';
+import { BlockListItem, ContentListItem } from '@molecules';
 import React from 'react';
 import { FadeInDown, FadeOutUp } from 'react-native-reanimated';
 
 const SearchInactivePage = () => {
-	const { locationPage, tagPage } = useNavigation();
-
 	return (
 		<View
 			animated
@@ -16,60 +11,65 @@ const SearchInactivePage = () => {
 			exiting={FadeOutUp.duration(250)}
 		>
 			<Section marginBottom='l'>
-				<CategoricalListItemForContentType
-					contentType={ContentType.artist}
-					title='Artists'
-					subtitle='42 following'
-					onPress={() => console.log('pressed')}
+				<ContentListItem
+					onPress={() => console.log('Pressed')}
+					titleTextProps={{
+						title: 'Artists',
+						bottomSubtext: '42 following'
+					}}
+					profileImageProps={{
+						borderRadius: 'm',
+						defaultImageProps: {
+							icon: 'artist',
+							backgroundColor: 'palette.p.medium',
+							iconColor: 'palette.p.light'
+						}
+					}}
 				/>
-				<CategoricalListItemForContentType
-					contentType={ContentType.host}
-					title='Hosts'
-					subtitle='12 following'
-					onPress={() => console.log('pressed')}
-				/>
-				<CategoricalListItemForContentType
-					contentType={ContentType.tag}
-					title='Tags'
-					subtitle='2 following'
-					onPress={() => console.log('pressed')}
-				/>
-				<CategoricalListItemForContentType
-					contentType={ContentType.location}
-					title='Locations'
-					subtitle='1 following'
-					onPress={() => console.log(2)}
+				<ContentListItem
+					onPress={() => console.log('Pressed')}
+					titleTextProps={{
+						title: 'Tags',
+						bottomSubtext: '3 following'
+					}}
+					profileImageProps={{
+						borderRadius: 'm',
+						defaultImageProps: {
+							icon: 'host',
+							backgroundColor: 'palette.t.medium',
+							iconColor: 'palette.t.light'
+						}
+					}}
 				/>
 			</Section>
 			<Section margin='m'>
-				<SectionHeader text='Discover' icon='discover' />
-				<View marginBottom='m'>
-					<BlockListItem
-						icon='tag'
-						title='Electro House'
-						subtitle='1.2k followers'
-						color='ion'
-						onPress={() => console.log(3668)}
-					/>
-				</View>
-				<View marginBottom='m'>
-					<BlockListItem
-						icon='location'
-						title='Los Angeles'
-						subtitle='5.1M followers'
-						color='ion'
-						onPress={() => console.log(1)}
-					/>
-				</View>
-				<View marginBottom='m'>
-					<BlockListItem
-						icon='tag'
-						title='house'
-						subtitle='2.6M followers'
-						color='ion'
-						onPress={() => console.log(1)}
-					/>
-				</View>
+				<Text variant='section-header-1' marginBottom='m'>
+					Discover
+				</Text>
+				<BlockListItem
+					icon='tag'
+					onPress={() => console.log(3668)}
+					titleTextProps={{
+						title: 'house',
+						topSubtext: '2.6M followers'
+					}}
+				/>
+				<BlockListItem
+					icon='location'
+					onPress={() => console.log(1)}
+					titleTextProps={{
+						title: 'Los Angeles',
+						topSubtext: '5.1M followers'
+					}}
+				/>
+				<BlockListItem
+					icon='tag'
+					onPress={() => console.log(1)}
+					titleTextProps={{
+						title: 'rock',
+						topSubtext: '4.3M followers'
+					}}
+				/>
 			</Section>
 		</View>
 	);

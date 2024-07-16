@@ -33,14 +33,14 @@ const BottomSheetListItemLink: React.FC<BottomSheetListItemLinkProps> = ({
 	return (
 		<BgTouchAnimation
 			onPress={onPress}
-			color={getRawColor(colorScheme[mode].backgroundHighlight)}
+			color={getRawColor(colorScheme[mode].bgHighlight)}
 			animationType='highlight'
 		>
 			<View
 				style={[styles.container, border && theme.borders.xthin.bottom]}
 				padding='m'
 			>
-				<Icon name='link' size='regular' />
+				<Icon name='link' size='m' />
 				<View marginLeft='m' style={styles.textContainer}>
 					<Text variant='paragraph' marginBottom='xs'>
 						{text}

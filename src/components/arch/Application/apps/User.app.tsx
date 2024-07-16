@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { BottomTabNavigatorParamList } from '@types';
 import React from 'react';
-import { ProfileTab } from '../tabs';
+import { ProfileTab, SearchTab } from '../tabs';
 import { useNavigationSettings } from '../tabs/settings';
 import AppDependencies from './AppDependencies';
 
@@ -22,24 +22,42 @@ const UserApp = () => {
 						sceneContainerStyle={sceneContainerStyle}
 						screenOptions={screenOptions}
 					>
-						{/* <Tab.Screen
+						<Tab.Screen
 							name='Search'
 							component={SearchTab}
 							options={{
-								tabBarIcon: ({ color, focused }) =>
+								tabBarIcon: ({ focused }) =>
 									focused ? (
-										<Icon name='search-filled' size='regular' color={color} />
+										<Icon
+											name='search-filled'
+											size='m'
+											color={
+												focused ? 'navbar.icon.active' : 'navbar.icon.inactive'
+											}
+										/>
 									) : (
-										<Icon name='search' size='regular' color={color} />
+										<Icon
+											name='search'
+											size='m'
+											color={
+												focused ? 'navbar.icon.active' : 'navbar.icon.inactive'
+											}
+										/>
 									)
 							}}
-						/> */}
+						/>
 						<Tab.Screen
 							name='Profile'
 							component={ProfileTab}
 							options={{
-								tabBarIcon: ({ color }) => (
-									<Icon name='profile' size='regular' />
+								tabBarIcon: ({ focused }) => (
+									<Icon
+										name='profile'
+										size='m'
+										color={
+											focused ? 'navbar.icon.active' : 'navbar.icon.inactive'
+										}
+									/>
 								)
 							}}
 						/>

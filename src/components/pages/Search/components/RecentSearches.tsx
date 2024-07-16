@@ -1,8 +1,6 @@
-import { Section, View } from '@atomic';
+import { Section, Text } from '@atomic';
 import { Search } from '@flux/api/search';
-import { SectionHeader } from '@molecules';
-import { ContentListItem } from '@organisms';
-import { ContentType } from '@types';
+import { ContentListItem } from '@molecules';
 import React from 'react';
 
 interface RecentSearchesProps {
@@ -16,17 +14,17 @@ const RecentSearches: React.FC<RecentSearchesProps> = ({
 }) => {
 	return (
 		<Section>
-			<View marginHorizontal='m'>
-				<SectionHeader text='Recent Searches' titleVariant='large' />
-			</View>
+			<Text variant='section-header-2' marginHorizontal='m'>
+				Recent Searches
+			</Text>
 			{recentSearches?.map((result) => (
 				<ContentListItem
 					key={result.uid}
-					title={result.name}
-					subtitle='artist'
 					onPress={() => onPressSearchResult(result)}
-					contentType={ContentType.artist}
-					border
+					titleTextProps={{
+						title: result.name,
+						bottomSubtext: 'artist'
+					}}
 				/>
 			))}
 		</Section>

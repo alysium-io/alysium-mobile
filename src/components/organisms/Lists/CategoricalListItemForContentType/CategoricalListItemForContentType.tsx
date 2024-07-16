@@ -23,7 +23,7 @@ const CategoricalListItemForContentType: React.FC<
 		<ListItemContainer border onPress={onPress}>
 			<CategoricalListItemForContentTypeImage contentType={contentType} />
 			<ListItemTitle title={title} subtitle={subtitle} />
-			<Icon name='arrow-right' color='ion' size='small' />
+			<Icon name='arrow-right' color='ion' size='s' />
 		</ListItemContainer>
 	);
 };

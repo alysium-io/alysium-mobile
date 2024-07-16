@@ -27,7 +27,7 @@ const HeaderBackground = () => {
 			/>
 			<View
 				borderBottomWidth={theme.borderWidth.normal}
-				borderBottomColor='border.medium'
+				borderBottomColor='navbar.border'
 				style={backgroundStyle}
 			/>
 		</>

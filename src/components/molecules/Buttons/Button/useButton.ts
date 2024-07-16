@@ -24,9 +24,9 @@ const useButton = (
 	const { getRawColor, theme } = useTheme();
 
 	const background =
-		buttonColorConfig.background !== undefined
-			? getRawColor(buttonColorConfig.background)
-			: getRawColor(colorScheme[variant][colorVariant].background);
+		buttonColorConfig.bg !== undefined
+			? getRawColor(buttonColorConfig.bg)
+			: getRawColor(colorScheme[variant][colorVariant].bg);
 	const borderColor =
 		buttonColorConfig.borderColor !== undefined
 			? getRawColor(buttonColorConfig.borderColor)
@@ -39,7 +39,7 @@ const useButton = (
 	const getBackgroundColor = () => {
 		if (buttonState === 'default') return background;
 		if (buttonState === 'disabled')
-			return getRawColor(disabledColorScheme[variant].background);
+			return getRawColor(disabledColorScheme[variant].bg);
 		return getBackgroundColorDark();
 	};
 

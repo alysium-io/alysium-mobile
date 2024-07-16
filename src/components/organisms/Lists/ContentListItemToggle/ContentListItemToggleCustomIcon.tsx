@@ -11,7 +11,7 @@ const ContentListItemToggleCustomIcon: React.FC<
 > = ({ icon }) => {
 	return (
 		<View padding='m'>
-			<Icon name={icon} size='small' color='ion' />
+			<Icon name={icon} size='s' color='ion' />
 		</View>
 	);
 };

@@ -70,8 +70,8 @@ const ToggleButton: React.FC<ToggleButtonProps> = ({
 				animatedValue.value,
 				[0, 1],
 				[
-					theme.colors[colorScheme[mode].inactive.background],
-					theme.colors[colorScheme[mode].active.background]
+					theme.colors[colorScheme[mode].inactive.bg],
+					theme.colors[colorScheme[mode].active.bg]
 				]
 			),
 			borderColor: interpolateColor(
@@ -133,7 +133,7 @@ const ToggleButton: React.FC<ToggleButtonProps> = ({
 						<Icon
 							animated
 							name={icon}
-							size='small'
+							size='s'
 							animatedPathProps={animatedIconStyles}
 						/>
 					</View>
@@ -143,7 +143,7 @@ const ToggleButton: React.FC<ToggleButtonProps> = ({
 						<Icon
 							animated
 							name={inactiveIcon}
-							size='small'
+							size='s'
 							animatedPathProps={animatedIconStyles}
 						/>
 					</View>

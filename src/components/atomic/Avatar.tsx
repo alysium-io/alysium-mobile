@@ -1,32 +1,24 @@
 import { Image, View } from '@atomic';
-import { useTheme } from '@hooks';
-import { IconNames } from '@svg';
-import { ContentType, Persona } from '@types';
+import { BorderRadii } from '@types';
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import DefaultIconImage from './DefaultIconImage';
-
-const defaultAvatarImageIconScheme = {
-	[ContentType.artist]: 'artist' as IconNames,
-	[ContentType.host]: 'host' as IconNames,
-	[ContentType.tag]: 'tag' as IconNames,
-	[ContentType.location]: 'location' as IconNames,
-	[ContentType.event]: 'event' as IconNames,
-	[ContentType.user]: 'user' as IconNames
-};
+import DefaultImage from './DefaultImage';
 
 interface AvatarProps {
-	contentType: ContentType | Persona;
 	image?: string | null;
+	borderRadius?: keyof BorderRadii;
+	defaultImageProps?: React.ComponentProps<typeof DefaultImage>;
 }
 
-const Avatar: React.FC<AvatarProps> = ({ contentType, image }) => {
-	const { theme } = useTheme();
-
+const Avatar: React.FC<AvatarProps> = ({
+	image,
+	borderRadius = 'round',
+	defaultImageProps
+}) => {
 	return (
-		<View style={[styles.container, { borderRadius: theme.borderRadii.round }]}>
+		<View style={styles.container} borderRadius={borderRadius}>
 			{!image ? (
-				<DefaultIconImage icon={defaultAvatarImageIconScheme[contentType]} />
+				<DefaultImage {...defaultImageProps} />
 			) : (
 				<Image source={{ uri: image }} style={styles.image} />
 			)}

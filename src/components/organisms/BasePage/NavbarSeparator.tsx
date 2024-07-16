@@ -17,7 +17,7 @@ const NavbarSeparator: React.FC<NavbarSeparatorProps> = ({
 				styles.container,
 				{ height: isFooterActive ? 0 : theme.borderWidth.normal }
 			]}
-			backgroundColor='navbar.border-top'
+			backgroundColor='navbar.border'
 		/>
 	);
 };

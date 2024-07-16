@@ -410,7 +410,7 @@ const ComponentsPage = () => {
 								onPress={() => console.log('tag')}
 								contentType={ContentType.tag}
 								image={null}
-								size='small'
+								size='s'
 								border
 							/>
 							<ContentListItem
@@ -419,7 +419,7 @@ const ComponentsPage = () => {
 								onPress={() => console.log('user')}
 								contentType={ContentType.user}
 								image={global.sampleData.images.user}
-								size='small'
+								size='s'
 								border
 							/>
 						</Section>

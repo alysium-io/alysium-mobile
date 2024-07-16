@@ -1,7 +1,5 @@
 import { Icon, Text, TextInput, View } from '@atomic';
-import { Colors } from '@etc';
 import { useTextInput, useTheme } from '@hooks';
-import { ThemeMode } from '@types';
 import React, { useState } from 'react';
 import { Keyboard, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import { FadeIn, LinearTransition } from 'react-native-reanimated';
@@ -23,30 +21,9 @@ const SearchBar: React.FC<SearchBarProps> = ({
 	isActive,
 	setIsActive
 }) => {
+	const { theme } = useTheme();
 	const { ref, focus, clear, blur } = useTextInput();
-	const { theme, getRawColor, mode } = useTheme();
 	const [showClearButton, setShowClearButton] = useState<boolean>(false);
-
-	const colorScheme = {
-		[ThemeMode.dark]: {
-			placeholderText: Colors.RGBA2String(
-				Colors.hex2RGBA(getRawColor(theme.colors.ion_light), 0.8)
-			),
-			text: theme.colors.ion_light,
-			background: 'ion_dark',
-			icon: 'ion_light',
-			clearBtn: 'ion'
-		},
-		[ThemeMode.light]: {
-			placeholderText: Colors.RGBA2String(
-				Colors.hex2RGBA(getRawColor(theme.colors.ion_dark), 0.7)
-			),
-			text: theme.colors.ion_dark,
-			background: 'ion_light',
-			icon: 'ion_dark',
-			clearBtn: 'ion'
-		}
-	};
 
 	const _onPressActivate = () => {
 		setIsActive(true);
@@ -78,20 +55,22 @@ const SearchBar: React.FC<SearchBarProps> = ({
 				animated
 				layout={LinearTransition.duration(200)}
 				style={styles.textContainer}
-				backgroundColor={colorScheme[mode].background}
+				backgroundColor='search.search-bar.bg'
 			>
 				<TouchableWithoutFeedback onPress={_onPressActivate}>
-					<View padding='s' style={styles.textContainerLeft}>
-						<Icon name='search' size='regular' color={colorScheme[mode].icon} />
+					<View style={styles.textContainerLeft}>
+						<Icon name='search' size='m' color='search.search-bar.icon' />
 						<View flex={1} paddingLeft='s' justifyContent='center'>
 							<TextInput
 								ref={ref}
 								variant='paragraph-bold'
-								placeholderTextColor={colorScheme[mode].placeholderText}
+								placeholderTextColor={
+									theme.colors['search.search-bar.placeholder-text']
+								}
 								placeholder='Search Alysium...'
 								onChangeText={_onChangeText}
 								onFocus={_onPressActivate}
-								style={{ color: colorScheme[mode].text }}
+								color='search.search-bar.text'
 							/>
 						</View>
 					</View>
@@ -106,8 +85,8 @@ const SearchBar: React.FC<SearchBarProps> = ({
 						>
 							<Icon
 								name='clear'
-								size='regular'
-								color={colorScheme[mode].clearBtn}
+								size='m'
+								color='search.search-bar.clear-btn-icon'
 							/>
 						</View>
 					</TouchableWithoutFeedback>
@@ -121,7 +100,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
 						exiting={FadeIn.delay(200).duration(200)}
 						padding='s'
 					>
-						<Text variant='paragraph-medium' color='t1'>
+						<Text variant='paragraph-medium' color='text.p'>
 							cancel
 						</Text>
 					</View>
@@ -143,6 +122,9 @@ const styles = StyleSheet.create({
 	},
 	textContainerLeft: {
 		flexDirection: 'row',
+		justifyContent: 'center',
+		alignItems: 'center',
+		padding: 12,
 		flex: 1
 	},
 	textContainerRight: {

@@ -22,14 +22,17 @@ interface BgTouchAnimationProps {
 const BgTouchAnimation: React.FC<BgTouchAnimationProps> = ({
 	children,
 	onPress = () => console.log('Touched BgTouchAnimation'),
-	color = 'bg-touch-animation.background.p',
+	color = 'bg-touch-animation.bg.p',
 	activeOpacity = 0.2,
 	disabled = false
 }) => {
 	const { theme } = useTheme();
 	const backgroundAnimation = useSharedValue(0);
-	const transparentColor = Colors.hex2RGBAString(theme.colors[color], 0);
-	const opaqueColor = Colors.hex2RGBAString(theme.colors[color], activeOpacity);
+
+	const activeColor =
+		theme.colors[color] || theme.colors['bg-touch-animation.bg.p'];
+	const transparentColor = Colors.hex2RGBAString(activeColor, 0);
+	const opaqueColor = Colors.hex2RGBAString(activeColor, activeOpacity);
 
 	const animatedStyle = useAnimatedStyle(() => {
 		return {
@@ -39,7 +42,7 @@ const BgTouchAnimation: React.FC<BgTouchAnimationProps> = ({
 				[transparentColor, opaqueColor]
 			)
 		};
-	}, []);
+	});
 
 	const onPressIn = () => {
 		backgroundAnimation.value = 1;

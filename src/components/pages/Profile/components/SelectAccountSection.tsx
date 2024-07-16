@@ -1,37 +1,37 @@
 import { usePersonaAppContext } from '@arch/Application/contexts/Persona.context';
 import { useUserAppContext } from '@arch/Application/contexts/User.context';
-import { Section, View } from '@atomic';
-import { SectionHeader } from '@molecules';
-import { ContentListItem } from '@organisms';
+import { Section, Text } from '@atomic';
+import { ActiveListItem } from '@molecules';
 import { Persona } from '@types';
 import React from 'react';
 
 const SelectAccountSection = () => {
-	const { userData, userArtists, userHosts, personaId, personaType } =
-		useUserAppContext();
+	const { userData, personaId, personaType } = useUserAppContext();
 	const { changePersona } = usePersonaAppContext();
 	return (
 		<Section marginBottom='xl'>
-			<View marginHorizontal='m'>
-				<SectionHeader text='Select Account' titleVariant='large' />
-			</View>
+			<Text variant='section-header-2' marginHorizontal='m' marginBottom='m'>
+				Account
+			</Text>
 			{userData && (
-				<ContentListItem
+				<ActiveListItem
 					key={userData.user_uid}
-					title={'@' + userData.handle}
-					subtitle={'user'}
 					onPress={() => changePersona(Persona.user, userData.user_uid)}
-					contentType={Persona.user}
-					image={userData.profile_image?.url}
-					border
-					markerIcon={
+					titleTextProps={{
+						title: '@' + userData.handle,
+						titleVariant: 'paragraph',
+						bottomSubtext: 'user'
+					}}
+					profileImageProps={{
+						contentType: Persona.user,
+						image: userData.profile_image?.url
+					}}
+					active={
 						personaType === Persona.user && personaId === userData.user_uid
-							? 'checkmark'
-							: undefined
 					}
 				/>
 			)}
-			{userArtists.map((artist) => (
+			{/* {userArtists.map((artist) => (
 				<ContentListItem
 					key={artist.artist_uid}
 					title={artist.name}
@@ -62,7 +62,7 @@ const SelectAccountSection = () => {
 							: undefined
 					}
 				/>
-			))}
+			))} */}
 		</Section>
 	);
 };

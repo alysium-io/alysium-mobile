@@ -1,31 +1,33 @@
-import { Section, View } from '@atomic';
-import { SectionHeader } from '@molecules';
-import { MenuListItem } from '@organisms';
+import { Section, Text } from '@atomic';
+import { MenuListItem } from '@molecules';
 import React from 'react';
 
 const MenuSection = () => {
 	return (
 		<Section>
-			<View marginHorizontal='m'>
-				<SectionHeader text='Menu' titleVariant='large' />
-			</View>
+			<Text variant='section-header-2' marginHorizontal='m' marginBottom='m'>
+				Menu
+			</Text>
 			<MenuListItem
-				title='Settings'
-				subtitle='Change account preferences, notifications, and more'
+				titleTextProps={{
+					title: 'Settings',
+					topSubtext: 'Update your profile information'
+				}}
 				onPress={() => console.log('Settings')}
-				border
 			/>
 			<MenuListItem
-				title='Alysium'
-				subtitle='Learn more about Alysium'
+				titleTextProps={{
+					title: 'Alysium',
+					topSubtext: 'Learn more about Alysium'
+				}}
 				onPress={() => console.log('Settings')}
-				border
 			/>
 			<MenuListItem
-				title='Terms of Service'
-				subtitle='Read our terms of service'
+				titleTextProps={{
+					title: 'Terms of Service',
+					topSubtext: 'Read our terms of service'
+				}}
 				onPress={() => console.log('Settings')}
-				border={false}
 			/>
 		</Section>
 	);

@@ -7,7 +7,7 @@ const LogoutSection = () => {
 	const { logout } = useAuthenticationAppContext();
 
 	return (
-		<View margin='m'>
+		<View margin='m' marginTop='xl'>
 			<Button variant='outlined' color='t' text='Logout' onPress={logout} />
 		</View>
 	);

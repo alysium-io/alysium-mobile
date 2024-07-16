@@ -74,7 +74,7 @@ export type SemanticColors = {
 	'text.color.s.heavy': HexColor;
 
 	// Touchables
-	'bg-touch-animation.background.p': HexColor;
+	'bg-touch-animation.bg.p': HexColor;
 
 	// Borders
 	'border.light': HexColor;
@@ -88,38 +88,38 @@ export type SemanticColors = {
 	'sheet.handle': HexColor;
 
 	// Buttons
-	'button.solid.loading.background': HexColor;
+	'button.solid.loading.bg': HexColor;
 	'button.solid.loading.activity-indicator': HexColor;
-	'button.solid.disabled.background': HexColor;
+	'button.solid.disabled.bg': HexColor;
 	'button.solid.disabled.text': HexColor;
-	'button.solid.active.background.default': HexColor;
+	'button.solid.active.bg.default': HexColor;
 	'button.solid.active.text.default': HexColor;
-	'button.solid.active.background.p': HexColor;
+	'button.solid.active.bg.p': HexColor;
 	'button.solid.active.text.p': HexColor;
-	'button.solid.active.background.s': HexColor;
+	'button.solid.active.bg.s': HexColor;
 	'button.solid.active.text.s': HexColor;
-	'button.solid.active.background.t': HexColor;
+	'button.solid.active.bg.t': HexColor;
 	'button.solid.active.text.t': HexColor;
-	'button.solid.active.background.q': HexColor;
+	'button.solid.active.bg.q': HexColor;
 	'button.solid.active.text.q': HexColor;
 	'button.outlined.loading.border': HexColor;
 	'button.outlined.loading.activity-indicator': HexColor;
-	'button.outlined.disabled.background': HexColor;
+	'button.outlined.disabled.bg': HexColor;
 	'button.outlined.disabled.text': HexColor;
 	'button.outlined.disabled.border': HexColor;
-	'button.outlined.active.background.default': HexColor;
+	'button.outlined.active.bg.default': HexColor;
 	'button.outlined.active.text.default': HexColor;
 	'button.outlined.active.border.default': HexColor;
-	'button.outlined.active.background.p': HexColor;
+	'button.outlined.active.bg.p': HexColor;
 	'button.outlined.active.text.p': HexColor;
 	'button.outlined.active.border.p': HexColor;
-	'button.outlined.active.background.s': HexColor;
+	'button.outlined.active.bg.s': HexColor;
 	'button.outlined.active.text.s': HexColor;
 	'button.outlined.active.border.s': HexColor;
-	'button.outlined.active.background.t': HexColor;
+	'button.outlined.active.bg.t': HexColor;
 	'button.outlined.active.text.t': HexColor;
 	'button.outlined.active.border.t': HexColor;
-	'button.outlined.active.background.q': HexColor;
+	'button.outlined.active.bg.q': HexColor;
 	'button.outlined.active.text.q': HexColor;
 	'button.outlined.active.border.q': HexColor;
 
@@ -131,7 +131,12 @@ export type SemanticColors = {
 	'checkbox.bg.p': HexColor;
 	'checkbox.icon.p': HexColor;
 
-	'navbar.border-top': HexColor;
+	'navbar.border': HexColor;
+	'navbar.icon.active': HexColor;
+	'navbar.icon.inactive': HexColor;
+
+	'default-profile-image.bg': HexColor;
+	'default-profile-image.icon': HexColor;
 
 	// Etc
 	transparent: 'transparent';
@@ -139,6 +144,32 @@ export type SemanticColors = {
 	'etc.status-bar': StatusBarStyle;
 	'etc.keyboard': KeyboardColor;
 	'etc.blur': BlurColor;
+
+	// Molecules
+	'block-list-item.bg': HexColor;
+	'block-list-item.icon': HexColor;
+	'block-list-item.title': HexColor;
+	'block-list-item.subtitle': HexColor;
+
+	// Page specific things
+	'search.search-bar.placeholder-text': HexColor;
+	'search.search-bar.text': HexColor;
+	'search.search-bar.bg': HexColor;
+	'search.search-bar.icon': HexColor;
+	'search.search-bar.clear-btn-icon': HexColor;
+
+	'palette.p.light': HexColor;
+	'palette.p.medium': HexColor;
+	'palette.p.dark': HexColor;
+	'palette.s.light': HexColor;
+	'palette.s.medium': HexColor;
+	'palette.s.dark': HexColor;
+	'palette.t.light': HexColor;
+	'palette.t.medium': HexColor;
+	'palette.t.dark': HexColor;
+	'palette.q.light': HexColor;
+	'palette.q.medium': HexColor;
+	'palette.q.dark': HexColor;
 };
 
 export type SemanticColor = keyof SemanticColors;

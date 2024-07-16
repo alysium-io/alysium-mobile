@@ -9,7 +9,7 @@ const EditIcon = () => {
 			borderColor='bg.p'
 			style={[styles.container]}
 		>
-			<Icon name='pencil' size='small' color='text.negative.p' />
+			<Icon name='pencil' size='s' color='text.negative.p' />
 		</View>
 	);
 };

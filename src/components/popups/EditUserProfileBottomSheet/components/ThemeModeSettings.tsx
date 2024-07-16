@@ -13,7 +13,6 @@ const ThemeModeSettings = () => {
 			items={[
 				{
 					id: 'default',
-					onPress: () => console.log('Option 1 pressed'),
 					titleTextProps: {
 						title: 'default',
 						titleVariant: 'paragraph'
@@ -21,7 +20,6 @@ const ThemeModeSettings = () => {
 				},
 				{
 					id: 'alwaysLight',
-					onPress: () => console.log('Option 2 pressed'),
 					titleTextProps: {
 						title: 'always light',
 						titleVariant: 'paragraph'
@@ -29,7 +27,6 @@ const ThemeModeSettings = () => {
 				},
 				{
 					id: 'alwaysDark',
-					onPress: () => console.log('Option 3 pressed'),
 					titleTextProps: {
 						title: 'always dark',
 						titleVariant: 'paragraph'

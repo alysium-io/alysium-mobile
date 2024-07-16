@@ -1,13 +1,12 @@
 import { View } from '@atomic';
-import { ListItemWithRadio, TitleTextProps } from '@molecules';
+import { ListItemWithRadio } from '@molecules';
 import React, { useState } from 'react';
 
 interface SingleOptionRadioTogglerProps {
-	items: {
-		id: string;
-		onPress?: () => void;
-		titleTextProps: TitleTextProps;
-	}[];
+	items: Omit<
+		React.ComponentProps<typeof ListItemWithRadio>,
+		'radioButtonProps'
+	>[];
 	defaultId?: string;
 	onChange?: (id: string) => void;
 }
@@ -30,9 +29,7 @@ const SingleOptionRadioToggler: React.FC<SingleOptionRadioTogglerProps> = ({
 				<ListItemWithRadio
 					key={index}
 					{...item}
-					containerProps={{
-						onPress: item.onPress
-					}}
+					onPress={item.onPress}
 					radioButtonProps={{
 						active: current === item.id,
 						onPress: () => _onPress(item.id)

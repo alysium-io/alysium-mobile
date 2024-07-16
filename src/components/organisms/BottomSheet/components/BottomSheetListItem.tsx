@@ -34,7 +34,7 @@ const BottomSheetListItem: React.FC<BottomSheetListItemProps> = ({
 				padding='m'
 			>
 				<Text variant='paragraph-small-bold'>{text}</Text>
-				{icon && <Icon name={icon} size='small' color={theme.colors.t1} />}
+				{icon && <Icon name={icon} size='s' color={theme.colors.t1} />}
 			</View>
 		</TouchableWithoutFeedback>
 	);

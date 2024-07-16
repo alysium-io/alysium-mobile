@@ -1,18 +1,12 @@
-import { View } from '@atomic';
-import { DeclarativeText } from '@molecules';
+import { Text, View } from '@atomic';
 import React from 'react';
 
 const NoRecentSearches = () => {
 	return (
 		<View margin='m'>
-			<DeclarativeText
-				textItems={[
-					{
-						text: 'No recent searches...',
-						variant: 'paragraph-medium'
-					}
-				]}
-			/>
+			<Text variant='paragraph-medium' color='text.p'>
+				No recent searches...
+			</Text>
 		</View>
 	);
 };

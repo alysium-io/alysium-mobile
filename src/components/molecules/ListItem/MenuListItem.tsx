@@ -1,33 +1,31 @@
-import { BgTouchAnimation } from '@atomic';
+import { BgTouchAnimation, Icon, View } from '@atomic';
 import React from 'react';
 import Container from './components/Container';
-import RadioButton from './components/RadioButton';
 import TitleText from './components/TitleText';
 
-interface ListItemWithRadioProps {
-	id: string;
+interface MenuListItemProps {
 	containerProps?: React.ComponentProps<typeof Container>;
-	radioButtonProps: React.ComponentProps<typeof RadioButton>;
 	titleTextProps: React.ComponentProps<typeof TitleText>;
 	disabled?: boolean;
 	onPress?: () => void;
 }
 
-const ListItemWithRadio: React.FC<ListItemWithRadioProps> = ({
+const MenuListItem: React.FC<MenuListItemProps> = ({
 	containerProps,
-	radioButtonProps,
 	titleTextProps,
 	disabled = false,
 	onPress
 }) => {
 	return (
-		<BgTouchAnimation disabled={disabled || !onPress} onPress={onPress}>
+		<BgTouchAnimation disabled={disabled} onPress={onPress}>
 			<Container {...containerProps}>
 				<TitleText {...titleTextProps} />
-				<RadioButton {...radioButtonProps} />
+				<View marginHorizontal='m'>
+					<Icon name='arrow-right' color='text.t' size='s' />
+				</View>
 			</Container>
 		</BgTouchAnimation>
 	);
 };
 
-export default ListItemWithRadio;
+export default MenuListItem;

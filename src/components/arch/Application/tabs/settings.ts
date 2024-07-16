@@ -37,7 +37,7 @@ export const useNavigationSettings = (): IUseNavigationSettings => {
 			initialArtistAppTab: 'Profile' as keyof BottomTabNavigatorParamList,
 			initialHostAppTab: 'Profile' as keyof BottomTabNavigatorParamList,
 			initialTestAppTab: 'Pages' as keyof BottomTabNavigatorParamList,
-			initialUserAppTab: 'Profile' as keyof BottomTabNavigatorParamList
+			initialUserAppTab: 'Search' as keyof BottomTabNavigatorParamList
 		}
 	};
 
@@ -47,7 +47,7 @@ export const useNavigationSettings = (): IUseNavigationSettings => {
 		tabBarActiveTintColor: theme.colors['text.p'],
 		tabBarStyle: {
 			backgroundColor: theme.colors['bg.p'],
-			borderTopWidth: 0
+			borderTopWidth: undefined // if you're looking for the navbar border config, we override it in the @organism/BasePage component
 		}
 	};
 

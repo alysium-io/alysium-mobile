@@ -37,8 +37,7 @@ const Button: React.FC<ButtonProps> = ({
 
 		if (buttonState === 'disabled') {
 			return {
-				backgroundColor:
-					`button.${variant}.disabled.background` as SemanticColor,
+				backgroundColor: `button.${variant}.disabled.bg` as SemanticColor,
 				textColor: `button.${variant}.disabled.text` as SemanticColor,
 				borderColor:
 					variant === 'outlined'
@@ -51,7 +50,7 @@ const Button: React.FC<ButtonProps> = ({
 			return {
 				backgroundColor:
 					variant === 'solid'
-						? (`button.${variant}.loading.background` as SemanticColor)
+						? (`button.${variant}.loading.bg` as SemanticColor)
 						: ('transparent' as SemanticColor),
 				textColor: `button.${variant}.loading.text` as SemanticColor,
 				borderColor:
@@ -64,7 +63,7 @@ const Button: React.FC<ButtonProps> = ({
 		} else {
 			return {
 				backgroundColor:
-					`button.${variant}.active.background.${color}` as SemanticColor,
+					`button.${variant}.active.bg.${color}` as SemanticColor,
 				textColor: `button.${variant}.active.text.${color}` as SemanticColor,
 				borderColor:
 					variant === 'outlined'
@@ -83,7 +82,7 @@ const Button: React.FC<ButtonProps> = ({
 			activeOpacity={0.9}
 		>
 			<View
-				backgroundColor={settings.backgroundColor}
+				backgroundColor={settings.bgColor}
 				borderWidth={settings.borderWidth}
 				borderColor={settings.borderColor}
 				flexDirection='row'
