@@ -6,9 +6,6 @@ interface IUseUserPage {
 	artistData?: FindOneArtistResponseDto;
 	artistIsLoading: boolean;
 	artistError: any;
-	onPressFollowers: () => void;
-	onPressShows: () => void;
-	openLinks: () => void;
 }
 
 const useUserPage = (artist_uid: ApiIdentifier): IUseUserPage => {
@@ -16,21 +13,14 @@ const useUserPage = (artist_uid: ApiIdentifier): IUseUserPage => {
 		data: artistData,
 		isLoading: artistIsLoading,
 		error: artistError
-	} = artistApiSlice.useFindOneQuery({
+	} = artistApiSlice.usePageQuery({
 		params: { artist_uid: artist_uid }
 	});
-
-	const onPressFollowers = () => console.log('Followers');
-	const onPressShows = () => console.log('Shows');
-	const openLinks = () => console.log('Links');
 
 	return {
 		artistData,
 		artistIsLoading,
-		artistError,
-		onPressFollowers,
-		onPressShows,
-		openLinks
+		artistError
 	};
 };
 

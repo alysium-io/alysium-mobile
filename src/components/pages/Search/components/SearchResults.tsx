@@ -23,7 +23,12 @@ const SearchResults: React.FC<SearchResultsProps> = ({
 					onPress={() => onPressSearchResult(result)}
 					titleTextProps={{
 						title: result.name,
-						bottomSubtext: 'artist'
+						bottomSubtext: result.searchType
+					}}
+					profileImageProps={{
+						defaultImageProps: {
+							icon: result.searchType
+						}
 					}}
 				/>
 			))}

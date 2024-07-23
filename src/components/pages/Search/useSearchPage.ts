@@ -1,37 +1,42 @@
-import { Search, searchApiSlice } from '@flux/api/search';
+import { SearchHit, searchApiSlice } from '@flux/api/search';
 import { SearchArtistsResponseDto } from '@flux/api/search/dto/search-artists.dto';
+import { SearchType } from '@flux/api/search/search.entity';
 import { useNavigation, usePersistedSearchState } from '@hooks';
 import { useState } from 'react';
 
 interface IUseSearchPage {
 	searchText: string;
 	isLoading: boolean;
-	recentSearches: Search[];
+	recentSearches: SearchHit[];
 	searchResults?: SearchArtistsResponseDto;
 	setSearchText: (text: string) => void;
 	clearSearchText: () => void;
 	isSearchActive: boolean;
 	setIsSearchActive: (isActive: boolean) => void;
-	onPressSearchResult: (item: Search) => void;
+	onPressSearchResult: (item: SearchHit) => void;
 }
 
 const useSearchPage = (): IUseSearchPage => {
 	const [isSearchActive, setIsSearchActive] = useState<boolean>(false);
-	const { artistPage } = useNavigation();
+	const { artistPage, tagPage } = useNavigation();
 	const { addRecentSearch, recentSearches } = usePersistedSearchState();
 	const [searchText, setSearchText] = useState<string>('');
 	const clearSearchText = () => setSearchText('');
 
-	const onPressSearchResult = (item: Search) => {
+	const onPressSearchResult = (item: SearchHit) => {
 		addRecentSearch(item);
-		artistPage(item.uid);
+		if (item.searchType === SearchType.ARTIST) {
+			artistPage(item.uid);
+		} else if (item.searchType === SearchType.TAG) {
+			tagPage(item.uid);
+		}
 	};
 
 	const {
 		data: searchResults,
 		isLoading,
 		error
-	} = searchApiSlice.useSearchArtistsQuery(
+	} = searchApiSlice.useSearchTagsQuery(
 		{ body: { q: searchText } },
 		{ skip: searchText.length === 0 }
 	);

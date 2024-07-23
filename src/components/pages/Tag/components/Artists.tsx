@@ -1,9 +1,7 @@
-import { Section, View } from '@atomic';
+import { Section, Text } from '@atomic';
 import { FindOneTagResponseDto } from '@flux/api/tag/dto/tag-find-one.dto';
 import { useNavigation } from '@hooks';
-import { SectionHeader } from '@molecules';
-import { ContentListItem } from '@organisms';
-import { ContentType } from '@types';
+import { ContentListItem } from '@molecules';
 import React from 'react';
 
 interface ArtistsProps {
@@ -14,20 +12,24 @@ const Artists: React.FC<ArtistsProps> = ({ tagData }) => {
 	const { artistPage } = useNavigation();
 
 	return (
-		<Section marginTop='l'>
-			<View marginHorizontal='m'>
-				<SectionHeader text='Artists' />
-			</View>
+		<Section>
+			<Text variant='section-header-1' margin='m'>
+				Artists
+			</Text>
 			{tagData.artists.map((artist, index) => (
 				<ContentListItem
 					key={index}
-					rnk={index + 1}
-					title={artist.artist.name || 'Unknown'}
-					subtitle={'Los Angeles, CA'}
-					onPress={() => artistPage(artist.artist_uid)}
-					contentType={ContentType.artist}
-					image={artist.artist.profile_image?.url || ''}
-					size='large'
+					onPress={() => artistPage(artist.artist.artist_uid)}
+					titleTextProps={{
+						title: artist.artist.name,
+						bottomSubtext: 'Los Angeles, CA'
+					}}
+					profileImageProps={{
+						image: artist.artist.profile_image?.url,
+						defaultImageProps: {
+							icon: 'artist'
+						}
+					}}
 				/>
 			))}
 		</Section>

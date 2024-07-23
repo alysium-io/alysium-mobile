@@ -4,6 +4,10 @@ import {
 	SearchArtistsBodyDto,
 	SearchArtistsResponseDto
 } from './dto/search-artists.dto';
+import {
+	SearchTagsBodyDto,
+	SearchTagsResponseDto
+} from './dto/search-tags.dto';
 
 const apiSlice = createApi({
 	baseQuery: baseQueryConfig({ basePath: '/search' }),
@@ -16,6 +20,16 @@ const apiSlice = createApi({
 		>({
 			query: ({ body }) => ({
 				url: '/artists',
+				method: 'POST',
+				body
+			})
+		}),
+		searchTags: builder.query<
+			SearchTagsResponseDto,
+			{ body: SearchTagsBodyDto }
+		>({
+			query: ({ body }) => ({
+				url: '/tags',
 				method: 'POST',
 				body
 			})

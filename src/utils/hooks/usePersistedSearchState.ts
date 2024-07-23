@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from '@flux';
-import { Search } from '@flux/api/search';
+import { SearchHit } from '@flux/api/search';
 import { searchActions } from '@flux/local/search';
 import { SearchState } from '@flux/local/search/types';
 
 export type IUsePersistedSearchState = SearchState & {
-	addRecentSearch: (search: Search) => void;
+	addRecentSearch: (search: SearchHit) => void;
 	resetRecentSearches: () => void;
 };
 
@@ -12,7 +12,7 @@ const usePersistedSearchState = (): IUsePersistedSearchState => {
 	const dispatch = useDispatch();
 	const persistedSearch = useSelector((state) => state.persistedSearch);
 
-	const addRecentSearch = (search: Search) => {
+	const addRecentSearch = (search: SearchHit) => {
 		dispatch(searchActions.addRecentSearch(search));
 	};
 

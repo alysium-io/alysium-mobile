@@ -1,5 +1,5 @@
 import { ActivityIndicator, View } from '@atomic';
-import { Search } from '@flux/api/search';
+import { SearchHit } from '@flux/api/search';
 import { SearchArtistsResponseDto } from '@flux/api/search/dto/search-artists.dto';
 import React from 'react';
 import { Case, Switch } from 'react-if';
@@ -11,9 +11,9 @@ import SearchResults from './SearchResults';
 interface SearchActivePageProps {
 	searchText: string;
 	isLoading: boolean;
-	recentSearches: Search[];
+	recentSearches: SearchHit[];
 	searchResults?: SearchArtistsResponseDto;
-	onPressSearchResult: (item: Search) => void;
+	onPressSearchResult: (item: SearchHit) => void;
 }
 
 const SearchActivePage: React.FC<SearchActivePageProps> = ({

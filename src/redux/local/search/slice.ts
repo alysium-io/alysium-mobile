@@ -1,4 +1,4 @@
-import { Search } from '@flux/api/search';
+import { SearchHit } from '@flux/api/search';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { SearchState } from './types';
 
@@ -10,7 +10,7 @@ const searchSlice = createSlice({
 	name: 'search',
 	initialState,
 	reducers: {
-		addRecentSearch(state, action: PayloadAction<Search>) {
+		addRecentSearch(state, action: PayloadAction<SearchHit>) {
 			let recentSearchesCopy = [...state.recentSearches];
 
 			// First remove it if it exists

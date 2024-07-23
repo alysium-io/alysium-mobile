@@ -1,10 +1,10 @@
 import { Section, Text } from '@atomic';
-import { Search } from '@flux/api/search';
+import { SearchHit } from '@flux/api/search';
 import { ContentListItem } from '@molecules';
 import React from 'react';
 
 interface RecentSearchesProps {
-	recentSearches?: Search[];
+	recentSearches?: SearchHit[];
 	onPressSearchResult: (result: any) => void;
 }
 
@@ -23,7 +23,12 @@ const RecentSearches: React.FC<RecentSearchesProps> = ({
 					onPress={() => onPressSearchResult(result)}
 					titleTextProps={{
 						title: result.name,
-						bottomSubtext: 'artist'
+						bottomSubtext: result.searchType
+					}}
+					profileImageProps={{
+						defaultImageProps: {
+							icon: result.searchType
+						}
 					}}
 				/>
 			))}

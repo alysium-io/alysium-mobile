@@ -17,6 +17,10 @@ import {
 	FindOneArtistResponseDto
 } from './dto/artist-find-one.dto';
 import {
+	ArtistPageParamsDto,
+	ArtistPageResponseDto
+} from './dto/artist-page.dto';
+import {
 	UpdateArtistBodyDto,
 	UpdateArtistParamsDto,
 	UpdateArtistResponseDto
@@ -25,8 +29,19 @@ import {
 const apiSlice = createApi({
 	baseQuery: baseQueryConfig({ basePath: '/artist' }),
 	reducerPath: 'artistApi',
-	tagTypes: ['Artist'],
+	tagTypes: ['Artist', 'ArtistPage'],
 	endpoints: (builder) => ({
+		page: builder.query<ArtistPageResponseDto, { params: ArtistPageParamsDto }>(
+			{
+				query: ({ params }) => ({
+					url: `/page/${params.artist_uid}`,
+					method: 'GET'
+				}),
+				providesTags: (result, error, { params }) => [
+					{ type: 'ArtistPage', id: params.artist_uid }
+				]
+			}
+		),
 		findOne: builder.query<
 			FindOneArtistResponseDto,
 			{ params: FindOneArtistParamsDto }
@@ -56,7 +71,7 @@ const apiSlice = createApi({
 								id: artist_uid
 							})),
 							{ type: 'Artist', id: 'LIST' }
-						]
+					  ]
 					: [{ type: 'Artist', id: 'LIST' }]
 		}),
 		create: builder.mutation<

@@ -12,7 +12,7 @@ interface UserProps {
 
 const User: React.FC<UserProps> = ({ artist_uid }) => {
 	const { artistData } = useUserPage(artist_uid);
-
+	console.log(artistData);
 	if (!artistData) {
 		return null;
 	}

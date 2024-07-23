@@ -1,9 +1,7 @@
-import { Search } from '../search.entity';
+import { SearchResponseDto } from '../search.entity';
 
 export interface SearchArtistsBodyDto {
 	q: string;
 }
 
-export interface SearchArtistsResponseDto {
-	hits: Search[];
-}
+export interface SearchArtistsResponseDto extends SearchResponseDto {}

@@ -19,7 +19,7 @@ const LoggedOut = () => {
 				<DismissKeyboardWrapper>
 					<View margin='m' style={{ marginTop: insets.top + theme.spacing.l }}>
 						<View marginBottom='xl' alignItems='center'>
-							<Icon name='logo' size='large' color='text.p' />
+							<Icon name='logo' size='l' color='text.p' />
 						</View>
 						<Switch>
 							<Case condition={state.screen === 'continue-phone'}>

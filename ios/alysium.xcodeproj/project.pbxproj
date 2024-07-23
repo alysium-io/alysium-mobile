@@ -70,6 +70,7 @@
 		6AB7FF3E2BF92F9B00D4F277 /* alysium-dev Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6AB7FF3D2BF92F9B00D4F277 /* alysium-dev Info.plist */; };
 		6AB7FF452BF92FFB00D4F277 /* alysium-demo Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6AB7FF412BF92FFB00D4F277 /* alysium-demo Info.plist */; };
 		6AB7FF472BF92FFB00D4F277 /* alysium-qa Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6AB7FF422BF92FFB00D4F277 /* alysium-qa Info.plist */; };
+		6AEA19FA2C502B9500BD73FB /* LocalCustomIOSBuild.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 6AEA19F92C502B9500BD73FB /* LocalCustomIOSBuild.xcconfig */; };
 		6AF109462A95344A00DB24EC /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		6AF109472A95344A00DB24EC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		6AF1094B2A95344A00DB24EC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
@@ -164,6 +165,7 @@
 		6AB7FF412BF92FFB00D4F277 /* alysium-demo Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "alysium-demo Info.plist"; path = "alysium/alysium-demo Info.plist"; sourceTree = "<group>"; };
 		6AB7FF422BF92FFB00D4F277 /* alysium-qa Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "alysium-qa Info.plist"; path = "alysium/alysium-qa Info.plist"; sourceTree = "<group>"; };
 		6AE6E68920C741FC9F39CC01 /* HelveticaNeue-HeavyExt.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "HelveticaNeue-HeavyExt.otf"; path = "../src/assets/fonts/HelveticaNeue-HeavyExt.otf"; sourceTree = "<group>"; };
+		6AEA19F92C502B9500BD73FB /* LocalCustomIOSBuild.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = LocalCustomIOSBuild.xcconfig; sourceTree = "<group>"; };
 		6AF109532A95344A00DB24EC /* alysium-dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "alysium-dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F479C58037149F5BDB548D5 /* Lato-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Regular.ttf"; path = "../src/assets/fonts/Lato-Regular.ttf"; sourceTree = "<group>"; };
 		6FC20CA38F57C1ADDDC4FF47 /* Pods-alysiumCommonPods-alysium-demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alysiumCommonPods-alysium-demo.debug.xcconfig"; path = "Target Support Files/Pods-alysiumCommonPods-alysium-demo/Pods-alysiumCommonPods-alysium-demo.debug.xcconfig"; sourceTree = "<group>"; };
@@ -363,6 +365,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				6AEA19F92C502B9500BD73FB /* LocalCustomIOSBuild.xcconfig */,
 				13B07FAE1A68108700A75B9A /* alysium */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* alysiumTests */,
@@ -581,6 +584,7 @@
 				14AF8ADC8D5848C0B3341357 /* HelveticaNeue-HeavyCond.otf in Resources */,
 				0CFFED660202438489C81E32 /* HelveticaNeue-HeavyCondObl.otf in Resources */,
 				90878E2B138D481096781FBD /* HelveticaNeue-HeavyExt.otf in Resources */,
+				6AEA19FA2C502B9500BD73FB /* LocalCustomIOSBuild.xcconfig in Resources */,
 				3325C2532F2745C1AFB0C3BE /* HelveticaNeue-HeavyExtObl.otf in Resources */,
 				50523A3675324577B7AE0A6A /* HelveticaNeue-HeavyItalic.otf in Resources */,
 				D5ED295E1FF443EAA7AA40F9 /* HelveticaNeue-Light.otf in Resources */,
@@ -1150,6 +1154,7 @@
 		};
 		83CBBA201A601CBA00E9B192 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6AEA19F92C502B9500BD73FB /* LocalCustomIOSBuild.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CC = "";
