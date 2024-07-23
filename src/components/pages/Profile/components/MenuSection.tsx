@@ -10,13 +10,6 @@ const MenuSection = () => {
 			</Text>
 			<MenuListItem
 				titleTextProps={{
-					title: 'Settings',
-					topSubtext: 'Update your profile information'
-				}}
-				onPress={() => console.log('Settings')}
-			/>
-			<MenuListItem
-				titleTextProps={{
 					title: 'Alysium',
 					topSubtext: 'Learn more about Alysium'
 				}}
