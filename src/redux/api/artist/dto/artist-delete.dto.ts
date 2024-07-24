@@ -1,8 +1,8 @@
 import { ApiIdentifier } from '@types';
-import { Artist } from '../artist.entity';
+import { PrivateArtist } from '../artist.entity';
 
 export interface DeleteArtistParamsDto {
 	artist_uid: ApiIdentifier;
 }
 
-export interface DeleteArtistResponseDto extends Artist {}
+export interface DeleteArtistResponseDto extends PrivateArtist {}

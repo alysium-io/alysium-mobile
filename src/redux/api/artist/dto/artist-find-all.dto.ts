@@ -1,8 +1,8 @@
-import { Artist } from '../artist.entity';
+import { PrivateArtist } from '../artist.entity';
 
-export interface FindAllArtistsQueryDto {
+export interface PrivateFindAllArtistsQueryDto {
 	page: number;
 	limit: number;
 }
 
-export interface FindAllArtistsResponseDto extends Artist {}
+export interface PrivateFindAllArtistsResponseDto extends PrivateArtist {}

@@ -1,5 +1,5 @@
 import { artistApiSlice } from '@flux/api/artist';
-import { Artist } from '@flux/api/artist/artist.entity';
+import { PrivateArtist } from '@flux/api/artist/artist.entity';
 import { MediaRefType } from '@flux/api/media/media.entity';
 import { createUseContextHook, useMedia } from '@hooks';
 import { ProviderProps } from '@types';
@@ -8,7 +8,7 @@ import { Asset } from 'react-native-image-picker';
 import { useUserAppContext } from './User.context';
 
 export type ArtistAppContextType = {
-	artistData: Artist;
+	artistData: PrivateArtist;
 	artistError: any;
 	artistIsLoading: boolean;
 	setArtistProfileImage: (image: Asset) => void;
@@ -23,7 +23,7 @@ export const ArtistAppProvider: React.FC<ProviderProps> = ({ children }) => {
 		data: artistData,
 		error: artistError,
 		isLoading: artistIsLoading
-	} = artistApiSlice.useFindOneQuery({
+	} = artistApiSlice.usePrivateFindOneQuery({
 		params: { artist_uid: personaId }
 	});
 

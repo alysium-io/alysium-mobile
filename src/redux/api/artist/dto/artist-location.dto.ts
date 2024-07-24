@@ -1,5 +1,5 @@
 import { ApiIdentifier } from '@types';
-import { Artist } from '../artist.entity';
+import { PrivateArtist } from '../artist.entity';
 
 export interface UpdateArtistLocationParamsDto {
 	artist_uid: ApiIdentifier;
@@ -9,4 +9,4 @@ export interface UpdateArtistLocationBodyDto {
 	location_uid: ApiIdentifier;
 }
 
-export interface UpdateArtistLocationResponseDto extends Artist {}
+export interface UpdateArtistLocationResponseDto extends PrivateArtist {}

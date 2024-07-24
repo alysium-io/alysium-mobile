@@ -1,5 +1,5 @@
 import { artistApiSlice } from '@flux/api/artist';
-import { FindAllArtistsResponseDto } from '@flux/api/artist/dto/artist-find-all.dto';
+import { PrivateFindAllArtistsResponseDto } from '@flux/api/artist/dto/artist-find-all.dto';
 import { hostApiSlice } from '@flux/api/host';
 import { FindAllHostsResponseDto } from '@flux/api/host/dto/host-find-all.dto';
 import { MediaRefType } from '@flux/api/media/media.entity';
@@ -16,7 +16,7 @@ export type UserAppContextType = {
 	userData: User;
 	userError: any;
 	userIsLoading: boolean;
-	userArtists: FindAllArtistsResponseDto[];
+	userArtists: PrivateFindAllArtistsResponseDto[];
 	userArtistsError: any;
 	userArtistsIsLoading: boolean;
 	userHosts: FindAllHostsResponseDto[];
@@ -33,7 +33,7 @@ export const UserAppProvider: React.FC<ProviderProps> = ({ children }) => {
 		data: userData,
 		error: userError,
 		isLoading: userIsLoading
-	} = userApiSlice.useMeQuery();
+	} = userApiSlice.usePrivateFindOneQuery();
 	const { initializePersona } = usePersona();
 	const { uploadMedia } = useMedia();
 
@@ -58,7 +58,7 @@ export const UserAppProvider: React.FC<ProviderProps> = ({ children }) => {
 		data: userArtists,
 		error: userArtistsError,
 		isLoading: userArtistsIsLoading
-	} = artistApiSlice.useFindAllQuery({ query: { page: 1, limit: 10 } });
+	} = artistApiSlice.usePrivateFindAllQuery({ query: { page: 1, limit: 10 } });
 
 	const {
 		data: userHosts,

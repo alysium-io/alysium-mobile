@@ -1,7 +1,7 @@
-import { Artist } from '../artist.entity';
+import { PrivateArtist } from '../artist.entity';
 
 export interface CreateArtistBodyDto {
 	name: string;
 }
 
-export interface CreateArtistResponseDto extends Artist {}
+export interface CreateArtistResponseDto extends PrivateArtist {}

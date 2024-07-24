@@ -1,8 +1,14 @@
 import { ApiIdentifier } from '@types';
-import { Artist } from '../artist.entity';
+import { PrivateArtist, PublicArtist } from '../artist.entity';
 
-export interface FindOneArtistParamsDto {
+export interface PublicFindOneArtistParamsDto {
 	artist_uid: ApiIdentifier;
 }
 
-export interface FindOneArtistResponseDto extends Artist {}
+export interface PublicFindOneArtistResponseDto extends PublicArtist {}
+
+export interface PrivateFindOneArtistParamsDto {
+	artist_uid: ApiIdentifier;
+}
+
+export interface PrivateFindOneArtistResponseDto extends PrivateArtist {}

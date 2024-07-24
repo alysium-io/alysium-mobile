@@ -9,17 +9,15 @@ import {
 	DeleteArtistResponseDto
 } from './dto/artist-delete.dto';
 import {
-	FindAllArtistsQueryDto,
-	FindAllArtistsResponseDto
+	PrivateFindAllArtistsQueryDto,
+	PrivateFindAllArtistsResponseDto
 } from './dto/artist-find-all.dto';
 import {
-	FindOneArtistParamsDto,
-	FindOneArtistResponseDto
+	PrivateFindOneArtistParamsDto,
+	PrivateFindOneArtistResponseDto,
+	PublicFindOneArtistParamsDto,
+	PublicFindOneArtistResponseDto
 } from './dto/artist-find-one.dto';
-import {
-	ArtistPageParamsDto,
-	ArtistPageResponseDto
-} from './dto/artist-page.dto';
 import {
 	UpdateArtistBodyDto,
 	UpdateArtistParamsDto,
@@ -31,20 +29,21 @@ const apiSlice = createApi({
 	reducerPath: 'artistApi',
 	tagTypes: ['Artist', 'ArtistPage'],
 	endpoints: (builder) => ({
-		page: builder.query<ArtistPageResponseDto, { params: ArtistPageParamsDto }>(
-			{
-				query: ({ params }) => ({
-					url: `/page/${params.artist_uid}`,
-					method: 'GET'
-				}),
-				providesTags: (result, error, { params }) => [
-					{ type: 'ArtistPage', id: params.artist_uid }
-				]
-			}
-		),
-		findOne: builder.query<
-			FindOneArtistResponseDto,
-			{ params: FindOneArtistParamsDto }
+		publicFindOne: builder.query<
+			PublicFindOneArtistResponseDto,
+			{ params: PublicFindOneArtistParamsDto }
+		>({
+			query: ({ params }) => ({
+				url: `/public/${params.artist_uid}`,
+				method: 'GET'
+			}),
+			providesTags: (result, error, { params }) => [
+				{ type: 'ArtistPage', id: params.artist_uid }
+			]
+		}),
+		privateFindOne: builder.query<
+			PrivateFindOneArtistResponseDto,
+			{ params: PrivateFindOneArtistParamsDto }
 		>({
 			query: ({ params }) => ({
 				url: `/${params.artist_uid}`,
@@ -54,9 +53,9 @@ const apiSlice = createApi({
 				{ type: 'Artist', id: params.artist_uid }
 			]
 		}),
-		findAll: builder.query<
-			FindAllArtistsResponseDto[],
-			{ query: FindAllArtistsQueryDto }
+		privateFindAll: builder.query<
+			PrivateFindAllArtistsResponseDto[],
+			{ query: PrivateFindAllArtistsQueryDto }
 		>({
 			query: ({ query }) => ({
 				url: '/',

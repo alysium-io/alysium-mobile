@@ -1,5 +1,5 @@
 import { ApiIdentifier } from '@types';
-import { Artist } from '../artist/artist.entity';
+import { PrivateArtist } from '../artist/artist.entity';
 import { Event } from '../event/event.entity';
 import { Host } from '../host/host.entity';
 import { Media } from '../media/media.entity';
@@ -25,7 +25,7 @@ export interface EventGallery extends BaseGallery {
 }
 
 export interface ArtistGallery extends BaseGallery {
-	readonly artist: Artist;
+	readonly artist: PrivateArtist;
 }
 
 export interface HostGallery extends BaseGallery {

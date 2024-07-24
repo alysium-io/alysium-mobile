@@ -25,7 +25,6 @@ export type AuthenticationAppContextType = {
 	token: string | null;
 	state: AuthenticationState;
 	logout: () => void;
-	loginEmail: (email: string, password: string) => Promise<void>;
 	continuePhoneNumber: () => Promise<void>;
 	loginPhoneNumber: () => void;
 	setPhoneNumber: (phone_number: string) => void;
@@ -46,8 +45,7 @@ export const AuthenticationAppProvider: React.FC<ProviderProps> = ({
 		setPersistedAppStateWithDefaults,
 		authStage
 	} = usePersistedAppState();
-	const [loginQuery] = userApiSlice.useLazyLoginQuery();
-	const [meQuery] = userApiSlice.useLazyMeQuery();
+	const [privateFindOneUserQuery] = userApiSlice.useLazyPrivateFindOneQuery();
 	const [registerPhoneNumberQuery] =
 		userApiSlice.useLazyRegisterPhoneNumberQuery();
 	const [loginPhoneNumberQuery] = userApiSlice.useLazyLoginPhoneNumberQuery();
@@ -92,7 +90,7 @@ export const AuthenticationAppProvider: React.FC<ProviderProps> = ({
 			if (token !== null) {
 				if (authStage !== AuthStage.loggedIn) {
 					console.log(`Existing token found: ${token}`);
-					const { error } = await meQuery();
+					const { error } = await privateFindOneUserQuery();
 
 					if (error) {
 						console.log('Failed to fetch user data.', error);
@@ -128,20 +126,6 @@ export const AuthenticationAppProvider: React.FC<ProviderProps> = ({
 			authStage: AuthStage.loggedIn
 		});
 		resetState();
-	};
-
-	const loginEmail = async (email: string, password: string) => {
-		setPersistedAppState({ authStage: AuthStage.loading });
-		const { data, error } = await loginQuery({
-			body: { email, password }
-		});
-
-		if (error) {
-			logout();
-		}
-		if (data) {
-			login(data.token);
-		}
 	};
 
 	const continuePhoneNumber = async () => {
@@ -186,7 +170,6 @@ export const AuthenticationAppProvider: React.FC<ProviderProps> = ({
 				authStage,
 				token,
 				logout,
-				loginEmail,
 				state,
 				continuePhoneNumber,
 				loginPhoneNumber,

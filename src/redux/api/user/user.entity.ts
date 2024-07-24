@@ -1,5 +1,5 @@
 import { ApiIdentifier } from '@types';
-import { Artist } from '../artist/artist.entity';
+import { PrivateArtist } from '../artist/artist.entity';
 import { UserGallery } from '../gallery/gallery.entity';
 import { Host } from '../host/host.entity';
 import { Media } from '../media/media.entity';
@@ -12,6 +12,6 @@ export interface User {
 	readonly phone_number: string | null;
 	readonly profile_image: Media | null;
 	readonly hosts: Host[];
-	readonly artists: Artist[];
+	readonly artists: PrivateArtist[];
 	readonly gallery: UserGallery[];
 }
