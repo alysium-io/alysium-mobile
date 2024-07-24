@@ -1,12 +1,14 @@
 import { useUserAppContext } from '@arch/Application/contexts/User.context';
 import { Section, Text, View } from '@atomic';
+import { useNavigation } from '@hooks';
 import { BlockListItem, ContentListItem } from '@molecules';
 import React from 'react';
 import { FadeInDown, FadeOutUp } from 'react-native-reanimated';
 
 const SearchInactivePage = () => {
 	const { userData } = useUserAppContext();
-	console.log(userData);
+	const { userArtistsFollowingPage } = useNavigation();
+
 	return (
 		<View
 			animated
@@ -15,7 +17,7 @@ const SearchInactivePage = () => {
 		>
 			<Section marginBottom='l'>
 				<ContentListItem
-					onPress={() => console.log('Pressed')}
+					onPress={userArtistsFollowingPage}
 					titleTextProps={{
 						title: 'Artists',
 						bottomSubtext:

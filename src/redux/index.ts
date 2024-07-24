@@ -13,6 +13,7 @@ import {
 	REHYDRATE,
 	persistStore
 } from 'redux-persist';
+
 import { artistApiSlice } from './api/artist';
 import { artistTagLinkApiSlice } from './api/artist-tag-link';
 import { candidateApiSlice } from './api/candidate';
@@ -25,13 +26,15 @@ import { locationApiSlice } from './api/location';
 import { mediaApiSlice } from './api/media';
 import { searchApiSlice } from './api/search';
 import { tagApiSlice } from './api/tag';
-import { userApiSlice } from './api/user';
-import { venueApiSlice } from './api/venue';
-import { persistedAppReducer, persistedSearchReducer } from './local';
-
 import { ticketApiSlice } from './api/ticket';
 import { ticketCollectionApiSlice } from './api/ticket-collection';
 import { ticketTypeApiSlice } from './api/ticket-type';
+import { userApiSlice } from './api/user';
+import { userArtistsFollowingApiSlice } from './api/user-artists-following';
+import { venueApiSlice } from './api/venue';
+
+import { persistedAppReducer, persistedSearchReducer } from './local';
+
 import { apiErrorUnauthorizedMiddleware } from './middleware';
 
 const store = configureStore({
@@ -54,7 +57,9 @@ const store = configureStore({
 		[contractApiSlice.reducerPath]: contractApiSlice.reducer,
 		[ticketCollectionApiSlice.reducerPath]: ticketCollectionApiSlice.reducer,
 		[ticketTypeApiSlice.reducerPath]: ticketTypeApiSlice.reducer,
-		[ticketApiSlice.reducerPath]: ticketApiSlice.reducer
+		[ticketApiSlice.reducerPath]: ticketApiSlice.reducer,
+		[userArtistsFollowingApiSlice.reducerPath]:
+			userArtistsFollowingApiSlice.reducer
 	},
 	middleware: (getDefaultMiddleware) => {
 		return getDefaultMiddleware({
@@ -79,6 +84,7 @@ const store = configureStore({
 			.concat(ticketCollectionApiSlice.middleware)
 			.concat(ticketTypeApiSlice.middleware)
 			.concat(ticketApiSlice.middleware)
+			.concat(userArtistsFollowingApiSlice.middleware)
 			.concat(apiErrorUnauthorizedMiddleware);
 	}
 });

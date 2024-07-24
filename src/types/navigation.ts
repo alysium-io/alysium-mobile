@@ -59,6 +59,8 @@ type EditTicketTypePage = {
 
 type ArtistViewContractPage = { contract_uid: ApiIdentifier };
 
+type UserArtistsFollowingPage = undefined;
+
 /**
  * Stack Navigators
  *
@@ -106,6 +108,8 @@ export type SearchStackNavigatorParamList = {
 	TagFollowersPage: TagFollowersPage;
 
 	LocationPage: LocationPage;
+
+	UserArtistsFollowingPage: UserArtistsFollowingPage;
 };
 
 export type ProfileStackNavigatorParamList = {

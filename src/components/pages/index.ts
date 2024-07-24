@@ -14,6 +14,7 @@ export * from './Location';
 export * from './Profile';
 export * from './Search';
 export * from './Tag';
+export * from './UserArtistsFollowing';
 
 // For testing
 export * from './Components';
