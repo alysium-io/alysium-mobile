@@ -1,3 +1,3 @@
-import { User } from '../user.entity';
+import { PrivateUser } from '../user.entity';
 
-export interface PrivateFindOneUserResponseDto extends User {}
+export interface PrivateFindOneUserResponseDto extends PrivateUser {}

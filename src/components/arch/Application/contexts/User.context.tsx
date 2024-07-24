@@ -4,7 +4,7 @@ import { hostApiSlice } from '@flux/api/host';
 import { FindAllHostsResponseDto } from '@flux/api/host/dto/host-find-all.dto';
 import { MediaRefType } from '@flux/api/media/media.entity';
 import { userApiSlice } from '@flux/api/user';
-import { User } from '@flux/api/user/user.entity';
+import { PrivateUser } from '@flux/api/user/user.entity';
 import { createUseContextHook, useMedia, usePersona } from '@hooks';
 import { ApiIdentifier, Persona, ProviderProps } from '@types';
 import React, { createContext, useEffect } from 'react';
@@ -13,7 +13,7 @@ import { Asset } from 'react-native-image-picker';
 export type UserAppContextType = {
 	personaId: ApiIdentifier;
 	personaType: Persona;
-	userData: User;
+	userData: PrivateUser;
 	userError: any;
 	userIsLoading: boolean;
 	userArtists: PrivateFindAllArtistsResponseDto[];

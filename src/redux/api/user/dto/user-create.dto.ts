@@ -1,4 +1,4 @@
-import { User } from '../user.entity';
+import { PrivateUser } from '../user.entity';
 
 export interface CreateUserBodyDto {
 	name: string;
@@ -6,4 +6,4 @@ export interface CreateUserBodyDto {
 	password: string;
 }
 
-export interface CreateUserResponseDto extends User {}
+export interface CreateUserResponseDto extends PrivateUser {}

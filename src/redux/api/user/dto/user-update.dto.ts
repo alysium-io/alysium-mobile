@@ -1,5 +1,5 @@
 import { ApiIdentifier } from '@types';
-import { User } from '../user.entity';
+import { PrivateUser } from '../user.entity';
 
 export interface UpdateUserBodyDto {
 	user_uid: ApiIdentifier;
@@ -8,4 +8,4 @@ export interface UpdateUserBodyDto {
 	email?: string;
 }
 
-export interface UpdateUserResponseDto extends User {}
+export interface UpdateUserResponseDto extends PrivateUser {}

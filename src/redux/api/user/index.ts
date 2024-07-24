@@ -1,2 +1,2 @@
-export { type User } from './user.entity';
+export { type PrivateUser } from './user.entity';
 export { default as userApiSlice } from './user.slice';

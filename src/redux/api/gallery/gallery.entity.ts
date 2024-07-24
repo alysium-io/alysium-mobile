@@ -3,7 +3,7 @@ import { PrivateArtist } from '../artist/artist.entity';
 import { Event } from '../event/event.entity';
 import { Host } from '../host/host.entity';
 import { Media } from '../media/media.entity';
-import { User } from '../user/user.entity';
+import { PrivateUser } from '../user/user.entity';
 import { Venue } from '../venue/venue.entity';
 
 export enum GalleryRefType {
@@ -37,5 +37,5 @@ export interface VenueGallery extends BaseGallery {
 }
 
 export interface UserGallery extends BaseGallery {
-	readonly user: User;
+	readonly user: PrivateUser;
 }

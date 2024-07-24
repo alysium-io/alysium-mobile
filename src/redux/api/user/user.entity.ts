@@ -4,7 +4,7 @@ import { UserGallery } from '../gallery/gallery.entity';
 import { Host } from '../host/host.entity';
 import { Media } from '../media/media.entity';
 
-export interface User {
+export interface PrivateUser {
 	readonly user_uid: ApiIdentifier;
 	readonly name: string | null;
 	readonly handle: string;
@@ -14,4 +14,6 @@ export interface User {
 	readonly hosts: Host[];
 	readonly artists: PrivateArtist[];
 	readonly gallery: UserGallery[];
+	readonly num_tags_following: number;
+	readonly num_artists_following: number;
 }

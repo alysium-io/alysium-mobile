@@ -1,9 +1,12 @@
+import { useUserAppContext } from '@arch/Application/contexts/User.context';
 import { Section, Text, View } from '@atomic';
 import { BlockListItem, ContentListItem } from '@molecules';
 import React from 'react';
 import { FadeInDown, FadeOutUp } from 'react-native-reanimated';
 
 const SearchInactivePage = () => {
+	const { userData } = useUserAppContext();
+	console.log(userData);
 	return (
 		<View
 			animated
@@ -15,7 +18,8 @@ const SearchInactivePage = () => {
 					onPress={() => console.log('Pressed')}
 					titleTextProps={{
 						title: 'Artists',
-						bottomSubtext: '42 following'
+						bottomSubtext:
+							userData.num_artists_following.toLocaleString() + ' following'
 					}}
 					profileImageProps={{
 						borderRadius: 'm',
@@ -30,7 +34,8 @@ const SearchInactivePage = () => {
 					onPress={() => console.log('Pressed')}
 					titleTextProps={{
 						title: 'Tags',
-						bottomSubtext: '3 following'
+						bottomSubtext:
+							userData.num_tags_following.toLocaleString() + ' following'
 					}}
 					profileImageProps={{
 						borderRadius: 'm',
