@@ -15,6 +15,7 @@ export * from './Profile';
 export * from './Search';
 export * from './Tag';
 export * from './UserArtistsFollowing';
+export * from './UserTagsFollowing';
 
 // For testing
 export * from './Components';

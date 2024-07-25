@@ -10,7 +10,9 @@ import {
 	TagPage,
 	TagPageHeader,
 	UserArtistsFollowingPage,
-	UserArtistsFollowingPageHeader
+	UserArtistsFollowingPageHeader,
+	UserTagsFollowingPage,
+	UserTagsFollowingPageHeader
 } from '@pages';
 import { createStackNavigator } from '@react-navigation/stack';
 import { SearchStackNavigatorParamList } from '@types';
@@ -59,6 +61,12 @@ const SearchTab = () => {
 				name='UserArtistsFollowingPage'
 				component={UserArtistsFollowingPage}
 				options={{ header: UserArtistsFollowingPageHeader }}
+			/>
+
+			<SearchStack.Screen
+				name='UserTagsFollowingPage'
+				component={UserTagsFollowingPage}
+				options={{ header: UserTagsFollowingPageHeader }}
 			/>
 		</SearchStack.Navigator>
 	);

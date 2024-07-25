@@ -31,6 +31,7 @@ import { ticketCollectionApiSlice } from './api/ticket-collection';
 import { ticketTypeApiSlice } from './api/ticket-type';
 import { userApiSlice } from './api/user';
 import { userArtistsFollowingApiSlice } from './api/user-artists-following';
+import { userTagsFollowingApiSlice } from './api/user-tags-following';
 import { venueApiSlice } from './api/venue';
 
 import { persistedAppReducer, persistedSearchReducer } from './local';
@@ -59,7 +60,8 @@ const store = configureStore({
 		[ticketTypeApiSlice.reducerPath]: ticketTypeApiSlice.reducer,
 		[ticketApiSlice.reducerPath]: ticketApiSlice.reducer,
 		[userArtistsFollowingApiSlice.reducerPath]:
-			userArtistsFollowingApiSlice.reducer
+			userArtistsFollowingApiSlice.reducer,
+		[userTagsFollowingApiSlice.reducerPath]: userTagsFollowingApiSlice.reducer
 	},
 	middleware: (getDefaultMiddleware) => {
 		return getDefaultMiddleware({
@@ -85,6 +87,7 @@ const store = configureStore({
 			.concat(ticketTypeApiSlice.middleware)
 			.concat(ticketApiSlice.middleware)
 			.concat(userArtistsFollowingApiSlice.middleware)
+			.concat(userTagsFollowingApiSlice.middleware)
 			.concat(apiErrorUnauthorizedMiddleware);
 	}
 });

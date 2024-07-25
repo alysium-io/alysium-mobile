@@ -23,6 +23,7 @@ interface IUseNavigation {
 		ticket_type_uid: ApiIdentifier
 	) => void;
 	userArtistsFollowingPage: () => void;
+	userTagsFollowingPage: () => void;
 
 	/** General */
 	back: () => void;
@@ -89,6 +90,9 @@ const useNavigation = (): IUseNavigation => {
 	const userArtistsFollowingPage = () =>
 		navigation.navigate('UserArtistsFollowingPage');
 
+	const userTagsFollowingPage = () =>
+		navigation.navigate('UserTagsFollowingPage');
+
 	/**
 	 * General
 	 */
@@ -112,6 +116,7 @@ const useNavigation = (): IUseNavigation => {
 		contractManager,
 		artistViewContract,
 		userArtistsFollowingPage,
+		userTagsFollowingPage,
 		back
 	};
 };

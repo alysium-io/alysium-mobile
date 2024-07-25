@@ -7,7 +7,7 @@ import { FadeInDown, FadeOutUp } from 'react-native-reanimated';
 
 const SearchInactivePage = () => {
 	const { userData } = useUserAppContext();
-	const { userArtistsFollowingPage } = useNavigation();
+	const { userArtistsFollowingPage, userTagsFollowingPage } = useNavigation();
 
 	return (
 		<View
@@ -33,7 +33,7 @@ const SearchInactivePage = () => {
 					}}
 				/>
 				<ContentListItem
-					onPress={() => console.log('Pressed')}
+					onPress={userTagsFollowingPage}
 					titleTextProps={{
 						title: 'Tags',
 						bottomSubtext:
