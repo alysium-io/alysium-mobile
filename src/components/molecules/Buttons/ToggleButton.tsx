@@ -20,7 +20,7 @@ const ToggleButton: React.FC<ToggleButtonProps> = ({
 	const [isActive, setIsActive] = useState(defaultState);
 
 	const _buttonProps = useMemo(() => {
-		const _inactiveButtonProps = _.merge(
+		const _activeButtonProps = _.merge(
 			{
 				text: 'Inactive',
 				buttonThemeSettings: {
@@ -34,7 +34,7 @@ const ToggleButton: React.FC<ToggleButtonProps> = ({
 			inactiveButtonProps
 		);
 
-		const _activeButtonProps = _.merge(
+		const _inactiveButtonProps = _.merge(
 			{
 				text: 'Active',
 				buttonThemeSettings: {
@@ -52,7 +52,7 @@ const ToggleButton: React.FC<ToggleButtonProps> = ({
 	}, [isActive, activeButtonProps, inactiveButtonProps, theme]);
 
 	const _onPress = () => {
-		onChange && onChange(isActive);
+		onChange && onChange(!isActive);
 		setIsActive(!isActive);
 	};
 

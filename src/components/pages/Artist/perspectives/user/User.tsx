@@ -11,7 +11,7 @@ interface UserProps {
 }
 
 const User: React.FC<UserProps> = ({ artist_uid }) => {
-	const { artistData } = useUserPage(artist_uid);
+	const { artistData, onPressFollowButton } = useUserPage(artist_uid);
 
 	if (!artistData) {
 		return null;
@@ -24,7 +24,10 @@ const User: React.FC<UserProps> = ({ artist_uid }) => {
 				image={artistData.profile_image?.url}
 			>
 				<SubHeader />
-				<ActionButtons />
+				<ActionButtons
+					artistData={artistData}
+					onPressFollowButton={onPressFollowButton}
+				/>
 			</ParallaxPageOutline>
 		</BasePage>
 	);

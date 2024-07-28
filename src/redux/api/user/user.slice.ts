@@ -19,7 +19,8 @@ const apiSlice = createApi({
 			query: () => ({
 				url: '/',
 				method: 'GET'
-			})
+			}),
+			providesTags: (result) => (result ? [{ type: 'User', id: 'USER' }] : [])
 		}),
 		update: builder.mutation<
 			UpdateUserResponseDto,

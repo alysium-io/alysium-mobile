@@ -27,7 +27,7 @@ import {
 const apiSlice = createApi({
 	baseQuery: baseQueryConfig({ basePath: '/artist' }),
 	reducerPath: 'artistApi',
-	tagTypes: ['Artist', 'ArtistPage'],
+	tagTypes: ['Artist', 'PublicArtist'],
 	endpoints: (builder) => ({
 		publicFindOne: builder.query<
 			PublicFindOneArtistResponseDto,
@@ -38,7 +38,7 @@ const apiSlice = createApi({
 				method: 'GET'
 			}),
 			providesTags: (result, error, { params }) => [
-				{ type: 'ArtistPage', id: params.artist_uid }
+				{ type: 'PublicArtist', id: params.artist_uid }
 			]
 		}),
 		privateFindOne: builder.query<

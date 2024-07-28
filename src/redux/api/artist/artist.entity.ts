@@ -6,6 +6,7 @@ import { Media } from '../media/media.entity';
 interface ArtistCommon {
 	readonly artist_uid: string;
 	readonly name: string;
+	readonly is_following: boolean;
 	readonly profile_image: Media | null;
 	readonly gallery: ArtistGallery[];
 	readonly tags: ArtistTagLink[];
