@@ -14,22 +14,24 @@ const UserArtistsFollowingPage = () => {
 		return null;
 	}
 
+	const Header = () => (
+		<Text variant='section-header-1' margin='m'>
+			Following
+		</Text>
+	);
+
 	return (
 		<BasePage>
 			<HeaderSafeArea>
 				<FlatList
 					data={userArtistsFollowingData}
-					ListHeaderComponent={
-						<Text variant='section-header-1' margin='m'>
-							Following
-						</Text>
-					}
+					ListHeaderComponent={Header}
 					keyExtractor={(item) => item.artist.artist_uid}
 					onEndReached={nextPage}
 					onEndReachedThreshold={0.2}
-					renderItem={({ item, index }) => (
+					renderItem={({ item }) => (
 						<ContentListItem
-							key={index}
+							key={item.artist.artist_uid}
 							onPress={() => artistPage(item.artist.artist_uid)}
 							titleTextProps={{
 								title: item.artist.name,

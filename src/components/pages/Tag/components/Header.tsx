@@ -5,15 +5,19 @@ import React from 'react';
 
 interface HeaderProps {
 	tagData: FindOneTagResponseDto;
+	onPressFollowButton: (isFollowing: boolean) => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ tagData }) => {
+const Header: React.FC<HeaderProps> = ({ tagData, onPressFollowButton }) => {
 	return (
 		<View margin='m'>
 			<Text variant='page-header' marginBottom='m'>
 				{tagData.name}
 			</Text>
-			<FollowButton defaultState={true} onChange={(x) => console.log(x)} />
+			<FollowButton
+				defaultState={tagData.is_following}
+				onChange={onPressFollowButton}
+			/>
 		</View>
 	);
 };

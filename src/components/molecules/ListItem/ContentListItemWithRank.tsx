@@ -2,24 +2,30 @@ import { BgTouchAnimation, Icon, View } from '@atomic';
 import React from 'react';
 import Container from './components/Container';
 import ProfileImage from './components/ProfileImage';
+import Rank from './components/Rank';
 import TitleText from './components/TitleText';
 
-interface ContentListItemProps {
+interface ContentListItemWithRankProps {
 	containerProps?: React.ComponentProps<typeof Container>;
 	titleTextProps: React.ComponentProps<typeof TitleText>;
 	profileImageProps?: React.ComponentProps<typeof ProfileImage>;
 	onPress?: () => void;
+	rank: number;
 }
 
-const ContentListItem: React.FC<ContentListItemProps> = ({
+const ContentListItemWithRank: React.FC<ContentListItemWithRankProps> = ({
 	containerProps,
 	titleTextProps,
 	profileImageProps,
-	onPress
+	onPress,
+	rank
 }) => {
 	return (
 		<BgTouchAnimation onPress={onPress}>
 			<Container {...containerProps}>
+				<View marginRight='m'>
+					<Rank rank={rank} />
+				</View>
 				<View marginRight='m'>
 					<ProfileImage {...profileImageProps} />
 				</View>
@@ -32,4 +38,4 @@ const ContentListItem: React.FC<ContentListItemProps> = ({
 	);
 };
 
-export default ContentListItem;
+export default ContentListItemWithRank;
