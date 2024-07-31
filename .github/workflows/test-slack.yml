@@ -35,6 +35,6 @@ jobs:
     - name: Print out the input arguments
       run: |
         echo "Environment: ${{ github.event.inputs.env }}"
-        echo "Deploy: ${{ github.event.inputs.deploy }}"
         echo "Save: ${{ github.event.inputs.save }}"
+        echo "Deploy: ${{ github.event.inputs.deploy }}"
     
