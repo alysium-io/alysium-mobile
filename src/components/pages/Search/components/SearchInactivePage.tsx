@@ -42,7 +42,7 @@ const SearchInactivePage = () => {
 					profileImageProps={{
 						borderRadius: 'm',
 						defaultImageProps: {
-							icon: 'host',
+							icon: 'tag',
 							backgroundColor: 'palette.t.medium',
 							iconColor: 'palette.t.light'
 						}
