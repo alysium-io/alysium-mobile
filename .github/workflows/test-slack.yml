@@ -1,6 +1,9 @@
 name: Test Slack
 
 on:
+  push:
+    branches:
+      - slack-deployment
   workflow_dispatch:
     inputs:
       env:
