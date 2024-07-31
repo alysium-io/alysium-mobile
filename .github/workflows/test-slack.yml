@@ -1,4 +1,4 @@
-name: Alysium Build & Deploy iOS
+name: Test Slack
 
 on:
   workflow_dispatch:
