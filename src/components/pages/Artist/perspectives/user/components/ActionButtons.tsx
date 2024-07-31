@@ -1,4 +1,4 @@
-import { View } from '@atomic';
+import { Section } from '@atomic';
 import { PublicFindOneArtistResponseDto } from '@flux/api/artist/dto/artist-find-one.dto';
 import { FollowButton } from '@molecules';
 import React from 'react';
@@ -13,12 +13,12 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
 	onPressFollowButton
 }) => {
 	return (
-		<View margin='m'>
+		<Section>
 			<FollowButton
 				defaultState={artistData.is_following}
 				onChange={(isActive) => onPressFollowButton(isActive)}
 			/>
-		</View>
+		</Section>
 	);
 };
 

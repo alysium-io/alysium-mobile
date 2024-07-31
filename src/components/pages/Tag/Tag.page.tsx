@@ -20,16 +20,17 @@ const TagPage = () => {
 		return null;
 	}
 
-	const ListHeaderComponent = () => (
-		<Header tagData={tagData} onPressFollowButton={onPressFollowButton} />
-	);
-
 	return (
 		<BasePage>
 			<HeaderSafeArea>
 				<FlatList
 					data={tagArtists}
-					ListHeaderComponent={ListHeaderComponent}
+					ListHeaderComponent={
+						<Header
+							tagData={tagData}
+							onPressFollowButton={onPressFollowButton}
+						/>
+					}
 					keyExtractor={(item) => item.artist.artist_uid}
 					onEndReached={nextPage}
 					onEndReachedThreshold={0.2}

@@ -4,4 +4,5 @@ export interface Tag {
 	readonly tag_uid: ApiIdentifier;
 	readonly name: string;
 	readonly is_following: boolean;
+	readonly num_followers: number;
 }

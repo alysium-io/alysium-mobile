@@ -1,7 +1,7 @@
 import { Icon, View } from '@atomic';
 import { IconNames } from '@svg';
 import React from 'react';
-import { TouchableWithoutFeedback } from 'react-native';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import BlockContainer from './components/BlockContainer';
 import TitleText from './components/TitleText';
 

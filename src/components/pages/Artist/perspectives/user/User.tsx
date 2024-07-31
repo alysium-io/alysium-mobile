@@ -1,9 +1,11 @@
+import { View } from '@atomic';
 import { BasePage } from '@organisms';
 import { ParallaxPageOutline } from '@templates';
 import { ApiIdentifier } from '@types';
 import React from 'react';
 import SubHeader from '../../components/SubHeader';
 import ActionButtons from './components/ActionButtons';
+import ArtistTags from './components/ArtistTags';
 import useUserPage from './useUserPage';
 
 interface UserProps {
@@ -23,11 +25,14 @@ const User: React.FC<UserProps> = ({ artist_uid }) => {
 				title={artistData.name}
 				image={artistData.profile_image?.url}
 			>
-				<SubHeader />
-				<ActionButtons
-					artistData={artistData}
-					onPressFollowButton={onPressFollowButton}
-				/>
+				<View margin='m'>
+					<SubHeader artistData={artistData} />
+					<ActionButtons
+						artistData={artistData}
+						onPressFollowButton={onPressFollowButton}
+					/>
+					<ArtistTags artistData={artistData} />
+				</View>
 			</ParallaxPageOutline>
 		</BasePage>
 	);

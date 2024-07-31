@@ -6,7 +6,11 @@ type SectionProps = React.ComponentProps<typeof View> & {
 };
 
 const Section: React.FC<SectionProps> = ({ children, ...props }) => {
-	return <View {...props}>{children}</View>;
+	return (
+		<View marginBottom='l' {...props}>
+			{children}
+		</View>
+	);
 };
 
 export default Section;

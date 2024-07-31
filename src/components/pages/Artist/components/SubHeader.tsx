@@ -1,13 +1,15 @@
 import { Section, Text, View } from '@atomic';
+import { PublicFindOneArtistResponseDto } from '@flux/api/artist/dto/artist-find-one.dto';
 import { Stats } from '@organisms';
 import React from 'react';
 
-interface SubHeaderProps {}
+interface SubHeaderProps {
+	artistData: PublicFindOneArtistResponseDto;
+}
 
-const SubHeader: React.FC<SubHeaderProps> = () => {
+const SubHeader: React.FC<SubHeaderProps> = ({ artistData }) => {
 	return (
 		<Section
-			margin='m'
 			flexDirection='row'
 			alignItems='center'
 			justifyContent='space-between'
@@ -18,13 +20,8 @@ const SubHeader: React.FC<SubHeaderProps> = () => {
 			<Stats
 				items={[
 					{
-						title: '102k',
-						subtitle: 'followers',
-						onPress: () => {}
-					},
-					{
-						title: '42',
-						subtitle: 'shows',
+						title: artistData?.num_followers.toLocaleString() || '0',
+						subtitle: 'follower' + (artistData?.num_followers === 1 ? '' : 's'),
 						onPress: () => {}
 					}
 				]}
