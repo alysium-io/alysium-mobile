@@ -36,27 +36,27 @@ const useNavigation = (): IUseNavigation => {
 	 * Pages
 	 */
 	const hostPage = (host_uid: ApiIdentifier) =>
-		navigation.navigate('HostPage', { host_uid });
+		navigation.push('HostPage', { host_uid });
 
 	const artistPage = (artist_uid: ApiIdentifier) =>
-		navigation.navigate('ArtistPage', { artist_uid });
+		navigation.push('ArtistPage', { artist_uid });
 
 	const tagPage = (tag_uid: ApiIdentifier) =>
-		navigation.navigate('TagPage', { tag_uid });
+		navigation.push('TagPage', { tag_uid });
 
 	const locationPage = (location_uid: ApiIdentifier) =>
-		navigation.navigate('LocationPage', { location_uid });
+		navigation.push('LocationPage', { location_uid });
 
-	const profilePage = () => navigation.navigate('ProfilePage');
+	const profilePage = () => navigation.push('ProfilePage');
 
 	const eventPage = (event_uid: ApiIdentifier) =>
-		navigation.navigate('EventPage', { event_uid });
+		navigation.push('EventPage', { event_uid });
 
 	const eventCandidatesPage = (event_uid: ApiIdentifier) =>
-		navigation.navigate('EventCandidatesPage', { event_uid });
+		navigation.push('EventCandidatesPage', { event_uid });
 
 	const editEventTicketTypesPage = (event_uid: ApiIdentifier) =>
-		navigation.navigate('EditEventTicketTypesPage', {
+		navigation.push('EditEventTicketTypesPage', {
 			event_uid
 		});
 
@@ -64,34 +64,33 @@ const useNavigation = (): IUseNavigation => {
 		ticket_collection_uid: ApiIdentifier,
 		ticket_type_uid: ApiIdentifier
 	) =>
-		navigation.navigate('EditTicketTypePage', {
+		navigation.push('EditTicketTypePage', {
 			ticket_collection_uid,
 			ticket_type_uid
 		});
 
 	const editEventPage = (event_uid: ApiIdentifier) =>
-		navigation.navigate('EditEventPage', { event_uid });
+		navigation.push('EditEventPage', { event_uid });
 
 	const editVenuePage = (venue_uid: ApiIdentifier) =>
-		navigation.navigate('EditVenuePage', { venue_uid });
+		navigation.push('EditVenuePage', { venue_uid });
 
 	const editContractPage = (contract_uid: ApiIdentifier) =>
-		navigation.navigate('EditContractPage', { contract_uid });
+		navigation.push('EditContractPage', { contract_uid });
 
-	const searchPage = () => navigation.navigate('SearchPage');
+	const searchPage = () => navigation.push('SearchPage');
 
-	const eventManagerPage = () => navigation.navigate('EventManagerPage');
+	const eventManagerPage = () => navigation.push('EventManagerPage');
 
-	const contractManager = () => navigation.navigate('ContractManagerPage');
+	const contractManager = () => navigation.push('ContractManagerPage');
 
 	const artistViewContract = (contract_uid: ApiIdentifier) =>
-		navigation.navigate('ArtistViewContractPage', { contract_uid });
+		navigation.push('ArtistViewContractPage', { contract_uid });
 
 	const userArtistsFollowingPage = () =>
-		navigation.navigate('UserArtistsFollowingPage');
+		navigation.push('UserArtistsFollowingPage');
 
-	const userTagsFollowingPage = () =>
-		navigation.navigate('UserTagsFollowingPage');
+	const userTagsFollowingPage = () => navigation.push('UserTagsFollowingPage');
 
 	/**
 	 * General

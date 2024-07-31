@@ -14,5 +14,6 @@ export * from './Buttons';
 export * from './DeclarativeText';
 export * from './EditableImage';
 export * from './ListItem';
+export * from './Pills';
 export * from './TabToggler';
 export * from './TextInput';

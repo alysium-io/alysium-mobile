@@ -1,5 +1,6 @@
 import { tagApiSlice } from '@flux/api/tag';
 import { FindTagArtistsResponseDto } from '@flux/api/tag/dto/tag-artists.dto';
+import { FindTagCorrelatedResponseDto } from '@flux/api/tag/dto/tag-correlated.dto';
 import { FindOneTagResponseDto } from '@flux/api/tag/dto/tag-find-one.dto';
 import { userTagsFollowingApiSlice } from '@flux/api/user-tags-following';
 import { usePagination } from '@hooks';
@@ -12,6 +13,9 @@ interface IUseTagPage {
 	tagArtists?: FindTagArtistsResponseDto[];
 	isTagArtistsLoading: boolean;
 	isTagArtistsError: any;
+	correlatedTagsData?: FindTagCorrelatedResponseDto;
+	isCorrelatedTagsLoading: boolean;
+	isCorrelatedTagsError: any;
 	nextPage: () => void;
 	onPressFollowButton: (isFollowing: boolean) => void;
 }
@@ -24,7 +28,7 @@ const useTagPage = (tag_uid: ApiIdentifier): IUseTagPage => {
 		isLoading: isTagArtistsLoading,
 		isError: isTagArtistsError
 	} = tagApiSlice.useFindTagArtistsQuery({
-		params: { tag_uid: tag_uid },
+		params: { tag_uid },
 		query: { page, limit: defaultLimit }
 	});
 
@@ -32,7 +36,13 @@ const useTagPage = (tag_uid: ApiIdentifier): IUseTagPage => {
 		data: tagData,
 		isLoading: isTagLoading,
 		isError: isTagError
-	} = tagApiSlice.useFindOneQuery({ params: { tag_uid: tag_uid } });
+	} = tagApiSlice.useFindOneQuery({ params: { tag_uid } });
+
+	const {
+		data: correlatedTagsData,
+		isLoading: isCorrelatedTagsLoading,
+		isError: isCorrelatedTagsError
+	} = tagApiSlice.useFindTagCorrelatedQuery({ params: { tag_uid } });
 
 	const [userTagsFollowCreateMutation] =
 		userTagsFollowingApiSlice.useCreateMutation();
@@ -62,6 +72,9 @@ const useTagPage = (tag_uid: ApiIdentifier): IUseTagPage => {
 		isTagLoading,
 		isTagError,
 		tagArtists,
+		correlatedTagsData,
+		isCorrelatedTagsLoading,
+		isCorrelatedTagsError,
 		isTagArtistsLoading,
 		isTagArtistsError,
 		nextPage,

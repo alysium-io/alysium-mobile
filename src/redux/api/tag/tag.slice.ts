@@ -6,6 +6,10 @@ import {
 	FindTagArtistsQueryDto,
 	FindTagArtistsResponseDto
 } from './dto/tag-artists.dto';
+import {
+	FindTagCorrelatedParamsDto,
+	FindTagCorrelatedResponseDto
+} from './dto/tag-correlated.dto';
 import { CreateTagBodyDto, CreateTagResponseDto } from './dto/tag-create.dto';
 import {
 	FindOneTagParamsDto,
@@ -40,6 +44,15 @@ const apiSlice = createApi({
 			forceRefetch({ currentArg, previousArg }) {
 				return !_.isEqual(currentArg, previousArg);
 			}
+		}),
+		findTagCorrelated: builder.query<
+			FindTagCorrelatedResponseDto,
+			{ params: FindTagCorrelatedParamsDto }
+		>({
+			query: ({ params }) => ({
+				url: `/${params.tag_uid}/correlated`,
+				method: 'GET'
+			})
 		}),
 		findOne: builder.query<
 			FindOneTagResponseDto,

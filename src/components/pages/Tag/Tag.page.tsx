@@ -11,12 +11,16 @@ import useTagPage from './useTagPage';
 
 const TagPage = () => {
 	const route = useRoute<TagPageRouteProp>();
-	const { tagData, tagArtists, nextPage, onPressFollowButton } = useTagPage(
-		route.params.tag_uid
-	);
+	const {
+		tagData,
+		tagArtists,
+		correlatedTagsData,
+		nextPage,
+		onPressFollowButton
+	} = useTagPage(route.params.tag_uid);
 	const { artistPage } = useNavigation();
 
-	if (!tagData || !tagArtists) {
+	if (!tagData || !tagArtists || !correlatedTagsData) {
 		return null;
 	}
 
@@ -28,6 +32,7 @@ const TagPage = () => {
 					ListHeaderComponent={
 						<Header
 							tagData={tagData}
+							correlatedTagsData={correlatedTagsData}
 							onPressFollowButton={onPressFollowButton}
 						/>
 					}
