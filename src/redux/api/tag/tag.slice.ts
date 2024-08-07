@@ -11,6 +11,7 @@ import {
 	FindTagCorrelatedResponseDto
 } from './dto/tag-correlated.dto';
 import { CreateTagBodyDto, CreateTagResponseDto } from './dto/tag-create.dto';
+import { DiscoverTagsResponseDto } from './dto/tag-discover.dto';
 import {
 	FindOneTagParamsDto,
 	FindOneTagResponseDto
@@ -71,6 +72,12 @@ const apiSlice = createApi({
 				url: '/',
 				method: 'POST',
 				body
+			})
+		}),
+		discover: builder.query<DiscoverTagsResponseDto, undefined>({
+			query: () => ({
+				url: '/discover',
+				method: 'GET'
 			})
 		})
 	})

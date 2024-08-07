@@ -18,7 +18,9 @@ const SearchPage = () => {
 		isLoading,
 		recentSearches,
 		searchResults,
-		onPressSearchResult
+		onPressSearchResult,
+		discoverTagsData,
+		refetchDiscoverTags
 	} = useSearchPage();
 
 	return (
@@ -45,7 +47,10 @@ const SearchPage = () => {
 								/>
 							</Case>
 							<Case condition={!isSearchActive}>
-								<SearchInactivePage />
+								<SearchInactivePage
+									discoverTagsData={discoverTagsData}
+									refetchDiscoverTags={refetchDiscoverTags}
+								/>
 							</Case>
 						</Switch>
 					</LayoutAnimationConfig>

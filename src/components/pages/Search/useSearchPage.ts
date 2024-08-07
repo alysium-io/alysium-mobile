@@ -1,6 +1,8 @@
 import { SearchHit, searchApiSlice } from '@flux/api/search';
 import { SearchArtistsResponseDto } from '@flux/api/search/dto/search-artists.dto';
 import { SearchType } from '@flux/api/search/search.entity';
+import { tagApiSlice } from '@flux/api/tag';
+import { DiscoverTagsResponseDto } from '@flux/api/tag/dto/tag-discover.dto';
 import { useNavigation, usePersistedSearchState } from '@hooks';
 import { useState } from 'react';
 
@@ -14,6 +16,10 @@ interface IUseSearchPage {
 	isSearchActive: boolean;
 	setIsSearchActive: (isActive: boolean) => void;
 	onPressSearchResult: (item: SearchHit) => void;
+	discoverTagsData?: DiscoverTagsResponseDto;
+	isDiscoverTagsLoading: boolean;
+	discoverTagsError: any;
+	refetchDiscoverTags: () => void;
 }
 
 const useSearchPage = (): IUseSearchPage => {
@@ -41,6 +47,13 @@ const useSearchPage = (): IUseSearchPage => {
 		{ skip: searchText.length === 0 }
 	);
 
+	const {
+		data: discoverTagsData,
+		isLoading: isDiscoverTagsLoading,
+		error: discoverTagsError,
+		refetch: refetchDiscoverTags
+	} = tagApiSlice.useDiscoverQuery(undefined);
+
 	return {
 		searchText,
 		isLoading,
@@ -50,7 +63,11 @@ const useSearchPage = (): IUseSearchPage => {
 		clearSearchText,
 		isSearchActive,
 		setIsSearchActive,
-		onPressSearchResult
+		onPressSearchResult,
+		discoverTagsData,
+		isDiscoverTagsLoading,
+		discoverTagsError,
+		refetchDiscoverTags
 	};
 };
 

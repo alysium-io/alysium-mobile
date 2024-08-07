@@ -1,13 +1,24 @@
 import { useUserAppContext } from '@arch/Application/contexts/User.context';
 import { Section, Text, View } from '@atomic';
+import { DiscoverTagsResponseDto } from '@flux/api/tag/dto/tag-discover.dto';
 import { useNavigation } from '@hooks';
 import { BlockListItem, ContentListItem } from '@molecules';
 import React from 'react';
+import { TouchableOpacity } from 'react-native';
 import { FadeInDown, FadeOutUp } from 'react-native-reanimated';
 
-const SearchInactivePage = () => {
+interface SearchInactivePageProps {
+	discoverTagsData?: DiscoverTagsResponseDto;
+	refetchDiscoverTags: () => void;
+}
+
+const SearchInactivePage: React.FC<SearchInactivePageProps> = ({
+	discoverTagsData,
+	refetchDiscoverTags
+}) => {
 	const { userData } = useUserAppContext();
-	const { userArtistsFollowingPage, userTagsFollowingPage } = useNavigation();
+	const { userArtistsFollowingPage, userTagsFollowingPage, tagPage } =
+		useNavigation();
 
 	return (
 		<View
@@ -50,33 +61,28 @@ const SearchInactivePage = () => {
 				/>
 			</Section>
 			<Section margin='m'>
-				<Text variant='section-header-1' marginBottom='m'>
-					Discover
-				</Text>
-				<BlockListItem
-					icon='tag'
-					onPress={() => console.log(3668)}
-					titleTextProps={{
-						title: 'house',
-						topSubtext: '2.6M followers'
-					}}
-				/>
-				<BlockListItem
-					icon='location'
-					onPress={() => console.log(1)}
-					titleTextProps={{
-						title: 'Los Angeles',
-						topSubtext: '5.1M followers'
-					}}
-				/>
-				<BlockListItem
-					icon='tag'
-					onPress={() => console.log(1)}
-					titleTextProps={{
-						title: 'rock',
-						topSubtext: '4.3M followers'
-					}}
-				/>
+				<View
+					marginBottom='m'
+					flexDirection='row'
+					justifyContent='space-between'
+				>
+					<Text variant='section-header-1'>Discover</Text>
+					<TouchableOpacity onPress={refetchDiscoverTags} activeOpacity={0.9}>
+						<Text variant='paragraph-small-medium' color='palette.p.medium'>
+							Refresh
+						</Text>
+					</TouchableOpacity>
+				</View>
+				{discoverTagsData?.map((tag) => (
+					<BlockListItem
+						key={tag.tag_uid}
+						icon='tag'
+						onPress={() => tagPage(tag.tag_uid)}
+						titleTextProps={{
+							title: tag.name
+						}}
+					/>
+				))}
 			</Section>
 		</View>
 	);
