@@ -38,7 +38,7 @@ const UserArtistsFollowingPage = () => {
 								bottomSubtext: 'Los Angeles, CA'
 							}}
 							profileImageProps={{
-								image: item.artist.profile_image?.url,
+								image: item.artist.profile_image?.small.key,
 								defaultImageProps: {
 									icon: 'artist'
 								}

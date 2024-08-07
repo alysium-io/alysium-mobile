@@ -1,5 +1,6 @@
 import { Image, LinearGradient, Text, View } from '@atomic';
-import { useScrollView } from '@hooks';
+import { env } from '@etc';
+import { useScrollView, useTheme } from '@hooks';
 import React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 import FastImage from 'react-native-fast-image';
@@ -20,6 +21,7 @@ const ParallaxPageOutline: React.FC<ParallaxPageOutlineProps> = ({
 	title,
 	textAlignment = 'left'
 }) => {
+	const { theme } = useTheme();
 	const { scrollY, scrollEvent } = useScrollView();
 	const insets = useSafeAreaInsets();
 
@@ -42,12 +44,18 @@ const ParallaxPageOutline: React.FC<ParallaxPageOutlineProps> = ({
 		<>
 			<View
 				animated
-				style={[styles.mainImageContainer, animatedMainImageContainerStyles]}
+				paddingBottom='m'
+				borderBottomColor='border.medium'
+				style={[
+					styles.mainImageContainer,
+					animatedMainImageContainerStyles,
+					{ borderBottomWidth: theme.borderWidth.normal }
+				]}
 			>
 				<Image
 					animated
 					source={{
-						uri: image,
+						uri: env.imagesBaseUrl + image,
 						priority: FastImage.priority.high
 					}}
 					resizeMode={FastImage.resizeMode.cover}
@@ -90,13 +98,16 @@ const ParallaxPageOutline: React.FC<ParallaxPageOutlineProps> = ({
 const styles = StyleSheet.create({
 	mainImageContainer: {
 		position: 'absolute',
-		width: '100%'
+		width: '100%',
+		overflow: 'hidden',
+		backgroundColor: 'red'
 	},
 	mainImage: {
 		position: 'absolute',
 		height: settings.ARTIST_PAGE_MAIN_IMAGE_HEIGHT,
 		width: '100%',
-		bottom: 0
+		bottom: 0,
+		overflow: 'hidden'
 	},
 	mainImageTextLayer: {
 		position: 'absolute',

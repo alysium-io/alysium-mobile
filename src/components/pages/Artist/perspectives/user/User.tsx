@@ -1,6 +1,5 @@
-import { View } from '@atomic';
-import { BasePage } from '@organisms';
-import { ParallaxPageOutline } from '@templates';
+import { HeaderSafeArea, View } from '@atomic';
+import { BasePage, Parallax } from '@organisms';
 import { ApiIdentifier } from '@types';
 import React from 'react';
 import SubHeader from '../../components/SubHeader';
@@ -21,19 +20,25 @@ const User: React.FC<UserProps> = ({ artist_uid }) => {
 
 	return (
 		<BasePage>
-			<ParallaxPageOutline
-				title={artistData.name}
-				image={artistData.profile_image?.url}
-			>
-				<View margin='m'>
-					<SubHeader artistData={artistData} />
-					<ActionButtons
-						artistData={artistData}
-						onPressFollowButton={onPressFollowButton}
-					/>
-					<ArtistTags artistData={artistData} />
-				</View>
-			</ParallaxPageOutline>
+			<HeaderSafeArea>
+				<Parallax
+					bannerTitleProps={{
+						title: artistData.name
+					}}
+					bannerImageProps={{
+						image: artistData.profile_image?.large.key
+					}}
+				>
+					<View margin='m'>
+						<SubHeader artistData={artistData} />
+						<ActionButtons
+							artistData={artistData}
+							onPressFollowButton={onPressFollowButton}
+						/>
+						<ArtistTags artistData={artistData} />
+					</View>
+				</Parallax>
+			</HeaderSafeArea>
 		</BasePage>
 	);
 };

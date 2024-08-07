@@ -13,7 +13,7 @@ const HeaderSection = () => {
 	return (
 		<Section margin='m' alignItems='center'>
 			<EditableProfileImage
-				image={userData.profile_image?.url}
+				image={userData.profile_image?.small.key}
 				onChooseImage={setUserProfileImage}
 			/>
 			<View margin='m' alignItems='center'>

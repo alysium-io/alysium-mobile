@@ -9,7 +9,7 @@ const SelectAccountSection = () => {
 	const { userData, personaId, personaType } = useUserAppContext();
 	const { changePersona } = usePersonaAppContext();
 	return (
-		<Section marginBottom='xl'>
+		<Section>
 			<Text variant='section-header-2' marginHorizontal='m' marginBottom='m'>
 				Account
 			</Text>
@@ -23,8 +23,10 @@ const SelectAccountSection = () => {
 						bottomSubtext: 'user'
 					}}
 					profileImageProps={{
-						contentType: Persona.user,
-						image: userData.profile_image?.url
+						image: userData.profile_image?.small.key,
+						defaultImageProps: {
+							icon: 'user'
+						}
 					}}
 					active={
 						personaType === Persona.user && personaId === userData.user_uid

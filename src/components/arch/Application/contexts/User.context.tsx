@@ -2,10 +2,10 @@ import { artistApiSlice } from '@flux/api/artist';
 import { PrivateFindAllArtistsResponseDto } from '@flux/api/artist/dto/artist-find-all.dto';
 import { hostApiSlice } from '@flux/api/host';
 import { FindAllHostsResponseDto } from '@flux/api/host/dto/host-find-all.dto';
-import { MediaRefType } from '@flux/api/media/media.entity';
+import { profileImageApiSlice } from '@flux/api/profile-image';
 import { userApiSlice } from '@flux/api/user';
 import { PrivateUser } from '@flux/api/user/user.entity';
-import { createUseContextHook, useMedia, usePersona } from '@hooks';
+import { createUseContextHook, usePersona } from '@hooks';
 import { ApiIdentifier, Persona, ProviderProps } from '@types';
 import React, { createContext, useEffect } from 'react';
 import { Asset } from 'react-native-image-picker';
@@ -35,7 +35,8 @@ export const UserAppProvider: React.FC<ProviderProps> = ({ children }) => {
 		isLoading: userIsLoading
 	} = userApiSlice.usePrivateFindOneQuery();
 	const { initializePersona } = usePersona();
-	const { uploadMedia } = useMedia();
+	const [createUserProfileImageMutation] =
+		profileImageApiSlice.useCreateMutation();
 
 	useEffect(() => {
 		if (userData) initializePersona(userData.user_uid);
@@ -43,14 +44,7 @@ export const UserAppProvider: React.FC<ProviderProps> = ({ children }) => {
 
 	const setUserProfileImage = (image: Asset) => {
 		if (userData) {
-			uploadMedia(
-				{
-					ref: MediaRefType.user,
-					refId: userData.user_uid,
-					field: 'profile_image'
-				},
-				image
-			);
+			createUserProfileImageMutation({ file: image });
 		}
 	};
 

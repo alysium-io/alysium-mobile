@@ -1,6 +1,6 @@
 import { Avatar, View } from '@atomic';
 import { usePhotosAndCamera } from '@hooks';
-import { ContentType, Persona } from '@types';
+import { ContentType } from '@types';
 import React from 'react';
 import { StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import { Asset } from 'react-native-image-picker';
@@ -14,8 +14,7 @@ interface EditableProfileImageProps {
 
 const EditableProfileImage: React.FC<EditableProfileImageProps> = ({
 	image,
-	onChooseImage,
-	contentType = Persona.user
+	onChooseImage
 }) => {
 	const { chooseImageOrTakeNewPhoto } = usePhotosAndCamera();
 
@@ -34,7 +33,7 @@ const EditableProfileImage: React.FC<EditableProfileImageProps> = ({
 	return (
 		<TouchableWithoutFeedback onPress={onPress}>
 			<View style={styles.container}>
-				<Avatar image={image} contentType={contentType} />
+				<Avatar image={image} />
 				<View style={styles.iconContainer}>
 					<EditIcon />
 				</View>

@@ -23,7 +23,7 @@ import { galleryApiSlice } from './api/gallery';
 import { hostApiSlice } from './api/host';
 import { hostEventLinkApiSlice } from './api/host-event-link';
 import { locationApiSlice } from './api/location';
-import { mediaApiSlice } from './api/media';
+import { profileImageApiSlice } from './api/profile-image';
 import { searchApiSlice } from './api/search';
 import { tagApiSlice } from './api/tag';
 import { ticketApiSlice } from './api/ticket';
@@ -51,7 +51,6 @@ const store = configureStore({
 		[galleryApiSlice.reducerPath]: galleryApiSlice.reducer,
 		[hostEventLinkApiSlice.reducerPath]: hostEventLinkApiSlice.reducer,
 		[locationApiSlice.reducerPath]: locationApiSlice.reducer,
-		[mediaApiSlice.reducerPath]: mediaApiSlice.reducer,
 		[tagApiSlice.reducerPath]: tagApiSlice.reducer,
 		[userApiSlice.reducerPath]: userApiSlice.reducer,
 		[searchApiSlice.reducerPath]: searchApiSlice.reducer,
@@ -61,7 +60,8 @@ const store = configureStore({
 		[ticketApiSlice.reducerPath]: ticketApiSlice.reducer,
 		[userArtistsFollowingApiSlice.reducerPath]:
 			userArtistsFollowingApiSlice.reducer,
-		[userTagsFollowingApiSlice.reducerPath]: userTagsFollowingApiSlice.reducer
+		[userTagsFollowingApiSlice.reducerPath]: userTagsFollowingApiSlice.reducer,
+		[profileImageApiSlice.reducerPath]: profileImageApiSlice.reducer
 	},
 	middleware: (getDefaultMiddleware) => {
 		return getDefaultMiddleware({
@@ -78,7 +78,6 @@ const store = configureStore({
 			.concat(galleryApiSlice.middleware)
 			.concat(hostEventLinkApiSlice.middleware)
 			.concat(locationApiSlice.middleware)
-			.concat(mediaApiSlice.middleware)
 			.concat(tagApiSlice.middleware)
 			.concat(userApiSlice.middleware)
 			.concat(searchApiSlice.middleware)
@@ -88,6 +87,7 @@ const store = configureStore({
 			.concat(ticketApiSlice.middleware)
 			.concat(userArtistsFollowingApiSlice.middleware)
 			.concat(userTagsFollowingApiSlice.middleware)
+			.concat(profileImageApiSlice.middleware)
 			.concat(apiErrorUnauthorizedMiddleware);
 	}
 });

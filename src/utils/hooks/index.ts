@@ -1,7 +1,6 @@
 // Redux
 export { default as useArtist } from './useArtist';
 export { default as useHost } from './useHost';
-export { default as useMedia } from './useMedia';
 export { default as usePersona } from './usePersona';
 export { default as useTheme } from './useTheme';
 export { default as useVenues } from './useVenues';

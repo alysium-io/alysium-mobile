@@ -7,7 +7,7 @@ type SectionProps = React.ComponentProps<typeof View> & {
 
 const Section: React.FC<SectionProps> = ({ children, ...props }) => {
 	return (
-		<View marginBottom='l' {...props}>
+		<View marginBottom='xl' {...props}>
 			{children}
 		</View>
 	);

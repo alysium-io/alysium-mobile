@@ -1,4 +1,5 @@
 import { Image, View } from '@atomic';
+import { env } from '@etc';
 import { BorderRadii } from '@types';
 import React from 'react';
 import { StyleSheet } from 'react-native';
@@ -20,7 +21,10 @@ const Avatar: React.FC<AvatarProps> = ({
 			{!image ? (
 				<DefaultImage {...defaultImageProps} />
 			) : (
-				<Image source={{ uri: image }} style={styles.image} />
+				<Image
+					source={{ uri: env.imagesBaseUrl + image }}
+					style={styles.image}
+				/>
 			)}
 		</View>
 	);
