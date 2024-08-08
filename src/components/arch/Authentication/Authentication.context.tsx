@@ -89,7 +89,6 @@ export const AuthenticationAppProvider: React.FC<ProviderProps> = ({
 		const fetchMe = async () => {
 			if (token !== null) {
 				if (authStage !== AuthStage.loggedIn) {
-					console.log(`Existing token found: ${token}`);
 					const { error } = await privateFindOneUserQuery();
 
 					if (error) {
