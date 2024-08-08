@@ -16,8 +16,3 @@ export * from './Search';
 export * from './Tag';
 export * from './UserArtistsFollowing';
 export * from './UserTagsFollowing';
-
-// For testing
-export * from './Components';
-export * from './Experiment';
-export * from './Pages';

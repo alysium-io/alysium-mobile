@@ -11,7 +11,6 @@ import { ApiIdentifier } from './api';
  * Individual Pages
  */
 type SearchPage = undefined;
-type ComponentsPage = undefined;
 
 type HostPage = { host_uid: ApiIdentifier };
 type HostFollowersAndShowsPage = {
@@ -38,11 +37,6 @@ type EditEventPage = { event_uid: ApiIdentifier };
 type EditVenuePage = { venue_uid: ApiIdentifier };
 
 type EventPage = { event_uid: ApiIdentifier };
-
-type ExperimentPageOne = undefined;
-type ExperimentPageTwo = undefined;
-
-type PagesPage = undefined;
 
 type EditContractPage = { contract_uid: ApiIdentifier };
 
@@ -73,29 +67,6 @@ type UserTagsFollowingPage = undefined;
  *
  * navigation.navigate('SearchPage')
  */
-export type ExperimentStackNavigatorParamList = {
-	ExperimentPageOne: ExperimentPageOne;
-	ExperimentPageTwo: ExperimentPageTwo;
-};
-
-export type ComponentsStackNavigatorParamList = {
-	ComponentsPage: ComponentsPage;
-};
-
-export type PagesStackNavigatorParamList = {
-	PagesPage: PagesPage;
-	ArtistPage: ArtistPage;
-	HostPage: HostPage;
-	EventPage: EventPage;
-	SearchPage: SearchPage;
-	TagPage: TagPage;
-	EditEventPage: EditEventPage;
-	EditContractPage: EditContractPage;
-	EventManagerPage: EventManagerPage;
-	ContractManagerPage: ContractManagerPage;
-	ProfilePage: ProfilePage;
-};
-
 export type SearchStackNavigatorParamList = {
 	SearchPage: SearchPage;
 
@@ -156,9 +127,6 @@ export type ContractManagerStackNavigatorParamList = {
  */
 // Just put all possible tabs in here
 export type BottomTabNavigatorParamList = {
-	Experiment: undefined;
-	Components: undefined;
-	Pages: undefined;
 	Search: SearchStackNavigatorParamList;
 	Profile: ProfileStackNavigatorParamList;
 	EventManager: EventManagerStackNavigatorParamList;
@@ -180,28 +148,16 @@ export type EventManagerScreenNavigationProp =
 	ComposeTabNavigationProp<EventManagerStackNavigatorParamList>;
 export type ContractManagerScreenNavigationProp =
 	ComposeTabNavigationProp<ContractManagerStackNavigatorParamList>;
-export type ExperimentScreenNavigationProp =
-	ComposeTabNavigationProp<ExperimentStackNavigatorParamList>;
-export type ComponentsScreenNavigationProp =
-	ComposeTabNavigationProp<ComponentsStackNavigatorParamList>;
-export type PagesScreenNavigationProp =
-	ComposeTabNavigationProp<PagesStackNavigatorParamList>;
 
 export type CompositeScreenNavigationProp = SearchScreenNavigationProp &
 	ProfileScreenNavigationProp &
 	EventManagerScreenNavigationProp &
-	ExperimentScreenNavigationProp &
-	PagesScreenNavigationProp &
-	ComponentsScreenNavigationProp &
 	ContractManagerScreenNavigationProp;
 
 export type CompositeStackNavigatorParamList = SearchStackNavigatorParamList &
 	ProfileStackNavigatorParamList &
 	EventManagerStackNavigatorParamList &
-	ContractManagerStackNavigatorParamList &
-	ExperimentStackNavigatorParamList &
-	PagesStackNavigatorParamList &
-	ComponentsStackNavigatorParamList;
+	ContractManagerStackNavigatorParamList;
 
 /**
  * Search Route Props
