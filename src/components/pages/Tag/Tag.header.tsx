@@ -1,18 +1,17 @@
+import { useNavigation } from '@hooks';
 import { Header, HeaderIconButton, HeaderTitle } from '@organisms';
-import { StackHeaderProps } from '@react-navigation/stack';
 import React from 'react';
 
-const TagPageHeader: React.FC<StackHeaderProps> = (stackHeaderProps) => {
+interface TagPageHeaderProps {
+	title: string;
+}
+
+const TagPageHeader: React.FC<TagPageHeaderProps> = ({ title }) => {
+	const { back } = useNavigation();
 	return (
 		<Header
-			stackHeaderProps={stackHeaderProps}
-			LeftComponent={() => (
-				<HeaderIconButton
-					onPress={stackHeaderProps.navigation.goBack}
-					icon='arrow-left'
-				/>
-			)}
-			CenterComponent={() => <HeaderTitle title='tag page' />}
+			LeftComponent={<HeaderIconButton onPress={back} icon='arrow-left' />}
+			CenterComponent={<HeaderTitle title={title} />}
 			RightComponent={undefined}
 		/>
 	);

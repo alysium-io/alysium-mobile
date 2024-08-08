@@ -1,13 +1,16 @@
 import { Header, HeaderTitle } from '@organisms';
-import { StackHeaderProps } from '@react-navigation/stack';
 import React from 'react';
 
-const ProfilePageHeader: React.FC<StackHeaderProps> = (stackHeaderProps) => {
+const ProfilePageHeader: React.FC = () => {
 	return (
 		<Header
-			stackHeaderProps={stackHeaderProps}
-			LeftComponent={undefined}
-			CenterComponent={() => <HeaderTitle title='account' />}
+			LeftComponent={
+				<HeaderTitle
+					title='Account'
+					titleProps={{ variant: 'paragraph-medium' }}
+				/>
+			}
+			CenterComponent={undefined}
 			RightComponent={undefined}
 		/>
 	);

@@ -4,6 +4,7 @@ import { ContentListItem } from '@molecules';
 import { BasePage } from '@organisms';
 import React from 'react';
 import { FlatList } from 'react-native';
+import { UserArtistsFollowingPageHeader } from '../UserArtistsFollowing';
 import useUserTagsFollowingPage from './useUserTagsFollowingPage';
 
 const UserTagsFollowingPage = () => {
@@ -22,6 +23,7 @@ const UserTagsFollowingPage = () => {
 
 	return (
 		<BasePage>
+			<UserArtistsFollowingPageHeader />
 			<HeaderSafeArea>
 				<FlatList
 					data={userTagsFollowingData}

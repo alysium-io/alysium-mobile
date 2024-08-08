@@ -1,4 +1,3 @@
-import { StackHeaderProps, useCardAnimation } from '@react-navigation/stack';
 import React from 'react';
 import HeaderCenterSection from './HeaderCenterSection';
 import HeaderLeftSection from './HeaderLeftSection';
@@ -6,31 +5,21 @@ import HeaderRightSection from './HeaderRightSection';
 import HeaderWrapper from './HeaderWrapper';
 
 interface HeaderProps {
-	LeftComponent?: React.FC;
-	CenterComponent?: React.FC;
-	RightComponent?: React.FC;
-	stackHeaderProps: StackHeaderProps;
+	LeftComponent?: React.ReactNode;
+	CenterComponent?: React.ReactNode;
+	RightComponent?: React.ReactNode;
 }
 
 const Header: React.FC<HeaderProps> = ({
 	LeftComponent,
 	CenterComponent,
-	RightComponent,
-	stackHeaderProps
+	RightComponent
 }) => {
-	const cardAnimationProps = useCardAnimation();
-
 	return (
-		<HeaderWrapper cardAnimationProps={cardAnimationProps}>
-			<HeaderLeftSection cardAnimationProps={cardAnimationProps}>
-				{LeftComponent && <LeftComponent />}
-			</HeaderLeftSection>
-			<HeaderCenterSection>
-				{CenterComponent && <CenterComponent />}
-			</HeaderCenterSection>
-			<HeaderRightSection>
-				{RightComponent && <RightComponent />}
-			</HeaderRightSection>
+		<HeaderWrapper>
+			<HeaderLeftSection>{LeftComponent}</HeaderLeftSection>
+			<HeaderCenterSection>{CenterComponent}</HeaderCenterSection>
+			<HeaderRightSection>{RightComponent}</HeaderRightSection>
 		</HeaderWrapper>
 	);
 };

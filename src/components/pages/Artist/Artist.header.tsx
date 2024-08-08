@@ -1,18 +1,22 @@
+import { useNavigation } from '@hooks';
 import { Header, HeaderIconButton, HeaderTitle } from '@organisms';
-import { StackHeaderProps } from '@react-navigation/stack';
 import React from 'react';
 
-const ArtistPageHeader: React.FC<StackHeaderProps> = (stackHeaderProps) => {
+interface ArtistPageHeaderProps {
+	title: string;
+}
+
+const ArtistPageHeader: React.FC<ArtistPageHeaderProps> = ({ title }) => {
+	const { back } = useNavigation();
 	return (
 		<Header
-			stackHeaderProps={stackHeaderProps}
-			LeftComponent={() => (
-				<HeaderIconButton
-					onPress={stackHeaderProps.navigation.goBack}
-					icon='arrow-left'
+			LeftComponent={<HeaderIconButton onPress={back} icon='arrow-left' />}
+			CenterComponent={
+				<HeaderTitle
+					title={title}
+					titleProps={{ variant: 'paragraph-small' }}
 				/>
-			)}
-			CenterComponent={() => <HeaderTitle title='artist page' />}
+			}
 			RightComponent={undefined}
 		/>
 	);

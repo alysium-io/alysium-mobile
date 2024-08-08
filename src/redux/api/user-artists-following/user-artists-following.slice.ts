@@ -112,10 +112,16 @@ const apiSlice = createApi({
 							}
 						)
 					);
-
 					await queryFulfilled;
 					dispatch(
 						userApiSlice.util.invalidateTags([{ type: 'User', id: 'USER' }])
+					);
+
+					dispatch(
+						artistApiSlice.util.invalidateTags([
+							{ type: 'PublicArtist', id: params.artist_uid },
+							{ type: 'Artist', id: params.artist_uid }
+						])
 					);
 				} catch (error) {
 					if (patchResult) {

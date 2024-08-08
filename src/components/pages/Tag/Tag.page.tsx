@@ -7,10 +7,12 @@ import { TagPageRouteProp } from '@types';
 import React from 'react';
 import { FlatList } from 'react-native';
 import Header from './components/Header';
+import TagPageHeader from './Tag.header';
 import useTagPage from './useTagPage';
 
 const TagPage = () => {
 	const route = useRoute<TagPageRouteProp>();
+	const { artistPage } = useNavigation();
 	const {
 		tagData,
 		tagArtists,
@@ -18,7 +20,6 @@ const TagPage = () => {
 		nextPage,
 		onPressFollowButton
 	} = useTagPage(route.params.tag_uid);
-	const { artistPage } = useNavigation();
 
 	if (!tagData || !tagArtists || !correlatedTagsData) {
 		return null;
@@ -26,6 +27,7 @@ const TagPage = () => {
 
 	return (
 		<BasePage>
+			<TagPageHeader title={tagData.name} />
 			<HeaderSafeArea>
 				<FlatList
 					data={tagArtists}

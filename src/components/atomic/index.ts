@@ -60,6 +60,7 @@ export { default as KeyboardAvoidingFooter } from './KeyboardAvoidingFooter';
 export { default as KeyboardViewFill } from './KeyboardViewFill';
 export { default as Loading } from './Loading';
 export { default as NotchMargin } from './NotchMargin';
+export { default as NotchSafeArea } from './NotchSafeArea';
 export { default as Or } from './Or';
 export {
 	default as PhoneNumberTextInput,

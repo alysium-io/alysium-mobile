@@ -1,5 +1,4 @@
 import { useTheme } from '@hooks';
-import { useIsFocused } from '@react-navigation/native';
 import { StackNavigationOptions } from '@react-navigation/stack';
 import { BottomTabNavigatorParamList, ScreenOptions } from '@types';
 import { StyleProp, ViewStyle } from 'react-native';
@@ -76,12 +75,14 @@ export const useTabSettings = (): IUseTabSettings => {
 	const { theme } = useTheme();
 	return {
 		screenOptions: {
-			headerShown: useIsFocused(),
+			headerShown: false,
 			headerBackTitleVisible: false,
 			headerTransparent: true,
 			cardStyle: {
 				backgroundColor: theme.colors['bg.p']
-			}
+			},
+			cardOverlayEnabled: true,
+			cardShadowEnabled: true
 		}
 	};
 };

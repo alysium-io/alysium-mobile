@@ -2,6 +2,7 @@ import { HeaderSafeArea, View } from '@atomic';
 import { BasePage, Parallax } from '@organisms';
 import { ApiIdentifier } from '@types';
 import React from 'react';
+import ArtistPageHeader from '../../Artist.header';
 import SubHeader from '../../components/SubHeader';
 import ActionButtons from './components/ActionButtons';
 import ArtistTags from './components/ArtistTags';
@@ -20,6 +21,7 @@ const User: React.FC<UserProps> = ({ artist_uid }) => {
 
 	return (
 		<BasePage>
+			<ArtistPageHeader title={artistData.name} />
 			<HeaderSafeArea>
 				<Parallax
 					bannerTitleProps={{

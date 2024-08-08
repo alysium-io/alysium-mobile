@@ -6,6 +6,7 @@ import { ScrollView } from 'react-native';
 import { LayoutAnimationConfig } from 'react-native-reanimated';
 import SearchActivePage from './components/SearchActivePage';
 import SearchInactivePage from './components/SearchInactivePage';
+import SearchPageHeader from './Search.header';
 import useSearchPage from './useSearchPage';
 
 const SearchPage = () => {
@@ -25,6 +26,7 @@ const SearchPage = () => {
 
 	return (
 		<BasePage>
+			<SearchPageHeader />
 			<HeaderSafeArea>
 				<ScrollView alwaysBounceVertical keyboardShouldPersistTaps='always'>
 					<View margin='m'>

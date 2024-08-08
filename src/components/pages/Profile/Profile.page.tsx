@@ -6,6 +6,7 @@ import HeaderSection from './components/HeaderSection';
 import LogoutSection from './components/LogoutSection';
 import MenuSection from './components/MenuSection';
 import SelectAccountSection from './components/SelectAccountSection';
+import ProfilePageHeader from './Profile.header';
 
 const ProfilePage = () => {
 	// Create Host & Artist footer (on hold)
@@ -21,6 +22,7 @@ const ProfilePage = () => {
 
 	return (
 		<BasePage>
+			<ProfilePageHeader />
 			<HeaderSafeArea>
 				<ScrollView alwaysBounceVertical>
 					<HeaderSection />

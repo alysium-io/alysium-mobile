@@ -112,6 +112,12 @@ const apiSlice = createApi({
 					dispatch(
 						userApiSlice.util.invalidateTags([{ type: 'User', id: 'USER' }])
 					);
+
+					dispatch(
+						tagApiSlice.util.invalidateTags([
+							{ type: 'Tag', id: params.tag_uid }
+						])
+					);
 				} catch (error) {
 					if (patchResult) {
 						patchResult.undo();

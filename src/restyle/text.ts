@@ -7,6 +7,7 @@ const textVariantDefaults = {
 };
 
 const fontWeights = {
+	light: '300',
 	regular: '400',
 	medium: '500',
 	bold: '700'
@@ -52,6 +53,10 @@ export const textVariants = {
 	'paragraph-small': {
 		fontSize: PARAGRAPH_SMALL_SIZE,
 		fontWeight: fontWeights.regular
+	},
+	'paragraph-small-light': {
+		fontSize: PARAGRAPH_SMALL_SIZE,
+		fontWeight: fontWeights.light
 	},
 	'paragraph-small-medium': {
 		fontSize: PARAGRAPH_SMALL_SIZE,

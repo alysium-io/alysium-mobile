@@ -1,4 +1,4 @@
-import { ProfilePage, ProfilePageHeader } from '@pages';
+import { ProfilePage } from '@pages';
 import { createStackNavigator } from '@react-navigation/stack';
 import { ProfileStackNavigatorParamList } from '@types';
 import React from 'react';
@@ -12,11 +12,7 @@ const ProfileTab = () => {
 
 	return (
 		<ProfileStack.Navigator screenOptions={screenOptions}>
-			<ProfileStack.Screen
-				name='ProfilePage'
-				component={ProfilePage}
-				options={{ header: ProfilePageHeader }}
-			/>
+			<ProfileStack.Screen name='ProfilePage' component={ProfilePage} />
 		</ProfileStack.Navigator>
 	);
 };

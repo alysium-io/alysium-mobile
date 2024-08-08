@@ -1,13 +1,20 @@
+import { Icon, View } from '@atomic';
 import { Header, HeaderTitle } from '@organisms';
-import { StackHeaderProps } from '@react-navigation/stack';
 import React from 'react';
 
-const SearchPageHeader: React.FC<StackHeaderProps> = (stackHeaderProps) => {
+const SearchPageHeader: React.FC = () => {
 	return (
 		<Header
-			stackHeaderProps={stackHeaderProps}
-			CenterComponent={() => <HeaderTitle title='alysium' />}
-			RightComponent={undefined}
+			LeftComponent={
+				<View flexDirection='row' alignItems='center'>
+					<HeaderTitle
+						title='Alysium'
+						titleProps={{ variant: 'paragraph-medium' }}
+					/>
+				</View>
+			}
+			CenterComponent={undefined}
+			RightComponent={<Icon name='logo' size='m' color='text.s' />}
 		/>
 	);
 };

@@ -1,18 +1,11 @@
 import {
 	ArtistPage,
-	ArtistPageHeader,
 	HostPage,
-	HostPageHeader,
 	LocationPage,
-	LocationPageHeader,
 	SearchPage,
-	SearchPageHeader,
 	TagPage,
-	TagPageHeader,
 	UserArtistsFollowingPage,
-	UserArtistsFollowingPageHeader,
-	UserTagsFollowingPage,
-	UserTagsFollowingPageHeader
+	UserTagsFollowingPage
 } from '@pages';
 import { createStackNavigator } from '@react-navigation/stack';
 import { SearchStackNavigatorParamList } from '@types';
@@ -27,46 +20,24 @@ const SearchTab = () => {
 
 	return (
 		<SearchStack.Navigator screenOptions={screenOptions}>
-			<SearchStack.Screen
-				name='SearchPage'
-				component={SearchPage}
-				options={{ header: SearchPageHeader }}
-			/>
+			<SearchStack.Screen name='SearchPage' component={SearchPage} />
 
-			<SearchStack.Screen
-				name='HostPage'
-				component={HostPage}
-				options={{ header: HostPageHeader }}
-			/>
+			<SearchStack.Screen name='HostPage' component={HostPage} />
 
-			<SearchStack.Screen
-				name='ArtistPage'
-				component={ArtistPage}
-				options={{ header: ArtistPageHeader }}
-			/>
+			<SearchStack.Screen name='ArtistPage' component={ArtistPage} />
 
-			<SearchStack.Screen
-				name='TagPage'
-				component={TagPage}
-				options={{ header: TagPageHeader }}
-			/>
+			<SearchStack.Screen name='TagPage' component={TagPage} />
 
-			<SearchStack.Screen
-				name='LocationPage'
-				component={LocationPage}
-				options={{ header: LocationPageHeader }}
-			/>
+			<SearchStack.Screen name='LocationPage' component={LocationPage} />
 
 			<SearchStack.Screen
 				name='UserArtistsFollowingPage'
 				component={UserArtistsFollowingPage}
-				options={{ header: UserArtistsFollowingPageHeader }}
 			/>
 
 			<SearchStack.Screen
 				name='UserTagsFollowingPage'
 				component={UserTagsFollowingPage}
-				options={{ header: UserTagsFollowingPageHeader }}
 			/>
 		</SearchStack.Navigator>
 	);

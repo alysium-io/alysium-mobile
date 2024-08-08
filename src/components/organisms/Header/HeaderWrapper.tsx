@@ -1,36 +1,19 @@
 import { View } from '@atomic';
 import { useHeader } from '@organisms';
-import { StackCardInterpolationProps } from '@react-navigation/stack';
-import React, { useMemo } from 'react';
-import { Animated, StyleSheet } from 'react-native';
+import { IChildrenProps } from '@types';
+import React from 'react';
+import { StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import HeaderBackground from './HeaderBackground';
 
-interface HeaderWrapperProps {
-	children: React.ReactNode;
-	cardAnimationProps: StackCardInterpolationProps;
-}
+interface HeaderWrapperProps extends IChildrenProps {}
 
-const HeaderWrapper: React.FC<HeaderWrapperProps> = ({
-	children,
-	cardAnimationProps
-}) => {
+const HeaderWrapper: React.FC<HeaderWrapperProps> = ({ children }) => {
 	const { totalHeaderHeight, headerHeight } = useHeader();
 	const insets = useSafeAreaInsets();
 
-	const animatedStyle = useMemo(() => {
-		return {
-			opacity: cardAnimationProps.current.progress.interpolate({
-				inputRange: [0, 1],
-				outputRange: [0, 1]
-			})
-		};
-	}, []);
-
 	return (
-		<Animated.View
-			style={[animatedStyle, styles.container, { height: totalHeaderHeight }]}
-		>
+		<View style={[styles.container, { height: totalHeaderHeight }]}>
 			<HeaderBackground />
 			<View
 				flexDirection='row'
@@ -41,7 +24,7 @@ const HeaderWrapper: React.FC<HeaderWrapperProps> = ({
 			>
 				{children}
 			</View>
-		</Animated.View>
+		</View>
 	);
 };
 

@@ -1,20 +1,14 @@
-import { Header, HeaderIconButton, HeaderTitle } from '@organisms';
+import { useNavigation } from '@hooks';
+import { Header, HeaderIconButton } from '@organisms';
 import { StackHeaderProps } from '@react-navigation/stack';
 import React from 'react';
 
-const UserArtistsFollowingPageHeader: React.FC<StackHeaderProps> = (
-	stackHeaderProps
-) => {
+const UserArtistsFollowingPageHeader: React.FC<StackHeaderProps> = () => {
+	const { back } = useNavigation();
 	return (
 		<Header
-			stackHeaderProps={stackHeaderProps}
-			LeftComponent={() => (
-				<HeaderIconButton
-					onPress={stackHeaderProps.navigation.goBack}
-					icon='arrow-left'
-				/>
-			)}
-			CenterComponent={() => <HeaderTitle title='artists following' />}
+			LeftComponent={<HeaderIconButton onPress={back} icon='arrow-left' />}
+			CenterComponent={undefined}
 			RightComponent={undefined}
 		/>
 	);
