@@ -79,11 +79,31 @@ class Colors {
 		return `rgba(${r}, ${g}, ${b}, ${a})`;
 	};
 
-	static hex2RGB = (hexColor: string): RGB => {
-		const bigint = parseInt(hexColor.slice(1), 16);
-		const r = (bigint >> 16) & 255;
-		const g = (bigint >> 8) & 255;
-		const b = bigint & 255;
+	static hex2RGB = (hex: string): RGB => {
+		// Remove the hash at the start if it's there
+		hex = hex.replace(/^#/, '');
+
+		// Parse the hex values
+		let r: number, g: number, b: number;
+
+		if (hex.length === 3) {
+			// Shorthand hex color
+			r = parseInt(hex[0] + hex[0], 16);
+			g = parseInt(hex[1] + hex[1], 16);
+			b = parseInt(hex[2] + hex[2], 16);
+		} else if (hex.length === 6) {
+			// Full hex color
+			r = parseInt(hex.slice(0, 2), 16);
+			g = parseInt(hex.slice(2, 4), 16);
+			b = parseInt(hex.slice(4, 6), 16);
+		} else {
+			throw new Error('Invalid hex color format');
+		}
+
+		// Ensure the values are within the valid range (0-255)
+		r = Math.min(255, Math.max(0, r));
+		g = Math.min(255, Math.max(0, g));
+		b = Math.min(255, Math.max(0, b));
 
 		return { r, g, b };
 	};

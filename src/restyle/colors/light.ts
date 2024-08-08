@@ -109,7 +109,7 @@ export const createSemanticLightTheme = (
 		'etc.activity-indicator': palette.neutral.p8,
 		'etc.status-bar': 'dark-content',
 		'etc.keyboard': 'light',
-		'etc.blur': 'xlight',
+		'etc.blur': 'light',
 
 		'palette.neutral.p1': palette.neutral.p1,
 		'palette.neutral.p2': palette.neutral.p2,

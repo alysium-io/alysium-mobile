@@ -53,7 +53,7 @@ const useTheme = (): IUseTheme => {
 	return {
 		theme,
 		themeName,
-		themeMode,
+		themeMode: _getThemeMode(),
 		colorModeState,
 		setThemeName,
 		setThemeMode,

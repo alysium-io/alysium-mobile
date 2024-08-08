@@ -36,7 +36,7 @@ export const useNavigationSettings = (): IUseNavigationSettings => {
 			initialArtistAppTab: 'Profile' as keyof BottomTabNavigatorParamList,
 			initialHostAppTab: 'Profile' as keyof BottomTabNavigatorParamList,
 			initialTestAppTab: 'Pages' as keyof BottomTabNavigatorParamList,
-			initialUserAppTab: 'Search' as keyof BottomTabNavigatorParamList
+			initialUserAppTab: 'Profile' as keyof BottomTabNavigatorParamList
 		}
 	};
 
