@@ -138,6 +138,8 @@ export type SemanticColors = {
 	'default-profile-image.bg': HexColor;
 	'default-profile-image.icon': HexColor;
 
+	'hyperlink.text': HexColor;
+
 	// Etc
 	transparent: 'transparent';
 	'etc.activity-indicator': HexColor;

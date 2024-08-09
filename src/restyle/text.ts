@@ -42,6 +42,10 @@ export const textVariants = {
 		fontSize: PARAGRAPH_SIZE,
 		fontWeight: fontWeights.regular
 	},
+	'paragraph-light': {
+		fontSize: PARAGRAPH_SIZE,
+		fontWeight: fontWeights.light
+	},
 	'paragraph-medium': {
 		fontSize: PARAGRAPH_SIZE,
 		fontWeight: fontWeights.medium

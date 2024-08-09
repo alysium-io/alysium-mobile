@@ -8,7 +8,7 @@ const UsernameDisplay = () => {
 
 	if (personaType === Persona.user) {
 		return (
-			<View flexDirection='row' alignItems='center'>
+			<View flexDirection='row' alignItems='center' marginBottom='m'>
 				<Icon name='at' size='s' color='text.p' />
 				<Text variant='paragraph-medium' marginLeft='xs'>
 					{userData.handle}

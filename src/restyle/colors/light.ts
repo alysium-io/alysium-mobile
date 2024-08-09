@@ -105,6 +105,8 @@ export const createSemanticLightTheme = (
 		'search.search-bar.icon': palette.s.p6,
 		'search.search-bar.clear-btn-icon': palette.s.p9,
 
+		'hyperlink.text': palette.p.p5,
+
 		transparent: 'transparent',
 		'etc.activity-indicator': palette.neutral.p8,
 		'etc.status-bar': 'dark-content',
