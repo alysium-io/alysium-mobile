@@ -1,23 +1,12 @@
 import { View } from '@atomic';
+import { ChildrenProps } from '@types';
 import React from 'react';
-import { StyleSheet } from 'react-native';
 
-interface HeaderCenterSectionProps {
-	children?: React.ReactNode;
-}
+type HeaderCenterSectionProps = React.ComponentProps<typeof View> &
+	ChildrenProps;
 
-const HeaderCenterSection: React.FC<HeaderCenterSectionProps> = ({
-	children
-}) => {
-	return <View style={styles.container}>{children}</View>;
-};
-
-const styles = StyleSheet.create({
-	container: {
-		alignItems: 'center',
-		justifyContent: 'center',
-		flex: 2
-	}
-});
+const HeaderCenterSection: React.FC<HeaderCenterSectionProps> = (props) => (
+	<View flex={2} justifyContent='center' alignItems='center' {...props} />
+);
 
 export default HeaderCenterSection;

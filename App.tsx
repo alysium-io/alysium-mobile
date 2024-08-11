@@ -4,7 +4,9 @@ import React from 'react';
 // const App = () => {
 // 	return (
 // 		<Dependencies>
-// 			<Scratch />
+// 			<BottomSheetModalProvider>
+// 				<Scratch />
+// 			</BottomSheetModalProvider>
 // 		</Dependencies>
 // 	);
 // };

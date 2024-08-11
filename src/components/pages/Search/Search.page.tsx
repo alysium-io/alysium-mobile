@@ -1,5 +1,4 @@
-import { HeaderSafeArea, View } from '@atomic';
-import { BasePage, SearchBar } from '@organisms';
+import { BasePage } from '@organisms';
 import React from 'react';
 import { Case, Switch } from 'react-if';
 import { ScrollView } from 'react-native';
@@ -18,46 +17,45 @@ const SearchPage = () => {
 		searchText,
 		isLoading,
 		recentSearches,
-		searchResults,
 		onPressSearchResult,
 		discoverTagsData,
-		refetchDiscoverTags
+		refetchDiscoverTags,
+		artistSearchResults,
+		tagSearchResults,
+		nextArtistSearchPage
 	} = useSearchPage();
 
 	return (
 		<BasePage>
-			<SearchPageHeader />
-			<HeaderSafeArea>
-				<ScrollView alwaysBounceVertical keyboardShouldPersistTaps='always'>
-					<View margin='m'>
-						<SearchBar
-							onChangeText={setSearchText}
-							onPressClearText={clearSearchText}
-							isActive={isSearchActive}
-							setIsActive={setIsSearchActive}
-						/>
-					</View>
-					<LayoutAnimationConfig skipEntering>
-						<Switch>
-							<Case condition={isSearchActive}>
-								<SearchActivePage
-									searchText={searchText}
-									isLoading={isLoading}
-									recentSearches={recentSearches}
-									searchResults={searchResults}
-									onPressSearchResult={onPressSearchResult}
-								/>
-							</Case>
-							<Case condition={!isSearchActive}>
-								<SearchInactivePage
-									discoverTagsData={discoverTagsData}
-									refetchDiscoverTags={refetchDiscoverTags}
-								/>
-							</Case>
-						</Switch>
-					</LayoutAnimationConfig>
-				</ScrollView>
-			</HeaderSafeArea>
+			<SearchPageHeader
+				setSearchText={setSearchText}
+				clearSearchText={clearSearchText}
+				isSearchActive={isSearchActive}
+				setIsSearchActive={setIsSearchActive}
+			/>
+			<ScrollView style={{ flex: 1, overflow: 'visible' }}>
+				<LayoutAnimationConfig skipEntering>
+					<Switch>
+						<Case condition={isSearchActive}>
+							<SearchActivePage
+								searchText={searchText}
+								isLoading={isLoading}
+								recentSearches={recentSearches}
+								onPressSearchResult={onPressSearchResult}
+								artistSearchResults={artistSearchResults}
+								tagSearchResults={tagSearchResults}
+								nextArtistSearchPage={nextArtistSearchPage}
+							/>
+						</Case>
+						<Case condition={!isSearchActive}>
+							<SearchInactivePage
+								discoverTagsData={discoverTagsData}
+								refetchDiscoverTags={refetchDiscoverTags}
+							/>
+						</Case>
+					</Switch>
+				</LayoutAnimationConfig>
+			</ScrollView>
 		</BasePage>
 	);
 };

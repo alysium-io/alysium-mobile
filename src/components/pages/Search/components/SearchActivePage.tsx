@@ -1,6 +1,7 @@
 import { ActivityIndicator, View } from '@atomic';
-import { SearchHit } from '@flux/api/search';
+import { SearchItem } from '@flux/api/search';
 import { SearchArtistsResponseDto } from '@flux/api/search/dto/search-artists.dto';
+import { SearchTagsResponseDto } from '@flux/api/search/dto/search-tags.dto';
 import React from 'react';
 import { Case, Switch } from 'react-if';
 import { FadeInUp, FadeOutDown } from 'react-native-reanimated';
@@ -11,21 +12,24 @@ import SearchResults from './SearchResults';
 interface SearchActivePageProps {
 	searchText: string;
 	isLoading: boolean;
-	recentSearches: SearchHit[];
-	searchResults?: SearchArtistsResponseDto;
-	onPressSearchResult: (item: SearchHit) => void;
+	recentSearches: SearchItem[];
+	artistSearchResults?: SearchArtistsResponseDto;
+	tagSearchResults?: SearchTagsResponseDto;
+	onPressSearchResult: (item: SearchItem) => void;
+	nextArtistSearchPage: () => void;
 }
 
 const SearchActivePage: React.FC<SearchActivePageProps> = ({
 	searchText,
 	isLoading,
 	recentSearches,
-	searchResults,
-	onPressSearchResult
+	onPressSearchResult,
+	artistSearchResults,
+	tagSearchResults,
+	nextArtistSearchPage
 }) => {
 	return (
 		<View
-			marginTop='m'
 			animated
 			entering={FadeInUp.duration(250)}
 			exiting={FadeOutDown.duration(250)}
@@ -47,8 +51,10 @@ const SearchActivePage: React.FC<SearchActivePageProps> = ({
 				</Case>
 				<Case condition={searchText.length > 0}>
 					<SearchResults
-						searchResults={searchResults}
 						onPressSearchResult={onPressSearchResult}
+						artistSearchResults={artistSearchResults}
+						tagSearchResults={tagSearchResults}
+						nextArtistSearchPage={nextArtistSearchPage}
 					/>
 				</Case>
 			</Switch>

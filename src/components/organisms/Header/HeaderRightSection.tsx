@@ -1,28 +1,19 @@
 import { View } from '@atomic';
+import { ChildrenProps } from '@types';
 import React from 'react';
-import { StyleSheet } from 'react-native';
 
-interface HeaderRightSectionProps {
-	children?: React.ReactNode;
-}
+type HeaderRightSectionProps = React.ComponentProps<typeof View> &
+	ChildrenProps;
 
-const HeaderRightSection: React.FC<HeaderRightSectionProps> = ({
-	children
-}) => {
-	return (
-		<View style={styles.container} paddingRight='m'>
-			{children}
-		</View>
-	);
-};
-
-const styles = StyleSheet.create({
-	container: {
-		flexDirection: 'row',
-		alignItems: 'center',
-		justifyContent: 'flex-end',
-		flex: 1
-	}
-});
+const HeaderRightSection: React.FC<HeaderRightSectionProps> = (props) => (
+	<View
+		paddingRight='m'
+		flexDirection='row'
+		alignItems='center'
+		justifyContent='flex-end'
+		flex={1}
+		{...props}
+	/>
+);
 
 export default HeaderRightSection;

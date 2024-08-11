@@ -1,37 +1,27 @@
-import { BlurView, LinearGradient, View } from '@atomic';
-import { Colors } from '@etc';
+import { BlurView, View } from '@atomic';
 import { useTheme } from '@hooks';
-import { useHeader } from '@organisms';
+import { ThemeMode } from '@types';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 
 const HeaderBackground = () => {
-	const { theme } = useTheme();
-	const { totalHeaderHeight } = useHeader();
+	const { theme, themeMode } = useTheme();
 
-	const backgroundStyle = [styles.background, { height: totalHeaderHeight }];
-
-	return (
-		<>
-			<LinearGradient
-				colors={[
-					theme.colors['bg.p'],
-					Colors.hex2RGBAString(theme.colors['bg.p'], 0.7)
-				]}
-				style={backgroundStyle}
-			/>
+	if (themeMode === ThemeMode.light) {
+		return (
 			<BlurView
 				blurAmount={25}
 				blurType={theme.colors['etc.blur']}
-				style={backgroundStyle}
+				style={styles.background}
 			/>
-			<View
-				borderBottomWidth={theme.borderWidth.normal}
-				borderBottomColor='navbar.border'
-				style={backgroundStyle}
-			/>
-		</>
-	);
+		);
+	}
+
+	if (themeMode === ThemeMode.dark) {
+		return <View style={styles.background} backgroundColor='bg.p' />;
+	}
+
+	return null;
 };
 
 const styles = StyleSheet.create({
@@ -40,7 +30,7 @@ const styles = StyleSheet.create({
 		top: 0,
 		left: 0,
 		right: 0,
-		width: '100%'
+		bottom: 0
 	}
 });
 

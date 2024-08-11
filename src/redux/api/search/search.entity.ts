@@ -1,18 +1,17 @@
-import { ApiIdentifier } from '@types';
-
 export enum SearchType {
 	ARTIST = 'artist',
 	TAG = 'tag'
 }
 
-export interface SearchHit {
-	readonly uid: ApiIdentifier;
+export interface SearchItem {
+	readonly uid: string;
 	readonly name: string;
 	readonly searchType: SearchType;
+	readonly rankingScore: number;
 }
 
 export interface SearchResponseDto {
-	readonly hits: SearchHit[];
+	readonly hits: SearchItem[];
 	readonly query: string;
 	readonly processingTimeMs: number;
 	readonly limit: number;

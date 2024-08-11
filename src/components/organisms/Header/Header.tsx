@@ -1,26 +1,27 @@
+import { View } from '@atomic';
+import { useTheme } from '@hooks';
+import { IChildrenProps, Props } from '@types';
 import React from 'react';
-import HeaderCenterSection from './HeaderCenterSection';
-import HeaderLeftSection from './HeaderLeftSection';
-import HeaderRightSection from './HeaderRightSection';
-import HeaderWrapper from './HeaderWrapper';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import HeaderBackground from './HeaderBackground';
 
-interface HeaderProps {
-	LeftComponent?: React.ReactNode;
-	CenterComponent?: React.ReactNode;
-	RightComponent?: React.ReactNode;
-}
+type HeaderProps = Props<typeof View> & IChildrenProps;
 
-const Header: React.FC<HeaderProps> = ({
-	LeftComponent,
-	CenterComponent,
-	RightComponent
-}) => {
+const Header: React.FC<HeaderProps> = ({ children, ...props }) => {
+	const insets = useSafeAreaInsets();
+	const { theme } = useTheme();
+
 	return (
-		<HeaderWrapper>
-			<HeaderLeftSection>{LeftComponent}</HeaderLeftSection>
-			<HeaderCenterSection>{CenterComponent}</HeaderCenterSection>
-			<HeaderRightSection>{RightComponent}</HeaderRightSection>
-		</HeaderWrapper>
+		<View
+			style={{ paddingTop: insets.top }}
+			borderColor='border.light'
+			borderBottomWidth={theme.borderWidth.normal}
+			zIndex={999}
+			{...props}
+		>
+			<HeaderBackground />
+			{children}
+		</View>
 	);
 };
 

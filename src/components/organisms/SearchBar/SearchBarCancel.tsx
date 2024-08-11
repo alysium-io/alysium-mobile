@@ -1,6 +1,6 @@
 import { Text, View } from '@atomic';
 import React from 'react';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { TouchableWithoutFeedback } from 'react-native';
 import { FadeIn } from 'react-native-reanimated';
 
 interface SearchBarCancelProps {

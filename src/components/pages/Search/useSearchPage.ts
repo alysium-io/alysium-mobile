@@ -1,25 +1,28 @@
-import { SearchHit, searchApiSlice } from '@flux/api/search';
+import { SearchItem, searchApiSlice } from '@flux/api/search';
 import { SearchArtistsResponseDto } from '@flux/api/search/dto/search-artists.dto';
+import { SearchTagsResponseDto } from '@flux/api/search/dto/search-tags.dto';
 import { SearchType } from '@flux/api/search/search.entity';
 import { tagApiSlice } from '@flux/api/tag';
 import { DiscoverTagsResponseDto } from '@flux/api/tag/dto/tag-discover.dto';
-import { useNavigation, usePersistedSearchState } from '@hooks';
+import { useNavigation, usePagination, usePersistedSearchState } from '@hooks';
 import { useState } from 'react';
 
 interface IUseSearchPage {
 	searchText: string;
 	isLoading: boolean;
-	recentSearches: SearchHit[];
-	searchResults?: SearchArtistsResponseDto;
+	recentSearches: SearchItem[];
+	artistSearchResults?: SearchArtistsResponseDto;
+	tagSearchResults?: SearchTagsResponseDto;
 	setSearchText: (text: string) => void;
 	clearSearchText: () => void;
 	isSearchActive: boolean;
 	setIsSearchActive: (isActive: boolean) => void;
-	onPressSearchResult: (item: SearchHit) => void;
+	onPressSearchResult: (item: SearchItem) => void;
 	discoverTagsData?: DiscoverTagsResponseDto;
 	isDiscoverTagsLoading: boolean;
 	discoverTagsError: any;
 	refetchDiscoverTags: () => void;
+	nextArtistSearchPage: () => void;
 }
 
 const useSearchPage = (): IUseSearchPage => {
@@ -29,7 +32,7 @@ const useSearchPage = (): IUseSearchPage => {
 	const [searchText, setSearchText] = useState<string>('');
 	const clearSearchText = () => setSearchText('');
 
-	const onPressSearchResult = (item: SearchHit) => {
+	const onPressSearchResult = (item: SearchItem) => {
 		addRecentSearch(item);
 		if (item.searchType === SearchType.ARTIST) {
 			artistPage(item.uid);
@@ -39,11 +42,35 @@ const useSearchPage = (): IUseSearchPage => {
 	};
 
 	const {
-		data: searchResults,
-		isLoading,
-		error
+		page: artistSearchPage,
+		nextPage: nextArtistSearchPage,
+		defaultLimit: artistSearchDefaultLimit
+	} = usePagination();
+
+	const {
+		data: tagSearchResults,
+		isLoading: isLoadingTagSearchResults,
+		error: tagSearchResultsError
 	} = searchApiSlice.useSearchTagsQuery(
-		{ body: { q: searchText } },
+		{
+			body: { q: searchText },
+			query: { page: 1, limit: 4 }
+		},
+		{ skip: searchText.length === 0 }
+	);
+
+	const {
+		data: artistSearchResults,
+		isLoading: isLoadingArtistSearchResults,
+		error: artistSearchResultsError
+	} = searchApiSlice.useSearchArtistsQuery(
+		{
+			body: { q: searchText },
+			query: {
+				page: artistSearchPage,
+				limit: artistSearchDefaultLimit
+			}
+		},
 		{ skip: searchText.length === 0 }
 	);
 
@@ -56,9 +83,10 @@ const useSearchPage = (): IUseSearchPage => {
 
 	return {
 		searchText,
-		isLoading,
+		isLoading: isLoadingTagSearchResults && isLoadingArtistSearchResults,
 		recentSearches,
-		searchResults,
+		artistSearchResults,
+		tagSearchResults,
 		setSearchText,
 		clearSearchText,
 		isSearchActive,
@@ -67,7 +95,8 @@ const useSearchPage = (): IUseSearchPage => {
 		discoverTagsData,
 		isDiscoverTagsLoading,
 		discoverTagsError,
-		refetchDiscoverTags
+		refetchDiscoverTags,
+		nextArtistSearchPage
 	};
 };
 

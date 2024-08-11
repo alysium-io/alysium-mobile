@@ -1,5 +1,8 @@
+import { StatusBar, View } from '@atomic';
+import { useLayoutDimensions } from '@hooks';
 import React from 'react';
-import BasePageContent from './BasePageContent';
+import Footer from './Footer';
+import NavbarSeparator from './NavbarSeparator';
 import useBasePage from './useBasePage';
 
 interface BasePageProps {
@@ -8,19 +11,29 @@ interface BasePageProps {
 }
 
 const BasePage: React.FC<BasePageProps> = ({ children, FooterComponent }) => {
-	const { footerHeight, setFooterHeight, isFooterActive, setIsFooterActive } =
-		useBasePage();
+	const { isFooterActive, setIsFooterActive } = useBasePage();
+
+	const { onLayout: onFooterLayout, dimensions: footerDimensions } =
+		useLayoutDimensions();
 
 	return (
-		<BasePageContent
-			footerHeight={footerHeight}
-			setFooterHeight={setFooterHeight}
-			isFooterActive={isFooterActive}
-			setIsFooterActive={setIsFooterActive}
-			FooterComponent={FooterComponent}
+		<View
+			animated
+			backgroundColor='bg.p'
+			style={{
+				flex: 1,
+				marginBottom: footerDimensions.height
+			}}
 		>
+			{FooterComponent && (
+				<Footer setIsFooterActive={setIsFooterActive} onLayout={onFooterLayout}>
+					<FooterComponent />
+				</Footer>
+			)}
+			<StatusBar />
 			{children}
-		</BasePageContent>
+			<NavbarSeparator isFooterActive={isFooterActive} />
+		</View>
 	);
 };
 

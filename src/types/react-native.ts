@@ -13,3 +13,5 @@ export type ChildrenProps = {
 };
 
 export type OnLayout = ((event: LayoutChangeEvent) => void) | undefined;
+
+export type Props<T extends React.ComponentType<any>> = React.ComponentProps<T>;

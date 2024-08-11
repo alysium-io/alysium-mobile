@@ -1,10 +1,9 @@
+import { Pagination } from '@flux/api/utils/pagination';
 import { ApiIdentifier } from '@types';
 import { Venue } from '../venue.entity';
 
-export interface FindAllVenuesQueryDto {
+export interface FindAllVenuesQueryDto extends Pagination {
 	host_uid: ApiIdentifier;
-	page: number;
-	limit: number;
 }
 
 export interface FindAllVenuesResponseDto extends Venue {}

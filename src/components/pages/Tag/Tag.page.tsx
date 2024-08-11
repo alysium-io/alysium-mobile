@@ -1,4 +1,3 @@
-import { HeaderSafeArea } from '@atomic';
 import { useNavigation } from '@hooks';
 import { ContentListItemWithRank } from '@molecules';
 import { BasePage } from '@organisms';
@@ -28,39 +27,37 @@ const TagPage = () => {
 	return (
 		<BasePage>
 			<TagPageHeader title={tagData.name} />
-			<HeaderSafeArea>
-				<FlatList
-					data={tagArtists}
-					ListHeaderComponent={
-						<Header
-							tagData={tagData}
-							correlatedTagsData={correlatedTagsData}
-							onPressFollowButton={onPressFollowButton}
-						/>
-					}
-					keyExtractor={(item) => item.artist.artist_uid}
-					onEndReached={nextPage}
-					onEndReachedThreshold={0.2}
-					refreshing={true}
-					renderItem={({ item, index }) => (
-						<ContentListItemWithRank
-							key={item.artist.artist_uid}
-							rank={index + 1}
-							onPress={() => artistPage(item.artist.artist_uid)}
-							titleTextProps={{
-								title: item.artist.name,
-								bottomSubtext: 'Los Angeles, CA'
-							}}
-							profileImageProps={{
-								image: item.artist.profile_image?.small.key,
-								defaultImageProps: {
-									icon: 'artist'
-								}
-							}}
-						/>
-					)}
-				/>
-			</HeaderSafeArea>
+			<FlatList
+				data={tagArtists}
+				ListHeaderComponent={
+					<Header
+						tagData={tagData}
+						correlatedTagsData={correlatedTagsData}
+						onPressFollowButton={onPressFollowButton}
+					/>
+				}
+				keyExtractor={(item) => item.artist.artist_uid}
+				onEndReached={nextPage}
+				onEndReachedThreshold={0.2}
+				refreshing={true}
+				renderItem={({ item, index }) => (
+					<ContentListItemWithRank
+						key={item.artist.artist_uid}
+						rank={index + 1}
+						onPress={() => artistPage(item.artist.artist_uid)}
+						titleTextProps={{
+							title: item.artist.name,
+							bottomSubtext: 'Los Angeles, CA'
+						}}
+						profileImageProps={{
+							image: item.artist.profile_image?.small.key,
+							defaultImageProps: {
+								icon: 'artist'
+							}
+						}}
+					/>
+				)}
+			/>
 		</BasePage>
 	);
 };

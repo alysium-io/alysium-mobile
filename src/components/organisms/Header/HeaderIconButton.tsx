@@ -1,24 +1,23 @@
 import { Icon, View } from '@atomic';
-import { IconNames } from '@svg';
+import { Props } from '@types';
 import React from 'react';
 import { TouchableWithoutFeedback } from 'react-native';
 
-interface HeaderIconButtonProps {
+type HeaderIconButtonProps = Props<typeof Icon> & {
 	onPress: () => void;
-	icon: IconNames;
-	color?: string;
-	iconProps?: React.ComponentProps<typeof Icon>;
-}
+};
 
 const HeaderIconButton: React.FC<HeaderIconButtonProps> = ({
 	onPress,
-	icon,
-	iconProps
+	name,
+	color = 'text.s',
+	size = 'm',
+	...props
 }) => {
 	return (
 		<TouchableWithoutFeedback onPress={onPress}>
 			<View>
-				<Icon name={icon} size='m' color='text.s' {...iconProps} />
+				<Icon name={name} size={size} color={color} {...props} />
 			</View>
 		</TouchableWithoutFeedback>
 	);

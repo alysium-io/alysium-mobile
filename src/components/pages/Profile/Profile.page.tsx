@@ -1,4 +1,3 @@
-import { HeaderSafeArea } from '@atomic';
 import { BasePage } from '@organisms';
 import {
 	AboutAlysiumBottomSheet,
@@ -35,18 +34,16 @@ const ProfilePage = () => {
 	return (
 		<BasePage>
 			<ProfilePageHeader />
-			<HeaderSafeArea>
-				<ScrollView alwaysBounceVertical>
-					<HeaderSection />
-					<SelectAccountSection />
-					<MenuSection
-						termsOfServiceSheetApi={termsOfServiceSheetApi}
-						privacyPolicySheetApi={privacyPolicySheetApi}
-						aboutAlysiumSheetApi={aboutAlysiumSheetApi}
-					/>
-					<LogoutSection />
-				</ScrollView>
-			</HeaderSafeArea>
+			<ScrollView alwaysBounceVertical>
+				<HeaderSection />
+				<SelectAccountSection />
+				<MenuSection
+					termsOfServiceSheetApi={termsOfServiceSheetApi}
+					privacyPolicySheetApi={privacyPolicySheetApi}
+					aboutAlysiumSheetApi={aboutAlysiumSheetApi}
+				/>
+				<LogoutSection />
+			</ScrollView>
 			<PrivacyPolicyBottomSheet sheetApi={privacyPolicySheetApi} />
 			<TermsOfServiceBottomSheet sheetApi={termsOfServiceSheetApi} />
 			<AboutAlysiumBottomSheet sheetApi={aboutAlysiumSheetApi} />

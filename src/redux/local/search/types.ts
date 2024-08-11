@@ -1,5 +1,5 @@
-import { SearchHit } from '@flux/api/search';
+import { SearchItem } from '@flux/api/search';
 
 export type SearchState = {
-	recentSearches: SearchHit[];
+	recentSearches: SearchItem[];
 };

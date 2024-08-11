@@ -1,10 +1,10 @@
 import { Section, Text } from '@atomic';
-import { SearchHit } from '@flux/api/search';
+import { SearchItem } from '@flux/api/search';
 import { ContentListItem } from '@molecules';
 import React from 'react';
 
 interface RecentSearchesProps {
-	recentSearches?: SearchHit[];
+	recentSearches?: SearchItem[];
 	onPressSearchResult: (result: any) => void;
 }
 
@@ -13,7 +13,7 @@ const RecentSearches: React.FC<RecentSearchesProps> = ({
 	onPressSearchResult
 }) => {
 	return (
-		<Section>
+		<Section marginTop='xl'>
 			<Text variant='section-header-2' marginHorizontal='m' marginBottom='m'>
 				Recent Searches
 			</Text>

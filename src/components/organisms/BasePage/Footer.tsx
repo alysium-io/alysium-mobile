@@ -1,22 +1,20 @@
 import { View } from '@atomic';
 import { useTheme } from '@hooks';
+import { Props } from '@types';
 import React, { useEffect } from 'react';
 import { StyleSheet } from 'react-native';
 
-interface FooterProps {
-	children?: React.ReactNode;
-	containerProps?: React.ComponentProps<typeof View>;
+type FooterProps = Props<typeof View> & {
 	backgroundColor?: string;
 	setIsFooterActive: (isFooterActive: boolean) => void;
-}
+};
 
 const Footer: React.FC<FooterProps> = ({
-	children,
-	containerProps,
-	backgroundColor = 'bg1',
-	setIsFooterActive
+	backgroundColor = 'bg.p',
+	setIsFooterActive,
+	...props
 }) => {
-	const { getRawColor } = useTheme();
+	const { theme } = useTheme();
 
 	useEffect(() => {
 		setIsFooterActive(true);
@@ -25,12 +23,12 @@ const Footer: React.FC<FooterProps> = ({
 
 	return (
 		<View
-			style={[styles.container, { borderTopColor: getRawColor('bg2') }]}
-			{...containerProps}
+			borderTopWidth={theme.borderWidth.normal}
+			borderColor='border.light'
+			style={styles.container}
 			backgroundColor={backgroundColor}
-		>
-			{children}
-		</View>
+			{...props}
+		/>
 	);
 };
 
@@ -41,7 +39,6 @@ const styles = StyleSheet.create({
 		bottom: 0,
 		left: 0,
 		right: 0,
-		borderTopWidth: 0.5,
 		zIndex: 1
 	}
 });

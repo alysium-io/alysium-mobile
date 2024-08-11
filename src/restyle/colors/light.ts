@@ -53,7 +53,7 @@ export const createSemanticLightTheme = (
 		'button.solid.active.text.p': palette.neutral.p1,
 		'button.solid.active.bg.s': palette.s.p5,
 		'button.solid.active.text.s': palette.neutral.p9,
-		'button.solid.active.bg.t': palette.t.p5,
+		'button.solid.active.bg.t': palette.t.p3,
 		'button.solid.active.text.t': palette.neutral.p9,
 		'button.solid.active.bg.q': palette.q.p5,
 		'button.solid.active.text.q': palette.neutral.p9,

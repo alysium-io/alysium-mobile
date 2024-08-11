@@ -1,4 +1,4 @@
-import { HeaderSafeArea, View } from '@atomic';
+import { View } from '@atomic';
 import { BasePage, Parallax } from '@organisms';
 import { ApiIdentifier } from '@types';
 import React from 'react';
@@ -22,25 +22,23 @@ const User: React.FC<UserProps> = ({ artist_uid }) => {
 	return (
 		<BasePage>
 			<ArtistPageHeader title={artistData.name} />
-			<HeaderSafeArea>
-				<Parallax
-					bannerTitleProps={{
-						title: artistData.name
-					}}
-					bannerImageProps={{
-						image: artistData.profile_image?.large.key
-					}}
-				>
-					<View margin='m'>
-						<SubHeader artistData={artistData} />
-						<ActionButtons
-							artistData={artistData}
-							onPressFollowButton={onPressFollowButton}
-						/>
-						<ArtistTags artistData={artistData} />
-					</View>
-				</Parallax>
-			</HeaderSafeArea>
+			<Parallax
+				bannerTitleProps={{
+					title: artistData.name
+				}}
+				bannerImageProps={{
+					image: artistData.profile_image?.large.key
+				}}
+			>
+				<View margin='m'>
+					<SubHeader artistData={artistData} />
+					<ActionButtons
+						artistData={artistData}
+						onPressFollowButton={onPressFollowButton}
+					/>
+					<ArtistTags artistData={artistData} />
+				</View>
+			</Parallax>
 		</BasePage>
 	);
 };
