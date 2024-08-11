@@ -1,13 +1,10 @@
 import { View } from '@atomic';
+import { Props } from '@types';
 import React from 'react';
 import StatsItem from './StatsItem';
 
 interface StatsProps {
-	items: {
-		title: string;
-		subtitle: string;
-		onPress: () => void;
-	}[];
+	items: Props<typeof StatsItem>[];
 }
 
 const Stats: React.FC<StatsProps> = ({ items }) => {

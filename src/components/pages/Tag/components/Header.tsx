@@ -27,17 +27,20 @@ const Header: React.FC<HeaderProps> = ({
 				marginTop='m'
 				marginBottom='l'
 			>
-				<View flex={1} marginRight='m'>
-					<Text variant='page-header' marginBottom='m'>
+				<View flex={1}>
+					<Text variant='page-header' marginBottom='m' numberOfLines={2}>
 						{tagData.name}
 					</Text>
 				</View>
 				<Stats
 					items={[
 						{
+							title: tagData.num_artists.toLocaleString(),
+							subtitle: 'artist' + (tagData.num_artists === 1 ? '' : 's')
+						},
+						{
 							title: tagData.num_followers.toLocaleString(),
-							subtitle: 'follower' + (tagData.num_followers === 1 ? '' : 's'),
-							onPress: () => {}
+							subtitle: 'follower' + (tagData.num_followers === 1 ? '' : 's')
 						}
 					]}
 				/>

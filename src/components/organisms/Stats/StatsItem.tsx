@@ -5,7 +5,7 @@ import { TouchableWithoutFeedback } from 'react-native';
 interface StatsItemProps {
 	title: string;
 	subtitle: string;
-	onPress: () => void;
+	onPress?: () => void;
 }
 
 const StatsItem: React.FC<StatsItemProps> = ({ title, subtitle, onPress }) => {

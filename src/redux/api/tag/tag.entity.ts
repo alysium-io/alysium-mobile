@@ -5,4 +5,5 @@ export interface Tag {
 	readonly name: string;
 	readonly is_following: boolean;
 	readonly num_followers: number;
+	readonly num_artists: number;
 }

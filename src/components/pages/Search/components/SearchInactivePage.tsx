@@ -79,7 +79,11 @@ const SearchInactivePage: React.FC<SearchInactivePageProps> = ({
 						icon='tag'
 						onPress={() => tagPage(tag.tag_uid)}
 						titleTextProps={{
-							title: tag.name
+							title: tag.name,
+							bottomSubtext:
+								tag.num_artists.toLocaleString() +
+								' artist' +
+								(tag.num_artists === 1 ? '' : 's')
 						}}
 					/>
 				))}

@@ -35,7 +35,6 @@ const Parallax: React.FC<ParallaxProps> = ({
 				<BannerImage {...bannerImageProps} />
 			</AnimatedParallaxBannerContainer>
 			<ScrollView
-				stickyHeaderHiddenOnScroll
 				alwaysBounceVertical
 				onScroll={scrollEvent}
 				scrollEventThrottle={16}

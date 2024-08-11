@@ -17,7 +17,6 @@ const HeaderSection: React.FC<HeaderSectionProps> = ({
 		alignItems='center'
 		justifyContent='space-between'
 		margin='m'
-		paddingHorizontal='m'
 	>
 		<View flex={1}>{LeftComponent}</View>
 		<View flex={2} alignItems='center'>

@@ -29,7 +29,7 @@ const BannerTitle: React.FC<BannerTitleProps> = ({
 			>
 				<Text
 					variant='page-header'
-					color='text.p'
+					color={showGradient ? 'palette.neutral.p1' : 'text.p'}
 					textAlign={titleAlign}
 					margin='m'
 				>
