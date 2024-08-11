@@ -46,6 +46,7 @@ import SearchFilled from './SearchFilled';
 import Security from './Security';
 import Settings from './Settings';
 import Share from './Share';
+import Spotify from './Spotify';
 import Star from './Star';
 import Tag from './Tag';
 import TailedArrow from './TailedArrow';
@@ -107,7 +108,8 @@ export const SvgIcons = {
 	phone: Phone,
 	ticket: Ticket,
 	'arrow-up': ArrowUp,
-	'arrow-down': ArrowDown
+	'arrow-down': ArrowDown,
+	spotify: Spotify
 };
 
 export type IconNames = keyof typeof SvgIcons;

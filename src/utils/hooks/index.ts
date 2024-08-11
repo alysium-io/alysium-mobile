@@ -20,6 +20,7 @@ export { default as createUseContextHook } from './createUseContextHook';
 export { default as useAnimatedState } from './useAnimatedState';
 export { default as useAnimatedValue } from './useAnimatedValue';
 export { default as useLayoutDimensions } from './useLayoutDimensions';
+export { default as useLinking } from './useLinking';
 export { default as useModal, type ModalApi } from './useModal';
 export { default as usePagination } from './usePagination';
 export { default as useScrollView } from './useScrollView';

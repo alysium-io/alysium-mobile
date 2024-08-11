@@ -2,6 +2,7 @@ import { ArtistTagLink } from '../artist-tag-link/artist-tag-link.entity';
 import { ArtistGallery } from '../gallery/gallery.entity';
 import { Location } from '../location/location.entity';
 import { ProfileImage } from '../profile-image';
+import { ScrapedSpotifyArtistData } from './types';
 
 interface ArtistCommon {
 	readonly artist_uid: string;
@@ -12,6 +13,7 @@ interface ArtistCommon {
 	readonly gallery: ArtistGallery[];
 	readonly tags: ArtistTagLink[];
 	readonly location: Location | null;
+	readonly spotify_data: ScrapedSpotifyArtistData;
 }
 
 export interface PublicArtist extends ArtistCommon {}

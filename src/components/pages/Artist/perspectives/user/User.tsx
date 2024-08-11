@@ -6,6 +6,7 @@ import ArtistPageHeader from '../../Artist.header';
 import SubHeader from '../../components/SubHeader';
 import ActionButtons from './components/ActionButtons';
 import ArtistTags from './components/ArtistTags';
+import GoToSpotifyButton from './components/GoToSpotifyButton';
 import useUserPage from './useUserPage';
 
 interface UserProps {
@@ -37,6 +38,7 @@ const User: React.FC<UserProps> = ({ artist_uid }) => {
 						onPressFollowButton={onPressFollowButton}
 					/>
 					<ArtistTags artistData={artistData} />
+					<GoToSpotifyButton artistData={artistData} />
 				</View>
 			</Parallax>
 		</BasePage>
