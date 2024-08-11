@@ -1,4 +1,4 @@
-import { HeaderSafeArea, Text } from '@atomic';
+import { Text } from '@atomic';
 import { useNavigation } from '@hooks';
 import { ContentListItem } from '@molecules';
 import { BasePage } from '@organisms';
@@ -24,30 +24,28 @@ const UserTagsFollowingPage = () => {
 	return (
 		<BasePage>
 			<UserArtistsFollowingPageHeader />
-			<HeaderSafeArea>
-				<FlatList
-					data={userTagsFollowingData}
-					ListHeaderComponent={Header}
-					keyExtractor={(item) => item.tag.tag_uid}
-					onEndReached={nextPage}
-					onEndReachedThreshold={0.2}
-					renderItem={({ item }) => (
-						<ContentListItem
-							key={item.tag.tag_uid}
-							onPress={() => tagPage(item.tag.tag_uid)}
-							titleTextProps={{
-								title: item.tag.name,
-								bottomSubtext: 'Los Angeles, CA'
-							}}
-							profileImageProps={{
-								defaultImageProps: {
-									icon: 'tag'
-								}
-							}}
-						/>
-					)}
-				/>
-			</HeaderSafeArea>
+			<FlatList
+				data={userTagsFollowingData}
+				ListHeaderComponent={Header}
+				keyExtractor={(item) => item.tag.tag_uid}
+				onEndReached={nextPage}
+				onEndReachedThreshold={0.2}
+				renderItem={({ item }) => (
+					<ContentListItem
+						key={item.tag.tag_uid}
+						onPress={() => tagPage(item.tag.tag_uid)}
+						titleTextProps={{
+							title: item.tag.name,
+							bottomSubtext: 'Los Angeles, CA'
+						}}
+						profileImageProps={{
+							defaultImageProps: {
+								icon: 'tag'
+							}
+						}}
+					/>
+				)}
+			/>
 		</BasePage>
 	);
 };
