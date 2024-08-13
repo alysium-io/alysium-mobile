@@ -1,11 +1,7 @@
 import { Text, View } from '@atomic';
 import React from 'react';
 import { StyleSheet, TouchableWithoutFeedback } from 'react-native';
-import {
-	SharedValue,
-	useAnimatedStyle,
-	useDerivedValue
-} from 'react-native-reanimated';
+import { SharedValue, useDerivedValue } from 'react-native-reanimated';
 
 interface TabToggleTitleItemProps {
 	title: string;
@@ -24,16 +20,10 @@ const TabToggleTitleItem: React.FC<TabToggleTitleItemProps> = ({
 		return animatedValue.value === index;
 	}, [animatedValue]);
 
-	const animatedTextStyles = useAnimatedStyle(() => {
-		return {
-			color: isActive.value ? 'white' : 'gray'
-		};
-	});
-
 	return (
 		<TouchableWithoutFeedback onPress={onPress}>
 			<View style={styles.tabItemContainer} paddingBottom='m'>
-				<Text animated variant='p2-light' style={animatedTextStyles}>
+				<Text animated variant='paragraph-small' color='text.s'>
 					{title}
 				</Text>
 			</View>

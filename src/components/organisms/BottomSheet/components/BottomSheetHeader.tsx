@@ -1,25 +1,29 @@
 import { Text, View } from '@atomic';
 import { useTheme } from '@hooks';
+import { Props } from '@types';
 import React from 'react';
 
-interface BottomSheetHeaderProps {
-	text: string;
-}
+type BottomSheetHeaderProps = Props<typeof Text> & {
+	containerProps?: Props<typeof View>;
+};
 
-const BottomSheetHeader: React.FC<BottomSheetHeaderProps> = ({ text }) => {
+const BottomSheetHeader: React.FC<BottomSheetHeaderProps> = ({
+	containerProps,
+	...props
+}) => {
 	const { theme } = useTheme();
-
 	return (
 		<View
 			flexDirection='row'
 			justifyContent='flex-start'
 			borderBottomWidth={theme.borderWidth.thin}
-			borderBottomColor='border.light'
+			borderColor='border.light'
 			paddingBottom='l'
 			marginTop='s'
 			paddingHorizontal='m'
+			{...containerProps}
 		>
-			<Text variant='section-header-1'>{text}</Text>
+			<Text variant='section-header-1' {...props} />
 		</View>
 	);
 };

@@ -25,7 +25,7 @@ const TabToggleIndicator: React.FC<TabToggleIndicatorProps> = ({
 	return (
 		<View
 			animated
-			backgroundColor='_bg1'
+			backgroundColor='bg.p'
 			style={[
 				styles.tabIndicator,
 				animatedTabIndicatorStyles,

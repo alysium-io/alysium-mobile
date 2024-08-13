@@ -1,4 +1,5 @@
 import { BasePage } from '@organisms';
+import { SearchFiltersBottomSheet } from '@popups';
 import React from 'react';
 import { Case, Switch } from 'react-if';
 import { ScrollView } from 'react-native';
@@ -22,7 +23,7 @@ const SearchPage = () => {
 		refetchDiscoverTags,
 		artistSearchResults,
 		tagSearchResults,
-		nextArtistSearchPage
+		searchFiltersBottomSheetApi
 	} = useSearchPage();
 
 	return (
@@ -32,8 +33,9 @@ const SearchPage = () => {
 				clearSearchText={clearSearchText}
 				isSearchActive={isSearchActive}
 				setIsSearchActive={setIsSearchActive}
+				searchFiltersBottomSheetApi={searchFiltersBottomSheetApi}
 			/>
-			<ScrollView style={{ flex: 1, overflow: 'visible' }}>
+			<ScrollView style={{ overflow: 'visible' }}>
 				<LayoutAnimationConfig skipEntering>
 					<Switch>
 						<Case condition={isSearchActive}>
@@ -44,7 +46,6 @@ const SearchPage = () => {
 								onPressSearchResult={onPressSearchResult}
 								artistSearchResults={artistSearchResults}
 								tagSearchResults={tagSearchResults}
-								nextArtistSearchPage={nextArtistSearchPage}
 							/>
 						</Case>
 						<Case condition={!isSearchActive}>
@@ -56,6 +57,7 @@ const SearchPage = () => {
 					</Switch>
 				</LayoutAnimationConfig>
 			</ScrollView>
+			<SearchFiltersBottomSheet sheetApi={searchFiltersBottomSheetApi} />
 		</BasePage>
 	);
 };

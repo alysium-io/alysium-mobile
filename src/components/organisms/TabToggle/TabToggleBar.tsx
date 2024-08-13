@@ -22,7 +22,7 @@ const TabToggleBar: React.FC<TabToggleBarProps> = ({
 
 	return (
 		<>
-			<View style={[styles.tabsContainer, theme.borders.regular.bottom]}>
+			<View style={[styles.tabsContainer]}>
 				{tabs.map((tab, index) => (
 					<TabToggleTitleItem
 						key={tab}

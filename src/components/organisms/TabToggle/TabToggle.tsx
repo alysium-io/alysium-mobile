@@ -2,8 +2,6 @@ import { View } from '@atomic';
 import React from 'react';
 import { Dimensions, StyleSheet } from 'react-native';
 import TabToggleBar from './TabToggleBar';
-import TabToggleContent from './TabToggleContent';
-import TabToggleContentItem from './TabToggleContentItem';
 import useTabToggle from './useTabToggle';
 
 const { width: containerWidth } = Dimensions.get('window');
@@ -38,7 +36,7 @@ const TabToggle: React.FC<TabToggleProps> = ({
 				animatedValue={animatedValue}
 				onPressTab={onPressTab}
 			/>
-			<TabToggleContent
+			{/* <TabToggleContent
 				setScrollViewReady={setScrollViewReady}
 				scrollHandler={scrollHandler}
 				setContentRef={setContentRef}
@@ -48,7 +46,7 @@ const TabToggle: React.FC<TabToggleProps> = ({
 						{item.content}
 					</TabToggleContentItem>
 				))}
-			</TabToggleContent>
+			</TabToggleContent> */}
 		</View>
 	);
 };

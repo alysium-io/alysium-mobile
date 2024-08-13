@@ -99,6 +99,12 @@ export const createSemanticLightTheme = (
 		'block-list-item.title': palette.s.p9,
 		'block-list-item.subtitle': palette.s.p7,
 
+		'select-type-toggle.active.bg': palette.neutral.p8,
+		'select-type-toggle.active.text': palette.neutral.p1,
+		'select-type-toggle.inactive.bg': palette.neutral.p2,
+		'select-type-toggle.inactive.text': palette.neutral.p8,
+		'select-type-toggle.border': palette.neutral.p4,
+
 		'search.search-bar.placeholder-text': palette.s.p6,
 		'search.search-bar.text': palette.s.p9,
 		'search.search-bar.bg': palette.s.p2,

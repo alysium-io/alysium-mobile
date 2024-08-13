@@ -34,7 +34,7 @@ const TabTogglerAnimatedBackground: React.FC<
 		<View
 			animated
 			style={[styles.container, animatedStyles]}
-			backgroundColor='bg1'
+			backgroundColor='bg.p'
 		/>
 	);
 };

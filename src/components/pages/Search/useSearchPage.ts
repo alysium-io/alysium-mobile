@@ -4,7 +4,13 @@ import { SearchTagsResponseDto } from '@flux/api/search/dto/search-tags.dto';
 import { SearchType } from '@flux/api/search/search.entity';
 import { tagApiSlice } from '@flux/api/tag';
 import { DiscoverTagsResponseDto } from '@flux/api/tag/dto/tag-discover.dto';
-import { useNavigation, usePagination, usePersistedSearchState } from '@hooks';
+import {
+	SheetApi,
+	useNavigation,
+	usePagination,
+	usePersistedSearchState,
+	useSheet
+} from '@hooks';
 import { useState } from 'react';
 
 interface IUseSearchPage {
@@ -23,6 +29,7 @@ interface IUseSearchPage {
 	discoverTagsError: any;
 	refetchDiscoverTags: () => void;
 	nextArtistSearchPage: () => void;
+	searchFiltersBottomSheetApi: SheetApi;
 }
 
 const useSearchPage = (): IUseSearchPage => {
@@ -31,6 +38,7 @@ const useSearchPage = (): IUseSearchPage => {
 	const { addRecentSearch, recentSearches } = usePersistedSearchState();
 	const [searchText, setSearchText] = useState<string>('');
 	const clearSearchText = () => setSearchText('');
+	const searchFiltersBottomSheetApi = useSheet();
 
 	const onPressSearchResult = (item: SearchItem) => {
 		addRecentSearch(item);
@@ -96,7 +104,8 @@ const useSearchPage = (): IUseSearchPage => {
 		isDiscoverTagsLoading,
 		discoverTagsError,
 		refetchDiscoverTags,
-		nextArtistSearchPage
+		nextArtistSearchPage,
+		searchFiltersBottomSheetApi
 	};
 };
 

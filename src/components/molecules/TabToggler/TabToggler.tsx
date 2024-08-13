@@ -1,13 +1,9 @@
 import { View } from '@atomic';
+import { useLayoutDimensions } from '@hooks';
 import React, { useState } from 'react';
-import { LayoutChangeEvent, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import TabTogglerAnimatedBackground from './TabTogglerAnimatedBackground';
 import TabTogglerText from './TabTogglerText';
-
-type Dims = {
-	height: number;
-	width: number;
-};
 
 type TabTogglerItem = {
 	id: number;
@@ -25,19 +21,8 @@ const TabToggler: React.FC<TabTogglerProps> = ({
 	defaultActiveTab,
 	onChange
 }) => {
-	const [dims, setDims] = useState<Dims>({
-		height: 0,
-		width: 0
-	});
-
 	const [tabIndex, setTabIndex] = useState<number>(defaultActiveTab);
-
-	const _onLayout = (e: LayoutChangeEvent) => {
-		setDims({
-			height: e.nativeEvent.layout.height,
-			width: e.nativeEvent.layout.width
-		});
-	};
+	const { dimensions, onLayout } = useLayoutDimensions();
 
 	const _onChange = (id: number) => {
 		setTabIndex(id);
@@ -45,11 +30,11 @@ const TabToggler: React.FC<TabTogglerProps> = ({
 	};
 
 	return (
-		<View style={styles.container} backgroundColor='t2' onLayout={_onLayout}>
+		<View style={styles.container} backgroundColor='text.s' onLayout={onLayout}>
 			<TabTogglerAnimatedBackground
-				height={dims.height}
-				width={dims.width / data.length}
-				tabIndex={tabIndex}
+				height={dimensions.height}
+				width={dimensions.width / data.length}
+				tabIndex={tabIndex - 1}
 			/>
 			{data.map(({ id, text }) => (
 				<TabTogglerText

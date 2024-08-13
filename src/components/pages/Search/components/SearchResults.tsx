@@ -1,4 +1,4 @@
-import { Link, Section, Text, View } from '@atomic';
+import { Section, Text, View } from '@atomic';
 import { SearchArtistsResponseDto } from '@flux/api/search/dto/search-artists.dto';
 import { SearchTagsResponseDto } from '@flux/api/search/dto/search-tags.dto';
 import { ContentListItem } from '@molecules';
@@ -8,14 +8,12 @@ interface SearchResultsProps {
 	artistSearchResults?: SearchArtistsResponseDto;
 	tagSearchResults?: SearchTagsResponseDto;
 	onPressSearchResult: (result: any) => void;
-	nextArtistSearchPage: () => void;
 }
 
 const SearchResults: React.FC<SearchResultsProps> = ({
 	artistSearchResults,
 	tagSearchResults,
-	onPressSearchResult,
-	nextArtistSearchPage
+	onPressSearchResult
 }) => {
 	return (
 		<View marginTop='xl'>
@@ -43,11 +41,6 @@ const SearchResults: React.FC<SearchResultsProps> = ({
 							}}
 						/>
 					))}
-					<View flexDirection='row' justifyContent='center' marginTop='xl'>
-						<Link buttonProps={{ onPress: () => console.log('link') }}>
-							See more
-						</Link>
-					</View>
 				</Section>
 			)}
 			{artistSearchResults && artistSearchResults.hits.length > 0 && (
@@ -74,11 +67,6 @@ const SearchResults: React.FC<SearchResultsProps> = ({
 							}}
 						/>
 					))}
-					<View flexDirection='row' justifyContent='center' marginTop='xl'>
-						<Link buttonProps={{ onPress: nextArtistSearchPage }}>
-							See more
-						</Link>
-					</View>
 				</Section>
 			)}
 		</View>

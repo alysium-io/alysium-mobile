@@ -153,6 +153,12 @@ export type SemanticColors = {
 	'block-list-item.title': HexColor;
 	'block-list-item.subtitle': HexColor;
 
+	'select-type-toggle.active.bg': HexColor;
+	'select-type-toggle.active.text': HexColor;
+	'select-type-toggle.inactive.bg': HexColor;
+	'select-type-toggle.inactive.text': HexColor;
+	'select-type-toggle.border': HexColor;
+
 	// Page specific things
 	'search.search-bar.placeholder-text': HexColor;
 	'search.search-bar.text': HexColor;

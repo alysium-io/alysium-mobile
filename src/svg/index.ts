@@ -25,6 +25,7 @@ import EditImage from './EditImage';
 import Event from './Event';
 import EventManager from './EventManager';
 import Experiment from './Experiment';
+import Filter from './Filter';
 import Host from './Host';
 import InfoOne from './InfoOne';
 import InfoTwo from './InfoTwo';
@@ -109,7 +110,8 @@ export const SvgIcons = {
 	ticket: Ticket,
 	'arrow-up': ArrowUp,
 	'arrow-down': ArrowDown,
-	spotify: Spotify
+	spotify: Spotify,
+	filter: Filter
 };
 
 export type IconNames = keyof typeof SvgIcons;

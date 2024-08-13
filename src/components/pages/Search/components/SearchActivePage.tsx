@@ -16,7 +16,6 @@ interface SearchActivePageProps {
 	artistSearchResults?: SearchArtistsResponseDto;
 	tagSearchResults?: SearchTagsResponseDto;
 	onPressSearchResult: (item: SearchItem) => void;
-	nextArtistSearchPage: () => void;
 }
 
 const SearchActivePage: React.FC<SearchActivePageProps> = ({
@@ -25,8 +24,7 @@ const SearchActivePage: React.FC<SearchActivePageProps> = ({
 	recentSearches,
 	onPressSearchResult,
 	artistSearchResults,
-	tagSearchResults,
-	nextArtistSearchPage
+	tagSearchResults
 }) => {
 	return (
 		<View
@@ -36,7 +34,9 @@ const SearchActivePage: React.FC<SearchActivePageProps> = ({
 		>
 			<Switch>
 				<Case condition={isLoading}>
-					<ActivityIndicator />
+					<View marginTop='xl'>
+						<ActivityIndicator />
+					</View>
 				</Case>
 				<Case
 					condition={searchText.length === 0 && recentSearches.length === 0}
@@ -54,7 +54,6 @@ const SearchActivePage: React.FC<SearchActivePageProps> = ({
 						onPressSearchResult={onPressSearchResult}
 						artistSearchResults={artistSearchResults}
 						tagSearchResults={tagSearchResults}
-						nextArtistSearchPage={nextArtistSearchPage}
 					/>
 				</Case>
 			</Switch>

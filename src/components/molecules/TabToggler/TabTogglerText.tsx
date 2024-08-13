@@ -13,24 +13,15 @@ const TabTogglerText: React.FC<TabTogglerTextProps> = ({
 	isActive,
 	onPress
 }) => {
-	const getProps = () => {
-		if (isActive) {
-			return {
-				variant: 'paragraph-small-bold',
-				color: 't1'
-			};
-		} else {
-			return {
-				variant: 'paragraph-small',
-				color: 'bg1'
-			};
-		}
-	};
-
 	return (
 		<TouchableWithoutFeedback onPress={onPress}>
 			<View flex={1}>
-				<Text {...getProps()} margin='s' textAlign='center'>
+				<Text
+					margin='s'
+					textAlign='center'
+					color={isActive ? 'text.p' : 'text.negative.p'}
+					variant={isActive ? 'paragraph-small-bold' : 'paragraph-small'}
+				>
 					{text}
 				</Text>
 			</View>
