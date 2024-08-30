@@ -23,7 +23,7 @@ const baseQueryConfig = (
 	FetchBaseQueryMeta
 > => {
 	const config: FetchBaseQueryArgs = {
-		baseUrl: env.apiUrl + (options?.basePath ?? ''),
+		baseUrl: env.env?.apiUrl + (options?.basePath ?? ''),
 		headers: {
 			'Content-Type': 'application/json',
 			Accept: 'application/json'

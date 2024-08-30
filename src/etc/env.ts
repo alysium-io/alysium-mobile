@@ -14,22 +14,28 @@ export const envSchema = yup.object().shape({
 
 export type Env = yup.InferType<typeof envSchema>;
 
-export const validateEnv = (): Env => {
+export const validateEnv = (): { env: Env | null; errors: any | null } => {
 	try {
 		const validatedEnv = envSchema.validateSync(
 			{
-				imagesBaseUrl: Config.IMAGES_BASE_URL || 'something wild',
-				apiUrl: Config.API_URL || 'omg',
-				env: Config.ENV || 'woah'
+				imagesBaseUrl: Config.IMAGES_BASE_URL,
+				apiUrl: Config.API_URL,
+				env: Config.ENV
 			},
 			{ abortEarly: false }
 		);
 
-		return validatedEnv as Env;
-	} catch (error) {
+		return {
+			env: validatedEnv,
+			errors: null
+		};
+	} catch (error: any) {
 		console.error('Environment variable validation failed:', error);
 		console.log('Config:', Config);
-		throw new Error('Invalid environment configuration');
+		return {
+			env: null,
+			errors: error
+		};
 	}
 };
 
