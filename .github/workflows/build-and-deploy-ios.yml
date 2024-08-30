@@ -65,6 +65,8 @@ jobs:
       uses: ./.github/actions/write-env-vars
       with:
         ENV: ${{ github.event.inputs.env }}
+    - name: Print the .env file
+      run: cat .env.${{ github.event.inputs.env }}
     - name: Generate CustomIOSBuild.xcconfig for build number
       run: echo "CURRENT_BUILD_NUMBER=$BUILD_NUMBER" >> CustomIOSBuild.xcconfig
     - name: Configure SSH # match deploy key

@@ -19,8 +19,8 @@ export const validateEnv = (): Env => {
 		const validatedEnv = envSchema.validateSync(
 			{
 				imagesBaseUrl: Config.IMAGES_BASE_URL || 'something wild',
-				apiUrl: Config.API_URL,
-				env: Config.ENV
+				apiUrl: Config.API_URL || 'omg',
+				env: Config.ENV || 'woah'
 			},
 			{ abortEarly: false }
 		);
