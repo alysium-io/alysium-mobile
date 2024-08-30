@@ -1,30 +1,36 @@
 import { useUserAppContext } from '@arch/Application/contexts/User.context';
 import { Section, Text, View } from '@atomic';
-import { DiscoverTagsResponseDto } from '@flux/api/tag/dto/tag-discover.dto';
+import { tagApiSlice } from '@flux/api/tag';
 import { useNavigation } from '@hooks';
 import { BlockListItem, ContentListItem } from '@molecules';
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
-import { FadeInDown, FadeOutUp } from 'react-native-reanimated';
+import Animated, {
+	FadeIn,
+	FadeOut,
+	LinearTransition
+} from 'react-native-reanimated';
 
-interface SearchInactivePageProps {
-	discoverTagsData?: DiscoverTagsResponseDto;
-	refetchDiscoverTags: () => void;
-}
+interface SearchInactivePageProps {}
 
-const SearchInactivePage: React.FC<SearchInactivePageProps> = ({
-	discoverTagsData,
-	refetchDiscoverTags
-}) => {
+const SearchInactivePage: React.FC<SearchInactivePageProps> = () => {
 	const { userData } = useUserAppContext();
 	const { userArtistsFollowingPage, userTagsFollowingPage, tagPage } =
 		useNavigation();
 
+	const {
+		data: discoverTagsData,
+		isLoading: isDiscoverTagsLoading,
+		error: discoverTagsError,
+		refetch: refetchDiscoverTags
+	} = tagApiSlice.useDiscoverQuery(undefined);
+
 	return (
-		<View
-			animated
-			entering={FadeInDown.duration(250)}
-			exiting={FadeOutUp.duration(250)}
+		<Animated.ScrollView
+			entering={FadeIn.duration(300)}
+			exiting={FadeOut.duration(300)}
+			style={{ overflow: 'visible' }}
+			layout={LinearTransition.duration(300)}
 		>
 			<Section marginBottom='l'>
 				<ContentListItem
@@ -88,7 +94,7 @@ const SearchInactivePage: React.FC<SearchInactivePageProps> = ({
 					/>
 				))}
 			</Section>
-		</View>
+		</Animated.ScrollView>
 	);
 };
 

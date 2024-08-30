@@ -1,8 +1,6 @@
 import { BasePage } from '@organisms';
-import { SearchFiltersBottomSheet } from '@popups';
 import React from 'react';
 import { Case, Switch } from 'react-if';
-import { ScrollView } from 'react-native';
 import { LayoutAnimationConfig } from 'react-native-reanimated';
 import SearchActivePage from './components/SearchActivePage';
 import SearchInactivePage from './components/SearchInactivePage';
@@ -19,11 +17,9 @@ const SearchPage = () => {
 		isLoading,
 		recentSearches,
 		onPressSearchResult,
-		discoverTagsData,
-		refetchDiscoverTags,
 		artistSearchResults,
 		tagSearchResults,
-		searchFiltersBottomSheetApi
+		activeSearchTypeSequenceApi
 	} = useSearchPage();
 
 	return (
@@ -33,31 +29,26 @@ const SearchPage = () => {
 				clearSearchText={clearSearchText}
 				isSearchActive={isSearchActive}
 				setIsSearchActive={setIsSearchActive}
-				searchFiltersBottomSheetApi={searchFiltersBottomSheetApi}
+				activeSearchTypeSequenceApi={activeSearchTypeSequenceApi}
 			/>
-			<ScrollView style={{ overflow: 'visible' }}>
-				<LayoutAnimationConfig skipEntering>
-					<Switch>
-						<Case condition={isSearchActive}>
-							<SearchActivePage
-								searchText={searchText}
-								isLoading={isLoading}
-								recentSearches={recentSearches}
-								onPressSearchResult={onPressSearchResult}
-								artistSearchResults={artistSearchResults}
-								tagSearchResults={tagSearchResults}
-							/>
-						</Case>
-						<Case condition={!isSearchActive}>
-							<SearchInactivePage
-								discoverTagsData={discoverTagsData}
-								refetchDiscoverTags={refetchDiscoverTags}
-							/>
-						</Case>
-					</Switch>
-				</LayoutAnimationConfig>
-			</ScrollView>
-			<SearchFiltersBottomSheet sheetApi={searchFiltersBottomSheetApi} />
+			<LayoutAnimationConfig skipEntering>
+				<Switch>
+					<Case condition={isSearchActive}>
+						<SearchActivePage
+							searchText={searchText}
+							isLoading={isLoading}
+							recentSearches={recentSearches}
+							onPressSearchResult={onPressSearchResult}
+							artistSearchResults={artistSearchResults}
+							tagSearchResults={tagSearchResults}
+							activeSearchTypeSequenceApi={activeSearchTypeSequenceApi}
+						/>
+					</Case>
+					<Case condition={!isSearchActive}>
+						<SearchInactivePage />
+					</Case>
+				</Switch>
+			</LayoutAnimationConfig>
 		</BasePage>
 	);
 };

@@ -53,7 +53,9 @@ const apiSlice = createApi({
 			}),
 			serializeQueryArgs: ({ endpointName, queryArgs: { body } }) => ({
 				endpointName,
-				tag_uid: body?.q
+				tag_uid: body?.q,
+				sort: body?.sort,
+				correlated_tag_uids: body?.correlated_tag_uids
 			}),
 			merge: (currentCache, newItems) => {
 				return {

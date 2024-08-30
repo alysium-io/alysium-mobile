@@ -6,7 +6,7 @@ import { FadeIn, FadeOut } from 'react-native-reanimated';
 const ButtonLoading = () => {
 	return (
 		<View animated entering={FadeIn} exiting={FadeOut}>
-			<ActivityIndicator size='s' color='#cccccc' />
+			<ActivityIndicator size='small' color='#cccccc' />
 		</View>
 	);
 };

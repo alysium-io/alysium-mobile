@@ -34,7 +34,7 @@ const TabToggler: React.FC<TabTogglerProps> = ({
 			<TabTogglerAnimatedBackground
 				height={dimensions.height}
 				width={dimensions.width / data.length}
-				tabIndex={tabIndex - 1}
+				tabIndex={tabIndex}
 			/>
 			{data.map(({ id, text }) => (
 				<TabTogglerText

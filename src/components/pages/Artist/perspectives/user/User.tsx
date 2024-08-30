@@ -19,7 +19,7 @@ const User: React.FC<UserProps> = ({ artist_uid }) => {
 	if (!artistData) {
 		return null;
 	}
-	console.log(artistData);
+
 	return (
 		<BasePage>
 			<ArtistPageHeader title={artistData.name} />

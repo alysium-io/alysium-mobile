@@ -1,13 +1,12 @@
-import { ActivityIndicator, View } from '@atomic';
+import { View } from '@atomic';
 import { SearchItem } from '@flux/api/search';
 import { SearchArtistsResponseDto } from '@flux/api/search/dto/search-artists.dto';
 import { SearchTagsResponseDto } from '@flux/api/search/dto/search-tags.dto';
+import { SequenceApi } from '@hooks';
+import { Sequence } from '@molecules';
 import React from 'react';
-import { Case, Switch } from 'react-if';
-import { FadeInUp, FadeOutDown } from 'react-native-reanimated';
-import NoRecentSearches from './NoRecentSearches';
-import RecentSearches from './RecentSearches';
-import SearchResults from './SearchResults';
+import AnythingSearchActivePage from './AnythingSearchActivePage';
+import TagsSearchActivePage from './TagsSearchActivePage';
 
 interface SearchActivePageProps {
 	searchText: string;
@@ -16,6 +15,7 @@ interface SearchActivePageProps {
 	artistSearchResults?: SearchArtistsResponseDto;
 	tagSearchResults?: SearchTagsResponseDto;
 	onPressSearchResult: (item: SearchItem) => void;
+	activeSearchTypeSequenceApi: SequenceApi;
 }
 
 const SearchActivePage: React.FC<SearchActivePageProps> = ({
@@ -24,39 +24,30 @@ const SearchActivePage: React.FC<SearchActivePageProps> = ({
 	recentSearches,
 	onPressSearchResult,
 	artistSearchResults,
-	tagSearchResults
+	tagSearchResults,
+	activeSearchTypeSequenceApi
 }) => {
 	return (
-		<View
-			animated
-			entering={FadeInUp.duration(250)}
-			exiting={FadeOutDown.duration(250)}
-		>
-			<Switch>
-				<Case condition={isLoading}>
-					<View marginTop='xl'>
-						<ActivityIndicator />
-					</View>
-				</Case>
-				<Case
-					condition={searchText.length === 0 && recentSearches.length === 0}
-				>
-					<NoRecentSearches />
-				</Case>
-				<Case condition={searchText.length === 0}>
-					<RecentSearches
-						recentSearches={recentSearches}
-						onPressSearchResult={onPressSearchResult}
-					/>
-				</Case>
-				<Case condition={searchText.length > 0}>
-					<SearchResults
-						onPressSearchResult={onPressSearchResult}
-						artistSearchResults={artistSearchResults}
-						tagSearchResults={tagSearchResults}
-					/>
-				</Case>
-			</Switch>
+		<View flex={1}>
+			<Sequence sequenceApi={activeSearchTypeSequenceApi}>
+				<AnythingSearchActivePage
+					searchText={searchText}
+					isLoading={isLoading}
+					recentSearches={recentSearches}
+					onPressSearchResult={onPressSearchResult}
+					artistSearchResults={artistSearchResults}
+					tagSearchResults={tagSearchResults}
+				/>
+				<TagsSearchActivePage />
+				<AnythingSearchActivePage
+					searchText={searchText}
+					isLoading={isLoading}
+					recentSearches={recentSearches}
+					onPressSearchResult={onPressSearchResult}
+					artistSearchResults={artistSearchResults}
+					tagSearchResults={tagSearchResults}
+				/>
+			</Sequence>
 		</View>
 	);
 };

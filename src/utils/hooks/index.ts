@@ -24,6 +24,7 @@ export { default as useLinking } from './useLinking';
 export { default as useModal, type ModalApi } from './useModal';
 export { default as usePagination } from './usePagination';
 export { default as useScrollView } from './useScrollView';
+export { default as useSequence, type SequenceApi } from './useSequence';
 export { default as useSet } from './useSet';
 export { default as useSheet, type SheetApi, type SheetRef } from './useSheet';
 export { default as useTextInput, type TextInputApi } from './useTextInput';

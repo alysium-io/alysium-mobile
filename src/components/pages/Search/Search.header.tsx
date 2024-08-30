@@ -1,23 +1,17 @@
 import { Icon, View } from '@atomic';
-import { SheetApi } from '@hooks';
-import { Header, HeaderIconButton, HeaderTitle, SearchBar } from '@organisms';
-import { AnimatedView } from '@subatomic';
-import React, { useCallback } from 'react';
-import { Case, Default, Switch } from 'react-if';
-import {
-	FadeInLeft,
-	FadeInRight,
-	FadeOutLeft,
-	FadeOutRight
-} from 'react-native-reanimated';
-import HeaderSection from 'src/components/organisms/Header/HeaderSection';
+import { SequenceApi } from '@hooks';
+import { TabToggler } from '@molecules';
+import { Header, HeaderSection, HeaderTitle, SearchBar } from '@organisms';
+import React from 'react';
+import { Else, If, Then } from 'react-if';
+import { FadeIn, LinearTransition } from 'react-native-reanimated';
 
 interface SearchPageHeaderProps {
 	setSearchText: (text: string) => void;
 	clearSearchText: () => void;
 	isSearchActive: boolean;
 	setIsSearchActive: (isActive: boolean) => void;
-	searchFiltersBottomSheetApi: SheetApi;
+	activeSearchTypeSequenceApi: SequenceApi;
 }
 
 const SearchPageHeader: React.FC<SearchPageHeaderProps> = ({
@@ -25,61 +19,53 @@ const SearchPageHeader: React.FC<SearchPageHeaderProps> = ({
 	clearSearchText,
 	isSearchActive,
 	setIsSearchActive,
-	searchFiltersBottomSheetApi
+	activeSearchTypeSequenceApi
 }) => {
-	const LeftComponent = useCallback(
-		() => (
-			<Switch>
-				<Case condition={isSearchActive}>
-					<AnimatedView entering={FadeInLeft} exiting={FadeOutLeft}>
-						<HeaderTitle
-							title='Search'
-							titleProps={{ variant: 'paragraph-medium' }}
-						/>
-					</AnimatedView>
-				</Case>
-				<Default>
-					<AnimatedView entering={FadeInLeft} exiting={FadeOutLeft}>
-						<HeaderTitle
-							title='Alysium'
-							titleProps={{ variant: 'paragraph-medium' }}
-						/>
-					</AnimatedView>
-				</Default>
-			</Switch>
-		),
-		[isSearchActive]
-	);
-
-	const RightComponent = useCallback(
-		() => (
-			<Switch>
-				<Case condition={isSearchActive}>
-					<AnimatedView entering={FadeInRight} exiting={FadeOutRight}>
-						<HeaderIconButton
-							name='filter'
-							size='m'
-							onPress={searchFiltersBottomSheetApi.open}
-						/>
-					</AnimatedView>
-				</Case>
-				<Default>
-					<AnimatedView entering={FadeInRight} exiting={FadeOutRight}>
-						<Icon name='logo' size='m' color='text.s' />
-					</AnimatedView>
-				</Default>
-			</Switch>
-		),
-		[isSearchActive, searchFiltersBottomSheetApi]
-	);
-
 	return (
 		<Header>
-			<HeaderSection
-				LeftComponent={<LeftComponent />}
-				RightComponent={<RightComponent />}
-			/>
-			<View margin='m' marginTop='none'>
+			<If condition={isSearchActive}>
+				<Then>
+					<View
+						margin='m'
+						animated
+						entering={FadeIn.duration(300)}
+						layout={LinearTransition.duration(300)}
+					>
+						<TabToggler
+							defaultActiveTab={0}
+							onChange={activeSearchTypeSequenceApi.goTo}
+							data={[
+								{ text: 'anything', id: 0 },
+								{ text: 'tags', id: 1 },
+								{ text: 'artists', id: 2 }
+							]}
+						/>
+					</View>
+				</Then>
+				<Else>
+					<View
+						animated
+						entering={FadeIn.duration(300)}
+						layout={LinearTransition.duration(300)}
+					>
+						<HeaderSection
+							LeftComponent={
+								<HeaderTitle
+									title='Alysium'
+									titleProps={{ variant: 'paragraph-medium' }}
+								/>
+							}
+							RightComponent={<Icon name='logo' size='m' color='text.s' />}
+						/>
+					</View>
+				</Else>
+			</If>
+			<View
+				margin='m'
+				marginTop='none'
+				animated
+				layout={LinearTransition.duration(300)}
+			>
 				<SearchBar
 					onChangeText={setSearchText}
 					onPressClearText={clearSearchText}

@@ -4,19 +4,25 @@ import { StyleSheet } from 'react-native';
 import SequenceItem from './components/SequenceItem';
 
 interface SequenceProps {
-	children: React.ReactNode[];
+	children: React.ReactNode | React.ReactNode[];
 	sequenceIndex: number;
 }
 
 const Sequence: React.FC<SequenceProps> = ({ children, sequenceIndex }) => (
 	<View style={styles.sequence}>
-		{children?.map((child: React.ReactNode, index: number) => {
-			return (
-				<SequenceItem sequenceIndex={sequenceIndex} index={index} key={index}>
-					{child}
-				</SequenceItem>
-			);
-		})}
+		{Array.isArray(children) ? (
+			children?.map((child: React.ReactNode, index: number) => {
+				return (
+					<SequenceItem sequenceIndex={sequenceIndex} index={index} key={index}>
+						{child}
+					</SequenceItem>
+				);
+			})
+		) : (
+			<SequenceItem sequenceIndex={sequenceIndex} index={0}>
+				{children}
+			</SequenceItem>
+		)}
 	</View>
 );
 

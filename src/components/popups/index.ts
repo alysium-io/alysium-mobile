@@ -8,4 +8,3 @@ export * from './CreateVenueBottomSheet';
 export * from './Documents';
 export * from './EditTicketTypeOnOffSaleBottomSheet';
 export * from './EditUserProfileBottomSheet';
-export * from './SearchFiltersBottomSheet';

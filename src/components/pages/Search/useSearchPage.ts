@@ -2,14 +2,12 @@ import { SearchItem, searchApiSlice } from '@flux/api/search';
 import { SearchArtistsResponseDto } from '@flux/api/search/dto/search-artists.dto';
 import { SearchTagsResponseDto } from '@flux/api/search/dto/search-tags.dto';
 import { SearchType } from '@flux/api/search/search.entity';
-import { tagApiSlice } from '@flux/api/tag';
-import { DiscoverTagsResponseDto } from '@flux/api/tag/dto/tag-discover.dto';
 import {
-	SheetApi,
+	SequenceApi,
 	useNavigation,
 	usePagination,
 	usePersistedSearchState,
-	useSheet
+	useSequence
 } from '@hooks';
 import { useState } from 'react';
 
@@ -24,21 +22,17 @@ interface IUseSearchPage {
 	isSearchActive: boolean;
 	setIsSearchActive: (isActive: boolean) => void;
 	onPressSearchResult: (item: SearchItem) => void;
-	discoverTagsData?: DiscoverTagsResponseDto;
-	isDiscoverTagsLoading: boolean;
-	discoverTagsError: any;
-	refetchDiscoverTags: () => void;
 	nextArtistSearchPage: () => void;
-	searchFiltersBottomSheetApi: SheetApi;
+	activeSearchTypeSequenceApi: SequenceApi;
 }
 
 const useSearchPage = (): IUseSearchPage => {
+	const activeSearchTypeSequenceApi = useSequence(2);
 	const [isSearchActive, setIsSearchActive] = useState<boolean>(false);
 	const { artistPage, tagPage } = useNavigation();
 	const { addRecentSearch, recentSearches } = usePersistedSearchState();
 	const [searchText, setSearchText] = useState<string>('');
 	const clearSearchText = () => setSearchText('');
-	const searchFiltersBottomSheetApi = useSheet();
 
 	const onPressSearchResult = (item: SearchItem) => {
 		addRecentSearch(item);
@@ -82,13 +76,6 @@ const useSearchPage = (): IUseSearchPage => {
 		{ skip: searchText.length === 0 }
 	);
 
-	const {
-		data: discoverTagsData,
-		isLoading: isDiscoverTagsLoading,
-		error: discoverTagsError,
-		refetch: refetchDiscoverTags
-	} = tagApiSlice.useDiscoverQuery(undefined);
-
 	return {
 		searchText,
 		isLoading: isLoadingTagSearchResults && isLoadingArtistSearchResults,
@@ -100,12 +87,8 @@ const useSearchPage = (): IUseSearchPage => {
 		isSearchActive,
 		setIsSearchActive,
 		onPressSearchResult,
-		discoverTagsData,
-		isDiscoverTagsLoading,
-		discoverTagsError,
-		refetchDiscoverTags,
 		nextArtistSearchPage,
-		searchFiltersBottomSheetApi
+		activeSearchTypeSequenceApi
 	};
 };
 

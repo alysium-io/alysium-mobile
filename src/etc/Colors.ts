@@ -56,6 +56,14 @@ class Colors {
 		return `#${result.toString(16).slice(1).toUpperCase()}`;
 	};
 
+	static adjustRGBAColorBrightness = (
+		color: string,
+		factor: number
+	): string => {
+		const { r, g, b } = Colors.parseRGBA(color);
+		return `rgba(${r}, ${g}, ${b}, ${factor})`;
+	};
+
 	// Helper function to darken color
 	static darken = (color: string, factor: number = 0.1): string => {
 		return Colors.adjustColorBrightness(color, factor, false);

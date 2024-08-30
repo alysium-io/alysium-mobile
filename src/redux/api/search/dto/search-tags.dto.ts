@@ -1,10 +1,14 @@
 import { Pagination } from '@flux/api/utils/pagination';
-import { SearchResponseDto } from '../search.entity';
+import { ApiIdentifier } from '@types';
+import { SearchResponseDto, TagSearchItem } from '../search.entity';
 
 export interface SearchTagsQueryDto extends Pagination {}
 
 export interface SearchTagsBodyDto {
-	q: string;
+	readonly q: string;
+	readonly correlated_tag_uids?: ApiIdentifier[];
+	readonly sort?: string[];
 }
 
-export interface SearchTagsResponseDto extends SearchResponseDto {}
+export interface SearchTagsResponseDto
+	extends SearchResponseDto<TagSearchItem> {}

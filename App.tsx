@@ -1,25 +1,31 @@
 import { Application, Authentication, Dependencies } from '@arch';
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import React from 'react';
-
-// const App = () => {
-// 	return (
-// 		<Dependencies>
-// 			<BottomSheetModalProvider>
-// 				<Scratch />
-// 			</BottomSheetModalProvider>
-// 		</Dependencies>
-// 	);
-// };
+import { Scratch } from 'src/components/helpers';
 
 // Dependencies: Standard dependencies, app setup, and global state
 // Authentication: Authentication flow
 // Application:  Application navigation/routing (user, artist, host, etc.)
-const App = () => (
-	<Dependencies>
-		<Authentication>
-			<Application />
-		</Authentication>
-	</Dependencies>
-);
+const App = () => {
+	const sandboxMode = false;
+
+	if (sandboxMode) {
+		return (
+			<Dependencies>
+				<BottomSheetModalProvider>
+					<Scratch />
+				</BottomSheetModalProvider>
+			</Dependencies>
+		);
+	}
+
+	return (
+		<Dependencies>
+			<Authentication>
+				<Application />
+			</Authentication>
+		</Dependencies>
+	);
+};
 
 export default App;

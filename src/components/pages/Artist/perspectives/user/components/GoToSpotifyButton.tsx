@@ -12,8 +12,8 @@ const GoToSpotifyButton: React.FC<GoToSpotifyButtonProps> = ({
 	artistData
 }) => {
 	const { go } = useLinking(
-		`spotify:artist:${artistData?.spotify_data.spotify_artist_id}`,
-		`https://open.spotify.com/artist/${artistData?.spotify_data.spotify_artist_id}`
+		`spotify:artist:${artistData?.artist_spotify_data.spotify_artist_id}`,
+		`https://open.spotify.com/artist/${artistData?.artist_spotify_data.spotify_artist_id}`
 	);
 	return (
 		<View>
@@ -24,9 +24,12 @@ const GoToSpotifyButton: React.FC<GoToSpotifyButtonProps> = ({
 				titleTextProps={{
 					title: 'Go to Spotify',
 					bottomSubtext:
-						artistData?.spotify_data.followers.toLocaleString() +
-						' follower' +
-						(artistData?.spotify_data.followers === 1 ? '' : 's')
+						artistData?.artist_spotify_data?.followers !== null &&
+						artistData?.artist_spotify_data?.followers !== undefined
+							? artistData?.artist_spotify_data.followers?.toLocaleString() +
+							  ' follower' +
+							  (artistData?.artist_spotify_data.followers === 1 ? '' : 's')
+							: 'unknown followers'
 				}}
 			/>
 		</View>

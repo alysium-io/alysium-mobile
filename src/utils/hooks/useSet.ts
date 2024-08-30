@@ -6,7 +6,7 @@ interface IUseSet<T> {
 	setItems: (items: Set<T>) => void;
 }
 
-const useSet = <T>(ids: T[] = []): IUseSet<T> => {
+function useSet<T>(ids: T[] = []): IUseSet<T> {
 	const [items, setItems] = useState(new Set(ids));
 
 	const toggleItem = (itemId: T): T[] => {
@@ -25,6 +25,6 @@ const useSet = <T>(ids: T[] = []): IUseSet<T> => {
 		setItems,
 		toggleItem
 	};
-};
+}
 
 export default useSet;

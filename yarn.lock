@@ -2871,9 +2871,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@shopify/react-native-skia@npm:^1.3.7":
-  version: 1.3.7
-  resolution: "@shopify/react-native-skia@npm:1.3.7"
+"@shopify/react-native-skia@npm:1.3.9":
+  version: 1.3.9
+  resolution: "@shopify/react-native-skia@npm:1.3.9"
   dependencies:
     canvaskit-wasm: "npm:0.39.1"
     react-reconciler: "npm:0.27.0"
@@ -2888,7 +2888,7 @@ __metadata:
       optional: true
   bin:
     setup-skia-web: scripts/setup-canvaskit.js
-  checksum: 10c0/d353ebb7ce9ac3144ddc96ae2f102470f0616dde30caa2f22308bfbb7507166215a3b4c2c94b404c3d4be56843d2f560816bc5553e535b4dbbb8f35cb075f70e
+  checksum: 10c0/8500e458d7ef9d3bb01e5c87053518539e6cf681f6d1fa288e95955ad9869540d2a1b268e29629b7a3a17e9a746d77451b34540c3362c90943757d6baf03f9ff
   languageName: node
   linkType: hard
 
@@ -3537,7 +3537,7 @@ __metadata:
     "@react-navigation/native-stack": "npm:^6.9.13"
     "@react-navigation/stack": "npm:^6.3.17"
     "@reduxjs/toolkit": "npm:^1.9.5"
-    "@shopify/react-native-skia": "npm:^1.3.7"
+    "@shopify/react-native-skia": "npm:1.3.9"
     "@shopify/restyle": "npm:^2.4.2"
     "@types/lodash": "npm:^4.14.196"
     "@types/react": "npm:^18.2.6"

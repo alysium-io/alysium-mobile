@@ -10,8 +10,15 @@ export interface SearchItem {
 	readonly rankingScore: number;
 }
 
-export interface SearchResponseDto {
-	readonly hits: SearchItem[];
+export interface ArtistSearchItem extends SearchItem {}
+
+export interface TagSearchItem extends SearchItem {
+	readonly numArtists: number;
+	readonly spotifyFollowersSum: number;
+}
+
+export interface SearchResponseDto<T extends SearchItem> {
+	readonly hits: T[];
 	readonly query: string;
 	readonly processingTimeMs: number;
 	readonly limit: number;

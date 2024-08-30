@@ -18,6 +18,8 @@ const Header: React.FC<HeaderProps> = ({
 	onPressFollowButton
 }) => {
 	const { tagPage } = useNavigation();
+	console.log(tagData);
+
 	return (
 		<View margin='m'>
 			<View
