@@ -55,6 +55,7 @@ export { default as BgTouchAnimation } from './BgTouchAnimation';
 export * from './DeclarativeText';
 export { default as DefaultImage } from './DefaultImage';
 export { default as DismissKeyboardWrapper } from './DismissKeyboardWrapper';
+export { default as DisplayEnvironment } from './DisplayEnvironment';
 export { default as Icon } from './Icon';
 export { default as KeyboardAvoidingFooter } from './KeyboardAvoidingFooter';
 export { default as KeyboardViewFill } from './KeyboardViewFill';
