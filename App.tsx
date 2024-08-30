@@ -1,8 +1,8 @@
 import { Dependencies } from '@arch';
-import { Text, View } from '@atomic';
 import { env } from '@etc';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import React from 'react';
+import { Text, View } from 'react-native';
 import { Scratch } from 'src/components/helpers';
 
 // Dependencies: Standard dependencies, app setup, and global state
@@ -22,18 +22,27 @@ const App = () => {
 	}
 
 	return (
-		<Dependencies>
-			<View flex={1} justifyContent='center' alignItems='center'>
-				<Text>Hello World</Text>
-				<Text>{env.apiUrl}</Text>
-				<Text>{env.env}</Text>
-				<Text>{env.apiUrl}</Text>
-			</View>
-			{/* <Authentication>
-				<Application />
-			</Authentication> */}
-		</Dependencies>
+		<View
+			style={{
+				flex: 1,
+				justifyContent: 'center',
+				alignItems: 'center'
+			}}
+		>
+			<Text>Hello World</Text>
+			<Text>{env.apiUrl}</Text>
+			<Text>{env.env}</Text>
+			<Text>{env.apiUrl}</Text>
+		</View>
 	);
+
+	// return (
+	// 	<Dependencies>
+	// 		<Authentication>
+	// 			<Application />
+	// 		</Authentication>
+	// 	</Dependencies>
+	// );
 };
 
 export default App;
