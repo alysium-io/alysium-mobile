@@ -1,4 +1,6 @@
-import { Application, Authentication, Dependencies } from '@arch';
+import { Dependencies } from '@arch';
+import { Text, View } from '@atomic';
+import { env } from '@etc';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import React from 'react';
 import { Scratch } from 'src/components/helpers';
@@ -21,9 +23,15 @@ const App = () => {
 
 	return (
 		<Dependencies>
-			<Authentication>
+			<View flex={1} justifyContent='center' alignItems='center'>
+				<Text>Hello World</Text>
+				<Text>{env.apiUrl}</Text>
+				<Text>{env.env}</Text>
+				<Text>{env.apiUrl}</Text>
+			</View>
+			{/* <Authentication>
 				<Application />
-			</Authentication>
+			</Authentication> */}
 		</Dependencies>
 	);
 };
