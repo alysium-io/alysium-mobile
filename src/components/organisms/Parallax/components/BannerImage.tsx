@@ -1,8 +1,8 @@
 import { Icon, Image, View } from '@atomic';
-import { env } from '@etc';
 import { IconNames } from '@svg';
 import React from 'react';
 import { StyleSheet } from 'react-native';
+import { useEnvContext } from 'src/utils/contexts';
 
 interface BannerImageProps {
 	image?: string;
@@ -13,6 +13,7 @@ const BannerImage: React.FC<BannerImageProps> = ({
 	image,
 	defaultIcon = 'artist'
 }) => {
+	const { env } = useEnvContext();
 	return (
 		<View height='100%'>
 			{image ? (

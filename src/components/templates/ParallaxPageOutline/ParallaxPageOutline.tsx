@@ -1,6 +1,6 @@
 import { Image, LinearGradient, Text, View } from '@atomic';
-import { env } from '@etc';
 import { useScrollView, useTheme } from '@hooks';
+import { useEnvContext } from '@src/utils/contexts';
 import React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 import FastImage from 'react-native-fast-image';
@@ -21,6 +21,7 @@ const ParallaxPageOutline: React.FC<ParallaxPageOutlineProps> = ({
 	title,
 	textAlignment = 'left'
 }) => {
+	const { env } = useEnvContext();
 	const { theme } = useTheme();
 	const { scrollY, scrollEvent } = useScrollView();
 	const insets = useSafeAreaInsets();

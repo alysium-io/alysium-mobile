@@ -1,1 +1,1 @@
-export { ValidateEnvProvider } from './ValidateEnv';
+export { ValidateEnvProvider, useEnvContext } from './ValidateEnv';

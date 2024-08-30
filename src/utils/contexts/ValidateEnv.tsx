@@ -45,8 +45,7 @@ export const ValidateEnvProvider: React.FC<ProviderProps> = ({ children }) => {
 	);
 };
 
-export const useValidateEnvContext =
-	createUseContextHook<ValidateEnvContextType>(
-		ValidateEnvContext,
-		'EnvContext'
-	);
+export const useEnvContext = createUseContextHook<ValidateEnvContextType>(
+	ValidateEnvContext,
+	'EnvContext'
+);

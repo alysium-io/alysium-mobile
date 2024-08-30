@@ -24,6 +24,7 @@ module.exports = {
 					'@etc': './src/etc',
 					'@types': './src/types',
 					'@images': './src/assets/images',
+					'@src': './src',
 					'@src/*': './src/*'
 				}
 			}

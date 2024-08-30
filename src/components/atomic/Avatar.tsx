@@ -1,8 +1,8 @@
 import { Image, View } from '@atomic';
-import { env } from '@etc';
 import { BorderRadii } from '@types';
 import React from 'react';
 import { StyleSheet } from 'react-native';
+import { useEnvContext } from 'src/utils/contexts';
 import DefaultImage from './DefaultImage';
 
 interface AvatarProps {
@@ -16,6 +16,7 @@ const Avatar: React.FC<AvatarProps> = ({
 	borderRadius = 'round',
 	defaultImageProps
 }) => {
+	const { env } = useEnvContext();
 	return (
 		<View style={styles.container} borderRadius={borderRadius}>
 			{!image ? (
