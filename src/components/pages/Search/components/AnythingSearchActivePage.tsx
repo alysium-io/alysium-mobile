@@ -2,6 +2,7 @@ import { ActivityIndicator, View } from '@atomic';
 import { SearchItem } from '@flux/api/search';
 import { SearchArtistsResponseDto } from '@flux/api/search/dto/search-artists.dto';
 import { SearchTagsResponseDto } from '@flux/api/search/dto/search-tags.dto';
+import { useKeyboard } from '@hooks';
 import React from 'react';
 import { Case, Switch } from 'react-if';
 import Animated, {
@@ -30,12 +31,14 @@ const AnythingSearchActivePage: React.FC<AnythingSearchActivePageProps> = ({
 	artistSearchResults,
 	tagSearchResults
 }) => {
+	const { dismiss } = useKeyboard();
 	return (
 		<Animated.ScrollView
 			entering={FadeIn.duration(300)}
 			exiting={FadeOut.duration(300)}
 			style={{ overflow: 'visible' }}
 			layout={LinearTransition.duration(300)}
+			onScrollBeginDrag={dismiss}
 		>
 			<Switch>
 				<Case condition={isLoading}>

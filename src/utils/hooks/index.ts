@@ -19,6 +19,7 @@ export { default as usePhotosAndCamera } from './usePhotosAndCamera';
 export { default as createUseContextHook } from './createUseContextHook';
 export { default as useAnimatedState } from './useAnimatedState';
 export { default as useAnimatedValue } from './useAnimatedValue';
+export { default as useKeyboard } from './useKeyboard';
 export { default as useLayoutDimensions } from './useLayoutDimensions';
 export { default as useLinking } from './useLinking';
 export { default as useModal, type ModalApi } from './useModal';
