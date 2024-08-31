@@ -1,9 +1,12 @@
 import { Text, View } from '@atomic';
 import { useSequence } from '@hooks';
-import { Button, Sequence, TabToggler } from '@molecules';
+import { Button, TabToggler } from '@molecules';
+import { Sequence } from '@organisms';
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { Dimensions, ScrollView } from 'react-native';
 import { LinearTransition } from 'react-native-reanimated';
+
+const { width } = Dimensions.get('window');
 
 const FadeInOutSequence = () => {
 	/**
@@ -18,33 +21,30 @@ const FadeInOutSequence = () => {
 	const sequenceApi = useSequence(2); // 3 views, 0-indexed, 3 - 1 = 2
 
 	return (
-		<View flex={1}>
-			<Sequence sequenceApi={sequenceApi}>
-				<View
-					layout={LinearTransition.duration(200)}
-					style={[
-						styles.exampleView,
-						{
-							height: 300,
-							width: '100%',
-							backgroundColor: 'red'
-						}
-					]}
+		<View height={700}>
+			<Sequence sequenceIndex={sequenceApi.sequenceIndex}>
+				<ScrollView
+					style={{ overflow: 'visible' }}
+					contentContainerStyle={{
+						backgroundColor: 'red'
+					}}
 				>
-					<Text variant='paragraph-large-medium' color='text.negative.p'>
-						Index: 0/{sequenceApi.numItems}
-					</Text>
-				</View>
+					{Array.from({ length: 100 }).map((_, index) => (
+						<Text
+							key={index}
+							variant='paragraph-large-medium'
+							color='text.negative.p'
+						>
+							{index}
+						</Text>
+					))}
+				</ScrollView>
 				<View
 					layout={LinearTransition.duration(200)}
-					style={[
-						styles.exampleView,
-						{
-							height: 500,
-							width: '100%',
-							backgroundColor: 'blue'
-						}
-					]}
+					style={{
+						flex: 1,
+						backgroundColor: 'blue'
+					}}
 				>
 					<Text variant='paragraph-large-medium' color='text.negative.p'>
 						Index: 1/{sequenceApi.numItems}
@@ -52,14 +52,9 @@ const FadeInOutSequence = () => {
 				</View>
 				<View
 					layout={LinearTransition.duration(200)}
-					style={[
-						styles.exampleView,
-						{
-							height: 200,
-							width: '100%',
-							backgroundColor: 'green'
-						}
-					]}
+					style={{
+						backgroundColor: 'green'
+					}}
 				>
 					<Text variant='paragraph-large-medium' color='text.negative.p'>
 						Index: 2/{sequenceApi.numItems}
@@ -103,14 +98,5 @@ const FadeInOutSequence = () => {
 		</View>
 	);
 };
-
-const styles = StyleSheet.create({
-	exampleView: {
-		height: 200,
-		width: '100%',
-		justifyContent: 'center',
-		alignItems: 'center'
-	}
-});
 
 export default FadeInOutSequence;

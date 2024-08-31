@@ -27,7 +27,7 @@ interface IUseSearchPage {
 }
 
 const useSearchPage = (): IUseSearchPage => {
-	const activeSearchTypeSequenceApi = useSequence(2);
+	const activeSearchTypeSequenceApi = useSequence(1);
 	const [isSearchActive, setIsSearchActive] = useState<boolean>(false);
 	const { artistPage, tagPage } = useNavigation();
 	const { addRecentSearch, recentSearches } = usePersistedSearchState();

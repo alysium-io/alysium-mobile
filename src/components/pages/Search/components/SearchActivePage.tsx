@@ -3,7 +3,7 @@ import { SearchItem } from '@flux/api/search';
 import { SearchArtistsResponseDto } from '@flux/api/search/dto/search-artists.dto';
 import { SearchTagsResponseDto } from '@flux/api/search/dto/search-tags.dto';
 import { SequenceApi } from '@hooks';
-import { Sequence } from '@molecules';
+import { Sequence } from '@organisms';
 import React from 'react';
 import AnythingSearchActivePage from './AnythingSearchActivePage';
 import TagsSearchActivePage from './TagsSearchActivePage';
@@ -29,7 +29,7 @@ const SearchActivePage: React.FC<SearchActivePageProps> = ({
 }) => {
 	return (
 		<View flex={1}>
-			<Sequence sequenceApi={activeSearchTypeSequenceApi}>
+			<Sequence sequenceIndex={activeSearchTypeSequenceApi.sequenceIndex}>
 				<AnythingSearchActivePage
 					searchText={searchText}
 					isLoading={isLoading}
@@ -39,14 +39,6 @@ const SearchActivePage: React.FC<SearchActivePageProps> = ({
 					tagSearchResults={tagSearchResults}
 				/>
 				<TagsSearchActivePage />
-				<AnythingSearchActivePage
-					searchText={searchText}
-					isLoading={isLoading}
-					recentSearches={recentSearches}
-					onPressSearchResult={onPressSearchResult}
-					artistSearchResults={artistSearchResults}
-					tagSearchResults={tagSearchResults}
-				/>
 			</Sequence>
 		</View>
 	);

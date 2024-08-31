@@ -1,5 +1,4 @@
 import { View } from '@atomic';
-import { useLayoutDimensions } from '@hooks';
 import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import TabTogglerAnimatedBackground from './TabTogglerAnimatedBackground';
@@ -22,7 +21,6 @@ const TabToggler: React.FC<TabTogglerProps> = ({
 	onChange
 }) => {
 	const [tabIndex, setTabIndex] = useState<number>(defaultActiveTab);
-	const { dimensions, onLayout } = useLayoutDimensions();
 
 	const _onChange = (id: number) => {
 		setTabIndex(id);
@@ -30,10 +28,9 @@ const TabToggler: React.FC<TabTogglerProps> = ({
 	};
 
 	return (
-		<View style={styles.container} backgroundColor='text.s' onLayout={onLayout}>
+		<View style={styles.container} backgroundColor='text.s'>
 			<TabTogglerAnimatedBackground
-				height={dimensions.height}
-				width={dimensions.width / data.length}
+				numItems={data.length}
 				tabIndex={tabIndex}
 			/>
 			{data.map(({ id, text }) => (
@@ -50,6 +47,7 @@ const TabToggler: React.FC<TabTogglerProps> = ({
 
 const styles = StyleSheet.create({
 	container: {
+		padding: 1,
 		flexDirection: 'row',
 		borderRadius: 999
 	}

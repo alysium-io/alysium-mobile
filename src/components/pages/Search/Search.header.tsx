@@ -32,12 +32,11 @@ const SearchPageHeader: React.FC<SearchPageHeaderProps> = ({
 						layout={LinearTransition.duration(300)}
 					>
 						<TabToggler
-							defaultActiveTab={0}
+							defaultActiveTab={activeSearchTypeSequenceApi.sequenceIndex}
 							onChange={activeSearchTypeSequenceApi.goTo}
 							data={[
 								{ text: 'anything', id: 0 },
-								{ text: 'tags', id: 1 },
-								{ text: 'artists', id: 2 }
+								{ text: 'tags', id: 1 }
 							]}
 						/>
 					</View>

@@ -1,7 +1,7 @@
 import { View } from '@atomic';
 import React from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import ListTransition from './displays/ListTransition';
+import FadeInOutSequence from './displays/FadeInOutSequence';
 import useScratch from './useScratch';
 
 const Scratch = () => {
@@ -10,7 +10,7 @@ const Scratch = () => {
 
 	return (
 		<View flex={1} backgroundColor='bg.p' style={{ marginTop: insets.top }}>
-			<ListTransition />
+			<FadeInOutSequence />
 		</View>
 	);
 };

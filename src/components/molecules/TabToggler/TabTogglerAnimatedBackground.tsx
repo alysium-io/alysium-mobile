@@ -8,27 +8,25 @@ import {
 } from 'react-native-reanimated';
 
 interface TabTogglerAnimatedBackgroundProps {
-	height: number;
-	width: number;
+	numItems: number;
 	tabIndex: number;
 }
 
 const TabTogglerAnimatedBackground: React.FC<
 	TabTogglerAnimatedBackgroundProps
-> = ({ height, width, tabIndex }) => {
-	const left = useSharedValue<number>(1 + tabIndex * width);
+> = ({ tabIndex, numItems }) => {
+	const left = useSharedValue<number>((tabIndex * 100) / numItems);
 
 	useEffect(() => {
-		left.value = withTiming(1 + tabIndex * width, { duration: 200 });
-	}, [width, tabIndex]);
+		left.value = withTiming((tabIndex * 100) / numItems, { duration: 200 });
+	}, [tabIndex]);
 
 	const animatedStyles = useAnimatedStyle(() => {
 		return {
-			height: height - 2,
-			left: left.value,
-			width: width - 2
+			width: `${100 / numItems}%`,
+			left: `${left.value}%`
 		};
-	}, [height, width]);
+	}, [numItems]);
 
 	return (
 		<View
@@ -43,7 +41,8 @@ const styles = StyleSheet.create({
 	container: {
 		borderRadius: 999,
 		position: 'absolute',
-		top: 1
+		height: '100%',
+		transform: [{ translateX: 1 }, { translateY: 1 }]
 	}
 });
 
