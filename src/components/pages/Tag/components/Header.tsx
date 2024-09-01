@@ -4,6 +4,7 @@ import { FindOneTagResponseDto } from '@flux/api/tag/dto/tag-find-one.dto';
 import { useNavigation } from '@hooks';
 import { FollowButton, Pill, PillGroup } from '@molecules';
 import { Stats } from '@organisms';
+import { formatNumber } from '@src/etc/numeral';
 import React from 'react';
 
 interface HeaderProps {
@@ -18,7 +19,6 @@ const Header: React.FC<HeaderProps> = ({
 	onPressFollowButton
 }) => {
 	const { tagPage } = useNavigation();
-	console.log(tagData);
 
 	return (
 		<View margin='m'>
@@ -41,8 +41,9 @@ const Header: React.FC<HeaderProps> = ({
 							subtitle: 'artist' + (tagData.num_artists === 1 ? '' : 's')
 						},
 						{
-							title: tagData.num_followers.toLocaleString(),
-							subtitle: 'follower' + (tagData.num_followers === 1 ? '' : 's')
+							title: formatNumber(tagData.spotify_followers_sum),
+							subtitle:
+								'follower' + (tagData.spotify_followers_sum === 1 ? '' : 's')
 						}
 					]}
 				/>
