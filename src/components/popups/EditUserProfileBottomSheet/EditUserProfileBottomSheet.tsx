@@ -16,8 +16,7 @@ interface EditUserProfileBottomSheetProps {
 const EditUserProfileBottomSheet: React.FC<EditUserProfileBottomSheetProps> = ({
 	sheetApi
 }) => {
-	const { formMethods, handleTextInputApi, onSubmit } =
-		useEditUserProfileBottomSheet(sheetApi);
+	const { formMethods, onSubmit } = useEditUserProfileBottomSheet(sheetApi);
 
 	const footerContent = (
 		<>
@@ -37,10 +36,7 @@ const EditUserProfileBottomSheet: React.FC<EditUserProfileBottomSheetProps> = ({
 		>
 			<DismissKeyboardWrapper>
 				<EditProfileImage />
-				<EditHandle
-					formMethods={formMethods}
-					handleTextInputApi={handleTextInputApi}
-				/>
+				<EditHandle formMethods={formMethods} />
 				<ThemePicker />
 				<ThemeModeSettings />
 			</DismissKeyboardWrapper>

@@ -35,8 +35,7 @@ import { userTagsFollowingApiSlice } from './api/user-tags-following';
 import { venueApiSlice } from './api/venue';
 
 import { persistedAppReducer, persistedSearchReducer } from './local';
-
-import { apiErrorUnauthorizedMiddleware } from './middleware';
+import apiErrorUnauthorizedMiddleware from './middleware/apiErrorUnauthorizedMiddleware';
 
 const store = configureStore({
 	reducer: {

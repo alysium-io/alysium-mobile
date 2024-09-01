@@ -3,7 +3,7 @@ import {
 	BottomSheetFooter,
 	BottomSheetFooterProps
 } from '@gorhom/bottom-sheet';
-import { SheetApi, useLayoutDimensions, useTheme } from '@hooks';
+import { SheetApi, useKeyboard, useLayoutDimensions, useTheme } from '@hooks';
 import { Header, HeaderIconButton, HeaderSection } from '@organisms';
 import { IChildrenProps } from '@types';
 import React, { useCallback } from 'react';
@@ -21,6 +21,7 @@ const FullScreenSheetWithHeaderAndFooter: React.FC<
 > = ({ sheetApi, FooterContent, children }) => {
 	const { theme } = useTheme();
 	const insets = useSafeAreaInsets();
+	const { dismiss } = useKeyboard();
 	const { dimensions: footerDimensions, onLayout: onFooterLayout } =
 		useLayoutDimensions();
 
@@ -66,6 +67,7 @@ const FullScreenSheetWithHeaderAndFooter: React.FC<
 				scrollIndicatorInsets={{
 					bottom: footerDimensions.height
 				}}
+				onScrollBeginDrag={dismiss}
 			>
 				{children}
 			</ScrollView>

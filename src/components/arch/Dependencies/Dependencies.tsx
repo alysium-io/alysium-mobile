@@ -1,4 +1,4 @@
-import { GestureHandlerRootView } from '@atomic';
+import { GestureHandlerRootView, Toast } from '@atomic';
 import { persistor, store } from '@flux';
 import { PortalProvider } from '@gorhom/portal';
 import { ThemeProvider } from '@restyle';
@@ -18,6 +18,7 @@ const Dependencies: React.FC<ChildrenProps> = ({ children }) => {
 						<GestureHandlerRootView>
 							<SafeAreaProvider>
 								<PortalProvider>{children}</PortalProvider>
+								<Toast />
 							</SafeAreaProvider>
 						</GestureHandlerRootView>
 					</ValidateEnvProvider>

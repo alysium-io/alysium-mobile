@@ -44,6 +44,7 @@ export { default as DatetimePicker } from './DatetimePicker';
 export { default as LinearGradient } from './LinearGradient';
 export { default as Path } from './Path';
 export { default as Svg } from './Svg';
+export { default as Toast } from './Toast';
 
 /**
  * Custom Components

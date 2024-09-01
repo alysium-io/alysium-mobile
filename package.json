@@ -70,6 +70,7 @@
 		"react-native-skeleton-placeholder": "^5.2.4",
 		"react-native-super-grid": "^5.0.0",
 		"react-native-svg": "12.4.4",
+		"react-native-toast-message": "^2.2.0",
 		"react-redux": "^8.1.2",
 		"redux-persist-transform-filter": "^0.0.22",
 		"yup": "^1.4.0"

@@ -26,11 +26,12 @@ const apiSlice = createApi({
 			UpdateUserResponseDto,
 			{ body: UpdateUserBodyDto }
 		>({
-			query: (body) => ({
+			query: ({ body }) => ({
 				url: '/',
 				method: 'PUT',
 				body
-			})
+			}),
+			invalidatesTags: [{ type: 'User', id: 'USER' }]
 		}),
 		registerPhoneNumber: builder.query<
 			LoginResponseDto,

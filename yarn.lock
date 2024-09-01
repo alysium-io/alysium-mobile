@@ -3580,6 +3580,7 @@ __metadata:
     react-native-skeleton-placeholder: "npm:^5.2.4"
     react-native-super-grid: "npm:^5.0.0"
     react-native-svg: "npm:12.4.4"
+    react-native-toast-message: "npm:^2.2.0"
     react-redux: "npm:^8.1.2"
     react-test-renderer: "npm:18.1.0"
     redux-persist-transform-filter: "npm:^0.0.22"
@@ -9248,6 +9249,16 @@ __metadata:
     react: "*"
     react-native: ">=0.50.0"
   checksum: 10c0/ab8df48558b4f96bb95c03590a597810e7dfa1d0904deda8d494dce5f02cd93a09a63dcaea949807076d234530b59eeb6aebbdbd0b6595a6b91aa2475d2e4d8c
+  languageName: node
+  linkType: hard
+
+"react-native-toast-message@npm:^2.2.0":
+  version: 2.2.0
+  resolution: "react-native-toast-message@npm:2.2.0"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 10c0/02c2507efba0875a85cecde616e60144daea4ea6b9e7f153f23b3f513a8f3c6c90181ee2d10aeb8093605957ba5bd415c4fa3ae8ed06691810c2f4b9599ea0c8
   languageName: node
   linkType: hard
 
