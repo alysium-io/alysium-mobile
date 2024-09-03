@@ -99,7 +99,7 @@ export const createSemanticDarkTheme = (
 		'block-list-item.title': palette.s.p1,
 		'block-list-item.subtitle': palette.s.p3,
 
-		'search.search-bar.placeholder-text': palette.s.p5,
+		'search.search-bar.placeholder-text': palette.s.p4,
 		'search.search-bar.text': palette.s.p1,
 		'search.search-bar.bg': palette.s.p8,
 		'search.search-bar.icon': palette.s.p2,

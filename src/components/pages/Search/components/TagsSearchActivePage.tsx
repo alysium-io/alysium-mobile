@@ -1,22 +1,36 @@
 import { View } from '@atomic';
 import { searchApiSlice } from '@flux/api/search';
-import { TagSearchItem } from '@flux/api/search/search.entity';
-import { useNavigation, usePagination, useSet } from '@hooks';
+import { SearchItem, TagSearchItem } from '@flux/api/search/search.entity';
+import { useNavigation, usePagination } from '@hooks';
 import { ListItemWithRadio } from '@molecules';
 import _ from 'lodash';
-import React, { useEffect, useState } from 'react';
-import Animated, { LinearTransition } from 'react-native-reanimated';
+import React, { useState } from 'react';
+import { Else, If, Then } from 'react-if';
+import Animated, {
+	FadeIn,
+	FadeOut,
+	LinearTransition
+} from 'react-native-reanimated';
 
-const TagsSearchActivePage = () => {
+interface TagsSearchActivePageProps {
+	searchTagsText: string;
+	onPressSearchResult: (item: SearchItem) => void;
+	clearTagTextInput: () => void;
+}
+
+const TagsSearchActivePage: React.FC<TagsSearchActivePageProps> = ({
+	searchTagsText,
+	onPressSearchResult,
+	clearTagTextInput
+}) => {
 	const { tagPage } = useNavigation();
 	const { page, defaultLimit } = usePagination();
 	const [selectedItems, setSelectedItems] = useState<TagSearchItem[]>([]);
-	const { items: filterUids, toggleItem: toggleFilterUid } = useSet<string>([]);
-	const [setItems, setSetItems] = useState<TagSearchItem[]>([]);
-	const { data } = searchApiSlice.useSearchTagsQuery({
+
+	const { data: correlatedData } = searchApiSlice.useSearchTagsQuery({
 		body: {
 			q: '',
-			correlated_tag_uids: filterUids.size ? Array.from(filterUids) : undefined,
+			correlated_tag_uids: selectedItems.map((i) => i.uid),
 			sort: ['spotify_followers_sum:desc']
 		},
 		query: {
@@ -25,63 +39,92 @@ const TagsSearchActivePage = () => {
 		}
 	});
 
-	useEffect(() => {
-		if (data) {
-			setSetItems(
-				data.hits.filter(
-					(i) => !selectedItems.some((item) => item.uid === i.uid)
-				)
-			);
-		}
-	}, [data]);
+	const { data: tagSearchResults } = searchApiSlice.useSearchTagsQuery(
+		{
+			body: { q: searchTagsText },
+			query: { page: 1, limit: 25 }
+		},
+		{ skip: searchTagsText.length === 0 }
+	);
 
-	const toggleItem = (uid: string) => {
-		const itemInQuestion = selectedItems.find((item) => item.uid === uid);
-		if (itemInQuestion) {
-			// Add to set items
-			setSetItems(
-				_.orderBy(
-					[...setItems, itemInQuestion],
-					['spotifyFollowersSum'],
-					['desc']
-				)
-			);
+	const onPressSearchedTag = (item: TagSearchItem) => {
+		setSelectedItems([...selectedItems, item]);
+		clearTagTextInput();
+	};
 
-			// Remove from selected items
-			const updatedItems = selectedItems.filter((item) => item.uid !== uid);
-			setSelectedItems(updatedItems);
-		} else {
-			// Add to selected items
-			const selectedItem = setItems.find((item) => item.uid === uid);
-			if (selectedItem) {
-				setSelectedItems([...selectedItems, selectedItem]);
-			}
+	const addSelectedItem = (item: TagSearchItem) => {
+		setSelectedItems([...selectedItems, item]);
+	};
 
-			// Remove from set items
-			const updatedItems = setItems.filter((item) => item.uid !== uid);
-			setSetItems(updatedItems);
-		}
-		toggleFilterUid(uid);
+	const removeSelectedItem = (item: TagSearchItem) => {
+		setSelectedItems(selectedItems.filter((i) => i.uid !== item.uid));
 	};
 
 	return (
 		<Animated.ScrollView style={{ overflow: 'visible' }}>
-			{[...selectedItems, ...setItems].map((i, idx) => (
-				<View key={i.uid} animated layout={LinearTransition}>
-					<ListItemWithRadio
-						id={i.uid}
-						titleTextProps={{
-							title: i.name,
-							bottomSubtext: `${i.spotifyFollowersSum.toLocaleString()} followers`
-						}}
-						radioButtonProps={{
-							active: selectedItems.some((item) => item.uid === i.uid),
-							onPress: () => toggleItem(i.uid)
-						}}
-						onPress={() => tagPage(i.uid)}
-					/>
-				</View>
-			))}
+			{_.orderBy(selectedItems, ['spotifyFollowersSum'], ['desc']).map(
+				(selectedItem) => (
+					<View key={selectedItem.uid} animated layout={LinearTransition}>
+						<ListItemWithRadio
+							id={selectedItem.uid}
+							titleTextProps={{
+								title: selectedItem.name,
+								bottomSubtext: `${selectedItem.spotifyFollowersSum.toLocaleString()} followers`
+							}}
+							radioButtonProps={{
+								active: true,
+								onPress: () => removeSelectedItem(selectedItem)
+							}}
+							onPress={() => onPressSearchResult(selectedItem)}
+						/>
+					</View>
+				)
+			)}
+			<If condition={searchTagsText.length === 0}>
+				<Then>
+					{_.orderBy(
+						correlatedData?.hits.filter(
+							(i) => !selectedItems.some((item) => item.uid === i.uid)
+						),
+						['spotifyFollowersSum'],
+						['desc']
+					).map((i) => (
+						<View key={i.uid} animated layout={LinearTransition}>
+							<ListItemWithRadio
+								id={i.uid}
+								titleTextProps={{
+									title: i.name,
+									bottomSubtext: `${i.spotifyFollowersSum.toLocaleString()} followers`
+								}}
+								radioButtonProps={{
+									active: selectedItems.some((item) => item.uid === i.uid),
+									onPress: () => addSelectedItem(i)
+								}}
+								onPress={() => onPressSearchResult(i)}
+							/>
+						</View>
+					))}
+				</Then>
+				<Else>
+					<View animated entering={FadeIn} exiting={FadeOut}>
+						{tagSearchResults?.hits.map((result) => (
+							<ListItemWithRadio
+								key={result.uid}
+								id={result.uid}
+								titleTextProps={{
+									title: result.name,
+									bottomSubtext: `${result.spotifyFollowersSum.toLocaleString()} followers`
+								}}
+								radioButtonProps={{
+									active: selectedItems.some((item) => item.uid === result.uid),
+									onPress: () => onPressSearchedTag(result)
+								}}
+								onPress={() => onPressSearchResult(result)}
+							/>
+						))}
+					</View>
+				</Else>
+			</If>
 		</Animated.ScrollView>
 	);
 };

@@ -1,38 +1,50 @@
-import { SearchItem, searchApiSlice } from '@flux/api/search';
-import { SearchArtistsResponseDto } from '@flux/api/search/dto/search-artists.dto';
-import { SearchTagsResponseDto } from '@flux/api/search/dto/search-tags.dto';
+import { SearchItem } from '@flux/api/search';
 import { SearchType } from '@flux/api/search/search.entity';
 import {
 	SequenceApi,
+	TextInputApi,
+	ToggleApi,
 	useNavigation,
-	usePagination,
 	usePersistedSearchState,
-	useSequence
+	useSequence,
+	useTextInput,
+	useToggle
 } from '@hooks';
 import { useState } from 'react';
 
 interface IUseSearchPage {
-	searchText: string;
-	isLoading: boolean;
-	recentSearches: SearchItem[];
-	artistSearchResults?: SearchArtistsResponseDto;
-	tagSearchResults?: SearchTagsResponseDto;
-	setSearchText: (text: string) => void;
-	clearSearchText: () => void;
-	isSearchActive: boolean;
-	setIsSearchActive: (isActive: boolean) => void;
+	/**
+	 * Overall search state
+	 */
+	searchActiveApi: ToggleApi;
 	onPressSearchResult: (item: SearchItem) => void;
-	nextArtistSearchPage: () => void;
+	recentSearches: SearchItem[];
 	activeSearchTypeSequenceApi: SequenceApi;
+
+	/**
+	 * Search anything
+	 */
+	searchAnythingText: string;
+	setSearchAnythingText: (text: string) => void;
+
+	/**
+	 * Search tags
+	 */
+	searchTagsText: string;
+	setSearchTagsText: (text: string) => void;
+	clearTagTextInput: () => void;
+	tagTextInputApi: TextInputApi;
 }
 
 const useSearchPage = (): IUseSearchPage => {
+	const tagTextInputApi = useTextInput();
 	const activeSearchTypeSequenceApi = useSequence(1);
-	const [isSearchActive, setIsSearchActive] = useState<boolean>(false);
+	const searchActiveApi = useToggle();
+
 	const { artistPage, tagPage } = useNavigation();
 	const { addRecentSearch, recentSearches } = usePersistedSearchState();
-	const [searchText, setSearchText] = useState<string>('');
-	const clearSearchText = () => setSearchText('');
+	const [searchAnythingText, setSearchAnythingText] = useState<string>('');
+	const [searchTagsText, setSearchTagsText] = useState<string>('');
 
 	const onPressSearchResult = (item: SearchItem) => {
 		addRecentSearch(item);
@@ -43,52 +55,24 @@ const useSearchPage = (): IUseSearchPage => {
 		}
 	};
 
-	const {
-		page: artistSearchPage,
-		nextPage: nextArtistSearchPage,
-		defaultLimit: artistSearchDefaultLimit
-	} = usePagination();
-
-	const {
-		data: tagSearchResults,
-		isLoading: isLoadingTagSearchResults,
-		error: tagSearchResultsError
-	} = searchApiSlice.useSearchTagsQuery(
-		{
-			body: { q: searchText },
-			query: { page: 1, limit: 4 }
-		},
-		{ skip: searchText.length === 0 }
-	);
-
-	const {
-		data: artistSearchResults,
-		isLoading: isLoadingArtistSearchResults,
-		error: artistSearchResultsError
-	} = searchApiSlice.useSearchArtistsQuery(
-		{
-			body: { q: searchText },
-			query: {
-				page: artistSearchPage,
-				limit: artistSearchDefaultLimit
-			}
-		},
-		{ skip: searchText.length === 0 }
-	);
+	const clearTagTextInput = () => {
+		tagTextInputApi.clear();
+		setSearchTagsText('');
+	};
 
 	return {
-		searchText,
-		isLoading: isLoadingTagSearchResults && isLoadingArtistSearchResults,
-		recentSearches,
-		artistSearchResults,
-		tagSearchResults,
-		setSearchText,
-		clearSearchText,
-		isSearchActive,
-		setIsSearchActive,
+		searchActiveApi,
 		onPressSearchResult,
-		nextArtistSearchPage,
-		activeSearchTypeSequenceApi
+		recentSearches,
+		activeSearchTypeSequenceApi,
+
+		searchAnythingText,
+		setSearchAnythingText,
+
+		searchTagsText,
+		setSearchTagsText,
+		clearTagTextInput,
+		tagTextInputApi
 	};
 };
 

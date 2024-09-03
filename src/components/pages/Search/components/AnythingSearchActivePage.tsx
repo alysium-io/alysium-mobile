@@ -1,8 +1,6 @@
 import { ActivityIndicator, View } from '@atomic';
-import { SearchItem } from '@flux/api/search';
-import { SearchArtistsResponseDto } from '@flux/api/search/dto/search-artists.dto';
-import { SearchTagsResponseDto } from '@flux/api/search/dto/search-tags.dto';
-import { useKeyboard } from '@hooks';
+import { searchApiSlice, SearchItem } from '@flux/api/search';
+import { useKeyboard, usePagination } from '@hooks';
 import React from 'react';
 import { Case, Switch } from 'react-if';
 import Animated, {
@@ -15,23 +13,42 @@ import RecentSearches from './RecentSearches';
 import SearchResults from './SearchResults';
 
 interface AnythingSearchActivePageProps {
-	searchText: string;
-	isLoading: boolean;
+	searchAnythingText: string;
 	recentSearches: SearchItem[];
-	artistSearchResults?: SearchArtistsResponseDto;
-	tagSearchResults?: SearchTagsResponseDto;
 	onPressSearchResult: (item: SearchItem) => void;
 }
 
 const AnythingSearchActivePage: React.FC<AnythingSearchActivePageProps> = ({
-	searchText,
-	isLoading,
+	searchAnythingText,
 	recentSearches,
-	onPressSearchResult,
-	artistSearchResults,
-	tagSearchResults
+	onPressSearchResult
 }) => {
 	const { dismiss } = useKeyboard();
+
+	const { page: artistSearchPage, defaultLimit: artistSearchDefaultLimit } =
+		usePagination();
+
+	const { data: tagSearchResults, isLoading: isLoadingTagSearchResults } =
+		searchApiSlice.useSearchTagsQuery(
+			{
+				body: { q: searchAnythingText },
+				query: { page: 1, limit: 4 }
+			},
+			{ skip: searchAnythingText.length === 0 }
+		);
+
+	const { data: artistSearchResults, isLoading: isLoadingArtistSearchResults } =
+		searchApiSlice.useSearchArtistsQuery(
+			{
+				body: { q: searchAnythingText },
+				query: {
+					page: artistSearchPage,
+					limit: artistSearchDefaultLimit
+				}
+			},
+			{ skip: searchAnythingText.length === 0 }
+		);
+
 	return (
 		<Animated.ScrollView
 			entering={FadeIn.duration(300)}
@@ -41,23 +58,27 @@ const AnythingSearchActivePage: React.FC<AnythingSearchActivePageProps> = ({
 			onScrollBeginDrag={dismiss}
 		>
 			<Switch>
-				<Case condition={isLoading}>
+				<Case
+					condition={isLoadingTagSearchResults || isLoadingArtistSearchResults}
+				>
 					<View marginTop='xl'>
 						<ActivityIndicator />
 					</View>
 				</Case>
 				<Case
-					condition={searchText.length === 0 && recentSearches.length === 0}
+					condition={
+						searchAnythingText.length === 0 && recentSearches.length === 0
+					}
 				>
 					<NoRecentSearches />
 				</Case>
-				<Case condition={searchText.length === 0}>
+				<Case condition={searchAnythingText.length === 0}>
 					<RecentSearches
 						recentSearches={recentSearches}
 						onPressSearchResult={onPressSearchResult}
 					/>
 				</Case>
-				<Case condition={searchText.length > 0}>
+				<Case condition={searchAnythingText.length > 0}>
 					<SearchResults
 						onPressSearchResult={onPressSearchResult}
 						artistSearchResults={artistSearchResults}

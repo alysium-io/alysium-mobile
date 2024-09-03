@@ -6,6 +6,7 @@ export interface ToggleApi {
 	toggle: () => void;
 	on: () => void;
 	off: () => void;
+	set: (value: boolean) => void;
 }
 
 const useToggle = (defaultState: boolean = false): ToggleApi => {
@@ -13,13 +14,15 @@ const useToggle = (defaultState: boolean = false): ToggleApi => {
 	const toggle = () => setState(!state);
 	const on = () => setState(true);
 	const off = () => setState(false);
+	const set = (value: boolean) => setState(value);
 
 	return {
 		state,
 		setState,
 		toggle,
 		on,
-		off
+		off,
+		set
 	};
 };
 

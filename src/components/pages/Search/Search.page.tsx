@@ -9,42 +9,41 @@ import useSearchPage from './useSearchPage';
 
 const SearchPage = () => {
 	const {
-		setSearchText,
-		clearSearchText,
-		isSearchActive,
-		setIsSearchActive,
-		searchText,
-		isLoading,
+		searchAnythingText,
+		searchTagsText,
+		setSearchAnythingText,
+		searchActiveApi,
 		recentSearches,
 		onPressSearchResult,
-		artistSearchResults,
-		tagSearchResults,
-		activeSearchTypeSequenceApi
+		activeSearchTypeSequenceApi,
+		setSearchTagsText,
+		clearTagTextInput,
+		tagTextInputApi
 	} = useSearchPage();
 
 	return (
 		<BasePage>
 			<SearchPageHeader
-				setSearchText={setSearchText}
-				clearSearchText={clearSearchText}
-				isSearchActive={isSearchActive}
-				setIsSearchActive={setIsSearchActive}
+				setSearchAnythingText={setSearchAnythingText}
+				setSearchTagsText={setSearchTagsText}
+				searchActiveApi={searchActiveApi}
 				activeSearchTypeSequenceApi={activeSearchTypeSequenceApi}
+				clearTagTextInput={clearTagTextInput}
+				tagTextInputApi={tagTextInputApi}
 			/>
 			<LayoutAnimationConfig skipEntering>
 				<Switch>
-					<Case condition={isSearchActive}>
+					<Case condition={searchActiveApi.state}>
 						<SearchActivePage
-							searchText={searchText}
-							isLoading={isLoading}
+							clearTagTextInput={clearTagTextInput}
+							searchAnythingText={searchAnythingText}
+							searchTagsText={searchTagsText}
 							recentSearches={recentSearches}
 							onPressSearchResult={onPressSearchResult}
-							artistSearchResults={artistSearchResults}
-							tagSearchResults={tagSearchResults}
 							activeSearchTypeSequenceApi={activeSearchTypeSequenceApi}
 						/>
 					</Case>
-					<Case condition={!isSearchActive}>
+					<Case condition={!searchActiveApi.state}>
 						<SearchInactivePage />
 					</Case>
 				</Switch>

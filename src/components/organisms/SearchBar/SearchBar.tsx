@@ -1,5 +1,5 @@
 import { Icon, Text, TextInput, View } from '@atomic';
-import { useTextInput, useTheme } from '@hooks';
+import { TextInputApi, useTextInput, useTheme } from '@hooks';
 import React, { useState } from 'react';
 import { Keyboard, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import { FadeIn, LinearTransition } from 'react-native-reanimated';
@@ -11,6 +11,7 @@ interface SearchBarProps {
 	barDidDeactivate?: () => void;
 	isActive: boolean;
 	setIsActive: (isActive: boolean) => void;
+	textInputApi?: TextInputApi;
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({
@@ -19,28 +20,29 @@ const SearchBar: React.FC<SearchBarProps> = ({
 	barDidActivate,
 	barDidDeactivate,
 	isActive,
-	setIsActive
+	setIsActive,
+	textInputApi
 }) => {
 	const { theme } = useTheme();
-	const { ref, focus, clear, blur } = useTextInput();
+	const _textInputApi = textInputApi ? textInputApi : useTextInput();
 	const [showClearButton, setShowClearButton] = useState<boolean>(false);
 
 	const _onPressActivate = () => {
 		setIsActive(true);
-		focus();
+		_textInputApi.focus();
 		barDidActivate && barDidActivate();
 	};
 
 	const _onPressDeactivate = () => {
 		Keyboard.dismiss();
 		setIsActive(false);
-		blur();
+		_textInputApi.blur();
 		barDidDeactivate && barDidDeactivate();
 	};
 
 	const _onPressClear = () => {
 		onPressClearText();
-		clear();
+		_textInputApi.clear();
 		setShowClearButton(false);
 	};
 
@@ -62,7 +64,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
 						<Icon name='search' size='m' color='search.search-bar.icon' />
 						<View flex={1} paddingLeft='s' justifyContent='center'>
 							<TextInput
-								ref={ref}
+								ref={_textInputApi.ref}
 								variant='paragraph-bold'
 								placeholderTextColor={
 									theme.colors['search.search-bar.placeholder-text']

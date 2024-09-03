@@ -1,29 +1,37 @@
 import { Icon, View } from '@atomic';
-import { SequenceApi } from '@hooks';
+import { SequenceApi, TextInputApi, ToggleApi } from '@hooks';
 import { TabToggler } from '@molecules';
-import { Header, HeaderSection, HeaderTitle, SearchBar } from '@organisms';
+import {
+	Header,
+	HeaderSection,
+	HeaderTitle,
+	SearchBar,
+	Sequence
+} from '@organisms';
 import React from 'react';
 import { Else, If, Then } from 'react-if';
 import { FadeIn, LinearTransition } from 'react-native-reanimated';
 
 interface SearchPageHeaderProps {
-	setSearchText: (text: string) => void;
-	clearSearchText: () => void;
-	isSearchActive: boolean;
-	setIsSearchActive: (isActive: boolean) => void;
+	setSearchAnythingText: (text: string) => void;
+	setSearchTagsText: (text: string) => void;
+	searchActiveApi: ToggleApi;
 	activeSearchTypeSequenceApi: SequenceApi;
+	clearTagTextInput: () => void;
+	tagTextInputApi: TextInputApi;
 }
 
 const SearchPageHeader: React.FC<SearchPageHeaderProps> = ({
-	setSearchText,
-	clearSearchText,
-	isSearchActive,
-	setIsSearchActive,
-	activeSearchTypeSequenceApi
+	setSearchAnythingText,
+	setSearchTagsText,
+	searchActiveApi,
+	activeSearchTypeSequenceApi,
+	clearTagTextInput,
+	tagTextInputApi
 }) => {
 	return (
 		<Header>
-			<If condition={isSearchActive}>
+			<If condition={searchActiveApi.state}>
 				<Then>
 					<View
 						margin='m'
@@ -59,18 +67,26 @@ const SearchPageHeader: React.FC<SearchPageHeaderProps> = ({
 					</View>
 				</Else>
 			</If>
-			<View
-				margin='m'
-				marginTop='none'
-				animated
-				layout={LinearTransition.duration(300)}
-			>
-				<SearchBar
-					onChangeText={setSearchText}
-					onPressClearText={clearSearchText}
-					isActive={isSearchActive}
-					setIsActive={setIsSearchActive}
-				/>
+			<View animated layout={LinearTransition.duration(300)}>
+				<Sequence sequenceIndex={activeSearchTypeSequenceApi.sequenceIndex}>
+					<View margin='m' marginTop='m'>
+						<SearchBar
+							onChangeText={setSearchAnythingText}
+							onPressClearText={() => setSearchAnythingText('')}
+							isActive={searchActiveApi.state}
+							setIsActive={searchActiveApi.set}
+						/>
+					</View>
+					<View margin='m' marginTop='m'>
+						<SearchBar
+							textInputApi={tagTextInputApi}
+							onChangeText={setSearchTagsText}
+							onPressClearText={clearTagTextInput}
+							isActive={searchActiveApi.state}
+							setIsActive={searchActiveApi.set}
+						/>
+					</View>
+				</Sequence>
 			</View>
 		</Header>
 	);
