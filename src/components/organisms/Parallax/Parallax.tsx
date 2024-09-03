@@ -3,14 +3,16 @@ import { useScrollView } from '@hooks';
 import React from 'react';
 import { ScrollView } from 'react-native';
 import { interpolate, useAnimatedStyle } from 'react-native-reanimated';
-import AnimatedParallaxBannerContainer from './components/AnimatedParallaxBannerContainer';
 import BannerImage from './components/BannerImage';
 import BannerTitle from './components/BannerTitle';
 import useParallax from './useParallax';
 
 interface ParallaxProps {
 	children?: React.ReactNode;
-	bannerImageProps: React.ComponentProps<typeof BannerImage>;
+	bannerImageProps: Omit<
+		React.ComponentProps<typeof BannerImage>,
+		'scrollY' | 'bannerImageHeight'
+	>;
 	bannerTitleProps: React.ComponentProps<typeof BannerTitle>;
 }
 
@@ -28,12 +30,11 @@ const Parallax: React.FC<ParallaxProps> = ({
 
 	return (
 		<View flex={1}>
-			<AnimatedParallaxBannerContainer
+			<BannerImage
 				scrollY={scrollY}
 				bannerImageHeight={bannerImageHeight}
-			>
-				<BannerImage {...bannerImageProps} />
-			</AnimatedParallaxBannerContainer>
+				{...bannerImageProps}
+			/>
 			<ScrollView
 				alwaysBounceVertical
 				onScroll={scrollEvent}
@@ -45,7 +46,7 @@ const Parallax: React.FC<ParallaxProps> = ({
 						showGradient={bannerImageProps.image !== undefined}
 					/>
 				</View>
-				{children}
+				<View backgroundColor='bg.p'>{children}</View>
 			</ScrollView>
 		</View>
 	);

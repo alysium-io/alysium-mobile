@@ -19,6 +19,10 @@ import {
 	PublicFindOneArtistResponseDto
 } from './dto/artist-find-one.dto';
 import {
+	PublicFindRelatedArtistsParamsDto,
+	PublicFindRelatedArtistsResponseDto
+} from './dto/artist-find-related-artists.dto';
+import {
 	UpdateArtistBodyDto,
 	UpdateArtistParamsDto,
 	UpdateArtistResponseDto
@@ -40,6 +44,15 @@ const apiSlice = createApi({
 			providesTags: (result, error, { params }) => [
 				{ type: 'PublicArtist', id: params.artist_uid }
 			]
+		}),
+		publicFindRelated: builder.query<
+			PublicFindRelatedArtistsResponseDto,
+			{ params: PublicFindRelatedArtistsParamsDto }
+		>({
+			query: ({ params }) => ({
+				url: `/public/${params.artist_uid}/related`,
+				method: 'GET'
+			})
 		}),
 		privateFindOne: builder.query<
 			PrivateFindOneArtistResponseDto,

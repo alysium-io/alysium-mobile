@@ -7,6 +7,7 @@ import SubHeader from '../../components/SubHeader';
 import ActionButtons from './components/ActionButtons';
 import ArtistTags from './components/ArtistTags';
 import GoToSpotifyButton from './components/GoToSpotifyButton';
+import RelatedArtists from './components/RelatedArtists';
 import useUserPage from './useUserPage';
 
 interface UserProps {
@@ -40,6 +41,7 @@ const User: React.FC<UserProps> = ({ artist_uid }) => {
 					<ArtistTags artistData={artistData} />
 					<GoToSpotifyButton artistData={artistData} />
 				</View>
+				<RelatedArtists artist_uid={artist_uid} />
 			</Parallax>
 		</BasePage>
 	);
