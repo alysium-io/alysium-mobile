@@ -13,7 +13,7 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
 	onPressFollowButton
 }) => {
 	return (
-		<Section>
+		<Section marginTop='m'>
 			<FollowButton
 				defaultState={artistData.is_following}
 				onChange={(isActive) => onPressFollowButton(isActive)}
