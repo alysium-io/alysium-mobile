@@ -2,6 +2,10 @@ import { Avatar, Bold, Icon, Link, P, Section, Text, View } from '@atomic';
 import { SheetApi } from '@hooks';
 import { Button } from '@molecules';
 import { FullScreenSheetWithHeaderAndFooter } from '@organisms';
+import {
+	BehaviorAction,
+	useBehaviorContext
+} from '@src/utils/contexts/Behavior';
 import { IconNames } from '@svg';
 import React from 'react';
 
@@ -24,6 +28,11 @@ interface AboutAlysiumBottomSheetProps {
 const AboutAlysiumBottomSheet: React.FC<AboutAlysiumBottomSheetProps> = ({
 	sheetApi
 }) => {
+	const { behavior } = useBehaviorContext();
+	const sheetDidOpen = () => {
+		behavior(BehaviorAction.POPUP_ABOUT_ALYSIUM);
+	};
+
 	const FooterContent = (
 		<View flex={1}>
 			<Button text='Dismiss' onPress={sheetApi.close} />
@@ -34,6 +43,7 @@ const AboutAlysiumBottomSheet: React.FC<AboutAlysiumBottomSheetProps> = ({
 		<FullScreenSheetWithHeaderAndFooter
 			sheetApi={sheetApi}
 			FooterContent={FooterContent}
+			sheetDidOpen={sheetDidOpen}
 		>
 			<View margin='m'>
 				<Section>

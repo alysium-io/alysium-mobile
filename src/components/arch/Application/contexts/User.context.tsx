@@ -6,6 +6,7 @@ import { profileImageApiSlice } from '@flux/api/profile-image';
 import { userApiSlice } from '@flux/api/user';
 import { PrivateUser } from '@flux/api/user/user.entity';
 import { createUseContextHook, usePersona } from '@hooks';
+import { useBehaviorContext } from '@src/utils/contexts/Behavior';
 import { ApiIdentifier, Persona, ProviderProps } from '@types';
 import React, { createContext, useEffect } from 'react';
 import { Asset } from 'react-native-image-picker';
@@ -37,9 +38,13 @@ export const UserAppProvider: React.FC<ProviderProps> = ({ children }) => {
 	const { initializePersona } = usePersona();
 	const [createUserProfileImageMutation] =
 		profileImageApiSlice.useCreateMutation();
+	const { setBehaviorUserUid } = useBehaviorContext();
 
 	useEffect(() => {
-		if (userData) initializePersona(userData.user_uid);
+		if (userData) {
+			initializePersona(userData.user_uid);
+			setBehaviorUserUid(userData.user_uid);
+		}
 	}, [userData]);
 
 	const setUserProfileImage = (image: Asset) => {

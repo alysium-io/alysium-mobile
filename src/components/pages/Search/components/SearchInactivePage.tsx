@@ -3,6 +3,10 @@ import { Section, Text, View } from '@atomic';
 import { tagApiSlice } from '@flux/api/tag';
 import { useNavigation } from '@hooks';
 import { BlockListItem, ContentListItem } from '@molecules';
+import {
+	BehaviorAction,
+	useBehaviorContext
+} from '@src/utils/contexts/Behavior';
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import Animated, {
@@ -15,6 +19,7 @@ interface SearchInactivePageProps {}
 
 const SearchInactivePage: React.FC<SearchInactivePageProps> = () => {
 	const { userData } = useUserAppContext();
+	const { behavior } = useBehaviorContext();
 	const { userArtistsFollowingPage, userTagsFollowingPage, tagPage } =
 		useNavigation();
 
@@ -24,6 +29,12 @@ const SearchInactivePage: React.FC<SearchInactivePageProps> = () => {
 		error: discoverTagsError,
 		refetch: refetchDiscoverTags
 	} = tagApiSlice.useDiscoverQuery(undefined);
+
+	const onPressRefreshDiscoverTags = () => {
+		refetchDiscoverTags().then(() =>
+			behavior(BehaviorAction.REFRESH_HOME_DISCOVER_TAGS)
+		);
+	};
 
 	return (
 		<Animated.ScrollView
@@ -73,7 +84,10 @@ const SearchInactivePage: React.FC<SearchInactivePageProps> = () => {
 					justifyContent='space-between'
 				>
 					<Text variant='section-header-1'>Discover</Text>
-					<TouchableOpacity onPress={refetchDiscoverTags} activeOpacity={0.9}>
+					<TouchableOpacity
+						onPress={onPressRefreshDiscoverTags}
+						activeOpacity={0.9}
+					>
 						<Text variant='paragraph-small-medium' color='palette.p.medium'>
 							Refresh
 						</Text>

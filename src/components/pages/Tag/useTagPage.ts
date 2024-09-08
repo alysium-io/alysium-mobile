@@ -4,6 +4,10 @@ import { FindTagCorrelatedResponseDto } from '@flux/api/tag/dto/tag-correlated.d
 import { FindOneTagResponseDto } from '@flux/api/tag/dto/tag-find-one.dto';
 import { userTagsFollowingApiSlice } from '@flux/api/user-tags-following';
 import { usePagination } from '@hooks';
+import {
+	BehaviorAction,
+	useBehaviorContext
+} from '@src/utils/contexts/Behavior';
 import { ApiIdentifier } from '@types';
 
 interface IUseTagPage {
@@ -22,6 +26,7 @@ interface IUseTagPage {
 
 const useTagPage = (tag_uid: ApiIdentifier): IUseTagPage => {
 	const { page, nextPage, defaultLimit } = usePagination();
+	const { behavior } = useBehaviorContext();
 
 	const {
 		data: tagArtists,
@@ -57,11 +62,17 @@ const useTagPage = (tag_uid: ApiIdentifier): IUseTagPage => {
 						tag_uid: tagData.tag_uid
 					}
 				});
+				behavior(BehaviorAction.FOLLOW_TAG, {
+					tag_uid: tagData.tag_uid
+				});
 			} else {
 				userTagsFollowDeleteMutation({
 					params: {
 						tag_uid: tagData.tag_uid
 					}
+				});
+				behavior(BehaviorAction.UNFOLLOW_TAG, {
+					tag_uid: tagData.tag_uid
 				});
 			}
 		}

@@ -2,8 +2,12 @@ import { useNavigation } from '@hooks';
 import { ContentListItemWithRank } from '@molecules';
 import { BasePage } from '@organisms';
 import { useRoute } from '@react-navigation/native';
+import {
+	BehaviorAction,
+	useBehaviorContext
+} from '@src/utils/contexts/Behavior';
 import { TagPageRouteProp } from '@types';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FlatList } from 'react-native';
 import Header from './components/Header';
 import TagPageHeader from './Tag.header';
@@ -12,6 +16,7 @@ import useTagPage from './useTagPage';
 const TagPage = () => {
 	const route = useRoute<TagPageRouteProp>();
 	const { artistPage } = useNavigation();
+	const { behavior } = useBehaviorContext();
 	const {
 		tagData,
 		tagArtists,
@@ -19,6 +24,10 @@ const TagPage = () => {
 		nextPage,
 		onPressFollowButton
 	} = useTagPage(route.params.tag_uid);
+
+	useEffect(() => {
+		behavior(BehaviorAction.PAGEVIEW_PUBLIC_TAG);
+	}, []);
 
 	if (!tagData || !tagArtists || !correlatedTagsData) {
 		return null;

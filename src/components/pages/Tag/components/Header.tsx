@@ -5,6 +5,10 @@ import { useNavigation } from '@hooks';
 import { FollowButton, Pill, PillGroup } from '@molecules';
 import { Stats } from '@organisms';
 import { formatNumber } from '@src/etc/numeral';
+import {
+	BehaviorAction,
+	useBehaviorContext
+} from '@src/utils/contexts/Behavior';
 import React from 'react';
 
 interface HeaderProps {
@@ -19,6 +23,15 @@ const Header: React.FC<HeaderProps> = ({
 	onPressFollowButton
 }) => {
 	const { tagPage } = useNavigation();
+	const { behavior } = useBehaviorContext();
+
+	const onPressCorrelatedTag = (tagUid: string) => {
+		tagPage(tagUid);
+		behavior(BehaviorAction.PRESSED_CORRELATED_TAG, {
+			currentTagUid: tagData.tag_uid,
+			nextTagUid: tagUid
+		});
+	};
 
 	return (
 		<View margin='m'>
@@ -60,7 +73,7 @@ const Header: React.FC<HeaderProps> = ({
 						<Pill
 							key={index}
 							text={correlatedTag.tag2_name}
-							onPress={() => tagPage(correlatedTag.tag2_uid)}
+							onPress={() => onPressCorrelatedTag(correlatedTag.tag2_uid)}
 						/>
 					))}
 				</PillGroup>

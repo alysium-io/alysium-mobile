@@ -14,11 +14,12 @@ import { BottomSheet } from '../overrides';
 interface FullScreenSheetWithHeaderAndFooterProps extends IChildrenProps {
 	FooterContent: React.ReactNode;
 	sheetApi: SheetApi;
+	sheetDidOpen?: () => void;
 }
 
 const FullScreenSheetWithHeaderAndFooter: React.FC<
 	FullScreenSheetWithHeaderAndFooterProps
-> = ({ sheetApi, FooterContent, children }) => {
+> = ({ sheetApi, FooterContent, sheetDidOpen, children }) => {
 	const { theme } = useTheme();
 	const insets = useSafeAreaInsets();
 	const { dismiss } = useKeyboard();
@@ -45,12 +46,19 @@ const FullScreenSheetWithHeaderAndFooter: React.FC<
 		[footerDimensions.height]
 	);
 
+	const onChange = (index: number) => {
+		if (index === 0) {
+			sheetDidOpen && sheetDidOpen();
+		}
+	};
+
 	return (
 		<BottomSheet
 			sheetRef={sheetApi.sheetRef}
 			snapPoints={['100%']}
 			handleComponent={null}
 			footerComponent={renderFooter}
+			onChange={onChange}
 		>
 			<Header>
 				<HeaderSection

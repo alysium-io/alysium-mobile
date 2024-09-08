@@ -1,7 +1,11 @@
 import { DismissKeyboardWrapper, Icon, View } from '@atomic';
 import { useTheme } from '@hooks';
 import { BasePage } from '@organisms';
-import React from 'react';
+import {
+	BehaviorAction,
+	useBehaviorFunnel
+} from '@src/utils/contexts/Behavior';
+import React, { useEffect } from 'react';
 import { Case, Switch } from 'react-if';
 import { LayoutAnimationConfig } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -13,6 +17,20 @@ const LoggedOut = () => {
 	const { theme } = useTheme();
 	const insets = useSafeAreaInsets();
 	const { state } = useAuthenticationAppContext();
+	const { funnel } = useBehaviorFunnel(BehaviorAction.FUNNEL_AUTHENTICATION);
+
+	useEffect(() => {
+		let funnel_step = 0;
+		if (state.screen === 'continue-phone') {
+			funnel_step = 0;
+		} else if (state.screen === 'login-phone') {
+			funnel_step = 1;
+		}
+		funnel(funnel_step, {
+			funnel_step: state.screen
+		});
+	}, [state.screen]);
+
 	return (
 		<BasePage>
 			<LayoutAnimationConfig skipEntering>

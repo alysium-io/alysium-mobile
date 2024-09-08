@@ -2,6 +2,7 @@ import { Application, Authentication, Dependencies } from '@arch';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import React from 'react';
 import { Scratch } from 'src/components/helpers';
+import './ignore-warnings';
 
 // Dependencies: Standard dependencies, app setup, and global state
 // Authentication: Authentication flow

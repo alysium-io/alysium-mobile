@@ -2,6 +2,7 @@ import { GestureHandlerRootView, Toast } from '@atomic';
 import { persistor, store } from '@flux';
 import { PortalProvider } from '@gorhom/portal';
 import { ThemeProvider } from '@restyle';
+import { BehaviorProvider } from '@src/utils/contexts/Behavior';
 import { ChildrenProps } from '@types';
 import React from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -15,12 +16,14 @@ const Dependencies: React.FC<ChildrenProps> = ({ children }) => {
 			<PersistGate loading={null} persistor={persistor}>
 				<ThemeProvider>
 					<ValidateEnvProvider>
-						<GestureHandlerRootView>
-							<SafeAreaProvider>
-								<PortalProvider>{children}</PortalProvider>
-								<Toast />
-							</SafeAreaProvider>
-						</GestureHandlerRootView>
+						<BehaviorProvider>
+							<GestureHandlerRootView>
+								<SafeAreaProvider>
+									<PortalProvider>{children}</PortalProvider>
+									<Toast />
+								</SafeAreaProvider>
+							</GestureHandlerRootView>
+						</BehaviorProvider>
 					</ValidateEnvProvider>
 				</ThemeProvider>
 			</PersistGate>

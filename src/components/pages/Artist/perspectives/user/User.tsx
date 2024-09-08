@@ -1,7 +1,11 @@
 import { View } from '@atomic';
 import { BasePage, Parallax } from '@organisms';
+import {
+	BehaviorAction,
+	useBehaviorContext
+} from '@src/utils/contexts/Behavior';
 import { ApiIdentifier } from '@types';
-import React from 'react';
+import React, { useEffect } from 'react';
 import ArtistPageHeader from '../../Artist.header';
 import ActionButtons from './components/ActionButtons';
 import ArtistTags from './components/ArtistTags';
@@ -15,6 +19,11 @@ interface UserProps {
 
 const User: React.FC<UserProps> = ({ artist_uid }) => {
 	const { artistData, onPressFollowButton } = useUserPage(artist_uid);
+	const { behavior } = useBehaviorContext();
+
+	useEffect(() => {
+		behavior(BehaviorAction.PAGEVIEW_PUBLIC_ARTIST);
+	}, []);
 
 	if (!artistData) {
 		return null;

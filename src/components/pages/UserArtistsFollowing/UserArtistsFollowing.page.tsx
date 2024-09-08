@@ -2,24 +2,33 @@ import { Text } from '@atomic';
 import { useNavigation } from '@hooks';
 import { ContentListItem } from '@molecules';
 import { BasePage } from '@organisms';
-import React from 'react';
+import {
+	BehaviorAction,
+	useBehaviorContext
+} from '@src/utils/contexts/Behavior';
+import React, { useEffect } from 'react';
 import { FlatList } from 'react-native';
 import UserArtistsFollowingPageHeader from './UserArtistsFollowing.header';
 import useUserArtistsFollowingPage from './useUserArtistsFollowingPage';
 
 const UserArtistsFollowingPage = () => {
 	const { userArtistsFollowingData, nextPage } = useUserArtistsFollowingPage();
+	const { behavior } = useBehaviorContext();
 	const { artistPage } = useNavigation();
 
-	if (!userArtistsFollowingData) {
-		return null;
-	}
+	useEffect(() => {
+		behavior(BehaviorAction.PAGEVIEW_USER_ARTISTS_FOLLOWING);
+	}, []);
 
 	const Header = () => (
 		<Text variant='section-header-1' margin='m'>
 			Following
 		</Text>
 	);
+
+	if (!userArtistsFollowingData) {
+		return null;
+	}
 
 	return (
 		<BasePage>

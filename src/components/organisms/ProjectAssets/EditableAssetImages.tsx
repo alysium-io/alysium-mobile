@@ -1,5 +1,5 @@
 import { View } from '@atomic';
-import { generateId, global } from '@etc';
+import { generateId } from '@etc';
 import React, { useState } from 'react';
 import { SimpleGrid } from 'react-native-super-grid';
 import EditableAssetImage from './EditableAssetImage';
@@ -7,11 +7,11 @@ import EditableAssetImage from './EditableAssetImage';
 const data = [
 	{
 		id: 1,
-		url: global.sampleData.sampleEvents[0].image
+		url: undefined
 	},
 	{
 		id: 2,
-		url: global.sampleData.sampleEvents[0].image
+		url: undefined
 	},
 	{
 		id: 3,
@@ -19,15 +19,15 @@ const data = [
 	},
 	{
 		id: 4,
-		url: global.sampleData.sampleEvents[0].image
+		url: undefined
 	},
 	{
 		id: 5,
-		url: global.sampleData.sampleEvents[0].image
+		url: undefined
 	},
 	{
 		id: 6,
-		url: global.sampleData.sampleEvents[0].image
+		url: undefined
 	}
 ];
 

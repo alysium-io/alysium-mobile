@@ -3,6 +3,10 @@ import { artistApiSlice } from '@flux/api/artist';
 import { useNavigation } from '@hooks';
 import { ContentListItem } from '@molecules';
 import { formatNumber } from '@src/etc/numeral';
+import {
+	BehaviorAction,
+	useBehaviorContext
+} from '@src/utils/contexts/Behavior';
 import { ApiIdentifier } from '@types';
 import React from 'react';
 
@@ -11,12 +15,21 @@ interface RelatedArtistsProps {
 }
 
 const RelatedArtists: React.FC<RelatedArtistsProps> = ({ artist_uid }) => {
+	const { behavior } = useBehaviorContext();
 	const { artistPage } = useNavigation();
 	const { data: relatedArtists } = artistApiSlice.usePublicFindRelatedQuery({
 		params: {
 			artist_uid
 		}
 	});
+
+	const onPressRelatedArtist = (nextArtistUid: ApiIdentifier) => {
+		artistPage(nextArtistUid);
+		behavior(BehaviorAction.PRESSED_RELATED_ARTIST, {
+			currentArtistUid: artist_uid,
+			nextArtistUid: nextArtistUid
+		});
+	};
 
 	return (
 		<Section>
@@ -27,7 +40,7 @@ const RelatedArtists: React.FC<RelatedArtistsProps> = ({ artist_uid }) => {
 				return (
 					<ContentListItem
 						key={artist.artist_uid}
-						onPress={() => artistPage(artist.artist_uid)}
+						onPress={() => onPressRelatedArtist(artist.artist_uid)}
 						titleTextProps={{
 							title: artist.name,
 							bottomSubtext:
