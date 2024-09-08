@@ -17,7 +17,7 @@ runs:
         echo "ENV=${{ inputs.ENV }}" >> .env.${{ inputs.ENV }}
 
         # Api url (e.g. https://qa-api.alysium.ninja)
-        echo "API_URL=https://${{ inputs.ENV }}-api.alysium.ninja" >> .env.${{ inputs.ENV }}
+        echo "API_URL=https://api-prod.alysium.ninja/alysium" >> .env.${{ inputs.ENV }}
 
         # Images base url (e.g. IMAGES_BASE_URL='https://dev-images.alysium.ninja/')
         echo "IMAGES_BASE_URL=https://${{ inputs.ENV }}-images.alysium.ninja/" >> .env.${{ inputs.ENV }}
