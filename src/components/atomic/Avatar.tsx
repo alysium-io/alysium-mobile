@@ -1,6 +1,6 @@
 import { Image, View } from '@atomic';
 import { BorderRadii } from '@types';
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { useEnvContext } from 'src/utils/contexts';
 import DefaultImage from './DefaultImage';
@@ -17,14 +17,16 @@ const Avatar: React.FC<AvatarProps> = ({
 	defaultImageProps
 }) => {
 	const { env } = useEnvContext();
+	const [error, setError] = useState(false);
 	return (
 		<View style={styles.container} borderRadius={borderRadius}>
-			{!image ? (
+			{!image || error ? (
 				<DefaultImage {...defaultImageProps} />
 			) : (
 				<Image
 					source={{ uri: env.imagesBaseUrl + image }}
 					style={styles.image}
+					onError={() => setError(true)}
 				/>
 			)}
 		</View>
