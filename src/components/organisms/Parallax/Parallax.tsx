@@ -39,6 +39,7 @@ const Parallax: React.FC<ParallaxProps> = ({
 				alwaysBounceVertical
 				onScroll={scrollEvent}
 				scrollEventThrottle={16}
+				showsVerticalScrollIndicator={false}
 			>
 				<View animated height={bannerImageHeight} style={animatedTitleStyles}>
 					<BannerTitle

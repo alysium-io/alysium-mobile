@@ -36,8 +36,7 @@ const BannerImage: React.FC<BannerImageProps> = ({
 					extrapolateLeft: 'extend',
 					extrapolateRight: 'clamp'
 				}
-			),
-			zIndex: scrollY.value > bannerImageHeight ? 1 : 0
+			)
 		};
 	}, [bannerImageHeight]);
 

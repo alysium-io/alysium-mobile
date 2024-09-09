@@ -37,6 +37,7 @@ const TagPage = () => {
 		<BasePage>
 			<TagPageHeader title={tagData.name} />
 			<FlatList
+				showsVerticalScrollIndicator={false}
 				data={tagArtists}
 				ListHeaderComponent={
 					<Header
