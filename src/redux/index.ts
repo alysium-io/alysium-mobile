@@ -21,6 +21,7 @@ import { candidateApiSlice } from './api/candidate';
 import { contractApiSlice } from './api/contract';
 import { eventApiSlice } from './api/event';
 import { galleryApiSlice } from './api/gallery';
+import { healthApiSlice } from './api/health';
 import { hostApiSlice } from './api/host';
 import { hostEventLinkApiSlice } from './api/host-event-link';
 import { locationApiSlice } from './api/location';
@@ -62,7 +63,8 @@ const store = configureStore({
 			userArtistsFollowingApiSlice.reducer,
 		[userTagsFollowingApiSlice.reducerPath]: userTagsFollowingApiSlice.reducer,
 		[profileImageApiSlice.reducerPath]: profileImageApiSlice.reducer,
-		[behaviorApiSlice.reducerPath]: behaviorApiSlice.reducer
+		[behaviorApiSlice.reducerPath]: behaviorApiSlice.reducer,
+		[healthApiSlice.reducerPath]: healthApiSlice.reducer
 	},
 	middleware: (getDefaultMiddleware) => {
 		return getDefaultMiddleware({
@@ -90,6 +92,7 @@ const store = configureStore({
 			.concat(userTagsFollowingApiSlice.middleware)
 			.concat(profileImageApiSlice.middleware)
 			.concat(behaviorApiSlice.middleware)
+			.concat(healthApiSlice.middleware)
 			.concat(apiErrorUnauthorizedMiddleware);
 	}
 });

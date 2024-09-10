@@ -1,12 +1,15 @@
 import { Text, View } from '@atomic';
-import { collectDeviceInfo, type DeviceInfo } from '@src/etc/device';
+import {
+	collectDeviceInfo,
+	type DeviceInfo as TDeviceInfo
+} from '@src/etc/device';
 import React, { useEffect, useState } from 'react';
 
 const DeviceInfo = () => {
-	const [deviceInfo, setDeviceInfo] = useState<DeviceInfo | null>(null);
+	const [deviceInfo, setDeviceInfo] = useState<TDeviceInfo | null>(null);
 
 	useEffect(() => {
-		collectDeviceInfo().then((info: DeviceInfo) => setDeviceInfo(info));
+		collectDeviceInfo().then((info: TDeviceInfo) => setDeviceInfo(info));
 	}, []);
 
 	return (
@@ -17,7 +20,7 @@ const DeviceInfo = () => {
 			{deviceInfo &&
 				Object.keys(deviceInfo).map((key) => (
 					<Text key={key}>
-						{key}: {deviceInfo[key as keyof DeviceInfo]}
+						{key}: {deviceInfo[key as keyof TDeviceInfo]}
 					</Text>
 				))}
 		</View>

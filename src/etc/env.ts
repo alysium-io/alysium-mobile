@@ -1,5 +1,6 @@
 import Config from 'react-native-config';
 import * as yup from 'yup';
+import { getHostIp } from './network';
 
 const envNames = ['dev', 'qa', 'demo', 'prod'] as const;
 
@@ -19,7 +20,8 @@ export const validateEnv = (): { env: Env | null; errors: any | null } => {
 		const validatedEnv = envSchema.validateSync(
 			{
 				imagesBaseUrl: Config.IMAGES_BASE_URL,
-				apiUrl: Config.API_URL,
+				apiUrl:
+					Config.ENV === 'dev' ? `http://${getHostIp()}:3000` : Config.API_URL,
 				env: Config.ENV
 			},
 			{ abortEarly: false }
