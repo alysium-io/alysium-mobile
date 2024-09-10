@@ -112,6 +112,7 @@ export const createSemanticDarkTheme = (
 		'etc.status-bar': 'light-content',
 		'etc.keyboard': 'dark',
 		'etc.blur': 'dark',
+		'etc.scrollbar-indicator': 'white',
 
 		'palette.neutral.p1': palette.neutral.p1,
 		'palette.neutral.p2': palette.neutral.p2,

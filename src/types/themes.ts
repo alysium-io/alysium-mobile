@@ -146,6 +146,7 @@ export type SemanticColors = {
 	'etc.status-bar': StatusBarStyle;
 	'etc.keyboard': KeyboardColor;
 	'etc.blur': BlurColor;
+	'etc.scrollbar-indicator': 'default' | 'black' | 'white' | undefined;
 
 	// Molecules
 	'block-list-item.bg': HexColor;

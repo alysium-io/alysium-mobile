@@ -2,7 +2,7 @@ import { useUserAppContext } from '@arch/Application/contexts/User.context';
 import { Section, Text, View } from '@atomic';
 import { Vibrator } from '@etc';
 import { tagApiSlice } from '@flux/api/tag';
-import { useNavigation } from '@hooks';
+import { useNavigation, useTheme } from '@hooks';
 import { BlockListItem, ContentListItem } from '@molecules';
 import {
 	BehaviorAction,
@@ -19,6 +19,7 @@ import Animated, {
 interface SearchInactivePageProps {}
 
 const SearchInactivePage: React.FC<SearchInactivePageProps> = () => {
+	const { theme } = useTheme();
 	const { userData } = useUserAppContext();
 	const { behavior } = useBehaviorContext();
 	const { userArtistsFollowingPage, userTagsFollowingPage, tagPage } =
@@ -40,6 +41,7 @@ const SearchInactivePage: React.FC<SearchInactivePageProps> = () => {
 			exiting={FadeOut.duration(300)}
 			style={{ overflow: 'visible' }}
 			layout={LinearTransition.duration(300)}
+			indicatorStyle={theme.colors['etc.scrollbar-indicator']}
 		>
 			<Section marginBottom='l'>
 				<ContentListItem
