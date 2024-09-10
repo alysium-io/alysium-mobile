@@ -1,3 +1,4 @@
+import { Vibrator } from '@etc';
 import { useTheme } from '@hooks';
 import _ from 'lodash';
 import React, { useMemo, useState } from 'react';
@@ -52,6 +53,7 @@ const ToggleButton: React.FC<ToggleButtonProps> = ({
 	}, [isActive, activeButtonProps, inactiveButtonProps, theme]);
 
 	const _onPress = () => {
+		Vibrator.notificationWarning();
 		onChange && onChange(!isActive);
 		setIsActive(!isActive);
 	};

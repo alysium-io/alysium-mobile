@@ -1,4 +1,5 @@
 import { ActivityIndicator } from '@atomic';
+import { Vibrator } from '@etc';
 import { useTheme } from '@hooks';
 import { SemanticColor } from '@types';
 import React, { useMemo } from 'react';
@@ -90,9 +91,14 @@ const Button: React.FC<ButtonProps> = ({
 		}
 	}, [buttonState, color, variant, buttonThemeSettings, theme]);
 
+	const _onPress = () => {
+		Vibrator.rigid();
+		onPress();
+	};
+
 	return (
 		<TouchableOpacity
-			onPress={onPress}
+			onPress={_onPress}
 			disabled={buttonState === 'disabled' || buttonState === 'loading'}
 			activeOpacity={0.9}
 		>

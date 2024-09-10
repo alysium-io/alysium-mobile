@@ -1,5 +1,6 @@
 import { useUserAppContext } from '@arch/Application/contexts/User.context';
 import { Section, Text, View } from '@atomic';
+import { Vibrator } from '@etc';
 import { tagApiSlice } from '@flux/api/tag';
 import { useNavigation } from '@hooks';
 import { BlockListItem, ContentListItem } from '@molecules';
@@ -23,14 +24,11 @@ const SearchInactivePage: React.FC<SearchInactivePageProps> = () => {
 	const { userArtistsFollowingPage, userTagsFollowingPage, tagPage } =
 		useNavigation();
 
-	const {
-		data: discoverTagsData,
-		isLoading: isDiscoverTagsLoading,
-		error: discoverTagsError,
-		refetch: refetchDiscoverTags
-	} = tagApiSlice.useDiscoverQuery(undefined);
+	const { data: discoverTagsData, refetch: refetchDiscoverTags } =
+		tagApiSlice.useDiscoverQuery(undefined);
 
 	const onPressRefreshDiscoverTags = () => {
+		Vibrator.rigid();
 		refetchDiscoverTags().then(() =>
 			behavior(BehaviorAction.REFRESH_HOME_DISCOVER_TAGS)
 		);

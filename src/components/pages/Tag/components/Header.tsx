@@ -1,4 +1,5 @@
 import { Section, Text, View } from '@atomic';
+import { Vibrator } from '@etc';
 import { FindTagCorrelatedResponseDto } from '@flux/api/tag/dto/tag-correlated.dto';
 import { FindOneTagResponseDto } from '@flux/api/tag/dto/tag-find-one.dto';
 import { useNavigation } from '@hooks';
@@ -26,6 +27,7 @@ const Header: React.FC<HeaderProps> = ({
 	const { behavior } = useBehaviorContext();
 
 	const onPressCorrelatedTag = (tagUid: string) => {
+		Vibrator.medium();
 		tagPage(tagUid);
 		behavior(BehaviorAction.PRESSED_CORRELATED_TAG, {
 			currentTagUid: tagData.tag_uid,

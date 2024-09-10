@@ -1,4 +1,5 @@
 import { Icon, View } from '@atomic';
+import { Vibrator } from '@etc';
 import { SequenceApi, TextInputApi, ToggleApi } from '@hooks';
 import { TabToggler } from '@molecules';
 import {
@@ -29,6 +30,10 @@ const SearchPageHeader: React.FC<SearchPageHeaderProps> = ({
 	clearTagTextInput,
 	tagTextInputApi
 }) => {
+	const onPressTabToggler = (index: number) => {
+		Vibrator.notificationWarning();
+		activeSearchTypeSequenceApi.goTo(index);
+	};
 	return (
 		<Header>
 			<If condition={searchActiveApi.state}>
@@ -41,7 +46,7 @@ const SearchPageHeader: React.FC<SearchPageHeaderProps> = ({
 					>
 						<TabToggler
 							defaultActiveTab={activeSearchTypeSequenceApi.sequenceIndex}
-							onChange={activeSearchTypeSequenceApi.goTo}
+							onChange={onPressTabToggler}
 							data={[
 								{ text: 'anything', id: 0 },
 								{ text: 'tags', id: 1 }
