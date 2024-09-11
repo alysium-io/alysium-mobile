@@ -41,6 +41,7 @@ import Pencil from './Pencil';
 import Phone from './Phone';
 import Plus from './Plus';
 import Profile from './Profile';
+import Rank from './Rank';
 import Restaurant from './Restaurant';
 import Search from './Search';
 import SearchFilled from './SearchFilled';
@@ -111,7 +112,8 @@ export const SvgIcons = {
 	'arrow-up': ArrowUp,
 	'arrow-down': ArrowDown,
 	spotify: Spotify,
-	filter: Filter
+	filter: Filter,
+	rank: Rank
 };
 
 export type IconNames = keyof typeof SvgIcons;

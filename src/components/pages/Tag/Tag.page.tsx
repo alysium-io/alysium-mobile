@@ -1,3 +1,4 @@
+import { Formatting } from '@etc';
 import { useNavigation } from '@hooks';
 import { ContentListItemWithRank } from '@molecules';
 import { BasePage } from '@organisms';
@@ -57,13 +58,9 @@ const TagPage = () => {
 						onPress={() => artistPage(item.artist.artist_uid)}
 						titleTextProps={{
 							title: item.artist.name,
-							bottomSubtext:
-								item.artist.artist_spotify_data?.followers !== null &&
-								item.artist.artist_spotify_data?.followers !== undefined
-									? item.artist.artist_spotify_data.followers.toLocaleString() +
-									  ' follower' +
-									  (item.artist.artist_spotify_data.followers === 1 ? '' : 's')
-									: 'unknown followers'
+							bottomSubtext: Formatting.formatNumFollowers(
+								item.artist.artist_spotify_data?.followers
+							)
 						}}
 						profileImageProps={{
 							image: item.artist.profile_image?.small.key,

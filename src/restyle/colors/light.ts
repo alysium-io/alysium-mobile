@@ -114,6 +114,13 @@ export const createSemanticLightTheme = (
 		'etc.blur': 'light',
 		'etc.scrollbar-indicator': 'black',
 
+		'search-inactive-page.artists-following.image.bg': palette.p.p5,
+		'search-inactive-page.artists-following.image.icon': palette.p.p1,
+		'search-inactive-page.tags-following.image.bg': palette.t.p5,
+		'search-inactive-page.tags-following.image.icon': palette.t.p1,
+		'search-inactive-page.top-tags.image.bg': palette.q.p9,
+		'search-inactive-page.top-tags.image.icon': palette.q.p1,
+
 		'palette.neutral.p1': palette.neutral.p1,
 		'palette.neutral.p2': palette.neutral.p2,
 		'palette.neutral.p3': palette.neutral.p3,

@@ -1,8 +1,8 @@
 import { Section, Text } from '@atomic';
+import { Formatting } from '@etc';
 import { artistApiSlice } from '@flux/api/artist';
 import { useNavigation } from '@hooks';
 import { ContentListItem } from '@molecules';
-import { formatNumber } from '@src/etc/numeral';
 import {
 	BehaviorAction,
 	useBehaviorContext
@@ -43,9 +43,9 @@ const RelatedArtists: React.FC<RelatedArtistsProps> = ({ artist_uid }) => {
 						onPress={() => onPressRelatedArtist(artist.artist_uid)}
 						titleTextProps={{
 							title: artist.name,
-							bottomSubtext:
-								formatNumber(artist.artist_spotify_data.followers ?? 0) +
-								' followers'
+							bottomSubtext: Formatting.formatNumFollowers(
+								artist.artist_spotify_data.followers
+							)
 						}}
 						profileImageProps={{
 							image: artist.profile_image?.small.key,

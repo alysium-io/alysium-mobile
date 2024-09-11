@@ -1,7 +1,7 @@
 import { Section } from '@atomic';
+import { Formatting } from '@etc';
 import { PublicFindOneArtistResponseDto } from '@flux/api/artist/dto/artist-find-one.dto';
 import { Stats } from '@organisms';
-import { formatNumber } from '@src/etc/numeral';
 import React from 'react';
 
 interface SubHeaderProps {
@@ -14,11 +14,12 @@ const SubHeader: React.FC<SubHeaderProps> = ({ artistData }) => {
 			<Stats
 				items={[
 					{
-						title: formatNumber(artistData?.artist_spotify_data.followers || 0),
-						subtitle:
-							'follower' +
-							(artistData?.artist_spotify_data.followers === 1 ? '' : 's'),
-						onPress: () => {}
+						title: Formatting.abbreviateNumber(
+							artistData?.artist_spotify_data.followers
+						),
+						subtitle: Formatting.getNumFollowersSuffix(
+							artistData?.artist_spotify_data.followers
+						)
 					},
 					{
 						title: '#' + artistData?.artist_rank.toLocaleString(),

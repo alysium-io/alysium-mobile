@@ -1,4 +1,5 @@
 import { View } from '@atomic';
+import { Formatting } from '@etc';
 import { PublicFindOneArtistResponseDto } from '@flux/api/artist/dto/artist-find-one.dto';
 import { useLinking } from '@hooks';
 import { BlockListItem } from '@molecules';
@@ -36,13 +37,9 @@ const GoToSpotifyButton: React.FC<GoToSpotifyButtonProps> = ({
 				onPress={onPressGoToSpotify}
 				titleTextProps={{
 					title: 'Go to Spotify',
-					bottomSubtext:
-						artistData.artist_spotify_data?.followers !== null &&
-						artistData.artist_spotify_data?.followers !== undefined
-							? artistData.artist_spotify_data.followers?.toLocaleString() +
-							  ' follower' +
-							  (artistData.artist_spotify_data.followers === 1 ? '' : 's')
-							: 'unknown followers'
+					bottomSubtext: Formatting.formatNumFollowers(
+						artistData.artist_spotify_data.followers
+					)
 				}}
 			/>
 		</View>

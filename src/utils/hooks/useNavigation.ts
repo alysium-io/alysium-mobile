@@ -24,6 +24,7 @@ interface IUseNavigation {
 	) => void;
 	userArtistsFollowingPage: () => void;
 	userTagsFollowingPage: () => void;
+	topTagsPage: () => void;
 
 	/** General */
 	back: () => void;
@@ -92,6 +93,8 @@ const useNavigation = (): IUseNavigation => {
 
 	const userTagsFollowingPage = () => navigation.push('UserTagsFollowingPage');
 
+	const topTagsPage = () => navigation.push('TopTagsPage');
+
 	/**
 	 * General
 	 */
@@ -116,6 +119,7 @@ const useNavigation = (): IUseNavigation => {
 		artistViewContract,
 		userArtistsFollowingPage,
 		userTagsFollowingPage,
+		topTagsPage,
 		back
 	};
 };

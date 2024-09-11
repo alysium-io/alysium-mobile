@@ -1,4 +1,5 @@
 import { Text } from '@atomic';
+import { Formatting } from '@etc';
 import { useNavigation } from '@hooks';
 import { ContentListItem } from '@molecules';
 import { BasePage } from '@organisms';
@@ -45,7 +46,9 @@ const UserArtistsFollowingPage = () => {
 						onPress={() => artistPage(item.artist.artist_uid)}
 						titleTextProps={{
 							title: item.artist.name,
-							bottomSubtext: 'Los Angeles, CA'
+							bottomSubtext: Formatting.formatNumFollowers(
+								item.artist.artist_spotify_data.followers
+							)
 						}}
 						profileImageProps={{
 							image: item.artist.profile_image?.small.key,

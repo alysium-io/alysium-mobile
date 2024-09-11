@@ -1,11 +1,10 @@
 import { Section, Text, View } from '@atomic';
-import { Vibrator } from '@etc';
+import { Formatting, Vibrator } from '@etc';
 import { FindTagCorrelatedResponseDto } from '@flux/api/tag/dto/tag-correlated.dto';
 import { FindOneTagResponseDto } from '@flux/api/tag/dto/tag-find-one.dto';
 import { useNavigation } from '@hooks';
 import { FollowButton, Pill, PillGroup } from '@molecules';
 import { Stats } from '@organisms';
-import { formatNumber } from '@src/etc/numeral';
 import {
 	BehaviorAction,
 	useBehaviorContext
@@ -56,9 +55,10 @@ const Header: React.FC<HeaderProps> = ({
 							subtitle: 'artist' + (tagData.num_artists === 1 ? '' : 's')
 						},
 						{
-							title: formatNumber(tagData.spotify_followers_sum),
-							subtitle:
-								'follower' + (tagData.spotify_followers_sum === 1 ? '' : 's')
+							title: Formatting.abbreviateNumber(tagData.spotify_followers_sum),
+							subtitle: Formatting.getNumFollowersSuffix(
+								tagData.spotify_followers_sum
+							)
 						},
 						{
 							title: '#' + tagData.tag_rank.toLocaleString(),

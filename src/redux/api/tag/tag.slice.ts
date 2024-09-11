@@ -16,6 +16,7 @@ import {
 	FindOneTagParamsDto,
 	FindOneTagResponseDto
 } from './dto/tag-find-one.dto';
+import { TopTagsQueryDto, TopTagsResponseDto } from './dto/tag-top.dto';
 
 const apiSlice = createApi({
 	baseQuery: baseQueryConfig({ basePath: '/tag' }),
@@ -79,6 +80,20 @@ const apiSlice = createApi({
 				url: '/discover',
 				method: 'GET'
 			})
+		}),
+		top: builder.query<TopTagsResponseDto, { query: TopTagsQueryDto }>({
+			query: ({ query }) => ({
+				url: '/top',
+				method: 'GET',
+				params: query
+			}),
+			serializeQueryArgs: ({ endpointName }) => endpointName,
+			merge: (currentCache, newItems) => {
+				return _.unionBy(currentCache, newItems, (item) => item.tag_uid);
+			},
+			forceRefetch({ currentArg, previousArg }) {
+				return !_.isEqual(currentArg, previousArg);
+			}
 		})
 	})
 });

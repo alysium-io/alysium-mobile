@@ -14,5 +14,6 @@ export * from './Location';
 export * from './Profile';
 export * from './Search';
 export * from './Tag';
+export * from './TopTags';
 export * from './UserArtistsFollowing';
 export * from './UserTagsFollowing';

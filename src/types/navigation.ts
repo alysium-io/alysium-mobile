@@ -56,6 +56,8 @@ type ArtistViewContractPage = { contract_uid: ApiIdentifier };
 type UserArtistsFollowingPage = undefined;
 type UserTagsFollowingPage = undefined;
 
+type TopTagsPage = undefined;
+
 /**
  * Stack Navigators
  *
@@ -83,6 +85,8 @@ export type SearchStackNavigatorParamList = {
 
 	UserArtistsFollowingPage: UserArtistsFollowingPage;
 	UserTagsFollowingPage: UserTagsFollowingPage;
+
+	TopTagsPage: TopTagsPage;
 };
 
 export type ProfileStackNavigatorParamList = {

@@ -22,8 +22,12 @@ const SearchInactivePage: React.FC<SearchInactivePageProps> = () => {
 	const { theme } = useTheme();
 	const { userData } = useUserAppContext();
 	const { behavior } = useBehaviorContext();
-	const { userArtistsFollowingPage, userTagsFollowingPage, tagPage } =
-		useNavigation();
+	const {
+		userArtistsFollowingPage,
+		userTagsFollowingPage,
+		tagPage,
+		topTagsPage
+	} = useNavigation();
 
 	const { data: discoverTagsData, refetch: refetchDiscoverTags } =
 		tagApiSlice.useDiscoverQuery(undefined);
@@ -55,8 +59,9 @@ const SearchInactivePage: React.FC<SearchInactivePageProps> = () => {
 						borderRadius: 'm',
 						defaultImageProps: {
 							icon: 'artist',
-							backgroundColor: 'palette.p.medium',
-							iconColor: 'palette.p.light'
+							backgroundColor:
+								'search-inactive-page.artists-following.image.bg',
+							iconColor: 'search-inactive-page.artists-following.image.icon'
 						}
 					}}
 				/>
@@ -71,8 +76,23 @@ const SearchInactivePage: React.FC<SearchInactivePageProps> = () => {
 						borderRadius: 'm',
 						defaultImageProps: {
 							icon: 'tag',
-							backgroundColor: 'palette.t.medium',
-							iconColor: 'palette.t.light'
+							backgroundColor: 'search-inactive-page.tags-following.image.bg',
+							iconColor: 'search-inactive-page.tags-following.image.icon'
+						}
+					}}
+				/>
+				<ContentListItem
+					onPress={topTagsPage}
+					titleTextProps={{
+						title: 'Top Tags',
+						bottomSubtext: 'Explore popular tags'
+					}}
+					profileImageProps={{
+						borderRadius: 'm',
+						defaultImageProps: {
+							icon: 'rank',
+							backgroundColor: 'search-inactive-page.top-tags.image.bg',
+							iconColor: 'search-inactive-page.top-tags.image.icon'
 						}
 					}}
 				/>

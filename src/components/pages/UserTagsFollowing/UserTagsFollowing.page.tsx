@@ -1,4 +1,5 @@
 import { Text } from '@atomic';
+import { Formatting } from '@etc';
 import { useNavigation } from '@hooks';
 import { ContentListItem } from '@molecules';
 import { BasePage } from '@organisms';
@@ -45,7 +46,9 @@ const UserTagsFollowingPage = () => {
 						onPress={() => tagPage(item.tag.tag_uid)}
 						titleTextProps={{
 							title: item.tag.name,
-							bottomSubtext: 'Los Angeles, CA'
+							bottomSubtext: Formatting.formatNumFollowers(
+								item.tag.spotify_followers_sum
+							)
 						}}
 						profileImageProps={{
 							defaultImageProps: {

@@ -29,7 +29,7 @@ export type BlurColor =
 	| 'thinMaterialLight'
 	| 'ultraThinMaterialLight';
 
-export type KeyboardColor = 'default' | 'light' | 'dark' | undefined;
+export type KeyboardColor = 'default' | 'light' | 'dark';
 
 export type ColorPalette = {
 	p1: string;
@@ -146,7 +146,7 @@ export type SemanticColors = {
 	'etc.status-bar': StatusBarStyle;
 	'etc.keyboard': KeyboardColor;
 	'etc.blur': BlurColor;
-	'etc.scrollbar-indicator': 'default' | 'black' | 'white' | undefined;
+	'etc.scrollbar-indicator': 'default' | 'black' | 'white';
 
 	// Molecules
 	'block-list-item.bg': HexColor;
@@ -160,6 +160,13 @@ export type SemanticColors = {
 	'search.search-bar.bg': HexColor;
 	'search.search-bar.icon': HexColor;
 	'search.search-bar.clear-btn-icon': HexColor;
+
+	'search-inactive-page.artists-following.image.bg': HexColor;
+	'search-inactive-page.artists-following.image.icon': HexColor;
+	'search-inactive-page.tags-following.image.bg': HexColor;
+	'search-inactive-page.tags-following.image.icon': HexColor;
+	'search-inactive-page.top-tags.image.bg': HexColor;
+	'search-inactive-page.top-tags.image.icon': HexColor;
 
 	'palette.neutral.p1': HexColor;
 	'palette.neutral.p2': HexColor;
