@@ -7,6 +7,7 @@ import {
 import { ApiIdentifier } from '@types';
 import React, { useEffect } from 'react';
 import ArtistPageHeader from '../../Artist.header';
+import SubHeader from '../../components/SubHeader';
 import ActionButtons from './components/ActionButtons';
 import ArtistTags from './components/ArtistTags';
 import GoToSpotifyButton from './components/GoToSpotifyButton';
@@ -41,6 +42,7 @@ const User: React.FC<UserProps> = ({ artist_uid }) => {
 				}}
 			>
 				<View margin='m'>
+					<SubHeader artistData={artistData} />
 					<ActionButtons
 						artistData={artistData}
 						onPressFollowButton={onPressFollowButton}

@@ -61,7 +61,7 @@ const Header: React.FC<HeaderProps> = ({
 								'follower' + (tagData.spotify_followers_sum === 1 ? '' : 's')
 						},
 						{
-							title: tagData.tag_rank.toLocaleString(),
+							title: '#' + tagData.tag_rank.toLocaleString(),
 							subtitle: 'rank'
 						}
 					]}

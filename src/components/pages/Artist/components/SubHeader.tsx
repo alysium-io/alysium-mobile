@@ -1,6 +1,7 @@
 import { Section, Text, View } from '@atomic';
 import { PublicFindOneArtistResponseDto } from '@flux/api/artist/dto/artist-find-one.dto';
 import { Stats } from '@organisms';
+import { formatNumber } from '@src/etc/numeral';
 import React from 'react';
 
 interface SubHeaderProps {
@@ -13,6 +14,7 @@ const SubHeader: React.FC<SubHeaderProps> = ({ artistData }) => {
 			flexDirection='row'
 			alignItems='center'
 			justifyContent='space-between'
+			marginBottom='s'
 		>
 			<View>
 				<Text variant='paragraph-medium'>Amsterdam, NE</Text>
@@ -20,9 +22,15 @@ const SubHeader: React.FC<SubHeaderProps> = ({ artistData }) => {
 			<Stats
 				items={[
 					{
-						title: artistData?.num_followers.toLocaleString() || '0',
-						subtitle: 'follower' + (artistData?.num_followers === 1 ? '' : 's'),
+						title: formatNumber(artistData?.artist_spotify_data.followers || 0),
+						subtitle:
+							'follower' +
+							(artistData?.artist_spotify_data.followers === 1 ? '' : 's'),
 						onPress: () => {}
+					},
+					{
+						title: '#' + artistData?.artist_rank.toLocaleString(),
+						subtitle: 'rank'
 					}
 				]}
 			/>
