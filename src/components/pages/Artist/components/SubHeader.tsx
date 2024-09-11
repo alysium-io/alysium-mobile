@@ -1,4 +1,4 @@
-import { Section, Text, View } from '@atomic';
+import { Section } from '@atomic';
 import { PublicFindOneArtistResponseDto } from '@flux/api/artist/dto/artist-find-one.dto';
 import { Stats } from '@organisms';
 import { formatNumber } from '@src/etc/numeral';
@@ -10,15 +10,7 @@ interface SubHeaderProps {
 
 const SubHeader: React.FC<SubHeaderProps> = ({ artistData }) => {
 	return (
-		<Section
-			flexDirection='row'
-			alignItems='center'
-			justifyContent='space-between'
-			marginBottom='s'
-		>
-			<View>
-				<Text variant='paragraph-medium'>Amsterdam, NE</Text>
-			</View>
+		<Section flexDirection='row' alignItems='center' marginBottom='s'>
 			<Stats
 				items={[
 					{
