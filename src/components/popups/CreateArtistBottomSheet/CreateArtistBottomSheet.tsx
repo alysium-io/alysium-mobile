@@ -58,15 +58,14 @@ const CreateArtistBottomSheet: React.FC<CreateArtistBottomSheetProps> = ({
 							onPress: cancel,
 							text: 'cancel',
 							variant: 'outlined',
-							colorVariant: 'default'
+							color: 'default'
 						},
 						{
 							onPress: onSubmit,
 							text: 'Create',
-							variant: 'filled',
-							colorVariant: 'positive',
+							color: 'p',
 							buttonState:
-								formMethods.watch('name') === '' ? 'disabled' : 'default'
+								formMethods.watch('name') === '' ? 'disabled' : 'active'
 						}
 					]}
 				/>

@@ -1,5 +1,6 @@
 import { View } from '@atomic';
 import { IconNames } from '@svg';
+import { SemanticColor } from '@types';
 import React from 'react';
 import ButtonIcon from './ButtonIcon';
 import ButtonLoading from './ButtonLoading';
@@ -9,7 +10,7 @@ import { ButtonState } from './shared';
 interface ButtonForegroundProps {
 	buttonState: ButtonState;
 	text: string;
-	textColor: string;
+	textColor: SemanticColor;
 	icon?: IconNames;
 }
 

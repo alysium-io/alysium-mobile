@@ -27,7 +27,7 @@ const useAnimatedState = (
 	 */
 
 	const animatedValue = useSharedValue<number>(initialValue);
-	const animatedConfig = Object.assign(userConfig, defaultUserConfig);
+	const animatedConfig = Object.assign(defaultUserConfig, userConfig);
 
 	const set = (value: number) => {
 		animatedValue.value = withTiming(value, animatedConfig);

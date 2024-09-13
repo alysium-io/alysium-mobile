@@ -11,6 +11,7 @@ export const createSemanticDarkTheme = (
 		'bg.s': palette.neutral.p8,
 		'bg.t': palette.neutral.p7,
 		'bg.q': palette.neutral.p6,
+		'bg.light': 'rgb(35, 35, 35)',
 
 		'bg.negative.p': palette.neutral.p1,
 
@@ -47,6 +48,8 @@ export const createSemanticDarkTheme = (
 		'button.solid.loading.activity-indicator': palette.neutral.p1,
 		'button.solid.disabled.bg': palette.neutral.p4,
 		'button.solid.disabled.text': palette.neutral.p8,
+		'button.solid.success.bg': palette.s.p3,
+		'button.solid.success.text': palette.neutral.p1,
 		'button.solid.active.bg.default': palette.neutral.p1,
 		'button.solid.active.text.default': palette.neutral.p9,
 		'button.solid.active.bg.p': palette.p.p5,
@@ -63,6 +66,9 @@ export const createSemanticDarkTheme = (
 		'button.outlined.disabled.bg': 'transparent',
 		'button.outlined.disabled.text': palette.neutral.p5,
 		'button.outlined.disabled.border': palette.neutral.p3,
+		'button.outlined.success.bg': palette.s.p8,
+		'button.outlined.success.text': palette.p.p4,
+		'button.outlined.success.border': palette.p.p4,
 		'button.outlined.active.bg.default': 'transparent',
 		'button.outlined.active.text.default': palette.neutral.p1,
 		'button.outlined.active.border.default': palette.neutral.p1,

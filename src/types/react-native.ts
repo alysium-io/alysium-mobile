@@ -5,11 +5,11 @@ export type ProviderProps = {
 };
 
 export interface IChildrenProps {
-	children?: React.ReactNode;
+	children?: React.ReactNode | React.ReactNode[];
 }
 
 export type ChildrenProps = {
-	children?: React.ReactNode;
+	children?: React.ReactNode | React.ReactNode[];
 };
 
 export type OnLayout = ((event: LayoutChangeEvent) => void) | undefined;

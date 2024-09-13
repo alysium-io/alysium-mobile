@@ -20,6 +20,7 @@ import { behaviorApiSlice } from './api/behavior';
 import { candidateApiSlice } from './api/candidate';
 import { contractApiSlice } from './api/contract';
 import { eventApiSlice } from './api/event';
+import { feedbackApiSlice } from './api/feedback';
 import { galleryApiSlice } from './api/gallery';
 import { healthApiSlice } from './api/health';
 import { hostApiSlice } from './api/host';
@@ -64,7 +65,8 @@ const store = configureStore({
 		[userTagsFollowingApiSlice.reducerPath]: userTagsFollowingApiSlice.reducer,
 		[profileImageApiSlice.reducerPath]: profileImageApiSlice.reducer,
 		[behaviorApiSlice.reducerPath]: behaviorApiSlice.reducer,
-		[healthApiSlice.reducerPath]: healthApiSlice.reducer
+		[healthApiSlice.reducerPath]: healthApiSlice.reducer,
+		[feedbackApiSlice.reducerPath]: feedbackApiSlice.reducer
 	},
 	middleware: (getDefaultMiddleware) => {
 		return getDefaultMiddleware({
@@ -93,6 +95,7 @@ const store = configureStore({
 			.concat(profileImageApiSlice.middleware)
 			.concat(behaviorApiSlice.middleware)
 			.concat(healthApiSlice.middleware)
+			.concat(feedbackApiSlice.middleware)
 			.concat(apiErrorUnauthorizedMiddleware);
 	}
 });

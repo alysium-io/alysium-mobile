@@ -3,22 +3,22 @@ import { Section, Text, View } from '@atomic';
 import { Vibrator } from '@etc';
 import { tagApiSlice } from '@flux/api/tag';
 import { useNavigation, useTheme } from '@hooks';
-import { BlockListItem, ContentListItem } from '@molecules';
+import {
+	BlockListItem,
+	ContentListItem,
+	SelfAwareScrollView,
+	useSelfAwareScrollView
+} from '@molecules';
 import {
 	BehaviorAction,
 	useBehaviorContext
 } from '@src/utils/contexts/Behavior';
-import React from 'react';
-import { TouchableOpacity } from 'react-native';
-import Animated, {
-	FadeIn,
-	FadeOut,
-	LinearTransition
-} from 'react-native-reanimated';
+import { StandardFeedback } from '@templates';
+import React, { useRef } from 'react';
+import { View as RNView, TouchableOpacity } from 'react-native';
+import { FadeIn, FadeOut, LinearTransition } from 'react-native-reanimated';
 
-interface SearchInactivePageProps {}
-
-const SearchInactivePage: React.FC<SearchInactivePageProps> = () => {
+const SearchInactivePage: React.FC = () => {
 	const { theme } = useTheme();
 	const { userData } = useUserAppContext();
 	const { behavior } = useBehaviorContext();
@@ -39,13 +39,17 @@ const SearchInactivePage: React.FC<SearchInactivePageProps> = () => {
 		);
 	};
 
+	const selfAwareScrollViewApi = useSelfAwareScrollView();
+	const feedbackRef = useRef<RNView>(null);
+
 	return (
-		<Animated.ScrollView
+		<SelfAwareScrollView
+			selfAwareScrollViewApi={selfAwareScrollViewApi}
+			style={{ overflow: 'visible' }}
+			indicatorStyle={theme.colors['etc.scrollbar-indicator']}
 			entering={FadeIn.duration(300)}
 			exiting={FadeOut.duration(300)}
-			style={{ overflow: 'visible' }}
 			layout={LinearTransition.duration(300)}
-			indicatorStyle={theme.colors['etc.scrollbar-indicator']}
 		>
 			<Section marginBottom='l'>
 				<ContentListItem
@@ -97,7 +101,7 @@ const SearchInactivePage: React.FC<SearchInactivePageProps> = () => {
 					}}
 				/>
 			</Section>
-			<Section margin='m'>
+			<Section margin='m' marginBottom='none'>
 				<View
 					marginBottom='m'
 					flexDirection='row'
@@ -128,7 +132,14 @@ const SearchInactivePage: React.FC<SearchInactivePageProps> = () => {
 					/>
 				))}
 			</Section>
-		</Animated.ScrollView>
+			<View ref={feedbackRef}>
+				<StandardFeedback
+					onFocus={() =>
+						selfAwareScrollViewApi.onPressScrollViewElement(feedbackRef)
+					}
+				/>
+			</View>
+		</SelfAwareScrollView>
 	);
 };
 

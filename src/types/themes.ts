@@ -50,6 +50,7 @@ export type SemanticColors = {
 	'bg.s': HexColor;
 	'bg.t': HexColor;
 	'bg.q': HexColor;
+	'bg.light': HexColor;
 
 	'bg.negative.p': HexColor;
 
@@ -92,6 +93,8 @@ export type SemanticColors = {
 	'button.solid.loading.activity-indicator': HexColor;
 	'button.solid.disabled.bg': HexColor;
 	'button.solid.disabled.text': HexColor;
+	'button.solid.success.bg': HexColor;
+	'button.solid.success.text': HexColor;
 	'button.solid.active.bg.default': HexColor;
 	'button.solid.active.text.default': HexColor;
 	'button.solid.active.bg.p': HexColor;
@@ -102,11 +105,15 @@ export type SemanticColors = {
 	'button.solid.active.text.t': HexColor;
 	'button.solid.active.bg.q': HexColor;
 	'button.solid.active.text.q': HexColor;
+
 	'button.outlined.loading.border': HexColor;
 	'button.outlined.loading.activity-indicator': HexColor;
 	'button.outlined.disabled.bg': HexColor;
 	'button.outlined.disabled.text': HexColor;
 	'button.outlined.disabled.border': HexColor;
+	'button.outlined.success.bg': HexColor;
+	'button.outlined.success.text': HexColor;
+	'button.outlined.success.border': HexColor;
 	'button.outlined.active.bg.default': HexColor;
 	'button.outlined.active.text.default': HexColor;
 	'button.outlined.active.border.default': HexColor;

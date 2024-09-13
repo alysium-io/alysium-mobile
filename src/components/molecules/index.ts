@@ -15,6 +15,7 @@ export * from './DeclarativeText';
 export * from './EditableImage';
 export * from './ListItem';
 export * from './Pills';
+export * from './SelfAwareScrollView';
 export * from './Sequence';
 export * from './TabToggler';
 export * from './TextInput';
