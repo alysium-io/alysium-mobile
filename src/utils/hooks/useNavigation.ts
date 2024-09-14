@@ -1,30 +1,70 @@
 import { useNavigation as useRNNavigation } from '@react-navigation/native';
 import { ApiIdentifier, CompositeScreenNavigationProp } from '@types';
+import {
+	NavigationBehaviorMetadata,
+	useBehaviorContext
+} from '../contexts/Behavior';
 
 interface IUseNavigation {
 	/** Pages */
-	hostPage: (host_uid: ApiIdentifier) => void;
-	artistPage: (artist_uid: ApiIdentifier) => void;
-	tagPage: (tag_uid: ApiIdentifier) => void;
-	locationPage: (location_uid: ApiIdentifier) => void;
-	profilePage: () => void;
-	eventPage: (event_uid: ApiIdentifier) => void;
-	editEventPage: (event_uid: ApiIdentifier) => void;
-	eventCandidatesPage: (event_uid: ApiIdentifier) => void;
-	editVenuePage: (venue_uid: ApiIdentifier) => void;
-	editContractPage: (contract_uid: ApiIdentifier) => void;
-	searchPage: () => void;
-	eventManagerPage: () => void;
-	contractManager: () => void;
-	artistViewContract: (contract_uid: ApiIdentifier) => void;
-	editEventTicketTypesPage: (event_uid: ApiIdentifier) => void;
+	hostPage: (
+		host_uid: ApiIdentifier,
+		navigationMeta: NavigationBehaviorMetadata
+	) => void;
+	artistPage: (
+		artist_uid: ApiIdentifier,
+		navigationMeta: NavigationBehaviorMetadata
+	) => void;
+	tagPage: (
+		tag_uid: ApiIdentifier,
+		navigationMeta: NavigationBehaviorMetadata
+	) => void;
+	locationPage: (
+		location_uid: ApiIdentifier,
+		navigationMeta: NavigationBehaviorMetadata
+	) => void;
+	profilePage: (navigationMeta: NavigationBehaviorMetadata) => void;
+	eventPage: (
+		event_uid: ApiIdentifier,
+		navigationMeta: NavigationBehaviorMetadata
+	) => void;
+	eventCandidatesPage: (
+		event_uid: ApiIdentifier,
+		navigationMeta: NavigationBehaviorMetadata
+	) => void;
+	editEventTicketTypesPage: (
+		event_uid: ApiIdentifier,
+		navigationMeta: NavigationBehaviorMetadata
+	) => void;
 	editTicketTypePage: (
 		ticket_collection_uid: ApiIdentifier,
-		ticket_type_uid: ApiIdentifier
+		ticket_type_uid: ApiIdentifier,
+		navigationMeta: NavigationBehaviorMetadata
 	) => void;
-	userArtistsFollowingPage: () => void;
-	userTagsFollowingPage: () => void;
-	topTagsPage: () => void;
+	editEventPage: (
+		event_uid: ApiIdentifier,
+		navigationMeta: NavigationBehaviorMetadata
+	) => void;
+	editVenuePage: (
+		venue_uid: ApiIdentifier,
+		navigationMeta: NavigationBehaviorMetadata
+	) => void;
+	editContractPage: (
+		contract_uid: ApiIdentifier,
+		navigationMeta: NavigationBehaviorMetadata
+	) => void;
+	searchPage: (navigationMeta: NavigationBehaviorMetadata) => void;
+	eventManagerPage: (navigationMeta: NavigationBehaviorMetadata) => void;
+	contractManager: (navigationMeta: NavigationBehaviorMetadata) => void;
+	artistViewContract: (
+		contract_uid: ApiIdentifier,
+		navigationMeta: NavigationBehaviorMetadata
+	) => void;
+	userArtistsFollowingPage: (
+		navigationMeta: NavigationBehaviorMetadata
+	) => void;
+	userTagsFollowingPage: (navigationMeta: NavigationBehaviorMetadata) => void;
+	topTagsPage: (navigationMeta: NavigationBehaviorMetadata) => void;
 
 	/** General */
 	back: () => void;
@@ -32,68 +72,151 @@ interface IUseNavigation {
 
 const useNavigation = (): IUseNavigation => {
 	const navigation = useRNNavigation<CompositeScreenNavigationProp>();
+	const { navigationBehavior } = useBehaviorContext();
 
 	/**
 	 * Pages
 	 */
-	const hostPage = (host_uid: ApiIdentifier) =>
+	const hostPage = (
+		host_uid: ApiIdentifier,
+		navigationMeta: NavigationBehaviorMetadata
+	) => {
 		navigation.push('HostPage', { host_uid });
+		navigationBehavior(navigationMeta);
+	};
 
-	const artistPage = (artist_uid: ApiIdentifier) =>
+	const artistPage = (
+		artist_uid: ApiIdentifier,
+		navigationMeta: NavigationBehaviorMetadata
+	) => {
 		navigation.push('ArtistPage', { artist_uid });
+		navigationBehavior(navigationMeta);
+	};
 
-	const tagPage = (tag_uid: ApiIdentifier) =>
+	const tagPage = (
+		tag_uid: ApiIdentifier,
+		navigationMeta: NavigationBehaviorMetadata
+	) => {
 		navigation.push('TagPage', { tag_uid });
+		navigationBehavior(navigationMeta);
+	};
 
-	const locationPage = (location_uid: ApiIdentifier) =>
+	const locationPage = (
+		location_uid: ApiIdentifier,
+		navigationMeta: NavigationBehaviorMetadata
+	) => {
 		navigation.push('LocationPage', { location_uid });
+		navigationBehavior(navigationMeta);
+	};
 
-	const profilePage = () => navigation.push('ProfilePage');
+	const profilePage = (navigationMeta: NavigationBehaviorMetadata) => {
+		navigation.push('ProfilePage');
+		navigationBehavior(navigationMeta);
+	};
 
-	const eventPage = (event_uid: ApiIdentifier) =>
+	const eventPage = (
+		event_uid: ApiIdentifier,
+		navigationMeta: NavigationBehaviorMetadata
+	) => {
 		navigation.push('EventPage', { event_uid });
+		navigationBehavior(navigationMeta);
+	};
 
-	const eventCandidatesPage = (event_uid: ApiIdentifier) =>
+	const eventCandidatesPage = (
+		event_uid: ApiIdentifier,
+		navigationMeta: NavigationBehaviorMetadata
+	) => {
 		navigation.push('EventCandidatesPage', { event_uid });
+		navigationBehavior(navigationMeta);
+	};
 
-	const editEventTicketTypesPage = (event_uid: ApiIdentifier) =>
+	const editEventTicketTypesPage = (
+		event_uid: ApiIdentifier,
+		navigationMeta: NavigationBehaviorMetadata
+	) => {
 		navigation.push('EditEventTicketTypesPage', {
 			event_uid
 		});
+		navigationBehavior(navigationMeta);
+	};
 
 	const editTicketTypePage = (
 		ticket_collection_uid: ApiIdentifier,
-		ticket_type_uid: ApiIdentifier
-	) =>
+		ticket_type_uid: ApiIdentifier,
+		navigationMeta: NavigationBehaviorMetadata
+	) => {
 		navigation.push('EditTicketTypePage', {
 			ticket_collection_uid,
 			ticket_type_uid
 		});
+		navigationBehavior(navigationMeta);
+	};
 
-	const editEventPage = (event_uid: ApiIdentifier) =>
+	const editEventPage = (
+		event_uid: ApiIdentifier,
+		navigationMeta: NavigationBehaviorMetadata
+	) => {
 		navigation.push('EditEventPage', { event_uid });
+		navigationBehavior(navigationMeta);
+	};
 
-	const editVenuePage = (venue_uid: ApiIdentifier) =>
+	const editVenuePage = (
+		venue_uid: ApiIdentifier,
+		navigationMeta: NavigationBehaviorMetadata
+	) => {
 		navigation.push('EditVenuePage', { venue_uid });
+		navigationBehavior(navigationMeta);
+	};
 
-	const editContractPage = (contract_uid: ApiIdentifier) =>
+	const editContractPage = (
+		contract_uid: ApiIdentifier,
+		navigationMeta: NavigationBehaviorMetadata
+	) => {
 		navigation.push('EditContractPage', { contract_uid });
+		navigationBehavior(navigationMeta);
+	};
 
-	const searchPage = () => navigation.push('SearchPage');
+	const searchPage = (navigationMeta: NavigationBehaviorMetadata) => {
+		navigation.push('SearchPage');
+		navigationBehavior(navigationMeta);
+	};
 
-	const eventManagerPage = () => navigation.push('EventManagerPage');
+	const eventManagerPage = (navigationMeta: NavigationBehaviorMetadata) => {
+		navigation.push('EventManagerPage');
+		navigationBehavior(navigationMeta);
+	};
 
-	const contractManager = () => navigation.push('ContractManagerPage');
+	const contractManager = (navigationMeta: NavigationBehaviorMetadata) => {
+		navigation.push('ContractManagerPage');
+		navigationBehavior(navigationMeta);
+	};
 
-	const artistViewContract = (contract_uid: ApiIdentifier) =>
+	const artistViewContract = (
+		contract_uid: ApiIdentifier,
+		navigationMeta: NavigationBehaviorMetadata
+	) => {
 		navigation.push('ArtistViewContractPage', { contract_uid });
+		navigationBehavior(navigationMeta);
+	};
 
-	const userArtistsFollowingPage = () =>
+	const userArtistsFollowingPage = (
+		navigationMeta: NavigationBehaviorMetadata
+	) => {
 		navigation.push('UserArtistsFollowingPage');
+		navigationBehavior(navigationMeta);
+	};
 
-	const userTagsFollowingPage = () => navigation.push('UserTagsFollowingPage');
+	const userTagsFollowingPage = (
+		navigationMeta: NavigationBehaviorMetadata
+	) => {
+		navigation.push('UserTagsFollowingPage');
+		navigationBehavior(navigationMeta);
+	};
 
-	const topTagsPage = () => navigation.push('TopTagsPage');
+	const topTagsPage = (navigationMeta: NavigationBehaviorMetadata) => {
+		navigation.push('TopTagsPage');
+		navigationBehavior(navigationMeta);
+	};
 
 	/**
 	 * General

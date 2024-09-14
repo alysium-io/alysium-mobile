@@ -58,6 +58,30 @@ type UserTagsFollowingPage = undefined;
 
 type TopTagsPage = undefined;
 
+export type RouteNames =
+	| 'SearchPage'
+	| 'HostPage'
+	| 'HostFollowersAndShowsPage'
+	| 'ArtistPage'
+	| 'ArtistFollowersAndShowsPage'
+	| 'TagPage'
+	| 'TagFollowersPage'
+	| 'LocationPage'
+	| 'ProfilePage'
+	| 'EventManagerPage'
+	| 'EditEventPage'
+	| 'EditVenuePage'
+	| 'EventPage'
+	| 'EditContractPage'
+	| 'ContractManagerPage'
+	| 'EventCandidatesPage'
+	| 'EditEventTicketTypesPage'
+	| 'EditTicketTypePage'
+	| 'ArtistViewContractPage'
+	| 'UserArtistsFollowingPage'
+	| 'UserTagsFollowingPage'
+	| 'TopTagsPage';
+
 /**
  * Stack Navigators
  *

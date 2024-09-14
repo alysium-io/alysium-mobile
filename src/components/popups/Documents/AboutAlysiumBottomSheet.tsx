@@ -2,10 +2,7 @@ import { Avatar, Bold, Icon, Link, P, Section, Text, View } from '@atomic';
 import { SheetApi } from '@hooks';
 import { Button } from '@molecules';
 import { FullScreenSheetWithHeaderAndFooter } from '@organisms';
-import {
-	BehaviorAction,
-	useBehaviorContext
-} from '@src/utils/contexts/Behavior';
+import { useBehaviorContext } from '@src/utils/contexts/Behavior';
 import { IconNames } from '@svg';
 import React from 'react';
 
@@ -30,7 +27,7 @@ const AboutAlysiumBottomSheet: React.FC<AboutAlysiumBottomSheetProps> = ({
 }) => {
 	const { behavior } = useBehaviorContext();
 	const sheetDidOpen = () => {
-		behavior(BehaviorAction.POPUP_ABOUT_ALYSIUM);
+		behavior('POPUP_ABOUT_ALYSIUM');
 	};
 
 	const FooterContent = (

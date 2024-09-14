@@ -5,10 +5,6 @@ import { FindOneTagResponseDto } from '@flux/api/tag/dto/tag-find-one.dto';
 import { useNavigation } from '@hooks';
 import { FollowButton, Pill, PillGroup } from '@molecules';
 import { Stats } from '@organisms';
-import {
-	BehaviorAction,
-	useBehaviorContext
-} from '@src/utils/contexts/Behavior';
 import React from 'react';
 
 interface HeaderProps {
@@ -23,14 +19,15 @@ const Header: React.FC<HeaderProps> = ({
 	onPressFollowButton
 }) => {
 	const { tagPage } = useNavigation();
-	const { behavior } = useBehaviorContext();
 
 	const onPressCorrelatedTag = (tagUid: string) => {
 		Vibrator.medium();
-		tagPage(tagUid);
-		behavior(BehaviorAction.PRESSED_CORRELATED_TAG, {
-			currentTagUid: tagData.tag_uid,
-			nextTagUid: tagUid
+		tagPage(tagUid, {
+			from: 'TagPage',
+			from_uid: tagData.tag_uid,
+			to: 'TagPage',
+			to_uid: tagUid,
+			using: 'TAG_PAGE_CORRELATED_TAG'
 		});
 	};
 

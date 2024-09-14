@@ -1,10 +1,7 @@
 import { artistApiSlice } from '@flux/api/artist';
 import { PublicFindOneArtistResponseDto } from '@flux/api/artist/dto/artist-find-one.dto';
 import { userArtistsFollowingApiSlice } from '@flux/api/user-artists-following';
-import {
-	BehaviorAction,
-	useBehaviorContext
-} from '@src/utils/contexts/Behavior';
+import { useBehaviorContext } from '@src/utils/contexts/Behavior';
 import { ApiIdentifier } from '@types';
 
 interface IUseUserPage {
@@ -37,7 +34,7 @@ const useUserPage = (artist_uid: ApiIdentifier): IUseUserPage => {
 						artist_uid: artistData.artist_uid
 					}
 				});
-				behavior(BehaviorAction.FOLLOW_ARTIST, {
+				behavior('FOLLOW_ARTIST', {
 					artist_uid: artistData.artist_uid
 				});
 			} else {
@@ -46,7 +43,7 @@ const useUserPage = (artist_uid: ApiIdentifier): IUseUserPage => {
 						artist_uid: artistData.artist_uid
 					}
 				});
-				behavior(BehaviorAction.UNFOLLOW_ARTIST, {
+				behavior('UNFOLLOW_ARTIST', {
 					artist_uid: artistData.artist_uid
 				});
 			}

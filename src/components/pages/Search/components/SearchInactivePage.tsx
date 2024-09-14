@@ -9,10 +9,7 @@ import {
 	SelfAwareScrollView,
 	useSelfAwareScrollView
 } from '@molecules';
-import {
-	BehaviorAction,
-	useBehaviorContext
-} from '@src/utils/contexts/Behavior';
+import { useBehaviorContext } from '@src/utils/contexts/Behavior';
 import { StandardFeedback } from '@templates';
 import React, { useRef } from 'react';
 import { View as RNView, TouchableOpacity } from 'react-native';
@@ -34,9 +31,7 @@ const SearchInactivePage: React.FC = () => {
 
 	const onPressRefreshDiscoverTags = () => {
 		Vibrator.rigid();
-		refetchDiscoverTags().then(() =>
-			behavior(BehaviorAction.REFRESH_HOME_DISCOVER_TAGS)
-		);
+		refetchDiscoverTags().then(() => behavior('REFRESH_HOME_DISCOVER_TAGS'));
 	};
 
 	const selfAwareScrollViewApi = useSelfAwareScrollView();
@@ -53,7 +48,13 @@ const SearchInactivePage: React.FC = () => {
 		>
 			<Section marginBottom='l'>
 				<ContentListItem
-					onPress={userArtistsFollowingPage}
+					onPress={() =>
+						userArtistsFollowingPage({
+							from: 'SearchPage',
+							to: 'UserArtistsFollowingPage',
+							using: 'SEARCH_INACTIVE_PAGE_USER_ARTISTS_FOLLOWING'
+						})
+					}
 					titleTextProps={{
 						title: 'Artists',
 						bottomSubtext:
@@ -70,7 +71,13 @@ const SearchInactivePage: React.FC = () => {
 					}}
 				/>
 				<ContentListItem
-					onPress={userTagsFollowingPage}
+					onPress={() =>
+						userTagsFollowingPage({
+							from: 'SearchPage',
+							to: 'UserTagsFollowingPage',
+							using: 'SEARCH_INACTIVE_PAGE_USER_TAGS_FOLLOWING'
+						})
+					}
 					titleTextProps={{
 						title: 'Tags',
 						bottomSubtext:
@@ -86,7 +93,13 @@ const SearchInactivePage: React.FC = () => {
 					}}
 				/>
 				<ContentListItem
-					onPress={topTagsPage}
+					onPress={() =>
+						topTagsPage({
+							from: 'SearchPage',
+							to: 'TopTagsPage',
+							using: 'SEARCH_INACTIVE_PAGE_TOP_TAGS'
+						})
+					}
 					titleTextProps={{
 						title: 'Top Tags',
 						bottomSubtext: 'Explore popular tags'
@@ -121,7 +134,14 @@ const SearchInactivePage: React.FC = () => {
 					<BlockListItem
 						key={tag.tag_uid}
 						icon='tag'
-						onPress={() => tagPage(tag.tag_uid)}
+						onPress={() =>
+							tagPage(tag.tag_uid, {
+								from: 'SearchPage',
+								to: 'TagPage',
+								to_uid: tag.tag_uid,
+								using: 'SEARCH_INACTIVE_PAGE_DISCOVER_TAG'
+							})
+						}
 						titleTextProps={{
 							title: tag.name,
 							bottomSubtext:

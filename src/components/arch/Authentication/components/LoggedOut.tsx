@@ -1,10 +1,7 @@
 import { DismissKeyboardWrapper, Icon, View } from '@atomic';
 import { useTheme } from '@hooks';
 import { BasePage } from '@organisms';
-import {
-	BehaviorAction,
-	useBehaviorFunnel
-} from '@src/utils/contexts/Behavior';
+import { useBehaviorFunnel } from '@src/utils/contexts/Behavior';
 import React, { useEffect } from 'react';
 import { Case, Switch } from 'react-if';
 import { LayoutAnimationConfig } from 'react-native-reanimated';
@@ -17,7 +14,7 @@ const LoggedOut = () => {
 	const { theme } = useTheme();
 	const insets = useSafeAreaInsets();
 	const { state } = useAuthenticationAppContext();
-	const { funnel } = useBehaviorFunnel(BehaviorAction.FUNNEL_AUTHENTICATION);
+	const { funnel } = useBehaviorFunnel('FUNNEL_AUTHENTICATION');
 
 	useEffect(() => {
 		let funnel_step = 0;

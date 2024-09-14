@@ -3,23 +3,14 @@ import { Formatting } from '@etc';
 import { useNavigation } from '@hooks';
 import { ContentListItem } from '@molecules';
 import { BasePage } from '@organisms';
-import {
-	BehaviorAction,
-	useBehaviorContext
-} from '@src/utils/contexts/Behavior';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { FlatList } from 'react-native';
 import UserArtistsFollowingPageHeader from './UserArtistsFollowing.header';
 import useUserArtistsFollowingPage from './useUserArtistsFollowingPage';
 
 const UserArtistsFollowingPage = () => {
 	const { userArtistsFollowingData, nextPage } = useUserArtistsFollowingPage();
-	const { behavior } = useBehaviorContext();
 	const { artistPage } = useNavigation();
-
-	useEffect(() => {
-		behavior(BehaviorAction.PAGEVIEW_USER_ARTISTS_FOLLOWING);
-	}, []);
 
 	const Header = () => (
 		<Text variant='section-header-1' margin='m'>
@@ -43,7 +34,14 @@ const UserArtistsFollowingPage = () => {
 				renderItem={({ item }) => (
 					<ContentListItem
 						key={item.artist.artist_uid}
-						onPress={() => artistPage(item.artist.artist_uid)}
+						onPress={() =>
+							artistPage(item.artist.artist_uid, {
+								from: 'UserArtistsFollowingPage',
+								to: 'ArtistPage',
+								to_uid: item.artist.artist_uid,
+								using: 'USER_ARTISTS_FOLLOWING_PAGE_ARTIST'
+							})
+						}
 						titleTextProps={{
 							title: item.artist.name,
 							bottomSubtext: Formatting.formatNumFollowers(
