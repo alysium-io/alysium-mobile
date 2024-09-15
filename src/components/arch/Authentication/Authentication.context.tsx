@@ -1,10 +1,7 @@
 import { Formatting } from '@etc';
 import { userApiSlice } from '@flux/api/user';
 import { createUseContextHook, usePersistedAppState } from '@hooks';
-import {
-	BehaviorAction,
-	useBehaviorFunnel
-} from '@src/utils/contexts/Behavior';
+import { useBehaviorFunnel } from '@src/utils/contexts/Behavior';
 import { AuthStage, ProviderProps } from '@types';
 import React, { createContext, useEffect, useState } from 'react';
 import { Keyboard } from 'react-native';
@@ -53,7 +50,7 @@ export const AuthenticationAppProvider: React.FC<ProviderProps> = ({
 	const [registerPhoneNumberQuery] =
 		userApiSlice.useLazyRegisterPhoneNumberQuery();
 	const [loginPhoneNumberQuery] = userApiSlice.useLazyLoginPhoneNumberQuery();
-	const { funnel } = useBehaviorFunnel(BehaviorAction.FUNNEL_AUTHENTICATION);
+	const { funnel } = useBehaviorFunnel('FUNNEL_AUTHENTICATION');
 
 	const [state, setState] = useState<AuthenticationState>(initialState);
 

@@ -2,10 +2,7 @@ import { Section, Text, View } from '@atomic';
 import { SheetApi } from '@hooks';
 import { Button } from '@molecules';
 import { FullScreenSheetWithHeaderAndFooter } from '@organisms';
-import {
-	BehaviorAction,
-	useBehaviorContext
-} from '@src/utils/contexts/Behavior';
+import { useBehaviorContext } from '@src/utils/contexts/Behavior';
 import React from 'react';
 import SectionBody from './components/SectionBody';
 import SectionTitle from './components/SectionTitle';
@@ -19,7 +16,7 @@ const PrivacyPolicyBottomSheet: React.FC<PrivacyPolicyBottomSheetProps> = ({
 }) => {
 	const { behavior } = useBehaviorContext();
 	const sheetDidOpen = () => {
-		behavior(BehaviorAction.POPUP_PRIVACY_POLICY);
+		behavior('POPUP_PRIVACY_POLICY');
 	};
 
 	const FooterContent = (

@@ -1,13 +1,16 @@
 import { ActivityIndicator } from '@atomic';
+import { Vibrator } from '@etc';
 import { useTheme } from '@hooks';
 import { SemanticColor } from '@types';
 import React, { useMemo } from 'react';
-import { Else, If, Then } from 'react-if';
+import { Case, Default, Switch } from 'react-if';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Container from './components/Container';
 import Content from './components/Content';
+import Success from './components/Success';
+import { ButtonState } from './useButtonState';
 
-type ButtonThemeSettings = {
+export type ButtonThemeSettings = {
 	backgroundColor: SemanticColor;
 	textColor: SemanticColor;
 	borderColor: SemanticColor;
@@ -18,11 +21,12 @@ type ButtonThemeSettings = {
 interface ButtonProps {
 	text: string;
 	onPress?: () => void;
-	buttonState?: 'active' | 'loading' | 'disabled';
+	buttonState?: ButtonState;
 	color?: 'default' | 'p' | 's' | 't' | 'q';
 	variant?: 'solid' | 'outlined';
 	buttonThemeSettings?: Partial<ButtonThemeSettings>;
 	buttonContent?: React.ComponentProps<typeof Content>;
+	containerProps?: Omit<React.ComponentProps<typeof Container>, 'settings'>;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -32,7 +36,8 @@ const Button: React.FC<ButtonProps> = ({
 	color = 'default',
 	variant = 'solid',
 	buttonThemeSettings,
-	buttonContent
+	buttonContent,
+	containerProps
 }) => {
 	const { theme } = useTheme();
 
@@ -72,6 +77,20 @@ const Button: React.FC<ButtonProps> = ({
 				},
 				buttonThemeSettings
 			);
+		} else if (buttonState === 'success') {
+			return Object.assign(
+				{
+					backgroundColor: `button.${variant}.success.bg` as SemanticColor,
+					textColor: `button.${variant}.success.text` as SemanticColor,
+					borderColor:
+						variant === 'outlined'
+							? (`button.${variant}.success.border` as SemanticColor)
+							: ('transparent' as SemanticColor),
+					borderWidth,
+					activityIndicatorColor
+				},
+				buttonThemeSettings
+			);
 		} else {
 			return Object.assign(
 				{
@@ -90,22 +109,31 @@ const Button: React.FC<ButtonProps> = ({
 		}
 	}, [buttonState, color, variant, buttonThemeSettings, theme]);
 
+	const _onPress = () => {
+		Vibrator.rigid();
+		onPress();
+	};
+
 	return (
 		<TouchableOpacity
-			onPress={onPress}
-			disabled={buttonState === 'disabled' || buttonState === 'loading'}
+			onPress={_onPress}
+			disabled={buttonState !== 'active'}
 			activeOpacity={0.9}
 		>
 			<Container
-				backgroundColor={settings.backgroundColor}
 				borderWidth={settings.borderWidth}
 				borderColor={settings.borderColor}
+				settings={settings}
+				{...containerProps}
 			>
-				<If condition={buttonState === 'loading'}>
-					<Then>
+				<Switch>
+					<Case condition={buttonState === 'loading'}>
 						<ActivityIndicator color={settings.activityIndicatorColor} />
-					</Then>
-					<Else>
+					</Case>
+					<Case condition={buttonState === 'success'}>
+						<Success settings={settings} />
+					</Case>
+					<Default>
 						<Content
 							color={settings.textColor}
 							variant='paragraph-small-medium'
@@ -113,8 +141,8 @@ const Button: React.FC<ButtonProps> = ({
 						>
 							{text}
 						</Content>
-					</Else>
-				</If>
+					</Default>
+				</Switch>
 			</Container>
 		</TouchableOpacity>
 	);

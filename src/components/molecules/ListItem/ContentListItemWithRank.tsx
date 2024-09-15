@@ -26,9 +26,11 @@ const ContentListItemWithRank: React.FC<ContentListItemWithRankProps> = ({
 				<View marginRight='m'>
 					<Rank rank={rank} />
 				</View>
-				<View marginRight='m'>
-					<ProfileImage {...profileImageProps} />
-				</View>
+				{profileImageProps && (
+					<View marginRight='m'>
+						<ProfileImage {...profileImageProps} />
+					</View>
+				)}
 				<TitleText {...titleTextProps} />
 				<View marginHorizontal='m'>
 					<Icon name='arrow-right' color='text.t' size='s' />

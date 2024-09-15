@@ -29,7 +29,7 @@ export type BlurColor =
 	| 'thinMaterialLight'
 	| 'ultraThinMaterialLight';
 
-export type KeyboardColor = 'default' | 'light' | 'dark' | undefined;
+export type KeyboardColor = 'default' | 'light' | 'dark';
 
 export type ColorPalette = {
 	p1: string;
@@ -50,6 +50,7 @@ export type SemanticColors = {
 	'bg.s': HexColor;
 	'bg.t': HexColor;
 	'bg.q': HexColor;
+	'bg.light': HexColor;
 
 	'bg.negative.p': HexColor;
 
@@ -92,6 +93,8 @@ export type SemanticColors = {
 	'button.solid.loading.activity-indicator': HexColor;
 	'button.solid.disabled.bg': HexColor;
 	'button.solid.disabled.text': HexColor;
+	'button.solid.success.bg': HexColor;
+	'button.solid.success.text': HexColor;
 	'button.solid.active.bg.default': HexColor;
 	'button.solid.active.text.default': HexColor;
 	'button.solid.active.bg.p': HexColor;
@@ -102,11 +105,15 @@ export type SemanticColors = {
 	'button.solid.active.text.t': HexColor;
 	'button.solid.active.bg.q': HexColor;
 	'button.solid.active.text.q': HexColor;
+
 	'button.outlined.loading.border': HexColor;
 	'button.outlined.loading.activity-indicator': HexColor;
 	'button.outlined.disabled.bg': HexColor;
 	'button.outlined.disabled.text': HexColor;
 	'button.outlined.disabled.border': HexColor;
+	'button.outlined.success.bg': HexColor;
+	'button.outlined.success.text': HexColor;
+	'button.outlined.success.border': HexColor;
 	'button.outlined.active.bg.default': HexColor;
 	'button.outlined.active.text.default': HexColor;
 	'button.outlined.active.border.default': HexColor;
@@ -146,6 +153,7 @@ export type SemanticColors = {
 	'etc.status-bar': StatusBarStyle;
 	'etc.keyboard': KeyboardColor;
 	'etc.blur': BlurColor;
+	'etc.scrollbar-indicator': 'default' | 'black' | 'white';
 
 	// Molecules
 	'block-list-item.bg': HexColor;
@@ -159,6 +167,13 @@ export type SemanticColors = {
 	'search.search-bar.bg': HexColor;
 	'search.search-bar.icon': HexColor;
 	'search.search-bar.clear-btn-icon': HexColor;
+
+	'search-inactive-page.artists-following.image.bg': HexColor;
+	'search-inactive-page.artists-following.image.icon': HexColor;
+	'search-inactive-page.tags-following.image.bg': HexColor;
+	'search-inactive-page.tags-following.image.icon': HexColor;
+	'search-inactive-page.top-tags.image.bg': HexColor;
+	'search-inactive-page.top-tags.image.icon': HexColor;
 
 	'palette.neutral.p1': HexColor;
 	'palette.neutral.p2': HexColor;

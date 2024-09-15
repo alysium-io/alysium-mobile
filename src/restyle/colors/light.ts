@@ -11,6 +11,7 @@ export const createSemanticLightTheme = (
 		'bg.s': palette.neutral.p2,
 		'bg.t': palette.neutral.p3,
 		'bg.q': palette.neutral.p4,
+		'bg.light': 'rgb(245, 245, 245)',
 
 		'bg.negative.p': palette.neutral.p9,
 
@@ -47,6 +48,8 @@ export const createSemanticLightTheme = (
 		'button.solid.loading.activity-indicator': palette.neutral.p8,
 		'button.solid.disabled.bg': palette.neutral.p8,
 		'button.solid.disabled.text': palette.neutral.p5,
+		'button.solid.success.bg': palette.s.p7,
+		'button.solid.success.text': palette.neutral.p1,
 		'button.solid.active.bg.default': palette.neutral.p9,
 		'button.solid.active.text.default': palette.neutral.p1,
 		'button.solid.active.bg.p': palette.p.p5,
@@ -63,6 +66,9 @@ export const createSemanticLightTheme = (
 		'button.outlined.disabled.bg': 'transparent',
 		'button.outlined.disabled.text': palette.neutral.p8,
 		'button.outlined.disabled.border': palette.neutral.p8,
+		'button.outlined.success.bg': 'transparent',
+		'button.outlined.success.text': palette.s.p8,
+		'button.outlined.success.border': palette.s.p6,
 		'button.outlined.active.bg.default': 'transparent',
 		'button.outlined.active.text.default': palette.neutral.p9,
 		'button.outlined.active.border.default': palette.neutral.p9,
@@ -112,6 +118,14 @@ export const createSemanticLightTheme = (
 		'etc.status-bar': 'dark-content',
 		'etc.keyboard': 'light',
 		'etc.blur': 'light',
+		'etc.scrollbar-indicator': 'black',
+
+		'search-inactive-page.artists-following.image.bg': palette.p.p5,
+		'search-inactive-page.artists-following.image.icon': palette.p.p1,
+		'search-inactive-page.tags-following.image.bg': palette.t.p5,
+		'search-inactive-page.tags-following.image.icon': palette.t.p1,
+		'search-inactive-page.top-tags.image.bg': palette.q.p9,
+		'search-inactive-page.top-tags.image.icon': palette.q.p1,
 
 		'palette.neutral.p1': palette.neutral.p1,
 		'palette.neutral.p2': palette.neutral.p2,

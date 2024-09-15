@@ -3,36 +3,22 @@ import { behaviorApiSlice } from '@flux/api/behavior';
 import { CreateBehaviorBodyDto } from '@flux/api/behavior/dto/behavior-create.dto';
 import { createUseContextHook } from '@hooks';
 import { generate_nanoid } from '@src/etc/nanoid';
-import { ProviderProps } from '@types';
+import { ApiIdentifier, ProviderProps, RouteNames } from '@types';
 import React, { createContext, useEffect, useState } from 'react';
 import { AppState } from 'react-native';
 import { useEnvContext } from './ValidateEnv';
 
-export enum BehaviorAction {
-	APP_CLOSED = 'APP_CLOSED',
-	PAGEVIEW_PUBLIC_ARTIST = 'PAGEVIEW_PUBLIC_ARTIST',
-	PAGEVIEW_PUBLIC_TAG = 'PAGEVIEW_PUBLIC_TAG',
-	PAGEVIEW_USER_ARTISTS_FOLLOWING = 'PAGEVIEW_USER_ARTISTS_FOLLOWING',
-	PAGEVIEW_USER_TAGS_FOLLOWING = 'PAGEVIEW_USER_TAGS_FOLLOWING',
-	REFRESH_HOME_DISCOVER_TAGS = 'REFRESH_HOME_DISCOVER_TAGS',
-	POPUP_ABOUT_ALYSIUM = 'POPUP_ABOUT_ALYSIUM',
-	POPUP_PRIVACY_POLICY = 'POPUP_PRIVACY_POLICY',
-	POPUP_TERMS_OF_SERVICE = 'POPUP_TERMS_OF_SERVICE',
-	PRESSED_CORRELATED_TAG = 'PRESSED_CORRELATED_TAG',
-	PRESSED_ARTIST_TAG = 'PRESSED_ARTIST_TAG',
-	EXTERNAL_LINK_SPOTIFY_ARTIST = 'EXTERNAL_LINK_SPOTIFY_ARTIST',
-	FOLLOW_ARTIST = 'FOLLOW_ARTIST',
-	UNFOLLOW_ARTIST = 'UNFOLLOW_ARTIST',
-	FOLLOW_TAG = 'FOLLOW_TAG',
-	UNFOLLOW_TAG = 'UNFOLLOW_TAG',
-	PRESSED_LOGOUT = 'PRESSED_LOGOUT',
-	FUNNEL_AUTHENTICATION = 'FUNNEL_AUTHENTICATION',
-	PRESSED_RELATED_ARTIST = 'PRESSED_RELATED_ARTIST'
-}
+export type NavigationBehaviorMetadata = {
+	from: RouteNames;
+	from_uid?: ApiIdentifier;
+	to: RouteNames;
+	to_uid?: ApiIdentifier;
+	using: string;
+};
 
 export type BehaviorContextType = {
 	behavior: (
-		action: BehaviorAction,
+		action: string,
 		data?: any,
 		funnelData?: Pick<
 			CreateBehaviorBodyDto,
@@ -41,6 +27,7 @@ export type BehaviorContextType = {
 	) => Promise<void>;
 	getCurrentTimestamp: () => string;
 	setBehaviorUserUid: React.Dispatch<React.SetStateAction<string | undefined>>;
+	navigationBehavior: (meta: NavigationBehaviorMetadata) => void;
 };
 
 export const BehaviorContext = createContext({} as BehaviorContextType);
@@ -86,7 +73,7 @@ export const BehaviorProvider: React.FC<ProviderProps> = ({ children }) => {
 
 			// Check if the app has been hard closed
 			if (nextAppState === 'background') {
-				behavior(BehaviorAction.APP_CLOSED);
+				behavior('APP_CLOSED');
 			}
 		};
 
@@ -94,7 +81,7 @@ export const BehaviorProvider: React.FC<ProviderProps> = ({ children }) => {
 	}, []);
 
 	const getDefaultBehaviorData = async (
-		action: BehaviorAction,
+		action: string,
 		data?: any,
 		funnelData?: Pick<
 			CreateBehaviorBodyDto,
@@ -120,14 +107,14 @@ export const BehaviorProvider: React.FC<ProviderProps> = ({ children }) => {
 	};
 
 	const behavior = async (
-		action: BehaviorAction,
+		action: string,
+		data?: any,
 		funnelData?: Pick<
 			CreateBehaviorBodyDto,
 			'funnel_uid' | 'funnel_at' | 'funnel_step'
-		>,
-		data?: any
+		>
 	): Promise<void> => {
-		const behaviorData = await getDefaultBehaviorData(action, funnelData, data);
+		const behaviorData = await getDefaultBehaviorData(action, data, funnelData);
 		createBehaviorMutation({
 			body: behaviorData
 		}).catch((err: any) => {
@@ -135,9 +122,19 @@ export const BehaviorProvider: React.FC<ProviderProps> = ({ children }) => {
 		});
 	};
 
+	const navigationBehavior = (meta: NavigationBehaviorMetadata) => {
+		console.log('Navigation Behavior:', meta);
+		behavior('NAVIGATE', meta);
+	};
+
 	return (
 		<BehaviorContext.Provider
-			value={{ behavior, getCurrentTimestamp, setBehaviorUserUid }}
+			value={{
+				behavior,
+				getCurrentTimestamp,
+				setBehaviorUserUid,
+				navigationBehavior
+			}}
 		>
 			{children}
 		</BehaviorContext.Provider>
@@ -149,7 +146,7 @@ export const useBehaviorContext = createUseContextHook<BehaviorContextType>(
 	'BehaviorContext'
 );
 
-export const useBehaviorFunnel = (action: BehaviorAction) => {
+export const useBehaviorFunnel = (action: string) => {
 	const { behavior, getCurrentTimestamp } = useBehaviorContext();
 	const [funnel_uid] = useState<string>(generate_nanoid());
 

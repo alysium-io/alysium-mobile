@@ -4,10 +4,7 @@ import { FindTagCorrelatedResponseDto } from '@flux/api/tag/dto/tag-correlated.d
 import { FindOneTagResponseDto } from '@flux/api/tag/dto/tag-find-one.dto';
 import { userTagsFollowingApiSlice } from '@flux/api/user-tags-following';
 import { usePagination } from '@hooks';
-import {
-	BehaviorAction,
-	useBehaviorContext
-} from '@src/utils/contexts/Behavior';
+import { useBehaviorContext } from '@src/utils/contexts/Behavior';
 import { ApiIdentifier } from '@types';
 
 interface IUseTagPage {
@@ -62,7 +59,7 @@ const useTagPage = (tag_uid: ApiIdentifier): IUseTagPage => {
 						tag_uid: tagData.tag_uid
 					}
 				});
-				behavior(BehaviorAction.FOLLOW_TAG, {
+				behavior('FOLLOW_TAG', {
 					tag_uid: tagData.tag_uid
 				});
 			} else {
@@ -71,7 +68,7 @@ const useTagPage = (tag_uid: ApiIdentifier): IUseTagPage => {
 						tag_uid: tagData.tag_uid
 					}
 				});
-				behavior(BehaviorAction.UNFOLLOW_TAG, {
+				behavior('UNFOLLOW_TAG', {
 					tag_uid: tagData.tag_uid
 				});
 			}

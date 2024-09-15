@@ -1,10 +1,11 @@
 import { Icon, View } from '@atomic';
 import { IconNames } from '@svg';
+import { SemanticColor } from '@types';
 import React from 'react';
 
 interface ButtonIconProps {
 	icon?: IconNames;
-	color: string;
+	color: SemanticColor;
 }
 
 const ButtonIcon: React.FC<ButtonIconProps> = ({ icon, color }) => {

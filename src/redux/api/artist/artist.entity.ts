@@ -9,6 +9,7 @@ interface ArtistCommon {
 	readonly name: string;
 	readonly is_following: boolean;
 	readonly num_followers: number;
+	readonly artist_rank: number;
 	readonly profile_image: ProfileImage | null;
 	readonly gallery: ArtistGallery[];
 	readonly tags: ArtistTagLink[];

@@ -64,7 +64,6 @@ const TitleTextInput: React.FC<TitleTextInputProps> = ({
 					variant='page-header'
 					onFocus={_onFocus}
 					onBlur={_onBlur}
-					keyboardAppearance={theme.colors['etc.keyboard']}
 					textAlign={textAlign}
 					color='text.p'
 					style={{ flex: 1 }}

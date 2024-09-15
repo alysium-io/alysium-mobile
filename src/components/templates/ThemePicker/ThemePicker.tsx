@@ -1,4 +1,5 @@
 import { View } from '@atomic';
+import { Vibrator } from '@etc';
 import { useTheme } from '@hooks';
 import { ThemeName } from '@types';
 import React from 'react';
@@ -8,7 +9,10 @@ import ColorChoice from './components/ColorChoice';
 
 const ThemePicker = () => {
 	const { themeName: activeThemeName, setThemeName } = useTheme();
-	const onPress = (newThemeName: ThemeName) => setThemeName(newThemeName);
+	const onPress = (newThemeName: ThemeName) => {
+		Vibrator.clockTick();
+		return setThemeName(newThemeName);
+	};
 	return (
 		<View
 			margin='m'

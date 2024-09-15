@@ -1,12 +1,9 @@
 import { View } from '@atomic';
 import { BasePage, Parallax } from '@organisms';
-import {
-	BehaviorAction,
-	useBehaviorContext
-} from '@src/utils/contexts/Behavior';
 import { ApiIdentifier } from '@types';
-import React, { useEffect } from 'react';
+import React from 'react';
 import ArtistPageHeader from '../../Artist.header';
+import SubHeader from '../../components/SubHeader';
 import ActionButtons from './components/ActionButtons';
 import ArtistTags from './components/ArtistTags';
 import GoToSpotifyButton from './components/GoToSpotifyButton';
@@ -19,11 +16,6 @@ interface UserProps {
 
 const User: React.FC<UserProps> = ({ artist_uid }) => {
 	const { artistData, onPressFollowButton } = useUserPage(artist_uid);
-	const { behavior } = useBehaviorContext();
-
-	useEffect(() => {
-		behavior(BehaviorAction.PAGEVIEW_PUBLIC_ARTIST);
-	}, []);
 
 	if (!artistData) {
 		return null;
@@ -41,6 +33,7 @@ const User: React.FC<UserProps> = ({ artist_uid }) => {
 				}}
 			>
 				<View margin='m'>
+					<SubHeader artistData={artistData} />
 					<ActionButtons
 						artistData={artistData}
 						onPressFollowButton={onPressFollowButton}

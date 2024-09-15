@@ -1,51 +1,60 @@
 import { useUserAppContext } from '@arch/Application/contexts/User.context';
 import { Section, Text, View } from '@atomic';
+import { Vibrator } from '@etc';
 import { tagApiSlice } from '@flux/api/tag';
-import { useNavigation } from '@hooks';
-import { BlockListItem, ContentListItem } from '@molecules';
+import { useNavigation, useTheme } from '@hooks';
 import {
-	BehaviorAction,
-	useBehaviorContext
-} from '@src/utils/contexts/Behavior';
-import React from 'react';
-import { TouchableOpacity } from 'react-native';
-import Animated, {
-	FadeIn,
-	FadeOut,
-	LinearTransition
-} from 'react-native-reanimated';
+	BlockListItem,
+	ContentListItem,
+	SelfAwareScrollView,
+	useSelfAwareScrollView
+} from '@molecules';
+import { useBehaviorContext } from '@src/utils/contexts/Behavior';
+import { StandardFeedback } from '@templates';
+import React, { useRef } from 'react';
+import { View as RNView, TouchableOpacity } from 'react-native';
+import { FadeIn, FadeOut, LinearTransition } from 'react-native-reanimated';
 
-interface SearchInactivePageProps {}
-
-const SearchInactivePage: React.FC<SearchInactivePageProps> = () => {
+const SearchInactivePage: React.FC = () => {
+	const { theme } = useTheme();
 	const { userData } = useUserAppContext();
 	const { behavior } = useBehaviorContext();
-	const { userArtistsFollowingPage, userTagsFollowingPage, tagPage } =
-		useNavigation();
-
 	const {
-		data: discoverTagsData,
-		isLoading: isDiscoverTagsLoading,
-		error: discoverTagsError,
-		refetch: refetchDiscoverTags
-	} = tagApiSlice.useDiscoverQuery(undefined);
+		userArtistsFollowingPage,
+		userTagsFollowingPage,
+		tagPage,
+		topTagsPage
+	} = useNavigation();
+
+	const { data: discoverTagsData, refetch: refetchDiscoverTags } =
+		tagApiSlice.useDiscoverQuery(undefined);
 
 	const onPressRefreshDiscoverTags = () => {
-		refetchDiscoverTags().then(() =>
-			behavior(BehaviorAction.REFRESH_HOME_DISCOVER_TAGS)
-		);
+		Vibrator.rigid();
+		refetchDiscoverTags().then(() => behavior('REFRESH_HOME_DISCOVER_TAGS'));
 	};
 
+	const selfAwareScrollViewApi = useSelfAwareScrollView();
+	const feedbackRef = useRef<RNView>(null);
+
 	return (
-		<Animated.ScrollView
+		<SelfAwareScrollView
+			selfAwareScrollViewApi={selfAwareScrollViewApi}
+			style={{ overflow: 'visible' }}
+			indicatorStyle={theme.colors['etc.scrollbar-indicator']}
 			entering={FadeIn.duration(300)}
 			exiting={FadeOut.duration(300)}
-			style={{ overflow: 'visible' }}
 			layout={LinearTransition.duration(300)}
 		>
 			<Section marginBottom='l'>
 				<ContentListItem
-					onPress={userArtistsFollowingPage}
+					onPress={() =>
+						userArtistsFollowingPage({
+							from: 'SearchPage',
+							to: 'UserArtistsFollowingPage',
+							using: 'SEARCH_INACTIVE_PAGE_USER_ARTISTS_FOLLOWING'
+						})
+					}
 					titleTextProps={{
 						title: 'Artists',
 						bottomSubtext:
@@ -55,13 +64,20 @@ const SearchInactivePage: React.FC<SearchInactivePageProps> = () => {
 						borderRadius: 'm',
 						defaultImageProps: {
 							icon: 'artist',
-							backgroundColor: 'palette.p.medium',
-							iconColor: 'palette.p.light'
+							backgroundColor:
+								'search-inactive-page.artists-following.image.bg',
+							iconColor: 'search-inactive-page.artists-following.image.icon'
 						}
 					}}
 				/>
 				<ContentListItem
-					onPress={userTagsFollowingPage}
+					onPress={() =>
+						userTagsFollowingPage({
+							from: 'SearchPage',
+							to: 'UserTagsFollowingPage',
+							using: 'SEARCH_INACTIVE_PAGE_USER_TAGS_FOLLOWING'
+						})
+					}
 					titleTextProps={{
 						title: 'Tags',
 						bottomSubtext:
@@ -71,13 +87,34 @@ const SearchInactivePage: React.FC<SearchInactivePageProps> = () => {
 						borderRadius: 'm',
 						defaultImageProps: {
 							icon: 'tag',
-							backgroundColor: 'palette.t.medium',
-							iconColor: 'palette.t.light'
+							backgroundColor: 'search-inactive-page.tags-following.image.bg',
+							iconColor: 'search-inactive-page.tags-following.image.icon'
+						}
+					}}
+				/>
+				<ContentListItem
+					onPress={() =>
+						topTagsPage({
+							from: 'SearchPage',
+							to: 'TopTagsPage',
+							using: 'SEARCH_INACTIVE_PAGE_TOP_TAGS'
+						})
+					}
+					titleTextProps={{
+						title: 'Top Tags',
+						bottomSubtext: 'Explore popular tags'
+					}}
+					profileImageProps={{
+						borderRadius: 'm',
+						defaultImageProps: {
+							icon: 'rank',
+							backgroundColor: 'search-inactive-page.top-tags.image.bg',
+							iconColor: 'search-inactive-page.top-tags.image.icon'
 						}
 					}}
 				/>
 			</Section>
-			<Section margin='m'>
+			<Section margin='m' marginBottom='none'>
 				<View
 					marginBottom='m'
 					flexDirection='row'
@@ -97,7 +134,14 @@ const SearchInactivePage: React.FC<SearchInactivePageProps> = () => {
 					<BlockListItem
 						key={tag.tag_uid}
 						icon='tag'
-						onPress={() => tagPage(tag.tag_uid)}
+						onPress={() =>
+							tagPage(tag.tag_uid, {
+								from: 'SearchPage',
+								to: 'TagPage',
+								to_uid: tag.tag_uid,
+								using: 'SEARCH_INACTIVE_PAGE_DISCOVER_TAG'
+							})
+						}
 						titleTextProps={{
 							title: tag.name,
 							bottomSubtext:
@@ -108,7 +152,14 @@ const SearchInactivePage: React.FC<SearchInactivePageProps> = () => {
 					/>
 				))}
 			</Section>
-		</Animated.ScrollView>
+			<View ref={feedbackRef}>
+				<StandardFeedback
+					onFocus={() =>
+						selfAwareScrollViewApi.onPressScrollViewElement(feedbackRef)
+					}
+				/>
+			</View>
+		</SelfAwareScrollView>
 	);
 };
 

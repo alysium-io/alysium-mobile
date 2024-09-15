@@ -74,6 +74,43 @@ class Formatting {
 		}
 		return day(timestamp).utc().format();
 	};
+
+	static abbreviateNumber = (num: number | null | undefined): string => {
+		if (num === null || num === undefined) {
+			return '0';
+		}
+
+		const absNum = Math.abs(num);
+		const sign = num < 0 ? '-' : '';
+
+		if (absNum >= 1000000000) {
+			return sign + (absNum / 1000000000).toFixed(1).replace(/\.0$/, '') + 'B';
+		}
+		if (absNum >= 1000000) {
+			return sign + (absNum / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+		}
+		if (absNum >= 1000) {
+			return sign + (absNum / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
+		}
+		return sign + absNum.toString();
+	};
+
+	static getNumFollowersSuffix = (num: number | null | undefined): string => {
+		if (num === undefined || num === null) {
+			return 'followers';
+		}
+		return num === 1 ? 'follower' : 'followers';
+	};
+
+	static formatNumFollowers = (num: number | null | undefined): string => {
+		if (num === undefined || num === null) {
+			return '0 followers';
+		}
+
+		return `${Formatting.abbreviateNumber(
+			num
+		)} ${Formatting.getNumFollowersSuffix(num)}`;
+	};
 }
 
 export default Formatting;

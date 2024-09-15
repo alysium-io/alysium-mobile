@@ -2,10 +2,7 @@ import { Section, Text, View } from '@atomic';
 import { SheetApi } from '@hooks';
 import { Button } from '@molecules';
 import { FullScreenSheetWithHeaderAndFooter } from '@organisms';
-import {
-	BehaviorAction,
-	useBehaviorContext
-} from '@src/utils/contexts/Behavior';
+import { useBehaviorContext } from '@src/utils/contexts/Behavior';
 import React from 'react';
 import SectionBody from './components/SectionBody';
 import SectionTitle from './components/SectionTitle';
@@ -19,7 +16,7 @@ const TermsOfServiceBottomSheet: React.FC<TermsOfServiceBottomSheetProps> = ({
 }) => {
 	const { behavior } = useBehaviorContext();
 	const sheetDidOpen = () => {
-		behavior(BehaviorAction.POPUP_TERMS_OF_SERVICE);
+		behavior('POPUP_TERMS_OF_SERVICE');
 	};
 
 	const FooterContent = (

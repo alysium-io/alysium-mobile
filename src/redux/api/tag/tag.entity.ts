@@ -10,4 +10,5 @@ export interface Tag {
 	readonly spotify_followers_avg: number;
 	readonly spotify_popularity_sum: number;
 	readonly spotify_popularity_avg: number;
+	readonly tag_rank: number;
 }

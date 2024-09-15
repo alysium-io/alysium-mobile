@@ -56,6 +56,32 @@ type ArtistViewContractPage = { contract_uid: ApiIdentifier };
 type UserArtistsFollowingPage = undefined;
 type UserTagsFollowingPage = undefined;
 
+type TopTagsPage = undefined;
+
+export type RouteNames =
+	| 'SearchPage'
+	| 'HostPage'
+	| 'HostFollowersAndShowsPage'
+	| 'ArtistPage'
+	| 'ArtistFollowersAndShowsPage'
+	| 'TagPage'
+	| 'TagFollowersPage'
+	| 'LocationPage'
+	| 'ProfilePage'
+	| 'EventManagerPage'
+	| 'EditEventPage'
+	| 'EditVenuePage'
+	| 'EventPage'
+	| 'EditContractPage'
+	| 'ContractManagerPage'
+	| 'EventCandidatesPage'
+	| 'EditEventTicketTypesPage'
+	| 'EditTicketTypePage'
+	| 'ArtistViewContractPage'
+	| 'UserArtistsFollowingPage'
+	| 'UserTagsFollowingPage'
+	| 'TopTagsPage';
+
 /**
  * Stack Navigators
  *
@@ -83,6 +109,8 @@ export type SearchStackNavigatorParamList = {
 
 	UserArtistsFollowingPage: UserArtistsFollowingPage;
 	UserTagsFollowingPage: UserTagsFollowingPage;
+
+	TopTagsPage: TopTagsPage;
 };
 
 export type ProfileStackNavigatorParamList = {

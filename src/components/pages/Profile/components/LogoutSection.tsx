@@ -1,10 +1,7 @@
 import { useAuthenticationAppContext } from '@arch/Authentication/Authentication.context';
 import { View } from '@atomic';
 import { Button } from '@molecules';
-import {
-	BehaviorAction,
-	useBehaviorContext
-} from '@src/utils/contexts/Behavior';
+import { useBehaviorContext } from '@src/utils/contexts/Behavior';
 import React from 'react';
 
 const LogoutSection = () => {
@@ -12,7 +9,7 @@ const LogoutSection = () => {
 	const { behavior } = useBehaviorContext();
 
 	const onPressLogout = async () => {
-		behavior(BehaviorAction.PRESSED_LOGOUT).then(logout);
+		behavior('PRESSED_LOGOUT').then(logout);
 	};
 
 	return (
