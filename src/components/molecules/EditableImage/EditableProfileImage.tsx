@@ -1,15 +1,15 @@
 import { Avatar, View } from '@atomic';
 import { usePhotosAndCamera } from '@hooks';
-import { ContentType } from '@types';
 import React from 'react';
-import { StyleSheet, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet } from 'react-native';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { Asset } from 'react-native-image-picker';
+import Toast from 'react-native-toast-message';
 import EditIcon from './EditIcon';
 
 interface EditableProfileImageProps {
 	image?: string;
 	onChooseImage?: (imagePickerAsset: Asset) => void;
-	contentType?: ContentType;
 }
 
 const EditableProfileImage: React.FC<EditableProfileImageProps> = ({
@@ -19,14 +19,22 @@ const EditableProfileImage: React.FC<EditableProfileImageProps> = ({
 	const { chooseImageOrTakeNewPhoto } = usePhotosAndCamera();
 
 	const onPress = async () => {
-		const newImage = await chooseImageOrTakeNewPhoto();
-		if (
-			newImage &&
-			onChooseImage &&
-			newImage.assets &&
-			newImage.assets.length > 0
-		) {
-			onChooseImage(newImage.assets[0]);
+		try {
+			const newImage = await chooseImageOrTakeNewPhoto();
+			if (
+				newImage &&
+				onChooseImage &&
+				newImage.assets &&
+				newImage.assets.length > 0
+			) {
+				onChooseImage(newImage.assets[0]);
+			}
+		} catch {
+			Toast.show({
+				type: 'error',
+				text1: 'Failed to choose image',
+				text2: 'Something went wrong, please try again'
+			});
 		}
 	};
 

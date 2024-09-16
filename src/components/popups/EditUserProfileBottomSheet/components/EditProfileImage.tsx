@@ -1,12 +1,16 @@
+import { useUserAppContext } from '@arch/Application/contexts/User.context';
 import { View } from '@atomic';
 import { EditableProfileImage } from '@molecules';
-import { ContentType } from '@types';
 import React from 'react';
 
 const EditProfileImage = () => {
+	const { userData, setUserProfileImage } = useUserAppContext();
 	return (
 		<View margin='m' justifyContent='center' alignItems='center'>
-			<EditableProfileImage image={undefined} contentType={ContentType.user} />
+			<EditableProfileImage
+				image={userData.profile_image?.small.key}
+				onChooseImage={setUserProfileImage}
+			/>
 		</View>
 	);
 };
