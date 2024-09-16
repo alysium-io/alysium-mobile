@@ -21,6 +21,7 @@ const Sequence: React.FC<SequenceProps> = ({ children, sequenceIndex }) => {
 
 	return (
 		<FlatList
+			keyboardShouldPersistTaps='always'
 			ref={ref}
 			horizontal
 			pagingEnabled

@@ -1,7 +1,7 @@
 import { View } from '@atomic';
 import { searchApiSlice } from '@flux/api/search';
 import { SearchItem, TagSearchItem } from '@flux/api/search/search.entity';
-import { usePagination } from '@hooks';
+import { useKeyboard, usePagination } from '@hooks';
 import { ListItemWithRadio } from '@molecules';
 import _ from 'lodash';
 import React, { useState } from 'react';
@@ -25,6 +25,7 @@ const TagsSearchActivePage: React.FC<TagsSearchActivePageProps> = ({
 }) => {
 	const { page, defaultLimit } = usePagination();
 	const [selectedItems, setSelectedItems] = useState<TagSearchItem[]>([]);
+	const { dismiss } = useKeyboard();
 
 	const { data: correlatedData } = searchApiSlice.useSearchTagsQuery({
 		body: {
@@ -60,7 +61,10 @@ const TagsSearchActivePage: React.FC<TagsSearchActivePageProps> = ({
 	};
 
 	return (
-		<Animated.ScrollView style={{ overflow: 'visible' }}>
+		<Animated.ScrollView
+			style={{ overflow: 'visible' }}
+			onScrollBeginDrag={dismiss}
+		>
 			{_.orderBy(selectedItems, ['spotifyFollowersSum'], ['desc']).map(
 				(selectedItem) => (
 					<View key={selectedItem.uid} animated layout={LinearTransition}>
