@@ -10,6 +10,7 @@ on:
         options:
           - qa
           - demo
+          - prod
       deploy:
         description: 'Whether to deploy the build'
         required: false
@@ -82,7 +83,7 @@ jobs:
         APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
         APP_STORE_CONNECT_API_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}
         APP_STORE_CONNECT_API_KEY_CONTENT: ${{ secrets.APP_STORE_CONNECT_API_KEY_CONTENT }}
-      run: bundle exec fastlane ios build app_identifier:"io.alysium.${{ github.event.inputs.env }}" scheme:"alysium-${{ github.event.inputs.env }}"
+      run: bundle exec fastlane ios build environment:"${{ github.event.inputs.env }}"
       working-directory: fastlane
 
     # Save the .ipa artifact
@@ -102,5 +103,5 @@ jobs:
         APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
         APP_STORE_CONNECT_API_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}
         APP_STORE_CONNECT_API_KEY_CONTENT: ${{ secrets.APP_STORE_CONNECT_API_KEY_CONTENT }}
-      run: bundle exec fastlane ios deploy app_identifier:"io.alysium.${{ github.event.inputs.env }}" ipa_filename:"alysium-${{ github.event.inputs.env }}.ipa"
+      run: bundle exec fastlane ios deploy environment:"${{ github.event.inputs.env }}"
       working-directory: fastlane

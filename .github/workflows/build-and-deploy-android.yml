@@ -10,6 +10,7 @@ on:
         options:
           - qa
           - demo
+          - prod
       deploy:
         description: 'Whether to deploy the build'
         required: false

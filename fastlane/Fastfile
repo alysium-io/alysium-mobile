@@ -5,7 +5,46 @@ require_relative '../tools/utils'
 android_metadata_path = './fastlane/metadata/android'
 version_code = get_current_build_number_from_package_json
 
-lane :test_lane do
+ENVIRONMENT_CONFIG = {
+  'dev' => {
+    scheme: 'alysium',
+    app_identifier: 'io.alysium.dev',
+    ipa_filename: 'alysium-dev.ipa'
+  },
+  'qa' => {
+    scheme: 'alysium-qa',
+    app_identifier: 'io.alysium.qa',
+    ipa_filename: 'alysium-qa.ipa'
+  },
+  'demo' => {
+    scheme: 'alysium-demo',
+    app_identifier: 'io.alysium.demo',
+    ipa_filename: 'alysium-demo.ipa'
+  },
+  'prod' => {
+    scheme: 'alysium-prod',
+    app_identifier: 'io.alysium',
+    ipa_filename: 'alysium-prod.ipa'
+  }
+}
+
+# Function to get environment option by key name and throw an exception if
+# the environment name or key does not exist
+def get_environment_option(env, key)
+    environment = ENVIRONMENT_CONFIG[env]
+    if environment.nil?
+        UI.user_error!("Environment '#{env}' does not exist")
+    end
+
+    option = environment[key]
+    if option.nil?
+        UI.user_error!("Key '#{key}' does not exist in the '#{ENV['ENVIRONMENT']}' environment")
+    end
+
+    return option
+end
+
+lane :test_lane do |options|
     # Use this lane to test your Fastfile
     # Be sure to delete whatever you're testing here before committing tho... >_>
     puts 'Test lane'
@@ -15,8 +54,7 @@ platform :ios do
 
     lane :build do |options|
         # This lane builds the app and uploads it to TestFlight
-        # @param options[:scheme] The scheme to build
-        # @param options[:app_identifier] The app identifier
+        # @param options[:environment] The environment to deploy to
 
         # Configure ci environment
         # You will run into this error if you don't set up the CI environment:
@@ -29,17 +67,17 @@ platform :ios do
             type: 'appstore',
             readonly: true,
             clone_branch_directly: true,
-            app_identifier: options[:app_identifier]
+            app_identifier: get_environment_option(options[:environment], :app_identifier)
         )
 
         # Build
         gym(
-            scheme: options[:scheme],
+            scheme: get_environment_option(options[:environment], :scheme),
             export_method: 'app-store',
             workspace: './ios/alysium.xcworkspace',
             xcconfig: './CustomIOSBuild.xcconfig',
             output_directory: './ios/build',
-            output_name: options[:scheme] + '.ipa',
+            output_name: get_environment_option(options[:environment], :scheme) + '.ipa',
             silent: true,
             export_xcargs: '-jobs $(sysctl -n hw.ncpu)'
         )
@@ -48,8 +86,7 @@ platform :ios do
     # Build and ship to testflight
     lane :deploy do |options|
         # This lane uploads the artifact to TestFlight
-        # @param options[:ipa_filename] The path to the IPA file to upload
-        # @param options[:app_identifier] The app identifier
+        # @param options[:environment] The environment to deploy to
 
         # Appstoreconnect API key for pilot to upload to TestFlight
         api_key = app_store_connect_api_key(
@@ -63,15 +100,15 @@ platform :ios do
 
         # Upload to TestFlight
         pilot(
-            ipa: './ios/build/' + options[:ipa_filename],
+            ipa: './ios/build/' + get_environment_option(options[:environment], :ipa_filename),
             skip_submission: true,
             skip_waiting_for_build_processing: true,
             username: 'aymather@gmail.com',
-            app_identifier: options[:app_identifier],
+            app_identifier: get_environment_option(options[:environment], :app_identifier),
             distribute_external: false,
             changelog: changelog,
             beta_app_feedback_email: 'aymather@gmail.com',
-            beta_app_description: 'Alysium Beta: Build Live Music Business',
+            beta_app_description: 'Alysium Beta: Build Live Music',
             groups: []
         )
     end

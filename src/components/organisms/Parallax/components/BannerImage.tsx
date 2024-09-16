@@ -50,11 +50,7 @@ const BannerImage: React.FC<BannerImageProps> = ({
 		<View
 			animated
 			position='absolute'
-			borderColor='border.medium'
-			style={[
-				animatedContainerStyle,
-				{ width: '100%', borderBottomWidth: theme.borderWidth.normal }
-			]}
+			style={[animatedContainerStyle, { width: '100%' }]}
 		>
 			<View height='100%' animated style={animatedImageStyle}>
 				{image ? (
@@ -66,7 +62,7 @@ const BannerImage: React.FC<BannerImageProps> = ({
 					<View
 						height='100%'
 						width='100%'
-						backgroundColor='bg.s'
+						backgroundColor='bg.light'
 						justifyContent='center'
 						alignItems='center'
 					>

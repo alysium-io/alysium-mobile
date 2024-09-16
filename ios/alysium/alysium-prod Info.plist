@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>alysium dev</string>
+	<string>alysium</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -26,17 +26,6 @@
 	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSExceptionDomains</key>
-		<dict>
-			<key>localhost</key>
-			<dict>
-				<key>NSExceptionAllowsInsecureHTTPLoads</key>
-				<true/>
-			</dict>
-		</dict>
-	</dict>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>spotify</string>
@@ -44,11 +33,13 @@
 	<key>NSCameraUsageDescription</key>
 	<string>This app requires access to the camera to take photos.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string/>
+	<string>We use your location to provide personalized recommendations.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>We need permission to save images to your photo library.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>We need access to your photo library to allow you to pick images.</string>
+  <key>ITSAppUsesNonExemptEncryption</key>
+  <false/>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Lato-Black.ttf</string>

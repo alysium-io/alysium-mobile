@@ -75,6 +75,10 @@ abstract_target 'alysiumCommonPods' do
     inherit! :complete
   end
 
+  target 'alysium' do
+    inherit! :complete
+  end
+
   post_install do |installer|
     # https://github.com/facebook/react-native/blob/main/packages/react-native/scripts/react_native_pods.rb#L197-L202
     react_native_post_install(

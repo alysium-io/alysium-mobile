@@ -126,21 +126,21 @@ android {
         }
         demo {
             minSdkVersion rootProject.ext.minSdkVersion
-            applicationId "io.alysium"
+            applicationId "io.alysium.demo"
             targetSdkVersion rootProject.ext.targetSdkVersion
-            resValue "string", "build_config_package", "io.alysium"
+            resValue "string", "build_config_package", "io.alysium.demo"
         }
         qa {
             minSdkVersion rootProject.ext.minSdkVersion
-            applicationId "io.alysium"
+            applicationId "io.alysium.qa"
             targetSdkVersion rootProject.ext.targetSdkVersion
-            resValue "string", "build_config_package", "io.alysium"
+            resValue "string", "build_config_package", "io.alysium.qa"
         }
         dev {
             minSdkVersion rootProject.ext.minSdkVersion
-            applicationId "io.alysium"
+            applicationId "io.alysium.dev"
             targetSdkVersion rootProject.ext.targetSdkVersion
-            resValue "string", "build_config_package", "io.alysium"
+            resValue "string", "build_config_package", "io.alysium.dev"
         }
     }
     signingConfigs {

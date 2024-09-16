@@ -1,5 +1,5 @@
 import { View } from '@atomic';
-import { useScrollView } from '@hooks';
+import { useScrollView, useTheme } from '@hooks';
 import React from 'react';
 import { ScrollView } from 'react-native';
 import { interpolate, useAnimatedStyle } from 'react-native-reanimated';
@@ -21,6 +21,7 @@ const Parallax: React.FC<ParallaxProps> = ({
 	bannerImageProps,
 	bannerTitleProps
 }) => {
+	const { theme } = useTheme();
 	const { scrollY, scrollEvent } = useScrollView();
 	const { bannerImageHeight } = useParallax();
 
@@ -47,7 +48,13 @@ const Parallax: React.FC<ParallaxProps> = ({
 						showGradient={bannerImageProps.image !== undefined}
 					/>
 				</View>
-				<View backgroundColor='bg.p'>{children}</View>
+				<View
+					backgroundColor='bg.p'
+					borderTopWidth={theme.borderWidth.normal}
+					borderTopColor='border.medium'
+				>
+					{children}
+				</View>
 			</ScrollView>
 		</View>
 	);
