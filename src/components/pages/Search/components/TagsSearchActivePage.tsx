@@ -1,4 +1,5 @@
 import { View } from '@atomic';
+import { Formatting } from '@etc';
 import { searchApiSlice } from '@flux/api/search';
 import { SearchItem, TagSearchItem } from '@flux/api/search/search.entity';
 import { useKeyboard, usePagination } from '@hooks';
@@ -72,7 +73,9 @@ const TagsSearchActivePage: React.FC<TagsSearchActivePageProps> = ({
 							id={selectedItem.uid}
 							titleTextProps={{
 								title: selectedItem.name,
-								bottomSubtext: `${selectedItem.spotifyFollowersSum.toLocaleString()} followers`
+								bottomSubtext: Formatting.formatNumFollowers(
+									selectedItem.spotifyFollowersSum
+								)
 							}}
 							radioButtonProps={{
 								active: true,
@@ -97,7 +100,9 @@ const TagsSearchActivePage: React.FC<TagsSearchActivePageProps> = ({
 								id={i.uid}
 								titleTextProps={{
 									title: i.name,
-									bottomSubtext: `${i.spotifyFollowersSum.toLocaleString()} followers`
+									bottomSubtext: Formatting.formatNumFollowers(
+										i.spotifyFollowersSum
+									)
 								}}
 								radioButtonProps={{
 									active: selectedItems.some((item) => item.uid === i.uid),
@@ -116,7 +121,9 @@ const TagsSearchActivePage: React.FC<TagsSearchActivePageProps> = ({
 								id={result.uid}
 								titleTextProps={{
 									title: result.name,
-									bottomSubtext: `${result.spotifyFollowersSum.toLocaleString()} followers`
+									bottomSubtext: Formatting.formatNumFollowers(
+										result.spotifyFollowersSum
+									)
 								}}
 								radioButtonProps={{
 									active: selectedItems.some((item) => item.uid === result.uid),

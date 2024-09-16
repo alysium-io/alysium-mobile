@@ -102,6 +102,13 @@ class Formatting {
 		return num === 1 ? 'follower' : 'followers';
 	};
 
+	static getArtistsSuffix = (num: number | null | undefined): string => {
+		if (num === undefined || num === null) {
+			return 'artists';
+		}
+		return num === 1 ? 'artist' : 'artists';
+	};
+
 	static formatNumFollowers = (num: number | null | undefined): string => {
 		if (num === undefined || num === null) {
 			return '0 followers';
@@ -110,6 +117,16 @@ class Formatting {
 		return `${Formatting.abbreviateNumber(
 			num
 		)} ${Formatting.getNumFollowersSuffix(num)}`;
+	};
+
+	static formatNumArtists = (num: number | null | undefined): string => {
+		if (num === undefined || num === null) {
+			return '0 artists';
+		}
+
+		return `${Formatting.abbreviateNumber(num)} ${Formatting.getArtistsSuffix(
+			num
+		)}`;
 	};
 }
 

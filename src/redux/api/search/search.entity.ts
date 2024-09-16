@@ -10,7 +10,10 @@ export interface SearchItem {
 	readonly rankingScore: number;
 }
 
-export interface ArtistSearchItem extends SearchItem {}
+export interface ArtistSearchItem extends SearchItem {
+	readonly followers: number;
+	readonly popularity: number;
+}
 
 export interface TagSearchItem extends SearchItem {
 	readonly numArtists: number;

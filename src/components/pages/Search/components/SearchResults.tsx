@@ -1,4 +1,5 @@
 import { Section, Text, View } from '@atomic';
+import { Formatting } from '@etc';
 import { SearchArtistsResponseDto } from '@flux/api/search/dto/search-artists.dto';
 import { SearchTagsResponseDto } from '@flux/api/search/dto/search-tags.dto';
 import { ContentListItem } from '@molecules';
@@ -32,7 +33,9 @@ const SearchResults: React.FC<SearchResultsProps> = ({
 							onPress={() => onPressSearchResult(result)}
 							titleTextProps={{
 								title: result.name,
-								bottomSubtext: 'Tag'
+								bottomSubtext: Formatting.formatNumFollowers(
+									result.spotifyFollowersSum
+								)
 							}}
 							profileImageProps={{
 								defaultImageProps: {
@@ -52,21 +55,24 @@ const SearchResults: React.FC<SearchResultsProps> = ({
 					>
 						Artists
 					</Text>
-					{artistSearchResults.hits.map((result) => (
-						<ContentListItem
-							key={result.uid}
-							onPress={() => onPressSearchResult(result)}
-							titleTextProps={{
-								title: result.name,
-								bottomSubtext: 'Artist'
-							}}
-							profileImageProps={{
-								defaultImageProps: {
-									icon: 'artist'
-								}
-							}}
-						/>
-					))}
+					{artistSearchResults.hits.map((result) => {
+						console.log(result);
+						return (
+							<ContentListItem
+								key={result.uid}
+								onPress={() => onPressSearchResult(result)}
+								titleTextProps={{
+									title: result.name,
+									bottomSubtext: Formatting.formatNumFollowers(result.followers)
+								}}
+								profileImageProps={{
+									defaultImageProps: {
+										icon: 'artist'
+									}
+								}}
+							/>
+						);
+					})}
 				</Section>
 			)}
 		</View>
