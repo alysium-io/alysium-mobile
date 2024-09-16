@@ -123,7 +123,6 @@ export const BehaviorProvider: React.FC<ProviderProps> = ({ children }) => {
 	};
 
 	const navigationBehavior = (meta: NavigationBehaviorMetadata) => {
-		console.log('Navigation Behavior:', meta);
 		behavior('NAVIGATE', meta);
 	};
 

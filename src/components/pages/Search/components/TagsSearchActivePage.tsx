@@ -1,7 +1,7 @@
 import { View } from '@atomic';
 import { searchApiSlice } from '@flux/api/search';
 import { SearchItem, TagSearchItem } from '@flux/api/search/search.entity';
-import { useNavigation, usePagination } from '@hooks';
+import { usePagination } from '@hooks';
 import { ListItemWithRadio } from '@molecules';
 import _ from 'lodash';
 import React, { useState } from 'react';
@@ -23,7 +23,6 @@ const TagsSearchActivePage: React.FC<TagsSearchActivePageProps> = ({
 	onPressSearchResult,
 	clearTagTextInput
 }) => {
-	const { tagPage } = useNavigation();
 	const { page, defaultLimit } = usePagination();
 	const [selectedItems, setSelectedItems] = useState<TagSearchItem[]>([]);
 
