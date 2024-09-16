@@ -5,6 +5,7 @@ import { tagApiSlice } from '@flux/api/tag';
 import { useNavigation, useTheme } from '@hooks';
 import {
 	BlockListItem,
+	Button,
 	ContentListItem,
 	SelfAwareScrollView,
 	useSelfAwareScrollView
@@ -12,7 +13,7 @@ import {
 import { useBehaviorContext } from '@src/utils/contexts/Behavior';
 import { StandardFeedback } from '@templates';
 import React, { useRef } from 'react';
-import { View as RNView, TouchableOpacity } from 'react-native';
+import { View as RNView } from 'react-native';
 import { FadeIn, FadeOut, LinearTransition } from 'react-native-reanimated';
 
 const SearchInactivePage: React.FC = () => {
@@ -121,14 +122,6 @@ const SearchInactivePage: React.FC = () => {
 					justifyContent='space-between'
 				>
 					<Text variant='section-header-1'>Discover</Text>
-					<TouchableOpacity
-						onPress={onPressRefreshDiscoverTags}
-						activeOpacity={0.9}
-					>
-						<Text variant='paragraph-small-medium' color='palette.p.medium'>
-							Refresh
-						</Text>
-					</TouchableOpacity>
 				</View>
 				{discoverTagsData?.map((tag) => (
 					<BlockListItem
@@ -151,13 +144,21 @@ const SearchInactivePage: React.FC = () => {
 						}}
 					/>
 				))}
+				<View marginVertical='m'>
+					<Button onPress={onPressRefreshDiscoverTags} text='Shuffle' />
+				</View>
 			</Section>
 			<View ref={feedbackRef}>
-				<StandardFeedback
-					onFocus={() =>
-						selfAwareScrollViewApi.onPressScrollViewElement(feedbackRef)
-					}
-				/>
+				<Section marginVertical='m'>
+					<Text variant='section-header-1' marginHorizontal='m'>
+						Feedback
+					</Text>
+					<StandardFeedback
+						onFocus={() =>
+							selfAwareScrollViewApi.onPressScrollViewElement(feedbackRef)
+						}
+					/>
+				</Section>
 			</View>
 		</SelfAwareScrollView>
 	);
