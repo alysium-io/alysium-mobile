@@ -5,6 +5,7 @@ import { useBehaviorFunnel } from '@src/utils/contexts/Behavior';
 import { AuthStage, ProviderProps } from '@types';
 import React, { createContext, useEffect, useState } from 'react';
 import { Keyboard } from 'react-native';
+import Toast from 'react-native-toast-message';
 
 export type ScreenState = 'login-phone' | 'continue-phone';
 export type AuthenticationState = {
@@ -26,6 +27,7 @@ export type AuthenticationAppContextType = {
 	token: string | null;
 	state: AuthenticationState;
 	logout: () => void;
+	deleteAccount: () => void;
 	continuePhoneNumber: () => Promise<void>;
 	loginPhoneNumber: () => void;
 	setPhoneNumber: (phone_number: string) => void;
@@ -50,6 +52,7 @@ export const AuthenticationAppProvider: React.FC<ProviderProps> = ({
 	const [registerPhoneNumberQuery] =
 		userApiSlice.useLazyRegisterPhoneNumberQuery();
 	const [loginPhoneNumberQuery] = userApiSlice.useLazyLoginPhoneNumberQuery();
+	const [deleteUserMutation] = userApiSlice.useDeleteMutation();
 	const { funnel } = useBehaviorFunnel('FUNNEL_AUTHENTICATION');
 
 	const [state, setState] = useState<AuthenticationState>(initialState);
@@ -132,6 +135,19 @@ export const AuthenticationAppProvider: React.FC<ProviderProps> = ({
 		});
 	};
 
+	const deleteAccount = async () => {
+		try {
+			await deleteUserMutation().unwrap();
+			logout();
+		} catch (error: any) {
+			Toast.show({
+				type: 'error',
+				text1: 'Failed to delete account.',
+				text2: 'Error: ' + error?.message
+			});
+		}
+	};
+
 	const continuePhoneNumber = async () => {
 		Keyboard.dismiss();
 		setIsLoading(true);
@@ -174,6 +190,7 @@ export const AuthenticationAppProvider: React.FC<ProviderProps> = ({
 				authStage,
 				token,
 				logout,
+				deleteAccount,
 				state,
 				continuePhoneNumber,
 				loginPhoneNumber,

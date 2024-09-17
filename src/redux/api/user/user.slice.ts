@@ -1,6 +1,7 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import baseQueryConfig from '../utils/baseQueryConfig';
 import { ContinueUserPhoneNumberBodyDto } from './dto/user-continue-phone.dto';
+import { DeleteUserResponseDto } from './dto/user-delete.dto';
 import { PrivateFindOneUserResponseDto } from './dto/user-find-one.dto';
 import { LoginUserPhoneNumberBodyDto } from './dto/user-login-phone.dto';
 import { LoginResponseDto } from './dto/user-login.dto';
@@ -32,6 +33,17 @@ const apiSlice = createApi({
 				body
 			}),
 			invalidatesTags: [{ type: 'User', id: 'USER' }]
+		}),
+		delete: builder.mutation<DeleteUserResponseDto, void>({
+			query: () => ({
+				url: '/',
+				method: 'DELETE'
+			}),
+			invalidatesTags: [{ type: 'User', id: 'USER' }],
+			onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+				await queryFulfilled;
+				dispatch(apiSlice.util.resetApiState());
+			}
 		}),
 		registerPhoneNumber: builder.query<
 			LoginResponseDto,
