@@ -1,5 +1,5 @@
 import { useTheme } from '@shopify/restyle';
-import { Alert, Platform } from 'react-native';
+import { Alert, Linking, Platform } from 'react-native';
 import {
 	ImagePickerResponse,
 	launchCamera,
@@ -25,7 +25,7 @@ const usePhotosAndCamera = (): IUsePhotosAndCamera => {
 
 	const requestPhotosOrCameraForImage =
 		async (): Promise<ImagePickerResponse | null> => {
-			return new Promise((resolve, reject) => {
+			return new Promise((resolve) => {
 				Alert.alert(
 					'Select Image',
 					'Choose an image from library or take a new one',
@@ -53,38 +53,54 @@ const usePhotosAndCamera = (): IUsePhotosAndCamera => {
 		};
 
 	const requestCameraPermissions = async (): Promise<PermissionStatus> => {
-		const status = await check(
+		const permission =
 			Platform.OS === 'ios'
 				? PERMISSIONS.IOS.CAMERA
-				: PERMISSIONS.ANDROID.CAMERA
-		);
+				: PERMISSIONS.ANDROID.CAMERA;
+		const status = await check(permission);
+
 		if (status === RESULTS.GRANTED) {
+			return status;
+		} else if (status === RESULTS.BLOCKED) {
+			// If blocked, prompt the user to open settings
+			Alert.alert(
+				'Camera Permission Required: Open Settings',
+				'Alysium requires access to the camera to allow you to take and set a profile picture. This photo will only be used within the app to personalize your account.',
+				[
+					{ text: 'Cancel', style: 'cancel' },
+					{ text: 'Open Settings', onPress: () => Linking.openSettings() }
+				]
+			);
 			return status;
 		} else {
 			// Request permission if not already granted
-			return await request(
-				Platform.OS === 'ios'
-					? PERMISSIONS.IOS.CAMERA
-					: PERMISSIONS.ANDROID.CAMERA
-			);
+			return request(permission);
 		}
 	};
 
 	const requestPhotosPermissions = async (): Promise<PermissionStatus> => {
-		const status = await check(
+		const permission =
 			Platform.OS === 'ios'
 				? PERMISSIONS.IOS.PHOTO_LIBRARY
-				: PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE
-		);
+				: PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE;
+		const status = await check(permission);
+
 		if (status === RESULTS.GRANTED || status === RESULTS.LIMITED) {
+			return status;
+		} else if (status === RESULTS.BLOCKED) {
+			// If blocked, prompt the user to open settings
+			Alert.alert(
+				'Photo Library Permission Required: Open Settings',
+				'Alysium needs access to your photo library to allow you to choose an existing photo as your profile picture. We will only access the specific image you select to personalize your account.',
+				[
+					{ text: 'Cancel', style: 'cancel' },
+					{ text: 'Open Settings', onPress: () => Linking.openSettings() }
+				]
+			);
 			return status;
 		} else {
 			// Request permission if not already granted or if status is limited
-			return await request(
-				Platform.OS === 'ios'
-					? PERMISSIONS.IOS.PHOTO_LIBRARY
-					: PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE
-			);
+			return request(permission);
 		}
 	};
 
@@ -119,8 +135,6 @@ const usePhotosAndCamera = (): IUsePhotosAndCamera => {
 					const result = await launchCamera({ mediaType: 'photo', quality: 1 });
 					return result;
 				} else {
-					console.log('Permission requried');
-					console.log(permissionResult);
 					return null;
 				}
 			} catch (err) {

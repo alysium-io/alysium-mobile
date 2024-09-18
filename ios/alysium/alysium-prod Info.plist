@@ -31,13 +31,13 @@
 		<string>spotify</string>
 	</array>
 	<key>NSCameraUsageDescription</key>
-	<string>This app requires access to the camera to take photos.</string>
+	<string>Alysium requires access to the camera to allow you to take and set a profile picture. This photo will only be used within the app to personalize your account.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>We use your location to provide personalized recommendations.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>We need permission to save images to your photo library.</string>
+	<string>Alysium requests permission to save images to your photo library. This allows you to export and keep copies of photos you edit or create within the app.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>We need access to your photo library to allow you to pick images.</string>
+	<string>Alysium needs access to your photo library to allow you to choose an existing photo as your profile picture. We will only access the specific image you select to personalize your account.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Lato-Black.ttf</string>
