@@ -1,15 +1,12 @@
-import { artistApiSlice } from '@flux/api/artist';
-import { PrivateFindAllArtistsResponseDto } from '@flux/api/artist/dto/artist-find-all.dto';
-import { hostApiSlice } from '@flux/api/host';
-import { FindAllHostsResponseDto } from '@flux/api/host/dto/host-find-all.dto';
 import { profileImageApiSlice } from '@flux/api/profile-image';
 import { userApiSlice } from '@flux/api/user';
 import { PrivateUser } from '@flux/api/user/user.entity';
-import { createUseContextHook, usePersona } from '@hooks';
+import { createUseContextHook, SheetApi, useSheet } from '@hooks';
 import { useBehaviorContext } from '@src/utils/contexts/Behavior';
 import { ApiIdentifier, Persona, ProviderProps } from '@types';
 import React, { createContext, useEffect } from 'react';
 import { Asset } from 'react-native-image-picker';
+import { usePersonaAppContext } from './Persona.context';
 
 export type UserAppContextType = {
 	personaId: ApiIdentifier;
@@ -17,27 +14,24 @@ export type UserAppContextType = {
 	userData: PrivateUser;
 	userError: any;
 	userIsLoading: boolean;
-	userArtists: PrivateFindAllArtistsResponseDto[];
-	userArtistsError: any;
-	userArtistsIsLoading: boolean;
-	userHosts: FindAllHostsResponseDto[];
-	userHostsError: any;
-	userHostsIsLoading: boolean;
 	setUserProfileImage: (image: Asset) => void;
+	createAccountBottomSheetApi: SheetApi;
+	checkUserWantsToRegisterBottomSheet: SheetApi;
 };
 
 export const UserAppContext = createContext({} as UserAppContextType);
 
 export const UserAppProvider: React.FC<ProviderProps> = ({ children }) => {
-	const { personaId, personaType } = usePersona();
+	const createAccountBottomSheetApi = useSheet();
+	const checkUserWantsToRegisterBottomSheet = useSheet();
+	const { personaId, personaType, initializePersona } = usePersonaAppContext();
 	const {
 		data: userData,
 		error: userError,
 		isLoading: userIsLoading
-	} = userApiSlice.usePrivateFindOneQuery();
-	const { initializePersona } = usePersona();
+	} = userApiSlice.usePrivateFindOneUserQuery();
 	const [createUserProfileImageMutation] =
-		profileImageApiSlice.useCreateMutation();
+		profileImageApiSlice.useCreateProfileImageMutation();
 	const { setBehaviorUserUid } = useBehaviorContext();
 
 	useEffect(() => {
@@ -53,19 +47,7 @@ export const UserAppProvider: React.FC<ProviderProps> = ({ children }) => {
 		}
 	};
 
-	const {
-		data: userArtists,
-		error: userArtistsError,
-		isLoading: userArtistsIsLoading
-	} = artistApiSlice.usePrivateFindAllQuery({ query: { page: 1, limit: 10 } });
-
-	const {
-		data: userHosts,
-		error: userHostsError,
-		isLoading: userHostsIsLoading
-	} = hostApiSlice.useFindAllQuery({ query: { page: 1, limit: 10 } });
-
-	if (!userData || !userArtists || !userHosts || personaId === null) {
+	if (!userData || personaId === null) {
 		return <></>;
 	}
 
@@ -77,13 +59,9 @@ export const UserAppProvider: React.FC<ProviderProps> = ({ children }) => {
 				userData,
 				userError,
 				userIsLoading,
-				userArtists,
-				userArtistsError,
-				userArtistsIsLoading,
-				userHosts,
-				userHostsError,
-				userHostsIsLoading,
-				setUserProfileImage
+				setUserProfileImage,
+				createAccountBottomSheetApi,
+				checkUserWantsToRegisterBottomSheet
 			}}
 		>
 			{children}

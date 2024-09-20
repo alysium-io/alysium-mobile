@@ -1,20 +1,19 @@
-import { createApi } from '@reduxjs/toolkit/query/react';
-import baseQueryConfig from '../utils/baseQueryConfig';
+import { rtkBaseUrl, serviceApi } from '../base';
 import {
 	CreateBehaviorBodyDto,
 	CreateBehaviorResponseDto
 } from './dto/behavior-create.dto';
 
-const apiSlice = createApi({
-	baseQuery: baseQueryConfig({ basePath: '/behavior' }),
-	reducerPath: 'behaviorApi',
+const url = rtkBaseUrl('behavior');
+
+const apiSlice = serviceApi.injectEndpoints({
 	endpoints: (builder) => ({
-		create: builder.mutation<
+		createBehavior: builder.mutation<
 			CreateBehaviorResponseDto,
 			{ body: CreateBehaviorBodyDto }
 		>({
 			query: ({ body }) => ({
-				url: '/',
+				url: url('/'),
 				method: 'POST',
 				body
 			})

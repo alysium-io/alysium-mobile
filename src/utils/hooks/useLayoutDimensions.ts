@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { LayoutChangeEvent, LayoutRectangle } from 'react-native';
 
-interface IUseLayoutDimensions {
+export interface LayoutApi {
 	dimensions: LayoutRectangle;
 	onLayout: (e: LayoutChangeEvent) => void;
 }
 
-const useLayoutDimensions = (): IUseLayoutDimensions => {
+const useLayoutDimensions = (): LayoutApi => {
 	const [dimensions, setDimensions] = useState<LayoutRectangle>({
 		x: 0,
 		y: 0,

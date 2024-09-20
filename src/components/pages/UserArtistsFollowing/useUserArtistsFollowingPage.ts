@@ -16,7 +16,7 @@ const useUserArtistsFollowingPage = (): IUseUserArtistsFollowingPage => {
 		data: userArtistsFollowingData,
 		isLoading: userArtistsFollowingLoading,
 		isError: userArtistsFollowingError
-	} = userArtistsFollowingApiSlice.useFindAllQuery({
+	} = userArtistsFollowingApiSlice.useFindAllUserArtistsFollowingQuery({
 		query: {
 			page,
 			limit: defaultLimit

@@ -12,11 +12,12 @@ interface RelatedArtistsProps {
 
 const RelatedArtists: React.FC<RelatedArtistsProps> = ({ artist_uid }) => {
 	const { artistPage } = useNavigation();
-	const { data: relatedArtists } = artistApiSlice.usePublicFindRelatedQuery({
-		params: {
-			artist_uid
-		}
-	});
+	const { data: relatedArtists } =
+		artistApiSlice.usePublicFindRelatedArtistsQuery({
+			params: {
+				artist_uid
+			}
+		});
 
 	const onPressRelatedArtist = (nextArtistUid: ApiIdentifier) => {
 		artistPage(nextArtistUid, {

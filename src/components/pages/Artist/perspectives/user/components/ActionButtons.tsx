@@ -1,23 +1,16 @@
 import { Section } from '@atomic';
 import { PublicFindOneArtistResponseDto } from '@flux/api/artist/dto/artist-find-one.dto';
-import { FollowButton } from '@molecules';
 import React from 'react';
+import FollowArtistButton from './FollowArtistButton';
 
 interface ActionButtonsProps {
 	artistData: PublicFindOneArtistResponseDto;
-	onPressFollowButton: (isFollowing: boolean) => void;
 }
 
-const ActionButtons: React.FC<ActionButtonsProps> = ({
-	artistData,
-	onPressFollowButton
-}) => {
+const ActionButtons: React.FC<ActionButtonsProps> = ({ artistData }) => {
 	return (
 		<Section marginTop='m'>
-			<FollowButton
-				defaultState={artistData.is_following}
-				onChange={(isActive) => onPressFollowButton(isActive)}
-			/>
+			<FollowArtistButton artistData={artistData} />
 		</Section>
 	);
 };

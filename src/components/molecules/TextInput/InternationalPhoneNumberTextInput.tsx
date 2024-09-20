@@ -26,8 +26,8 @@ const InternationalPhoneNumberTextInput: React.FC<
 > = ({ textInputApi, textAlign, ...props }) => {
 	const { theme } = useTheme();
 	const animatedValue = useSharedValue<number>(0);
-	const activeBorderColor = theme.colors['text.p'];
-	const inactiveBorderColor = theme.colors['transparent'];
+	const activeBorderColor = theme.colors['border.medium'];
+	const inactiveBorderColor = theme.colors['border.light'];
 
 	const defaultTextInputApi = useTextInput();
 	const _textInputApi = textInputApi || defaultTextInputApi;
@@ -56,7 +56,7 @@ const InternationalPhoneNumberTextInput: React.FC<
 		<TouchableWithoutFeedback onPress={_textInputApi?.focus}>
 			<View
 				animated
-				backgroundColor='bg.s'
+				backgroundColor='bg.light'
 				borderWidth={theme.borderWidth.thick}
 				borderRadius='m'
 				overflow='hidden'
@@ -73,6 +73,7 @@ const InternationalPhoneNumberTextInput: React.FC<
 							ref={_textInputApi.ref}
 							onFocus={_onFocus}
 							onBlur={_onBlur}
+							maxLength={14}
 							{...props}
 						/>
 					</View>

@@ -1,50 +1,29 @@
-import { View } from '@atomic';
-import {
-	BottomSheetFooter,
-	BottomSheetFooterProps
-} from '@gorhom/bottom-sheet';
-import { SheetApi, useKeyboard, useLayoutDimensions, useTheme } from '@hooks';
+import { BottomSheetFooterProps } from '@gorhom/bottom-sheet';
+import { LayoutApi, SheetApi, useKeyboard } from '@hooks';
 import { Header, HeaderIconButton, HeaderSection } from '@organisms';
 import { IChildrenProps } from '@types';
-import React, { useCallback } from 'react';
+import React from 'react';
 import { ScrollView } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { BottomSheet } from '../overrides';
 
 interface FullScreenSheetWithHeaderAndFooterProps extends IChildrenProps {
-	FooterContent: React.ReactNode;
+	footerComponent?: React.FC<BottomSheetFooterProps>;
 	sheetApi: SheetApi;
 	sheetDidOpen?: () => void;
+	animateFooterWithKeyboard?: boolean;
+	footerLayoutApi: LayoutApi;
 }
 
 const FullScreenSheetWithHeaderAndFooter: React.FC<
 	FullScreenSheetWithHeaderAndFooterProps
-> = ({ sheetApi, FooterContent, sheetDidOpen, children }) => {
-	const { theme } = useTheme();
-	const insets = useSafeAreaInsets();
+> = ({
+	sheetApi,
+	footerComponent,
+	sheetDidOpen,
+	footerLayoutApi,
+	children
+}) => {
 	const { dismiss } = useKeyboard();
-	const { dimensions: footerDimensions, onLayout: onFooterLayout } =
-		useLayoutDimensions();
-
-	const renderFooter = useCallback(
-		(props: BottomSheetFooterProps) => (
-			<BottomSheetFooter {...props}>
-				<View
-					paddingHorizontal='m'
-					paddingTop='l'
-					flexDirection='row'
-					style={{ paddingBottom: insets.bottom }}
-					backgroundColor='bg.p'
-					borderTopWidth={theme.borderWidth.thin}
-					borderColor='border.light'
-					onLayout={onFooterLayout}
-				>
-					{FooterContent}
-				</View>
-			</BottomSheetFooter>
-		),
-		[footerDimensions.height]
-	);
 
 	const onChange = (index: number) => {
 		if (index === 0) {
@@ -57,7 +36,7 @@ const FullScreenSheetWithHeaderAndFooter: React.FC<
 			sheetRef={sheetApi.sheetRef}
 			snapPoints={['100%']}
 			handleComponent={null}
-			footerComponent={renderFooter}
+			footerComponent={footerComponent}
 			onChange={onChange}
 		>
 			<Header>
@@ -70,10 +49,10 @@ const FullScreenSheetWithHeaderAndFooter: React.FC<
 			<ScrollView
 				style={{ flex: 1, overflow: 'visible' }}
 				contentContainerStyle={{
-					paddingBottom: footerDimensions.height
+					paddingBottom: footerLayoutApi.dimensions.height
 				}}
 				scrollIndicatorInsets={{
-					bottom: footerDimensions.height
+					bottom: footerLayoutApi.dimensions.height
 				}}
 				onScrollBeginDrag={dismiss}
 			>

@@ -9,14 +9,17 @@ interface FeedbackProps {
 }
 
 const Feedback: React.FC<FeedbackProps> = ({ onFocus }) => {
-	const { formMethods, onSubmit, buttonState, feedbackTextInputApi } =
-		useStandardFeedback();
+	const {
+		submitStandardFeedbackButtonApi,
+		createStandardFeedbackFormApi,
+		feedbackTextInputApi
+	} = useStandardFeedback();
 
 	return (
 		<Section margin='m'>
 			<Controller
 				name='feedback'
-				control={formMethods.control}
+				control={createStandardFeedbackFormApi.formMethods.control}
 				rules={{ required: 'Feedback is required' }}
 				render={({ field: { onChange, onBlur } }) => (
 					<TextBox
@@ -31,9 +34,9 @@ const Feedback: React.FC<FeedbackProps> = ({ onFocus }) => {
 			/>
 			<Button
 				text='Send'
-				onPress={onSubmit}
+				onPress={createStandardFeedbackFormApi.onSubmit}
 				containerProps={{ marginTop: 'm' }}
-				buttonState={buttonState}
+				buttonState={submitStandardFeedbackButtonApi.buttonState}
 			/>
 		</Section>
 	);

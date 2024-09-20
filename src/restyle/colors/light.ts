@@ -46,8 +46,8 @@ export const createSemanticLightTheme = (
 
 		'button.solid.loading.bg': palette.neutral.p4,
 		'button.solid.loading.activity-indicator': palette.neutral.p8,
-		'button.solid.disabled.bg': palette.neutral.p8,
-		'button.solid.disabled.text': palette.neutral.p5,
+		'button.solid.disabled.bg': palette.neutral.p3,
+		'button.solid.disabled.text': palette.neutral.p6,
 		'button.solid.success.bg': palette.s.p7,
 		'button.solid.success.text': palette.neutral.p1,
 		'button.solid.active.bg.default': palette.neutral.p9,

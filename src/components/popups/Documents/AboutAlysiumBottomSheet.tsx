@@ -1,10 +1,12 @@
 import { Avatar, Bold, Icon, Link, P, Section, Text, View } from '@atomic';
-import { SheetApi } from '@hooks';
+import { BottomSheetFooterProps } from '@gorhom/bottom-sheet';
+import { SheetApi, useLayoutDimensions } from '@hooks';
 import { Button } from '@molecules';
 import { FullScreenSheetWithHeaderAndFooter } from '@organisms';
+import FullScreenSheetFooter from '@src/components/organisms/BottomSheet/sheets/FullScreenSheetFooter';
 import { useBehaviorContext } from '@src/utils/contexts/Behavior';
 import { IconNames } from '@svg';
-import React from 'react';
+import React, { useCallback } from 'react';
 
 const DefaultImage: React.FC<{ icon: IconNames; text: string }> = ({
 	icon,
@@ -26,21 +28,28 @@ const AboutAlysiumBottomSheet: React.FC<AboutAlysiumBottomSheetProps> = ({
 	sheetApi
 }) => {
 	const { behavior } = useBehaviorContext();
+	const footerLayoutApi = useLayoutDimensions();
 	const sheetDidOpen = () => {
 		behavior('POPUP_ABOUT_ALYSIUM');
 	};
 
-	const FooterContent = (
-		<View flex={1}>
-			<Button text='Dismiss' onPress={sheetApi.close} />
-		</View>
+	const footerComponent = useCallback(
+		(props: BottomSheetFooterProps) => (
+			<FullScreenSheetFooter {...props} layoutApi={footerLayoutApi}>
+				<View flex={1}>
+					<Button text='Dismiss' onPress={sheetApi.close} />
+				</View>
+			</FullScreenSheetFooter>
+		),
+		[]
 	);
 
 	return (
 		<FullScreenSheetWithHeaderAndFooter
 			sheetApi={sheetApi}
-			FooterContent={FooterContent}
+			footerComponent={footerComponent}
 			sheetDidOpen={sheetDidOpen}
+			footerLayoutApi={footerLayoutApi}
 		>
 			<View margin='m'>
 				<Section>

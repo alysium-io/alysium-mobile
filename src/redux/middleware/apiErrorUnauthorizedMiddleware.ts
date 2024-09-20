@@ -20,7 +20,7 @@ const apiErrorUnauthorizedMiddleware: Middleware =
 				(getState().persistedApp.authStage === AuthStage.loggedIn ||
 					getState().persistedApp.token !== null)
 			) {
-				console.log('Unauthorized error detected, logging user out');
+				console.log('Unauthorized error detected');
 			}
 		}
 

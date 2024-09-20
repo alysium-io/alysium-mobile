@@ -1,32 +1,64 @@
-import { createUseContextHook, usePersona } from '@hooks';
-import { ApiIdentifier, Persona, ProviderProps } from '@types';
+import { createUseContextHook } from '@hooks';
+import { ApiIdentifier, Persona, ProviderProps, ThemeMode } from '@types';
 import React, { createContext, useState } from 'react';
 import usePersistedAppState from 'src/utils/hooks/usePersistedAppState';
+
+const appThemeModeMap = {
+	[Persona.user]: ThemeMode.dark,
+	[Persona.artist]: ThemeMode.light,
+	[Persona.host]: ThemeMode.light
+};
 
 export type PersonaAppContextType = {
 	personaId: ApiIdentifier | null;
 	personaType: Persona;
 	changePersona: (newPersonaType: Persona, newPersonaId: ApiIdentifier) => void;
 	isLoading: boolean;
+	initializePersona: (user_uid: ApiIdentifier) => void;
 };
 
 export const PersonaAppContext = createContext({} as PersonaAppContextType);
 
 export const PersonaAppProvider: React.FC<ProviderProps> = ({ children }) => {
-	const { changePersona: setNewPersona } = usePersona();
 	const [isLoading, setIsLoading] = useState(false);
-	const { personaId, personaType } = usePersistedAppState();
+	const { personaId, personaType, setPersistedAppState } =
+		usePersistedAppState();
+
+	const initializePersona = (user_uid: ApiIdentifier) => {
+		/**
+		 * The purpose of this is to set the persona for the first
+		 * time the user opens the app. Which we are only going to
+		 * do if the personaId is null. This is to prevent the persona
+		 * from being reset every time the user opens the app.
+		 */
+		if (personaId === null) {
+			setPersistedAppState({
+				personaType: Persona.user,
+				personaId: user_uid
+			});
+		}
+	};
 
 	const changePersona = (
 		newPersonaType: Persona,
 		newPersonaId: ApiIdentifier
 	) => {
+		console.log({
+			personaId,
+			personaType,
+			newPersonaType,
+			newPersonaId
+		});
 		if (newPersonaType !== personaType || newPersonaId !== personaId) {
 			setIsLoading(true);
-			setNewPersona(newPersonaType, newPersonaId);
+			setPersistedAppState({
+				personaType: newPersonaType,
+				personaId: newPersonaId,
+				themeMode: appThemeModeMap[newPersonaType]
+			});
 			setTimeout(() => {
 				setIsLoading(false);
-			}, 500);
+			}, 300);
 		}
 	};
 
@@ -36,7 +68,8 @@ export const PersonaAppProvider: React.FC<ProviderProps> = ({ children }) => {
 				personaId,
 				personaType,
 				changePersona,
-				isLoading
+				isLoading,
+				initializePersona
 			}}
 		>
 			{children}

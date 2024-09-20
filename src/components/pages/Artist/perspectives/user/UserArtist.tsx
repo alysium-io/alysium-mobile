@@ -8,14 +8,14 @@ import ActionButtons from './components/ActionButtons';
 import ArtistTags from './components/ArtistTags';
 import GoToSpotifyButton from './components/GoToSpotifyButton';
 import RelatedArtists from './components/RelatedArtists';
-import useUserPage from './useUserPage';
+import useUserArtistPage from './useUserArtistPage';
 
-interface UserProps {
+interface UserArtistProps {
 	artist_uid: ApiIdentifier;
 }
 
-const User: React.FC<UserProps> = ({ artist_uid }) => {
-	const { artistData, onPressFollowButton } = useUserPage(artist_uid);
+const UserArtist: React.FC<UserArtistProps> = ({ artist_uid }) => {
+	const { artistData } = useUserArtistPage(artist_uid);
 
 	if (!artistData) {
 		return null;
@@ -34,10 +34,7 @@ const User: React.FC<UserProps> = ({ artist_uid }) => {
 			>
 				<View margin='m'>
 					<SubHeader artistData={artistData} />
-					<ActionButtons
-						artistData={artistData}
-						onPressFollowButton={onPressFollowButton}
-					/>
+					<ActionButtons artistData={artistData} />
 					<ArtistTags artistData={artistData} />
 					<GoToSpotifyButton artistData={artistData} />
 				</View>
@@ -47,4 +44,4 @@ const User: React.FC<UserProps> = ({ artist_uid }) => {
 	);
 };
 
-export default User;
+export default UserArtist;

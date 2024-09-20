@@ -2,28 +2,28 @@ import { useState } from 'react';
 
 export type ButtonState = 'active' | 'loading' | 'disabled' | 'success';
 
-interface IUseButtonState {
+export interface ButtonStateApi {
 	buttonState: ButtonState;
 	setButtonState: (buttonState: ButtonState) => void;
-	success: () => void;
+	buttonSuccess: () => void;
 }
 
 const useButtonState = (
 	defaultState: ButtonState = 'active'
-): IUseButtonState => {
+): ButtonStateApi => {
 	const [buttonState, setButtonState] = useState<ButtonState>(defaultState);
 
-	const success = () => {
+	const buttonSuccess = () => {
 		setButtonState('success');
 		setTimeout(() => {
 			setButtonState('active');
-		}, 500);
+		}, 1000);
 	};
 
 	return {
 		buttonState,
 		setButtonState,
-		success
+		buttonSuccess
 	};
 };
 

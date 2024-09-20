@@ -1,8 +1,5 @@
-import { createApi } from '@reduxjs/toolkit/query/react';
 import _ from 'lodash';
-import { tagApiSlice } from '../tag';
-import { userApiSlice } from '../user';
-import baseQueryConfig from '../utils/baseQueryConfig';
+import { rtkBaseUrl, serviceApi } from '../base';
 import {
 	CreateUserTagsFollowingBodyDto,
 	CreateUserTagsFollowingResponseDto
@@ -16,19 +13,18 @@ import {
 	FindAllUserTagsFollowingResponseDto
 } from './dto/user-tags-following-find-all.dto';
 
-const apiSlice = createApi({
-	baseQuery: baseQueryConfig({ basePath: '/user-tags-following' }),
-	reducerPath: 'userTagsFollowingApi',
-	tagTypes: ['UserTagsFollowing'],
+const url = rtkBaseUrl('user-tags-following');
+
+const apiSlice = serviceApi.injectEndpoints({
 	endpoints: (builder) => ({
-		findAll: builder.query<
+		findAllUserTagsFollowing: builder.query<
 			FindAllUserTagsFollowingResponseDto[],
 			{
 				query: FindAllUserTagsFollowingQueryDto;
 			}
 		>({
 			query: ({ query }) => ({
-				url: '/',
+				url: url('/'),
 				method: 'GET',
 				params: query
 			}),
@@ -42,12 +38,12 @@ const apiSlice = createApi({
 			providesTags: (result) =>
 				result ? [{ type: 'UserTagsFollowing', id: 'LIST' }] : []
 		}),
-		create: builder.mutation<
+		createUserTagsFollowing: builder.mutation<
 			CreateUserTagsFollowingResponseDto,
 			{ body: CreateUserTagsFollowingBodyDto }
 		>({
 			query: ({ body }) => ({
-				url: '/',
+				url: url('/'),
 				method: 'POST',
 				body
 			}),
@@ -57,7 +53,7 @@ const apiSlice = createApi({
 				try {
 					patchResult = dispatch(
 						apiSlice.util.updateQueryData(
-							'findAll',
+							'findAllUserTagsFollowing',
 							{ query: { page: 1, limit: 10 } },
 							(draft) => {
 								draft.unshift(result.data);
@@ -66,11 +62,8 @@ const apiSlice = createApi({
 					);
 
 					dispatch(
-						userApiSlice.util.invalidateTags([{ type: 'User', id: 'USER' }])
-					);
-
-					dispatch(
-						tagApiSlice.util.invalidateTags([
+						serviceApi.util.invalidateTags([
+							{ type: 'User', id: 'USER' },
 							{ type: 'Tag', id: result.data.tag.tag_uid }
 						])
 					);
@@ -82,12 +75,12 @@ const apiSlice = createApi({
 				}
 			}
 		}),
-		delete: builder.mutation<
+		deleteUserTagsFollowing: builder.mutation<
 			DeleteUserTagsFollowingResponseDto,
 			{ params: DeleteUserTagsFollowingParamsDto }
 		>({
 			query: ({ params }) => ({
-				url: `/${params.tag_uid}`,
+				url: url(`/${params.tag_uid}`),
 				method: 'DELETE'
 			}),
 			invalidatesTags: [{ type: 'UserTagsFollowing', id: 'LIST' }],
@@ -96,7 +89,7 @@ const apiSlice = createApi({
 				try {
 					patchResult = dispatch(
 						apiSlice.util.updateQueryData(
-							'findAll',
+							'findAllUserTagsFollowing',
 							{ query: { page: 1, limit: 10 } },
 							(draft) => {
 								_.remove(
@@ -110,11 +103,8 @@ const apiSlice = createApi({
 
 					await queryFulfilled;
 					dispatch(
-						userApiSlice.util.invalidateTags([{ type: 'User', id: 'USER' }])
-					);
-
-					dispatch(
-						tagApiSlice.util.invalidateTags([
+						serviceApi.util.invalidateTags([
+							{ type: 'User', id: 'USER' },
 							{ type: 'Tag', id: params.tag_uid }
 						])
 					);

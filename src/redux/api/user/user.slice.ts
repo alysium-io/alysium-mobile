@@ -1,6 +1,5 @@
-import { createApi } from '@reduxjs/toolkit/query/react';
-import baseQueryConfig from '../utils/baseQueryConfig';
-import { ContinueUserPhoneNumberBodyDto } from './dto/user-continue-phone.dto';
+import { rtkBaseUrl, serviceApi } from '../base';
+import { CreateUserResponseDto } from './dto/user-create.dto';
 import { DeleteUserResponseDto } from './dto/user-delete.dto';
 import { PrivateFindOneUserResponseDto } from './dto/user-find-one.dto';
 import { LoginUserPhoneNumberBodyDto } from './dto/user-login-phone.dto';
@@ -11,71 +10,64 @@ import {
 	UpdateUserResponseDto
 } from './dto/user-update.dto';
 
-const apiSlice = createApi({
-	baseQuery: baseQueryConfig({ basePath: '/user' }),
-	reducerPath: 'userApi',
-	tagTypes: ['User'],
+const url = rtkBaseUrl('user');
+
+export default serviceApi.injectEndpoints({
 	endpoints: (builder) => ({
-		privateFindOne: builder.query<PrivateFindOneUserResponseDto, void>({
+		privateFindOneUser: builder.query<PrivateFindOneUserResponseDto, void>({
 			query: () => ({
-				url: '/',
+				url: url('/'),
 				method: 'GET'
 			}),
 			providesTags: (result) => (result ? [{ type: 'User', id: 'USER' }] : [])
 		}),
-		update: builder.mutation<
+		updateUser: builder.mutation<
 			UpdateUserResponseDto,
 			{ body: UpdateUserBodyDto }
 		>({
 			query: ({ body }) => ({
-				url: '/',
+				url: url('/'),
 				method: 'PUT',
 				body
 			}),
 			invalidatesTags: [{ type: 'User', id: 'USER' }]
 		}),
-		delete: builder.mutation<DeleteUserResponseDto, void>({
+		deleteUser: builder.mutation<DeleteUserResponseDto, void>({
 			query: () => ({
-				url: '/',
+				url: url('/'),
 				method: 'DELETE'
 			}),
 			invalidatesTags: [{ type: 'User', id: 'USER' }],
 			onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
 				await queryFulfilled;
-				dispatch(apiSlice.util.resetApiState());
+				dispatch(serviceApi.util.resetApiState());
 			}
 		}),
-		registerPhoneNumber: builder.query<
-			LoginResponseDto,
+		registerUserPhoneNumber: builder.query<
+			CreateUserResponseDto,
 			{ body: RegisterUserPhoneNumberBodyDto }
 		>({
 			query: ({ body }) => ({
-				url: '/register-phone',
+				url: url('/register-phone'),
 				method: 'POST',
 				body
 			})
 		}),
-		continuePhoneNumber: builder.query<
-			LoginResponseDto,
-			{ body: ContinueUserPhoneNumberBodyDto }
-		>({
-			query: ({ body }) => ({
-				url: '/continue-phone',
-				method: 'POST',
-				body
-			})
-		}),
-		loginPhoneNumber: builder.query<
+		loginUserPhoneNumber: builder.query<
 			LoginResponseDto,
 			{ body: LoginUserPhoneNumberBodyDto }
 		>({
 			query: ({ body }) => ({
-				url: '/login-phone',
+				url: url('/login-phone'),
 				method: 'POST',
 				body
+			})
+		}),
+		loginGuestUser: builder.query<LoginResponseDto, void>({
+			query: () => ({
+				url: url('/login-guest'),
+				method: 'POST'
 			})
 		})
 	})
 });
-
-export default apiSlice;

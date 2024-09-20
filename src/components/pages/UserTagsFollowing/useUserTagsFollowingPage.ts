@@ -16,7 +16,7 @@ const useUserTagsFollowingPage = (): IUseUserTagsFollowingPage => {
 		data: userTagsFollowingData,
 		isLoading: userTagsFollowingLoading,
 		isError: userTagsFollowingError
-	} = userTagsFollowingApiSlice.useFindAllQuery({
+	} = userTagsFollowingApiSlice.useFindAllUserTagsFollowingQuery({
 		query: {
 			page,
 			limit: defaultLimit

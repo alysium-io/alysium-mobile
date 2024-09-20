@@ -3,21 +3,17 @@ import { Formatting, Vibrator } from '@etc';
 import { FindTagCorrelatedResponseDto } from '@flux/api/tag/dto/tag-correlated.dto';
 import { FindOneTagResponseDto } from '@flux/api/tag/dto/tag-find-one.dto';
 import { useNavigation } from '@hooks';
-import { FollowButton, Pill, PillGroup } from '@molecules';
+import { Pill, PillGroup } from '@molecules';
 import { Stats } from '@organisms';
 import React from 'react';
+import FollowTagButton from './FollowTagButton';
 
 interface HeaderProps {
 	tagData: FindOneTagResponseDto;
 	correlatedTagsData: FindTagCorrelatedResponseDto;
-	onPressFollowButton: (isFollowing: boolean) => void;
 }
 
-const Header: React.FC<HeaderProps> = ({
-	tagData,
-	correlatedTagsData,
-	onPressFollowButton
-}) => {
+const Header: React.FC<HeaderProps> = ({ tagData, correlatedTagsData }) => {
 	const { tagPage } = useNavigation();
 
 	const onPressCorrelatedTag = (tagUid: string) => {
@@ -65,10 +61,7 @@ const Header: React.FC<HeaderProps> = ({
 				/>
 			</View>
 			<Section>
-				<FollowButton
-					defaultState={tagData.is_following}
-					onChange={onPressFollowButton}
-				/>
+				<FollowTagButton tagData={tagData} />
 			</Section>
 			<Section>
 				<PillGroup>

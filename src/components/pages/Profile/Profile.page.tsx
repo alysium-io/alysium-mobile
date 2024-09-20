@@ -1,17 +1,8 @@
-import { BasePage } from '@organisms';
-import {
-	AboutAlysiumBottomSheet,
-	PrivacyPolicyBottomSheet,
-	TermsOfServiceBottomSheet
-} from '@popups';
+import { useUserAppContext } from '@arch/Application/contexts/User.context';
+import { Role } from '@flux/api/user/user.entity';
 import React from 'react';
-import { ScrollView } from 'react-native';
-import HeaderSection from './components/HeaderSection';
-import LogoutSection from './components/LogoutSection';
-import MenuSection from './components/MenuSection';
-import SelectAccountSection from './components/SelectAccountSection';
-import ProfilePageHeader from './Profile.header';
-import useProfilePage from './useProfilePage';
+import GuestProfile from './perspectives/guest/GuestProfile';
+import UserProfile from './perspectives/user/UserProfile';
 
 const ProfilePage = () => {
 	// Create Host & Artist footer (on hold)
@@ -25,30 +16,13 @@ const ProfilePage = () => {
 	// 	[]
 	// );
 
-	const {
-		termsOfServiceSheetApi,
-		privacyPolicySheetApi,
-		aboutAlysiumSheetApi
-	} = useProfilePage();
+	const { userData } = useUserAppContext();
 
-	return (
-		<BasePage>
-			<ProfilePageHeader />
-			<ScrollView alwaysBounceVertical>
-				<HeaderSection />
-				<SelectAccountSection />
-				<MenuSection
-					termsOfServiceSheetApi={termsOfServiceSheetApi}
-					privacyPolicySheetApi={privacyPolicySheetApi}
-					aboutAlysiumSheetApi={aboutAlysiumSheetApi}
-				/>
-				<LogoutSection />
-			</ScrollView>
-			<PrivacyPolicyBottomSheet sheetApi={privacyPolicySheetApi} />
-			<TermsOfServiceBottomSheet sheetApi={termsOfServiceSheetApi} />
-			<AboutAlysiumBottomSheet sheetApi={aboutAlysiumSheetApi} />
-		</BasePage>
-	);
+	if (userData.role === Role.guest) {
+		return <GuestProfile />;
+	}
+
+	return <UserProfile />;
 };
 
 export default ProfilePage;

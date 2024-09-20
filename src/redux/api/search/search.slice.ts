@@ -1,6 +1,5 @@
-import { createApi } from '@reduxjs/toolkit/query/react';
 import _ from 'lodash';
-import baseQueryConfig from '../utils/baseQueryConfig';
+import { rtkBaseUrl, serviceApi } from '../base';
 import {
 	SearchArtistsBodyDto,
 	SearchArtistsQueryDto,
@@ -12,17 +11,16 @@ import {
 	SearchTagsResponseDto
 } from './dto/search-tags.dto';
 
-const apiSlice = createApi({
-	baseQuery: baseQueryConfig({ basePath: '/search' }),
-	reducerPath: 'searchApi',
-	tagTypes: ['Search'],
+const url = rtkBaseUrl('search');
+
+const apiSlice = serviceApi.injectEndpoints({
 	endpoints: (builder) => ({
 		searchArtists: builder.query<
 			SearchArtistsResponseDto,
 			{ body: SearchArtistsBodyDto; query: SearchArtistsQueryDto }
 		>({
 			query: ({ body, query }) => ({
-				url: '/artists',
+				url: url('/artists'),
 				method: 'POST',
 				params: query,
 				body
@@ -46,7 +44,7 @@ const apiSlice = createApi({
 			{ body: SearchTagsBodyDto; query: SearchTagsQueryDto }
 		>({
 			query: ({ body, query }) => ({
-				url: '/tags',
+				url: url('/tags'),
 				method: 'POST',
 				params: query,
 				body

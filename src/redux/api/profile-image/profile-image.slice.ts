@@ -1,15 +1,13 @@
-import { createApi } from '@reduxjs/toolkit/query/react';
 import { Asset } from 'react-native-image-picker';
+import { rtkBaseUrl, serviceApi } from '../base';
 import { userApiSlice } from '../user';
-import baseQueryConfig from '../utils/baseQueryConfig';
 import { CreateUserProfileImageResponseDto } from './dto/create-user-profile-image.dto';
 
-const apiSlice = createApi({
-	baseQuery: baseQueryConfig({ basePath: '/profile-image' }),
-	reducerPath: 'profileImageApi',
-	tagTypes: ['ProfileImage'],
+const url = rtkBaseUrl('profile-image');
+
+const apiSlice = serviceApi.injectEndpoints({
 	endpoints: (builder) => ({
-		create: builder.mutation<
+		createProfileImage: builder.mutation<
 			CreateUserProfileImageResponseDto,
 			{ file: Asset }
 		>({
@@ -21,7 +19,7 @@ const apiSlice = createApi({
 					name: file.fileName
 				});
 				return {
-					url: '/user',
+					url: url('/user'),
 					method: 'POST',
 					body: form,
 					headers: {

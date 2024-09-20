@@ -4,6 +4,12 @@ import { UserGallery } from '../gallery/gallery.entity';
 import { Host } from '../host/host.entity';
 import { ProfileImage } from '../profile-image';
 
+export enum Role {
+	guest = 'guest',
+	user = 'user',
+	admin = 'admin'
+}
+
 export interface PrivateUser {
 	readonly user_uid: ApiIdentifier;
 	readonly name: string | null;
@@ -16,4 +22,5 @@ export interface PrivateUser {
 	readonly gallery: UserGallery[];
 	readonly num_tags_following: number;
 	readonly num_artists_following: number;
+	readonly role: Role;
 }

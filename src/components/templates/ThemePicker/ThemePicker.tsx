@@ -14,12 +14,7 @@ const ThemePicker = () => {
 		return setThemeName(newThemeName);
 	};
 	return (
-		<View
-			margin='m'
-			style={styles.container}
-			flexDirection='row'
-			flexWrap='wrap'
-		>
+		<View style={styles.container} flexDirection='row' flexWrap='wrap'>
 			{Object.keys(accentColors).map((themeName, idx) => (
 				<View margin='m' key={idx}>
 					<ColorChoice

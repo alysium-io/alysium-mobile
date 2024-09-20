@@ -49,7 +49,7 @@ export const createSemanticDarkTheme = (
 		'button.solid.disabled.bg': palette.neutral.p4,
 		'button.solid.disabled.text': palette.neutral.p8,
 		'button.solid.success.bg': palette.s.p3,
-		'button.solid.success.text': palette.neutral.p1,
+		'button.solid.success.text': palette.neutral.p7,
 		'button.solid.active.bg.default': palette.neutral.p1,
 		'button.solid.active.text.default': palette.neutral.p9,
 		'button.solid.active.bg.p': palette.p.p5,

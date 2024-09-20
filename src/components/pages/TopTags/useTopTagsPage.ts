@@ -10,7 +10,7 @@ interface IUseTopTagsPage {
 const useTopTagsPage = (): IUseTopTagsPage => {
 	const { page, defaultLimit, nextPage } = usePagination();
 
-	const { data: topTagsData } = tagApiSlice.useTopQuery({
+	const { data: topTagsData } = tagApiSlice.useTopTagsQuery({
 		query: {
 			limit: defaultLimit,
 			page: page

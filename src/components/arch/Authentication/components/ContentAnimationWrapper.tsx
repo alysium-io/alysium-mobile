@@ -2,22 +2,21 @@ import { View } from '@atomic';
 import React from 'react';
 import { FadeInLeft, FadeOutRight } from 'react-native-reanimated';
 
-interface ContentAnimationWrapperProps {
-	children: React.ReactNode;
-}
+type ContentAnimationWrapperProps = Omit<
+	React.ComponentProps<typeof View>,
+	'animated'
+> & {};
 
-const ContentAnimationWrapper: React.FC<ContentAnimationWrapperProps> = ({
-	children
-}) => {
-	return (
-		<View
-			animated
-			entering={FadeInLeft.duration(200)}
-			exiting={FadeOutRight.duration(200)}
-		>
-			{children}
-		</View>
-	);
-};
+const ContentAnimationWrapper: React.FC<ContentAnimationWrapperProps> = (
+	props
+) => (
+	<View
+		animated
+		entering={FadeInLeft.duration(200)}
+		exiting={FadeOutRight.duration(200)}
+		flex={1}
+		{...props}
+	/>
+);
 
 export default ContentAnimationWrapper;

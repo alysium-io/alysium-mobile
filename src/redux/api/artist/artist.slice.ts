@@ -1,5 +1,4 @@
-import { createApi } from '@reduxjs/toolkit/query/react';
-import baseQueryConfig from '../utils/baseQueryConfig';
+import { rtkBaseUrl, serviceApi } from '../base';
 import {
 	CreateArtistBodyDto,
 	CreateArtistResponseDto
@@ -28,50 +27,49 @@ import {
 	UpdateArtistResponseDto
 } from './dto/artist-update.dto';
 
-const apiSlice = createApi({
-	baseQuery: baseQueryConfig({ basePath: '/artist' }),
-	reducerPath: 'artistApi',
-	tagTypes: ['Artist', 'PublicArtist'],
+const url = rtkBaseUrl('artist');
+
+export default serviceApi.injectEndpoints({
 	endpoints: (builder) => ({
-		publicFindOne: builder.query<
+		publicFindOneArtist: builder.query<
 			PublicFindOneArtistResponseDto,
 			{ params: PublicFindOneArtistParamsDto }
 		>({
 			query: ({ params }) => ({
-				url: `/public/${params.artist_uid}`,
+				url: url(`/public/${params.artist_uid}`),
 				method: 'GET'
 			}),
 			providesTags: (result, error, { params }) => [
 				{ type: 'PublicArtist', id: params.artist_uid }
 			]
 		}),
-		publicFindRelated: builder.query<
+		publicFindRelatedArtists: builder.query<
 			PublicFindRelatedArtistsResponseDto,
 			{ params: PublicFindRelatedArtistsParamsDto }
 		>({
 			query: ({ params }) => ({
-				url: `/public/${params.artist_uid}/related`,
+				url: url(`/public/${params.artist_uid}/related`),
 				method: 'GET'
 			})
 		}),
-		privateFindOne: builder.query<
+		privateFindOneArtist: builder.query<
 			PrivateFindOneArtistResponseDto,
 			{ params: PrivateFindOneArtistParamsDto }
 		>({
 			query: ({ params }) => ({
-				url: `/${params.artist_uid}`,
+				url: url(`/${params.artist_uid}`),
 				method: 'GET'
 			}),
 			providesTags: (result, error, { params }) => [
 				{ type: 'Artist', id: params.artist_uid }
 			]
 		}),
-		privateFindAll: builder.query<
+		privateFindAllArtists: builder.query<
 			PrivateFindAllArtistsResponseDto[],
 			{ query: PrivateFindAllArtistsQueryDto }
 		>({
 			query: ({ query }) => ({
-				url: '/',
+				url: url('/'),
 				method: 'GET',
 				params: query
 			}),
@@ -86,18 +84,18 @@ const apiSlice = createApi({
 					  ]
 					: [{ type: 'Artist', id: 'LIST' }]
 		}),
-		create: builder.mutation<
+		createArtist: builder.mutation<
 			CreateArtistResponseDto,
 			{ body: CreateArtistBodyDto }
 		>({
 			query: ({ body }) => ({
-				url: '/',
+				url: url('/'),
 				method: 'POST',
 				body
 			}),
 			invalidatesTags: [{ type: 'Artist', id: 'LIST' }]
 		}),
-		update: builder.mutation<
+		updateArtist: builder.mutation<
 			UpdateArtistResponseDto,
 			{
 				body: UpdateArtistBodyDto;
@@ -105,19 +103,19 @@ const apiSlice = createApi({
 			}
 		>({
 			query: (body) => ({
-				url: '/',
+				url: url('/'),
 				method: 'PUT',
 				body
 			}),
 			invalidatesTags: (result) =>
 				result ? [{ type: 'Artist', id: result.artist_uid }] : []
 		}),
-		delete: builder.mutation<
+		deleteArtist: builder.mutation<
 			DeleteArtistResponseDto,
 			{ params: DeleteArtistParamsDto }
 		>({
 			query: ({ params }) => ({
-				url: `/${params.artist_uid}`,
+				url: url(`/${params.artist_uid}`),
 				method: 'DELETE'
 			}),
 			invalidatesTags: (result, error, { params }) => [
@@ -126,5 +124,3 @@ const apiSlice = createApi({
 		})
 	})
 });
-
-export default apiSlice;

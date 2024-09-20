@@ -1,6 +1,5 @@
-import { createApi } from '@reduxjs/toolkit/query/react';
 import _ from 'lodash';
-import baseQueryConfig from '../utils/baseQueryConfig';
+import { rtkBaseUrl, serviceApi } from '../base';
 import {
 	FindTagArtistsParamsDto,
 	FindTagArtistsQueryDto,
@@ -18,17 +17,16 @@ import {
 } from './dto/tag-find-one.dto';
 import { TopTagsQueryDto, TopTagsResponseDto } from './dto/tag-top.dto';
 
-const apiSlice = createApi({
-	baseQuery: baseQueryConfig({ basePath: '/tag' }),
-	reducerPath: 'tagApi',
-	tagTypes: ['Tag'],
+const url = rtkBaseUrl('tag');
+
+const apiSlice = serviceApi.injectEndpoints({
 	endpoints: (builder) => ({
 		findTagArtists: builder.query<
 			FindTagArtistsResponseDto[],
 			{ params: FindTagArtistsParamsDto; query: FindTagArtistsQueryDto }
 		>({
 			query: ({ params, query }) => ({
-				url: `/${params.tag_uid}/artists`,
+				url: url(`/${params.tag_uid}/artists`),
 				method: 'GET',
 				params: query
 			}),
@@ -52,38 +50,41 @@ const apiSlice = createApi({
 			{ params: FindTagCorrelatedParamsDto }
 		>({
 			query: ({ params }) => ({
-				url: `/${params.tag_uid}/correlated`,
+				url: url(`/${params.tag_uid}/correlated`),
 				method: 'GET'
 			})
 		}),
-		findOne: builder.query<
+		findOneTag: builder.query<
 			FindOneTagResponseDto,
 			{ params: FindOneTagParamsDto }
 		>({
 			query: ({ params }) => ({
-				url: `/${params.tag_uid}`,
+				url: url(`/${params.tag_uid}`),
 				method: 'GET'
 			}),
 			providesTags: (result, error, { params }) => [
 				{ type: 'Tag', id: params.tag_uid }
 			]
 		}),
-		create: builder.mutation<CreateTagResponseDto, { body: CreateTagBodyDto }>({
+		createTag: builder.mutation<
+			CreateTagResponseDto,
+			{ body: CreateTagBodyDto }
+		>({
 			query: ({ body }) => ({
-				url: '/',
+				url: url('/'),
 				method: 'POST',
 				body
 			})
 		}),
-		discover: builder.query<DiscoverTagsResponseDto, undefined>({
+		discoverTags: builder.query<DiscoverTagsResponseDto, undefined>({
 			query: () => ({
-				url: '/discover',
+				url: url('/discover'),
 				method: 'GET'
 			})
 		}),
-		top: builder.query<TopTagsResponseDto, { query: TopTagsQueryDto }>({
+		topTags: builder.query<TopTagsResponseDto, { query: TopTagsQueryDto }>({
 			query: ({ query }) => ({
-				url: '/top',
+				url: url('/top'),
 				method: 'GET',
 				params: query
 			}),

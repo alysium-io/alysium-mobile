@@ -1,38 +1,17 @@
-import { Formatting } from '@etc';
+import { useDispatch } from '@flux';
+import { serviceApi } from '@flux/api/base';
 import { userApiSlice } from '@flux/api/user';
-import { createUseContextHook, usePersistedAppState } from '@hooks';
-import { useBehaviorFunnel } from '@src/utils/contexts/Behavior';
+import { createUseContextHook, usePersistedAppState, useToast } from '@hooks';
 import { AuthStage, ProviderProps } from '@types';
-import React, { createContext, useEffect, useState } from 'react';
-import { Keyboard } from 'react-native';
-import Toast from 'react-native-toast-message';
-
-export type ScreenState = 'login-phone' | 'continue-phone';
-export type AuthenticationState = {
-	screen: ScreenState;
-	phone_number: string;
-	passcode: string;
-	isLoading: boolean;
-};
-
-const initialState: AuthenticationState = {
-	screen: 'continue-phone',
-	phone_number: '',
-	passcode: '',
-	isLoading: false
-};
+import React, { createContext, useEffect } from 'react';
 
 export type AuthenticationAppContextType = {
 	authStage: AuthStage;
 	token: string | null;
-	state: AuthenticationState;
 	logout: () => void;
 	deleteAccount: () => void;
-	continuePhoneNumber: () => Promise<void>;
-	loginPhoneNumber: () => void;
-	setPhoneNumber: (phone_number: string) => void;
-	setCode: (passcode: string) => void;
-	resetState: () => void;
+	loginGuest: () => void;
+	login: (token: string) => void;
 };
 
 export const AuthenticationAppContext = createContext(
@@ -48,64 +27,26 @@ export const AuthenticationAppProvider: React.FC<ProviderProps> = ({
 		setPersistedAppStateWithDefaults,
 		authStage
 	} = usePersistedAppState();
-	const [privateFindOneUserQuery] = userApiSlice.useLazyPrivateFindOneQuery();
-	const [registerPhoneNumberQuery] =
-		userApiSlice.useLazyRegisterPhoneNumberQuery();
-	const [loginPhoneNumberQuery] = userApiSlice.useLazyLoginPhoneNumberQuery();
-	const [deleteUserMutation] = userApiSlice.useDeleteMutation();
-	const { funnel } = useBehaviorFunnel('FUNNEL_AUTHENTICATION');
-
-	const [state, setState] = useState<AuthenticationState>(initialState);
-
-	const setPhoneNumber = (phone_number: string) => {
-		setState({
-			...state,
-			phone_number: Formatting.formatPhoneNumber(phone_number)
-		});
-	};
-
-	const setCode = (passcode: string) => {
-		setState({
-			...state,
-			passcode
-		});
-	};
-
-	const goToOneTimeCode = () => {
-		setState({
-			...state,
-			isLoading: false,
-			screen: 'login-phone'
-		});
-	};
-
-	const resetState = () => {
-		setState(initialState);
-	};
-
-	const setIsLoading = (isLoading: boolean) => {
-		setState({
-			...state,
-			isLoading
-		});
-	};
+	const { toastError } = useToast();
+	const dispatch = useDispatch();
+	const [privateFindOneUserQuery] =
+		userApiSlice.useLazyPrivateFindOneUserQuery();
+	const [deleteUserMutation] = userApiSlice.useDeleteUserMutation();
+	const [loginGuestQuery] = userApiSlice.useLazyLoginGuestUserQuery();
 
 	useEffect(() => {
 		const fetchMe = async () => {
 			if (token !== null) {
-				if (authStage !== AuthStage.loggedIn) {
-					const { error } = await privateFindOneUserQuery();
-
-					if (error) {
-						console.log('Failed to fetch user data.', error);
-						logout();
-					} else {
-						console.log('Successfully fetched user data.');
+				privateFindOneUserQuery()
+					.unwrap()
+					.then(() => {
 						setPersistedAppState({
 							authStage: AuthStage.loggedIn
 						});
-					}
-				}
+					})
+					.catch(() => {
+						logout();
+					});
 			} else {
 				if (authStage !== AuthStage.loggedOut) {
 					console.log('No token found, setting user to logged out.');
@@ -117,11 +58,11 @@ export const AuthenticationAppProvider: React.FC<ProviderProps> = ({
 	}, [token]);
 
 	const logout = () => {
+		serviceApi.util.resetApiState();
 		setPersistedAppStateWithDefaults({
 			authStage: AuthStage.loggedOut,
 			token: null
 		});
-		resetState();
 	};
 
 	const login = (token: string) => {
@@ -129,59 +70,20 @@ export const AuthenticationAppProvider: React.FC<ProviderProps> = ({
 			token,
 			authStage: AuthStage.loggedIn
 		});
-		resetState();
-		funnel(2, {
-			funnel_step: 'login-success'
-		});
 	};
 
 	const deleteAccount = async () => {
-		try {
-			await deleteUserMutation().unwrap();
-			logout();
-		} catch (error: any) {
-			Toast.show({
-				type: 'error',
-				text1: 'Failed to delete account.',
-				text2: 'Error: ' + error?.message
-			});
-		}
+		deleteUserMutation()
+			.unwrap()
+			.then(logout)
+			.catch(() => toastError());
 	};
 
-	const continuePhoneNumber = async () => {
-		Keyboard.dismiss();
-		setIsLoading(true);
-		const { data, error } = await registerPhoneNumberQuery({
-			body: {
-				phone_number: '+1' + Formatting.cleanStringToNumber(state.phone_number)
-			}
-		});
-
-		if (error) {
-			logout();
-		}
-
-		if (data) {
-			goToOneTimeCode();
-		}
-	};
-
-	const loginPhoneNumber = async () => {
-		const { data, error } = await loginPhoneNumberQuery({
-			body: {
-				phone_number: '+1' + Formatting.cleanStringToNumber(state.phone_number),
-				passcode: state.passcode
-			}
-		});
-
-		if (error) {
-			console.log('Failed to login with phone number.', error);
-			logout();
-		}
-
-		if (data) {
-			login(data.token);
-		}
+	const loginGuest = async () => {
+		loginGuestQuery()
+			.unwrap()
+			.then(({ token }) => login(token))
+			.catch(() => toastError());
 	};
 
 	return (
@@ -191,12 +93,8 @@ export const AuthenticationAppProvider: React.FC<ProviderProps> = ({
 				token,
 				logout,
 				deleteAccount,
-				state,
-				continuePhoneNumber,
-				loginPhoneNumber,
-				setPhoneNumber,
-				setCode,
-				resetState
+				loginGuest,
+				login
 			}}
 		>
 			{children}

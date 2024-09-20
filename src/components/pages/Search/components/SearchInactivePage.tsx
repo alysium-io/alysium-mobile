@@ -15,6 +15,8 @@ import { StandardFeedback } from '@templates';
 import React, { useRef } from 'react';
 import { View as RNView } from 'react-native';
 import { FadeIn, FadeOut, LinearTransition } from 'react-native-reanimated';
+import ArtistsFollowingButton from './ArtistsFollowingButton';
+import TagsFollowingButton from './TagsFollowingButton';
 
 const SearchInactivePage: React.FC = () => {
 	const { theme } = useTheme();
@@ -28,7 +30,7 @@ const SearchInactivePage: React.FC = () => {
 	} = useNavigation();
 
 	const { data: discoverTagsData, refetch: refetchDiscoverTags } =
-		tagApiSlice.useDiscoverQuery(undefined);
+		tagApiSlice.useDiscoverTagsQuery(undefined);
 
 	const onPressRefreshDiscoverTags = () => {
 		Vibrator.rigid();
@@ -48,7 +50,7 @@ const SearchInactivePage: React.FC = () => {
 			layout={LinearTransition.duration(300)}
 		>
 			<Section marginBottom='l'>
-				<ContentListItem
+				<ArtistsFollowingButton
 					onPress={() =>
 						userArtistsFollowingPage({
 							from: 'SearchPage',
@@ -71,7 +73,7 @@ const SearchInactivePage: React.FC = () => {
 						}
 					}}
 				/>
-				<ContentListItem
+				<TagsFollowingButton
 					onPress={() =>
 						userTagsFollowingPage({
 							from: 'SearchPage',

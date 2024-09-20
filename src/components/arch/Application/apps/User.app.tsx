@@ -1,8 +1,14 @@
 import { AppTransitionWrapper, Icon } from '@atomic';
+import { Role } from '@flux/api/user/user.entity';
+import {
+	CheckUserWantsToRegisterBottomSheet,
+	CreateAccountBottomSheet
+} from '@popups';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { BottomTabNavigatorParamList } from '@types';
 import React from 'react';
+import { useUserAppContext } from '../contexts/User.context';
 import { ProfileTab, SearchTab } from '../tabs';
 import { useNavigationSettings } from '../tabs/settings';
 import AppDependencies from './AppDependencies';
@@ -12,6 +18,11 @@ const Tab = createBottomTabNavigator<BottomTabNavigatorParamList>();
 const UserApp = () => {
 	const { screenOptions, sceneContainerStyle, initialRoutes } =
 		useNavigationSettings();
+	const {
+		userData,
+		createAccountBottomSheetApi,
+		checkUserWantsToRegisterBottomSheet
+	} = useUserAppContext();
 
 	return (
 		<AppDependencies>
@@ -64,6 +75,14 @@ const UserApp = () => {
 					</Tab.Navigator>
 				</NavigationContainer>
 			</AppTransitionWrapper>
+			{userData?.role === Role.guest && (
+				<>
+					<CreateAccountBottomSheet sheetApi={createAccountBottomSheetApi} />
+					<CheckUserWantsToRegisterBottomSheet
+						sheetApi={checkUserWantsToRegisterBottomSheet}
+					/>
+				</>
+			)}
 		</AppDependencies>
 	);
 };

@@ -1,8 +1,5 @@
-import { createApi } from '@reduxjs/toolkit/query/react';
 import _ from 'lodash';
-import { artistApiSlice } from '../artist';
-import { userApiSlice } from '../user';
-import baseQueryConfig from '../utils/baseQueryConfig';
+import { rtkBaseUrl, serviceApi } from '../base';
 import {
 	CreateUserArtistsFollowingBodyDto,
 	CreateUserArtistsFollowingResponseDto
@@ -16,19 +13,18 @@ import {
 	FindAllUserArtistsFollowingResponseDto
 } from './dto/user-artists-following-find-all.dto';
 
-const apiSlice = createApi({
-	baseQuery: baseQueryConfig({ basePath: '/user-artists-following' }),
-	reducerPath: 'userArtistsFollowingApi',
-	tagTypes: ['UserArtistsFollowing'],
+const url = rtkBaseUrl('user-artists-following');
+
+const apiSlice = serviceApi.injectEndpoints({
 	endpoints: (builder) => ({
-		findAll: builder.query<
+		findAllUserArtistsFollowing: builder.query<
 			FindAllUserArtistsFollowingResponseDto[],
 			{
 				query: FindAllUserArtistsFollowingQueryDto;
 			}
 		>({
 			query: ({ query }) => ({
-				url: '/',
+				url: url('/'),
 				method: 'GET',
 				params: query
 			}),
@@ -46,12 +42,12 @@ const apiSlice = createApi({
 			providesTags: (result) =>
 				result ? [{ type: 'UserArtistsFollowing', id: 'LIST' }] : []
 		}),
-		create: builder.mutation<
+		createUserArtistsFollowing: builder.mutation<
 			CreateUserArtistsFollowingResponseDto,
 			{ body: CreateUserArtistsFollowingBodyDto }
 		>({
 			query: ({ body }) => ({
-				url: '/',
+				url: url('/'),
 				method: 'POST',
 				body
 			}),
@@ -61,7 +57,7 @@ const apiSlice = createApi({
 				try {
 					patchResult = dispatch(
 						apiSlice.util.updateQueryData(
-							'findAll',
+							'findAllUserArtistsFollowing',
 							{ query: { page: 1, limit: 10 } },
 							(draft) => {
 								draft.unshift(result.data);
@@ -70,11 +66,8 @@ const apiSlice = createApi({
 					);
 
 					dispatch(
-						userApiSlice.util.invalidateTags([{ type: 'User', id: 'USER' }])
-					);
-
-					dispatch(
-						artistApiSlice.util.invalidateTags([
+						serviceApi.util.invalidateTags([
+							{ type: 'User', id: 'USER' },
 							{ type: 'PublicArtist', id: result.data.artist.artist_uid },
 							{ type: 'Artist', id: result.data.artist.artist_uid }
 						])
@@ -87,12 +80,12 @@ const apiSlice = createApi({
 				}
 			}
 		}),
-		delete: builder.mutation<
+		deleteUserArtistsFollowing: builder.mutation<
 			DeleteUserArtistsFollowingResponseDto,
 			{ params: DeleteUserArtistsFollowingParamsDto }
 		>({
 			query: ({ params }) => ({
-				url: `/${params.artist_uid}`,
+				url: url(`/${params.artist_uid}`),
 				method: 'DELETE'
 			}),
 			invalidatesTags: [{ type: 'UserArtistsFollowing', id: 'LIST' }],
@@ -101,7 +94,7 @@ const apiSlice = createApi({
 				try {
 					patchResult = dispatch(
 						apiSlice.util.updateQueryData(
-							'findAll',
+							'findAllUserArtistsFollowing',
 							{ query: { page: 1, limit: 10 } },
 							(draft) => {
 								_.remove(
@@ -114,11 +107,8 @@ const apiSlice = createApi({
 					);
 					await queryFulfilled;
 					dispatch(
-						userApiSlice.util.invalidateTags([{ type: 'User', id: 'USER' }])
-					);
-
-					dispatch(
-						artistApiSlice.util.invalidateTags([
+						serviceApi.util.invalidateTags([
+							{ type: 'User', id: 'USER' },
 							{ type: 'PublicArtist', id: params.artist_uid },
 							{ type: 'Artist', id: params.artist_uid }
 						])

@@ -14,29 +14,7 @@ import {
 	persistStore
 } from 'redux-persist';
 
-import { artistApiSlice } from './api/artist';
-import { artistTagLinkApiSlice } from './api/artist-tag-link';
-import { behaviorApiSlice } from './api/behavior';
-import { candidateApiSlice } from './api/candidate';
-import { contractApiSlice } from './api/contract';
-import { eventApiSlice } from './api/event';
-import { feedbackApiSlice } from './api/feedback';
-import { galleryApiSlice } from './api/gallery';
-import { healthApiSlice } from './api/health';
-import { hostApiSlice } from './api/host';
-import { hostEventLinkApiSlice } from './api/host-event-link';
-import { locationApiSlice } from './api/location';
-import { profileImageApiSlice } from './api/profile-image';
-import { searchApiSlice } from './api/search';
-import { tagApiSlice } from './api/tag';
-import { ticketApiSlice } from './api/ticket';
-import { ticketCollectionApiSlice } from './api/ticket-collection';
-import { ticketTypeApiSlice } from './api/ticket-type';
-import { userApiSlice } from './api/user';
-import { userArtistsFollowingApiSlice } from './api/user-artists-following';
-import { userTagsFollowingApiSlice } from './api/user-tags-following';
-import { venueApiSlice } from './api/venue';
-
+import { serviceApi } from './api/base';
 import { persistedAppReducer, persistedSearchReducer } from './local';
 import apiErrorUnauthorizedMiddleware from './middleware/apiErrorUnauthorizedMiddleware';
 
@@ -44,29 +22,7 @@ const store = configureStore({
 	reducer: {
 		persistedApp: persistedAppReducer,
 		persistedSearch: persistedSearchReducer,
-		[artistApiSlice.reducerPath]: artistApiSlice.reducer,
-		[hostApiSlice.reducerPath]: hostApiSlice.reducer,
-		[venueApiSlice.reducerPath]: venueApiSlice.reducer,
-		[eventApiSlice.reducerPath]: eventApiSlice.reducer,
-		[candidateApiSlice.reducerPath]: candidateApiSlice.reducer,
-		[artistTagLinkApiSlice.reducerPath]: artistTagLinkApiSlice.reducer,
-		[galleryApiSlice.reducerPath]: galleryApiSlice.reducer,
-		[hostEventLinkApiSlice.reducerPath]: hostEventLinkApiSlice.reducer,
-		[locationApiSlice.reducerPath]: locationApiSlice.reducer,
-		[tagApiSlice.reducerPath]: tagApiSlice.reducer,
-		[userApiSlice.reducerPath]: userApiSlice.reducer,
-		[searchApiSlice.reducerPath]: searchApiSlice.reducer,
-		[contractApiSlice.reducerPath]: contractApiSlice.reducer,
-		[ticketCollectionApiSlice.reducerPath]: ticketCollectionApiSlice.reducer,
-		[ticketTypeApiSlice.reducerPath]: ticketTypeApiSlice.reducer,
-		[ticketApiSlice.reducerPath]: ticketApiSlice.reducer,
-		[userArtistsFollowingApiSlice.reducerPath]:
-			userArtistsFollowingApiSlice.reducer,
-		[userTagsFollowingApiSlice.reducerPath]: userTagsFollowingApiSlice.reducer,
-		[profileImageApiSlice.reducerPath]: profileImageApiSlice.reducer,
-		[behaviorApiSlice.reducerPath]: behaviorApiSlice.reducer,
-		[healthApiSlice.reducerPath]: healthApiSlice.reducer,
-		[feedbackApiSlice.reducerPath]: feedbackApiSlice.reducer
+		[serviceApi.reducerPath]: serviceApi.reducer
 	},
 	middleware: (getDefaultMiddleware) => {
 		return getDefaultMiddleware({
@@ -74,28 +30,7 @@ const store = configureStore({
 				ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
 			}
 		})
-			.concat(artistApiSlice.middleware)
-			.concat(hostApiSlice.middleware)
-			.concat(venueApiSlice.middleware)
-			.concat(eventApiSlice.middleware)
-			.concat(candidateApiSlice.middleware)
-			.concat(artistTagLinkApiSlice.middleware)
-			.concat(galleryApiSlice.middleware)
-			.concat(hostEventLinkApiSlice.middleware)
-			.concat(locationApiSlice.middleware)
-			.concat(tagApiSlice.middleware)
-			.concat(userApiSlice.middleware)
-			.concat(searchApiSlice.middleware)
-			.concat(contractApiSlice.middleware)
-			.concat(ticketCollectionApiSlice.middleware)
-			.concat(ticketTypeApiSlice.middleware)
-			.concat(ticketApiSlice.middleware)
-			.concat(userArtistsFollowingApiSlice.middleware)
-			.concat(userTagsFollowingApiSlice.middleware)
-			.concat(profileImageApiSlice.middleware)
-			.concat(behaviorApiSlice.middleware)
-			.concat(healthApiSlice.middleware)
-			.concat(feedbackApiSlice.middleware)
+			.concat(serviceApi.middleware)
 			.concat(apiErrorUnauthorizedMiddleware);
 	}
 });

@@ -33,7 +33,7 @@ export type BehaviorContextType = {
 export const BehaviorContext = createContext({} as BehaviorContextType);
 
 export const BehaviorProvider: React.FC<ProviderProps> = ({ children }) => {
-	const [createBehaviorMutation] = behaviorApiSlice.useCreateMutation();
+	const [createBehaviorMutation] = behaviorApiSlice.useCreateBehaviorMutation();
 	const environment = useEnvContext();
 	const [user_uid, setBehaviorUserUid] = useState<string | undefined>(
 		undefined

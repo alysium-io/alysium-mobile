@@ -1,47 +1,93 @@
 import { DismissKeyboardWrapper, Icon, View } from '@atomic';
+import { LoginResponseDto } from '@flux/api/user/dto/user-login.dto';
 import { useTheme } from '@hooks';
+import { useButtonState } from '@molecules';
 import { BasePage } from '@organisms';
-import { useBehaviorFunnel } from '@src/utils/contexts/Behavior';
-import React, { useEffect } from 'react';
+import useLoginUserPhoneNumber from '@src/utils/redux-hook-form/useLoginUserPhoneNumberFormApi';
+import useRegisterUserPhoneNumber from '@src/utils/redux-hook-form/useRegisterUserPhoneNumberFormApi';
+import React, { useState } from 'react';
 import { Case, Switch } from 'react-if';
 import { LayoutAnimationConfig } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useAuthenticationAppContext } from '../Authentication.context';
-import ContinueWithPhoneBody from './ContinueWithPhoneBody';
 import EnterCode from './EnterCode';
+import RegisterUserPhoneNumber from './RegisterUserPhoneNumber';
 
 const LoggedOut = () => {
 	const { theme } = useTheme();
 	const insets = useSafeAreaInsets();
-	const { state } = useAuthenticationAppContext();
-	const { funnel } = useBehaviorFunnel('FUNNEL_AUTHENTICATION');
+	const { login } = useAuthenticationAppContext();
+	const oneTimeCodeButtonStateApi = useButtonState('disabled');
+	const sendTextButtonStateApi = useButtonState('disabled');
+	const [step, setStep] = useState(0);
 
-	useEffect(() => {
-		let funnel_step = 0;
-		if (state.screen === 'continue-phone') {
-			funnel_step = 0;
-		} else if (state.screen === 'login-phone') {
-			funnel_step = 1;
+	const registerUserPhoneNumberFormApi = useRegisterUserPhoneNumber({
+		methods: {
+			onConfirmedValid: () => {
+				sendTextButtonStateApi.setButtonState('loading');
+			},
+			onValidDidComplete: () => {
+				sendTextButtonStateApi.setButtonState('active');
+				loginUserPhoneNumberFormApi.formMethods.setValue(
+					'phone_number',
+					registerUserPhoneNumberFormApi.formMethods.getValues('phone_number')
+				);
+				setStep(1);
+			},
+			onValidDidFail: () => {
+				sendTextButtonStateApi.setButtonState('active');
+			}
 		}
-		funnel(funnel_step, {
-			funnel_step: state.screen
-		});
-	}, [state.screen]);
+	});
+
+	const loginUserPhoneNumberFormApi = useLoginUserPhoneNumber({
+		methods: {
+			onConfirmedValid: () => {
+				oneTimeCodeButtonStateApi.setButtonState('loading');
+			},
+			onValidDidComplete: (response: LoginResponseDto) => {
+				login(response.token);
+			},
+			onValidDidFail: () => {
+				oneTimeCodeButtonStateApi.setButtonState('active');
+			}
+		}
+	});
+
+	const onPressBack = () => {
+		loginUserPhoneNumberFormApi.formMethods.reset();
+		registerUserPhoneNumberFormApi.formMethods.reset();
+		sendTextButtonStateApi.setButtonState('disabled');
+		setStep(0);
+	};
 
 	return (
 		<BasePage>
 			<LayoutAnimationConfig skipEntering>
 				<DismissKeyboardWrapper>
-					<View margin='m' style={{ marginTop: insets.top + theme.spacing.l }}>
+					<View
+						flex={1}
+						margin='m'
+						style={{ marginTop: insets.top + theme.spacing.l }}
+					>
 						<View marginBottom='xl' alignItems='center'>
 							<Icon name='logo' size='l' color='text.p' />
 						</View>
 						<Switch>
-							<Case condition={state.screen === 'continue-phone'}>
-								<ContinueWithPhoneBody />
+							<Case condition={step === 0}>
+								<RegisterUserPhoneNumber
+									sendTextButtonStateApi={sendTextButtonStateApi}
+									registerUserPhoneNumberFormApi={
+										registerUserPhoneNumberFormApi
+									}
+								/>
 							</Case>
-							<Case condition={state.screen === 'login-phone'}>
-								<EnterCode />
+							<Case condition={step === 1}>
+								<EnterCode
+									onPressBack={onPressBack}
+									loginUserPhoneNumberFormApi={loginUserPhoneNumberFormApi}
+									oneTimeCodeButtonStateApi={oneTimeCodeButtonStateApi}
+								/>
 							</Case>
 						</Switch>
 					</View>

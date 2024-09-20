@@ -37,6 +37,10 @@ class Formatting {
 		return input;
 	};
 
+	static preparePhoneNumberForApi = (phoneNumber: string): string => {
+		return '+1' + Formatting.cleanStringToNumber(phoneNumber);
+	};
+
 	static cleanStringToNumber = (input: string): string => {
 		/**
 		 * Function that removes all non-numeric characters from a string

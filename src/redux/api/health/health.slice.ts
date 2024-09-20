@@ -1,14 +1,12 @@
-import { createApi } from '@reduxjs/toolkit/query/react';
-import baseQueryConfig from '../utils/baseQueryConfig';
+import { rtkBaseUrl, serviceApi } from '../base';
 
-const apiSlice = createApi({
-	baseQuery: baseQueryConfig({ basePath: '/health' }),
-	reducerPath: 'healthApi',
-	tagTypes: [],
+const url = rtkBaseUrl('health');
+
+const apiSlice = serviceApi.injectEndpoints({
 	endpoints: (builder) => ({
 		health: builder.query<string, void>({
 			query: () => ({
-				url: '',
+				url: url('/'),
 				method: 'GET',
 				responseHandler: (response) => response.text()
 			})

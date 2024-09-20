@@ -1,7 +1,7 @@
 import { Vibrator } from '@etc';
-import { useTheme } from '@hooks';
+import { ToggleApi, useTheme, useToggle } from '@hooks';
 import _ from 'lodash';
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import Button from './Button';
 
 interface ToggleButtonProps {
@@ -9,16 +9,18 @@ interface ToggleButtonProps {
 	onChange?: (isActive: boolean) => void;
 	inactiveButtonProps?: Omit<React.ComponentProps<typeof Button>, 'onPress'>;
 	activeButtonProps?: Omit<React.ComponentProps<typeof Button>, 'onPress'>;
+	toggleApi?: ToggleApi;
 }
 
 const ToggleButton: React.FC<ToggleButtonProps> = ({
 	defaultState = false,
 	inactiveButtonProps,
 	activeButtonProps,
-	onChange
+	onChange,
+	toggleApi
 }) => {
 	const { theme } = useTheme();
-	const [isActive, setIsActive] = useState(defaultState);
+	const _toggleApi = toggleApi || useToggle(defaultState);
 
 	const _buttonProps = useMemo(() => {
 		const _activeButtonProps = _.merge(
@@ -49,13 +51,13 @@ const ToggleButton: React.FC<ToggleButtonProps> = ({
 			activeButtonProps
 		);
 
-		return isActive ? _activeButtonProps : _inactiveButtonProps;
-	}, [isActive, activeButtonProps, inactiveButtonProps, theme]);
+		return _toggleApi.state ? _activeButtonProps : _inactiveButtonProps;
+	}, [_toggleApi, activeButtonProps, inactiveButtonProps, theme]);
 
 	const _onPress = () => {
+		_toggleApi.toggle();
 		Vibrator.notificationWarning();
-		onChange && onChange(!isActive);
-		setIsActive(!isActive);
+		onChange && onChange(!_toggleApi.state);
 	};
 
 	return <Button {..._buttonProps} onPress={_onPress} />;

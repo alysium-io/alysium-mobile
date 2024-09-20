@@ -1,13 +1,6 @@
-import { DismissKeyboardWrapper, View } from '@atomic';
 import { SheetApi } from '@hooks';
-import { Button } from '@molecules';
-import { FullScreenSheetWithHeaderAndFooter } from '@organisms';
-import { ThemePicker } from '@templates';
 import React from 'react';
-import EditHandle from './components/EditHandle';
-import EditProfileImage from './components/EditProfileImage';
-import ThemeModeSettings from './components/ThemeModeSettings';
-import useEditUserProfileBottomSheet from './useEditUserProfileBottomSheet';
+import UserEditUserProfileBottomSheet from './perspectives/user/UserEditUserProfileBottomSheet';
 
 interface EditUserProfileBottomSheetProps {
 	sheetApi: SheetApi;
@@ -16,32 +9,7 @@ interface EditUserProfileBottomSheetProps {
 const EditUserProfileBottomSheet: React.FC<EditUserProfileBottomSheetProps> = ({
 	sheetApi
 }) => {
-	const { formMethods, onSubmit } = useEditUserProfileBottomSheet(sheetApi);
-
-	const footerContent = (
-		<>
-			<View flex={1} marginRight='s'>
-				<Button text='cancel' onPress={sheetApi.close} variant='outlined' />
-			</View>
-			<View flex={1} marginLeft='s'>
-				<Button text='Save' onPress={onSubmit} />
-			</View>
-		</>
-	);
-
-	return (
-		<FullScreenSheetWithHeaderAndFooter
-			FooterContent={footerContent}
-			sheetApi={sheetApi}
-		>
-			<DismissKeyboardWrapper>
-				<EditProfileImage />
-				<EditHandle formMethods={formMethods} />
-				<ThemePicker />
-				<ThemeModeSettings />
-			</DismissKeyboardWrapper>
-		</FullScreenSheetWithHeaderAndFooter>
-	);
+	return <UserEditUserProfileBottomSheet sheetApi={sheetApi} />;
 };
 
 export default EditUserProfileBottomSheet;

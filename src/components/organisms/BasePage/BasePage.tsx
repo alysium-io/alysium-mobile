@@ -22,7 +22,8 @@ const BasePage: React.FC<BasePageProps> = ({ children, FooterComponent }) => {
 			backgroundColor='bg.p'
 			style={{
 				flex: 1,
-				marginBottom: footerDimensions.height
+				// TODO: VALIDATE THAT THIS DOESN'T BREAK ANYTHING BEFORE COMMITTING
+				paddingBottom: footerDimensions.height
 			}}
 		>
 			{FooterComponent && (
