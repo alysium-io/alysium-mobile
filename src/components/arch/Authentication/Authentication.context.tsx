@@ -1,4 +1,3 @@
-import { useDispatch } from '@flux';
 import { serviceApi } from '@flux/api/base';
 import { userApiSlice } from '@flux/api/user';
 import { createUseContextHook, usePersistedAppState, useToast } from '@hooks';
@@ -28,7 +27,6 @@ export const AuthenticationAppProvider: React.FC<ProviderProps> = ({
 		authStage
 	} = usePersistedAppState();
 	const { toastError } = useToast();
-	const dispatch = useDispatch();
 	const [privateFindOneUserQuery] =
 		userApiSlice.useLazyPrivateFindOneUserQuery();
 	const [deleteUserMutation] = userApiSlice.useDeleteUserMutation();
@@ -66,6 +64,7 @@ export const AuthenticationAppProvider: React.FC<ProviderProps> = ({
 	};
 
 	const login = (token: string) => {
+		serviceApi.util.resetApiState();
 		setPersistedAppState({
 			token,
 			authStage: AuthStage.loggedIn

@@ -1,4 +1,7 @@
-import { BottomSheetFooterProps } from '@gorhom/bottom-sheet';
+import {
+	BottomSheetFooterProps,
+	BottomSheetModalProps
+} from '@gorhom/bottom-sheet';
 import { LayoutApi, SheetApi, useKeyboard } from '@hooks';
 import { Header, HeaderIconButton, HeaderSection } from '@organisms';
 import { IChildrenProps } from '@types';
@@ -6,7 +9,9 @@ import React from 'react';
 import { ScrollView } from 'react-native';
 import { BottomSheet } from '../overrides';
 
-interface FullScreenSheetWithHeaderAndFooterProps extends IChildrenProps {
+interface FullScreenSheetWithHeaderAndFooterProps
+	extends IChildrenProps,
+		Omit<BottomSheetModalProps, 'children'> {
 	footerComponent?: React.FC<BottomSheetFooterProps>;
 	sheetApi: SheetApi;
 	sheetDidOpen?: () => void;
@@ -21,7 +26,8 @@ const FullScreenSheetWithHeaderAndFooter: React.FC<
 	footerComponent,
 	sheetDidOpen,
 	footerLayoutApi,
-	children
+	children,
+	...props
 }) => {
 	const { dismiss } = useKeyboard();
 
@@ -38,6 +44,7 @@ const FullScreenSheetWithHeaderAndFooter: React.FC<
 			handleComponent={null}
 			footerComponent={footerComponent}
 			onChange={onChange}
+			{...props}
 		>
 			<Header>
 				<HeaderSection

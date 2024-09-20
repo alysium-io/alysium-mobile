@@ -13,14 +13,15 @@ export type PersonaAppContextType = {
 	personaId: ApiIdentifier | null;
 	personaType: Persona;
 	changePersona: (newPersonaType: Persona, newPersonaId: ApiIdentifier) => void;
-	isLoading: boolean;
 	initializePersona: (user_uid: ApiIdentifier) => void;
+	isPersonaLoading: boolean;
+	setIsPersonaLoading: (isLoading: boolean) => void;
 };
 
 export const PersonaAppContext = createContext({} as PersonaAppContextType);
 
 export const PersonaAppProvider: React.FC<ProviderProps> = ({ children }) => {
-	const [isLoading, setIsLoading] = useState(false);
+	const [isPersonaLoading, setIsPersonaLoading] = useState(false);
 	const { personaId, personaType, setPersistedAppState } =
 		usePersistedAppState();
 
@@ -43,21 +44,15 @@ export const PersonaAppProvider: React.FC<ProviderProps> = ({ children }) => {
 		newPersonaType: Persona,
 		newPersonaId: ApiIdentifier
 	) => {
-		console.log({
-			personaId,
-			personaType,
-			newPersonaType,
-			newPersonaId
-		});
 		if (newPersonaType !== personaType || newPersonaId !== personaId) {
-			setIsLoading(true);
+			setIsPersonaLoading(true);
 			setPersistedAppState({
 				personaType: newPersonaType,
 				personaId: newPersonaId,
 				themeMode: appThemeModeMap[newPersonaType]
 			});
 			setTimeout(() => {
-				setIsLoading(false);
+				setIsPersonaLoading(false);
 			}, 300);
 		}
 	};
@@ -68,8 +63,9 @@ export const PersonaAppProvider: React.FC<ProviderProps> = ({ children }) => {
 				personaId,
 				personaType,
 				changePersona,
-				isLoading,
-				initializePersona
+				initializePersona,
+				isPersonaLoading,
+				setIsPersonaLoading
 			}}
 		>
 			{children}

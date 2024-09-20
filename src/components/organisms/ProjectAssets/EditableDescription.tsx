@@ -16,7 +16,6 @@ const EditableDescription: React.FC<EditableDescriptionProps> = ({
 	return (
 		<TouchableWithoutFeedback
 			onPress={() => {
-				console.log('here');
 				textInputApi.focus();
 			}}
 		>

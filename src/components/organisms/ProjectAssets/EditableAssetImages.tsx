@@ -37,7 +37,6 @@ const EditableAssetImages = () => {
 	const [state, setState] = useState<{ id: number; url?: string }[]>(data);
 
 	const onChangeImage = (id: number, url: string) => {
-		console.log({ id, url });
 		const newState = state.map((item) => {
 			if (item.id === id) {
 				return { ...item, url };

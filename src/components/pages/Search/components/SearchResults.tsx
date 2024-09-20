@@ -56,7 +56,6 @@ const SearchResults: React.FC<SearchResultsProps> = ({
 						Artists
 					</Text>
 					{artistSearchResults.hits.map((result) => {
-						console.log(result);
 						return (
 							<ContentListItem
 								key={result.uid}

@@ -72,6 +72,7 @@ export {
 export { default as Section } from './Section';
 export { default as Separator } from './Separator';
 export { default as SlideInOutView } from './SlideInOutView';
+export { default as StandardLoading } from './StandardLoading';
 export { default as StatusBar } from './StatusBar';
 export { default as TagAvatar } from './TagAvatar';
 export { default as Touchable } from './Touchable';

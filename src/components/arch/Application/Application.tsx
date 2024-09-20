@@ -12,9 +12,9 @@ import {
 import { UserAppProvider } from './contexts/User.context';
 
 const Application = () => {
-	const { personaType, isLoading } = usePersonaAppContext();
+	const { personaType, isPersonaLoading } = usePersonaAppContext();
 
-	if (isLoading) {
+	if (isPersonaLoading) {
 		return <></>;
 	}
 
