@@ -75,7 +75,7 @@ platform :ios do
             scheme: get_environment_option(options[:environment], :scheme),
             export_method: 'app-store',
             workspace: './ios/alysium.xcworkspace',
-            xcconfig: './CustomIOSBuild.xcconfig',
+            xcconfig: '../CustomIOSBuild.xcconfig',
             output_directory: './ios/build',
             output_name: get_environment_option(options[:environment], :scheme) + '.ipa',
             silent: true,
