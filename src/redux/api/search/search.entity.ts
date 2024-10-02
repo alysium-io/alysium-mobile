@@ -1,3 +1,5 @@
+import { ProfileImage } from '../profile-image';
+
 export enum SearchType {
 	ARTIST = 'artist',
 	TAG = 'tag'
@@ -13,6 +15,7 @@ export interface SearchItem {
 export interface ArtistSearchItem extends SearchItem {
 	readonly followers: number;
 	readonly popularity: number;
+	readonly profile_image: ProfileImage | null;
 }
 
 export interface TagSearchItem extends SearchItem {

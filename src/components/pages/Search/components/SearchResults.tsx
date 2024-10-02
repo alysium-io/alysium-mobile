@@ -67,7 +67,8 @@ const SearchResults: React.FC<SearchResultsProps> = ({
 								profileImageProps={{
 									defaultImageProps: {
 										icon: 'artist'
-									}
+									},
+									image: result.profile_image?.small.key
 								}}
 							/>
 						);
