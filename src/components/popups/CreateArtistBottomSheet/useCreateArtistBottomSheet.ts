@@ -22,7 +22,7 @@ const useCreateArtistBottomSheet = (
 	sheetApi: SheetApi
 ): IUseCreateArtistBottomSheet => {
 	const artistNameTextInputApi = useTextInput();
-	const [createArtistMutation] = artistApiSlice.useCreateMutation();
+	const [createArtistMutation] = artistApiSlice.useCreateArtistMutation();
 
 	const formMethods = useForm<CreateArtistBodyDto>({
 		defaultValues: {

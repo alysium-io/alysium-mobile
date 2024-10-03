@@ -1,16 +1,7 @@
-import { DismissKeyboardWrapper, View } from '@atomic';
-import { BottomSheetView } from '@gorhom/bottom-sheet';
-import { SheetApi } from '@hooks';
-import { EditableProfileImage } from '@molecules';
-import {
-	BottomSheet,
-	BottomSheetFooter,
-	SequenceFooterButtons,
-	useAnimatedFooterHeight
-} from '@organisms';
-import { ContentType } from '@types';
+import { Text, View } from '@atomic';
+import { SheetApi, useLayoutDimensions } from '@hooks';
+import { FullScreenSheetWithHeaderAndFooter } from '@organisms';
 import React from 'react';
-import ArtistName from './components/ArtistName';
 import useCreateArtistBottomSheet from './useCreateArtistBottomSheet';
 
 interface CreateArtistBottomSheetProps {
@@ -28,49 +19,19 @@ const CreateArtistBottomSheet: React.FC<CreateArtistBottomSheetProps> = ({
 		onSheetIndexChangeFocusTextInput,
 		formMethods
 	} = useCreateArtistBottomSheet(sheetApi);
-	const { animatedMarginBottom } = useAnimatedFooterHeight();
+
+	const footerLayoutApi = useLayoutDimensions();
 
 	return (
-		<BottomSheet
-			sheetRef={sheetApi.sheetRef}
-			onChange={onSheetIndexChangeFocusTextInput}
-			snapPoints={['90%']}
-			onDismiss={resetAll}
+		<FullScreenSheetWithHeaderAndFooter
+			sheetApi={sheetApi}
+			footerLayoutApi={footerLayoutApi}
+			onDismiss={cancel}
 		>
-			<DismissKeyboardWrapper>
-				<BottomSheetView style={[{ flex: 1 }, animatedMarginBottom]}>
-					<View margin='m' justifyContent='center' alignItems='center'>
-						<EditableProfileImage
-							image={undefined}
-							contentType={ContentType.artist}
-						/>
-					</View>
-					<ArtistName
-						formMethods={formMethods}
-						artistNameTextInputApi={artistNameTextInputApi}
-					/>
-				</BottomSheetView>
-			</DismissKeyboardWrapper>
-			<BottomSheetFooter>
-				<SequenceFooterButtons
-					buttons={[
-						{
-							onPress: cancel,
-							text: 'cancel',
-							variant: 'outlined',
-							color: 'default'
-						},
-						{
-							onPress: onSubmit,
-							text: 'Create',
-							color: 'p',
-							buttonState:
-								formMethods.watch('name') === '' ? 'disabled' : 'active'
-						}
-					]}
-				/>
-			</BottomSheetFooter>
-		</BottomSheet>
+			<View margin='m'>
+				<Text>Hello World</Text>
+			</View>
+		</FullScreenSheetWithHeaderAndFooter>
 	);
 };
 

@@ -5,17 +5,6 @@ import GuestProfile from './perspectives/guest/GuestProfile';
 import UserProfile from './perspectives/user/UserProfile';
 
 const ProfilePage = () => {
-	// Create Host & Artist footer (on hold)
-	// const FooterComponent = useCallback(
-	// 	() => (
-	// 		<CreateProfileActionFooter
-	// 			createArtistSheetApi={createArtistSheetApi}
-	// 			createHostSheetApi={createHostSheetApi}
-	// 		/>
-	// 	),
-	// 	[]
-	// );
-
 	const { userData } = useUserAppContext();
 
 	if (userData.role === Role.guest) {

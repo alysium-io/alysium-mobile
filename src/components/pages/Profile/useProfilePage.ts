@@ -1,7 +1,6 @@
 import { SheetApi, useSheet } from '@hooks';
 
 interface IUseProfilePage {
-	createHostSheetApi: SheetApi;
 	createArtistSheetApi: SheetApi;
 	termsOfServiceSheetApi: SheetApi;
 	privacyPolicySheetApi: SheetApi;
@@ -9,7 +8,6 @@ interface IUseProfilePage {
 }
 
 const useProfilePage = (): IUseProfilePage => {
-	const createHostSheetApi = useSheet();
 	const createArtistSheetApi = useSheet();
 
 	const termsOfServiceSheetApi = useSheet();
@@ -18,7 +16,6 @@ const useProfilePage = (): IUseProfilePage => {
 
 	return {
 		createArtistSheetApi,
-		createHostSheetApi,
 		termsOfServiceSheetApi,
 		privacyPolicySheetApi,
 		aboutAlysiumSheetApi
