@@ -26,6 +26,7 @@ export {
 	type LayoutApi
 } from './useLayoutDimensions';
 export { default as useLinking } from './useLinking';
+export { default as useList, type ListApi } from './useList';
 export { default as useModal, type ModalApi } from './useModal';
 export { default as usePagination } from './usePagination';
 export { default as useScrollView } from './useScrollView';

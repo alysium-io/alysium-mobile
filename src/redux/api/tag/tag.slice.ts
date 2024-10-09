@@ -10,7 +10,10 @@ import {
 	FindTagCorrelatedResponseDto
 } from './dto/tag-correlated.dto';
 import { CreateTagBodyDto, CreateTagResponseDto } from './dto/tag-create.dto';
-import { DiscoverTagsResponseDto } from './dto/tag-discover.dto';
+import {
+	DiscoverTagsQueryDto,
+	DiscoverTagsResponseDto
+} from './dto/tag-discover.dto';
 import {
 	FindOneTagParamsDto,
 	FindOneTagResponseDto
@@ -76,10 +79,14 @@ const apiSlice = serviceApi.injectEndpoints({
 				body
 			})
 		}),
-		discoverTags: builder.query<DiscoverTagsResponseDto, undefined>({
-			query: () => ({
+		discoverTags: builder.query<
+			DiscoverTagsResponseDto,
+			{ query: DiscoverTagsQueryDto }
+		>({
+			query: ({ query }) => ({
 				url: url('/discover'),
-				method: 'GET'
+				method: 'GET',
+				params: query
 			})
 		}),
 		topTags: builder.query<TopTagsResponseDto, { query: TopTagsQueryDto }>({

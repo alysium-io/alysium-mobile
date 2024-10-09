@@ -29,6 +29,7 @@ const Sequence: React.FC<SequenceProps> = ({ children, sequenceIndex }) => {
 			scrollEnabled={false}
 			initialScrollIndex={sequenceIndex}
 			data={Array.isArray(children) ? children : [children]}
+			style={{ overflow: 'visible' }}
 			renderItem={({ item, index }) => (
 				<SequenceItem key={index}>{item}</SequenceItem>
 			)}

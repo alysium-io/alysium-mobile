@@ -1,3 +1,5 @@
+import { artistApiSlice } from '@flux/api/artist';
+import { PrivateFindAllArtistsResponseDto } from '@flux/api/artist/dto/artist-find-all.dto';
 import { profileImageApiSlice } from '@flux/api/profile-image';
 import { userApiSlice } from '@flux/api/user';
 import { PrivateUser } from '@flux/api/user/user.entity';
@@ -17,6 +19,7 @@ export type UserAppContextType = {
 	setUserProfileImage: (image: Asset) => void;
 	createAccountBottomSheetApi: SheetApi;
 	checkUserWantsToRegisterBottomSheet: SheetApi;
+	userArtistsData: PrivateFindAllArtistsResponseDto;
 };
 
 export const UserAppContext = createContext({} as UserAppContextType);
@@ -31,8 +34,10 @@ export const UserAppProvider: React.FC<ProviderProps> = ({ children }) => {
 		isLoading: userIsLoading
 	} = userApiSlice.usePrivateFindOneUserQuery();
 	const [createUserProfileImageMutation] =
-		profileImageApiSlice.useCreateProfileImageMutation();
+		profileImageApiSlice.useCreateUserProfileImageMutation();
 	const { setBehaviorUserUid } = useBehaviorContext();
+	const { data: userArtistsData } =
+		artistApiSlice.usePrivateFindAllArtistsQuery();
 
 	useEffect(() => {
 		if (userData) {
@@ -47,7 +52,7 @@ export const UserAppProvider: React.FC<ProviderProps> = ({ children }) => {
 		}
 	};
 
-	if (!userData || personaId === null) {
+	if (!userData || !userArtistsData || personaId === null) {
 		return <></>;
 	}
 
@@ -61,7 +66,8 @@ export const UserAppProvider: React.FC<ProviderProps> = ({ children }) => {
 				userIsLoading,
 				setUserProfileImage,
 				createAccountBottomSheetApi,
-				checkUserWantsToRegisterBottomSheet
+				checkUserWantsToRegisterBottomSheet,
+				userArtistsData
 			}}
 		>
 			{children}

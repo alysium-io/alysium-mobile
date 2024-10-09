@@ -5,7 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { BottomTabNavigatorParamList } from '@types';
 import React from 'react';
 import { ArtistAppProvider } from '../contexts/Artist.context';
-import { ProfileTab } from '../tabs';
+import { ProfileTab, SearchTab } from '../tabs';
 import { useNavigationSettings } from '../tabs/settings';
 import AppDependencies from './AppDependencies';
 
@@ -24,32 +24,43 @@ const ArtistApp = () => {
 						sceneContainerStyle={sceneContainerStyle}
 						screenOptions={screenOptions}
 					>
-						{/* <Tab.Screen
+						<Tab.Screen
 							name='Search'
 							component={SearchTab}
 							options={{
-								tabBarIcon: ({ color, focused }) =>
+								tabBarIcon: ({ focused }) =>
 									focused ? (
-										<Icon name='search-filled' size='m' color={color} />
+										<Icon
+											name='search-filled'
+											size='m'
+											color={
+												focused ? 'navbar.icon.active' : 'navbar.icon.inactive'
+											}
+										/>
 									) : (
-										<Icon name='search' size='m' color={color} />
+										<Icon
+											name='search'
+											size='m'
+											color={
+												focused ? 'navbar.icon.active' : 'navbar.icon.inactive'
+											}
+										/>
 									)
 							}}
 						/>
 						<Tab.Screen
-							name='ContractManager'
-							component={ContractManagerTab}
-							options={{
-								tabBarIcon: ({ color }) => (
-									<Icon name='contract' size='m' color={color} />
-								)
-							}}
-						/> */}
-						<Tab.Screen
 							name='Profile'
 							component={ProfileTab}
 							options={{
-								tabBarIcon: ({ color }) => <Icon name='profile' size='m' />
+								tabBarIcon: ({ focused }) => (
+									<Icon
+										name='profile'
+										size='m'
+										color={
+											focused ? 'navbar.icon.active' : 'navbar.icon.inactive'
+										}
+									/>
+								)
 							}}
 						/>
 					</Tab.Navigator>

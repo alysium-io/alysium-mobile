@@ -1,5 +1,4 @@
-import { createApi } from '@reduxjs/toolkit/query/react';
-import baseQueryConfig from '../utils/baseQueryConfig';
+import { rtkBaseUrl, serviceApi } from '../base';
 import {
 	CreateArtistTagLinkBodyDto,
 	CreateArtistTagLinkResponseDto
@@ -9,28 +8,27 @@ import {
 	DeleteArtistTagLinkResponseDto
 } from './dto/artist-tag-link-delete.dto';
 
-const apiSlice = createApi({
-	baseQuery: baseQueryConfig({ basePath: '/artist-tag-link' }),
-	reducerPath: 'artistTagLinkApi',
-	tagTypes: ['ArtistTagLink'],
+const url = rtkBaseUrl('artist-tag-link');
+
+export default serviceApi.injectEndpoints({
 	endpoints: (builder) => ({
-		create: builder.mutation<
+		createArtistTagLink: builder.mutation<
 			CreateArtistTagLinkResponseDto,
 			{ body: CreateArtistTagLinkBodyDto }
 		>({
 			query: ({ body }) => ({
-				url: '/',
+				url: url('/'),
 				method: 'POST',
 				body
 			}),
 			invalidatesTags: [{ type: 'ArtistTagLink', id: 'LIST' }]
 		}),
-		delete: builder.mutation<
+		deleteArtistTagLink: builder.mutation<
 			DeleteArtistTagLinkResponseDto,
 			{ body: DeleteArtistTagLinkBodyDto }
 		>({
 			query: ({ body }) => ({
-				url: '/',
+				url: url('/'),
 				method: 'DELETE',
 				body
 			}),
@@ -40,5 +38,3 @@ const apiSlice = createApi({
 		})
 	})
 });
-
-export default apiSlice;

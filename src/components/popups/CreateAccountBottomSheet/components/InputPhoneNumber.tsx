@@ -2,7 +2,7 @@ import { View } from '@atomic';
 import { regexPatterns } from '@etc';
 import { TextInputApi } from '@hooks';
 import { DeclarativeText, InternationalPhoneNumberTextInput } from '@molecules';
-import { RegisterUserPhoneNumberFormApi } from '@src/utils/redux-hook-form/useRegisterUserPhoneNumber';
+import { RegisterUserPhoneNumberFormApi } from '@src/utils/redux-hook-form/useRegisterUserPhoneNumberFormApi';
 import React from 'react';
 import { Controller } from 'react-hook-form';
 import { FadeIn, FadeOutLeft } from 'react-native-reanimated';

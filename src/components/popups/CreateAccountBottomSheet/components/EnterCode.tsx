@@ -1,7 +1,7 @@
 import { View } from '@atomic';
 import { TextInputApi } from '@hooks';
 import { DeclarativeText, TextInputWithLabel } from '@molecules';
-import { LoginUserPhoneNumberFormApi } from '@src/utils/redux-hook-form/useLoginUserPhoneNumber';
+import { LoginUserPhoneNumberFormApi } from '@src/utils/redux-hook-form/useLoginUserPhoneNumberFormApi';
 import React from 'react';
 import { Controller } from 'react-hook-form';
 import { FadeInRight, FadeOutRight } from 'react-native-reanimated';

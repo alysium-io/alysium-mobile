@@ -18,7 +18,7 @@ const useSequence = (
 
 	const next = () => {
 		Keyboard.dismiss();
-		setSequenceIndex(Math.min(numItems, sequenceIndex + 1));
+		setSequenceIndex(Math.min(numItems - 1, sequenceIndex + 1));
 	};
 
 	const back = () => {

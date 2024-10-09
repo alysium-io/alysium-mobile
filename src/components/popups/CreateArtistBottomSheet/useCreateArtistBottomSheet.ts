@@ -1,47 +1,98 @@
-import { artistApiSlice } from '@flux/api/artist';
-import { CreateArtistBodyDto } from '@flux/api/artist/dto/artist-create.dto';
-import { SheetApi, TextInputApi, useTextInput } from '@hooks';
-import { OnSubmitHandler } from '@types';
+import { artistTagLinkApiSlice } from '@flux/api/artist-tag-link';
+import { CreateArtistTagLinkBodyDto } from '@flux/api/artist-tag-link/dto/artist-tag-link-create.dto';
+import { profileImageApiSlice } from '@flux/api/profile-image';
 import {
-	SubmitErrorHandler,
-	SubmitHandler,
-	UseFormReturn,
-	useForm
-} from 'react-hook-form';
+	ListApi,
+	SequenceApi,
+	SheetApi,
+	TextInputApi,
+	useList,
+	useSequence,
+	useTextInput
+} from '@hooks';
+import { ButtonStateApi, useButtonState } from '@molecules';
+import useCreateArtistFormApi, {
+	CreateArtistFormApi
+} from '@src/utils/redux-hook-form/useCreateArtistFormApi';
+import { useEffect, useState } from 'react';
+import { Asset } from 'react-native-image-picker';
+import { TAG_LIMIT } from './constants';
 
 interface IUseCreateArtistBottomSheet {
 	artistNameTextInputApi: TextInputApi;
+	createArtistFormApi: CreateArtistFormApi;
 	onSheetIndexChangeFocusTextInput: (index: number) => void;
 	resetAll: () => void;
-	formMethods: UseFormReturn<CreateArtistBodyDto>;
-	onSubmit: OnSubmitHandler;
 	cancel: () => void;
+	createArtistSequenceApi: SequenceApi;
+	artistNameNextButtonStateApi: ButtonStateApi;
+	profileImage: Asset | null;
+	setProfileImage: (profileImage: Asset | null) => void;
+	selectedTagsListApi: ListApi<Omit<CreateArtistTagLinkBodyDto, 'artist_uid'>>;
 }
 
 const useCreateArtistBottomSheet = (
 	sheetApi: SheetApi
 ): IUseCreateArtistBottomSheet => {
+	const [createArtistProfileImageMutation] =
+		profileImageApiSlice.useCreateArtistProfileImageMutation();
+	const [createArtistTagLinkMutation] =
+		artistTagLinkApiSlice.useCreateArtistTagLinkMutation();
 	const artistNameTextInputApi = useTextInput();
-	const [createArtistMutation] = artistApiSlice.useCreateArtistMutation();
+	const createArtistSequenceApi = useSequence(3);
+	const artistNameNextButtonStateApi = useButtonState('disabled');
+	const [profileImage, setProfileImage] = useState<Asset | null>(null);
 
-	const formMethods = useForm<CreateArtistBodyDto>({
-		defaultValues: {
-			name: ''
+	const selectedTagsListApi = useList<
+		Omit<CreateArtistTagLinkBodyDto, 'artist_uid'>
+	>({
+		limit: TAG_LIMIT,
+		validator: (stateTag, tag) => stateTag.tag_uid === tag.tag_uid
+	});
+
+	const createArtistFormApi = useCreateArtistFormApi({
+		methods: {
+			onValidDidComplete: async (data) => {
+				// If the artist creation completes successfully, we can update everything else
+				// before we show the user the artist they've just created
+				const promises = [];
+				if (profileImage) {
+					promises.push(
+						createArtistProfileImageMutation({
+							file: profileImage,
+							query: {
+								artist_uid: data.artist_uid
+							}
+						})
+					);
+				}
+
+				if (!selectedTagsListApi.isEmpty) {
+					// Create the artist tag links
+					selectedTagsListApi.state.map((tag) => {
+						promises.push(
+							createArtistTagLinkMutation({
+								body: {
+									artist_uid: data.artist_uid,
+									tag_uid: tag.tag_uid
+								}
+							})
+						);
+					});
+				}
+
+				await Promise.all(promises);
+			}
 		}
 	});
 
-	const onValid: SubmitHandler<CreateArtistBodyDto> = async (
-		data: CreateArtistBodyDto
-	) => {
-		createArtistMutation({ body: data });
-		sheetApi.close();
-	};
-
-	const onInvalid: SubmitErrorHandler<CreateArtistBodyDto> = (errors: any) => {
-		console.log(errors);
-	};
-
-	const onSubmit = formMethods.handleSubmit(onValid, onInvalid);
+	useEffect(() => {
+		artistNameNextButtonStateApi.setButtonState(
+			createArtistFormApi.formMethods.watch('name')?.length > 0
+				? 'active'
+				: 'disabled'
+		);
+	}, [createArtistFormApi.formMethods.watch('name')]);
 
 	const onSheetIndexChangeFocusTextInput = (index: number) => {
 		if (index === 0) {
@@ -51,20 +102,30 @@ const useCreateArtistBottomSheet = (
 
 	const resetAll = () => {
 		artistNameTextInputApi.reset();
-		formMethods.reset();
+		createArtistFormApi.formMethods.reset();
+		createArtistSequenceApi.reset();
+		artistNameNextButtonStateApi.setButtonState('disabled');
+		selectedTagsListApi.reset();
+		createArtistFormApi.reset();
+		setProfileImage(null);
 	};
 
 	const cancel = () => {
+		resetAll();
 		sheetApi.close();
 	};
 
 	return {
 		artistNameTextInputApi,
+		createArtistFormApi,
 		onSheetIndexChangeFocusTextInput,
 		resetAll,
-		formMethods,
-		onSubmit,
-		cancel
+		cancel,
+		createArtistSequenceApi,
+		artistNameNextButtonStateApi,
+		profileImage,
+		setProfileImage,
+		selectedTagsListApi
 	};
 };
 

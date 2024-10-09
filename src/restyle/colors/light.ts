@@ -14,6 +14,7 @@ export const createSemanticLightTheme = (
 		'bg.light': 'rgb(245, 245, 245)',
 
 		'bg.negative.p': palette.neutral.p9,
+		'bg.negative.s': palette.neutral.p7,
 
 		'text.p': palette.neutral.p9,
 		'text.s': palette.neutral.p8,
@@ -111,7 +112,8 @@ export const createSemanticLightTheme = (
 		'search.search-bar.icon': palette.s.p6,
 		'search.search-bar.clear-btn-icon': palette.s.p9,
 
-		'hyperlink.text': palette.p.p5,
+		'hyperlink.text.p': palette.p.p5,
+		'hyperlink.text.s': palette.s.p5,
 
 		transparent: 'transparent',
 		'etc.activity-indicator': palette.neutral.p8,

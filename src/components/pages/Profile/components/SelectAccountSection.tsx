@@ -6,7 +6,8 @@ import { Persona } from '@types';
 import React from 'react';
 
 const SelectAccountSection = () => {
-	const { userData, personaId, personaType } = useUserAppContext();
+	const { userData, personaId, personaType, userArtistsData } =
+		useUserAppContext();
 	const { changePersona } = usePersonaAppContext();
 	return (
 		<Section>
@@ -33,23 +34,27 @@ const SelectAccountSection = () => {
 					}
 				/>
 			)}
-			{/* {userArtists.map((artist) => (
-				<ContentListItem
+			{userArtistsData.map((artist) => (
+				<ActiveListItem
 					key={artist.artist_uid}
-					title={artist.name}
-					subtitle={'artist'}
 					onPress={() => changePersona(Persona.artist, artist.artist_uid)}
-					contentType={Persona.artist}
-					image={artist.profile_image?.url}
-					border
-					markerIcon={
+					titleTextProps={{
+						title: artist.name,
+						titleVariant: 'paragraph',
+						bottomSubtext: 'artist'
+					}}
+					profileImageProps={{
+						image: artist.profile_image?.small.key,
+						defaultImageProps: {
+							icon: 'user'
+						}
+					}}
+					active={
 						personaType === Persona.artist && personaId === artist.artist_uid
-							? 'checkmark'
-							: undefined
 					}
 				/>
 			))}
-			{userHosts.map((host) => (
+			{/* {userHosts.map((host) => (
 				<ContentListItem
 					key={host.host_uid}
 					title={host.name}

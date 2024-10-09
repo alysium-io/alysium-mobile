@@ -12,6 +12,7 @@ interface SearchBarProps {
 	isActive: boolean;
 	setIsActive: (isActive: boolean) => void;
 	textInputApi?: TextInputApi;
+	placeholder?: string;
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({
@@ -21,7 +22,8 @@ const SearchBar: React.FC<SearchBarProps> = ({
 	barDidDeactivate,
 	isActive,
 	setIsActive,
-	textInputApi
+	textInputApi,
+	placeholder = 'Search Alysium...'
 }) => {
 	const { theme } = useTheme();
 	const _textInputApi = textInputApi ? textInputApi : useTextInput();
@@ -69,7 +71,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
 								placeholderTextColor={
 									theme.colors['search.search-bar.placeholder-text']
 								}
-								placeholder='Search Alysium...'
+								placeholder={placeholder}
 								onChangeText={_onChangeText}
 								onFocus={_onPressActivate}
 								color='search.search-bar.text'

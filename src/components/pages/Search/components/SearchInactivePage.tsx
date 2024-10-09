@@ -30,7 +30,9 @@ const SearchInactivePage: React.FC = () => {
 	} = useNavigation();
 
 	const { data: discoverTagsData, refetch: refetchDiscoverTags } =
-		tagApiSlice.useDiscoverTagsQuery(undefined);
+		tagApiSlice.useDiscoverTagsQuery({
+			query: { limit: 5 }
+		});
 
 	const onPressRefreshDiscoverTags = () => {
 		Vibrator.rigid();

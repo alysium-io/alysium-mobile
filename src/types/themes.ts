@@ -53,6 +53,7 @@ export type SemanticColors = {
 	'bg.light': HexColor;
 
 	'bg.negative.p': HexColor;
+	'bg.negative.s': HexColor;
 
 	// Text
 	'text.p': HexColor;
@@ -145,7 +146,8 @@ export type SemanticColors = {
 	'default-profile-image.bg': HexColor;
 	'default-profile-image.icon': HexColor;
 
-	'hyperlink.text': HexColor;
+	'hyperlink.text.p': HexColor;
+	'hyperlink.text.s': HexColor;
 
 	// Etc
 	transparent: 'transparent';

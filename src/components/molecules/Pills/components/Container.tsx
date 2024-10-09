@@ -1,11 +1,11 @@
 import { View } from '@atomic';
 import { useTheme } from '@hooks';
-import { IChildrenProps } from '@types';
+import { ChildrenProps } from '@types';
 import React from 'react';
 
-interface ContainerProps extends IChildrenProps {}
+type ContainerProps = ChildrenProps & React.ComponentProps<typeof View> & {};
 
-const Container: React.FC<ContainerProps> = ({ children }) => {
+const Container: React.FC<ContainerProps> = ({ children, ...props }) => {
 	const { theme } = useTheme();
 	return (
 		<View
@@ -16,9 +16,10 @@ const Container: React.FC<ContainerProps> = ({ children }) => {
 			paddingHorizontal='m'
 			paddingVertical='s'
 			borderWidth={theme.borderWidth.normal}
-			borderColor='border.medium'
 			marginRight='s'
 			marginBottom='s'
+			borderColor='border.medium'
+			{...props}
 		>
 			{children}
 		</View>

@@ -14,6 +14,7 @@ export const createSemanticDarkTheme = (
 		'bg.light': 'rgb(35, 35, 35)',
 
 		'bg.negative.p': palette.neutral.p1,
+		'bg.negative.s': palette.neutral.p2,
 
 		'text.p': palette.neutral.p1,
 		'text.s': palette.neutral.p2,
@@ -111,7 +112,8 @@ export const createSemanticDarkTheme = (
 		'search.search-bar.icon': palette.s.p2,
 		'search.search-bar.clear-btn-icon': palette.s.p5,
 
-		'hyperlink.text': palette.p.p3,
+		'hyperlink.text.p': palette.p.p3,
+		'hyperlink.text.s': palette.s.p5,
 
 		transparent: 'transparent',
 		'etc.activity-indicator': palette.neutral.p1,

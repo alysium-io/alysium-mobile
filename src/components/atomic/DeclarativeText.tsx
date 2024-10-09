@@ -17,11 +17,12 @@ type LinkProps = React.ComponentProps<typeof Text> & {
 		'children'
 	>;
 };
+
 export const Link: React.FC<LinkProps> = ({ buttonProps, ...props }) => (
 	<TouchableWithoutFeedback {...buttonProps}>
 		<View>
 			<Text
-				color='hyperlink.text'
+				color='hyperlink.text.p'
 				textDecorationLine='underline'
 				variant='paragraph-small-light'
 				{...props}

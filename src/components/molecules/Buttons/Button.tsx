@@ -18,7 +18,7 @@ export type ButtonThemeSettings = {
 	activityIndicatorColor: SemanticColor;
 };
 
-interface ButtonProps {
+export interface ButtonProps {
 	text: string;
 	onPress?: () => void;
 	buttonState?: ButtonState;
@@ -42,7 +42,6 @@ const Button: React.FC<ButtonProps> = ({
 	const { theme } = useTheme();
 
 	const settings = useMemo((): ButtonThemeSettings => {
-		const borderWidth = variant === 'outlined' ? theme.borderWidth.thick : 0;
 		const activityIndicatorColor =
 			`button.${variant}.loading.activity-indicator` as SemanticColor;
 
@@ -55,7 +54,7 @@ const Button: React.FC<ButtonProps> = ({
 						variant === 'outlined'
 							? (`button.${variant}.disabled.border` as SemanticColor)
 							: ('transparent' as SemanticColor),
-					borderWidth,
+					borderWidth: theme.borderWidth.thick,
 					activityIndicatorColor
 				},
 				buttonThemeSettings
@@ -72,7 +71,7 @@ const Button: React.FC<ButtonProps> = ({
 						variant === 'outlined'
 							? (`button.${variant}.loading.border` as SemanticColor)
 							: ('transparent' as SemanticColor),
-					borderWidth,
+					borderWidth: theme.borderWidth.thick,
 					activityIndicatorColor
 				},
 				buttonThemeSettings
@@ -86,7 +85,7 @@ const Button: React.FC<ButtonProps> = ({
 						variant === 'outlined'
 							? (`button.${variant}.success.border` as SemanticColor)
 							: ('transparent' as SemanticColor),
-					borderWidth,
+					borderWidth: theme.borderWidth.thick,
 					activityIndicatorColor
 				},
 				buttonThemeSettings
@@ -101,7 +100,7 @@ const Button: React.FC<ButtonProps> = ({
 						variant === 'outlined'
 							? (`button.${variant}.active.border.${color}` as SemanticColor)
 							: ('transparent' as SemanticColor),
-					borderWidth,
+					borderWidth: theme.borderWidth.thick,
 					activityIndicatorColor
 				},
 				buttonThemeSettings

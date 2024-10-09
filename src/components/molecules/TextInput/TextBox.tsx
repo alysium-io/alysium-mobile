@@ -1,7 +1,7 @@
 import { Text, TextInput, View } from '@atomic';
 import { TextInputApi, useTextInput, useTheme } from '@hooks';
 import React from 'react';
-import { TouchableWithoutFeedback } from 'react-native';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 interface TextBoxProps extends React.ComponentProps<typeof TextInput> {
 	subtitle?: string | React.ReactNode;

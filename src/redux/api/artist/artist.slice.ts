@@ -7,10 +7,7 @@ import {
 	DeleteArtistParamsDto,
 	DeleteArtistResponseDto
 } from './dto/artist-delete.dto';
-import {
-	PrivateFindAllArtistsQueryDto,
-	PrivateFindAllArtistsResponseDto
-} from './dto/artist-find-all.dto';
+import { PrivateFindAllArtistsResponseDto } from './dto/artist-find-all.dto';
 import {
 	PrivateFindOneArtistParamsDto,
 	PrivateFindOneArtistResponseDto,
@@ -65,13 +62,12 @@ export default serviceApi.injectEndpoints({
 			]
 		}),
 		privateFindAllArtists: builder.query<
-			PrivateFindAllArtistsResponseDto[],
-			{ query: PrivateFindAllArtistsQueryDto }
+			PrivateFindAllArtistsResponseDto,
+			void
 		>({
-			query: ({ query }) => ({
+			query: () => ({
 				url: url('/'),
-				method: 'GET',
-				params: query
+				method: 'GET'
 			}),
 			providesTags: (results) =>
 				results

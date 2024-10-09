@@ -1,7 +1,7 @@
 import { View } from '@atomic';
 import { Button } from '@molecules';
 import { DualSlider, Histogram as OHistogram, Slider } from '@organisms';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import React, { useState } from 'react';
 import { SlideEvent } from 'src/components/organisms/Slider/settings';
 

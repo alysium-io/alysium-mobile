@@ -1,12 +1,15 @@
 import { DismissKeyboardWrapper, View } from '@atomic';
 import { BottomSheetFooterProps } from '@gorhom/bottom-sheet';
-import { SheetApi, useLayoutDimensions } from '@hooks';
+import { SheetApi } from '@hooks';
 import { Button } from '@molecules';
-import { FullScreenSheetWithHeaderAndFooter } from '@organisms';
+import {
+	FullScreenSheet,
+	FullScreenSheetScrollView,
+	FullScreenSheetStandardHeader
+} from '@organisms';
 import FullScreenSheetFooter from '@src/components/organisms/BottomSheet/sheets/FullScreenSheetFooter';
 import { ThemeModeSettings, ThemePicker } from '@templates';
 import React, { useCallback } from 'react';
-import { useAnimatedKeyboard } from 'react-native-reanimated';
 import EditHandle from '../../components/EditHandle';
 import EditProfileImage from '../../components/EditProfileImage';
 import useUserEditUserProfileBottomSheet from './useUserEditUserProfileBottomSheet';
@@ -20,16 +23,10 @@ const UserEditUserProfileBottomSheet: React.FC<
 > = ({ sheetApi }) => {
 	const { updateUserProfileFormApi } =
 		useUserEditUserProfileBottomSheet(sheetApi);
-	const footerLayoutApi = useLayoutDimensions();
-	const keyboard = useAnimatedKeyboard();
 
 	const footerComponent = useCallback((props: BottomSheetFooterProps) => {
 		return (
-			<FullScreenSheetFooter
-				{...props}
-				layoutApi={footerLayoutApi}
-				animatedKeyboard={keyboard}
-			>
+			<FullScreenSheetFooter {...props}>
 				<View flex={1} flexDirection='row'>
 					<View flex={1} marginRight='s'>
 						<Button text='cancel' onPress={sheetApi.close} variant='outlined' />
@@ -43,18 +40,17 @@ const UserEditUserProfileBottomSheet: React.FC<
 	}, []);
 
 	return (
-		<FullScreenSheetWithHeaderAndFooter
-			footerComponent={footerComponent}
-			sheetApi={sheetApi}
-			footerLayoutApi={footerLayoutApi}
-		>
-			<DismissKeyboardWrapper>
-				<EditProfileImage />
-				<EditHandle formMethods={updateUserProfileFormApi.formMethods} />
-				<ThemePicker />
-				<ThemeModeSettings />
-			</DismissKeyboardWrapper>
-		</FullScreenSheetWithHeaderAndFooter>
+		<FullScreenSheet footerComponent={footerComponent} sheetApi={sheetApi}>
+			<FullScreenSheetStandardHeader />
+			<FullScreenSheetScrollView>
+				<DismissKeyboardWrapper>
+					<EditProfileImage />
+					<EditHandle formMethods={updateUserProfileFormApi.formMethods} />
+					<ThemePicker />
+					<ThemeModeSettings />
+				</DismissKeyboardWrapper>
+			</FullScreenSheetScrollView>
+		</FullScreenSheet>
 	);
 };
 

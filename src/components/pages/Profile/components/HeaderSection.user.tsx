@@ -24,7 +24,7 @@ const HeaderSection = () => {
 						<Text
 							variant='paragraph-medium'
 							textDecorationLine='underline'
-							color='hyperlink.text'
+							color='hyperlink.text.p'
 						>
 							Edit Profile
 						</Text>

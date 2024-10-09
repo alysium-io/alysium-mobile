@@ -7,7 +7,7 @@ import { LoginResponseDto } from '@flux/api/user/dto/user-login.dto';
 import { BottomSheetFooterProps } from '@gorhom/bottom-sheet';
 import { SheetApi, useLayoutDimensions, useTextInput, useToast } from '@hooks';
 import { Button, useButtonState } from '@molecules';
-import { FullScreenSheetWithHeaderAndFooter } from '@organisms';
+import { FullScreenSheet } from '@organisms';
 import FullScreenSheetFooter from '@src/components/organisms/BottomSheet/sheets/FullScreenSheetFooter';
 import useLoginUserPhoneNumber from '@src/utils/redux-hook-form/useLoginUserPhoneNumberFormApi';
 import useRegisterUserPhoneNumber from '@src/utils/redux-hook-form/useRegisterUserPhoneNumberFormApi';
@@ -184,7 +184,7 @@ const CreateAccountBottomSheet: React.FC<CreateAccountBottomSheetProps> = ({
 	);
 
 	return (
-		<FullScreenSheetWithHeaderAndFooter
+		<FullScreenSheet
 			sheetApi={sheetApi}
 			footerComponent={footerComponent}
 			sheetDidOpen={textInputApi.focus}
@@ -210,7 +210,7 @@ const CreateAccountBottomSheet: React.FC<CreateAccountBottomSheetProps> = ({
 					</Case>
 				</Switch>
 			</View>
-		</FullScreenSheetWithHeaderAndFooter>
+		</FullScreenSheet>
 	);
 };
 

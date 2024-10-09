@@ -49,9 +49,19 @@ const useSearchPage = (): IUseSearchPage => {
 	const onPressSearchResult = (item: SearchItem) => {
 		addRecentSearch(item);
 		if (item.searchType === SearchType.ARTIST) {
-			artistPage(item.uid);
+			artistPage(item.uid, {
+				from: 'SearchPage',
+				to: 'ArtistPage',
+				to_uid: item.uid,
+				using: 'ARTIST_SEARCH_RESULT'
+			});
 		} else if (item.searchType === SearchType.TAG) {
-			tagPage(item.uid);
+			tagPage(item.uid, {
+				from: 'SearchPage',
+				to: 'TagPage',
+				to_uid: item.uid,
+				using: 'TAG_SEARCH_RESULT'
+			});
 		}
 	};
 
