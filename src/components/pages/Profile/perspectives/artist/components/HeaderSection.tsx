@@ -1,11 +1,10 @@
 import { useUserAppContext } from '@arch/Application/contexts/User.context';
-import { Section, Text, View } from '@atomic';
+import { Icon, Section, Text, View } from '@atomic';
 import { useSheet } from '@hooks';
 import { EditableProfileImage } from '@molecules';
 import { EditUserProfileBottomSheet } from '@popups';
 import React from 'react';
 import { TouchableWithoutFeedback } from 'react-native';
-import UsernameDisplay from './UsernameDisplay';
 
 const HeaderSection = () => {
 	const { userData, setUserProfileImage } = useUserAppContext();
@@ -18,7 +17,12 @@ const HeaderSection = () => {
 				onChooseImage={setUserProfileImage}
 			/>
 			<View margin='m' alignItems='center'>
-				<UsernameDisplay />
+				<View flexDirection='row' alignItems='center' marginBottom='m'>
+					<Icon name='at' size='s' color='text.p' />
+					<Text variant='paragraph-medium' marginLeft='xs'>
+						{userData.handle}
+					</Text>
+				</View>
 				<TouchableWithoutFeedback onPress={editUserProfileSheetApi.open}>
 					<View>
 						<Text

@@ -6,9 +6,10 @@ import { Persona } from '@types';
 import React from 'react';
 
 const SelectAccountSection = () => {
+	const { changePersona } = usePersonaAppContext();
 	const { userData, personaId, personaType, userArtistsData } =
 		useUserAppContext();
-	const { changePersona } = usePersonaAppContext();
+
 	return (
 		<Section>
 			<Text variant='section-header-2' marginHorizontal='m' marginBottom='m'>
@@ -54,22 +55,6 @@ const SelectAccountSection = () => {
 					}
 				/>
 			))}
-			{/* {userHosts.map((host) => (
-				<ContentListItem
-					key={host.host_uid}
-					title={host.name}
-					subtitle={'host'}
-					onPress={() => changePersona(Persona.host, host.host_uid)}
-					contentType={Persona.host}
-					image={host.profile_image?.url}
-					border
-					markerIcon={
-						personaType === Persona.host && personaId === host.host_uid
-							? 'checkmark'
-							: undefined
-					}
-				/>
-			))} */}
 		</Section>
 	);
 };

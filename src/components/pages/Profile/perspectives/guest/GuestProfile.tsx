@@ -1,29 +1,17 @@
 import { Section, Text } from '@atomic';
 import { BasePage } from '@organisms';
-import {
-	AboutAlysiumBottomSheet,
-	PrivacyPolicyBottomSheet,
-	TermsOfServiceBottomSheet
-} from '@popups';
 import { ThemeModeSettings, ThemePicker } from '@templates';
 import React from 'react';
 import { ScrollView } from 'react-native';
 import MenuSection from '../../components/MenuSection';
-import ProfilePageHeader from '../../Profile.header';
-import useProfilePage from '../../useProfilePage';
+import GuestProfilePageHeader from './GuestProfile.header';
 import HeaderSection from './components/HeaderSection';
 import SignUpActionFooter from './components/SignUpActionFooter';
 
 const ProfilePage = () => {
-	const {
-		termsOfServiceSheetApi,
-		privacyPolicySheetApi,
-		aboutAlysiumSheetApi
-	} = useProfilePage();
-
 	return (
 		<BasePage FooterComponent={SignUpActionFooter}>
-			<ProfilePageHeader />
+			<GuestProfilePageHeader />
 			<ScrollView alwaysBounceVertical>
 				<HeaderSection />
 				<Section marginBottom='xxxl'>
@@ -37,15 +25,8 @@ const ProfilePage = () => {
 					<ThemePicker />
 					<ThemeModeSettings />
 				</Section>
-				<MenuSection
-					termsOfServiceSheetApi={termsOfServiceSheetApi}
-					privacyPolicySheetApi={privacyPolicySheetApi}
-					aboutAlysiumSheetApi={aboutAlysiumSheetApi}
-				/>
+				<MenuSection />
 			</ScrollView>
-			<PrivacyPolicyBottomSheet sheetApi={privacyPolicySheetApi} />
-			<TermsOfServiceBottomSheet sheetApi={termsOfServiceSheetApi} />
-			<AboutAlysiumBottomSheet sheetApi={aboutAlysiumSheetApi} />
 		</BasePage>
 	);
 };

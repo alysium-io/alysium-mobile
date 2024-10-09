@@ -1,19 +1,20 @@
 import { Section, Text } from '@atomic';
-import { SheetApi } from '@hooks';
+import { useSheet } from '@hooks';
 import { MenuListItem } from '@molecules';
+import {
+	AboutAlysiumBottomSheet,
+	PrivacyPolicyBottomSheet,
+	TermsOfServiceBottomSheet
+} from '@popups';
 import React from 'react';
 
-interface MenuSectionProps {
-	termsOfServiceSheetApi: SheetApi;
-	privacyPolicySheetApi: SheetApi;
-	aboutAlysiumSheetApi: SheetApi;
-}
+interface MenuSectionProps {}
 
-const MenuSection: React.FC<MenuSectionProps> = ({
-	termsOfServiceSheetApi,
-	privacyPolicySheetApi,
-	aboutAlysiumSheetApi
-}) => {
+const MenuSection: React.FC<MenuSectionProps> = () => {
+	const termsOfServiceSheetApi = useSheet();
+	const privacyPolicySheetApi = useSheet();
+	const aboutAlysiumSheetApi = useSheet();
+
 	return (
 		<Section>
 			<Text variant='section-header-2' marginHorizontal='m' marginBottom='m'>
@@ -40,6 +41,9 @@ const MenuSection: React.FC<MenuSectionProps> = ({
 				}}
 				onPress={privacyPolicySheetApi.open}
 			/>
+			<PrivacyPolicyBottomSheet sheetApi={privacyPolicySheetApi} />
+			<TermsOfServiceBottomSheet sheetApi={termsOfServiceSheetApi} />
+			<AboutAlysiumBottomSheet sheetApi={aboutAlysiumSheetApi} />
 		</Section>
 	);
 };

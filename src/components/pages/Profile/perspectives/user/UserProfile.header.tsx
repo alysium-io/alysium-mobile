@@ -1,7 +1,7 @@
 import { Header, HeaderSection, HeaderTitle } from '@organisms';
 import React from 'react';
 
-const ProfilePageHeader: React.FC = () => {
+const UserProfilePageHeader: React.FC = () => {
 	return (
 		<Header>
 			<HeaderSection
@@ -16,4 +16,4 @@ const ProfilePageHeader: React.FC = () => {
 	);
 };
 
-export default ProfilePageHeader;
+export default UserProfilePageHeader;

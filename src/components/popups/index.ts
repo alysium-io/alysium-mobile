@@ -1,6 +1,6 @@
 export * from './AddArtistToEventCandidatesBottomSheet';
 export * from './CheckUserWantsToRegisterBottomSheet';
-export * from './ConfirmDeleteAccountBottomSheet';
+export * from './ConfirmDeleteBottomSheet';
 export * from './CreateAccountBottomSheet';
 export * from './CreateArtistBottomSheet';
 export * from './CreateContractBottomSheet';

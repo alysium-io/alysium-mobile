@@ -115,6 +115,7 @@ export default serviceApi.injectEndpoints({
 				method: 'DELETE'
 			}),
 			invalidatesTags: (result, error, { params }) => [
+				{ type: 'Artist', id: 'LIST' },
 				{ type: 'Artist', id: params.artist_uid }
 			]
 		})
