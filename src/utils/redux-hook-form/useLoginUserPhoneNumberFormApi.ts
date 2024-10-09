@@ -35,7 +35,8 @@ const useLoginUserPhoneNumberFormApi = (
 						formApiOptions?.methods?.onValidDidComplete?.(res);
 					})
 					.catch((err) => {
-						formApiOptions?.methods?.onValidDidFail?.(err) && toastError();
+						formApiOptions?.methods?.onValidDidFail?.(err);
+						toastError();
 					});
 			}
 		}

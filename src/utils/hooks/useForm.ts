@@ -1,6 +1,7 @@
 import { useToast } from '@hooks';
 import { OnSubmitHandler } from '@types';
 import {
+	DefaultValues,
 	FieldValues,
 	SubmitErrorHandler,
 	SubmitHandler,
@@ -19,11 +20,13 @@ interface FormMethods<T extends FieldValues> {
 }
 
 function useForm<T extends FieldValues>(
-	initialValues: T,
+	initialValues: DefaultValues<T>,
 	methods: FormMethods<T>
 ): IUseForm<T> {
 	const { toastError } = useToast();
-	const formMethods = useReactForm<T>(initialValues);
+	const formMethods = useReactForm<T>({
+		defaultValues: initialValues
+	});
 	const defaultOnValid: SubmitHandler<T> = (data: T) =>
 		console.log('Valid form data:', data);
 	const defaultOnInvalid: SubmitErrorHandler<T> = (error: any) => {

@@ -58,6 +58,8 @@ type UserTagsFollowingPage = undefined;
 
 type TopTagsPage = undefined;
 
+type EditArtistPage = undefined;
+
 export type RouteNames =
 	| 'SearchPage'
 	| 'HostPage'
@@ -80,7 +82,8 @@ export type RouteNames =
 	| 'ArtistViewContractPage'
 	| 'UserArtistsFollowingPage'
 	| 'UserTagsFollowingPage'
-	| 'TopTagsPage';
+	| 'TopTagsPage'
+	| 'EditArtistPage';
 
 /**
  * Stack Navigators
@@ -136,6 +139,10 @@ export type ContractManagerStackNavigatorParamList = {
 	ArtistViewContractPage: ArtistViewContractPage;
 };
 
+export type EditArtistStackNavigatorParamList = {
+	EditArtistPage: EditArtistPage;
+};
+
 /**
  * Bottom Tab Navigators
  *
@@ -159,6 +166,7 @@ export type BottomTabNavigatorParamList = {
 	Profile: ProfileStackNavigatorParamList;
 	EventManager: EventManagerStackNavigatorParamList;
 	ContractManager: ContractManagerStackNavigatorParamList;
+	EditArtist: EditArtistStackNavigatorParamList;
 };
 
 type ComposeTabNavigationProp<T extends ParamListBase> =
@@ -176,16 +184,20 @@ export type EventManagerScreenNavigationProp =
 	ComposeTabNavigationProp<EventManagerStackNavigatorParamList>;
 export type ContractManagerScreenNavigationProp =
 	ComposeTabNavigationProp<ContractManagerStackNavigatorParamList>;
+export type EditArtistScreenNavigationProp =
+	ComposeTabNavigationProp<EditArtistStackNavigatorParamList>;
 
 export type CompositeScreenNavigationProp = SearchScreenNavigationProp &
 	ProfileScreenNavigationProp &
 	EventManagerScreenNavigationProp &
-	ContractManagerScreenNavigationProp;
+	ContractManagerScreenNavigationProp &
+	EditArtistScreenNavigationProp;
 
 export type CompositeStackNavigatorParamList = SearchStackNavigatorParamList &
 	ProfileStackNavigatorParamList &
 	EventManagerStackNavigatorParamList &
-	ContractManagerStackNavigatorParamList;
+	ContractManagerStackNavigatorParamList &
+	EditArtistStackNavigatorParamList;
 
 /**
  * Search Route Props
@@ -266,4 +278,12 @@ export type EditContractPageRouteProp = RouteProp<
 export type ArtistViewContractPageRouteProp = RouteProp<
 	CompositeStackNavigatorParamList,
 	'ArtistViewContractPage'
+>;
+
+/**
+ * Edit Artist Route Props
+ */
+export type EditArtistPageRouteProp = RouteProp<
+	CompositeStackNavigatorParamList,
+	'EditArtistPage'
 >;

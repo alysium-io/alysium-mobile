@@ -1,0 +1,69 @@
+import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
+import { profileImageApiSlice } from '@flux/api/profile-image';
+import { useToast } from '@hooks';
+import { ButtonStateApi, useButtonState } from '@molecules';
+import useEditArtistFormApi, {
+	EditArtistFormApi
+} from '@src/utils/redux-hook-form/useEditArtistFormApi';
+import { useState } from 'react';
+import { Asset } from 'react-native-image-picker';
+
+interface IUseEditArtistPage {
+	editArtistFormApi: EditArtistFormApi;
+	profileImage: Asset | null;
+	setProfileImage: (profileImage: Asset | null) => void;
+	saveButtonStateApi: ButtonStateApi;
+}
+
+const useEditArtistPage = (): IUseEditArtistPage => {
+	const { toastSuccess } = useToast();
+	const { artistData } = useArtistAppContext();
+	const [profileImage, setProfileImage] = useState<Asset | null>(null);
+	const saveButtonStateApi = useButtonState();
+	const [createArtistProfileImageMutation] =
+		profileImageApiSlice.useCreateArtistProfileImageMutation();
+
+	const editArtistFormApi = useEditArtistFormApi({
+		initialValues: {
+			name: artistData.name
+		},
+		methods: {
+			onConfirmedValid: () => {
+				saveButtonStateApi.setButtonState('loading');
+			},
+			onValidDidComplete: async (res) => {
+				const promises = [];
+				if (profileImage) {
+					promises.push(
+						createArtistProfileImageMutation({
+							file: profileImage,
+							query: { artist_uid: artistData.artist_uid }
+						})
+					);
+				}
+
+				await Promise.all(promises);
+				toastSuccess('Artist updated successfully');
+				saveButtonStateApi.buttonSuccess();
+			},
+			onInvalid: (err) => {
+				console.log(err);
+			}
+		}
+	});
+
+	const resetAll = () => {
+		editArtistFormApi.formMethods.reset();
+		saveButtonStateApi.setButtonState('disabled');
+		setProfileImage(null);
+	};
+
+	return {
+		editArtistFormApi,
+		profileImage,
+		setProfileImage,
+		saveButtonStateApi
+	};
+};
+
+export default useEditArtistPage;

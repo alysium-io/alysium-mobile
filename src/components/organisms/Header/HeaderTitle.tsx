@@ -16,11 +16,11 @@ const HeaderTitle: React.FC<HeaderTitleProps> = ({
 }) => {
 	return (
 		<View>
-			<Text variant='paragraph' color='text.p' {...titleProps}>
+			<Text variant='paragraph-small' color='text.p' {...titleProps}>
 				{title}
 			</Text>
 			{subtitle && (
-				<Text variant='paragraph' color='subtext.p' {...subtitleProps}>
+				<Text variant='paragraph-small' color='subtext.p' {...subtitleProps}>
 					{subtitle}
 				</Text>
 			)}

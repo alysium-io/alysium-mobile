@@ -7,17 +7,24 @@ import { Asset } from 'react-native-image-picker';
 import Toast from 'react-native-toast-message';
 import EditIcon from './EditIcon';
 
+const sizes = {
+	medium: 80,
+	large: 120
+};
+
 interface EditableProfileImageProps
 	extends React.ComponentProps<typeof TouchableWithoutFeedback> {
 	image?: string;
 	defaultImageProps?: React.ComponentProps<typeof DefaultImage>;
 	onChooseImage?: (imagePickerAsset: Asset) => void;
+	size?: keyof typeof sizes;
 }
 
 const EditableProfileImage: React.FC<EditableProfileImageProps> = ({
 	image,
 	onChooseImage,
 	defaultImageProps,
+	size = 'medium',
 	...props
 }) => {
 	const { chooseImageOrTakeNewPhoto } = usePhotosAndCamera();
@@ -44,7 +51,7 @@ const EditableProfileImage: React.FC<EditableProfileImageProps> = ({
 
 	return (
 		<TouchableWithoutFeedback onPress={onPress} {...props}>
-			<View style={styles.container}>
+			<View style={[styles.container, { width: sizes[size] }]}>
 				<Avatar image={image} defaultImageProps={defaultImageProps} />
 				<View style={styles.iconContainer}>
 					<EditIcon />
@@ -56,7 +63,6 @@ const EditableProfileImage: React.FC<EditableProfileImageProps> = ({
 
 const styles = StyleSheet.create({
 	container: {
-		width: 80,
 		aspectRatio: 1
 	},
 	image: {

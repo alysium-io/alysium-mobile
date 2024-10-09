@@ -1,5 +1,5 @@
 import { View } from '@atomic';
-import { useKeyboard } from '@hooks';
+import { useKeyboard, useTheme } from '@hooks';
 import { IChildrenProps } from '@types';
 import React from 'react';
 import Animated from 'react-native-reanimated';
@@ -20,11 +20,14 @@ const SelfAwareScrollView: React.FC<SelfAwareScrollViewProps> = ({
 	...props
 }) => {
 	const { dismiss } = useKeyboard();
+	const { theme } = useTheme();
 	return (
 		<Animated.ScrollView
 			ref={selfAwareScrollViewApi.scrollViewRef}
 			onLayout={selfAwareScrollViewApi.onScrollViewLayout}
 			onScrollBeginDrag={dismiss}
+			style={{ overflow: 'visible' }}
+			indicatorStyle={theme.colors['etc.scrollbar-indicator']}
 			{...props}
 		>
 			<View {...containerProps}>{children}</View>

@@ -1,6 +1,7 @@
 export * from './Artist';
 export * from './ArtistViewContract';
 export * from './ContractManager';
+export * from './EditArtist';
 export * from './EditContract';
 export * from './EditEvent';
 export * from './EditEventTicketTypes';

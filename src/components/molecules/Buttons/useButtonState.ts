@@ -14,10 +14,13 @@ const useButtonState = (
 	const [buttonState, setButtonState] = useState<ButtonState>(defaultState);
 
 	const buttonSuccess = () => {
-		setButtonState('success');
-		setTimeout(() => {
-			setButtonState('active');
-		}, 1000);
+		return new Promise((resolve) => {
+			setButtonState('success');
+			setTimeout(() => {
+				setButtonState('active');
+				resolve(undefined);
+			}, 1500);
+		});
 	};
 
 	return {

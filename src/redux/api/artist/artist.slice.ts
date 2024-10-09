@@ -98,8 +98,8 @@ export default serviceApi.injectEndpoints({
 				params: UpdateArtistParamsDto;
 			}
 		>({
-			query: (body) => ({
-				url: url('/'),
+			query: ({ body, params }) => ({
+				url: url(`/${params.artist_uid}`),
 				method: 'PUT',
 				body
 			}),

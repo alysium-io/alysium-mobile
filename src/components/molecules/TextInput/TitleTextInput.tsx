@@ -4,7 +4,6 @@ import { IconNames } from '@svg';
 import React from 'react';
 import {
 	NativeSyntheticEvent,
-	StyleSheet,
 	TextInputFocusEventData,
 	TextInputProps,
 	TouchableWithoutFeedback
@@ -17,7 +16,7 @@ interface TitleTextInputProps extends TextInputProps {
 }
 
 const TitleTextInput: React.FC<TitleTextInputProps> = ({
-	textAlign = 'left',
+	textAlign = 'center',
 	icon,
 	...props
 }) => {
@@ -73,12 +72,5 @@ const TitleTextInput: React.FC<TitleTextInputProps> = ({
 		</TouchableWithoutFeedback>
 	);
 };
-
-const styles = StyleSheet.create({
-	container: {
-		flexDirection: 'row',
-		alignItems: 'center'
-	}
-});
 
 export default TitleTextInput;

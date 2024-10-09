@@ -12,7 +12,6 @@ import useUserProfilePage from './useUserProfilePage';
 const ProfilePage = () => {
 	const { createArtistSheetApi } = useUserProfilePage();
 
-	// Create Host & Artist footer
 	const FooterComponent = useCallback(
 		() => (
 			<CreateProfileActionFooter createArtistSheetApi={createArtistSheetApi} />

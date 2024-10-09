@@ -6,6 +6,7 @@ import { BottomTabNavigatorParamList } from '@types';
 import React from 'react';
 import { ArtistAppProvider } from '../contexts/Artist.context';
 import { ProfileTab, SearchTab } from '../tabs';
+import EditArtistTab from '../tabs/EditArtistTab.tab';
 import { useNavigationSettings } from '../tabs/settings';
 import AppDependencies from './AppDependencies';
 
@@ -46,6 +47,21 @@ const ArtistApp = () => {
 											}
 										/>
 									)
+							}}
+						/>
+						<Tab.Screen
+							name='EditArtist'
+							component={EditArtistTab}
+							options={{
+								tabBarIcon: ({ focused }) => (
+									<Icon
+										name='artist'
+										size='m'
+										color={
+											focused ? 'navbar.icon.active' : 'navbar.icon.inactive'
+										}
+									/>
+								)
 							}}
 						/>
 						<Tab.Screen

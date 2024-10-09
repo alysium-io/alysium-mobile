@@ -45,8 +45,6 @@ const SearchInactivePage: React.FC = () => {
 	return (
 		<SelfAwareScrollView
 			selfAwareScrollViewApi={selfAwareScrollViewApi}
-			style={{ overflow: 'visible' }}
-			indicatorStyle={theme.colors['etc.scrollbar-indicator']}
 			entering={FadeIn.duration(300)}
 			exiting={FadeOut.duration(300)}
 			layout={LinearTransition.duration(300)}

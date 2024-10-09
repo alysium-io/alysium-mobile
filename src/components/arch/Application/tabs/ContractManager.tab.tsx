@@ -1,10 +1,7 @@
 import {
 	ArtistViewContractPage,
-	ArtistViewContractPageHeader,
 	ContractManagerPage,
-	ContractManagerPageHeader,
-	EditContractPage,
-	EditContractPageHeader
+	EditContractPage
 } from '@pages';
 import { createStackNavigator } from '@react-navigation/stack';
 import { ContractManagerStackNavigatorParamList } from '@types';
@@ -22,19 +19,16 @@ const ContractManagerTab = () => {
 			<ContractManagerStack.Screen
 				name='ContractManagerPage'
 				component={ContractManagerPage}
-				options={{ header: ContractManagerPageHeader }}
 			/>
 
 			<ContractManagerStack.Screen
 				name='EditContractPage'
 				component={EditContractPage}
-				options={{ header: EditContractPageHeader }}
 			/>
 
 			<ContractManagerStack.Screen
 				name='ArtistViewContractPage'
 				component={ArtistViewContractPage}
-				options={{ header: ArtistViewContractPageHeader }}
 			/>
 		</ContractManagerStack.Navigator>
 	);

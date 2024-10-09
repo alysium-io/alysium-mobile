@@ -37,7 +37,8 @@ const useRegisterUserPhoneNumberFormApi = (
 						formApiOptions?.methods?.onValidDidComplete?.(response);
 					})
 					.catch((error) => {
-						formApiOptions?.methods?.onValidDidFail?.(error) && toastError();
+						formApiOptions?.methods?.onValidDidFail?.(error);
+						toastError();
 					});
 			}
 		}
