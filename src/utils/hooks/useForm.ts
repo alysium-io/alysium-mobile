@@ -17,6 +17,7 @@ interface IUseForm<T extends FieldValues> {
 interface FormMethods<T extends FieldValues> {
 	onValid?: SubmitHandler<T>;
 	onInvalid?: SubmitErrorHandler<T>;
+	displayDefaultErrorAsToast?: boolean;
 }
 
 function useForm<T extends FieldValues>(
@@ -30,13 +31,26 @@ function useForm<T extends FieldValues>(
 	const defaultOnValid: SubmitHandler<T> = (data: T) =>
 		console.log('Valid form data:', data);
 	const defaultOnInvalid: SubmitErrorHandler<T> = (error: any) => {
-		console.log('Invalid form data:', error);
-		toastError(error?.feedback?.message ?? 'Invalid form data');
+		if (
+			methods.displayDefaultErrorAsToast === true ||
+			methods.displayDefaultErrorAsToast === undefined
+		) {
+			console.log('Invalid form data:', error);
+			const errorNames = Object.keys(error);
+			if (errorNames.length > 0 && error[errorNames[0]].message) {
+				toastError(error[errorNames[0]].message);
+			} else {
+				toastError(error?.feedback?.message ?? 'Invalid form data');
+			}
+		}
+		if (methods.onInvalid) {
+			methods.onInvalid(error);
+		}
 	};
 
 	const onSubmit = formMethods.handleSubmit(
 		methods.onValid || defaultOnValid,
-		methods.onInvalid || defaultOnInvalid
+		defaultOnInvalid
 	);
 
 	return {

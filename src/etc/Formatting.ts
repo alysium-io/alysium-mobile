@@ -11,6 +11,11 @@ class Formatting {
 		 * Function that formats a phone number to (XXX) XXX-XXXX
 		 */
 
+		// If the input starts with +1 remove it
+		if (input.startsWith('+1')) {
+			input = input.substring(2);
+		}
+
 		// Strip all characters from the input except digits
 		input = Formatting.cleanStringToNumber(input);
 

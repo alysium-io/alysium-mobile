@@ -16,7 +16,7 @@ interface IUseEditArtistPage {
 }
 
 const useEditArtistPage = (): IUseEditArtistPage => {
-	const { toastSuccess } = useToast();
+	const { toastSuccess, toastError } = useToast();
 	const { artistData } = useArtistAppContext();
 	const [profileImage, setProfileImage] = useState<Asset | null>(null);
 	const saveButtonStateApi = useButtonState();
@@ -25,7 +25,8 @@ const useEditArtistPage = (): IUseEditArtistPage => {
 
 	const editArtistFormApi = useEditArtistFormApi({
 		initialValues: {
-			name: artistData.name
+			name: artistData.name,
+			phone_number: artistData.phone_number
 		},
 		methods: {
 			onConfirmedValid: () => {
@@ -46,8 +47,13 @@ const useEditArtistPage = (): IUseEditArtistPage => {
 				toastSuccess('Artist updated successfully');
 				saveButtonStateApi.buttonSuccess();
 			},
-			onInvalid: (err) => {
+			onValidDidFail: (err) => {
 				console.log(err);
+				toastError('Failed to update artist');
+				saveButtonStateApi.setButtonState('active');
+			},
+			onInvalid: (err) => {
+				saveButtonStateApi.setButtonState('active');
 			}
 		}
 	});

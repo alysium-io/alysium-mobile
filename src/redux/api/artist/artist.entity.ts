@@ -7,6 +7,7 @@ import { ArtistSpotifyData } from './types';
 interface ArtistCommon {
 	readonly artist_uid: string;
 	readonly name: string;
+	readonly phone_number: string | null;
 	readonly is_following: boolean;
 	readonly num_followers: number;
 	readonly artist_rank: number;

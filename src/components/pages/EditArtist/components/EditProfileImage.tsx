@@ -1,5 +1,5 @@
 import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
-import { View } from '@atomic';
+import { Section } from '@atomic';
 import { EditableProfileImage } from '@molecules';
 import React from 'react';
 import { Asset } from 'react-native-image-picker';
@@ -15,7 +15,7 @@ const EditProfileImage: React.FC<EditProfileImageProps> = ({
 }) => {
 	const { artistData } = useArtistAppContext();
 	return (
-		<View marginVertical='xxl' alignItems='center'>
+		<Section marginVertical='xxl' alignItems='center'>
 			<EditableProfileImage
 				size='large'
 				onChooseImage={setProfileImage}
@@ -25,7 +25,7 @@ const EditProfileImage: React.FC<EditProfileImageProps> = ({
 						: profileImage.uri
 				}
 			/>
-		</View>
+		</Section>
 	);
 };
 

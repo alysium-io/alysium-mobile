@@ -62,6 +62,7 @@ const PhoneNumberTextInput = forwardRef<TextInput, PhoneNumberTextInputProps>(
 				color='text.p'
 				{...props}
 				onChangeText={handleTextInputChange}
+				maxLength={14}
 			/>
 		);
 	}

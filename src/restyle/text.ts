@@ -1,74 +1,93 @@
-const PRIMARY_FONT = 'Helvetica Neue';
+import { TextStyle } from 'react-native';
 
-const textVariantDefaults = {
+const PRIMARY_FONT = 'HelveticaNeue';
+
+const textVariantDefaults: TextStyle = {
 	fontFamily: PRIMARY_FONT,
-	letterSpacing: 0.3,
-	paddingVertical: 'none'
+	letterSpacing: 0.3
 };
 
 const fontWeights = {
-	light: '300',
-	regular: '400',
-	medium: '500',
-	bold: '700'
-};
+	thin: 'HelveticaNeue-Thin',
+	light: 'HelveticaNeue-Light',
+	regular: 'HelveticaNeue',
+	medium: 'HelveticaNeue-Medium',
+	bold: 'HelveticaNeue-Bold',
+	condensedBold: 'HelveticaNeue-CondensedBold',
+	condensedBlack: 'HelveticaNeue-CondensedBlack'
+} as const;
 
 const PARAGRAPH_LARGE_SIZE = 18;
 const PARAGRAPH_SIZE = 16;
 const PARAGRAPH_SMALL_SIZE = 14;
 
 export const textVariants = {
+	defaults: textVariantDefaults,
 	'page-header': {
-		fontSize: 26,
-		fontWeight: fontWeights.bold
+		fontFamily: fontWeights.bold,
+		fontSize: 26
 	},
 	'section-header-1': {
-		fontSize: 18,
-		fontWeight: fontWeights.bold
+		fontFamily: fontWeights.bold,
+		fontSize: 18
 	},
 	'section-header-2': {
-		fontSize: 24,
-		fontWeight: fontWeights.regular
+		fontFamily: fontWeights.regular,
+		fontSize: 24
 	},
 	'paragraph-large': {
-		fontSize: PARAGRAPH_LARGE_SIZE,
-		fontWeight: fontWeights.regular
+		fontFamily: fontWeights.regular,
+		fontSize: PARAGRAPH_LARGE_SIZE
 	},
 	'paragraph-large-medium': {
-		fontSize: PARAGRAPH_LARGE_SIZE,
-		fontWeight: fontWeights.medium
+		fontFamily: fontWeights.medium,
+		fontSize: PARAGRAPH_LARGE_SIZE
 	},
 	paragraph: {
-		fontSize: PARAGRAPH_SIZE,
-		fontWeight: fontWeights.regular
+		fontFamily: fontWeights.regular,
+		fontSize: PARAGRAPH_SIZE
 	},
 	'paragraph-light': {
-		fontSize: PARAGRAPH_SIZE,
-		fontWeight: fontWeights.light
+		fontFamily: fontWeights.light,
+		fontSize: PARAGRAPH_SIZE
 	},
 	'paragraph-medium': {
-		fontSize: PARAGRAPH_SIZE,
-		fontWeight: fontWeights.medium
+		fontFamily: fontWeights.medium,
+		fontSize: PARAGRAPH_SIZE
 	},
 	'paragraph-bold': {
-		fontSize: PARAGRAPH_SIZE,
-		fontWeight: fontWeights.bold
+		fontFamily: fontWeights.bold,
+		fontSize: PARAGRAPH_SIZE
 	},
 	'paragraph-small': {
-		fontSize: PARAGRAPH_SMALL_SIZE,
-		fontWeight: fontWeights.regular
+		fontFamily: fontWeights.regular,
+		fontSize: PARAGRAPH_SMALL_SIZE
 	},
 	'paragraph-small-light': {
-		fontSize: PARAGRAPH_SMALL_SIZE,
-		fontWeight: fontWeights.light
+		fontFamily: fontWeights.light,
+		fontSize: PARAGRAPH_SMALL_SIZE
 	},
 	'paragraph-small-medium': {
-		fontSize: PARAGRAPH_SMALL_SIZE,
-		fontWeight: fontWeights.medium
+		fontFamily: fontWeights.medium,
+		fontSize: PARAGRAPH_SMALL_SIZE
 	},
 	'paragraph-small-bold': {
-		fontSize: PARAGRAPH_SMALL_SIZE,
-		fontWeight: fontWeights.bold
-	},
-	defaults: textVariantDefaults
+		fontFamily: fontWeights.bold,
+		fontSize: PARAGRAPH_SMALL_SIZE
+	}
 };
+
+// Helper function to create italic versions of styles
+const createItalicStyle = (baseStyle: TextStyle): TextStyle => ({
+	...baseStyle,
+	fontFamily: `${baseStyle.fontFamily}Italic` as keyof typeof fontWeights
+});
+
+// Add italic versions of styles
+Object.keys(textVariants).forEach((key) => {
+	if (key !== 'defaults') {
+		(textVariants as any)[`${key}-italic`] = createItalicStyle(
+			textVariants[key as keyof typeof textVariants]
+		);
+	}
+});

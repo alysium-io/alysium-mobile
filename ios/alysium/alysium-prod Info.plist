@@ -40,16 +40,20 @@
 	<string>Alysium needs access to your photo library to allow you to choose an existing photo as your profile picture. We will only access the specific image you select to personalize your account.</string>
 	<key>UIAppFonts</key>
 	<array>
-		<string>Lato-Black.ttf</string>
-		<string>Lato-BlackItalic.ttf</string>
-		<string>Lato-Bold.ttf</string>
-		<string>Lato-BoldItalic.ttf</string>
-		<string>Lato-Italic.ttf</string>
-		<string>Lato-Light.ttf</string>
-		<string>Lato-LightItalic.ttf</string>
-		<string>Lato-Regular.ttf</string>
-		<string>Lato-Thin.ttf</string>
-		<string>Lato-ThinItalic.ttf</string>
+		<string>HelveticaNeue-Bold.ttf</string>
+		<string>HelveticaNeue-BoldItalic.ttf</string>
+		<string>HelveticaNeue-CondensedBlack.ttf</string>
+		<string>HelveticaNeue-CondensedBold.ttf</string>
+		<string>HelveticaNeue-Italic.ttf</string>
+		<string>HelveticaNeue-Light.ttf</string>
+		<string>HelveticaNeue-LightItalic.ttf</string>
+		<string>HelveticaNeue-Medium.ttf</string>
+		<string>HelveticaNeue-MediumItalic.ttf</string>
+		<string>HelveticaNeue-Thin.ttf</string>
+		<string>HelveticaNeue-ThinItalic.ttf</string>
+		<string>HelveticaNeue-UltraLight.ttf</string>
+		<string>HelveticaNeue-UltraLightItalic.ttf</string>
+		<string>HelveticaNeue.ttf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen.storyboard</string>

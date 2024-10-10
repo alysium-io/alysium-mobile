@@ -1,3 +1,4 @@
+export { default as FormPhoneNumberTextInputWithLabel } from './FormPhoneNumberTextInputWithLabel';
 export { default as InternationalPhoneNumberTextInput } from './InternationalPhoneNumberTextInput';
 export { default as PhoneNumberTextInputWithLabel } from './PhoneNumberTextInputWithLabel';
 export { default as TextBox } from './TextBox';

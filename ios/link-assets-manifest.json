@@ -2,52 +2,60 @@
   "migIndex": 1,
   "data": [
     {
-      "path": "src/assets/fonts/Lato-Black.ttf",
-      "sha1": "a001eb827743636e04f8efa7d4aeedf0541c46ac"
+      "path": "src/assets/fonts/HelveticaNeue-Bold.ttf",
+      "sha1": "218f503304f7efe6ca010367dd0e87b7d86582eb"
     },
     {
-      "path": "src/assets/fonts/Lato-BlackItalic.ttf",
-      "sha1": "b490ec02c69bb74f5b4f487c59e984891c8da71c"
+      "path": "src/assets/fonts/HelveticaNeue-BoldItalic.ttf",
+      "sha1": "2db6df76ecdf934e67a4f8eef36e20c3d184999e"
     },
     {
-      "path": "src/assets/fonts/Lato-Bold.ttf",
-      "sha1": "542498221d97bee5bdbccf86ee8890bf8e8005c9"
+      "path": "src/assets/fonts/HelveticaNeue-CondensedBlack.ttf",
+      "sha1": "7df68221c456ef61b939d109d4a9aaa156bf8346"
     },
     {
-      "path": "src/assets/fonts/Lato-BoldItalic.ttf",
-      "sha1": "6bf491e78e16d3b9c8a55752e1bd658e15ed7f19"
+      "path": "src/assets/fonts/HelveticaNeue-CondensedBold.ttf",
+      "sha1": "7f9568a6778d741f6e4e38c29a31a730bb97b2eb"
     },
     {
-      "path": "src/assets/fonts/Lato-Italic.ttf",
-      "sha1": "190187b720ec2f2ff2e4281237e301000e09673f"
+      "path": "src/assets/fonts/HelveticaNeue-Italic.ttf",
+      "sha1": "e93ba4e3632a012f7b1f4cc9b166915278149ebc"
     },
     {
-      "path": "src/assets/fonts/Lato-Light.ttf",
-      "sha1": "ad0d178564445a535b15d417f5b18019923d3bab"
+      "path": "src/assets/fonts/HelveticaNeue-Light.ttf",
+      "sha1": "9eb33b102af3f0fadf793c4cd7392487a4a4b2ac"
     },
     {
-      "path": "src/assets/fonts/Lato-LightItalic.ttf",
-      "sha1": "34388d9a3b64380c9f08d424d0adaa88a0d1650a"
+      "path": "src/assets/fonts/HelveticaNeue-LightItalic.ttf",
+      "sha1": "6dde3828f422a56df4190669a030409f1f4ba4f9"
     },
     {
-      "path": "src/assets/fonts/Lato-Regular.ttf",
-      "sha1": "e923c72eda5e50a87e18ff5c71e9ef4b3b6455a3"
+      "path": "src/assets/fonts/HelveticaNeue-Medium.ttf",
+      "sha1": "989f6a68f5cd23f7251ce13bbd1f40eb2f57cd57"
     },
     {
-      "path": "src/assets/fonts/Lato-Thin.ttf",
-      "sha1": "07290446bee3f81ce501a3c3dbfde6097c70ca15"
+      "path": "src/assets/fonts/HelveticaNeue-MediumItalic.ttf",
+      "sha1": "22fff41286783ca2a7d3aa961939c6229c07c08a"
     },
     {
-      "path": "src/assets/fonts/Lato-ThinItalic.ttf",
-      "sha1": "ff4a1a9fe2dcc41d993f4c5067a3baa1c456ff97"
+      "path": "src/assets/fonts/HelveticaNeue-Thin.ttf",
+      "sha1": "7c8fcaf12245417353c2dc3ecf4e90865e219d49"
     },
     {
-      "path": "src/assets/images/brooks.png",
-      "sha1": "bba78fe6581b9748e8d24bd4ffa1d7cae3e38be4"
+      "path": "src/assets/fonts/HelveticaNeue-ThinItalic.ttf",
+      "sha1": "fdde7ca7a9ead4bfc793695c5243c6a267ee6526"
     },
     {
-      "path": "src/assets/images/default_profile_image.jpg",
-      "sha1": "24183a9b5cf776650e52bf16f876ecb6f5c1e24e"
+      "path": "src/assets/fonts/HelveticaNeue-UltraLight.ttf",
+      "sha1": "8e94e7b9edf07669e373a8eba9876c28fbf62422"
+    },
+    {
+      "path": "src/assets/fonts/HelveticaNeue-UltraLightItalic.ttf",
+      "sha1": "40f976563e3cff695b312dae3749dd7d8da0bf81"
+    },
+    {
+      "path": "src/assets/fonts/HelveticaNeue.ttf",
+      "sha1": "d678ac1ada04b16367c85b926cb02c04486ca35b"
     }
   ]
 }

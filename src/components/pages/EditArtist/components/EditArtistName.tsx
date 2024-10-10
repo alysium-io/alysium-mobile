@@ -1,5 +1,5 @@
 import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
-import { View } from '@atomic';
+import { Section } from '@atomic';
 import { TitleTextInput } from '@molecules';
 import { EditArtistFormApi } from '@src/utils/redux-hook-form/useEditArtistFormApi';
 import React from 'react';
@@ -14,12 +14,12 @@ const EditArtistName: React.FC<EditArtistNameProps> = ({
 }) => {
 	const { artistData } = useArtistAppContext();
 	return (
-		<View>
+		<Section>
 			<Controller
 				name='name'
 				rules={{ required: true }}
 				control={editArtistFormApi.formMethods.control}
-				render={({ field: { onChange, onBlur } }) => (
+				render={({ field: { onChange } }) => (
 					<TitleTextInput
 						placeholder='Artist name'
 						onChangeText={onChange}
@@ -27,7 +27,7 @@ const EditArtistName: React.FC<EditArtistNameProps> = ({
 					/>
 				)}
 			/>
-		</View>
+		</Section>
 	);
 };
 
