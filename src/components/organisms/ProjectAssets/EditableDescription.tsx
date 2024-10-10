@@ -1,28 +1,35 @@
 import { TextInput, View } from '@atomic';
-import { TextInputApi } from '@hooks';
+import { TextInputApi, useTextInput } from '@hooks';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 interface EditableDescriptionProps
 	extends React.ComponentProps<typeof TextInput> {
-	textInputApi: TextInputApi;
+	textInputApi?: TextInputApi;
 }
 
 const EditableDescription: React.FC<EditableDescriptionProps> = ({
 	textInputApi,
 	...props
 }) => {
+	const defaultTextInputApi = useTextInput();
+	const _textInputApi = textInputApi || defaultTextInputApi;
 	return (
 		<TouchableWithoutFeedback
 			onPress={() => {
-				textInputApi.focus();
+				_textInputApi.focus();
 			}}
 		>
-			<View style={styles.container} borderColor='t3' padding='m'>
+			<View
+				style={styles.container}
+				borderColor='border.light'
+				paddingHorizontal='m'
+				paddingVertical='s'
+			>
 				<TextInput
-					ref={textInputApi.ref}
-					onChangeText={textInputApi.setText}
+					ref={_textInputApi.ref}
+					onChangeText={_textInputApi.setText}
 					{...props}
 				/>
 			</View>
@@ -32,8 +39,8 @@ const EditableDescription: React.FC<EditableDescriptionProps> = ({
 
 const styles = StyleSheet.create({
 	container: {
-		borderLeftWidth: 2,
-		borderRightWidth: 2
+		borderLeftWidth: 3,
+		borderRightWidth: 3
 	}
 });
 

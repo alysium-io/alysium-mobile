@@ -1,4 +1,5 @@
 import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
+import { Formatting } from '@etc';
 import { profileImageApiSlice } from '@flux/api/profile-image';
 import { useToast } from '@hooks';
 import { ButtonStateApi, useButtonState } from '@molecules';
@@ -26,7 +27,8 @@ const useEditArtistPage = (): IUseEditArtistPage => {
 	const editArtistFormApi = useEditArtistFormApi({
 		initialValues: {
 			name: artistData.name,
-			phone_number: artistData.phone_number
+			phone_number: Formatting.formatPhoneNumber(artistData.phone_number ?? ''),
+			bio: artistData.bio
 		},
 		methods: {
 			onConfirmedValid: () => {
@@ -53,6 +55,10 @@ const useEditArtistPage = (): IUseEditArtistPage => {
 				saveButtonStateApi.setButtonState('active');
 			},
 			onInvalid: (err) => {
+				console.log(
+					'Invalid with: ',
+					editArtistFormApi.formMethods.getValues()
+				);
 				saveButtonStateApi.setButtonState('active');
 			}
 		}

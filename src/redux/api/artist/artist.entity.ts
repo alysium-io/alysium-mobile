@@ -8,6 +8,7 @@ interface ArtistCommon {
 	readonly artist_uid: string;
 	readonly name: string;
 	readonly phone_number: string | null;
+	readonly bio: string | null;
 	readonly is_following: boolean;
 	readonly num_followers: number;
 	readonly artist_rank: number;

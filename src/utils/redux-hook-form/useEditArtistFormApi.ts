@@ -21,7 +21,8 @@ const useEditArtistFormApi = (
 		Object.assign(
 			{
 				name: '',
-				phone_number: null
+				phone_number: null,
+				bio: null
 			},
 			formApiOptions?.initialValues
 		),
@@ -35,6 +36,9 @@ const useEditArtistFormApi = (
 						data.phone_number
 					);
 				}
+
+				console.log('Sending with: ', data);
+
 				updateArtistMutation({
 					body: data,
 					params: { artist_uid: artistData.artist_uid }

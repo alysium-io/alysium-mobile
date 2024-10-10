@@ -8,6 +8,7 @@ import { BasePage } from '@organisms';
 import React, { useCallback } from 'react';
 import EditArtistName from './components/EditArtistName';
 import EditBasicInfoSection from './components/EditBasicInfoSection';
+import EditBioSection from './components/EditBioSection';
 import EditProfileImage from './components/EditProfileImage';
 import EditArtistPageHeader from './EditArtist.header';
 import useEditArtistPage from './useEditArtistPage';
@@ -48,6 +49,7 @@ const EditArtistPage = () => {
 					/>
 					<EditArtistName editArtistFormApi={editArtistFormApi} />
 					<EditBasicInfoSection editArtistFormApi={editArtistFormApi} />
+					<EditBioSection editArtistFormApi={editArtistFormApi} />
 				</View>
 			</SelfAwareScrollView>
 		</BasePage>

@@ -2,7 +2,7 @@ import { useUserAppContext } from '@arch/Application/contexts/User.context';
 import { Section, Text, View } from '@atomic';
 import { Vibrator } from '@etc';
 import { tagApiSlice } from '@flux/api/tag';
-import { useNavigation, useTheme } from '@hooks';
+import { useNavigation } from '@hooks';
 import {
 	BlockListItem,
 	Button,
@@ -19,7 +19,6 @@ import ArtistsFollowingButton from './ArtistsFollowingButton';
 import TagsFollowingButton from './TagsFollowingButton';
 
 const SearchInactivePage: React.FC = () => {
-	const { theme } = useTheme();
 	const { userData } = useUserAppContext();
 	const { behavior } = useBehaviorContext();
 	const {
