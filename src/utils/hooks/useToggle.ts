@@ -11,10 +11,31 @@ export interface ToggleApi {
 
 const useToggle = (defaultState: boolean = false): ToggleApi => {
 	const [state, setState] = useState(defaultState);
-	const toggle = () => setState(!state);
-	const on = () => setState(true);
-	const off = () => setState(false);
-	const set = (value: boolean) => setState(value);
+
+	const toggle = () => {
+		const newState = !state;
+		if (newState !== state) {
+			setState(newState);
+		}
+	};
+
+	const on = () => {
+		if (state !== true) {
+			setState(true);
+		}
+	};
+
+	const off = () => {
+		if (state !== false) {
+			setState(false);
+		}
+	};
+
+	const set = (value: boolean) => {
+		if (value !== state) {
+			setState(value);
+		}
+	};
 
 	return {
 		state,

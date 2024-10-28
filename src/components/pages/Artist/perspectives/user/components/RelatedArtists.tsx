@@ -42,7 +42,7 @@ const RelatedArtists: React.FC<RelatedArtistsProps> = ({ artist_uid }) => {
 						titleTextProps={{
 							title: artist.name,
 							bottomSubtext: Formatting.formatNumFollowers(
-								artist.artist_spotify_data.followers
+								artist.artist_spotify_data?.followers
 							)
 						}}
 						profileImageProps={{

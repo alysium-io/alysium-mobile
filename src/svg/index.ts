@@ -37,8 +37,10 @@ import Meatballs from './Meatballs';
 import Menu from './Menu';
 import Mobile from './Mobile';
 import Outdoors from './Outdoors';
+import Pause from './Pause';
 import Pencil from './Pencil';
 import Phone from './Phone';
+import Play from './Play';
 import Plus from './Plus';
 import Profile from './Profile';
 import Rank from './Rank';
@@ -113,7 +115,9 @@ export const SvgIcons = {
 	'arrow-down': ArrowDown,
 	spotify: Spotify,
 	filter: Filter,
-	rank: Rank
+	rank: Rank,
+	play: Play,
+	pause: Pause
 };
 
 export type IconNames = keyof typeof SvgIcons;

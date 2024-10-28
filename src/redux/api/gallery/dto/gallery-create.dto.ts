@@ -1,10 +1,12 @@
+import { MediaRefType, MediaType } from '@flux/api/media/types';
 import { ApiIdentifier } from '@types';
-import { BaseGallery, GalleryRefType } from '../gallery.entity';
+import { Gallery } from '../gallery.entity';
 
 export interface CreateGalleryBodyDto {
-	entity_type: GalleryRefType;
-	entity_uid: ApiIdentifier;
-	order: number;
+	readonly mediaType: MediaType;
+	readonly refType: MediaRefType;
+	readonly refId: ApiIdentifier;
+	readonly order: number;
 }
 
-export interface CreateGalleryResponseDto extends BaseGallery {}
+export interface CreateGalleryResponseDto extends Gallery {}

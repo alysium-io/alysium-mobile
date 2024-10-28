@@ -14,6 +14,9 @@ const ArtistPage = () => {
 			<Case condition={personaType === Persona.user}>
 				<UserPerspective artist_uid={route.params.artist_uid} />
 			</Case>
+			<Case condition={personaType === Persona.artist}>
+				<UserPerspective artist_uid={route.params.artist_uid} />
+			</Case>
 		</Switch>
 	);
 };

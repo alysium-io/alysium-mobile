@@ -1,5 +1,5 @@
 import { useTheme } from '@hooks';
-import { StackNavigationOptions } from '@react-navigation/stack';
+import { NativeStackNavigationOptions } from '@react-navigation/native-stack';
 import { BottomTabNavigatorParamList, ScreenOptions } from '@types';
 import { StyleProp, ViewStyle } from 'react-native';
 
@@ -33,7 +33,7 @@ export const useNavigationSettings = (): IUseNavigationSettings => {
 			backgroundColor: undefined
 		},
 		routes: {
-			initialArtistAppTab: 'Profile' as keyof BottomTabNavigatorParamList,
+			initialArtistAppTab: 'EditArtist' as keyof BottomTabNavigatorParamList,
 			initialHostAppTab: 'Profile' as keyof BottomTabNavigatorParamList,
 			initialTestAppTab: 'Pages' as keyof BottomTabNavigatorParamList,
 			initialUserAppTab: 'Search' as keyof BottomTabNavigatorParamList
@@ -68,7 +68,7 @@ export const useNavigationSettings = (): IUseNavigationSettings => {
 };
 
 interface IUseTabSettings {
-	screenOptions: StackNavigationOptions;
+	screenOptions: NativeStackNavigationOptions;
 }
 
 export const useTabSettings = (): IUseTabSettings => {
@@ -77,12 +77,12 @@ export const useTabSettings = (): IUseTabSettings => {
 		screenOptions: {
 			headerShown: false,
 			headerBackTitleVisible: false,
-			headerTransparent: true,
-			cardStyle: {
-				backgroundColor: theme.colors['bg.p']
-			},
-			cardOverlayEnabled: true,
-			cardShadowEnabled: true
+			headerTransparent: true
+			// cardStyle: {
+			// 	backgroundColor: theme.colors['bg.p']
+			// },
+			// cardOverlayEnabled: true,
+			// cardShadowEnabled: true
 		}
 	};
 };

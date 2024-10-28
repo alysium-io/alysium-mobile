@@ -1,5 +1,5 @@
 import { ArtistTagLink } from '../artist-tag-link/artist-tag-link.entity';
-import { ArtistGallery } from '../gallery/gallery.entity';
+import { Gallery } from '../gallery/gallery.entity';
 import { Location } from '../location/location.entity';
 import { ProfileImage } from '../profile-image';
 import { ArtistSpotifyData } from './types';
@@ -13,10 +13,10 @@ interface ArtistCommon {
 	readonly num_followers: number;
 	readonly artist_rank: number;
 	readonly profile_image: ProfileImage | null;
-	readonly gallery: ArtistGallery[];
+	readonly gallery: Gallery;
 	readonly tags: ArtistTagLink[];
 	readonly location: Location | null;
-	readonly artist_spotify_data: ArtistSpotifyData;
+	readonly artist_spotify_data: ArtistSpotifyData | null;
 }
 
 export interface PublicArtist extends ArtistCommon {}

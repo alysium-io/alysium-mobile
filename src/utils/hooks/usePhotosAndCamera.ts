@@ -1,56 +1,90 @@
+import { convert, Unit } from '@etc';
+import { MediaType } from '@flux/api/media/types';
 import { useTheme } from '@shopify/restyle';
+import { getAssetMediaType } from '@src/etc/detect-media-type';
 import { Alert, Linking, Platform } from 'react-native';
 import {
+	Asset,
 	ImagePickerResponse,
 	launchCamera,
-	launchImageLibrary
+	launchImageLibrary,
+	MediaType as RNMediaType
 } from 'react-native-image-picker';
 import {
+	check,
 	PERMISSIONS,
 	PermissionStatus,
-	RESULTS,
-	check,
-	request
+	request,
+	RESULTS
 } from 'react-native-permissions';
+import useToast from './useToast';
+
+// Video constraints
+const VIDEO_CONFIG = {
+	DURATION_LIMIT_SECONDS: 45,
+	MAX_FILE_SIZE_MB: 100,
+	VIDEO_QUALITY: 'high' as const
+} as const;
+
+// Shared config for both video and photo
+const SHARED_CONFIG = {
+	QUALITY: 1,
+	SELECTION_LIMIT: 1
+} as const;
+
+// Helper function to check if video exceeds size limit
+const isVideoTooLarge = (fileSize: number): boolean => {
+	return convert(fileSize, Unit.B, Unit.MB) > VIDEO_CONFIG.MAX_FILE_SIZE_MB;
+};
+
+const isVideoTooLong = (duration: number): boolean => {
+	return duration > VIDEO_CONFIG.DURATION_LIMIT_SECONDS;
+};
 
 interface IUsePhotosAndCamera {
-	chooseImageOrTakeNewPhoto: () => Promise<ImagePickerResponse | null>;
+	chooseMediaOrTakeNew: (
+		mediaType?: RNMediaType
+	) => Promise<ImagePickerResponse | null>;
 }
 
 const usePhotosAndCamera = (): IUsePhotosAndCamera => {
+	const { toastError } = useToast();
 	const { mode } = useTheme();
 
-	const handleApiResolve = async (fn: () => any, resolve: any) =>
+	const handleApiResolve = async (fn: () => Promise<any>, resolve: any) =>
 		fn().then((result: any) => resolve(result));
 
-	const requestPhotosOrCameraForImage =
-		async (): Promise<ImagePickerResponse | null> => {
-			return new Promise((resolve) => {
-				Alert.alert(
-					'Select Image',
-					'Choose an image from library or take a new one',
-					[
-						{
-							text: 'Camera',
-							onPress: () => handleApiResolve(takePictureWithCamera, resolve)
-						},
-						{
-							text: 'Library',
-							onPress: () => handleApiResolve(chooseImageFromLibrary, resolve)
-						},
-						{
-							text: 'Cancel',
-							style: 'destructive',
-							onPress: () => resolve(null)
-						}
-					],
+	const chooseMediaOrTakeNew = async (
+		mediaType: RNMediaType = 'mixed'
+	): Promise<ImagePickerResponse | null> => {
+		return new Promise((resolve) => {
+			Alert.alert(
+				`Select media`,
+				`Choose media from library or capture a new one`,
+				[
 					{
-						cancelable: true,
-						userInterfaceStyle: mode
+						text: 'Camera',
+						onPress: () =>
+							handleApiResolve(() => captureWithCamera(mediaType), resolve)
+					},
+					{
+						text: 'Library',
+						onPress: () =>
+							handleApiResolve(() => chooseFromLibrary(mediaType), resolve)
+					},
+					{
+						text: 'Cancel',
+						style: 'destructive',
+						onPress: () => resolve(null)
 					}
-				);
-			});
-		};
+				],
+				{
+					cancelable: true,
+					userInterfaceStyle: mode
+				}
+			);
+		});
+	};
 
 	const requestCameraPermissions = async (): Promise<PermissionStatus> => {
 		const permission =
@@ -62,10 +96,9 @@ const usePhotosAndCamera = (): IUsePhotosAndCamera => {
 		if (status === RESULTS.GRANTED) {
 			return status;
 		} else if (status === RESULTS.BLOCKED) {
-			// If blocked, prompt the user to open settings
 			Alert.alert(
 				'Camera Permission Required: Open Settings',
-				'Alysium requires access to the camera to allow you to take and set a profile picture. This photo will only be used within the app to personalize your account.',
+				'Alysium requires access to the camera to allow you to capture photos and videos. This media will only be used within the app to personalize your account.',
 				[
 					{ text: 'Cancel', style: 'cancel' },
 					{ text: 'Open Settings', onPress: () => Linking.openSettings() }
@@ -73,7 +106,6 @@ const usePhotosAndCamera = (): IUsePhotosAndCamera => {
 			);
 			return status;
 		} else {
-			// Request permission if not already granted
 			return request(permission);
 		}
 	};
@@ -88,10 +120,9 @@ const usePhotosAndCamera = (): IUsePhotosAndCamera => {
 		if (status === RESULTS.GRANTED || status === RESULTS.LIMITED) {
 			return status;
 		} else if (status === RESULTS.BLOCKED) {
-			// If blocked, prompt the user to open settings
 			Alert.alert(
 				'Photo Library Permission Required: Open Settings',
-				'Alysium needs access to your photo library to allow you to choose an existing photo as your profile picture. We will only access the specific image you select to personalize your account.',
+				'Alysium needs access to your photo library to allow you to choose existing photos and videos. We will only access the specific media you select to personalize your account.',
 				[
 					{ text: 'Cancel', style: 'cancel' },
 					{ text: 'Open Settings', onPress: () => Linking.openSettings() }
@@ -99,57 +130,105 @@ const usePhotosAndCamera = (): IUsePhotosAndCamera => {
 			);
 			return status;
 		} else {
-			// Request permission if not already granted or if status is limited
 			return request(permission);
 		}
 	};
 
-	const chooseImageFromLibrary =
-		async (): Promise<ImagePickerResponse | null> => {
-			try {
-				const permissionResult = await requestPhotosPermissions();
-				if (
-					permissionResult === RESULTS.GRANTED ||
-					permissionResult === RESULTS.LIMITED
-				) {
-					const result = await launchImageLibrary({
-						mediaType: 'photo',
-						quality: 1,
-						selectionLimit: 1
-					});
-					return result;
-				} else {
+	const chooseFromLibrary = async (
+		mediaType: RNMediaType = 'mixed'
+	): Promise<ImagePickerResponse | null> => {
+		try {
+			const permissionResult = await requestPhotosPermissions();
+			if (
+				permissionResult === RESULTS.GRANTED ||
+				permissionResult === RESULTS.LIMITED
+			) {
+				const result = await launchImageLibrary({
+					mediaType,
+					quality: SHARED_CONFIG.QUALITY,
+					selectionLimit: SHARED_CONFIG.SELECTION_LIMIT,
+					videoQuality: 'high'
+				});
+
+				// If we chose nothing or canceled the operation
+				if (!result || result.didCancel) {
 					return null;
 				}
-			} catch (err) {
-				console.log(`Something bad happened: ${err}`);
-				return null;
-			}
-		};
 
-	const takePictureWithCamera =
-		async (): Promise<ImagePickerResponse | null> => {
-			try {
-				const permissionResult = await requestCameraPermissions();
-				if (permissionResult === RESULTS.GRANTED) {
-					const result = await launchCamera({ mediaType: 'photo', quality: 1 });
-					return result;
-				} else {
-					return null;
+				// Do any asset validation before returning
+				const asset = result?.assets?.[0];
+				if (asset) {
+					const assetMediaType = getAssetMediaType(asset);
+					if (assetMediaType === MediaType.video) {
+						if (!isVideoAssetValid(asset)) {
+							return null;
+						}
+					}
 				}
-			} catch (err) {
-				console.log(`Something bad happened: ${err}`);
+
+				return result;
+			} else {
 				return null;
 			}
-		};
+		} catch (err) {
+			console.log(`Something bad happened: ${err}`);
+			toastError('An error occurred while selecting media. Please try again.');
+			return null;
+		}
+	};
 
-	const chooseImageOrTakeNewPhoto =
-		async (): Promise<ImagePickerResponse | null> => {
-			return requestPhotosOrCameraForImage();
-		};
+	const captureWithCamera = async (
+		mediaType: RNMediaType = 'photo'
+	): Promise<ImagePickerResponse | null> => {
+		try {
+			const permissionResult = await requestCameraPermissions();
+			if (permissionResult === RESULTS.GRANTED) {
+				const result = await launchCamera({
+					mediaType,
+					quality: 1,
+					videoQuality: 'high' // Added for video
+				});
+				return result;
+			} else {
+				return null;
+			}
+		} catch (err) {
+			console.log(`Something bad happened: ${err}`);
+			return null;
+		}
+	};
+
+	const isVideoAssetValid = (asset: Asset): boolean => {
+		const duration = asset.duration;
+		const fileSize = asset.fileSize;
+		if (!duration || !fileSize) {
+			toastError('Invalid video content.');
+			return false;
+		}
+
+		if (isVideoTooLong(duration)) {
+			const videoLimitString =
+				VIDEO_CONFIG.DURATION_LIMIT_SECONDS.toLocaleString();
+			toastError(`Videos cannot be longer than ${videoLimitString} seconds.`);
+			return false;
+		}
+
+		if (isVideoTooLarge(fileSize)) {
+			const videoLimitString = VIDEO_CONFIG.MAX_FILE_SIZE_MB.toLocaleString();
+			const videoSizeMBString = Math.round(
+				convert(fileSize, Unit.B, Unit.MB)
+			).toLocaleString();
+			toastError(
+				`${videoSizeMBString}MB video exceeds the ${videoLimitString}MB limit.`
+			);
+			return false;
+		}
+
+		return true;
+	};
 
 	return {
-		chooseImageOrTakeNewPhoto
+		chooseMediaOrTakeNew
 	};
 };
 

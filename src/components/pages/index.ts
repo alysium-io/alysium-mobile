@@ -18,3 +18,4 @@ export * from './Tag';
 export * from './TopTags';
 export * from './UserArtistsFollowing';
 export * from './UserTagsFollowing';
+export * from './ViewGallery';

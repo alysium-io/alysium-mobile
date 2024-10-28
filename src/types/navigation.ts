@@ -1,3 +1,4 @@
+import { FindGalleryParamsDto } from '@flux/api/gallery/dto/gallery-find.dto';
 import { type BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import {
 	CompositeNavigationProp,
@@ -60,6 +61,12 @@ type TopTagsPage = undefined;
 
 type EditArtistPage = undefined;
 
+type ViewGalleryPage = {
+	transitionTagId: string;
+	findGalleryParamsDto: FindGalleryParamsDto;
+	pressIndex: number;
+};
+
 export type RouteNames =
 	| 'SearchPage'
 	| 'HostPage'
@@ -83,7 +90,8 @@ export type RouteNames =
 	| 'UserArtistsFollowingPage'
 	| 'UserTagsFollowingPage'
 	| 'TopTagsPage'
-	| 'EditArtistPage';
+	| 'EditArtistPage'
+	| 'ViewGalleryPage';
 
 /**
  * Stack Navigators
@@ -114,6 +122,8 @@ export type SearchStackNavigatorParamList = {
 	UserTagsFollowingPage: UserTagsFollowingPage;
 
 	TopTagsPage: TopTagsPage;
+
+	ViewGalleryPage: ViewGalleryPage;
 };
 
 export type ProfileStackNavigatorParamList = {
@@ -141,6 +151,8 @@ export type ContractManagerStackNavigatorParamList = {
 
 export type EditArtistStackNavigatorParamList = {
 	EditArtistPage: EditArtistPage;
+
+	ViewGalleryPage: ViewGalleryPage;
 };
 
 /**
@@ -286,4 +298,8 @@ export type ArtistViewContractPageRouteProp = RouteProp<
 export type EditArtistPageRouteProp = RouteProp<
 	CompositeStackNavigatorParamList,
 	'EditArtistPage'
+>;
+export type ViewGalleryPageRouteProp = RouteProp<
+	CompositeStackNavigatorParamList,
+	'ViewGalleryPage'
 >;

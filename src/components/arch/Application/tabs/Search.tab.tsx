@@ -6,15 +6,16 @@ import {
 	TagPage,
 	TopTagsPage,
 	UserArtistsFollowingPage,
-	UserTagsFollowingPage
+	UserTagsFollowingPage,
+	ViewGalleryPage
 } from '@pages';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { SearchStackNavigatorParamList } from '@types';
 import React from 'react';
 import { useTabSettings } from './settings';
 
 export const SearchStack =
-	createStackNavigator<SearchStackNavigatorParamList>();
+	createNativeStackNavigator<SearchStackNavigatorParamList>();
 
 const SearchTab = () => {
 	const { screenOptions } = useTabSettings();
@@ -42,6 +43,15 @@ const SearchTab = () => {
 			/>
 
 			<SearchStack.Screen name='TopTagsPage' component={TopTagsPage} />
+
+			<SearchStack.Screen
+				name='ViewGalleryPage'
+				component={ViewGalleryPage}
+				options={{
+					presentation: 'transparentModal',
+					animation: 'fade'
+				}}
+			/>
 		</SearchStack.Navigator>
 	);
 };

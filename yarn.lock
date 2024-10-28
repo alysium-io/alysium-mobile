@@ -2488,13 +2488,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-native-masked-view/masked-view@npm:^0.2.9":
-  version: 0.2.9
-  resolution: "@react-native-masked-view/masked-view@npm:0.2.9"
+"@react-native-masked-view/masked-view@npm:^0.3.1":
+  version: 0.3.1
+  resolution: "@react-native-masked-view/masked-view@npm:0.3.1"
   peerDependencies:
     react: ">=16"
     react-native: ">=0.57"
-  checksum: 10c0/1924da8b286747262955b291af12f2f5c0e3bc448f461b6c615695356b2f5a836f1a29d2438d67110ded9da0c884b01143f728c25f750f0e0495e401098022e3
+  checksum: 10c0/e8823e69caa4f916546de528faa9beb69d25311adecaeb37a5a3e2871141754e895d1b5faa01bc0ca07b4d4b676d940191917803da53208b1be8fef857e5b502
   languageName: node
   linkType: hard
 
@@ -2947,6 +2947,13 @@ __metadata:
   dependencies:
     "@sinonjs/commons": "npm:^3.0.0"
   checksum: 10c0/2e2fb6cc57f227912814085b7b01fede050cd4746ea8d49a1e44d5a0e56a804663b0340ae2f11af7559ea9bf4d087a11f2f646197a660ea3cb04e19efc04aa63
+  languageName: node
+  linkType: hard
+
+"@types/add@npm:^2":
+  version: 2.0.3
+  resolution: "@types/add@npm:2.0.3"
+  checksum: 10c0/d18841b43d3799f69db0bdae380d19d05f43b716315c5bfd4d6c1b3467bada2644eab8c04bb5afdb94bba87604da06d466f22fe30df6bcf0518c373593bb474a
   languageName: node
   linkType: hard
 
@@ -3472,6 +3479,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"add@npm:^2.0.6":
+  version: 2.0.6
+  resolution: "add@npm:2.0.6"
+  checksum: 10c0/6b21d5f2e58cf5e15d56cc6f9ebce04f04f4c33ae25f09d600ddacf8df00036ba521f17feb1b3f81307b7c6d2ef0bed8b511a0f86f062eb90c2f909b48b588ae
+  languageName: node
+  linkType: hard
+
 "agent-base@npm:^7.0.2, agent-base@npm:^7.1.0, agent-base@npm:^7.1.1":
   version: 7.1.1
   resolution: "agent-base@npm:7.1.1"
@@ -3528,7 +3542,7 @@ __metadata:
     "@react-native-async-storage/async-storage": "npm:^1.19.1"
     "@react-native-community/blur": "npm:^4.3.2"
     "@react-native-community/netinfo": "npm:^11.3.2"
-    "@react-native-masked-view/masked-view": "npm:^0.2.9"
+    "@react-native-masked-view/masked-view": "npm:^0.3.1"
     "@react-native/babel-preset": "npm:0.74.85"
     "@react-native/eslint-config": "npm:0.74.85"
     "@react-native/metro-config": "npm:0.74.85"
@@ -3540,6 +3554,7 @@ __metadata:
     "@reduxjs/toolkit": "npm:^1.9.5"
     "@shopify/react-native-skia": "npm:1.3.9"
     "@shopify/restyle": "npm:^2.4.2"
+    "@types/add": "npm:^2"
     "@types/lodash": "npm:^4.14.196"
     "@types/react": "npm:^18.2.6"
     "@types/react-native": "npm:^0.70.6"
@@ -3547,6 +3562,7 @@ __metadata:
     "@types/redux-persist": "npm:^4.3.1"
     "@typescript-eslint/eslint-plugin": "npm:^5.37.0"
     "@typescript-eslint/parser": "npm:^5.37.0"
+    add: "npm:^2.0.6"
     axios: "npm:^1.4.0"
     babel-jest: "npm:^29.6.3"
     babel-plugin-module-resolver: "npm:^5.0.0"
@@ -3572,17 +3588,16 @@ __metadata:
     react-native-gesture-handler: "npm:^2.17.1"
     react-native-haptic-feedback: "npm:^2.0.3"
     react-native-image-picker: "npm:^7.1.0"
-    react-native-image-zoom-viewer: "npm:^3.0.1"
-    react-native-linear-gradient: "npm:^2.8.1"
+    react-native-linear-gradient: "npm:^2.8.3"
     react-native-masked-text: "npm:^1.13.0"
     react-native-permissions: "npm:^4.0.0"
     react-native-reanimated: "npm:^3.12.1"
     react-native-safe-area-context: "npm:^4.7.1"
     react-native-screens: "npm:^3.32.0"
     react-native-skeleton-placeholder: "npm:^5.2.4"
-    react-native-super-grid: "npm:^5.0.0"
     react-native-svg: "npm:12.4.4"
     react-native-toast-message: "npm:^2.2.0"
+    react-native-video: "npm:^6.6.4"
     react-redux: "npm:^8.1.2"
     react-test-renderer: "npm:18.1.0"
     redux: "npm:^5.0.1"
@@ -3590,6 +3605,7 @@ __metadata:
     redux-persist-transform-filter: "npm:^0.0.22"
     ts-jest: "npm:29.1.1"
     typescript: "npm:5.0.4"
+    yarn: "npm:^1.22.22"
     yup: "npm:^1.4.0"
   languageName: unknown
   linkType: soft
@@ -8900,7 +8916,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prop-types@npm:^15.6.2, prop-types@npm:^15.7.2, prop-types@npm:^15.8.1":
+"prop-types@npm:^15.7.2, prop-types@npm:^15.8.1":
   version: 15.8.1
   resolution: "prop-types@npm:15.8.1"
   dependencies:
@@ -9114,16 +9130,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-image-pan-zoom@npm:^2.1.12":
-  version: 2.1.12
-  resolution: "react-native-image-pan-zoom@npm:2.1.12"
-  peerDependencies:
-    react: "*"
-    react-native: "*"
-  checksum: 10c0/c1047da6b7eb0d8a80a810eba8dc0c74e11d0b476808c30d1bbc6285c3f8dc8140aba60fb1af35e2c8c114aa32eed64fb545214a6cf1c00d6b80dd3178bdf3f6
-  languageName: node
-  linkType: hard
-
 "react-native-image-picker@npm:^7.1.0":
   version: 7.1.2
   resolution: "react-native-image-picker@npm:7.1.2"
@@ -9134,19 +9140,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-image-zoom-viewer@npm:^3.0.1":
-  version: 3.0.1
-  resolution: "react-native-image-zoom-viewer@npm:3.0.1"
-  dependencies:
-    react-native-image-pan-zoom: "npm:^2.1.12"
-  peerDependencies:
-    react: "*"
-    react-native: "*"
-  checksum: 10c0/d7ee6ea947a10061b3b285622416dececda72be6907cfe5ab4a2680dcecb51f32adf1d250d1ce12c87178cb8c8a92d85cba89acde437ae4730e36f8e6152455b
-  languageName: node
-  linkType: hard
-
-"react-native-linear-gradient@npm:^2.8.1":
+"react-native-linear-gradient@npm:^2.8.3":
   version: 2.8.3
   resolution: "react-native-linear-gradient@npm:2.8.3"
   peerDependencies:
@@ -9238,18 +9232,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-super-grid@npm:^5.0.0":
-  version: 5.1.0
-  resolution: "react-native-super-grid@npm:5.1.0"
-  dependencies:
-    prop-types: "npm:^15.6.2"
-  peerDependencies:
-    react: ">=16.8.6"
-    react-native: ">=0.59.0"
-  checksum: 10c0/281dcc4c9ea109ef8bd8ae333ff6cc7cc13f654d2d9c323ae4f5203814e8a92299d9f0074fc324ddb173494728989cf136c6a0337a3d71a2681cf0fea34e1fab
-  languageName: node
-  linkType: hard
-
 "react-native-svg@npm:12.4.4":
   version: 12.4.4
   resolution: "react-native-svg@npm:12.4.4"
@@ -9270,6 +9252,16 @@ __metadata:
     react: "*"
     react-native: "*"
   checksum: 10c0/02c2507efba0875a85cecde616e60144daea4ea6b9e7f153f23b3f513a8f3c6c90181ee2d10aeb8093605957ba5bd415c4fa3ae8ed06691810c2f4b9599ea0c8
+  languageName: node
+  linkType: hard
+
+"react-native-video@npm:^6.6.4":
+  version: 6.6.4
+  resolution: "react-native-video@npm:6.6.4"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 10c0/13bcf38fdef064c1e6c9b661e05e9e093bc56a33fb070c51ef9d2b2b9cacf5b5d96562cb46095b0eaf714d5f7d19d1868face9eb85b15d2c56c08764cda96ff9
   languageName: node
   linkType: hard
 
@@ -11264,6 +11256,16 @@ __metadata:
     y18n: "npm:^5.0.5"
     yargs-parser: "npm:^21.1.1"
   checksum: 10c0/ccd7e723e61ad5965fffbb791366db689572b80cca80e0f96aad968dfff4156cd7cd1ad18607afe1046d8241e6fb2d6c08bf7fa7bfb5eaec818735d8feac8f05
+  languageName: node
+  linkType: hard
+
+"yarn@npm:^1.22.22":
+  version: 1.22.22
+  resolution: "yarn@npm:1.22.22"
+  bin:
+    yarn: bin/yarn.js
+    yarnpkg: bin/yarn.js
+  checksum: 10c0/8c77198c93d7542e7f4e131c63b66de357b7076ecfbcfe709ec0d674115c2dd9edaa45196e5510e6e9366d368707a802579e3402071002e1c9d9a99d491478de
   languageName: node
   linkType: hard
 

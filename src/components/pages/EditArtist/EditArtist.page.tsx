@@ -10,6 +10,7 @@ import EditArtistName from './components/EditArtistName';
 import EditBasicInfoSection from './components/EditBasicInfoSection';
 import EditBioSection from './components/EditBioSection';
 import EditProfileImage from './components/EditProfileImage';
+import GallerySection from './components/GallerySection';
 import EditArtistPageHeader from './EditArtist.header';
 import useEditArtistPage from './useEditArtistPage';
 
@@ -41,7 +42,10 @@ const EditArtistPage = () => {
 	return (
 		<BasePage FooterComponent={FooterComponent}>
 			<EditArtistPageHeader />
-			<SelfAwareScrollView selfAwareScrollViewApi={selfAwareScrollViewApi}>
+			<SelfAwareScrollView
+				selfAwareScrollViewApi={selfAwareScrollViewApi}
+				showsVerticalScrollIndicator={false}
+			>
 				<View margin='m'>
 					<EditProfileImage
 						profileImage={profileImage}
@@ -51,6 +55,7 @@ const EditArtistPage = () => {
 					<EditBasicInfoSection editArtistFormApi={editArtistFormApi} />
 					<EditBioSection editArtistFormApi={editArtistFormApi} />
 				</View>
+				<GallerySection />
 			</SelfAwareScrollView>
 		</BasePage>
 	);

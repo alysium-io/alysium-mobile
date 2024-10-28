@@ -44,6 +44,7 @@ export { default as BlurView } from './BlurView';
 export { default as DatetimePicker } from './DatetimePicker';
 export { default as LinearGradient } from './LinearGradient';
 export { default as Path } from './Path';
+export { default as SkeletonPlaceholder } from './SkeletonPlaceholder';
 export { default as Svg } from './Svg';
 export { default as Toast } from './Toast';
 
@@ -54,6 +55,7 @@ export { default as ActivityIndicator } from './ActivityIndicator';
 export { default as AppTransitionWrapper } from './AppTransitionWrapper';
 export { default as Avatar } from './Avatar';
 export { default as BgTouchAnimation } from './BgTouchAnimation';
+export { default as ComplexImage } from './ComplexImage';
 export * from './DeclarativeText';
 export { default as DefaultImage } from './DefaultImage';
 export { default as DismissKeyboardWrapper } from './DismissKeyboardWrapper';

@@ -26,7 +26,8 @@ export const serviceApi = createApi({
 		'ProfileImage',
 		'Artist',
 		'PublicArtist',
-		'ArtistTagLink'
+		'ArtistTagLink',
+		'Gallery'
 	],
 	endpoints: () => ({})
 });

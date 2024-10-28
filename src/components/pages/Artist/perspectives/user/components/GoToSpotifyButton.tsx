@@ -15,8 +15,8 @@ const GoToSpotifyButton: React.FC<GoToSpotifyButtonProps> = ({
 }) => {
 	const { behavior } = useBehaviorContext();
 	const { go } = useLinking(
-		`spotify:artist:${artistData.artist_spotify_data.spotify_artist_id}`,
-		`https://open.spotify.com/artist/${artistData.artist_spotify_data.spotify_artist_id}`
+		`spotify:artist:${artistData.artist_spotify_data?.spotify_artist_id}`,
+		`https://open.spotify.com/artist/${artistData.artist_spotify_data?.spotify_artist_id}`
 	);
 
 	const onPressGoToSpotify = () => {
@@ -35,7 +35,7 @@ const GoToSpotifyButton: React.FC<GoToSpotifyButtonProps> = ({
 				titleTextProps={{
 					title: 'Go to Spotify',
 					bottomSubtext: Formatting.formatNumFollowers(
-						artistData.artist_spotify_data.followers
+						artistData.artist_spotify_data?.followers
 					)
 				}}
 			/>

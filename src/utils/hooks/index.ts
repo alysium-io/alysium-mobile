@@ -20,6 +20,8 @@ export { default as useAnimatedState } from './useAnimatedState';
 export { default as useAnimatedValue } from './useAnimatedValue';
 export { default as useBottomTabHeight } from './useBottomTabHeight';
 export { default as useForm } from './useForm';
+export { default as useImage } from './useImage';
+export { default as useIsLoaded } from './useIsLoaded';
 export { default as useKeyboard } from './useKeyboard';
 export {
 	default as useLayoutDimensions,
@@ -28,7 +30,9 @@ export {
 export { default as useLinking } from './useLinking';
 export { default as useList, type ListApi } from './useList';
 export { default as useModal, type ModalApi } from './useModal';
+export { default as useMultimedia } from './useMultimedia';
 export { default as usePagination } from './usePagination';
+export { default as usePriorityImage } from './usePriorityImage';
 export { default as useScrollView } from './useScrollView';
 export { default as useSequence, type SequenceApi } from './useSequence';
 export { default as useSet } from './useSet';

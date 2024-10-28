@@ -4,9 +4,11 @@ import { LayoutChangeEvent, LayoutRectangle } from 'react-native';
 export interface LayoutApi {
 	dimensions: LayoutRectangle;
 	onLayout: (e: LayoutChangeEvent) => void;
+	isLayoutReady: boolean;
 }
 
 const useLayoutDimensions = (): LayoutApi => {
+	const [isLayoutReady, setIsLayoutReady] = useState(false);
 	const [dimensions, setDimensions] = useState<LayoutRectangle>({
 		x: 0,
 		y: 0,
@@ -21,12 +23,14 @@ const useLayoutDimensions = (): LayoutApi => {
 			e.nativeEvent.layout.y !== dimensions.y
 		) {
 			setDimensions(e.nativeEvent.layout);
+			setIsLayoutReady(true);
 		}
 	};
 
 	return {
 		dimensions,
-		onLayout
+		onLayout,
+		isLayoutReady
 	};
 };
 

@@ -2,10 +2,12 @@ import { View } from '@atomic';
 import React from 'react';
 import { ActivityIndicator, StyleSheet } from 'react-native';
 
-const Loading = () => {
+interface LoadingProps extends React.ComponentProps<typeof ActivityIndicator> {}
+
+const Loading: React.FC<LoadingProps> = (props) => {
 	return (
 		<View style={styles.container}>
-			<ActivityIndicator />
+			<ActivityIndicator {...props} />
 		</View>
 	);
 };

@@ -15,10 +15,10 @@ const SubHeader: React.FC<SubHeaderProps> = ({ artistData }) => {
 				items={[
 					{
 						title: Formatting.abbreviateNumber(
-							artistData?.artist_spotify_data.followers
+							artistData?.artist_spotify_data?.followers
 						),
 						subtitle: Formatting.getNumFollowersSuffix(
-							artistData?.artist_spotify_data.followers
+							artistData?.artist_spotify_data?.followers
 						)
 					},
 					{

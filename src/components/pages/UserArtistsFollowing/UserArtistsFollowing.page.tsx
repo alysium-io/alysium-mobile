@@ -45,7 +45,7 @@ const UserArtistsFollowingPage = () => {
 						titleTextProps={{
 							title: item.artist.name,
 							bottomSubtext: Formatting.formatNumFollowers(
-								item.artist.artist_spotify_data.followers
+								item.artist.artist_spotify_data?.followers
 							)
 						}}
 						profileImageProps={{

@@ -1,3 +1,4 @@
+import { FindGalleryParamsDto } from '@flux/api/gallery/dto/gallery-find.dto';
 import { useNavigation as useRNNavigation } from '@react-navigation/native';
 import { ApiIdentifier, CompositeScreenNavigationProp } from '@types';
 import {
@@ -65,6 +66,12 @@ interface IUseNavigation {
 	) => void;
 	userTagsFollowingPage: (navigationMeta: NavigationBehaviorMetadata) => void;
 	topTagsPage: (navigationMeta: NavigationBehaviorMetadata) => void;
+
+	viewGalleryPage: (
+		transitionTagId: string,
+		pressIndex: number,
+		findGalleryParamsDto: FindGalleryParamsDto
+	) => void;
 
 	/** General */
 	back: () => void;
@@ -218,6 +225,18 @@ const useNavigation = (): IUseNavigation => {
 		navigationBehavior(navigationMeta);
 	};
 
+	const viewGalleryPage = (
+		transitionTagId: string,
+		pressIndex: number,
+		findGalleryParamsDto: FindGalleryParamsDto
+	) => {
+		navigation.navigate('ViewGalleryPage', {
+			transitionTagId,
+			pressIndex,
+			findGalleryParamsDto
+		});
+	};
+
 	/**
 	 * General
 	 */
@@ -243,6 +262,7 @@ const useNavigation = (): IUseNavigation => {
 		userArtistsFollowingPage,
 		userTagsFollowingPage,
 		topTagsPage,
+		viewGalleryPage,
 		back
 	};
 };

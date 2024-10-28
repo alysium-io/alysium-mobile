@@ -59,6 +59,10 @@ export const textVariants = {
 		fontFamily: fontWeights.bold,
 		fontSize: PARAGRAPH_SIZE
 	},
+	'paragraph-large-bold': {
+		fontFamily: fontWeights.bold,
+		fontSize: PARAGRAPH_LARGE_SIZE
+	},
 	'paragraph-small': {
 		fontFamily: fontWeights.regular,
 		fontSize: PARAGRAPH_SMALL_SIZE

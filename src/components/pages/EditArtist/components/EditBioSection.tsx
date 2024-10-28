@@ -1,5 +1,5 @@
 import { View } from '@atomic';
-import { EditableDescription } from '@organisms';
+import { EditableDescription } from '@molecules';
 import { EditArtistFormApi } from '@src/utils/redux-hook-form/useEditArtistFormApi';
 import React from 'react';
 import { Controller } from 'react-hook-form';

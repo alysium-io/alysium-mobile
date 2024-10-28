@@ -6,6 +6,7 @@ export * from './network';
 export * from './path';
 export * from './random';
 export { regexPatterns } from './regex';
+export * from './size-conversions';
 export * from './string';
 export { default as Time } from './Time';
 export { default as Vibrator } from './Vibrator';
