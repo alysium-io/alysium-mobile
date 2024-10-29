@@ -14,6 +14,6 @@ export interface ReduxHookFormLifeCycleMethods<B, R> {
 }
 
 export interface FormApiOptions<B extends FieldValues, R> {
-	initialValues?: B;
+	initialValues?: Partial<B>;
 	methods?: ReduxHookFormLifeCycleMethods<B, R>;
 }

@@ -20,6 +20,7 @@ const fontWeights = {
 const PARAGRAPH_LARGE_SIZE = 18;
 const PARAGRAPH_SIZE = 16;
 const PARAGRAPH_SMALL_SIZE = 14;
+const PARAGRAPH_TINY_SIZE = 10;
 
 export const textVariants = {
 	defaults: textVariantDefaults,
@@ -78,6 +79,10 @@ export const textVariants = {
 	'paragraph-small-bold': {
 		fontFamily: fontWeights.bold,
 		fontSize: PARAGRAPH_SMALL_SIZE
+	},
+	'paragraph-tiny': {
+		fontFamily: fontWeights.regular,
+		fontSize: PARAGRAPH_TINY_SIZE
 	}
 };
 

@@ -6,11 +6,13 @@ export interface ButtonStateApi {
 	buttonState: ButtonState;
 	setButtonState: (buttonState: ButtonState) => void;
 	buttonSuccess: () => void;
+	reset: () => void;
 }
 
 const useButtonState = (
 	defaultState: ButtonState = 'active'
 ): ButtonStateApi => {
+	const [initialButtonState] = useState<ButtonState>(defaultState);
 	const [buttonState, setButtonState] = useState<ButtonState>(defaultState);
 
 	const buttonSuccess = () => {
@@ -23,10 +25,15 @@ const useButtonState = (
 		});
 	};
 
+	const reset = () => {
+		setButtonState(initialButtonState);
+	};
+
 	return {
 		buttonState,
 		setButtonState,
-		buttonSuccess
+		buttonSuccess,
+		reset
 	};
 };
 

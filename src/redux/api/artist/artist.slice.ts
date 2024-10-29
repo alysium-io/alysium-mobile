@@ -58,7 +58,8 @@ export default serviceApi.injectEndpoints({
 				method: 'GET'
 			}),
 			providesTags: (result, error, { params }) => [
-				{ type: 'Artist', id: params.artist_uid }
+				{ type: 'Artist', id: params.artist_uid },
+				{ type: 'PrivateArtist', id: 'CURRENT' }
 			]
 		}),
 		privateFindAllArtists: builder.query<

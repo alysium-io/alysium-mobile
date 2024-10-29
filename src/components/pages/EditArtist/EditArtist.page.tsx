@@ -9,6 +9,7 @@ import React, { useCallback } from 'react';
 import EditArtistName from './components/EditArtistName';
 import EditBasicInfoSection from './components/EditBasicInfoSection';
 import EditBioSection from './components/EditBioSection';
+import EditExternalUrlsSection from './components/EditExternalUrlsSection';
 import EditProfileImage from './components/EditProfileImage';
 import GallerySection from './components/GallerySection';
 import EditArtistPageHeader from './EditArtist.header';
@@ -55,6 +56,7 @@ const EditArtistPage = () => {
 					<EditBasicInfoSection editArtistFormApi={editArtistFormApi} />
 					<EditBioSection editArtistFormApi={editArtistFormApi} />
 				</View>
+				<EditExternalUrlsSection />
 				<GallerySection />
 			</SelfAwareScrollView>
 		</BasePage>

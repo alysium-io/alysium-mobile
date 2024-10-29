@@ -25,6 +25,7 @@ export const serviceApi = createApi({
 		'Search',
 		'ProfileImage',
 		'Artist',
+		'PrivateArtist',
 		'PublicArtist',
 		'ArtistTagLink',
 		'Gallery'

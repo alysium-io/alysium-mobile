@@ -1,4 +1,5 @@
 import { ArtistTagLink } from '../artist-tag-link/artist-tag-link.entity';
+import { ExternalUrl } from '../external-url/external-url.entity';
 import { Gallery } from '../gallery/gallery.entity';
 import { Location } from '../location/location.entity';
 import { ProfileImage } from '../profile-image';
@@ -17,6 +18,7 @@ interface ArtistCommon {
 	readonly tags: ArtistTagLink[];
 	readonly location: Location | null;
 	readonly artist_spotify_data: ArtistSpotifyData | null;
+	readonly external_urls: ExternalUrl[];
 }
 
 export interface PublicArtist extends ArtistCommon {}

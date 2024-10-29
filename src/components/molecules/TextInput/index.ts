@@ -1,5 +1,6 @@
 export { default as EditableDescription } from './EditableDescription';
 export { default as FormPhoneNumberTextInputWithLabel } from './FormPhoneNumberTextInputWithLabel';
+export { default as FormTextInputWithLabel } from './FormTextInputWithLabel';
 export { default as InternationalPhoneNumberTextInput } from './InternationalPhoneNumberTextInput';
 export { default as PhoneNumberTextInputWithLabel } from './PhoneNumberTextInputWithLabel';
 export { default as TextBox } from './TextBox';

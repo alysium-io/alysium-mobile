@@ -1,4 +1,5 @@
 import Alcohol from './Alcohol';
+import AppleMusic from './AppleMusic';
 import Arena from './Arena';
 import Arrow from './Arrow';
 import ArrowDown from './ArrowDown';
@@ -7,8 +8,12 @@ import ArrowRight from './ArrowRight';
 import ArrowUp from './ArrowUp';
 import Artist from './Artist';
 import At from './At';
+import Bandcamp from './Bandcamp';
+import Beatport from './Beatport';
 import Bell from './Bell';
 import BellNotification from './BellNotification';
+import BigCartel from './BigCartel';
+import BuyMeACoffee from './BuyMeACoffee';
 import Calendar from './Calendar';
 import Checkmark from './Checkmark';
 import Cheeseburger from './Cheeseburger';
@@ -19,16 +24,22 @@ import Components from './Components';
 import Contract from './Contract';
 import CreateEvent from './CreateEvent';
 import DM from './DM';
+import Deezer from './Deezer';
+import Dice from './Dice';
 import Discover from './Discover';
 import Dog from './Dog';
 import EditImage from './EditImage';
 import Event from './Event';
 import EventManager from './EventManager';
+import Eventbrite from './Eventbrite';
 import Experiment from './Experiment';
+import Facebook from './Facebook';
 import Filter from './Filter';
 import Host from './Host';
 import InfoOne from './InfoOne';
 import InfoTwo from './InfoTwo';
+import Instagram from './Instagram';
+import Kofi from './Kofi';
 import Link from './Link';
 import Location from './Location';
 import Lock from './Lock';
@@ -37,6 +48,7 @@ import Meatballs from './Meatballs';
 import Menu from './Menu';
 import Mobile from './Mobile';
 import Outdoors from './Outdoors';
+import Patreon from './Patreon';
 import Pause from './Pause';
 import Pencil from './Pencil';
 import Phone from './Phone';
@@ -50,15 +62,45 @@ import SearchFilled from './SearchFilled';
 import Security from './Security';
 import Settings from './Settings';
 import Share from './Share';
+import Shopify from './Shopify';
+import Soundcloud from './Soundcloud';
 import Spotify from './Spotify';
 import Star from './Star';
 import Tag from './Tag';
 import TailedArrow from './TailedArrow';
+import Threads from './Threads';
 import Ticket from './Ticket';
+import Tidal from './Tidal';
+import TikTok from './TikTok';
+import TwitterX from './TwitterX';
 import User from './User';
+import Vimeo from './Vimeo';
 import X from './X';
+import Youtube from './Youtube';
 
 export const SvgIcons = {
+	// Social Media
+	'apple-music': AppleMusic,
+	bandcamp: Bandcamp,
+	beatport: Beatport,
+	'big-cartel': BigCartel,
+	'buy-me-a-coffee': BuyMeACoffee,
+	deezer: Deezer,
+	dice: Dice,
+	eventbrite: Eventbrite,
+	facebook: Facebook,
+	instagram: Instagram,
+	kofi: Kofi,
+	patreon: Patreon,
+	shopify: Shopify,
+	soundcloud: Soundcloud,
+	threads: Threads,
+	tidal: Tidal,
+	tiktok: TikTok,
+	'twitter-x': TwitterX,
+	vimeo: Vimeo,
+	youtube: Youtube,
+
 	search: Search,
 	'search-filled': SearchFilled,
 	profile: Profile,

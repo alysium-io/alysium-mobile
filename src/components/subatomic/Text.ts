@@ -1,9 +1,17 @@
 import {
+	BackgroundColorProps,
+	BorderProps,
+	LayoutProps,
 	TextProps as RestyleTextProps,
+	SpacingProps,
+	backgroundColor,
+	border,
 	color,
 	createRestyleComponent,
 	createText,
-	createVariant
+	createVariant,
+	layout,
+	spacing
 } from '@shopify/restyle';
 import { Theme } from '@types';
 import React from 'react';
@@ -18,13 +26,25 @@ const AnimatedRestyleText = createText<
 
 const textRestyleFunctions = [
 	createVariant({ themeKey: 'textVariants' }),
-	color
+	color,
+	layout,
+	spacing,
+	border,
+	backgroundColor
 ];
 
 export type InanimateTextProps = RestyleTextProps<Theme> &
-	React.ComponentProps<typeof RestyleText>;
+	React.ComponentProps<typeof RestyleText> &
+	LayoutProps<Theme> &
+	SpacingProps<Theme> &
+	BorderProps<Theme> &
+	BackgroundColorProps<Theme>;
 export type AnimatedTextProps = RestyleTextProps<Theme> &
-	React.ComponentProps<typeof Animated.Text>;
+	React.ComponentProps<typeof Animated.Text> &
+	LayoutProps<Theme> &
+	SpacingProps<Theme> &
+	BorderProps<Theme> &
+	BackgroundColorProps<Theme>;
 
 const InanimateText = createRestyleComponent<InanimateTextProps, Theme>(
 	textRestyleFunctions,

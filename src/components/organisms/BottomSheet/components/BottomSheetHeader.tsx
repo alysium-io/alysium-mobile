@@ -23,7 +23,7 @@ const BottomSheetHeader: React.FC<BottomSheetHeaderProps> = ({
 			paddingHorizontal='m'
 			{...containerProps}
 		>
-			<Text variant='section-header-1' {...props} />
+			<Text variant='section-header-1' flex={1} {...props} />
 		</View>
 	);
 };

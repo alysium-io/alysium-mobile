@@ -1,4 +1,4 @@
-import { View } from '@atomic';
+import { Section } from '@atomic';
 import { EditableDescription } from '@molecules';
 import { EditArtistFormApi } from '@src/utils/redux-hook-form/useEditArtistFormApi';
 import React from 'react';
@@ -12,7 +12,7 @@ const EditBioSection: React.FC<EditBioSectionProps> = ({
 	editArtistFormApi
 }) => {
 	return (
-		<View>
+		<Section>
 			<Controller
 				name='bio'
 				control={editArtistFormApi.formMethods.control}
@@ -28,7 +28,7 @@ const EditBioSection: React.FC<EditBioSectionProps> = ({
 					/>
 				)}
 			/>
-		</View>
+		</Section>
 	);
 };
 
