@@ -1,6 +1,7 @@
-import { Avatar, DefaultImage, View } from '@atomic';
+import { Avatar, DefaultImage, SkeletonPlaceholder, View } from '@atomic';
 import { usePhotosAndCamera } from '@hooks';
 import React from 'react';
+import { Else, If, Then } from 'react-if';
 import { StyleSheet } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { Asset } from 'react-native-image-picker';
@@ -18,6 +19,7 @@ interface EditableProfileImageProps
 	defaultImageProps?: React.ComponentProps<typeof DefaultImage>;
 	onChooseImage?: (imagePickerAsset: Asset) => void;
 	size?: keyof typeof sizes;
+	isLoading?: boolean;
 }
 
 const EditableProfileImage: React.FC<EditableProfileImageProps> = ({
@@ -25,20 +27,17 @@ const EditableProfileImage: React.FC<EditableProfileImageProps> = ({
 	onChooseImage,
 	defaultImageProps,
 	size = 'medium',
+	isLoading = false,
 	...props
 }) => {
-	const { chooseImageOrTakeNewPhoto } = usePhotosAndCamera();
+	const { chooseMediaOrTakeNew, extractAsset } = usePhotosAndCamera();
 
 	const onPress = async () => {
 		try {
-			const newImage = await chooseImageOrTakeNewPhoto();
-			if (
-				newImage &&
-				onChooseImage &&
-				newImage.assets &&
-				newImage.assets.length > 0
-			) {
-				onChooseImage(newImage.assets[0]);
+			const newImage = await chooseMediaOrTakeNew('photo');
+			const asset = extractAsset(newImage);
+			if (asset) {
+				onChooseImage && onChooseImage(asset);
 			}
 		} catch {
 			Toast.show({
@@ -50,12 +49,21 @@ const EditableProfileImage: React.FC<EditableProfileImageProps> = ({
 	};
 
 	return (
-		<TouchableWithoutFeedback onPress={onPress} {...props}>
+		<TouchableWithoutFeedback onPress={onPress} {...props} disabled={isLoading}>
 			<View style={[styles.container, { width: sizes[size] }]}>
-				<Avatar image={image} defaultImageProps={defaultImageProps} />
-				<View style={styles.iconContainer}>
-					<EditIcon />
-				</View>
+				<If condition={isLoading}>
+					<Then>
+						<SkeletonPlaceholder>
+							<View style={styles.image} />
+						</SkeletonPlaceholder>
+					</Then>
+					<Else>
+						<Avatar image={image} defaultImageProps={defaultImageProps} />
+						<View style={styles.iconContainer}>
+							<EditIcon />
+						</View>
+					</Else>
+				</If>
 			</View>
 		</TouchableWithoutFeedback>
 	);

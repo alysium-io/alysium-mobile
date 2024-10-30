@@ -45,6 +45,7 @@ interface IUsePhotosAndCamera {
 	chooseMediaOrTakeNew: (
 		mediaType?: RNMediaType
 	) => Promise<ImagePickerResponse | null>;
+	extractAsset: (response: ImagePickerResponse | null) => Asset | null;
 }
 
 const usePhotosAndCamera = (): IUsePhotosAndCamera => {
@@ -227,8 +228,17 @@ const usePhotosAndCamera = (): IUsePhotosAndCamera => {
 		return true;
 	};
 
+	const extractAsset = (response: ImagePickerResponse | null): Asset | null => {
+		if (!response || !response.assets || response.assets.length === 0) {
+			return null;
+		}
+
+		return response.assets[0];
+	};
+
 	return {
-		chooseMediaOrTakeNew
+		chooseMediaOrTakeNew,
+		extractAsset
 	};
 };
 

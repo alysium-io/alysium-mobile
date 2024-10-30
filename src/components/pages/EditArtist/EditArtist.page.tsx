@@ -1,11 +1,7 @@
 import { View } from '@atomic';
-import {
-	ActionButtons,
-	SelfAwareScrollView,
-	useSelfAwareScrollView
-} from '@molecules';
+import { SelfAwareScrollView, useSelfAwareScrollView } from '@molecules';
 import { BasePage } from '@organisms';
-import React, { useCallback } from 'react';
+import React from 'react';
 import EditArtistName from './components/EditArtistName';
 import EditBasicInfoSection from './components/EditBasicInfoSection';
 import EditBioSection from './components/EditBioSection';
@@ -19,29 +15,13 @@ const EditArtistPage = () => {
 	const selfAwareScrollViewApi = useSelfAwareScrollView();
 	const {
 		editArtistFormApi,
-		profileImage,
-		setProfileImage,
-		saveButtonStateApi
+		onBlurEditable,
+		updateArtistProfileImage,
+		isProfileImageLoading
 	} = useEditArtistPage();
 
-	const FooterComponent = useCallback(
-		() => (
-			<View margin='m'>
-				<ActionButtons
-					buttonProps={{
-						text: 'Save',
-						color: 'p',
-						onPress: editArtistFormApi.onSubmit,
-						buttonState: saveButtonStateApi.buttonState
-					}}
-				/>
-			</View>
-		),
-		[profileImage, saveButtonStateApi.buttonState]
-	);
-
 	return (
-		<BasePage FooterComponent={FooterComponent}>
+		<BasePage>
 			<EditArtistPageHeader />
 			<SelfAwareScrollView
 				selfAwareScrollViewApi={selfAwareScrollViewApi}
@@ -49,12 +29,21 @@ const EditArtistPage = () => {
 			>
 				<View margin='m'>
 					<EditProfileImage
-						profileImage={profileImage}
-						setProfileImage={setProfileImage}
+						updateArtistProfileImage={updateArtistProfileImage}
+						isProfileImageLoading={isProfileImageLoading}
 					/>
-					<EditArtistName editArtistFormApi={editArtistFormApi} />
-					<EditBasicInfoSection editArtistFormApi={editArtistFormApi} />
-					<EditBioSection editArtistFormApi={editArtistFormApi} />
+					<EditArtistName
+						editArtistFormApi={editArtistFormApi}
+						onBlurEditable={onBlurEditable}
+					/>
+					<EditBasicInfoSection
+						editArtistFormApi={editArtistFormApi}
+						onBlurEditable={onBlurEditable}
+					/>
+					<EditBioSection
+						editArtistFormApi={editArtistFormApi}
+						onBlurEditable={onBlurEditable}
+					/>
 				</View>
 				<EditExternalUrlsSection />
 				<GallerySection />

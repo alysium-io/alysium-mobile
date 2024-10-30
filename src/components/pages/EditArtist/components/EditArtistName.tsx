@@ -7,10 +7,12 @@ import { Controller } from 'react-hook-form';
 
 interface EditArtistNameProps {
 	editArtistFormApi: EditArtistFormApi;
+	onBlurEditable: () => void;
 }
 
 const EditArtistName: React.FC<EditArtistNameProps> = ({
-	editArtistFormApi
+	editArtistFormApi,
+	onBlurEditable
 }) => {
 	const { artistData } = useArtistAppContext();
 	return (
@@ -24,6 +26,7 @@ const EditArtistName: React.FC<EditArtistNameProps> = ({
 						placeholder='Artist name'
 						onChangeText={onChange}
 						defaultValue={artistData.name}
+						onBlur={onBlurEditable}
 					/>
 				)}
 			/>

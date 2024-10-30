@@ -8,10 +8,12 @@ import { Controller } from 'react-hook-form';
 
 interface EditBasicInfoSectionProps {
 	editArtistFormApi: EditArtistFormApi;
+	onBlurEditable: () => void;
 }
 
 const EditBasicInfoSection: React.FC<EditBasicInfoSectionProps> = ({
-	editArtistFormApi
+	editArtistFormApi,
+	onBlurEditable
 }) => {
 	const { artistData } = useArtistAppContext();
 
@@ -42,6 +44,7 @@ const EditBasicInfoSection: React.FC<EditBasicInfoSectionProps> = ({
 								: undefined
 						}
 						onChangeText={onChange}
+						onBlur={onBlurEditable}
 					/>
 				)}
 			/>

@@ -6,10 +6,12 @@ import { Controller } from 'react-hook-form';
 
 interface EditBioSectionProps {
 	editArtistFormApi: EditArtistFormApi;
+	onBlurEditable: () => void;
 }
 
 const EditBioSection: React.FC<EditBioSectionProps> = ({
-	editArtistFormApi
+	editArtistFormApi,
+	onBlurEditable
 }) => {
 	return (
 		<Section>
@@ -22,6 +24,7 @@ const EditBioSection: React.FC<EditBioSectionProps> = ({
 						scrollEnabled={false}
 						placeholder='Tell people what you offer as a live artist...'
 						onChangeText={onChange}
+						onBlur={onBlurEditable}
 						defaultValue={
 							editArtistFormApi.formMethods.getValues('bio') ?? undefined
 						}

@@ -5,25 +5,22 @@ import React from 'react';
 import { Asset } from 'react-native-image-picker';
 
 interface EditProfileImageProps {
-	profileImage: Asset | null;
-	setProfileImage: (profileImage: Asset | null) => void;
+	updateArtistProfileImage: (profileImage: Asset) => void;
+	isProfileImageLoading: boolean;
 }
 
 const EditProfileImage: React.FC<EditProfileImageProps> = ({
-	profileImage,
-	setProfileImage
+	updateArtistProfileImage,
+	isProfileImageLoading
 }) => {
 	const { artistData } = useArtistAppContext();
 	return (
 		<Section marginVertical='xxl' alignItems='center'>
 			<EditableProfileImage
 				size='large'
-				onChooseImage={setProfileImage}
-				image={
-					profileImage === null
-						? artistData.profile_image?.medium.key
-						: profileImage.uri
-				}
+				onChooseImage={updateArtistProfileImage}
+				image={artistData.profile_image?.medium.key}
+				isLoading={isProfileImageLoading}
 			/>
 		</Section>
 	);

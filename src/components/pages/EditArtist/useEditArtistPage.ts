@@ -2,7 +2,6 @@ import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
 import { Formatting } from '@etc';
 import { profileImageApiSlice } from '@flux/api/profile-image';
 import { useToast } from '@hooks';
-import { ButtonStateApi, useButtonState } from '@molecules';
 import useEditArtistFormApi, {
 	EditArtistFormApi
 } from '@src/utils/redux-hook-form/useEditArtistFormApi';
@@ -11,18 +10,33 @@ import { Asset } from 'react-native-image-picker';
 
 interface IUseEditArtistPage {
 	editArtistFormApi: EditArtistFormApi;
-	profileImage: Asset | null;
-	setProfileImage: (profileImage: Asset | null) => void;
-	saveButtonStateApi: ButtonStateApi;
+	onBlurEditable: () => void;
+	updateArtistProfileImage: (profileImage: Asset) => void;
+	isProfileImageLoading: boolean;
 }
 
 const useEditArtistPage = (): IUseEditArtistPage => {
 	const { toastSuccess, toastError } = useToast();
 	const { artistData } = useArtistAppContext();
-	const [profileImage, setProfileImage] = useState<Asset | null>(null);
-	const saveButtonStateApi = useButtonState();
 	const [createArtistProfileImageMutation] =
 		profileImageApiSlice.useCreateArtistProfileImageMutation();
+	const [isProfileImageLoading, setIsProfileImageLoading] = useState(false);
+
+	const updateArtistProfileImage = async (profileImage: Asset) => {
+		setIsProfileImageLoading(true);
+		try {
+			await createArtistProfileImageMutation({
+				file: profileImage,
+				query: { artist_uid: artistData.artist_uid }
+			});
+		} finally {
+			// Give it another second to invalidate the artist data
+			// which is where we're actually getting this image from
+			setTimeout(() => {
+				setIsProfileImageLoading(false);
+			}, 1000);
+		}
+	};
 
 	const editArtistFormApi = useEditArtistFormApi({
 		initialValues: {
@@ -31,50 +45,37 @@ const useEditArtistPage = (): IUseEditArtistPage => {
 			bio: artistData.bio
 		},
 		methods: {
-			onConfirmedValid: () => {
-				saveButtonStateApi.setButtonState('loading');
-			},
 			onValidDidComplete: async (res) => {
-				const promises = [];
-				if (profileImage) {
-					promises.push(
-						createArtistProfileImageMutation({
-							file: profileImage,
-							query: { artist_uid: artistData.artist_uid }
-						})
-					);
-				}
-
-				await Promise.all(promises);
 				toastSuccess('Artist updated successfully');
-				saveButtonStateApi.buttonSuccess();
 			},
 			onValidDidFail: (err) => {
 				console.log(err);
 				toastError('Failed to update artist');
-				saveButtonStateApi.setButtonState('active');
 			},
 			onInvalid: (err) => {
 				console.log(
 					'Invalid with: ',
 					editArtistFormApi.formMethods.getValues()
 				);
-				saveButtonStateApi.setButtonState('active');
 			}
 		}
 	});
 
-	const resetAll = () => {
-		editArtistFormApi.formMethods.reset();
-		saveButtonStateApi.setButtonState('disabled');
-		setProfileImage(null);
+	// You do need to destructure like this in order to properly subscribe to this property
+	const { isDirty: isEditArtistFormApiDirty } =
+		editArtistFormApi.formMethods.formState;
+
+	const onBlurEditable = () => {
+		if (isEditArtistFormApiDirty) {
+			editArtistFormApi.onSubmit();
+		}
 	};
 
 	return {
 		editArtistFormApi,
-		profileImage,
-		setProfileImage,
-		saveButtonStateApi
+		updateArtistProfileImage,
+		onBlurEditable,
+		isProfileImageLoading
 	};
 };
 
