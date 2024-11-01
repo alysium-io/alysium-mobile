@@ -3,6 +3,7 @@ export * from './CheckUserWantsToRegisterBottomSheet';
 export * from './ConfirmDeleteBottomSheet';
 export * from './CreateAccountBottomSheet';
 export * from './CreateArtistBottomSheet';
+export * from './CreateArtistEventBottomSheet';
 export * from './CreateContractBottomSheet';
 export * from './CreateEventBottomSheet';
 export * from './CreateExternalUrlBottomSheet';

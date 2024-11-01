@@ -7,7 +7,8 @@ const apiErrorUnauthorizedMiddleware: Middleware =
 	(action) => {
 		// Check if this is a rejected RTK Query action
 		if (isRejectedWithValue(action)) {
-			console.log('Rejected RTK Query action:', action.type);
+			const methodName = action.meta.arg.endpointName;
+			console.log('Rejected RTK Query action:', action.type, methodName);
 			console.log('Error payload:', action.payload);
 
 			if (action.payload?.data?.error === 'UNIQUE_CONSTRAINT_EXCEPTION') {

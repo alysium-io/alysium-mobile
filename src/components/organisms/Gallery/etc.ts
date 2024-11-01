@@ -1,11 +1,11 @@
 import { FindGalleryParamsDto } from '@flux/api/gallery/dto/gallery-find.dto';
 import { GalleryItem } from '@flux/api/gallery/gallery-item.entity';
-import { Gallery } from '@flux/api/gallery/gallery.entity';
+import { GalleryRefType } from '@flux/api/gallery/types';
 import { GALLERY_LENGTH, GALLERY_ROW_LENGTH } from './settings';
 
 export interface GalleryProps {
-	gallery?: Gallery | null;
 	findGalleryParamsDto: FindGalleryParamsDto;
+	galleryRefType: GalleryRefType;
 }
 
 export type GalleryItemData = {

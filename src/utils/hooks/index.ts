@@ -20,6 +20,7 @@ export { default as useAnimatedState } from './useAnimatedState';
 export { default as useAnimatedValue } from './useAnimatedValue';
 export { default as useBottomTabHeight } from './useBottomTabHeight';
 export { default as useForm } from './useForm';
+export { default as useGallery } from './useGallery';
 export { default as useImage } from './useImage';
 export { default as useIsLoaded } from './useIsLoaded';
 export { default as useKeyboard } from './useKeyboard';

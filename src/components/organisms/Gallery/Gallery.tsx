@@ -1,14 +1,23 @@
 import { View } from '@atomic';
+import { useGallery } from '@hooks';
 import React from 'react';
 import GalleryItemRow from './components/GalleryItemRow';
 import { createGallerymap, GalleryProps } from './etc';
 import GalleryItem from './gallery-items/GalleryItem';
 import { GALLERY_ITEM_MARGIN } from './settings';
 
-const Gallery: React.FC<GalleryProps> = ({ gallery, findGalleryParamsDto }) => {
+const Gallery: React.FC<GalleryProps> = ({
+	findGalleryParamsDto,
+	galleryRefType
+}) => {
+	const gallery = useGallery(galleryRefType);
+	const { data } = gallery.find({
+		params: findGalleryParamsDto
+	});
+
 	return (
 		<View>
-			{createGallerymap(gallery?.items)?.map((row, rowIndex) => (
+			{createGallerymap(data?.items)?.map((row, rowIndex) => (
 				<GalleryItemRow
 					key={rowIndex}
 					style={{ marginBottom: GALLERY_ITEM_MARGIN }}

@@ -1,7 +1,6 @@
 import {
 	ArtistPage,
 	EditContractPage,
-	EditEventPage,
 	EditEventTicketTypesPage,
 	EditTicketTypePage,
 	EditVenuePage,
@@ -9,13 +8,13 @@ import {
 	EventManagerPage,
 	EventPage
 } from '@pages';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { EventManagerStackNavigatorParamList } from '@types';
 import React from 'react';
 import { useTabSettings } from './settings';
 
 export const EventManagerStack =
-	createStackNavigator<EventManagerStackNavigatorParamList>();
+	createNativeStackNavigator<EventManagerStackNavigatorParamList>();
 
 const EventManagerTab = () => {
 	const { screenOptions } = useTabSettings();
@@ -25,10 +24,6 @@ const EventManagerTab = () => {
 			<EventManagerStack.Screen
 				name='EventManagerPage'
 				component={EventManagerPage}
-			/>
-			<EventManagerStack.Screen
-				name='EditEventPage'
-				component={EditEventPage}
 			/>
 
 			<EventManagerStack.Screen name='EventPage' component={EventPage} />

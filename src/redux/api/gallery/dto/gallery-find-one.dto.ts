@@ -1,9 +1,9 @@
-import { MediaRefType } from '@flux/api/media/types';
 import { ApiIdentifier } from '@types';
 import { GalleryItem } from '../gallery-item.entity';
+import { GalleryRefType } from '../types';
 
 export interface FindGalleryItemParamsDto {
-	readonly refType: MediaRefType;
+	readonly refType: GalleryRefType;
 	readonly refId: ApiIdentifier;
 }
 

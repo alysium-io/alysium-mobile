@@ -5,6 +5,7 @@ import React from 'react';
 import EditArtistName from './components/EditArtistName';
 import EditBasicInfoSection from './components/EditBasicInfoSection';
 import EditBioSection from './components/EditBioSection';
+import EditEvents from './components/EditEvents';
 import EditExternalUrlsSection from './components/EditExternalUrlsSection';
 import EditProfileImage from './components/EditProfileImage';
 import GallerySection from './components/GallerySection';
@@ -32,20 +33,25 @@ const EditArtistPage = () => {
 						updateArtistProfileImage={updateArtistProfileImage}
 						isProfileImageLoading={isProfileImageLoading}
 					/>
+				</View>
+				<View margin='m'>
 					<EditArtistName
 						editArtistFormApi={editArtistFormApi}
 						onBlurEditable={onBlurEditable}
 					/>
+				</View>
+				<EditEvents />
+				<View margin='m'>
 					<EditBasicInfoSection
-						editArtistFormApi={editArtistFormApi}
-						onBlurEditable={onBlurEditable}
-					/>
-					<EditBioSection
 						editArtistFormApi={editArtistFormApi}
 						onBlurEditable={onBlurEditable}
 					/>
 				</View>
 				<EditExternalUrlsSection />
+				<EditBioSection
+					editArtistFormApi={editArtistFormApi}
+					onBlurEditable={onBlurEditable}
+				/>
 				<GallerySection />
 			</SelfAwareScrollView>
 		</BasePage>

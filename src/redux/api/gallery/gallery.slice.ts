@@ -15,41 +15,86 @@ import {
 	FindGalleryResponseDto
 } from './dto/gallery-find.dto';
 
-const url = rtkBaseUrl('gallery');
+const artistGalleryUrl = rtkBaseUrl('gallery/artist');
+const artistEventGalleryUrl = rtkBaseUrl('gallery/artist-event');
 
 export default serviceApi.injectEndpoints({
 	endpoints: (builder) => ({
-		createGalleryItem: builder.mutation<
+		// Artist Event Gallery
+		createArtistEventGalleryItem: builder.mutation<
 			CreateGalleryResponseDto,
 			{ body: CreateGalleryBodyDto; file: Asset }
 		>({
 			query: ({ body, file }) => ({
-				url: url('/'),
+				url: artistEventGalleryUrl('/'),
 				method: 'POST',
 				body: createImageFormDataFromAsset(file, body)
 			}),
 			invalidatesTags: (result, error, { body }) => [
-				{ type: 'Gallery', id: [body.refId, body.refType].join('/') }
+				{ type: 'ArtistEventGallery', id: body.refId }
 			]
 		}),
-		findGallery: builder.query<
+		findArtistEventGallery: builder.query<
 			FindGalleryResponseDto,
 			{ params: FindGalleryParamsDto }
 		>({
 			query: ({ params }) => ({
-				url: url(`/${params.refType}/${params.refId}`),
+				url: artistEventGalleryUrl(`/${params.refId}`),
 				method: 'GET'
 			}),
 			providesTags: (result, error, { params }) => [
-				{ type: 'Gallery', id: [params.refId, params.refType].join('/') }
+				{ type: 'ArtistEventGallery', id: params.refId }
 			]
 		}),
-		findGalleryItem: builder.query<
+		findArtistEventGalleryItem: builder.query<
 			FindGalleryItemResponseDto,
 			{ params: FindGalleryItemParamsDto; query: FindGalleryItemQueryDto }
 		>({
 			query: ({ params, query }) => ({
-				url: url(`/${params.refType}/${params.refId}/item`),
+				url: artistEventGalleryUrl(`/${params.refId}/item`),
+				method: 'GET',
+				params: query
+			})
+		}),
+
+		// Artist Gallery
+		createArtistGalleryItem: builder.mutation<
+			CreateGalleryResponseDto,
+			{ body: CreateGalleryBodyDto; file: Asset }
+		>({
+			query: ({ body, file }) => ({
+				url: artistGalleryUrl('/'),
+				method: 'POST',
+				body: createImageFormDataFromAsset(file, body)
+			}),
+			invalidatesTags: (result, error, { body }) => [
+				{
+					type: 'ArtistGallery',
+					id: body.refId
+				}
+			]
+		}),
+		findArtistGallery: builder.query<
+			FindGalleryResponseDto,
+			{ params: FindGalleryParamsDto }
+		>({
+			query: ({ params }) => ({
+				url: artistGalleryUrl(`/${params.refId}`),
+				method: 'GET'
+			}),
+			providesTags: (result, error, { params }) => [
+				{
+					type: 'ArtistGallery',
+					id: params.refId
+				}
+			]
+		}),
+		findArtistGalleryItem: builder.query<
+			FindGalleryItemResponseDto,
+			{ params: FindGalleryItemParamsDto; query: FindGalleryItemQueryDto }
+		>({
+			query: ({ params, query }) => ({
+				url: artistGalleryUrl(`/${params.refId}/item`),
 				method: 'GET',
 				params: query
 			})

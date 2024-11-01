@@ -16,7 +16,7 @@ interface UserArtistProps {
 }
 
 const UserArtist: React.FC<UserArtistProps> = ({ artist_uid }) => {
-	const { artistData, galleryData } = useUserArtistPage(artist_uid);
+	const { artistData } = useUserArtistPage(artist_uid);
 
 	if (!artistData) {
 		return null;
@@ -39,7 +39,7 @@ const UserArtist: React.FC<UserArtistProps> = ({ artist_uid }) => {
 					<ArtistTags artistData={artistData} />
 					<GoToSpotifyButton artistData={artistData} />
 				</View>
-				<GallerySection galleryData={galleryData} artistData={artistData} />
+				<GallerySection artistData={artistData} />
 				<RelatedArtists artist_uid={artist_uid} />
 			</Parallax>
 		</BasePage>

@@ -1,29 +1,19 @@
 import { Section } from '@atomic';
 import { PublicFindOneArtistResponseDto } from '@flux/api/artist/dto/artist-find-one.dto';
-import { FindGalleryResponseDto } from '@flux/api/gallery/dto/gallery-find.dto';
-import { MediaRefType } from '@flux/api/media/types';
+import { GalleryRefType } from '@flux/api/gallery/types';
 import { Gallery } from '@organisms';
 import React from 'react';
 
 interface GallerySectionProps {
-	galleryData?: FindGalleryResponseDto;
 	artistData: PublicFindOneArtistResponseDto;
 }
 
-const GallerySection: React.FC<GallerySectionProps> = ({
-	galleryData,
-	artistData
-}) => {
-	if (!galleryData) {
-		return null;
-	}
-
+const GallerySection: React.FC<GallerySectionProps> = ({ artistData }) => {
 	return (
 		<Section>
 			<Gallery
-				gallery={galleryData}
+				galleryRefType={GalleryRefType.artist}
 				findGalleryParamsDto={{
-					refType: MediaRefType.artist,
 					refId: artistData.artist_uid
 				}}
 			/>

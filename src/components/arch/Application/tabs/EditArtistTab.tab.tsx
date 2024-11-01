@@ -1,4 +1,4 @@
-import { EditArtistPage, ViewGalleryPage } from '@pages';
+import { EditArtistEventPage, EditArtistPage, ViewGalleryPage } from '@pages';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { EditArtistStackNavigatorParamList } from '@types';
 import React from 'react';
@@ -23,6 +23,10 @@ const EditArtistTab = () => {
 					presentation: 'transparentModal',
 					animation: 'fade'
 				}}
+			/>
+			<EditArtistStack.Screen
+				name='EditArtistEventPage'
+				component={EditArtistEventPage}
 			/>
 		</EditArtistStack.Navigator>
 	);

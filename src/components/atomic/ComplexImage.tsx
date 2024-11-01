@@ -21,7 +21,7 @@ const ComplexImage: React.FC<ComplexImageProps> = ({ image, ...props }) => {
 	return (
 		<View>
 			<Switch>
-				<Case condition={image === null}>
+				<Case condition={!image}>
 					<View style={styles.container} backgroundColor='bg.q' />
 				</Case>
 				<Case condition={!currentUrl}>

@@ -42,7 +42,7 @@ interface IUseNavigation {
 		ticket_type_uid: ApiIdentifier,
 		navigationMeta: NavigationBehaviorMetadata
 	) => void;
-	editEventPage: (
+	editArtistEventPage: (
 		event_uid: ApiIdentifier,
 		navigationMeta: NavigationBehaviorMetadata
 	) => void;
@@ -159,11 +159,11 @@ const useNavigation = (): IUseNavigation => {
 		navigationBehavior(navigationMeta);
 	};
 
-	const editEventPage = (
+	const editArtistEventPage = (
 		event_uid: ApiIdentifier,
 		navigationMeta: NavigationBehaviorMetadata
 	) => {
-		navigation.push('EditEventPage', { event_uid });
+		navigation.push('EditArtistEventPage', { event_uid });
 		navigationBehavior(navigationMeta);
 	};
 
@@ -252,7 +252,7 @@ const useNavigation = (): IUseNavigation => {
 		eventCandidatesPage,
 		editEventTicketTypesPage,
 		editTicketTypePage,
-		editEventPage,
+		editArtistEventPage,
 		editVenuePage,
 		editContractPage,
 		searchPage,
