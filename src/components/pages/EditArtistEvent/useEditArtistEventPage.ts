@@ -2,6 +2,7 @@ import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
 import { artistEventApiSlice } from '@flux/api/event';
 import { FindOneArtistEventResponseDto } from '@flux/api/event/dto/artist-event-find-one.dto';
 import { profileImageApiSlice } from '@flux/api/profile-image';
+import { useToast } from '@hooks';
 import useUpdateArtistEventFormApi, {
 	UpdateArtistEventFormApi
 } from '@src/utils/redux-hook-form/useUpdateArtistEventFormApi';
@@ -21,6 +22,7 @@ interface IUseEditArtistEvent {
 const useEditArtistEventPage = (
 	event_uid: ApiIdentifier
 ): IUseEditArtistEvent => {
+	const { toastSuccess } = useToast();
 	const { artistData } = useArtistAppContext();
 	const [createArtistEventProfileImageMutation] =
 		profileImageApiSlice.useCreateArtistEventProfileImageMutation();
@@ -42,11 +44,14 @@ const useEditArtistEventPage = (
 		});
 	};
 
-	const updateArtistEventFormApi = useUpdateArtistEventFormApi(event_uid);
-
-	const onBlurEditable = () => {
-		console.log('onBlurEditable');
-	};
+	const updateArtistEventFormApi = useUpdateArtistEventFormApi(event_uid, {
+		methods: {
+			onValidDidComplete: () => {
+				toastSuccess('Event updated successfully');
+			}
+		}
+	});
+	const { isDirty } = updateArtistEventFormApi.formMethods.formState;
 
 	const { data: eventData } =
 		artistEventApiSlice.usePrivateFindOneArtistEventQuery({
@@ -55,6 +60,12 @@ const useEditArtistEventPage = (
 				artist_uid: artistData.artist_uid
 			}
 		});
+
+	const onBlurEditable = () => {
+		if (isDirty) {
+			updateArtistEventFormApi.onSubmit();
+		}
+	};
 
 	return {
 		eventData,

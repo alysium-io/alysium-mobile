@@ -1,4 +1,5 @@
 import { View } from '@atomic';
+import { useKeyboard } from '@hooks';
 import { BasePage } from '@organisms';
 import { useRoute } from '@react-navigation/native';
 import { EditArtistEventPageRouteProp } from '@types';
@@ -19,6 +20,7 @@ const EditArtistEventPage = () => {
 		updateArtistEventFormApi,
 		onBlurEditable
 	} = useEditArtistEventPage(route.params.event_uid);
+	const { dismiss } = useKeyboard();
 
 	if (!eventData) {
 		return null;
@@ -27,7 +29,7 @@ const EditArtistEventPage = () => {
 	return (
 		<BasePage>
 			<EditArtistEventPageHeader title={eventData.event.name} />
-			<ScrollView>
+			<ScrollView onScrollBeginDrag={dismiss}>
 				<View margin='m'>
 					<EditProfileImage
 						eventData={eventData}
