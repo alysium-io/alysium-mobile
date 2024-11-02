@@ -1,6 +1,6 @@
 import { Section } from '@atomic';
 import { FindOneArtistEventResponseDto } from '@flux/api/event/dto/artist-event-find-one.dto';
-import { useImage, usePriorityImage } from '@hooks';
+import { usePriorityImage } from '@hooks';
 import { EditableProfileImage } from '@molecules';
 import React from 'react';
 import { Asset } from 'react-native-image-picker';
@@ -16,12 +16,7 @@ const EditProfileImage: React.FC<EditProfileImageProps> = ({
 	isProfileImageLoading,
 	eventData
 }) => {
-	const { urlForKey } = useImage();
-	const { currentUrl } = usePriorityImage([
-		urlForKey(eventData?.event.profile_image?.small.key),
-		urlForKey(eventData?.event.profile_image?.medium.key),
-		urlForKey(eventData?.event.profile_image?.large.key)
-	]);
+	const { currentUrl } = usePriorityImage(eventData?.event.profile_image);
 
 	return (
 		<Section marginVertical='xxl' alignItems='center'>

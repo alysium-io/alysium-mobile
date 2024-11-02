@@ -1,8 +1,11 @@
 import { createImageFormDataFromAsset } from '@src/etc/Images';
 import { Asset } from 'react-native-image-picker';
-import { artistApiSlice } from '../artist';
 import { rtkBaseUrl, serviceApi } from '../base';
 import { userApiSlice } from '../user';
+import {
+	CreateArtistEventProfileImageQueryDto,
+	CreateArtistEventProfileImageResponseDto
+} from './dto/create-artist-event-profile-image.dto';
 import {
 	CreateArtistProfileImageQueryDto,
 	CreateArtistProfileImageResponseDto
@@ -49,15 +52,30 @@ const apiSlice = serviceApi.injectEndpoints({
 					params: query
 				};
 			},
-			onQueryStarted: async ({ query }, { dispatch, queryFulfilled }) => {
-				await queryFulfilled;
-				dispatch(
-					artistApiSlice.util.invalidateTags([
-						{ type: 'Artist', id: query.artist_uid },
-						{ type: 'PublicArtist', id: query.artist_uid }
-					])
-				);
-			}
+			invalidatesTags: (result, error, { query }) => [
+				{ type: 'Artist', id: query.artist_uid },
+				{ type: 'PublicArtist', id: query.artist_uid }
+			]
+		}),
+		createArtistEventProfileImage: builder.mutation<
+			CreateArtistEventProfileImageResponseDto,
+			{ file: Asset; query: CreateArtistEventProfileImageQueryDto }
+		>({
+			query: ({ file, query }) => {
+				return {
+					url: url('/artist-event'),
+					method: 'POST',
+					body: createImageFormDataFromAsset(file),
+					headers: {
+						'Content-Type': 'multipart/form-data'
+					},
+					params: query
+				};
+			},
+			invalidatesTags: (result, error, { query }) => [
+				{ type: 'ArtistEvent', id: query.event_uid },
+				{ type: 'ArtistEvent', id: 'LIST' }
+			]
 		})
 	})
 });

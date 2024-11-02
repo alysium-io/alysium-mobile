@@ -1,7 +1,7 @@
 import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
 import { Section, Text } from '@atomic';
 import { artistEventApiSlice } from '@flux/api/event';
-import { useNavigation, useSheet } from '@hooks';
+import { useImage, useNavigation, useSheet } from '@hooks';
 import { ContentListItem } from '@molecules';
 import { CreateArtistEventBottomSheet } from '@popups';
 import React from 'react';
@@ -10,6 +10,7 @@ const EditEvents = () => {
 	const createArtistEventBottomSheet = useSheet();
 	const { artistData } = useArtistAppContext();
 	const { editArtistEventPage } = useNavigation();
+	const { urlForKey } = useImage();
 	const { data } = artistEventApiSlice.usePrivateFindAllArtistEventsQuery({
 		params: {
 			artist_uid: artistData.artist_uid
@@ -55,6 +56,7 @@ const EditEvents = () => {
 						bottomSubtext: 'Event'
 					}}
 					profileImageProps={{
+						image: urlForKey(event.event.profile_image?.small.key),
 						borderRadius: 'none',
 						defaultImageProps: {
 							icon: 'event'

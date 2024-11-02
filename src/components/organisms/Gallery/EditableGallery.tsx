@@ -11,9 +11,7 @@ const EditableGallery: React.FC<GalleryProps> = ({
 	galleryRefType
 }) => {
 	const gallery = useGallery(galleryRefType);
-	const { data } = gallery.find({
-		params: findGalleryParamsDto
-	});
+	const { data } = gallery.find({ params: findGalleryParamsDto });
 
 	return (
 		<View>

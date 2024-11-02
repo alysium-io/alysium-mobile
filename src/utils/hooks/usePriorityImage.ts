@@ -1,19 +1,26 @@
+import { Image } from '@flux/api/media/image.entity';
 import { useEffect, useRef, useState } from 'react';
-import { Image } from 'react-native';
+import { Image as RNImage } from 'react-native';
 import { runOnJS } from 'react-native-reanimated';
+import useImage from './useImage';
 
-interface PriorityImageApi {
+interface ImagePriorityApi {
 	currentUrl: string | undefined;
 }
 
-const usePriorityImage = (
-	imageUris: Array<string | undefined>
-): PriorityImageApi => {
+const useImagePriority = (image?: Image | null): ImagePriorityApi => {
 	const currentLoadedIndex = useRef<number>(-1);
 	const [currentUrl, setCurrentUrl] = useState<string | undefined>(undefined);
+	const { urlForKey } = useImage();
 
 	useEffect(() => {
-		if (imageUris.length > 0) {
+		if (image) {
+			currentLoadedIndex.current = -1;
+			const imageUris = [
+				urlForKey(image.small.key),
+				urlForKey(image.medium.key),
+				urlForKey(image.large.key)
+			];
 			for (let i = 0; i < imageUris.length; i++) {
 				const imageUri = imageUris[i];
 				if (imageUri !== undefined && imageUri !== '') {
@@ -21,10 +28,10 @@ const usePriorityImage = (
 				}
 			}
 		}
-	}, [imageUris]);
+	}, [image]);
 
 	const prefetchImage = (index: number, uri: string) => {
-		Image.prefetch(uri).then(() => {
+		RNImage.prefetch(uri).then(() => {
 			runOnJS(onImageLoaded)(index, uri);
 		});
 	};
@@ -41,4 +48,4 @@ const usePriorityImage = (
 	};
 };
 
-export default usePriorityImage;
+export default useImagePriority;

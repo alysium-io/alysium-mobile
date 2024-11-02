@@ -1,6 +1,6 @@
 import { View } from '@atomic';
 import { Image } from '@flux/api/media';
-import { useImage, usePriorityImage } from '@hooks';
+import { usePriorityImage } from '@hooks';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import Animated from 'react-native-reanimated';
@@ -18,12 +18,7 @@ const PriorityImage: React.FC<PriorityImageProps> = ({
 	currentIndex,
 	transitionTagId
 }) => {
-	const { urlForKey } = useImage();
-	const { currentUrl } = usePriorityImage([
-		urlForKey(image?.small.key),
-		urlForKey(image?.medium.key),
-		urlForKey(image?.large.key)
-	]);
+	const { currentUrl } = usePriorityImage(image);
 
 	return (
 		<View flex={1} style={StyleSheet.absoluteFillObject}>

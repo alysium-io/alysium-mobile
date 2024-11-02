@@ -1,6 +1,6 @@
 import { SkeletonPlaceholder, View } from '@atomic';
 import { Image } from '@flux/api/media';
-import { useImage, usePriorityImage } from '@hooks';
+import { usePriorityImage } from '@hooks';
 import React from 'react';
 import { Case, Default, Switch } from 'react-if';
 import { StyleSheet } from 'react-native';
@@ -11,12 +11,7 @@ type ComplexImageProps = React.ComponentProps<typeof Animated.Image> & {
 };
 
 const ComplexImage: React.FC<ComplexImageProps> = ({ image, ...props }) => {
-	const { urlForKey } = useImage();
-	const { currentUrl } = usePriorityImage([
-		urlForKey(image?.small?.key),
-		urlForKey(image?.medium?.key),
-		urlForKey(image?.large?.key)
-	]);
+	const { currentUrl } = usePriorityImage(image);
 
 	return (
 		<View>

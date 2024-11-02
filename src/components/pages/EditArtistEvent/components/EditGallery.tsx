@@ -10,10 +10,10 @@ interface EditGalleryProps {
 const EditGallery: React.FC<EditGalleryProps> = ({ eventData }) => {
 	return (
 		<EditableGallery
+			galleryRefType={GalleryRefType.artistEvent}
 			findGalleryParamsDto={{
 				refId: eventData.event.event_uid
 			}}
-			galleryRefType={GalleryRefType.artistEvent}
 		/>
 	);
 };

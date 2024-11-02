@@ -1,6 +1,6 @@
 import { Image, View } from '@atomic';
 import { BorderRadii } from '@types';
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { StyleSheet } from 'react-native';
 import { useEnvContext } from 'src/utils/contexts';
 import DefaultImage from './DefaultImage';
@@ -17,7 +17,6 @@ const Avatar: React.FC<AvatarProps> = ({
 	defaultImageProps
 }) => {
 	const { env } = useEnvContext();
-	const [error, setError] = useState(false);
 
 	const imageCache = useMemo(() => {
 		if (!image) return { uri: undefined };
@@ -37,14 +36,10 @@ const Avatar: React.FC<AvatarProps> = ({
 
 	return (
 		<View style={styles.container} borderRadius={borderRadius}>
-			{!image || error ? (
+			{!image ? (
 				<DefaultImage {...defaultImageProps} />
 			) : (
-				<Image
-					source={imageCache}
-					style={styles.image}
-					onError={() => setError(true)}
-				/>
+				<Image source={imageCache} style={styles.image} />
 			)}
 		</View>
 	);
