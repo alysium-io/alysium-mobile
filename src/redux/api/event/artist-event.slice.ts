@@ -21,6 +21,11 @@ import {
 	UpdateArtistEventParamsDto,
 	UpdateArtistEventResponseDto
 } from './dto/artist-event-update.dto';
+import {
+	UpdateArtistEventLocationBodyDto,
+	UpdateArtistEventLocationParamsDto,
+	UpdateArtistEventLocationResponseDto
+} from './dto/update-artist-event-location.dto';
 
 const url = rtkBaseUrl('event/artist');
 
@@ -76,6 +81,22 @@ export default serviceApi.injectEndpoints({
 		>({
 			query: ({ params, body }) => ({
 				url: url(`/${params.artist_uid}/${params.event_uid}`),
+				method: 'PUT',
+				body
+			}),
+			invalidatesTags: (result, error, { params }) => [
+				{ type: 'ArtistEvent', id: params.event_uid }
+			]
+		}),
+		updateArtistEventLocation: builder.mutation<
+			UpdateArtistEventLocationResponseDto,
+			{
+				params: UpdateArtistEventLocationParamsDto;
+				body: UpdateArtistEventLocationBodyDto;
+			}
+		>({
+			query: ({ params, body }) => ({
+				url: url(`/${params.artist_uid}/${params.event_uid}/location`),
 				method: 'PUT',
 				body
 			}),

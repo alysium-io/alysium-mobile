@@ -1,3 +1,4 @@
+import { Location } from '../location';
 import { Image } from '../media';
 
 export interface Event {
@@ -6,4 +7,5 @@ export interface Event {
 	readonly start_time: string;
 	readonly end_time: string;
 	readonly profile_image: Image | null;
+	readonly location: Location | null;
 }

@@ -1,6 +1,6 @@
 import { ActivityIndicator, View } from '@atomic';
 import { searchApiSlice, SearchItem } from '@flux/api/search';
-import { useKeyboard, usePagination } from '@hooks';
+import { SearchApi, useKeyboard, usePagination } from '@hooks';
 import React from 'react';
 import { Case, Switch } from 'react-if';
 import Animated, {
@@ -13,13 +13,13 @@ import RecentSearches from './RecentSearches';
 import SearchResults from './SearchResults';
 
 interface AnythingSearchActivePageProps {
-	searchAnythingText: string;
+	searchAnythingApi: SearchApi;
 	recentSearches: SearchItem[];
 	onPressSearchResult: (item: SearchItem) => void;
 }
 
 const AnythingSearchActivePage: React.FC<AnythingSearchActivePageProps> = ({
-	searchAnythingText,
+	searchAnythingApi,
 	recentSearches,
 	onPressSearchResult
 }) => {
@@ -31,22 +31,22 @@ const AnythingSearchActivePage: React.FC<AnythingSearchActivePageProps> = ({
 	const { data: tagSearchResults, isLoading: isLoadingTagSearchResults } =
 		searchApiSlice.useSearchTagsQuery(
 			{
-				body: { q: searchAnythingText },
+				body: { q: searchAnythingApi.searchText },
 				query: { page: 1, limit: 4 }
 			},
-			{ skip: searchAnythingText.length === 0 }
+			{ skip: searchAnythingApi.searchText.length === 0 }
 		);
 
 	const { data: artistSearchResults, isLoading: isLoadingArtistSearchResults } =
 		searchApiSlice.useSearchArtistsQuery(
 			{
-				body: { q: searchAnythingText },
+				body: { q: searchAnythingApi.searchText },
 				query: {
 					page: artistSearchPage,
 					limit: artistSearchDefaultLimit
 				}
 			},
-			{ skip: searchAnythingText.length === 0 }
+			{ skip: searchAnythingApi.searchText.length === 0 }
 		);
 
 	return (
@@ -67,18 +67,19 @@ const AnythingSearchActivePage: React.FC<AnythingSearchActivePageProps> = ({
 				</Case>
 				<Case
 					condition={
-						searchAnythingText.length === 0 && recentSearches.length === 0
+						searchAnythingApi.searchText.length === 0 &&
+						recentSearches.length === 0
 					}
 				>
 					<NoRecentSearches />
 				</Case>
-				<Case condition={searchAnythingText.length === 0}>
+				<Case condition={searchAnythingApi.searchText.length === 0}>
 					<RecentSearches
 						recentSearches={recentSearches}
 						onPressSearchResult={onPressSearchResult}
 					/>
 				</Case>
-				<Case condition={searchAnythingText.length > 0}>
+				<Case condition={searchAnythingApi.searchText.length > 0}>
 					<SearchResults
 						onPressSearchResult={onPressSearchResult}
 						artistSearchResults={artistSearchResults}

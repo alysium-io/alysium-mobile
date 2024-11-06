@@ -19,6 +19,7 @@ export interface TitleTextProps {
 	titleColor?: React.ComponentProps<typeof Text>['color'];
 	topSubtextColor?: React.ComponentProps<typeof Text>['color'];
 	bottomSubtextColor?: React.ComponentProps<typeof Text>['color'];
+	containerProps?: React.ComponentProps<typeof View>;
 }
 
 const TitleText: React.FC<TitleTextProps> = ({
@@ -33,7 +34,8 @@ const TitleText: React.FC<TitleTextProps> = ({
 	bottomSubtextVariant = 'paragraph-small',
 	titleColor = 'text.p',
 	topSubtextColor = 'text.s',
-	bottomSubtextColor = 'text.s'
+	bottomSubtextColor = 'text.s',
+	containerProps
 }) => {
 	const wrapTextProps: WrapTextProps = {
 		numberOfLines: 1,
@@ -41,7 +43,7 @@ const TitleText: React.FC<TitleTextProps> = ({
 	};
 
 	return (
-		<View flex={1}>
+		<View flex={1} {...containerProps}>
 			{topSubtext && (
 				<Text
 					marginBottom='xs'

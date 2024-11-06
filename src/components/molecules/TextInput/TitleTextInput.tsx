@@ -21,7 +21,7 @@ const TitleTextInput: React.FC<TitleTextInputProps> = ({
 	...props
 }) => {
 	const { theme } = useTheme();
-	const { ref, focus } = useTextInput();
+	const textInputApi = useTextInput(props.defaultValue);
 	const { animatedValue, off, on } = useAnimatedState();
 	const activeColor = theme.colors['text.p'];
 	const inactiveColor = theme.colors['text.q'];
@@ -47,7 +47,7 @@ const TitleTextInput: React.FC<TitleTextInputProps> = ({
 	});
 
 	return (
-		<TouchableWithoutFeedback onPress={focus}>
+		<TouchableWithoutFeedback onPress={textInputApi.focus}>
 			<View
 				animated
 				marginHorizontal='xs'
@@ -58,7 +58,7 @@ const TitleTextInput: React.FC<TitleTextInputProps> = ({
 				style={animatedBorderStyle}
 			>
 				<TextInput
-					ref={ref}
+					ref={textInputApi.ref}
 					placeholderTextColor={theme.colors['text.q']}
 					variant='page-header'
 					onFocus={_onFocus}

@@ -17,7 +17,7 @@ const EditEventName: React.FC<EditEventNameProps> = ({
 	onBlurEditable
 }) => {
 	return (
-		<Section>
+		<Section margin='m' marginBottom='none'>
 			<Controller
 				name='name'
 				rules={{ required: true }}

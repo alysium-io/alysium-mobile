@@ -1,11 +1,11 @@
 import { View } from '@atomic';
 import React from 'react';
-import VideoLimits from './displays/VideoLimits';
+import GoogleMapsAutocomplete from './displays/GoogleMapsAutocomplete';
 
 const Scratch = () => {
 	return (
 		<View flex={1}>
-			<VideoLimits />
+			<GoogleMapsAutocomplete />
 		</View>
 	);
 };

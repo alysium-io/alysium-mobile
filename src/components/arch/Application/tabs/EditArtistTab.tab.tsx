@@ -1,4 +1,11 @@
-import { EditArtistEventPage, EditArtistPage, ViewGalleryPage } from '@pages';
+import {
+	ArtistPage,
+	ChooseEventLocationPage,
+	ChooseScenePage,
+	EditArtistEventPage,
+	EditArtistPage,
+	ViewGalleryPage
+} from '@pages';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { EditArtistStackNavigatorParamList } from '@types';
 import React from 'react';
@@ -27,6 +34,15 @@ const EditArtistTab = () => {
 			<EditArtistStack.Screen
 				name='EditArtistEventPage'
 				component={EditArtistEventPage}
+			/>
+			<EditArtistStack.Screen
+				name='ChooseScenePage'
+				component={ChooseScenePage}
+			/>
+			<EditArtistStack.Screen name='ArtistPage' component={ArtistPage} />
+			<EditArtistStack.Screen
+				name='ChooseEventLocationPage'
+				component={ChooseEventLocationPage}
 			/>
 		</EditArtistStack.Navigator>
 	);

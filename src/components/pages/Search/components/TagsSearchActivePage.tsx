@@ -2,7 +2,7 @@ import { View } from '@atomic';
 import { Formatting } from '@etc';
 import { searchApiSlice } from '@flux/api/search';
 import { SearchItem, TagSearchItem } from '@flux/api/search/search.entity';
-import { useKeyboard, usePagination } from '@hooks';
+import { SearchApi, useKeyboard, usePagination } from '@hooks';
 import { ListItemWithRadio } from '@molecules';
 import _ from 'lodash';
 import React, { useState } from 'react';
@@ -14,15 +14,13 @@ import Animated, {
 } from 'react-native-reanimated';
 
 interface TagsSearchActivePageProps {
-	searchTagsText: string;
+	searchTagsApi: SearchApi;
 	onPressSearchResult: (item: SearchItem) => void;
-	clearTagTextInput: () => void;
 }
 
 const TagsSearchActivePage: React.FC<TagsSearchActivePageProps> = ({
-	searchTagsText,
-	onPressSearchResult,
-	clearTagTextInput
+	searchTagsApi,
+	onPressSearchResult
 }) => {
 	const { page, defaultLimit } = usePagination();
 	const [selectedItems, setSelectedItems] = useState<TagSearchItem[]>([]);
@@ -42,15 +40,15 @@ const TagsSearchActivePage: React.FC<TagsSearchActivePageProps> = ({
 
 	const { data: tagSearchResults } = searchApiSlice.useSearchTagsQuery(
 		{
-			body: { q: searchTagsText },
+			body: { q: searchTagsApi.searchText },
 			query: { page: 1, limit: 25 }
 		},
-		{ skip: searchTagsText.length === 0 }
+		{ skip: searchTagsApi.searchText.length === 0 }
 	);
 
 	const onPressSearchedTag = (item: TagSearchItem) => {
 		setSelectedItems([...selectedItems, item]);
-		clearTagTextInput();
+		searchTagsApi.pressClear();
 	};
 
 	const addSelectedItem = (item: TagSearchItem) => {
@@ -86,7 +84,7 @@ const TagsSearchActivePage: React.FC<TagsSearchActivePageProps> = ({
 					</View>
 				)
 			)}
-			<If condition={searchTagsText.length === 0}>
+			<If condition={searchTagsApi.searchText.length === 0}>
 				<Then>
 					{_.orderBy(
 						correlatedData?.hits.filter(

@@ -9,38 +9,30 @@ import useSearchPage from './useSearchPage';
 
 const SearchPage = () => {
 	const {
-		searchAnythingText,
-		searchTagsText,
-		setSearchAnythingText,
-		searchActiveApi,
 		recentSearches,
 		onPressSearchResult,
 		activeSearchTypeSequenceApi,
-		setSearchTagsText,
-		clearTagTextInput,
-		tagTextInputApi
+		searchAnythingApi,
+		searchTagsApi,
+		searchActiveApi
 	} = useSearchPage();
 
 	return (
 		<BasePage>
 			<SearchPageHeader
-				setSearchAnythingText={setSearchAnythingText}
-				setSearchTagsText={setSearchTagsText}
-				searchActiveApi={searchActiveApi}
 				activeSearchTypeSequenceApi={activeSearchTypeSequenceApi}
-				clearTagTextInput={clearTagTextInput}
-				tagTextInputApi={tagTextInputApi}
+				searchAnythingApi={searchAnythingApi}
+				searchTagsApi={searchTagsApi}
 			/>
 			<LayoutAnimationConfig skipEntering>
 				<Switch>
 					<Case condition={searchActiveApi.state}>
 						<SearchActivePage
-							clearTagTextInput={clearTagTextInput}
-							searchAnythingText={searchAnythingText}
-							searchTagsText={searchTagsText}
 							recentSearches={recentSearches}
 							onPressSearchResult={onPressSearchResult}
 							activeSearchTypeSequenceApi={activeSearchTypeSequenceApi}
+							searchAnythingApi={searchAnythingApi}
+							searchTagsApi={searchTagsApi}
 						/>
 					</Case>
 					<Case condition={!searchActiveApi.state}>

@@ -13,7 +13,7 @@ const TextBox: React.FC<TextBoxProps> = ({
 	textInputApi,
 	...props
 }) => {
-	const defaultTextInputApi = useTextInput();
+	const defaultTextInputApi = useTextInput(props.defaultValue);
 	const _textInputApi = textInputApi || defaultTextInputApi;
 	const { theme } = useTheme();
 

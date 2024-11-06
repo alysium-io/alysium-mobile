@@ -1,10 +1,10 @@
-import { View } from '@atomic';
 import { useKeyboard } from '@hooks';
 import { BasePage } from '@organisms';
 import { useRoute } from '@react-navigation/native';
 import { EditArtistEventPageRouteProp } from '@types';
 import React from 'react';
 import { ScrollView } from 'react-native';
+import EditEventLocation from './components/EditEventLocation';
 import EditEventName from './components/EditEventName';
 import EditGallery from './components/EditGallery';
 import EditProfileImage from './components/EditProfileImage';
@@ -30,18 +30,17 @@ const EditArtistEventPage = () => {
 		<BasePage>
 			<EditArtistEventPageHeader title={eventData.event.name} />
 			<ScrollView onScrollBeginDrag={dismiss}>
-				<View margin='m'>
-					<EditProfileImage
-						eventData={eventData}
-						isProfileImageLoading={isProfileImageLoading}
-						updateArtistEventProfileImage={updateArtistEventProfileImage}
-					/>
-					<EditEventName
-						eventData={eventData}
-						updateArtistEventFormApi={updateArtistEventFormApi}
-						onBlurEditable={onBlurEditable}
-					/>
-				</View>
+				<EditProfileImage
+					eventData={eventData}
+					isProfileImageLoading={isProfileImageLoading}
+					updateArtistEventProfileImage={updateArtistEventProfileImage}
+				/>
+				<EditEventName
+					eventData={eventData}
+					updateArtistEventFormApi={updateArtistEventFormApi}
+					onBlurEditable={onBlurEditable}
+				/>
+				<EditEventLocation eventData={eventData} />
 				<EditGallery eventData={eventData} />
 			</ScrollView>
 		</BasePage>

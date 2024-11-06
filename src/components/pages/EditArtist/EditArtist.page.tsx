@@ -8,6 +8,7 @@ import EditBioSection from './components/EditBioSection';
 import EditEvents from './components/EditEvents';
 import EditExternalUrlsSection from './components/EditExternalUrlsSection';
 import EditProfileImage from './components/EditProfileImage';
+import EditScene from './components/EditScene';
 import GallerySection from './components/GallerySection';
 import EditArtistPageHeader from './EditArtist.header';
 import useEditArtistPage from './useEditArtistPage';
@@ -34,12 +35,11 @@ const EditArtistPage = () => {
 						isProfileImageLoading={isProfileImageLoading}
 					/>
 				</View>
-				<View margin='m'>
-					<EditArtistName
-						editArtistFormApi={editArtistFormApi}
-						onBlurEditable={onBlurEditable}
-					/>
-				</View>
+				<EditArtistName
+					editArtistFormApi={editArtistFormApi}
+					onBlurEditable={onBlurEditable}
+				/>
+				<EditScene />
 				<EditEvents />
 				<View margin='m'>
 					<EditBasicInfoSection

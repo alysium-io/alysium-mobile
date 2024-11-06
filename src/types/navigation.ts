@@ -35,11 +35,15 @@ type ProfilePage = undefined;
 type EventManagerPage = undefined;
 type EditArtistEventPage = { event_uid: ApiIdentifier };
 
+type ChooseScenePage = undefined;
+
 type EditVenuePage = { venue_uid: ApiIdentifier };
 
 type EventPage = { event_uid: ApiIdentifier };
 
 type EditContractPage = { contract_uid: ApiIdentifier };
+
+type ChooseEventLocationPage = { event_uid: ApiIdentifier };
 
 type ContractManagerPage = undefined;
 
@@ -91,7 +95,9 @@ export type RouteNames =
 	| 'UserTagsFollowingPage'
 	| 'TopTagsPage'
 	| 'EditArtistPage'
-	| 'ViewGalleryPage';
+	| 'ViewGalleryPage'
+	| 'ChooseScenePage'
+	| 'ChooseEventLocationPage';
 
 /**
  * Stack Navigators
@@ -152,6 +158,9 @@ export type EditArtistStackNavigatorParamList = {
 	EditArtistPage: EditArtistPage;
 	ViewGalleryPage: ViewGalleryPage;
 	EditArtistEventPage: EditArtistEventPage;
+	ChooseScenePage: ChooseScenePage;
+	ArtistPage: ArtistPage;
+	ChooseEventLocationPage: ChooseEventLocationPage;
 };
 
 /**
@@ -301,4 +310,8 @@ export type EditArtistPageRouteProp = RouteProp<
 export type ViewGalleryPageRouteProp = RouteProp<
 	CompositeStackNavigatorParamList,
 	'ViewGalleryPage'
+>;
+export type ChooseEventLocationRouteProp = RouteProp<
+	CompositeStackNavigatorParamList,
+	'ChooseEventLocationPage'
 >;

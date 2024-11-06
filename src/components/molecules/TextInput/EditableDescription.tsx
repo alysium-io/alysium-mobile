@@ -13,7 +13,7 @@ const EditableDescription: React.FC<EditableDescriptionProps> = ({
 	textInputApi,
 	...props
 }) => {
-	const defaultTextInputApi = useTextInput();
+	const defaultTextInputApi = useTextInput(props.defaultValue);
 	const _textInputApi = textInputApi || defaultTextInputApi;
 	return (
 		<TouchableWithoutFeedback

@@ -15,7 +15,7 @@ const FormTextInputWithLabel: React.FC<FormTextInputWithLabelProps> = ({
 	...props
 }) => {
 	const { theme } = useTheme();
-	const defaultTextInputApi = useTextInput();
+	const defaultTextInputApi = useTextInput(props.defaultValue);
 	const _textInputApi = textInputApi || defaultTextInputApi;
 
 	return (

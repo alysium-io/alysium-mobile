@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { TextInput as RNTextInput } from 'react-native';
 
 export interface TextInputApi {
@@ -6,10 +6,7 @@ export interface TextInputApi {
 	focus: () => void;
 	blur: () => void;
 	clear: () => void;
-	text: React.RefObject<string>;
 	setText: (text: string) => void;
-	clearText: () => void;
-	reset: () => void;
 }
 
 const useTextInput = (defaultText: string = ''): TextInputApi => {
@@ -17,25 +14,18 @@ const useTextInput = (defaultText: string = ''): TextInputApi => {
 	const focus = () => ref.current?.focus();
 	const blur = () => ref.current?.blur();
 	const clear = () => ref.current?.clear();
+	const setText = (text: string) => ref.current?.setNativeProps({ text });
 
-	const text = useRef<string>(defaultText);
-	const setText = (newText: string) => (text.current = newText);
-	const clearText = () => (text.current = '');
-
-	const reset = () => {
-		clear();
-		clearText();
-	};
+	useEffect(() => {
+		setText(defaultText);
+	}, []);
 
 	return {
 		ref,
 		focus,
 		blur,
 		clear,
-		text,
-		setText,
-		clearText,
-		reset
+		setText
 	};
 };
 

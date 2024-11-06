@@ -1,6 +1,6 @@
 import { Icon, View } from '@atomic';
 import { Vibrator } from '@etc';
-import { SequenceApi, TextInputApi, ToggleApi } from '@hooks';
+import { SearchApi, SequenceApi } from '@hooks';
 import { TabToggler } from '@molecules';
 import {
 	Header,
@@ -14,29 +14,24 @@ import { Else, If, Then } from 'react-if';
 import { FadeIn, LinearTransition } from 'react-native-reanimated';
 
 interface SearchPageHeaderProps {
-	setSearchAnythingText: (text: string) => void;
-	setSearchTagsText: (text: string) => void;
-	searchActiveApi: ToggleApi;
 	activeSearchTypeSequenceApi: SequenceApi;
-	clearTagTextInput: () => void;
-	tagTextInputApi: TextInputApi;
+	searchAnythingApi: SearchApi;
+	searchTagsApi: SearchApi;
 }
 
 const SearchPageHeader: React.FC<SearchPageHeaderProps> = ({
-	setSearchAnythingText,
-	setSearchTagsText,
-	searchActiveApi,
 	activeSearchTypeSequenceApi,
-	clearTagTextInput,
-	tagTextInputApi
+	searchAnythingApi,
+	searchTagsApi
 }) => {
 	const onPressTabToggler = (index: number) => {
 		Vibrator.notificationWarning();
 		activeSearchTypeSequenceApi.goTo(index);
 	};
+
 	return (
 		<Header>
-			<If condition={searchActiveApi.state}>
+			<If condition={searchAnythingApi.searchText}>
 				<Then>
 					<View
 						margin='m'
@@ -75,21 +70,10 @@ const SearchPageHeader: React.FC<SearchPageHeaderProps> = ({
 			<View animated layout={LinearTransition.duration(300)}>
 				<Sequence sequenceIndex={activeSearchTypeSequenceApi.sequenceIndex}>
 					<View margin='m' marginTop='m'>
-						<SearchBar
-							onChangeText={setSearchAnythingText}
-							onPressClearText={() => setSearchAnythingText('')}
-							isActive={searchActiveApi.state}
-							setIsActive={searchActiveApi.set}
-						/>
+						<SearchBar searchApi={searchAnythingApi} />
 					</View>
 					<View margin='m' marginTop='m'>
-						<SearchBar
-							textInputApi={tagTextInputApi}
-							onChangeText={setSearchTagsText}
-							onPressClearText={clearTagTextInput}
-							isActive={searchActiveApi.state}
-							setIsActive={searchActiveApi.set}
-						/>
+						<SearchBar searchApi={searchTagsApi} />
 					</View>
 				</Sequence>
 			</View>

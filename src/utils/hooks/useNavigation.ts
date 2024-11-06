@@ -73,6 +73,10 @@ interface IUseNavigation {
 		findGalleryParamsDto: FindGalleryParamsDto
 	) => void;
 
+	chooseScenePage: () => void;
+
+	chooseEventLocationPage: (event_uid: ApiIdentifier) => void;
+
 	/** General */
 	back: () => void;
 }
@@ -237,6 +241,14 @@ const useNavigation = (): IUseNavigation => {
 		});
 	};
 
+	const chooseScenePage = () => {
+		navigation.navigate('ChooseScenePage');
+	};
+
+	const chooseEventLocationPage = (event_uid: ApiIdentifier) => {
+		navigation.navigate('ChooseEventLocationPage', { event_uid });
+	};
+
 	/**
 	 * General
 	 */
@@ -263,6 +275,8 @@ const useNavigation = (): IUseNavigation => {
 		userTagsFollowingPage,
 		topTagsPage,
 		viewGalleryPage,
+		chooseScenePage,
+		chooseEventLocationPage,
 		back
 	};
 };

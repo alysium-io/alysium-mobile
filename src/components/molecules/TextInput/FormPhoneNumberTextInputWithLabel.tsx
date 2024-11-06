@@ -13,7 +13,7 @@ const FormPhoneNumberTextInputWithLabel: React.FC<
 	FormPhoneNumberTextInputWithLabelProps
 > = ({ textInputApi, label, ...props }) => {
 	const { theme } = useTheme();
-	const defaultTextInputApi = useTextInput();
+	const defaultTextInputApi = useTextInput(props.defaultValue);
 	const _textInputApi = textInputApi || defaultTextInputApi;
 
 	return (

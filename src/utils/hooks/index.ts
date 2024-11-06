@@ -30,11 +30,13 @@ export {
 } from './useLayoutDimensions';
 export { default as useLinking } from './useLinking';
 export { default as useList, type ListApi } from './useList';
+export { default as useLocation } from './useLocation';
 export { default as useModal, type ModalApi } from './useModal';
 export { default as useMultimedia } from './useMultimedia';
 export { default as usePagination } from './usePagination';
 export { default as usePriorityImage } from './usePriorityImage';
 export { default as useScrollView } from './useScrollView';
+export { default as useSearch, type SearchApi } from './useSearch';
 export { default as useSequence, type SequenceApi } from './useSequence';
 export { default as useSet } from './useSet';
 export { default as useSheet, type SheetApi, type SheetRef } from './useSheet';

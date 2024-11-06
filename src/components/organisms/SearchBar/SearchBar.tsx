@@ -1,57 +1,19 @@
 import { Icon, Text, TextInput, View } from '@atomic';
-import { TextInputApi, useTextInput, useTheme } from '@hooks';
-import React, { useState } from 'react';
-import { Keyboard, StyleSheet, TouchableWithoutFeedback } from 'react-native';
+import { SearchApi, useTheme } from '@hooks';
+import React from 'react';
+import { StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import { FadeIn, LinearTransition } from 'react-native-reanimated';
 
-interface SearchBarProps {
-	onChangeText: (text: string) => void;
-	onPressClearText: () => void;
-	barDidActivate?: () => void;
-	barDidDeactivate?: () => void;
-	isActive: boolean;
-	setIsActive: (isActive: boolean) => void;
-	textInputApi?: TextInputApi;
-	placeholder?: string;
-}
+type SearchBarProps = React.ComponentProps<typeof TextInput> & {
+	searchApi: SearchApi;
+};
 
 const SearchBar: React.FC<SearchBarProps> = ({
-	onChangeText,
-	onPressClearText,
-	barDidActivate,
-	barDidDeactivate,
-	isActive,
-	setIsActive,
-	textInputApi,
-	placeholder = 'Search Alysium...'
+	searchApi,
+	placeholder = 'Search Alysium...',
+	...props
 }) => {
 	const { theme } = useTheme();
-	const _textInputApi = textInputApi ? textInputApi : useTextInput();
-	const [showClearButton, setShowClearButton] = useState<boolean>(false);
-
-	const _onPressActivate = () => {
-		setIsActive(true);
-		_textInputApi.focus();
-		barDidActivate && barDidActivate();
-	};
-
-	const _onPressDeactivate = () => {
-		Keyboard.dismiss();
-		setIsActive(false);
-		_textInputApi.blur();
-		barDidDeactivate && barDidDeactivate();
-	};
-
-	const _onPressClear = () => {
-		onPressClearText();
-		_textInputApi.clear();
-		setShowClearButton(false);
-	};
-
-	const _onChangeText = (text: string) => {
-		onChangeText(text);
-		setShowClearButton(text.length > 0);
-	};
 
 	return (
 		<View style={styles.container}>
@@ -61,43 +23,45 @@ const SearchBar: React.FC<SearchBarProps> = ({
 				style={styles.textContainer}
 				backgroundColor='search.search-bar.bg'
 			>
-				<TouchableWithoutFeedback onPress={_onPressActivate}>
+				<TouchableWithoutFeedback onPress={searchApi.pressActivate}>
 					<View style={styles.textContainerLeft}>
 						<Icon name='search' size='m' color='search.search-bar.icon' />
 						<View flex={1} paddingLeft='s' justifyContent='center'>
 							<TextInput
-								ref={_textInputApi.ref}
+								ref={searchApi.textInputApi.ref}
 								variant='paragraph-bold'
 								placeholderTextColor={
 									theme.colors['search.search-bar.placeholder-text']
 								}
 								placeholder={placeholder}
-								onChangeText={_onChangeText}
-								onFocus={_onPressActivate}
+								onChangeText={searchApi.onChangeText}
+								onFocus={searchApi.pressActivate}
 								color='search.search-bar.text'
+								{...props}
 							/>
 						</View>
 					</View>
 				</TouchableWithoutFeedback>
-				{showClearButton && isActive && (
-					<TouchableWithoutFeedback onPress={_onPressClear}>
-						<View
-							animated
-							entering={FadeIn.delay(100).duration(100)}
-							padding='s'
-							style={styles.textContainerRight}
-						>
-							<Icon
-								name='clear'
-								size='m'
-								color='search.search-bar.clear-btn-icon'
-							/>
-						</View>
-					</TouchableWithoutFeedback>
-				)}
+				{searchApi.clearButtonToggleApi.state &&
+					searchApi.activeToggleApi.state && (
+						<TouchableWithoutFeedback onPress={searchApi.pressClear}>
+							<View
+								animated
+								entering={FadeIn.delay(100).duration(100)}
+								padding='s'
+								style={styles.textContainerRight}
+							>
+								<Icon
+									name='clear'
+									size='m'
+									color='search.search-bar.clear-btn-icon'
+								/>
+							</View>
+						</TouchableWithoutFeedback>
+					)}
 			</View>
-			{isActive && (
-				<TouchableWithoutFeedback onPress={_onPressDeactivate}>
+			{searchApi.activeToggleApi.state && (
+				<TouchableWithoutFeedback onPress={searchApi.pressDeactivate}>
 					<View
 						animated
 						entering={FadeIn.delay(200).duration(200)}

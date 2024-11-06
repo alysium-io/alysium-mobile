@@ -1,25 +1,36 @@
-import { createApi } from '@reduxjs/toolkit/query/react';
-import baseQueryConfig from '../utils/baseQueryConfig';
+import { rtkBaseUrl, serviceApi } from '../base';
 import {
-	FindOneLocationParamsDto,
-	FindOneLocationResponseDto
-} from './dto/location-find-one.dto';
+	AutocompleteAddressBodyDto,
+	AutocompleteAddressResponseDto
+} from './dto/autocomplete-address.dto';
+import {
+	AutocompleteSceneBodyDto,
+	AutocompleteSceneResponseDto
+} from './dto/autocomplete-scene.dto';
 
-const apiSlice = createApi({
-	baseQuery: baseQueryConfig({ basePath: '/location' }),
-	reducerPath: 'locationApi',
-	tagTypes: ['Location'],
+const url = rtkBaseUrl('location');
+
+export default serviceApi.injectEndpoints({
 	endpoints: (builder) => ({
-		findOne: builder.query<
-			FindOneLocationResponseDto,
-			{ params: FindOneLocationParamsDto }
+		autocompleteAddress: builder.query<
+			AutocompleteAddressResponseDto,
+			{ body: AutocompleteAddressBodyDto }
 		>({
-			query: ({ params }) => ({
-				url: `/${params.location_uid}`,
-				method: 'GET'
+			query: ({ body }) => ({
+				url: url(`/autocomplete-address`),
+				method: 'POST',
+				body
+			})
+		}),
+		autocompleteScene: builder.query<
+			AutocompleteSceneResponseDto,
+			{ body: AutocompleteSceneBodyDto }
+		>({
+			query: ({ body }) => ({
+				url: url(`/autocomplete-scene`),
+				method: 'POST',
+				body
 			})
 		})
 	})
 });
-
-export default apiSlice;

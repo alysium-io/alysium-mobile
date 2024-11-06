@@ -29,7 +29,7 @@ const InternationalPhoneNumberTextInput: React.FC<
 	const activeBorderColor = theme.colors['border.medium'];
 	const inactiveBorderColor = theme.colors['border.light'];
 
-	const defaultTextInputApi = useTextInput();
+	const defaultTextInputApi = useTextInput(props.defaultValue);
 	const _textInputApi = textInputApi || defaultTextInputApi;
 
 	const animatedContainerStyle = useAnimatedStyle(() => {

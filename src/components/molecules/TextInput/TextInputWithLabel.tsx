@@ -24,7 +24,7 @@ const TextInputWithLabel: React.FC<TextInputWithLabelProps> = ({
 	const { animatedValue, off, on } = useAnimatedState();
 	const activeBorderColor = theme.colors['border.heavy'];
 	const inactiveBorderColor = theme.colors['border.medium'];
-	const defaultTextInputApi = useTextInput();
+	const defaultTextInputApi = useTextInput(props.defaultValue);
 	const _textInputApi = textInputApi || defaultTextInputApi;
 
 	const _onBlur = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
