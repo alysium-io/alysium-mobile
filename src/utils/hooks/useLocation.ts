@@ -1,11 +1,13 @@
 import { AddressComponent } from '@flux/api/location/types';
 import _ from 'lodash';
+import { Linking } from 'react-native';
 
 interface IUseLocation {
 	getAddressComponent: (
 		addressComponents: AddressComponent[],
 		type: string
 	) => AddressComponent | null;
+	openMap: (latitude: number, longitude: number, label?: string) => void;
 }
 
 const useLocation = (): IUseLocation => {
@@ -31,8 +33,29 @@ const useLocation = (): IUseLocation => {
 		);
 	};
 
+	const openMap = (latitude: number, longitude: number, label?: string) => {
+		const url = new URL('maps://');
+		url.searchParams.append('ll', `${latitude},${longitude}`);
+		url.searchParams.append('dirflg', 'd');
+		if (label) {
+			url.searchParams.append('q', label);
+		}
+		const urlString = url.toString();
+
+		Linking.canOpenURL(urlString).then((supported) => {
+			if (supported) {
+				Linking.openURL(urlString);
+			} else {
+				// Fallback to Google Maps web URL
+				const googleMapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${latitude},${longitude}`;
+				Linking.openURL(googleMapsUrl);
+			}
+		});
+	};
+
 	return {
-		getAddressComponent
+		getAddressComponent,
+		openMap
 	};
 };
 

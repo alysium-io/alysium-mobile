@@ -14,6 +14,7 @@ export * from './Buttons';
 export * from './DeclarativeText';
 export * from './EditableImage';
 export * from './ListItem';
+export * from './Maps';
 export * from './Pills';
 export * from './SelfAwareScrollView';
 export * from './Sequence';
