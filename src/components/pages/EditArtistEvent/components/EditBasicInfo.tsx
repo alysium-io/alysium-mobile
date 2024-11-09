@@ -1,6 +1,6 @@
 import { View } from '@atomic';
 import { Formatting } from '@etc';
-import { MenuListItem } from '@molecules';
+import { FormTextInputWithLabel, MenuListItem } from '@molecules';
 import { DatetimePickerWithModal } from '@organisms';
 import { UpdateArtistEventFormApi } from '@src/utils/redux-hook-form/useUpdateArtistEventFormApi';
 import day from 'dayjs';
@@ -12,12 +12,12 @@ type SlotTimeState = {
 	endTimeOpen: boolean;
 };
 
-interface EditDatetimesProps {
+interface EditBasicInfoProps {
 	updateArtistEventFormApi: UpdateArtistEventFormApi;
 	onBlurEditable: () => void;
 }
 
-const EditDatetimes: React.FC<EditDatetimesProps> = ({
+const EditBasicInfo: React.FC<EditBasicInfoProps> = ({
 	updateArtistEventFormApi,
 	onBlurEditable
 }) => {
@@ -81,6 +81,27 @@ const EditDatetimes: React.FC<EditDatetimesProps> = ({
 					/>
 				)}
 			/>
+			<View margin='m' marginTop='none'>
+				<Controller
+					name='about'
+					control={updateArtistEventFormApi.formMethods.control}
+					render={({ field: { onChange } }) => (
+						<FormTextInputWithLabel
+							label='About'
+							placeholder='Tell us about your event...'
+							defaultValue={updateArtistEventFormApi.formMethods.getValues(
+								'about'
+							)}
+							onChangeText={onChange}
+							onBlur={onBlurEditable}
+							multiline
+							style={{
+								padding: 0 // because `multiline` prop adds padding
+							}}
+						/>
+					)}
+				/>
+			</View>
 			<DatetimePickerWithModal
 				title='Event Start'
 				isOpen={state.startTimeOpen}
@@ -99,4 +120,4 @@ const EditDatetimes: React.FC<EditDatetimesProps> = ({
 	);
 };
 
-export default EditDatetimes;
+export default EditBasicInfo;

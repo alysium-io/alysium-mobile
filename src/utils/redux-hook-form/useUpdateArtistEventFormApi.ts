@@ -27,6 +27,7 @@ const useUpdateArtistEventFormApi = (
 		Object.assign(
 			{
 				name: '',
+				about: null,
 				start_time: null,
 				end_time: null
 			},

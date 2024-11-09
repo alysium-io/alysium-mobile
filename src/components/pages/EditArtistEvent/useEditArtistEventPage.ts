@@ -55,6 +55,7 @@ const useEditArtistEventPage = (
 	const updateArtistEventFormApi = useUpdateArtistEventFormApi(event_uid, {
 		initialValues: {
 			name: eventData?.event.name,
+			about: eventData?.event.about,
 			start_time: eventData?.event.start_time,
 			end_time: eventData?.event.end_time
 		},

@@ -4,7 +4,7 @@ import { useRoute } from '@react-navigation/native';
 import { EditArtistEventPageRouteProp } from '@types';
 import React from 'react';
 import { ScrollView } from 'react-native';
-import EditDatetimes from './components/EditDatetimes';
+import EditBasicInfo from './components/EditBasicInfo';
 import EditEventLocation from './components/EditEventLocation';
 import EditEventName from './components/EditEventName';
 import EditGallery from './components/EditGallery';
@@ -43,7 +43,7 @@ const EditArtistEventPage = () => {
 					onBlurEditable={onBlurEditable}
 				/>
 				<EditEventLocation eventData={eventData} />
-				<EditDatetimes
+				<EditBasicInfo
 					updateArtistEventFormApi={updateArtistEventFormApi}
 					onBlurEditable={onBlurEditable}
 				/>

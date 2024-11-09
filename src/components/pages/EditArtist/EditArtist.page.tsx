@@ -4,7 +4,6 @@ import { BasePage } from '@organisms';
 import React from 'react';
 import EditArtistName from './components/EditArtistName';
 import EditBasicInfoSection from './components/EditBasicInfoSection';
-import EditBioSection from './components/EditBioSection';
 import EditEvents from './components/EditEvents';
 import EditExternalUrlsSection from './components/EditExternalUrlsSection';
 import EditProfileImage from './components/EditProfileImage';
@@ -48,10 +47,6 @@ const EditArtistPage = () => {
 					/>
 				</View>
 				<EditExternalUrlsSection />
-				<EditBioSection
-					editArtistFormApi={editArtistFormApi}
-					onBlurEditable={onBlurEditable}
-				/>
 				<GallerySection />
 			</SelfAwareScrollView>
 		</BasePage>

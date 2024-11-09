@@ -1,7 +1,10 @@
 import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
 import { Section, Text } from '@atomic';
 import { Formatting, regexPatterns } from '@etc';
-import { FormPhoneNumberTextInputWithLabel } from '@molecules';
+import {
+	FormPhoneNumberTextInputWithLabel,
+	FormTextInputWithLabel
+} from '@molecules';
 import { EditArtistFormApi } from '@src/utils/redux-hook-form/useEditArtistFormApi';
 import React from 'react';
 import { Controller } from 'react-hook-form';
@@ -45,6 +48,23 @@ const EditBasicInfoSection: React.FC<EditBasicInfoSectionProps> = ({
 						}
 						onChangeText={onChange}
 						onBlur={onBlurEditable}
+					/>
+				)}
+			/>
+			<Controller
+				name='bio'
+				control={editArtistFormApi.formMethods.control}
+				render={({ field: { onChange } }) => (
+					<FormTextInputWithLabel
+						label='Bio'
+						placeholder='Tell people what you offer...'
+						defaultValue={artistData.bio ?? undefined}
+						onChangeText={onChange}
+						onBlur={onBlurEditable}
+						multiline
+						style={{
+							padding: 0 // because `multiline` prop adds padding
+						}}
 					/>
 				)}
 			/>
