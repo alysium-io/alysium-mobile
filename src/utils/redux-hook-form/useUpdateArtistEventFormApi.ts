@@ -26,7 +26,9 @@ const useUpdateArtistEventFormApi = (
 	return useForm<UpdateArtistEventBodyDto>(
 		Object.assign(
 			{
-				name: ''
+				name: '',
+				start_time: null,
+				end_time: null
 			},
 			formApiOptions?.initialValues
 		),

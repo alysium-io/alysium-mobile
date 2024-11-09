@@ -4,7 +4,9 @@ import { ArtistEventParamsDto } from './params';
 export interface UpdateArtistEventParamsDto extends ArtistEventParamsDto {}
 
 export interface UpdateArtistEventBodyDto {
-	name: string;
+	readonly name: string;
+	readonly start_time: string | null;
+	readonly end_time: string | null;
 }
 
 export interface UpdateArtistEventResponseDto extends EventLink {}

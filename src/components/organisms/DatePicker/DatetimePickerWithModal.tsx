@@ -15,6 +15,7 @@ interface DatetimePickerWithModalProps {
 	onCancelled?: () => void;
 	onChange?: (date: Date) => void;
 	toggleModal: () => void;
+	defaultDate?: Date;
 }
 
 const DatetimePickerWithModal: React.FC<DatetimePickerWithModalProps> = ({
@@ -23,7 +24,8 @@ const DatetimePickerWithModal: React.FC<DatetimePickerWithModalProps> = ({
 	onConfirm,
 	onCancelled,
 	onChange,
-	toggleModal
+	toggleModal,
+	defaultDate
 }) => {
 	useEffect(() => {
 		if (isOpen) {
@@ -35,7 +37,11 @@ const DatetimePickerWithModal: React.FC<DatetimePickerWithModalProps> = ({
 
 	const { sheetRef, open, close } = useSheet();
 
-	const [date, setDate] = useState(new Date());
+	const [date, setDate] = useState(defaultDate ?? new Date());
+
+	useEffect(() => {
+		setDate(defaultDate ?? new Date());
+	}, [defaultDate]);
 
 	const _onChange = (date: Date) => {
 		setDate(date);
@@ -59,7 +65,7 @@ const DatetimePickerWithModal: React.FC<DatetimePickerWithModalProps> = ({
 	return (
 		<BottomSheet sheetRef={sheetRef} onDismiss={onDismiss}>
 			<BottomSheetViewWithMaxHeight>
-				<BottomSheetHeader text={title} />
+				<BottomSheetHeader>{title}</BottomSheetHeader>
 				<DatetimePicker date={date} onDateChange={_onChange} />
 				<View margin='m' flexDirection='row'>
 					<View flex={1} marginRight='s'>

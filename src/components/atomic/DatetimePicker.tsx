@@ -12,8 +12,7 @@ const DatetimePicker: React.FC<DatetimePickerProps> = ({
 	date,
 	onDateChange
 }) => {
-	const { mode } = useTheme();
-
+	const { themeMode } = useTheme();
 	return (
 		<View flexDirection='row' justifyContent='center'>
 			<DatePicker
@@ -22,7 +21,7 @@ const DatetimePicker: React.FC<DatetimePickerProps> = ({
 				mode='datetime'
 				minuteInterval={15}
 				onDateChange={onDateChange}
-				theme={mode}
+				theme={themeMode}
 			/>
 		</View>
 	);

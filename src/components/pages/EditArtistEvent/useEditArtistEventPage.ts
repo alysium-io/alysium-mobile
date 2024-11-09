@@ -44,15 +44,6 @@ const useEditArtistEventPage = (
 		});
 	};
 
-	const updateArtistEventFormApi = useUpdateArtistEventFormApi(event_uid, {
-		methods: {
-			onValidDidComplete: () => {
-				toastSuccess('Event updated successfully');
-			}
-		}
-	});
-	const { isDirty } = updateArtistEventFormApi.formMethods.formState;
-
 	const { data: eventData } =
 		artistEventApiSlice.usePrivateFindOneArtistEventQuery({
 			params: {
@@ -61,10 +52,24 @@ const useEditArtistEventPage = (
 			}
 		});
 
-	const onBlurEditable = () => {
-		if (isDirty) {
-			updateArtistEventFormApi.onSubmit();
+	const updateArtistEventFormApi = useUpdateArtistEventFormApi(event_uid, {
+		initialValues: {
+			name: eventData?.event.name,
+			start_time: eventData?.event.start_time,
+			end_time: eventData?.event.end_time
+		},
+		methods: {
+			onConfirmedValid: (data) => {
+				console.log('Confirmed valid form data:', data);
+			},
+			onValidDidComplete: () => {
+				toastSuccess('Event updated successfully');
+			}
 		}
+	});
+
+	const onBlurEditable = () => {
+		updateArtistEventFormApi.onSubmit();
 	};
 
 	return {
