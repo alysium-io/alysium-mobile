@@ -2,10 +2,11 @@ import { FindGalleryParamsDto } from '@flux/api/gallery/dto/gallery-find.dto';
 import { type BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import {
 	CompositeNavigationProp,
+	NavigatorScreenParams,
 	ParamListBase,
 	RouteProp
 } from '@react-navigation/native';
-import { type NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { NanoId } from './api';
 
 /**
@@ -180,13 +181,26 @@ export type EditArtistStackNavigatorParamList = {
  *  const navigation = useNavigation<SearchScreenNavigationProp>()
  *  navigation.jumpTo('Profile')
  */
-// Just put all possible tabs in here
+
+// The tab list for only the artist app
+export type ArtistAppBottomTabNavigatorParamList = {
+	Search: NavigatorScreenParams<SearchStackNavigatorParamList>;
+	EditArtist: NavigatorScreenParams<EditArtistStackNavigatorParamList>;
+	Profile: NavigatorScreenParams<ProfileStackNavigatorParamList>;
+};
+
+export type UserAppBottomTabNavigatorParamList = {
+	Search: NavigatorScreenParams<SearchStackNavigatorParamList>;
+	Profile: NavigatorScreenParams<ProfileStackNavigatorParamList>;
+};
+
+// This is all the possible tabs
 export type BottomTabNavigatorParamList = {
-	Search: SearchStackNavigatorParamList;
-	Profile: ProfileStackNavigatorParamList;
-	EventManager: EventManagerStackNavigatorParamList;
-	ContractManager: ContractManagerStackNavigatorParamList;
-	EditArtist: EditArtistStackNavigatorParamList;
+	Search: NavigatorScreenParams<SearchStackNavigatorParamList>;
+	Profile: NavigatorScreenParams<ProfileStackNavigatorParamList>;
+	EventManager: NavigatorScreenParams<EventManagerStackNavigatorParamList>;
+	ContractManager: NavigatorScreenParams<ContractManagerStackNavigatorParamList>;
+	EditArtist: NavigatorScreenParams<EditArtistStackNavigatorParamList>;
 };
 
 type ComposeTabNavigationProp<T extends ParamListBase> =

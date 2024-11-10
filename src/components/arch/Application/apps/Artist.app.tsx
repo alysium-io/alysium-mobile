@@ -2,15 +2,16 @@ import { AppTransitionWrapper, Icon } from '@atomic';
 import { withProvider } from '@hooks';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
-import { BottomTabNavigatorParamList } from '@types';
+import { ArtistAppBottomTabNavigatorParamList } from '@types';
 import React from 'react';
 import { ArtistAppProvider } from '../contexts/Artist.context';
 import { ProfileTab, SearchTab } from '../tabs';
 import EditArtistTab from '../tabs/EditArtistTab.tab';
+import { artistAppDeepLinkingConfig } from '../tabs/linking';
 import { useNavigationSettings } from '../tabs/settings';
 import AppDependencies from './AppDependencies';
 
-const Tab = createBottomTabNavigator<BottomTabNavigatorParamList>();
+const Tab = createBottomTabNavigator<ArtistAppBottomTabNavigatorParamList>();
 
 const ArtistApp = () => {
 	const { screenOptions, sceneContainerStyle, initialRoutes } =
@@ -19,7 +20,7 @@ const ArtistApp = () => {
 	return (
 		<AppDependencies>
 			<AppTransitionWrapper>
-				<NavigationContainer>
+				<NavigationContainer linking={artistAppDeepLinkingConfig}>
 					<Tab.Navigator
 						initialRouteName={initialRoutes.initialArtistAppTab}
 						sceneContainerStyle={sceneContainerStyle}

@@ -1,16 +1,21 @@
 import { useTheme } from '@hooks';
 import { NativeStackNavigationOptions } from '@react-navigation/native-stack';
-import { BottomTabNavigatorParamList, ScreenOptions } from '@types';
+import {
+	ArtistAppBottomTabNavigatorParamList,
+	BottomTabNavigatorParamList,
+	ScreenOptions,
+	UserAppBottomTabNavigatorParamList
+} from '@types';
 import { StyleProp, ViewStyle } from 'react-native';
 
 interface IUseNavigationSettings {
 	screenOptions: ScreenOptions;
 	sceneContainerStyle: StyleProp<ViewStyle>;
 	initialRoutes: {
-		initialArtistAppTab: keyof BottomTabNavigatorParamList;
+		initialArtistAppTab: keyof ArtistAppBottomTabNavigatorParamList;
 		initialHostAppTab: keyof BottomTabNavigatorParamList;
 		initialTestAppTab: keyof BottomTabNavigatorParamList;
-		initialUserAppTab: keyof BottomTabNavigatorParamList;
+		initialUserAppTab: keyof UserAppBottomTabNavigatorParamList;
 	};
 }
 
@@ -33,10 +38,11 @@ export const useNavigationSettings = (): IUseNavigationSettings => {
 			backgroundColor: undefined
 		},
 		routes: {
-			initialArtistAppTab: 'EditArtist' as keyof BottomTabNavigatorParamList,
+			initialArtistAppTab:
+				'EditArtist' as keyof ArtistAppBottomTabNavigatorParamList,
 			initialHostAppTab: 'Profile' as keyof BottomTabNavigatorParamList,
 			initialTestAppTab: 'Pages' as keyof BottomTabNavigatorParamList,
-			initialUserAppTab: 'Search' as keyof BottomTabNavigatorParamList
+			initialUserAppTab: 'Search' as keyof UserAppBottomTabNavigatorParamList
 		}
 	};
 

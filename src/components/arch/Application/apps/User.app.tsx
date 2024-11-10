@@ -6,14 +6,15 @@ import {
 } from '@popups';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
-import { BottomTabNavigatorParamList } from '@types';
+import { UserAppBottomTabNavigatorParamList } from '@types';
 import React from 'react';
 import { useUserAppContext } from '../contexts/User.context';
 import { ProfileTab, SearchTab } from '../tabs';
+import { userAppDeepLinkingConfig } from '../tabs/linking';
 import { useNavigationSettings } from '../tabs/settings';
 import AppDependencies from './AppDependencies';
 
-const Tab = createBottomTabNavigator<BottomTabNavigatorParamList>();
+const Tab = createBottomTabNavigator<UserAppBottomTabNavigatorParamList>();
 
 const UserApp = () => {
 	const { screenOptions, sceneContainerStyle, initialRoutes } =
@@ -27,7 +28,7 @@ const UserApp = () => {
 	return (
 		<AppDependencies>
 			<AppTransitionWrapper>
-				<NavigationContainer>
+				<NavigationContainer linking={userAppDeepLinkingConfig}>
 					<Tab.Navigator
 						initialRouteName={initialRoutes.initialUserAppTab}
 						sceneContainerStyle={sceneContainerStyle}

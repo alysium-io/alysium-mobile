@@ -24,7 +24,8 @@
 		"android:dev-release": "npx react-native run-android --variant=devRelease",
 		"android:reverse-tcp": "adb reverse tcp:8081 tcp:8081",
 		"android:build:metadata": "bundle exec ruby ./tools/build-android-metadata.rb",
-		"link-assets": "npx react-native-asset --plist ./ios/alysium/alysium-demo Info.plist"
+		"link-assets": "npx react-native-asset --plist ./ios/alysium/alysium-demo Info.plist",
+		"test:deeplink": "npx uri-scheme open \"alysium://artist/BhBmP0sWGiO582CBQQmZoCN8\" --ios"
 	},
 	"dependencies": {
 		"@babel/plugin-proposal-export-namespace-from": "^7.18.9",
