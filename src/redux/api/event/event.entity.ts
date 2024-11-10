@@ -1,5 +1,6 @@
 import { Location } from '../location';
 import { Image } from '../media';
+import { EventStatus } from './types';
 
 export interface Event {
 	readonly event_uid: string;
@@ -9,4 +10,5 @@ export interface Event {
 	readonly end_time: string;
 	readonly profile_image: Image | null;
 	readonly location: Location | null;
+	readonly status: EventStatus;
 }

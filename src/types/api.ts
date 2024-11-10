@@ -1,1 +1,1 @@
-export type ApiIdentifier = string;
+export type NanoId = string;

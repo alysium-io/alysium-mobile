@@ -15,7 +15,7 @@ const EditableGallery: React.FC<GalleryProps> = ({
 
 	return (
 		<View>
-			{createGallerymap(data?.items)?.map((row, rowIndex) => (
+			{createGallerymap(data?.items ?? [])?.map((row, rowIndex) => (
 				<GalleryItemRow
 					key={rowIndex}
 					style={{ marginBottom: GALLERY_ITEM_MARGIN }}

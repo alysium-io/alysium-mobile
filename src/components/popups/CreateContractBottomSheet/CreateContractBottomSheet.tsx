@@ -7,7 +7,7 @@ import {
 	SwipeUpToSubmit,
 	useAnimatedFooterHeight
 } from '@organisms';
-import { ApiIdentifier } from '@types';
+import { NanoId } from '@types';
 import React from 'react';
 import AdditionalNotes from './components/AdditionalNotes';
 import ConfirmPartiesInvolved from './components/ConfirmPartiesInvolved';
@@ -20,8 +20,8 @@ import useCreateContractBottomSheet from './useCreateContractBottomSheet';
 
 interface CreateContractBottomSheetProps {
 	sheetApi: SheetApi;
-	artist_uid: ApiIdentifier | null;
-	event_uid: ApiIdentifier;
+	artist_uid: NanoId | null;
+	event_uid: NanoId;
 }
 
 const CreateContractBottomSheet: React.FC<CreateContractBottomSheetProps> = ({

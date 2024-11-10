@@ -1,7 +1,7 @@
-import { ApiIdentifier } from '@types';
+import { NanoId } from '@types';
 
 export interface Media {
-	readonly media_uid: ApiIdentifier;
+	readonly media_uid: NanoId;
 	readonly filename: string;
 	readonly key: string;
 	readonly encoding: string;

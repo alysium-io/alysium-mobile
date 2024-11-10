@@ -1,7 +1,7 @@
 import { artistApiSlice } from '@flux/api/artist';
 import { FindOneArtistResponseDto } from '@flux/api/artist/dto/artist-find-one.dto';
 import { SheetApi, useSheet } from '@hooks';
-import { ApiIdentifier } from '@types';
+import { NanoId } from '@types';
 
 interface IUseHostPage {
 	artistData?: FindOneArtistResponseDto;
@@ -15,7 +15,7 @@ interface IUseHostPage {
 	openLinks: () => void;
 }
 
-const useHostPage = (artist_uid: ApiIdentifier): IUseHostPage => {
+const useHostPage = (artist_uid: NanoId): IUseHostPage => {
 	const {
 		data: artistData,
 		isLoading: artistIsLoading,

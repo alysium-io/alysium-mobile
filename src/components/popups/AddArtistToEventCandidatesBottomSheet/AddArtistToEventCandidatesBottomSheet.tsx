@@ -10,7 +10,7 @@ import {
 	BottomSheetHeader,
 	ContentListItemRadioToggler
 } from '@organisms';
-import { ApiIdentifier, Persona } from '@types';
+import { NanoId, Persona } from '@types';
 import dayjs from 'dayjs';
 import React from 'react';
 import { useWindowDimensions } from 'react-native';
@@ -19,7 +19,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface AddArtistToEventCandidatesBottomSheetProps {
 	sheetApi: SheetApi;
-	artist_uid: ApiIdentifier;
+	artist_uid: NanoId;
 }
 
 const AddArtistToEventCandidatesBottomSheet: React.FC<
@@ -51,10 +51,7 @@ const AddArtistToEventCandidatesBottomSheet: React.FC<
 			}
 		});
 
-	const toggleCandidate = async (
-		event_uid: ApiIdentifier,
-		isActive: boolean
-	) => {
+	const toggleCandidate = async (event_uid: NanoId, isActive: boolean) => {
 		if (isActive) {
 			await createCandidateMutation({
 				body: { event_uid, artist_uid }
@@ -87,7 +84,7 @@ const AddArtistToEventCandidatesBottomSheet: React.FC<
 										candidateEvent.artist_uid === artist_uid &&
 										candidateEvent.event_uid === event.event_uid
 								),
-								onPress: (event_uid: ApiIdentifier, isActive: boolean) =>
+								onPress: (event_uid: NanoId, isActive: boolean) =>
 									console.log(event_uid, isActive),
 								onPressToggle: toggleCandidate
 							}))}

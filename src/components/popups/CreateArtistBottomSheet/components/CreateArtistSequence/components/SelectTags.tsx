@@ -5,7 +5,7 @@ import { TagCorrelatedCommon } from '@flux/api/tag/tag-correlated.entity';
 import { ListApi, useList } from '@hooks';
 import { PillList } from '@organisms';
 import TogglePill from '@src/components/molecules/Pills/TogglePill';
-import { ApiIdentifier } from '@types';
+import { NanoId } from '@types';
 import React, { useEffect } from 'react';
 import { TAG_LIMIT } from '../../../constants';
 
@@ -50,7 +50,7 @@ const SelectTags: React.FC<SelectTagsProps> = ({ selectedTagsListApi }) => {
 		}
 	}, [discoverTagsData, topTags]);
 
-	const toggleTag = async (tag_uid: ApiIdentifier) => {
+	const toggleTag = async (tag_uid: NanoId) => {
 		const isAdded = selectedTagsListApi.toggle({ tag_uid });
 
 		if (isAdded) {

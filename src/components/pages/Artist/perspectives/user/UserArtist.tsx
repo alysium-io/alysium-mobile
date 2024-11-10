@@ -1,6 +1,6 @@
 import { View } from '@atomic';
 import { BasePage, Parallax } from '@organisms';
-import { ApiIdentifier } from '@types';
+import { NanoId } from '@types';
 import React from 'react';
 import ArtistPageHeader from '../../Artist.header';
 import SubHeader from '../../components/SubHeader';
@@ -12,7 +12,7 @@ import RelatedArtists from './components/RelatedArtists';
 import useUserArtistPage from './useUserArtistPage';
 
 interface UserArtistProps {
-	artist_uid: ApiIdentifier;
+	artist_uid: NanoId;
 }
 
 const UserArtist: React.FC<UserArtistProps> = ({ artist_uid }) => {

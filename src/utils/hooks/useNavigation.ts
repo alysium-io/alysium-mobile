@@ -1,6 +1,6 @@
 import { FindGalleryParamsDto } from '@flux/api/gallery/dto/gallery-find.dto';
 import { useNavigation as useRNNavigation } from '@react-navigation/native';
-import { ApiIdentifier, CompositeScreenNavigationProp } from '@types';
+import { CompositeScreenNavigationProp, NanoId } from '@types';
 import {
 	NavigationBehaviorMetadata,
 	useBehaviorContext
@@ -9,56 +9,56 @@ import {
 interface IUseNavigation {
 	/** Pages */
 	hostPage: (
-		host_uid: ApiIdentifier,
+		host_uid: NanoId,
 		navigationMeta: NavigationBehaviorMetadata
 	) => void;
 	artistPage: (
-		artist_uid: ApiIdentifier,
+		artist_uid: NanoId,
 		navigationMeta: NavigationBehaviorMetadata
 	) => void;
 	tagPage: (
-		tag_uid: ApiIdentifier,
+		tag_uid: NanoId,
 		navigationMeta: NavigationBehaviorMetadata
 	) => void;
 	locationPage: (
-		location_uid: ApiIdentifier,
+		location_uid: NanoId,
 		navigationMeta: NavigationBehaviorMetadata
 	) => void;
 	profilePage: (navigationMeta: NavigationBehaviorMetadata) => void;
 	eventPage: (
-		event_uid: ApiIdentifier,
+		event_uid: NanoId,
 		navigationMeta: NavigationBehaviorMetadata
 	) => void;
 	eventCandidatesPage: (
-		event_uid: ApiIdentifier,
+		event_uid: NanoId,
 		navigationMeta: NavigationBehaviorMetadata
 	) => void;
 	editEventTicketTypesPage: (
-		event_uid: ApiIdentifier,
+		event_uid: NanoId,
 		navigationMeta: NavigationBehaviorMetadata
 	) => void;
 	editTicketTypePage: (
-		ticket_collection_uid: ApiIdentifier,
-		ticket_type_uid: ApiIdentifier,
+		ticket_collection_uid: NanoId,
+		ticket_type_uid: NanoId,
 		navigationMeta: NavigationBehaviorMetadata
 	) => void;
 	editArtistEventPage: (
-		event_uid: ApiIdentifier,
+		event_uid: NanoId,
 		navigationMeta: NavigationBehaviorMetadata
 	) => void;
 	editVenuePage: (
-		venue_uid: ApiIdentifier,
+		venue_uid: NanoId,
 		navigationMeta: NavigationBehaviorMetadata
 	) => void;
 	editContractPage: (
-		contract_uid: ApiIdentifier,
+		contract_uid: NanoId,
 		navigationMeta: NavigationBehaviorMetadata
 	) => void;
 	searchPage: (navigationMeta: NavigationBehaviorMetadata) => void;
 	eventManagerPage: (navigationMeta: NavigationBehaviorMetadata) => void;
 	contractManager: (navigationMeta: NavigationBehaviorMetadata) => void;
 	artistViewContract: (
-		contract_uid: ApiIdentifier,
+		contract_uid: NanoId,
 		navigationMeta: NavigationBehaviorMetadata
 	) => void;
 	userArtistsFollowingPage: (
@@ -75,7 +75,7 @@ interface IUseNavigation {
 
 	chooseScenePage: () => void;
 
-	chooseEventLocationPage: (event_uid: ApiIdentifier) => void;
+	chooseEventLocationPage: (event_uid: NanoId) => void;
 
 	/** General */
 	back: () => void;
@@ -89,7 +89,7 @@ const useNavigation = (): IUseNavigation => {
 	 * Pages
 	 */
 	const hostPage = (
-		host_uid: ApiIdentifier,
+		host_uid: NanoId,
 		navigationMeta: NavigationBehaviorMetadata
 	) => {
 		navigation.push('HostPage', { host_uid });
@@ -97,7 +97,7 @@ const useNavigation = (): IUseNavigation => {
 	};
 
 	const artistPage = (
-		artist_uid: ApiIdentifier,
+		artist_uid: NanoId,
 		navigationMeta: NavigationBehaviorMetadata
 	) => {
 		navigation.push('ArtistPage', { artist_uid });
@@ -105,7 +105,7 @@ const useNavigation = (): IUseNavigation => {
 	};
 
 	const tagPage = (
-		tag_uid: ApiIdentifier,
+		tag_uid: NanoId,
 		navigationMeta: NavigationBehaviorMetadata
 	) => {
 		navigation.push('TagPage', { tag_uid });
@@ -113,7 +113,7 @@ const useNavigation = (): IUseNavigation => {
 	};
 
 	const locationPage = (
-		location_uid: ApiIdentifier,
+		location_uid: NanoId,
 		navigationMeta: NavigationBehaviorMetadata
 	) => {
 		navigation.push('LocationPage', { location_uid });
@@ -126,7 +126,7 @@ const useNavigation = (): IUseNavigation => {
 	};
 
 	const eventPage = (
-		event_uid: ApiIdentifier,
+		event_uid: NanoId,
 		navigationMeta: NavigationBehaviorMetadata
 	) => {
 		navigation.push('EventPage', { event_uid });
@@ -134,7 +134,7 @@ const useNavigation = (): IUseNavigation => {
 	};
 
 	const eventCandidatesPage = (
-		event_uid: ApiIdentifier,
+		event_uid: NanoId,
 		navigationMeta: NavigationBehaviorMetadata
 	) => {
 		navigation.push('EventCandidatesPage', { event_uid });
@@ -142,7 +142,7 @@ const useNavigation = (): IUseNavigation => {
 	};
 
 	const editEventTicketTypesPage = (
-		event_uid: ApiIdentifier,
+		event_uid: NanoId,
 		navigationMeta: NavigationBehaviorMetadata
 	) => {
 		navigation.push('EditEventTicketTypesPage', {
@@ -152,8 +152,8 @@ const useNavigation = (): IUseNavigation => {
 	};
 
 	const editTicketTypePage = (
-		ticket_collection_uid: ApiIdentifier,
-		ticket_type_uid: ApiIdentifier,
+		ticket_collection_uid: NanoId,
+		ticket_type_uid: NanoId,
 		navigationMeta: NavigationBehaviorMetadata
 	) => {
 		navigation.push('EditTicketTypePage', {
@@ -164,7 +164,7 @@ const useNavigation = (): IUseNavigation => {
 	};
 
 	const editArtistEventPage = (
-		event_uid: ApiIdentifier,
+		event_uid: NanoId,
 		navigationMeta: NavigationBehaviorMetadata
 	) => {
 		navigation.push('EditArtistEventPage', { event_uid });
@@ -172,7 +172,7 @@ const useNavigation = (): IUseNavigation => {
 	};
 
 	const editVenuePage = (
-		venue_uid: ApiIdentifier,
+		venue_uid: NanoId,
 		navigationMeta: NavigationBehaviorMetadata
 	) => {
 		navigation.push('EditVenuePage', { venue_uid });
@@ -180,7 +180,7 @@ const useNavigation = (): IUseNavigation => {
 	};
 
 	const editContractPage = (
-		contract_uid: ApiIdentifier,
+		contract_uid: NanoId,
 		navigationMeta: NavigationBehaviorMetadata
 	) => {
 		navigation.push('EditContractPage', { contract_uid });
@@ -203,7 +203,7 @@ const useNavigation = (): IUseNavigation => {
 	};
 
 	const artistViewContract = (
-		contract_uid: ApiIdentifier,
+		contract_uid: NanoId,
 		navigationMeta: NavigationBehaviorMetadata
 	) => {
 		navigation.push('ArtistViewContractPage', { contract_uid });
@@ -245,7 +245,7 @@ const useNavigation = (): IUseNavigation => {
 		navigation.navigate('ChooseScenePage');
 	};
 
-	const chooseEventLocationPage = (event_uid: ApiIdentifier) => {
+	const chooseEventLocationPage = (event_uid: NanoId) => {
 		navigation.navigate('ChooseEventLocationPage', { event_uid });
 	};
 

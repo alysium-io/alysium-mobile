@@ -3,7 +3,7 @@ import { FindOneEventResponseDto } from '@flux/api/event/dto/event-find-one.dto'
 import { ticketCollectionApiSlice } from '@flux/api/ticket-collection';
 import { FindOneTicketCollectionResponseDto } from '@flux/api/ticket-collection/dto/ticket-collection-find-one.dto';
 import { SheetApi, useNavigation, useSheet } from '@hooks';
-import { ApiIdentifier } from '@types';
+import { NanoId } from '@types';
 
 interface IUseEditEventTickets {
 	eventData?: FindOneEventResponseDto;
@@ -15,12 +15,10 @@ interface IUseEditEventTickets {
 	createTicketSheetApi: SheetApi;
 	createTicketCollection: () => void;
 	createTicketCollectionIsLoading: boolean;
-	goToEditTicketTypePage: (ticket_type_uid: ApiIdentifier) => void;
+	goToEditTicketTypePage: (ticket_type_uid: NanoId) => void;
 }
 
-const useEditEventTicketsPage = (
-	event_uid: ApiIdentifier
-): IUseEditEventTickets => {
+const useEditEventTicketsPage = (event_uid: NanoId): IUseEditEventTickets => {
 	const { editTicketTypePage } = useNavigation();
 	const createTicketSheetApi = useSheet();
 	const [
@@ -60,7 +58,7 @@ const useEditEventTicketsPage = (
 		}
 	};
 
-	const goToEditTicketTypePage = (ticket_type_uid: ApiIdentifier) => {
+	const goToEditTicketTypePage = (ticket_type_uid: NanoId) => {
 		if (ticketCollectionData?.ticket_collection_uid) {
 			editTicketTypePage(
 				ticketCollectionData.ticket_collection_uid,

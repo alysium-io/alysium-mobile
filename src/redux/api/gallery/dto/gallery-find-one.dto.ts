@@ -1,10 +1,10 @@
-import { ApiIdentifier } from '@types';
+import { NanoId } from '@types';
 import { GalleryItem } from '../gallery-item.entity';
 import { GalleryRefType } from '../types';
 
 export interface FindGalleryItemParamsDto {
 	readonly refType: GalleryRefType;
-	readonly refId: ApiIdentifier;
+	readonly refId: NanoId;
 }
 
 export interface FindGalleryItemQueryDto {

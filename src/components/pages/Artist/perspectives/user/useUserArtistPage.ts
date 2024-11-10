@@ -1,6 +1,6 @@
 import { artistApiSlice } from '@flux/api/artist';
 import { PublicFindOneArtistResponseDto } from '@flux/api/artist/dto/artist-find-one.dto';
-import { ApiIdentifier } from '@types';
+import { NanoId } from '@types';
 
 interface IUseUserArtistPage {
 	artistData?: PublicFindOneArtistResponseDto;
@@ -8,7 +8,7 @@ interface IUseUserArtistPage {
 	artistError: any;
 }
 
-const useUserArtistPage = (artist_uid: ApiIdentifier): IUseUserArtistPage => {
+const useUserArtistPage = (artist_uid: NanoId): IUseUserArtistPage => {
 	const {
 		data: artistData,
 		isLoading: artistIsLoading,

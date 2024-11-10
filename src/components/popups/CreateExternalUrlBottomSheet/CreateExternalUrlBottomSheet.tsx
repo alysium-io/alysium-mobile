@@ -6,7 +6,7 @@ import { ActionButtons, FormTextInputWithLabel } from '@molecules';
 import { FullScreenSheet, FullScreenSheetStandardHeader } from '@organisms';
 import FullScreenSheetFooter from '@src/components/organisms/BottomSheet/sheets/FullScreenSheetFooter';
 import { isValidUrlString } from '@src/etc/url';
-import { ApiIdentifier } from '@types';
+import { NanoId } from '@types';
 import React, { useCallback } from 'react';
 import { Controller } from 'react-hook-form';
 import useCreateExternalUrlBottomSheet from './useCreateExternalUrlBottomSheet';
@@ -14,7 +14,7 @@ import useCreateExternalUrlBottomSheet from './useCreateExternalUrlBottomSheet';
 interface CreateExternalUrlBottomSheetProps {
 	sheetApi: SheetApi;
 	refType: ExternalUrlRefType;
-	refId: ApiIdentifier;
+	refId: NanoId;
 }
 
 const CreateExternalUrlBottomSheet: React.FC<

@@ -53,7 +53,7 @@ const EditEvents = () => {
 					}
 					titleTextProps={{
 						title: event.event.name,
-						bottomSubtext: 'Event'
+						bottomSubtext: event.event.status
 					}}
 					profileImageProps={{
 						image: urlForKey(event.event.profile_image?.small.key),

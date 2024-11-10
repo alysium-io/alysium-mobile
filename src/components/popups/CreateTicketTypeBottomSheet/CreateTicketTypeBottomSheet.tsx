@@ -2,7 +2,7 @@ import { DismissKeyboardWrapper } from '@atomic';
 import { BottomSheetView } from '@gorhom/bottom-sheet';
 import { SheetApi } from '@hooks';
 import { BottomSheet, Sequence, useAnimatedFooterHeight } from '@organisms';
-import { ApiIdentifier } from '@types';
+import { NanoId } from '@types';
 import React from 'react';
 import EndSaleTime from './components/EndSaleTime';
 import Footer from './components/Footer';
@@ -16,7 +16,7 @@ import useCreateTicketTypeBottomSheet from './useCreateTicketTypeBottomSheet';
 
 interface CreateTicketTypeBottomSheetProps {
 	sheetApi: SheetApi;
-	ticket_collection_uid: ApiIdentifier;
+	ticket_collection_uid: NanoId;
 }
 
 const CreateTicketTypeBottomSheet: React.FC<

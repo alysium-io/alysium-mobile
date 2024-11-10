@@ -12,7 +12,7 @@ import {
 	useSequence,
 	useTextInput
 } from '@hooks';
-import { ApiIdentifier, OnSubmitHandler } from '@types';
+import { NanoId, OnSubmitHandler } from '@types';
 import {
 	SubmitErrorHandler,
 	SubmitHandler,
@@ -30,8 +30,8 @@ const initialValues: UpdateContractBodyDto = {
 
 interface IuseCreateContractBottomSheet {
 	sheetApi: SheetApi;
-	artist_uid: ApiIdentifier | null;
-	event_uid: ApiIdentifier;
+	artist_uid: NanoId | null;
+	event_uid: NanoId;
 	sequenceApi: SequenceApi;
 	additionalNotesTextInputApi: TextInputApi;
 	formMethods: UseFormReturn<UpdateContractBodyDto>;
@@ -46,8 +46,8 @@ interface IuseCreateContractBottomSheet {
 }
 
 const useCreateContractBottomSheet = (
-	event_uid: ApiIdentifier,
-	artist_uid: ApiIdentifier | null,
+	event_uid: NanoId,
+	artist_uid: NanoId | null,
 	sheetApi: SheetApi
 ): IuseCreateContractBottomSheet => {
 	const { hostData } = useHostAppContext();

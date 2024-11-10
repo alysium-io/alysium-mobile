@@ -1,5 +1,5 @@
 import { createUseContextHook } from '@hooks';
-import { ApiIdentifier, Persona, ProviderProps, ThemeMode } from '@types';
+import { NanoId, Persona, ProviderProps, ThemeMode } from '@types';
 import React, { createContext, useState } from 'react';
 import usePersistedAppState from 'src/utils/hooks/usePersistedAppState';
 
@@ -10,10 +10,10 @@ const appThemeModeMap = {
 };
 
 export type PersonaAppContextType = {
-	personaId: ApiIdentifier | null;
+	personaId: NanoId | null;
 	personaType: Persona;
-	changePersona: (newPersonaType: Persona, newPersonaId: ApiIdentifier) => void;
-	initializePersona: (user_uid: ApiIdentifier) => void;
+	changePersona: (newPersonaType: Persona, newPersonaId: NanoId) => void;
+	initializePersona: (user_uid: NanoId) => void;
 	isPersonaLoading: boolean;
 	setIsPersonaLoading: (isLoading: boolean) => void;
 };
@@ -25,7 +25,7 @@ export const PersonaAppProvider: React.FC<ProviderProps> = ({ children }) => {
 	const { personaId, personaType, setPersistedAppState } =
 		usePersistedAppState();
 
-	const initializePersona = (user_uid: ApiIdentifier) => {
+	const initializePersona = (user_uid: NanoId) => {
 		/**
 		 * The purpose of this is to set the persona for the first
 		 * time the user opens the app. Which we are only going to
@@ -40,10 +40,7 @@ export const PersonaAppProvider: React.FC<ProviderProps> = ({ children }) => {
 		}
 	};
 
-	const changePersona = (
-		newPersonaType: Persona,
-		newPersonaId: ApiIdentifier
-	) => {
+	const changePersona = (newPersonaType: Persona, newPersonaId: NanoId) => {
 		if (newPersonaType !== personaType || newPersonaId !== personaId) {
 			setIsPersonaLoading(true);
 			setPersistedAppState({

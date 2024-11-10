@@ -1,11 +1,11 @@
-import { ApiIdentifier } from '@types';
+import { NanoId } from '@types';
 import { Artist } from '../artist';
 import { Event } from '../event';
 import { Host } from '../host';
 import { ContractStatus } from './types';
 
 export interface Contract {
-	readonly contract_uid: ApiIdentifier;
+	readonly contract_uid: NanoId;
 	readonly host: Host;
 	readonly artist: Artist;
 	readonly event: Event;

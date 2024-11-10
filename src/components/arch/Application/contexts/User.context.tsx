@@ -5,13 +5,13 @@ import { userApiSlice } from '@flux/api/user';
 import { PrivateUser } from '@flux/api/user/user.entity';
 import { createUseContextHook, SheetApi, useSheet } from '@hooks';
 import { useBehaviorContext } from '@src/utils/contexts/Behavior';
-import { ApiIdentifier, Persona, ProviderProps } from '@types';
+import { NanoId, Persona, ProviderProps } from '@types';
 import React, { createContext, useEffect } from 'react';
 import { Asset } from 'react-native-image-picker';
 import { usePersonaAppContext } from './Persona.context';
 
 export type UserAppContextType = {
-	personaId: ApiIdentifier;
+	personaId: NanoId;
 	personaType: Persona;
 	userData: PrivateUser;
 	userError: any;

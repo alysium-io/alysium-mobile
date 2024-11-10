@@ -12,11 +12,3 @@ export enum ContentType {
 	event = 'event',
 	location = 'location'
 }
-
-export enum EventStatus {
-	live = 'live',
-	draft = 'draft',
-	published = 'published',
-	cancelled = 'cancelled',
-	completed = 'completed'
-}

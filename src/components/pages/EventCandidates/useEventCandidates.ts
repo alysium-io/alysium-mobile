@@ -3,7 +3,7 @@ import { FindAllEventCandidatesResponseDto } from '@flux/api/candidate/dto/find-
 import { contractApiSlice } from '@flux/api/contract';
 import { FindAllHostContractsResponseDto } from '@flux/api/contract/dto/find-all-host-contracts.dto';
 import { useSheet } from '@hooks';
-import { ApiIdentifier } from '@types';
+import { NanoId } from '@types';
 import { useState } from 'react';
 
 interface IuseEventCandidates {
@@ -18,7 +18,7 @@ interface IuseEventCandidates {
 	createContractSheetApi: any;
 }
 
-const useEventCandidates = (event_uid: ApiIdentifier): IuseEventCandidates => {
+const useEventCandidates = (event_uid: NanoId): IuseEventCandidates => {
 	const createContractSheetApi = useSheet();
 	const [toggleFilterId, setToggleFilterId] = useState<number>(0);
 

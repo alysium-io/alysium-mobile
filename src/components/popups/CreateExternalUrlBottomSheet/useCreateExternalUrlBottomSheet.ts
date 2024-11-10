@@ -4,7 +4,7 @@ import { ButtonStateApi, useButtonState } from '@molecules';
 import useCreateExternalUrlFormApi, {
 	CreateExternalUrlFormApi
 } from '@src/utils/redux-hook-form/useCreateExternalUrlFormApi';
-import { ApiIdentifier } from '@types';
+import { NanoId } from '@types';
 import { useEffect } from 'react';
 
 interface IUseCreateExternalUrlBottomSheet {
@@ -17,7 +17,7 @@ interface IUseCreateExternalUrlBottomSheet {
 const useCreateExternalUrlBottomSheet = (
 	sheetApi: SheetApi,
 	refType: ExternalUrlRefType,
-	refId: ApiIdentifier
+	refId: NanoId
 ): IUseCreateExternalUrlBottomSheet => {
 	const saveButtonStateApi = useButtonState('disabled');
 

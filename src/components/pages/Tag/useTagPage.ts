@@ -3,7 +3,7 @@ import { FindTagArtistsResponseDto } from '@flux/api/tag/dto/tag-artists.dto';
 import { FindTagCorrelatedResponseDto } from '@flux/api/tag/dto/tag-correlated.dto';
 import { FindOneTagResponseDto } from '@flux/api/tag/dto/tag-find-one.dto';
 import { usePagination } from '@hooks';
-import { ApiIdentifier } from '@types';
+import { NanoId } from '@types';
 
 interface IUseTagPage {
 	tagData?: FindOneTagResponseDto;
@@ -18,7 +18,7 @@ interface IUseTagPage {
 	nextPage: () => void;
 }
 
-const useTagPage = (tag_uid: ApiIdentifier): IUseTagPage => {
+const useTagPage = (tag_uid: NanoId): IUseTagPage => {
 	const { page, nextPage, defaultLimit } = usePagination();
 
 	const {

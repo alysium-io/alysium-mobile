@@ -1,8 +1,8 @@
-import { ApiIdentifier } from '@types';
+import { NanoId } from '@types';
 import { Contract } from '../contract.entity';
 
 export interface UpdateContractParamsDto {
-	contract_uid: ApiIdentifier;
+	contract_uid: NanoId;
 }
 
 export interface UpdateContractBodyDto {

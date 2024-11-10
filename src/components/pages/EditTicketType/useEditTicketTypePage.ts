@@ -9,7 +9,7 @@ import {
 	useSheet,
 	useTextInput
 } from '@hooks';
-import { ApiIdentifier } from '@types';
+import { NanoId } from '@types';
 import {
 	SubmitErrorHandler,
 	SubmitHandler,
@@ -45,8 +45,8 @@ interface IUseEditTicketType {
 }
 
 const useEditTicketTypePage = (
-	ticket_collection_uid: ApiIdentifier,
-	ticket_type_uid: ApiIdentifier
+	ticket_collection_uid: NanoId,
+	ticket_type_uid: NanoId
 ): IUseEditTicketType => {
 	const { back } = useNavigation();
 	const [deleteTicketTypeMutation] = ticketTypeApiSlice.useDeleteMutation();

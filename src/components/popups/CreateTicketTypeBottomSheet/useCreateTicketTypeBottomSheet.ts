@@ -8,7 +8,7 @@ import {
 	useSequence,
 	useTextInput
 } from '@hooks';
-import { ApiIdentifier, OnSubmitHandler } from '@types';
+import { NanoId, OnSubmitHandler } from '@types';
 import { useState } from 'react';
 import {
 	SubmitErrorHandler,
@@ -45,7 +45,7 @@ interface IUseCreateTicketTypeBottomSheet {
 
 const useCreateTicketTypeBottomSheet = (
 	sheetApi: SheetApi,
-	ticket_collection_uid: ApiIdentifier
+	ticket_collection_uid: NanoId
 ): IUseCreateTicketTypeBottomSheet => {
 	const sequenceApi = useSequence(6);
 	const ticketTypeNameTextInputApi = useTextInput();

@@ -1,8 +1,8 @@
-import { ApiIdentifier } from '@types';
+import { NanoId } from '@types';
 import { TagCorrelatedCommon } from '../tag-correlated.entity';
 
 export interface FindTagCorrelatedParamsDto {
-	tag_uid: ApiIdentifier;
+	tag_uid: NanoId;
 }
 
 export interface FindTagCorrelatedResponseDto

@@ -1,6 +1,6 @@
 import { Host, hostApiSlice } from '@flux/api/host';
 import { SheetApi, useSheet } from '@hooks';
-import { ApiIdentifier } from '@types';
+import { NanoId } from '@types';
 
 interface IUseHostPage {
 	hostData?: Host;
@@ -14,7 +14,7 @@ interface IUseHostPage {
 	openLinks: () => void;
 }
 
-const useHostPage = (host_uid: ApiIdentifier): IUseHostPage => {
+const useHostPage = (host_uid: NanoId): IUseHostPage => {
 	const {
 		data: hostData,
 		isLoading: hostIsLoading,

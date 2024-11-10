@@ -3,13 +3,13 @@ import { FindAllEventCandidatesResponseDto } from '@flux/api/candidate/dto/find-
 import { useNavigation, useSheet } from '@hooks';
 import { ContentListItemWithButton } from '@organisms';
 import { CreateContractBottomSheet } from '@popups';
-import { ApiIdentifier, ContentType } from '@types';
+import { ContentType, NanoId } from '@types';
 import React, { useState } from 'react';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 interface CandidatesSectionProps {
 	candidatesData: FindAllEventCandidatesResponseDto[];
-	event_uid: ApiIdentifier;
+	event_uid: NanoId;
 }
 
 const CandidatesSection: React.FC<CandidatesSectionProps> = ({
@@ -19,9 +19,9 @@ const CandidatesSection: React.FC<CandidatesSectionProps> = ({
 	const createContractSheetApi = useSheet();
 	const { artistPage } = useNavigation();
 
-	const [artist_uid, setArtistId] = useState<ApiIdentifier | null>(null);
+	const [artist_uid, setArtistId] = useState<NanoId | null>(null);
 
-	const start = (artist_uid: ApiIdentifier) => {
+	const start = (artist_uid: NanoId) => {
 		setArtistId(artist_uid);
 		createContractSheetApi.open();
 	};

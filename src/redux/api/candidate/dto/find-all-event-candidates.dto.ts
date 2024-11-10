@@ -1,8 +1,8 @@
-import { ApiIdentifier } from '@types';
+import { NanoId } from '@types';
 import { Candidate } from '../candidate.entity';
 
 export interface FindAllEventCandidatesQueryDto {
-	event_uid: ApiIdentifier;
+	event_uid: NanoId;
 	page: number;
 	limit: number;
 }

@@ -1,6 +1,6 @@
 import { contractApiSlice } from '@flux/api/contract';
 import { FindOneContractResponseDto } from '@flux/api/contract/dto/find-one-contract.dto';
-import { ApiIdentifier } from '@types';
+import { NanoId } from '@types';
 
 interface IUseArtistViewContractPage {
 	contractData?: FindOneContractResponseDto;
@@ -9,7 +9,7 @@ interface IUseArtistViewContractPage {
 }
 
 const useArtistViewContractPage = (
-	contract_uid: ApiIdentifier
+	contract_uid: NanoId
 ): IUseArtistViewContractPage => {
 	const {
 		data: contractData,

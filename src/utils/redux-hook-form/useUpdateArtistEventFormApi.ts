@@ -4,15 +4,16 @@ import {
 	UpdateArtistEventBodyDto,
 	UpdateArtistEventResponseDto
 } from '@flux/api/event/dto/artist-event-update.dto';
+import { EventStatus } from '@flux/api/event/types';
 import { useForm, useToast } from '@hooks';
-import { ApiIdentifier } from '@types';
+import { NanoId } from '@types';
 import { FormApiOptions, ReduxFormMethods } from './shared';
 
 export interface UpdateArtistEventFormApi
 	extends ReduxFormMethods<UpdateArtistEventBodyDto> {}
 
 const useUpdateArtistEventFormApi = (
-	event_uid: ApiIdentifier,
+	event_uid: NanoId,
 	formApiOptions?: FormApiOptions<
 		UpdateArtistEventBodyDto,
 		UpdateArtistEventResponseDto
@@ -29,7 +30,8 @@ const useUpdateArtistEventFormApi = (
 				name: '',
 				about: null,
 				start_time: null,
-				end_time: null
+				end_time: null,
+				status: EventStatus.draft
 			},
 			formApiOptions?.initialValues
 		),

@@ -1,12 +1,12 @@
-import { ApiIdentifier } from '@types';
+import { NanoId } from '@types';
 import { TicketType } from '../ticket-type.entity';
 
 export interface UpdateTicketTypeParamsDto {
-	ticket_type_uid: ApiIdentifier;
+	ticket_type_uid: NanoId;
 }
 
 export interface UpdateTicketTypeQueryDto {
-	ticket_collection_uid: ApiIdentifier;
+	ticket_collection_uid: NanoId;
 }
 
 export interface UpdateTicketTypeBodyDto {

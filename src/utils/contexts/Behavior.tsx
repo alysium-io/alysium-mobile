@@ -3,16 +3,16 @@ import { behaviorApiSlice } from '@flux/api/behavior';
 import { CreateBehaviorBodyDto } from '@flux/api/behavior/dto/behavior-create.dto';
 import { createUseContextHook } from '@hooks';
 import { generate_nanoid } from '@src/etc/nanoid';
-import { ApiIdentifier, ProviderProps, RouteNames } from '@types';
+import { NanoId, ProviderProps, RouteNames } from '@types';
 import React, { createContext, useEffect, useState } from 'react';
 import { AppState } from 'react-native';
 import { useEnvContext } from './ValidateEnv';
 
 export type NavigationBehaviorMetadata = {
 	from: RouteNames;
-	from_uid?: ApiIdentifier;
+	from_uid?: NanoId;
 	to: RouteNames;
-	to_uid?: ApiIdentifier;
+	to_uid?: NanoId;
 	using: string;
 };
 

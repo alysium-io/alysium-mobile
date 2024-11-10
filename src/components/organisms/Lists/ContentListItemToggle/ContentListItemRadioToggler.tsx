@@ -1,17 +1,17 @@
 import { View } from '@atomic';
 import { Vibrator } from '@etc';
-import { ApiIdentifier, ContentType } from '@types';
+import { ContentType, NanoId } from '@types';
 import React, { useState } from 'react';
 import ContentListItemToggle from './ContentListItemToggle';
 
 type ContentListItem = {
-	id: ApiIdentifier;
+	id: NanoId;
 	image?: string;
 	title: string;
 	subtitle: string;
 	defaultIsActive: boolean;
-	onPress: (id: ApiIdentifier, isActive: boolean) => void;
-	onPressToggle: (id: ApiIdentifier, isActive: boolean) => void;
+	onPress: (id: NanoId, isActive: boolean) => void;
+	onPressToggle: (id: NanoId, isActive: boolean) => void;
 };
 
 interface ContentListItemRadioTogglerProps {
@@ -22,7 +22,7 @@ interface ContentListItemRadioTogglerProps {
 const ContentListItemRadioToggler: React.FC<
 	ContentListItemRadioTogglerProps
 > = ({ subtitleFirst = true, items = [] }) => {
-	const [selected, setSelected] = useState<{ [key: ApiIdentifier]: boolean }>(
+	const [selected, setSelected] = useState<{ [key: NanoId]: boolean }>(
 		Object.fromEntries(items.map((item) => [item.id, item.defaultIsActive]))
 	);
 

@@ -1,9 +1,9 @@
 import { ArtistTagLink } from '@flux/api/artist-tag-link';
 import { Pagination } from '@flux/api/utils/pagination';
-import { ApiIdentifier } from '@types';
+import { NanoId } from '@types';
 
 export interface FindTagArtistsParamsDto {
-	tag_uid: ApiIdentifier;
+	tag_uid: NanoId;
 }
 
 export interface FindTagArtistsQueryDto extends Pagination {}

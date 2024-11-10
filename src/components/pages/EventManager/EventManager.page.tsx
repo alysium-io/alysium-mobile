@@ -1,4 +1,4 @@
-import { HeaderSafeArea, ScrollView, Text, View } from '@atomic';
+import { ScrollView, Text, View } from '@atomic';
 import { BasePage } from '@organisms';
 import React, { useCallback } from 'react';
 import CreateEventFooter from './components/CreateEventFooter';
@@ -21,14 +21,12 @@ const EventManagerPage = () => {
 
 	return (
 		<BasePage FooterComponent={FooterComponent}>
-			<HeaderSafeArea>
-				<ScrollView alwaysBounceVertical>
-					<View margin='m'>
-						<Text variant='page-header'>Event Manager</Text>
-					</View>
-					<EventsListSection eventsData={eventsData} />
-				</ScrollView>
-			</HeaderSafeArea>
+			<ScrollView alwaysBounceVertical>
+				<View margin='m'>
+					<Text variant='page-header'>Event Manager</Text>
+				</View>
+				<EventsListSection eventsData={eventsData} />
+			</ScrollView>
 		</BasePage>
 	);
 };

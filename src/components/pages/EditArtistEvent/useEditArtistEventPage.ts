@@ -6,7 +6,7 @@ import { useToast } from '@hooks';
 import useUpdateArtistEventFormApi, {
 	UpdateArtistEventFormApi
 } from '@src/utils/redux-hook-form/useUpdateArtistEventFormApi';
-import { ApiIdentifier } from '@types';
+import { NanoId } from '@types';
 import { useState } from 'react';
 import { Asset } from 'react-native-image-picker';
 
@@ -19,9 +19,7 @@ interface IUseEditArtistEvent {
 	onBlurEditable: () => void;
 }
 
-const useEditArtistEventPage = (
-	event_uid: ApiIdentifier
-): IUseEditArtistEvent => {
+const useEditArtistEventPage = (event_uid: NanoId): IUseEditArtistEvent => {
 	const { toastSuccess } = useToast();
 	const { artistData } = useArtistAppContext();
 	const [createArtistEventProfileImageMutation] =
@@ -57,7 +55,8 @@ const useEditArtistEventPage = (
 			name: eventData?.event.name,
 			about: eventData?.event.about,
 			start_time: eventData?.event.start_time,
-			end_time: eventData?.event.end_time
+			end_time: eventData?.event.end_time,
+			status: eventData?.event.status
 		},
 		methods: {
 			onConfirmedValid: (data) => {

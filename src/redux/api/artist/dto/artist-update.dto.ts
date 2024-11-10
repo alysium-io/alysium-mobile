@@ -1,8 +1,8 @@
-import { ApiIdentifier } from '@types';
+import { NanoId } from '@types';
 import { PrivateArtist } from '../artist.entity';
 
 export interface UpdateArtistParamsDto {
-	artist_uid: ApiIdentifier;
+	artist_uid: NanoId;
 }
 
 export interface UpdateArtistBodyDto {

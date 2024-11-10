@@ -1,6 +1,6 @@
 import { eventApiSlice } from '@flux/api/event';
 import { FindOneEventResponseDto } from '@flux/api/event/dto/event-find-one.dto';
-import { ApiIdentifier } from '@types';
+import { NanoId } from '@types';
 
 interface IUseEventPage {
 	eventData?: FindOneEventResponseDto;
@@ -8,7 +8,7 @@ interface IUseEventPage {
 	eventIsLoading: boolean;
 }
 
-const useEventPage = (event_uid: ApiIdentifier): IUseEventPage => {
+const useEventPage = (event_uid: NanoId): IUseEventPage => {
 	const {
 		data: eventData,
 		error: eventError,

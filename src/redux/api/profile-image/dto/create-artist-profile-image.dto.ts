@@ -1,8 +1,8 @@
-import { ApiIdentifier } from '@types';
+import { NanoId } from '@types';
 import { ProfileImage } from '../profile-image.entity';
 
 export interface CreateArtistProfileImageQueryDto {
-	artist_uid: ApiIdentifier;
+	artist_uid: NanoId;
 }
 
 export interface CreateArtistProfileImageResponseDto extends ProfileImage {}

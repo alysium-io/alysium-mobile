@@ -1,8 +1,8 @@
-import { ApiIdentifier } from '@types';
+import { NanoId } from '@types';
 import { Host } from '../host.entity';
 
 export interface FindOneHostParamsDto {
-	host_uid: ApiIdentifier;
+	host_uid: NanoId;
 }
 
 export interface FindOneHostResponseDto extends Host {}

@@ -1,4 +1,5 @@
-import { SheetApi, TextInputApi, useTextInput } from '@hooks';
+import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
+import { SheetApi, TextInputApi, useNavigation, useTextInput } from '@hooks';
 import { ButtonStateApi, useButtonState } from '@molecules';
 import useCreateArtistEventFormApi, {
 	CreateArtistEventFormApi
@@ -18,10 +19,27 @@ const useCreateArtistEventBottomSheet = (
 ): IuseCreateArtistEventBottomSheet => {
 	const eventNameTextInputApi = useTextInput();
 	const createArtistEventButtonStateApi = useButtonState('disabled');
+	const { editArtistEventPage } = useNavigation();
+	const { artistData } = useArtistAppContext();
 	const createArtistEventFormApi = useCreateArtistEventFormApi({
 		methods: {
-			onValidDidComplete: () => {
+			onConfirmedValid: () => {
+				createArtistEventButtonStateApi.setButtonState('loading');
+			},
+			onValidDidComplete: (response) => {
 				close();
+				setTimeout(() => {
+					editArtistEventPage(response.event.event_uid, {
+						from: 'EditArtistPage',
+						from_uid: artistData.artist_uid,
+						to: 'EditArtistEventPage',
+						to_uid: response.event.event_uid,
+						using: 'CREATE_ARTIST_EVENT_CONTENT_LIST_ITEM'
+					});
+				}, 500);
+			},
+			onValidDidFail: () => {
+				createArtistEventButtonStateApi.setButtonState('active');
 			}
 		}
 	});

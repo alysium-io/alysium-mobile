@@ -1,8 +1,8 @@
-import { ApiIdentifier } from '@types';
+import { NanoId } from '@types';
 import { Venue } from '../venue.entity';
 
 export interface CreateVenueBodyDto {
-	host_uid: ApiIdentifier;
+	host_uid: NanoId;
 	name: string;
 }
 

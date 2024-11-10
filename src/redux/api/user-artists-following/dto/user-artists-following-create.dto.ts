@@ -1,8 +1,8 @@
-import { ApiIdentifier } from '@types';
+import { NanoId } from '@types';
 import { UserArtistsFollowing } from '../user-artists-following.entity';
 
 export interface CreateUserArtistsFollowingBodyDto {
-	artist_uid: ApiIdentifier;
+	artist_uid: NanoId;
 }
 
 export interface CreateUserArtistsFollowingResponseDto

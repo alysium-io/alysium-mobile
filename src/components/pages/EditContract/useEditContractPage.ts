@@ -3,7 +3,7 @@ import { contractApiSlice } from '@flux/api/contract';
 import { FindOneContractResponseDto } from '@flux/api/contract/dto/find-one-contract.dto';
 import { UpdateContractBodyDto } from '@flux/api/contract/dto/update-contract.dto';
 import { TextInputApi, useNavigation, useTextInput } from '@hooks';
-import { ApiIdentifier, OnSubmitHandler } from '@types';
+import { NanoId, OnSubmitHandler } from '@types';
 import {
 	SubmitErrorHandler,
 	SubmitHandler,
@@ -35,9 +35,7 @@ interface IUseEditContractPage {
 	additionalNotesTextInputApi: TextInputApi;
 }
 
-const useEditContractPage = (
-	contract_uid: ApiIdentifier
-): IUseEditContractPage => {
+const useEditContractPage = (contract_uid: NanoId): IUseEditContractPage => {
 	const [updateContractMutation] = contractApiSlice.useUpdateMutation();
 	const [deleteContractMutation] = contractApiSlice.useDeleteMutation();
 	const { back } = useNavigation();

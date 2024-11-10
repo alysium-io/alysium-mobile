@@ -6,57 +6,57 @@ import {
 	RouteProp
 } from '@react-navigation/native';
 import { type NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { ApiIdentifier } from './api';
+import { NanoId } from './api';
 
 /**
  * Individual Pages
  */
 type SearchPage = undefined;
 
-type HostPage = { host_uid: ApiIdentifier };
+type HostPage = { host_uid: NanoId };
 type HostFollowersAndShowsPage = {
-	host_uid: ApiIdentifier;
+	host_uid: NanoId;
 	defaultTabIndex: number;
 };
 
-type ArtistPage = { artist_uid: ApiIdentifier };
+type ArtistPage = { artist_uid: NanoId };
 type ArtistFollowersAndShowsPage = {
-	artist_uid: ApiIdentifier;
+	artist_uid: NanoId;
 	defaultTabIndex: number;
 };
 
-type TagPage = { tag_uid: ApiIdentifier };
-type TagFollowersPage = { tag_uid: ApiIdentifier };
+type TagPage = { tag_uid: NanoId };
+type TagFollowersPage = { tag_uid: NanoId };
 
-type LocationPage = { location_uid: ApiIdentifier };
+type LocationPage = { location_uid: NanoId };
 
 type ProfilePage = undefined;
 
 type EventManagerPage = undefined;
-type EditArtistEventPage = { event_uid: ApiIdentifier };
+type EditArtistEventPage = { event_uid: NanoId };
 
 type ChooseScenePage = undefined;
 
-type EditVenuePage = { venue_uid: ApiIdentifier };
+type EditVenuePage = { venue_uid: NanoId };
 
-type EventPage = { event_uid: ApiIdentifier };
+type EventPage = { event_uid: NanoId };
 
-type EditContractPage = { contract_uid: ApiIdentifier };
+type EditContractPage = { contract_uid: NanoId };
 
-type ChooseEventLocationPage = { event_uid: ApiIdentifier };
+type ChooseEventLocationPage = { event_uid: NanoId };
 
 type ContractManagerPage = undefined;
 
-type EventCandidatesPage = { event_uid: ApiIdentifier };
+type EventCandidatesPage = { event_uid: NanoId };
 
-type EditEventTicketTypesPage = { event_uid: ApiIdentifier };
+type EditEventTicketTypesPage = { event_uid: NanoId };
 
 type EditTicketTypePage = {
-	ticket_collection_uid: ApiIdentifier;
-	ticket_type_uid: ApiIdentifier;
+	ticket_collection_uid: NanoId;
+	ticket_type_uid: NanoId;
 };
 
-type ArtistViewContractPage = { contract_uid: ApiIdentifier };
+type ArtistViewContractPage = { contract_uid: NanoId };
 
 type UserArtistsFollowingPage = undefined;
 type UserTagsFollowingPage = undefined;

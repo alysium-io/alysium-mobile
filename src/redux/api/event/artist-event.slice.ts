@@ -77,7 +77,10 @@ export default serviceApi.injectEndpoints({
 		}),
 		updateArtistEvent: builder.mutation<
 			UpdateArtistEventResponseDto,
-			{ params: UpdateArtistEventParamsDto; body: UpdateArtistEventBodyDto }
+			{
+				params: UpdateArtistEventParamsDto;
+				body: Partial<UpdateArtistEventBodyDto>;
+			}
 		>({
 			query: ({ params, body }) => ({
 				url: url(`/${params.artist_uid}/${params.event_uid}`),
@@ -85,7 +88,8 @@ export default serviceApi.injectEndpoints({
 				body
 			}),
 			invalidatesTags: (result, error, { params }) => [
-				{ type: 'ArtistEvent', id: params.event_uid }
+				{ type: 'ArtistEvent', id: params.event_uid },
+				{ type: 'ArtistEvent', id: 'LIST' }
 			]
 		}),
 		updateArtistEventLocation: builder.mutation<

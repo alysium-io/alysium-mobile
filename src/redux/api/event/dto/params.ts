@@ -1,9 +1,9 @@
-import { ApiIdentifier } from '@types';
+import { NanoId } from '@types';
 
 export interface PrimitiveArtistEventParamsDto {
-	readonly artist_uid: ApiIdentifier;
+	readonly artist_uid: NanoId;
 }
 
 export interface ArtistEventParamsDto extends PrimitiveArtistEventParamsDto {
-	readonly event_uid: ApiIdentifier;
+	readonly event_uid: NanoId;
 }

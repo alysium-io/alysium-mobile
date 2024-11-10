@@ -1,9 +1,9 @@
-import { ApiIdentifier } from '@types';
+import { NanoId } from '@types';
 import { Event } from '../event.entity';
 
 export interface UpdateArtistEventLocationParamsDto {
-	artist_uid: ApiIdentifier;
-	event_uid: ApiIdentifier;
+	artist_uid: NanoId;
+	event_uid: NanoId;
 }
 
 export interface UpdateArtistEventLocationBodyDto {

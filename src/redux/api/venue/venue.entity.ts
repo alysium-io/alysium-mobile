@@ -1,11 +1,11 @@
-import { ApiIdentifier } from '@types';
+import { NanoId } from '@types';
 import { VenueGallery } from '../gallery/gallery.entity';
 import { Host } from '../host/host.entity';
 import { Media } from '../media/media.entity';
 import { VenueType } from './types';
 
 export interface Venue {
-	readonly venue_uid: ApiIdentifier;
+	readonly venue_uid: NanoId;
 	readonly profile_image: Media | null;
 	readonly host: Host;
 	readonly gallery: VenueGallery[];

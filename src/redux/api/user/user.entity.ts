@@ -1,4 +1,4 @@
-import { ApiIdentifier } from '@types';
+import { NanoId } from '@types';
 import { PrivateArtist } from '../artist/artist.entity';
 import { UserGallery } from '../gallery/gallery.entity';
 import { Host } from '../host/host.entity';
@@ -11,7 +11,7 @@ export enum Role {
 }
 
 export interface PrivateUser {
-	readonly user_uid: ApiIdentifier;
+	readonly user_uid: NanoId;
 	readonly name: string | null;
 	readonly handle: string;
 	readonly email: string | null;

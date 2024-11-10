@@ -3,11 +3,11 @@ import { Formatting } from '@etc';
 import { artistApiSlice } from '@flux/api/artist';
 import { useNavigation } from '@hooks';
 import { ContentListItem } from '@molecules';
-import { ApiIdentifier } from '@types';
+import { NanoId } from '@types';
 import React from 'react';
 
 interface RelatedArtistsProps {
-	artist_uid: ApiIdentifier;
+	artist_uid: NanoId;
 }
 
 const RelatedArtists: React.FC<RelatedArtistsProps> = ({ artist_uid }) => {
@@ -19,7 +19,7 @@ const RelatedArtists: React.FC<RelatedArtistsProps> = ({ artist_uid }) => {
 			}
 		});
 
-	const onPressRelatedArtist = (nextArtistUid: ApiIdentifier) => {
+	const onPressRelatedArtist = (nextArtistUid: NanoId) => {
 		artistPage(nextArtistUid, {
 			from: 'ArtistPage',
 			from_uid: artist_uid,

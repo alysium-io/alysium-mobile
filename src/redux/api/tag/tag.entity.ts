@@ -1,7 +1,7 @@
-import { ApiIdentifier } from '@types';
+import { NanoId } from '@types';
 
 export interface Tag {
-	readonly tag_uid: ApiIdentifier;
+	readonly tag_uid: NanoId;
 	readonly name: string;
 	readonly is_following: boolean;
 	readonly num_followers: number;

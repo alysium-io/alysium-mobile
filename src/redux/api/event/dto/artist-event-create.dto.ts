@@ -1,12 +1,12 @@
 import { EventLink } from '@flux/api/event-link/event-link.entity';
-import { ApiIdentifier } from '@types';
+import { NanoId } from '@types';
 import { PrimitiveArtistEventParamsDto } from './params';
 
 export interface CreateArtistEventParamsDto
 	extends PrimitiveArtistEventParamsDto {}
 
 export interface CreateArtistEventBodyDto {
-	host_uid: ApiIdentifier;
+	host_uid: NanoId;
 	name: string;
 }
 

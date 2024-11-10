@@ -11,7 +11,7 @@ import {
 	useSheet,
 	useTextInput
 } from '@hooks';
-import { ApiIdentifier, OnSubmitHandler } from '@types';
+import { NanoId, OnSubmitHandler } from '@types';
 import {
 	SubmitErrorHandler,
 	SubmitHandler,
@@ -53,7 +53,7 @@ interface IUseEditVenuePage {
 	capacityTextInputApi: TextInputApi;
 }
 
-const useEditVenuePage = (venue_uid: ApiIdentifier): IUseEditVenuePage => {
+const useEditVenuePage = (venue_uid: NanoId): IUseEditVenuePage => {
 	const createLinkSheetApi = useSheet();
 	const descriptionTextInputApi = useTextInput();
 	const streetAddressTextInputApi = useTextInput();

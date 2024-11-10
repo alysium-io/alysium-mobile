@@ -1,4 +1,4 @@
-import { ApiIdentifier } from './api';
+import { NanoId } from './api';
 import { Persona } from './enums';
 import { ThemeMode } from './restyle';
 import { ThemeName } from './themes';
@@ -15,7 +15,7 @@ export type ColorModeState = 'default' | 'alwaysLight' | 'alwaysDark';
 export type AppState = {
 	token: string | null;
 	personaType: Persona;
-	personaId: ApiIdentifier | null;
+	personaId: NanoId | null;
 	themeName: ThemeName;
 	themeMode: ThemeMode;
 	colorModeState: ColorModeState;

@@ -2,6 +2,7 @@ export * from './AddArtistToEventCandidatesBottomSheet';
 export * from './CheckUserWantsToRegisterBottomSheet';
 export * from './ConfirmDeleteBottomSheet';
 export * from './ConfirmEventLocationChoiceBottomSheet';
+export * from './ConfirmPublishEventBottomSheet';
 export * from './CreateAccountBottomSheet';
 export * from './CreateArtistBottomSheet';
 export * from './CreateArtistEventBottomSheet';

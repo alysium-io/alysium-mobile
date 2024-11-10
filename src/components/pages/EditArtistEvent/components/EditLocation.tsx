@@ -1,5 +1,5 @@
 import { FindOneArtistEventResponseDto } from '@flux/api/event/dto/artist-event-find-one.dto';
-import { useLocation } from '@hooks';
+import { useLocation, useNavigation } from '@hooks';
 import { Location } from '@molecules';
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
@@ -10,6 +10,7 @@ interface EditLocationProps {
 
 const EditLocation: React.FC<EditLocationProps> = ({ eventData }) => {
 	const { openMap } = useLocation();
+	const { chooseEventLocationPage } = useNavigation();
 
 	const onPressLocation = () => {
 		if (eventData?.event.location) {
@@ -18,6 +19,8 @@ const EditLocation: React.FC<EditLocationProps> = ({ eventData }) => {
 				eventData.event.location.longitude,
 				eventData.event.name
 			);
+		} else {
+			chooseEventLocationPage(eventData.event.event_uid);
 		}
 	};
 
