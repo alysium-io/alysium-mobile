@@ -1,4 +1,5 @@
 import {
+	ArtistEventPage,
 	ArtistPage,
 	HostPage,
 	LocationPage,
@@ -52,6 +53,8 @@ const SearchTab = () => {
 					animation: 'fade'
 				}}
 			/>
+
+			<SearchStack.Screen name='ArtistEventPage' component={ArtistEventPage} />
 		</SearchStack.Navigator>
 	);
 };

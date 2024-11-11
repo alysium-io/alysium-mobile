@@ -1,4 +1,5 @@
 import { FindGalleryParamsDto } from '@flux/api/gallery/dto/gallery-find.dto';
+import { GalleryRefType } from '@flux/api/gallery/types';
 import { type BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import {
 	CompositeNavigationProp,
@@ -41,6 +42,7 @@ type ChooseScenePage = undefined;
 type EditVenuePage = { venue_uid: NanoId };
 
 type EventPage = { event_uid: NanoId };
+type ArtistEventPage = { event_uid: NanoId };
 
 type EditContractPage = { contract_uid: NanoId };
 
@@ -70,6 +72,7 @@ type ViewGalleryPage = {
 	transitionTagId: string;
 	findGalleryParamsDto: FindGalleryParamsDto;
 	pressIndex: number;
+	galleryRefType: GalleryRefType;
 };
 
 export type RouteNames =
@@ -98,7 +101,8 @@ export type RouteNames =
 	| 'EditArtistPage'
 	| 'ViewGalleryPage'
 	| 'ChooseScenePage'
-	| 'ChooseEventLocationPage';
+	| 'ChooseEventLocationPage'
+	| 'ArtistEventPage';
 
 /**
  * Stack Navigators
@@ -131,6 +135,8 @@ export type SearchStackNavigatorParamList = {
 	TopTagsPage: TopTagsPage;
 
 	ViewGalleryPage: ViewGalleryPage;
+
+	ArtistEventPage: ArtistEventPage;
 };
 
 export type ProfileStackNavigatorParamList = {
@@ -260,6 +266,10 @@ export type TagPageRouteProp = RouteProp<
 export type TagFollowersPageRouteProp = RouteProp<
 	CompositeStackNavigatorParamList,
 	'TagFollowersPage'
+>;
+export type ArtistEventPageRouteProp = RouteProp<
+	CompositeStackNavigatorParamList,
+	'ArtistEventPage'
 >;
 
 /**

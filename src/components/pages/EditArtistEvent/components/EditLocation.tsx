@@ -9,16 +9,12 @@ interface EditLocationProps {
 }
 
 const EditLocation: React.FC<EditLocationProps> = ({ eventData }) => {
-	const { openMap } = useLocation();
+	const locationApi = useLocation(eventData.event.location);
 	const { chooseEventLocationPage } = useNavigation();
 
 	const onPressLocation = () => {
 		if (eventData?.event.location) {
-			openMap(
-				eventData.event.location.latitude,
-				eventData.event.location.longitude,
-				eventData.event.name
-			);
+			locationApi.openMap(eventData.event.name);
 		} else {
 			chooseEventLocationPage(eventData.event.event_uid);
 		}

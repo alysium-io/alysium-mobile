@@ -39,7 +39,7 @@ export const useNavigationSettings = (): IUseNavigationSettings => {
 		},
 		routes: {
 			initialArtistAppTab:
-				'EditArtist' as keyof ArtistAppBottomTabNavigatorParamList,
+				'Search' as keyof ArtistAppBottomTabNavigatorParamList,
 			initialHostAppTab: 'Profile' as keyof BottomTabNavigatorParamList,
 			initialTestAppTab: 'Pages' as keyof BottomTabNavigatorParamList,
 			initialUserAppTab: 'Search' as keyof UserAppBottomTabNavigatorParamList

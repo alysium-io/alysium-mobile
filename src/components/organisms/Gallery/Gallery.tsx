@@ -29,6 +29,7 @@ const Gallery: React.FC<GalleryProps> = ({
 								galleryItem={item.galleryItem}
 								index={item.orderIndex}
 								findGalleryParamsDto={findGalleryParamsDto}
+								galleryRefType={galleryRefType}
 							/>
 						);
 					})}

@@ -1,0 +1,92 @@
+import { Section, Text, View } from '@atomic';
+import { FindOneEventResponseDto } from '@flux/api/event/dto/event-find-one.dto';
+import { useDate, useLocation } from '@hooks';
+import day from 'dayjs';
+import React from 'react';
+import { TouchableOpacity } from 'react-native';
+
+interface SubHeaderProps {
+	eventData: FindOneEventResponseDto;
+}
+
+const SubHeader: React.FC<SubHeaderProps> = ({ eventData }) => {
+	const { semantic } = useDate();
+	const locationApi = useLocation(eventData.event.location);
+	const onPressLocation = () => locationApi.openMap(eventData.event.name);
+
+	const address = locationApi.build([
+		{ type: 'street_number' },
+		{ type: 'route', nameLength: 'short_name' }
+	]);
+
+	const locality = locationApi.build([
+		{ type: 'neighborhood' },
+		{ type: 'postal_code' }
+	]);
+
+	const country = locationApi.build([
+		{ type: 'administrative_area_level_1' },
+		{ type: 'country', nameLength: 'short_name' }
+	]);
+
+	const semanticDate = semantic(eventData.event.start_time);
+
+	return (
+		<Section marginBottom='s'>
+			<View flexDirection='row' justifyContent='space-between' marginBottom='m'>
+				<View flex={1}>
+					<Text variant='paragraph-medium' marginBottom='xs'>
+						{day(eventData.event.start_time).format('ddd. MMM D')}
+					</Text>
+					<Text variant='paragraph-small' color='text.t' marginBottom='xs'>
+						{day(eventData.event.start_time).format('h:mma')}
+						{eventData.event.end_time &&
+							day(eventData.event.end_time).format(' - h:mma')}
+					</Text>
+					<Text variant='paragraph-small' color='text.t'>
+						{semanticDate}
+					</Text>
+				</View>
+				<View flex={1}>
+					{locationApi.hasLocation ? (
+						<TouchableOpacity onPress={onPressLocation} activeOpacity={0.5}>
+							<View>
+								<Text
+									variant='paragraph-medium'
+									marginBottom='xs'
+									textAlign='right'
+								>
+									{address}
+								</Text>
+								<Text
+									variant='paragraph-small'
+									color='text.t'
+									marginBottom='xs'
+									textAlign='right'
+								>
+									{locality}
+								</Text>
+								<Text
+									variant='paragraph-small'
+									color='text.t'
+									textAlign='right'
+								>
+									{country}
+								</Text>
+							</View>
+						</TouchableOpacity>
+					) : (
+						<Text variant='paragraph-medium' marginBottom='xs'>
+							No Location
+						</Text>
+					)}
+				</View>
+			</View>
+			<View width='75%'>
+				<Text variant='paragraph-small'>{eventData.event.about}</Text>
+			</View>
+		</Section>
+	);
+};
+
+export default SubHeader;

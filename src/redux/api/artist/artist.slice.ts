@@ -105,7 +105,12 @@ export default serviceApi.injectEndpoints({
 				body
 			}),
 			invalidatesTags: (result) =>
-				result ? [{ type: 'Artist', id: result.artist_uid }] : []
+				result
+					? [
+							{ type: 'Artist', id: result.artist_uid },
+							{ type: 'PublicArtist', id: result.artist_uid }
+					  ]
+					: []
 		}),
 		deleteArtist: builder.mutation<
 			DeleteArtistResponseDto,

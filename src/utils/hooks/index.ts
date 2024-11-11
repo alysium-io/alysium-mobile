@@ -19,6 +19,7 @@ export { default as createUseContextHook } from './createUseContextHook';
 export { default as useAnimatedState } from './useAnimatedState';
 export { default as useAnimatedValue } from './useAnimatedValue';
 export { default as useBottomTabHeight } from './useBottomTabHeight';
+export { default as useDate } from './useDate';
 export { default as useForm } from './useForm';
 export { default as useGallery } from './useGallery';
 export { default as useImage } from './useImage';

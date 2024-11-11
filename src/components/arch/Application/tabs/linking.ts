@@ -20,11 +20,19 @@ const artistPageConfigMap = {
 	}
 };
 
+const artistEventPageConfigMap = {
+	path: 'artist/event/:event_uid',
+	parse: {
+		event_uid: (event_uid: string) => event_uid
+	}
+};
+
 // Tab configurations (all apps share the search tab, so they're prolly all gunna be the same)
 const searchTabConfigMap: PathConfig<SearchStackNavigatorParamList> = {
 	initialRouteName: 'SearchPage',
 	screens: {
-		ArtistPage: artistPageConfigMap
+		ArtistPage: artistPageConfigMap,
+		ArtistEventPage: artistEventPageConfigMap
 	}
 };
 

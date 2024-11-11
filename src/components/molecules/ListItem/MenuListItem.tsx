@@ -10,6 +10,7 @@ interface MenuListItemProps {
 	disabled?: boolean;
 	onPress?: () => void;
 	icon?: IconNames;
+	prefixIconProps?: React.ComponentProps<typeof Icon>;
 }
 
 const MenuListItem: React.FC<MenuListItemProps> = ({
@@ -17,11 +18,17 @@ const MenuListItem: React.FC<MenuListItemProps> = ({
 	titleTextProps,
 	disabled = false,
 	onPress,
-	icon = 'arrow-right'
+	icon = 'arrow-right',
+	prefixIconProps
 }) => {
 	return (
 		<BgTouchAnimation disabled={disabled} onPress={onPress}>
 			<Container {...containerProps}>
+				{prefixIconProps && (
+					<View marginRight='m' marginLeft='s'>
+						<Icon size='s' {...prefixIconProps} />
+					</View>
+				)}
 				<TitleText {...titleTextProps} />
 				<View marginHorizontal='m'>
 					<Icon name={icon} color='text.t' size='s' />

@@ -1,5 +1,5 @@
-import { galleryApiSlice } from '@flux/api/gallery';
 import { FindGalleryResponseDto } from '@flux/api/gallery/dto/gallery-find.dto';
+import { useGallery } from '@hooks';
 import { useRoute } from '@react-navigation/native';
 import { ScrollReel } from '@src/components/organisms/ScrollReel';
 import { ViewGalleryPageRouteProp } from '@types';
@@ -37,9 +37,11 @@ function reorderFromIndex(
 
 const ViewGalleryPage = () => {
 	const route = useRoute<ViewGalleryPageRouteProp>();
-	const { transitionTagId, pressIndex, findGalleryParamsDto } = route.params;
+	const { transitionTagId, pressIndex, findGalleryParamsDto, galleryRefType } =
+		route.params;
 
-	const { data } = galleryApiSlice.useFindGalleryQuery({
+	const gallery = useGallery(galleryRefType);
+	const { data } = gallery.find({
 		params: findGalleryParamsDto
 	});
 

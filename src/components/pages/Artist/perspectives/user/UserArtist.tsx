@@ -6,8 +6,9 @@ import ArtistPageHeader from '../../Artist.header';
 import SubHeader from '../../components/SubHeader';
 import ActionButtons from './components/ActionButtons';
 import ArtistTags from './components/ArtistTags';
+import EventsSection from './components/EventsSection';
+import ExternalUrlsSection from './components/ExternalUrlsSection';
 import GallerySection from './components/GallerySection';
-import GoToSpotifyButton from './components/GoToSpotifyButton';
 import RelatedArtists from './components/RelatedArtists';
 import useUserArtistPage from './useUserArtistPage';
 
@@ -37,8 +38,9 @@ const UserArtist: React.FC<UserArtistProps> = ({ artist_uid }) => {
 					<SubHeader artistData={artistData} />
 					<ActionButtons artistData={artistData} />
 					<ArtistTags artistData={artistData} />
-					<GoToSpotifyButton artistData={artistData} />
 				</View>
+				<EventsSection artistData={artistData} />
+				<ExternalUrlsSection artistData={artistData} />
 				<GallerySection artistData={artistData} />
 				<RelatedArtists artist_uid={artist_uid} />
 			</Parallax>

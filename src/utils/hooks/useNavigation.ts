@@ -1,4 +1,5 @@
 import { FindGalleryParamsDto } from '@flux/api/gallery/dto/gallery-find.dto';
+import { GalleryRefType } from '@flux/api/gallery/types';
 import { useNavigation as useRNNavigation } from '@react-navigation/native';
 import { CompositeScreenNavigationProp, NanoId } from '@types';
 import {
@@ -70,12 +71,18 @@ interface IUseNavigation {
 	viewGalleryPage: (
 		transitionTagId: string,
 		pressIndex: number,
-		findGalleryParamsDto: FindGalleryParamsDto
+		findGalleryParamsDto: FindGalleryParamsDto,
+		galleryRefType: GalleryRefType
 	) => void;
 
 	chooseScenePage: () => void;
 
 	chooseEventLocationPage: (event_uid: NanoId) => void;
+
+	artistEventPage: (
+		event_uid: NanoId,
+		navigationMeta: NavigationBehaviorMetadata
+	) => void;
 
 	/** General */
 	back: () => void;
@@ -232,12 +239,14 @@ const useNavigation = (): IUseNavigation => {
 	const viewGalleryPage = (
 		transitionTagId: string,
 		pressIndex: number,
-		findGalleryParamsDto: FindGalleryParamsDto
+		findGalleryParamsDto: FindGalleryParamsDto,
+		galleryRefType: GalleryRefType
 	) => {
 		navigation.navigate('ViewGalleryPage', {
 			transitionTagId,
 			pressIndex,
-			findGalleryParamsDto
+			findGalleryParamsDto,
+			galleryRefType
 		});
 	};
 
@@ -247,6 +256,14 @@ const useNavigation = (): IUseNavigation => {
 
 	const chooseEventLocationPage = (event_uid: NanoId) => {
 		navigation.navigate('ChooseEventLocationPage', { event_uid });
+	};
+
+	const artistEventPage = (
+		event_uid: NanoId,
+		navigationMeta: NavigationBehaviorMetadata
+	) => {
+		navigation.push('ArtistEventPage', { event_uid });
+		navigationBehavior(navigationMeta);
 	};
 
 	/**
@@ -277,6 +294,7 @@ const useNavigation = (): IUseNavigation => {
 		viewGalleryPage,
 		chooseScenePage,
 		chooseEventLocationPage,
+		artistEventPage,
 		back
 	};
 };
