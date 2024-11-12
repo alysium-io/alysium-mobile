@@ -30,7 +30,8 @@ export const serviceApi = createApi({
 		'ArtistTagLink',
 		'ArtistGallery',
 		'ArtistEventGallery',
-		'ArtistEvent'
+		'ArtistEvent',
+		'PublicArtistEvent'
 	],
 	endpoints: () => ({})
 });

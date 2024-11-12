@@ -43,6 +43,7 @@ type EditVenuePage = { venue_uid: NanoId };
 
 type EventPage = { event_uid: NanoId };
 type ArtistEventPage = { event_uid: NanoId };
+type ArtistEventsPage = { artist_uid: NanoId };
 
 type EditContractPage = { contract_uid: NanoId };
 
@@ -102,7 +103,8 @@ export type RouteNames =
 	| 'ViewGalleryPage'
 	| 'ChooseScenePage'
 	| 'ChooseEventLocationPage'
-	| 'ArtistEventPage';
+	| 'ArtistEventPage'
+	| 'ArtistEventsPage';
 
 /**
  * Stack Navigators
@@ -137,6 +139,7 @@ export type SearchStackNavigatorParamList = {
 	ViewGalleryPage: ViewGalleryPage;
 
 	ArtistEventPage: ArtistEventPage;
+	ArtistEventsPage: ArtistEventsPage;
 };
 
 export type ProfileStackNavigatorParamList = {
@@ -270,6 +273,10 @@ export type TagFollowersPageRouteProp = RouteProp<
 export type ArtistEventPageRouteProp = RouteProp<
 	CompositeStackNavigatorParamList,
 	'ArtistEventPage'
+>;
+export type ArtistEventsPageRouteProp = RouteProp<
+	CompositeStackNavigatorParamList,
+	'ArtistEventsPage'
 >;
 
 /**

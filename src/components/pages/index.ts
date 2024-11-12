@@ -1,5 +1,6 @@
 export * from './Artist';
 export * from './ArtistEvent';
+export * from './ArtistEvents';
 export * from './ArtistViewContract';
 export * from './ChooseEventLocation';
 export * from './ChooseScene';

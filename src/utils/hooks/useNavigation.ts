@@ -84,6 +84,11 @@ interface IUseNavigation {
 		navigationMeta: NavigationBehaviorMetadata
 	) => void;
 
+	artistEventsPage: (
+		artist_uid: NanoId,
+		navigationMeta: NavigationBehaviorMetadata
+	) => void;
+
 	/** General */
 	back: () => void;
 }
@@ -266,6 +271,14 @@ const useNavigation = (): IUseNavigation => {
 		navigationBehavior(navigationMeta);
 	};
 
+	const artistEventsPage = (
+		artist_uid: NanoId,
+		navigationMeta: NavigationBehaviorMetadata
+	) => {
+		navigation.push('ArtistEventsPage', { artist_uid });
+		navigationBehavior(navigationMeta);
+	};
+
 	/**
 	 * General
 	 */
@@ -295,6 +308,7 @@ const useNavigation = (): IUseNavigation => {
 		chooseScenePage,
 		chooseEventLocationPage,
 		artistEventPage,
+		artistEventsPage,
 		back
 	};
 };

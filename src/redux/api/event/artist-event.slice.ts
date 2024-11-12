@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { rtkBaseUrl, serviceApi } from '../base';
 import {
 	CreateArtistEventBodyDto,
@@ -10,6 +11,7 @@ import {
 } from './dto/artist-event-delete.dto';
 import {
 	FindAllArtistEventsParamsDto,
+	FindAllArtistEventsQueryDto,
 	FindAllArtistEventsResponseDto
 } from './dto/artist-event-find-all.dto';
 import {
@@ -45,14 +47,61 @@ export default serviceApi.injectEndpoints({
 		}),
 		privateFindAllArtistEvents: builder.query<
 			FindAllArtistEventsResponseDto,
-			{ params: FindAllArtistEventsParamsDto }
+			{
+				params: FindAllArtistEventsParamsDto;
+				query: FindAllArtistEventsQueryDto;
+			}
 		>({
-			query: ({ params }) => ({
+			query: ({ params, query }) => ({
 				url: url(`/${params.artist_uid}`),
-				method: 'GET'
+				method: 'GET',
+				params: query
 			}),
+			serializeQueryArgs: ({ endpointName, queryArgs: { params } }) => ({
+				endpointName,
+				artist_uid: params.artist_uid
+			}),
+			merge: (currentCache, newItems) => {
+				return _.unionBy(
+					currentCache,
+					newItems,
+					(item) => item.event.event_uid
+				);
+			},
+			forceRefetch({ currentArg, previousArg }) {
+				return !_.isEqual(currentArg, previousArg);
+			},
 			providesTags: (results) =>
 				results ? [{ type: 'ArtistEvent', id: 'LIST' }] : []
+		}),
+		publicFindAllArtistEvents: builder.query<
+			FindAllArtistEventsResponseDto,
+			{
+				params: FindAllArtistEventsParamsDto;
+				query: FindAllArtistEventsQueryDto;
+			}
+		>({
+			query: ({ params, query }) => ({
+				url: url(`/${params.artist_uid}/public`),
+				method: 'GET',
+				params: query
+			}),
+			serializeQueryArgs: ({ endpointName, queryArgs: { params } }) => ({
+				endpointName,
+				artist_uid: params.artist_uid
+			}),
+			merge: (currentCache, newItems) => {
+				return _.unionBy(
+					currentCache,
+					newItems,
+					(item) => item.event.event_uid
+				);
+			},
+			forceRefetch({ currentArg, previousArg }) {
+				return !_.isEqual(currentArg, previousArg);
+			},
+			providesTags: (results) =>
+				results ? [{ type: 'PublicArtistEvent', id: 'LIST' }] : []
 		}),
 		createArtistEvent: builder.mutation<
 			CreateArtistEventResponseDto,

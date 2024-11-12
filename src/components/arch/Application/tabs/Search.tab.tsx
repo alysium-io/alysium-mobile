@@ -1,5 +1,6 @@
 import {
 	ArtistEventPage,
+	ArtistEventsPage,
 	ArtistPage,
 	HostPage,
 	LocationPage,
@@ -55,6 +56,10 @@ const SearchTab = () => {
 			/>
 
 			<SearchStack.Screen name='ArtistEventPage' component={ArtistEventPage} />
+			<SearchStack.Screen
+				name='ArtistEventsPage'
+				component={ArtistEventsPage}
+			/>
 		</SearchStack.Navigator>
 	);
 };

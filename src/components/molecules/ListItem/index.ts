@@ -6,3 +6,4 @@ export { default as ContentListItemWithRank } from './ContentListItemWithRank';
 export { default as ListItemWithRadio } from './ListItemWithRadio';
 export { default as MenuListItem } from './MenuListItem';
 export { default as MenuListItemWithButton } from './MenuListItemWithButton';
+export { default as SeeAllBottomButton } from './SeeAllBottomButton';

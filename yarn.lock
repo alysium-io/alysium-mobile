@@ -3599,7 +3599,7 @@ __metadata:
     react-native-maps: "npm:^1.18.2"
     react-native-masked-text: "npm:^1.13.0"
     react-native-permissions: "npm:^4.0.0"
-    react-native-reanimated: "npm:^3.12.1"
+    react-native-reanimated: "npm:^3.16.1"
     react-native-safe-area-context: "npm:^4.7.1"
     react-native-screens: "npm:^3.32.0"
     react-native-skeleton-placeholder: "npm:^5.2.4"
@@ -9198,9 +9198,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-reanimated@npm:^3.12.1":
-  version: 3.15.1
-  resolution: "react-native-reanimated@npm:3.15.1"
+"react-native-reanimated@npm:^3.16.1":
+  version: 3.16.1
+  resolution: "react-native-reanimated@npm:3.16.1"
   dependencies:
     "@babel/plugin-transform-arrow-functions": "npm:^7.0.0-0"
     "@babel/plugin-transform-class-properties": "npm:^7.0.0-0"
@@ -9217,7 +9217,7 @@ __metadata:
     "@babel/core": ^7.0.0-0
     react: "*"
     react-native: "*"
-  checksum: 10c0/d402ecc602617093cf464d315aa4c0a3e42431a9c41d027f2f2f276ec44801c668dd5c64925de8c1cd5db478908a5a62d186684c2373a27053afe47d7002fe06
+  checksum: 10c0/18202fce7e96d7cd0dbab2f8938ddf89efa6687e5f17c43ba6548de5563efb270b7b8d7507598be706d5d53224bb12fcfcd70150d15ca5d9fd46cb2c54751d59
   languageName: node
   linkType: hard
 
