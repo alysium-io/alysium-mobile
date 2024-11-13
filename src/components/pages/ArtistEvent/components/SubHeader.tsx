@@ -3,6 +3,7 @@ import { FindOneEventResponseDto } from '@flux/api/event/dto/event-find-one.dto'
 import { useDate, useLocation } from '@hooks';
 import day from 'dayjs';
 import React from 'react';
+import { Else, If, Then } from 'react-if';
 import { TouchableOpacity } from 'react-native';
 
 interface SubHeaderProps {
@@ -35,51 +36,67 @@ const SubHeader: React.FC<SubHeaderProps> = ({ eventData }) => {
 		<Section marginBottom='s'>
 			<View flexDirection='row' justifyContent='space-between' marginBottom='m'>
 				<View flex={1}>
-					<Text variant='paragraph-medium' marginBottom='xs'>
-						{day(eventData.event.start_time).format('ddd. MMM D')}
-					</Text>
-					<Text variant='paragraph-small' color='text.t' marginBottom='xs'>
-						{day(eventData.event.start_time).format('h:mma')}
-						{eventData.event.end_time &&
-							day(eventData.event.end_time).format(' - h:mma')}
-					</Text>
-					<Text variant='paragraph-small' color='text.t'>
-						{semanticDate}
-					</Text>
+					<If condition={eventData.event.start_time}>
+						<Then>
+							<Text variant='paragraph-medium' marginBottom='xs'>
+								{day(eventData.event.start_time).format('ddd. MMM D')}
+							</Text>
+							<Text variant='paragraph-small' color='text.t' marginBottom='xs'>
+								{day(eventData.event.start_time).format('h:mma')}
+								{eventData.event.end_time &&
+									day(eventData.event.end_time).format(' - h:mma')}
+							</Text>
+							<Text variant='paragraph-small' color='text.t'>
+								{semanticDate}
+							</Text>
+						</Then>
+						<Else>
+							<Text variant='paragraph-medium' marginBottom='xs'>
+								Unknown Date
+							</Text>
+						</Else>
+					</If>
 				</View>
 				<View flex={1}>
-					{locationApi.hasLocation ? (
-						<TouchableOpacity onPress={onPressLocation} activeOpacity={0.5}>
-							<View>
-								<Text
-									variant='paragraph-medium'
-									marginBottom='xs'
-									textAlign='right'
-								>
-									{address}
-								</Text>
-								<Text
-									variant='paragraph-small'
-									color='text.t'
-									marginBottom='xs'
-									textAlign='right'
-								>
-									{locality}
-								</Text>
-								<Text
-									variant='paragraph-small'
-									color='text.t'
-									textAlign='right'
-								>
-									{country}
-								</Text>
-							</View>
-						</TouchableOpacity>
-					) : (
-						<Text variant='paragraph-medium' marginBottom='xs'>
-							No Location
-						</Text>
-					)}
+					<If condition={locationApi.hasLocation}>
+						<Then>
+							<TouchableOpacity onPress={onPressLocation} activeOpacity={0.5}>
+								<View>
+									<Text
+										variant='paragraph-medium'
+										marginBottom='xs'
+										textAlign='right'
+									>
+										{address}
+									</Text>
+									<Text
+										variant='paragraph-small'
+										color='text.t'
+										marginBottom='xs'
+										textAlign='right'
+									>
+										{locality}
+									</Text>
+									<Text
+										variant='paragraph-small'
+										color='text.t'
+										textAlign='right'
+									>
+										{country}
+									</Text>
+								</View>
+							</TouchableOpacity>
+						</Then>
+						<Else>
+							<Text
+								variant='paragraph-medium'
+								marginBottom='xs'
+								textAlign='right'
+							>
+								No Location
+							</Text>
+						</Else>
+					</If>
 				</View>
 			</View>
 			<View width='75%'>

@@ -12,6 +12,10 @@ const LocationSection: React.FC<LocationSectionProps> = ({ eventData }) => {
 	const locationApi = useLocation(eventData.event.location);
 	const onPressLocation = () => locationApi.openMap(eventData.event.name);
 
+	if (eventData.event.location === null) {
+		return null;
+	}
+
 	return (
 		<TouchableOpacity onPress={onPressLocation} activeOpacity={0.9}>
 			<Location
