@@ -30,8 +30,6 @@ type ArtistFollowersAndShowsPage = {
 type TagPage = { tag_uid: NanoId };
 type TagFollowersPage = { tag_uid: NanoId };
 
-type LocationPage = { location_uid: NanoId };
-
 type ProfilePage = undefined;
 
 type EventManagerPage = undefined;
@@ -76,6 +74,8 @@ type ViewGalleryPage = {
 	galleryRefType: GalleryRefType;
 };
 
+type ScenePage = { scene_uid: NanoId };
+
 export type RouteNames =
 	| 'SearchPage'
 	| 'HostPage'
@@ -84,7 +84,6 @@ export type RouteNames =
 	| 'ArtistFollowersAndShowsPage'
 	| 'TagPage'
 	| 'TagFollowersPage'
-	| 'LocationPage'
 	| 'ProfilePage'
 	| 'EventManagerPage'
 	| 'EditArtistEventPage'
@@ -104,7 +103,8 @@ export type RouteNames =
 	| 'ChooseScenePage'
 	| 'ChooseEventLocationPage'
 	| 'ArtistEventPage'
-	| 'ArtistEventsPage';
+	| 'ArtistEventsPage'
+	| 'ScenePage';
 
 /**
  * Stack Navigators
@@ -129,8 +129,6 @@ export type SearchStackNavigatorParamList = {
 	TagPage: TagPage;
 	TagFollowersPage: TagFollowersPage;
 
-	LocationPage: LocationPage;
-
 	UserArtistsFollowingPage: UserArtistsFollowingPage;
 	UserTagsFollowingPage: UserTagsFollowingPage;
 
@@ -140,6 +138,8 @@ export type SearchStackNavigatorParamList = {
 
 	ArtistEventPage: ArtistEventPage;
 	ArtistEventsPage: ArtistEventsPage;
+
+	ScenePage: ScenePage;
 };
 
 export type ProfileStackNavigatorParamList = {
@@ -171,6 +171,7 @@ export type EditArtistStackNavigatorParamList = {
 	ChooseScenePage: ChooseScenePage;
 	ArtistPage: ArtistPage;
 	ChooseEventLocationPage: ChooseEventLocationPage;
+	ScenePage: ScenePage;
 };
 
 /**
@@ -277,6 +278,10 @@ export type ArtistEventPageRouteProp = RouteProp<
 export type ArtistEventsPageRouteProp = RouteProp<
 	CompositeStackNavigatorParamList,
 	'ArtistEventsPage'
+>;
+export type ScenePageRouteProp = RouteProp<
+	CompositeStackNavigatorParamList,
+	'ScenePage'
 >;
 
 /**

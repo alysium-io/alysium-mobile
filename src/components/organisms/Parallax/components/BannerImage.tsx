@@ -1,30 +1,31 @@
 import { Icon, Image, View } from '@atomic';
-import { useTheme } from '@hooks';
+import { useImage } from '@hooks';
 import { IconNames } from '@svg';
 import React from 'react';
+import { Case, Default, Switch } from 'react-if';
 import { StyleSheet } from 'react-native';
 import {
 	interpolate,
 	SharedValue,
 	useAnimatedStyle
 } from 'react-native-reanimated';
-import { useEnvContext } from 'src/utils/contexts';
 
 interface BannerImageProps {
 	image?: string;
 	defaultIcon?: IconNames;
 	scrollY: SharedValue<number>;
 	bannerImageHeight: number;
+	CustomBackground?: React.FC;
 }
 
 const BannerImage: React.FC<BannerImageProps> = ({
 	image,
 	defaultIcon = 'artist',
 	scrollY,
-	bannerImageHeight
+	bannerImageHeight,
+	CustomBackground
 }) => {
-	const { env } = useEnvContext();
-	const { theme } = useTheme();
+	const { urlForKey } = useImage();
 
 	const animatedContainerStyle = useAnimatedStyle(() => {
 		return {
@@ -53,22 +54,26 @@ const BannerImage: React.FC<BannerImageProps> = ({
 			style={[animatedContainerStyle, { width: '100%' }]}
 		>
 			<View height='100%' animated style={animatedImageStyle}>
-				{image ? (
-					<Image
-						source={{ uri: env.imagesBaseUrl + image }}
-						style={styles.image}
-					/>
-				) : (
-					<View
-						height='100%'
-						width='100%'
-						backgroundColor='bg.light'
-						justifyContent='center'
-						alignItems='center'
-					>
-						<Icon name={defaultIcon} size='xl' color='text.s' />
-					</View>
-				)}
+				<Switch>
+					<Case condition={CustomBackground !== undefined}>
+						{/** react-if does not catch type check for undefined values YAY! */}
+						{CustomBackground && <CustomBackground />}
+					</Case>
+					<Case condition={image}>
+						<Image source={{ uri: urlForKey(image) }} style={styles.image} />
+					</Case>
+					<Default>
+						<View
+							height='100%'
+							width='100%'
+							backgroundColor='bg.light'
+							justifyContent='center'
+							alignItems='center'
+						>
+							<Icon name={defaultIcon} size='xl' color='text.s' />
+						</View>
+					</Default>
+				</Switch>
 			</View>
 		</View>
 	);

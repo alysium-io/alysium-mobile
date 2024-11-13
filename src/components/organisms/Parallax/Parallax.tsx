@@ -14,12 +14,14 @@ interface ParallaxProps {
 		'scrollY' | 'bannerImageHeight'
 	>;
 	bannerTitleProps: React.ComponentProps<typeof BannerTitle>;
+	CustomBackground?: React.FC;
 }
 
 const Parallax: React.FC<ParallaxProps> = ({
 	children,
 	bannerImageProps,
-	bannerTitleProps
+	bannerTitleProps,
+	CustomBackground
 }) => {
 	const { theme } = useTheme();
 	const { scrollY, scrollEvent } = useScrollView();
@@ -34,6 +36,7 @@ const Parallax: React.FC<ParallaxProps> = ({
 			<BannerImage
 				scrollY={scrollY}
 				bannerImageHeight={bannerImageHeight}
+				CustomBackground={CustomBackground}
 				{...bannerImageProps}
 			/>
 			<ScrollView
@@ -45,7 +48,11 @@ const Parallax: React.FC<ParallaxProps> = ({
 				<View animated height={bannerImageHeight} style={animatedTitleStyles}>
 					<BannerTitle
 						{...bannerTitleProps}
-						showGradient={bannerImageProps.image !== undefined}
+						showGradient={
+							bannerTitleProps.showGradient !== undefined
+								? bannerTitleProps.showGradient
+								: bannerImageProps.image !== undefined
+						}
 					/>
 				</View>
 				<View

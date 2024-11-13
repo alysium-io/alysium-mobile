@@ -4,20 +4,28 @@ import {
 	ArtistJoinSceneResponseDto
 } from './dto/artist-join-scene.dto';
 import {
+	FindOneSceneByPlaceParamsDto,
+	FindOneSceneByPlaceResponseDto
+} from './dto/find-one-scene-by-place.dto';
+import {
 	FindOneSceneParamsDto,
 	FindOneSceneResponseDto
 } from './dto/find-one-scene.dto';
+import {
+	FindSceneArtistsParamsDto,
+	FindSceneArtistsResponseDto
+} from './dto/find-scene-artists.dto';
 
 const url = rtkBaseUrl('scene');
 
 export default serviceApi.injectEndpoints({
 	endpoints: (builder) => ({
-		findOneScene: builder.query<
-			FindOneSceneResponseDto,
-			{ params: FindOneSceneParamsDto }
+		findOneSceneByPlace: builder.query<
+			FindOneSceneByPlaceResponseDto,
+			{ params: FindOneSceneByPlaceParamsDto }
 		>({
 			query: ({ params }) => ({
-				url: url(`/${params.place_id}`),
+				url: url(`/place/${params.place_id}`),
 				method: 'GET'
 			})
 		}),
@@ -33,6 +41,24 @@ export default serviceApi.injectEndpoints({
 			invalidatesTags: (results, error, { body }) => [
 				{ type: 'PrivateArtist', id: 'CURRENT' }
 			]
+		}),
+		findOneScene: builder.query<
+			FindOneSceneResponseDto,
+			{ params: FindOneSceneParamsDto }
+		>({
+			query: ({ params }) => ({
+				url: url(`/${params.scene_uid}`),
+				method: 'GET'
+			})
+		}),
+		findSceneArtists: builder.query<
+			FindSceneArtistsResponseDto,
+			{ params: FindSceneArtistsParamsDto }
+		>({
+			query: ({ params }) => ({
+				url: url(`/${params.scene_uid}/artists`),
+				method: 'GET'
+			})
 		})
 	})
 });

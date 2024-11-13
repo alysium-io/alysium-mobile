@@ -21,10 +21,6 @@ interface IUseNavigation {
 		tag_uid: NanoId,
 		navigationMeta: NavigationBehaviorMetadata
 	) => void;
-	locationPage: (
-		location_uid: NanoId,
-		navigationMeta: NavigationBehaviorMetadata
-	) => void;
 	profilePage: (navigationMeta: NavigationBehaviorMetadata) => void;
 	eventPage: (
 		event_uid: NanoId,
@@ -89,6 +85,11 @@ interface IUseNavigation {
 		navigationMeta: NavigationBehaviorMetadata
 	) => void;
 
+	scenePage: (
+		scene_uid: NanoId,
+		navigationMeta: NavigationBehaviorMetadata
+	) => void;
+
 	/** General */
 	back: () => void;
 }
@@ -121,14 +122,6 @@ const useNavigation = (): IUseNavigation => {
 		navigationMeta: NavigationBehaviorMetadata
 	) => {
 		navigation.push('TagPage', { tag_uid });
-		navigationBehavior(navigationMeta);
-	};
-
-	const locationPage = (
-		location_uid: NanoId,
-		navigationMeta: NavigationBehaviorMetadata
-	) => {
-		navigation.push('LocationPage', { location_uid });
 		navigationBehavior(navigationMeta);
 	};
 
@@ -279,6 +272,14 @@ const useNavigation = (): IUseNavigation => {
 		navigationBehavior(navigationMeta);
 	};
 
+	const scenePage = (
+		scene_uid: NanoId,
+		navigationMeta: NavigationBehaviorMetadata
+	) => {
+		navigation.push('ScenePage', { scene_uid });
+		navigationBehavior(navigationMeta);
+	};
+
 	/**
 	 * General
 	 */
@@ -288,7 +289,6 @@ const useNavigation = (): IUseNavigation => {
 		hostPage,
 		artistPage,
 		tagPage,
-		locationPage,
 		profilePage,
 		eventPage,
 		eventCandidatesPage,
@@ -309,6 +309,7 @@ const useNavigation = (): IUseNavigation => {
 		chooseEventLocationPage,
 		artistEventPage,
 		artistEventsPage,
+		scenePage,
 		back
 	};
 };

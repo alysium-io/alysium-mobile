@@ -3,7 +3,7 @@ import {
 	ArtistEventsPage,
 	ArtistPage,
 	HostPage,
-	LocationPage,
+	ScenePage,
 	SearchPage,
 	TagPage,
 	TopTagsPage,
@@ -32,8 +32,6 @@ const SearchTab = () => {
 
 			<SearchStack.Screen name='TagPage' component={TagPage} />
 
-			<SearchStack.Screen name='LocationPage' component={LocationPage} />
-
 			<SearchStack.Screen
 				name='UserArtistsFollowingPage'
 				component={UserArtistsFollowingPage}
@@ -60,6 +58,8 @@ const SearchTab = () => {
 				name='ArtistEventsPage'
 				component={ArtistEventsPage}
 			/>
+
+			<SearchStack.Screen name='ScenePage' component={ScenePage} />
 		</SearchStack.Navigator>
 	);
 };

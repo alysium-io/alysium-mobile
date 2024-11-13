@@ -27,7 +27,7 @@ const JoinScenePreviewBottomSheet: React.FC<
 	const { artistData } = useArtistAppContext();
 
 	const [artistJoinSceneMutation] = sceneApiSlice.useArtistJoinSceneMutation();
-	const { data, isLoading } = sceneApiSlice.useFindOneSceneQuery(
+	const { data, isLoading } = sceneApiSlice.useFindOneSceneByPlaceQuery(
 		{
 			params: {
 				place_id: googleMapsAutocompleteResult?.place_id || ''

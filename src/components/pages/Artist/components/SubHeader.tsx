@@ -1,8 +1,10 @@
 import { Section, Text, View } from '@atomic';
 import { Formatting } from '@etc';
 import { PublicFindOneArtistResponseDto } from '@flux/api/artist/dto/artist-find-one.dto';
+import { useNavigation } from '@hooks';
 import { Stats } from '@organisms';
 import React from 'react';
+import { Else, If, Then } from 'react-if';
 import { TouchableOpacity } from 'react-native';
 
 interface SubHeaderProps {
@@ -10,6 +12,19 @@ interface SubHeaderProps {
 }
 
 const SubHeader: React.FC<SubHeaderProps> = ({ artistData }) => {
+	const { scenePage } = useNavigation();
+	const onPressScene = () => {
+		if (artistData?.scene) {
+			scenePage(artistData.scene.scene.scene_uid, {
+				to: 'ScenePage',
+				to_uid: artistData.scene.scene.scene_uid,
+				from: 'ArtistPage',
+				from_uid: artistData.artist_uid,
+				using: 'ARTIST_SCENE_LINK'
+			});
+		}
+	};
+
 	return (
 		<Section marginBottom='s'>
 			<View
@@ -19,22 +34,25 @@ const SubHeader: React.FC<SubHeaderProps> = ({ artistData }) => {
 				marginBottom='m'
 			>
 				<View>
-					{artistData?.scene ? (
-						<TouchableOpacity>
-							<View>
-								<Text variant='paragraph-medium' marginBottom='xs'>
-									{artistData.scene?.scene.name}
-								</Text>
-								<Text variant='paragraph-small' color='text.t'>
-									{artistData.scene?.scene.country}
-								</Text>
-							</View>
-						</TouchableOpacity>
-					) : (
-						<Text variant='paragraph-medium' marginBottom='xs'>
-							No Location
-						</Text>
-					)}
+					<If condition={!!artistData?.scene}>
+						<Then>
+							<TouchableOpacity onPress={onPressScene}>
+								<View>
+									<Text variant='paragraph-medium' marginBottom='xs'>
+										{artistData.scene?.scene.name}
+									</Text>
+									<Text variant='paragraph-small' color='text.t'>
+										{artistData.scene?.scene.country}
+									</Text>
+								</View>
+							</TouchableOpacity>
+						</Then>
+						<Else>
+							<Text variant='paragraph-medium' marginBottom='xs'>
+								No Location
+							</Text>
+						</Else>
+					</If>
 				</View>
 				<Stats
 					items={[

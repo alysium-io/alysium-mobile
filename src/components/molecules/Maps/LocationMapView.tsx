@@ -1,22 +1,23 @@
 import { Location } from '@flux/api/location';
 import React, { useEffect, useRef } from 'react';
-import { StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
 import MapView, { Circle, Marker, Region } from 'react-native-maps';
 
 interface LocationMapProps {
 	location: Location;
 	zoomDelta?: number;
+	boundaryViewportRatio?: number;
 }
 
 const LocationMapView: React.FC<LocationMapProps> = ({
 	location,
-	zoomDelta = 0.005
+	zoomDelta,
+	boundaryViewportRatio = 0.3
 }) => {
 	const mapRef = useRef<MapView>(null);
 
-	// Calculate the radius from polygon coordinates if boundary exists
-	const calculateAverageRadiusFromBoundary = () => {
-		// Check if boundary coordinates exist
+	// Calculate the maximum radius from polygon coordinates if boundary exists
+	const calculateMaxRadiusFromBoundary = () => {
 		if (!location.boundary?.coordinates?.[0]) {
 			return 0;
 		}
@@ -62,31 +63,64 @@ const LocationMapView: React.FC<LocationMapProps> = ({
 			return earthRadiusInMeters * haversineTermC;
 		});
 
-		// Calculate and return the average radius
-		const totalDistance = distancesToBoundary.reduce(
-			(sum, distance) => sum + distance,
-			0
-		);
-		return totalDistance / distancesToBoundary.length;
+		// Return the maximum radius instead of average
+		return Math.max(...distancesToBoundary);
+	};
+
+	// Calculate appropriate zoom delta based on boundary radius and screen size
+	const calculateDynamicZoomDelta = () => {
+		const radius = calculateMaxRadiusFromBoundary();
+		if (radius === 0) return 0.005; // fallback to default zoom
+
+		// Get screen dimensions
+		const { width, height } = Dimensions.get('window');
+		const screenSmallestDimension = Math.min(width, height);
+
+		// Convert radius to degrees (approximate)
+		// At the equator, 1 degree is approximately 111,320 meters
+		const radiusInDegrees = radius / 111320;
+
+		// Calculate zoom delta to make the boundary occupy desired ratio of screen
+		// Using a larger multiplier (4.0) to ensure the entire area is visible
+		const calculatedDelta = (radiusInDegrees * 4.0) / boundaryViewportRatio;
+
+		// Adjust minimum and maximum bounds for zoom
+		const minDelta = 0.01; // Less zoomed in minimum
+		const maxDelta = 0.5; // Allow more zoom out for large areas
+
+		return Math.min(Math.max(calculatedDelta, minDelta), maxDelta);
 	};
 
 	// Calculate region based on location or viewport
 	const getRegion = (): Region => {
+		const dynamicZoomDelta = zoomDelta ?? calculateDynamicZoomDelta();
+
 		if (location.viewport) {
 			const { northeast, southwest } = location.viewport;
+			// Calculate the center
+			const centerLat = (northeast.lat + southwest.lat) / 2;
+			const centerLng = (northeast.lng + southwest.lng) / 2;
+
+			// Calculate the deltas from the viewport
+			const latDelta = Math.abs(northeast.lat - southwest.lat);
+			const lngDelta = Math.abs(northeast.lng - southwest.lng);
+
+			// Use the larger of the calculated delta or our dynamic delta
+			const finalDelta = Math.max(latDelta, lngDelta, dynamicZoomDelta);
+
 			return {
-				latitude: (northeast.lat + southwest.lat) / 2,
-				longitude: (northeast.lng + southwest.lng) / 2,
-				latitudeDelta: zoomDelta,
-				longitudeDelta: zoomDelta
+				latitude: centerLat,
+				longitude: centerLng,
+				latitudeDelta: finalDelta,
+				longitudeDelta: finalDelta
 			};
 		}
 
 		return {
 			latitude: Number(location.latitude),
 			longitude: Number(location.longitude),
-			latitudeDelta: zoomDelta,
-			longitudeDelta: zoomDelta
+			latitudeDelta: dynamicZoomDelta,
+			longitudeDelta: dynamicZoomDelta
 		};
 	};
 
@@ -94,9 +128,9 @@ const LocationMapView: React.FC<LocationMapProps> = ({
 	useEffect(() => {
 		const region = getRegion();
 		mapRef.current?.animateToRegion(region, 500);
-	}, [location.latitude, location.longitude, location.viewport]);
+	}, [location.latitude, location.longitude, location.viewport, zoomDelta]);
 
-	const radius = calculateAverageRadiusFromBoundary();
+	const radius = calculateMaxRadiusFromBoundary();
 
 	return (
 		<MapView
