@@ -1,6 +1,6 @@
 import { Icon, View } from '@atomic';
 import { Vibrator } from '@etc';
-import { SearchApi, SequenceApi } from '@hooks';
+import { SearchApi, SequenceApi, ToggleApi } from '@hooks';
 import { TabToggler } from '@molecules';
 import {
 	Header,
@@ -17,12 +17,14 @@ interface SearchPageHeaderProps {
 	activeSearchTypeSequenceApi: SequenceApi;
 	searchAnythingApi: SearchApi;
 	searchTagsApi: SearchApi;
+	searchActiveApi: ToggleApi;
 }
 
 const SearchPageHeader: React.FC<SearchPageHeaderProps> = ({
 	activeSearchTypeSequenceApi,
 	searchAnythingApi,
-	searchTagsApi
+	searchTagsApi,
+	searchActiveApi
 }) => {
 	const onPressTabToggler = (index: number) => {
 		Vibrator.notificationWarning();
@@ -31,7 +33,7 @@ const SearchPageHeader: React.FC<SearchPageHeaderProps> = ({
 
 	return (
 		<Header>
-			<If condition={searchAnythingApi.searchText}>
+			<If condition={searchActiveApi.state}>
 				<Then>
 					<View
 						margin='m'

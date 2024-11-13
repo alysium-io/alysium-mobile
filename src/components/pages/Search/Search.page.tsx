@@ -23,6 +23,7 @@ const SearchPage = () => {
 				activeSearchTypeSequenceApi={activeSearchTypeSequenceApi}
 				searchAnythingApi={searchAnythingApi}
 				searchTagsApi={searchTagsApi}
+				searchActiveApi={searchActiveApi}
 			/>
 			<LayoutAnimationConfig skipEntering>
 				<Switch>
