@@ -172,6 +172,7 @@ export type EditArtistStackNavigatorParamList = {
 	ArtistPage: ArtistPage;
 	ChooseEventLocationPage: ChooseEventLocationPage;
 	ScenePage: ScenePage;
+	ArtistEventsPage: ArtistEventsPage;
 };
 
 /**

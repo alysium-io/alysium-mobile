@@ -17,7 +17,7 @@ export default serviceApi.injectEndpoints({
 			{ body: AutocompleteAddressBodyDto }
 		>({
 			query: ({ body }) => ({
-				url: url(`/autocomplete-address`),
+				url: url(`/autocomplete-place`),
 				method: 'POST',
 				body
 			})

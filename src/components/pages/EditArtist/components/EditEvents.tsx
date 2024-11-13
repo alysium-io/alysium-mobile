@@ -1,19 +1,24 @@
 import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
 import { Section, Text } from '@atomic';
 import { artistEventApiSlice } from '@flux/api/event';
-import { useImage, useNavigation, useSheet } from '@hooks';
-import { ContentListItem } from '@molecules';
+import { useImage, useNavigation, usePagination, useSheet } from '@hooks';
+import { ContentListItem, SeeAllBottomButton } from '@molecules';
 import { CreateArtistEventBottomSheet } from '@popups';
 import React from 'react';
 
 const EditEvents = () => {
 	const createArtistEventBottomSheet = useSheet();
 	const { artistData } = useArtistAppContext();
-	const { editArtistEventPage } = useNavigation();
+	const { editArtistEventPage, artistEventsPage } = useNavigation();
 	const { urlForKey } = useImage();
+	const { page } = usePagination();
 	const { data } = artistEventApiSlice.usePrivateFindAllArtistEventsQuery({
 		params: {
 			artist_uid: artistData.artist_uid
+		},
+		query: {
+			page,
+			limit: 5
 		}
 	});
 
@@ -64,6 +69,17 @@ const EditEvents = () => {
 					}}
 				/>
 			))}
+			<SeeAllBottomButton
+				onPress={() =>
+					artistEventsPage(artistData.artist_uid, {
+						from: 'EditArtistPage',
+						from_uid: artistData.artist_uid,
+						to: 'ArtistEventsPage',
+						to_uid: artistData.artist_uid,
+						using: 'EDIT_ARTIST_PAGE_EVENTS_SECTION_SEE_ALL'
+					})
+				}
+			/>
 			<CreateArtistEventBottomSheet sheetApi={createArtistEventBottomSheet} />
 		</Section>
 	);

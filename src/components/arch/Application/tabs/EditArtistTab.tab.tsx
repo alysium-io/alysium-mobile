@@ -1,4 +1,5 @@
 import {
+	ArtistEventsPage,
 	ArtistPage,
 	ChooseEventLocationPage,
 	ChooseScenePage,
@@ -43,6 +44,11 @@ const EditArtistTab = () => {
 			<EditArtistStack.Screen
 				name='ChooseEventLocationPage'
 				component={ChooseEventLocationPage}
+			/>
+
+			<EditArtistStack.Screen
+				name='ArtistEventsPage'
+				component={ArtistEventsPage}
 			/>
 		</EditArtistStack.Navigator>
 	);
