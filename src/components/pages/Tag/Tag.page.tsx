@@ -50,7 +50,7 @@ const TagPage = () => {
 						titleTextProps={{
 							title: item.artist.name,
 							bottomSubtext: Formatting.formatNumFollowers(
-								item.artist.artist_spotify_data?.followers
+								item.artist.num_followers
 							)
 						}}
 						profileImageProps={{

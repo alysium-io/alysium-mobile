@@ -57,16 +57,14 @@ const SubHeader: React.FC<SubHeaderProps> = ({ artistData }) => {
 				<Stats
 					items={[
 						{
-							title: Formatting.abbreviateNumber(
-								artistData?.artist_spotify_data?.followers
-							),
+							title: Formatting.abbreviateNumber(artistData?.num_followers),
 							subtitle: Formatting.getNumFollowersSuffix(
 								artistData?.artist_spotify_data?.followers
 							)
 						},
 						{
-							title: '#' + artistData?.artist_rank.toLocaleString(),
-							subtitle: 'rank'
+							title: Formatting.abbreviateNumber(artistData?.num_events),
+							subtitle: 'events'
 						}
 					]}
 				/>

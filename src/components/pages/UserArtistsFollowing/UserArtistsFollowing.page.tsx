@@ -1,5 +1,4 @@
 import { Text } from '@atomic';
-import { Formatting } from '@etc';
 import { useNavigation } from '@hooks';
 import { ContentListItem } from '@molecules';
 import { BasePage } from '@organisms';
@@ -44,9 +43,7 @@ const UserArtistsFollowingPage = () => {
 						}
 						titleTextProps={{
 							title: item.artist.name,
-							bottomSubtext: Formatting.formatNumFollowers(
-								item.artist.artist_spotify_data?.followers
-							)
+							bottomSubtext: item.artist.scene?.scene?.name
 						}}
 						profileImageProps={{
 							image: item.artist.profile_image?.small.key,
