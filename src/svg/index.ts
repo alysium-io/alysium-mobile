@@ -72,6 +72,7 @@ import Threads from './Threads';
 import Ticket from './Ticket';
 import Tidal from './Tidal';
 import TikTok from './TikTok';
+import Trash from './Trash';
 import TwitterX from './TwitterX';
 import User from './User';
 import Vimeo from './Vimeo';
@@ -159,7 +160,8 @@ export const SvgIcons = {
 	filter: Filter,
 	rank: Rank,
 	play: Play,
-	pause: Pause
+	pause: Pause,
+	trash: Trash
 };
 
 export type IconNames = keyof typeof SvgIcons;

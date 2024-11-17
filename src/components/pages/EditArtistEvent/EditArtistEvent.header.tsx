@@ -9,10 +9,12 @@ import React from 'react';
 
 interface EditArtistEventPageHeaderProps {
 	title: string;
+	onPressMenu: () => void;
 }
 
 const EditArtistEventPageHeader: React.FC<EditArtistEventPageHeaderProps> = ({
-	title
+	title,
+	onPressMenu
 }) => {
 	const { back } = useNavigation();
 	return (
@@ -24,6 +26,9 @@ const EditArtistEventPageHeader: React.FC<EditArtistEventPageHeaderProps> = ({
 						title={title}
 						titleProps={{ variant: 'paragraph-small' }}
 					/>
+				}
+				RightComponent={
+					<HeaderIconButton onPress={onPressMenu} name='meatballs' />
 				}
 			/>
 		</Header>

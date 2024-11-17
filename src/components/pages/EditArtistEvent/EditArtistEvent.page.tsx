@@ -3,7 +3,10 @@ import { EventStatus } from '@flux/api/event/types';
 import { useKeyboard, useSheet } from '@hooks';
 import { ActionButtons } from '@molecules';
 import { BasePage } from '@organisms';
-import { ConfirmPublishEventBottomSheet } from '@popups';
+import {
+	ConfirmPublishEventBottomSheet,
+	EditArtistEventPopupMenuBottomSheet
+} from '@popups';
 import { useRoute } from '@react-navigation/native';
 import { EditArtistEventPageRouteProp } from '@types';
 import React, { useCallback } from 'react';
@@ -22,6 +25,7 @@ const EditArtistEventPage = () => {
 	const route = useRoute<EditArtistEventPageRouteProp>();
 	const { dismiss } = useKeyboard();
 	const confirmPublishEventSheetApi = useSheet();
+	const editArtistEventPopupMenuBottomSheet = useSheet();
 	const {
 		eventData,
 		isProfileImageLoading,
@@ -59,7 +63,10 @@ const EditArtistEventPage = () => {
 
 	return (
 		<BasePage FooterComponent={FooterComponent}>
-			<EditArtistEventPageHeader title={eventData.event.name} />
+			<EditArtistEventPageHeader
+				title={eventData.event.name}
+				onPressMenu={editArtistEventPopupMenuBottomSheet.open}
+			/>
 			<ScrollView onScrollBeginDrag={dismiss}>
 				<EditProfileImage
 					eventData={eventData}
@@ -79,6 +86,10 @@ const EditArtistEventPage = () => {
 				<EditLocation eventData={eventData} />
 				<EditGallery eventData={eventData} />
 			</ScrollView>
+			<EditArtistEventPopupMenuBottomSheet
+				sheetApi={editArtistEventPopupMenuBottomSheet}
+				event_uid={eventData.event.event_uid}
+			/>
 		</BasePage>
 	);
 };

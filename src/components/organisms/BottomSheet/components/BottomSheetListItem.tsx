@@ -1,51 +1,42 @@
-import { Icon, Text, View } from '@atomic';
+import { BgTouchAnimation, Icon, Text, View } from '@atomic';
 import { useTheme } from '@hooks';
 import { IconNames } from '@svg';
-import { ThemeMode } from '@types';
 import React from 'react';
-import { StyleSheet, TouchableWithoutFeedback } from 'react-native';
 
 interface BottomSheetListItemProps {
 	text: string;
 	icon?: IconNames;
+	textProps?: React.ComponentProps<typeof Text>;
+	iconProps?: Partial<React.ComponentProps<typeof Icon>>;
 	onPress: () => void;
-	border?: boolean;
 }
 
 const BottomSheetListItem: React.FC<BottomSheetListItemProps> = ({
 	text,
 	onPress,
 	icon,
-	border = true
+	textProps,
+	iconProps
 }) => {
-	const { theme, mode, getRawColor } = useTheme();
+	const { theme } = useTheme();
 
 	return (
-		<TouchableWithoutFeedback onPress={onPress}>
+		<BgTouchAnimation onPress={onPress}>
 			<View
-				style={[
-					styles.container,
-					border && {
-						borderBottomWidth: 0.3,
-						borderBottomColor:
-							mode === ThemeMode.dark ? getRawColor('bg3') : getRawColor('ion')
-					}
-				]}
+				borderColor='border.light'
+				borderBottomWidth={theme.borderWidth.normal}
+				flexDirection='row'
+				justifyContent='space-between'
+				alignItems='center'
 				padding='m'
 			>
-				<Text variant='paragraph-small-bold'>{text}</Text>
-				{icon && <Icon name={icon} size='s' color={theme.colors.t1} />}
+				<Text variant='paragraph-bold' {...textProps}>
+					{text}
+				</Text>
+				{icon && <Icon name={icon} size='m' color='text.p' {...iconProps} />}
 			</View>
-		</TouchableWithoutFeedback>
+		</BgTouchAnimation>
 	);
 };
-
-const styles = StyleSheet.create({
-	container: {
-		flexDirection: 'row',
-		justifyContent: 'space-between',
-		alignItems: 'center'
-	}
-});
 
 export default BottomSheetListItem;

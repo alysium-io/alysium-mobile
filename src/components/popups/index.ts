@@ -13,6 +13,7 @@ export * from './CreateHostBottomSheet';
 export * from './CreateTicketTypeBottomSheet';
 export * from './CreateVenueBottomSheet';
 export * from './Documents';
+export * from './EditArtistEventPopupMenuBottomSheet';
 export * from './EditTicketTypeOnOffSaleBottomSheet';
 export * from './EditUserProfileBottomSheet';
 export * from './JoinScenePreviewBottomSheet';

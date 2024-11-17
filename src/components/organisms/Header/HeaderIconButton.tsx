@@ -16,7 +16,7 @@ const HeaderIconButton: React.FC<HeaderIconButtonProps> = ({
 }) => {
 	return (
 		<TouchableWithoutFeedback onPress={onPress}>
-			<View>
+			<View padding='s'>
 				<Icon name={name} size={size} color={color} {...props} />
 			</View>
 		</TouchableWithoutFeedback>

@@ -12,15 +12,16 @@ const EditEvents = () => {
 	const { editArtistEventPage, artistEventsPage } = useNavigation();
 	const { urlForKey } = useImage();
 	const { page } = usePagination();
-	const { data } = artistEventApiSlice.usePrivateFindAllArtistEventsQuery({
-		params: {
-			artist_uid: artistData.artist_uid
-		},
-		query: {
-			page,
-			limit: 5
-		}
-	});
+	const { data, isFetching } =
+		artistEventApiSlice.usePrivateFindAllArtistEventsQuery({
+			params: {
+				artist_uid: artistData.artist_uid
+			},
+			query: {
+				page,
+				limit: 5
+			}
+		});
 
 	const onPressCreateEvent = () => {
 		createArtistEventBottomSheet.open();

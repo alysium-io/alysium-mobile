@@ -6,7 +6,6 @@ export * from './Gallery';
 export * from './Header';
 export * from './Histogram';
 export * from './Lineup';
-export * from './Lists';
 export * from './Parallax';
 export * from './PillList';
 export * from './SearchBar';

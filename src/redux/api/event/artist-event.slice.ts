@@ -31,7 +31,7 @@ import {
 
 const url = rtkBaseUrl('event/artist');
 
-export default serviceApi.injectEndpoints({
+const artistEventApiSlice = serviceApi.injectEndpoints({
 	endpoints: (builder) => ({
 		privateFindOneArtistEvent: builder.query<
 			FindOneArtistEventResponseDto,
@@ -71,8 +71,7 @@ export default serviceApi.injectEndpoints({
 			forceRefetch({ currentArg, previousArg }) {
 				return !_.isEqual(currentArg, previousArg);
 			},
-			providesTags: (results) =>
-				results ? [{ type: 'ArtistEvent', id: 'LIST' }] : []
+			providesTags: () => [{ type: 'ArtistEvent', id: 'LIST' }]
 		}),
 		publicFindAllArtistEvents: builder.query<
 			FindAllArtistEventsResponseDto,
@@ -122,7 +121,32 @@ export default serviceApi.injectEndpoints({
 				url: url(`/${params.artist_uid}/${params.event_uid}`),
 				method: 'DELETE'
 			}),
-			invalidatesTags: () => [{ type: 'ArtistEvent', id: 'LIST' }]
+			invalidatesTags: () => [{ type: 'ArtistEvent', id: 'LIST' }],
+			async onQueryStarted({ params }, { dispatch, queryFulfilled }) {
+				const patches = dispatch(
+					artistEventApiSlice.util.updateQueryData(
+						'privateFindAllArtistEvents',
+						{
+							params: { artist_uid: params.artist_uid },
+							query: { page: 1, limit: 10 }
+						},
+						(draft) => {
+							const index = draft.findIndex(
+								(event) => event.event.event_uid === params.event_uid
+							);
+							if (index !== -1) {
+								draft.splice(index, 1);
+							}
+						}
+					)
+				);
+
+				try {
+					await queryFulfilled;
+				} catch {
+					patches.undo();
+				}
+			}
 		}),
 		updateArtistEvent: builder.mutation<
 			UpdateArtistEventResponseDto,
@@ -159,3 +183,5 @@ export default serviceApi.injectEndpoints({
 		})
 	})
 });
+
+export default artistEventApiSlice;

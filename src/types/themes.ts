@@ -74,6 +74,12 @@ export type SemanticColors = {
 	'text.color.s.light': HexColor;
 	'text.color.s.medium': HexColor;
 	'text.color.s.heavy': HexColor;
+	'text.color.t.light': HexColor;
+	'text.color.t.medium': HexColor;
+	'text.color.t.heavy': HexColor;
+	'text.color.q.light': HexColor;
+	'text.color.q.medium': HexColor;
+	'text.color.q.heavy': HexColor;
 
 	// Touchables
 	'bg-touch-animation.bg.p': HexColor;

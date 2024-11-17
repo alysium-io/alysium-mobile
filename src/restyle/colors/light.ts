@@ -34,6 +34,12 @@ export const createSemanticLightTheme = (
 		'text.color.s.light': palette.s.p4,
 		'text.color.s.medium': palette.s.p5,
 		'text.color.s.heavy': palette.s.p6,
+		'text.color.t.light': palette.t.p4,
+		'text.color.t.medium': palette.t.p5,
+		'text.color.t.heavy': palette.t.p6,
+		'text.color.q.light': palette.q.p4,
+		'text.color.q.medium': palette.q.p5,
+		'text.color.q.heavy': palette.q.p6,
 
 		'bg-touch-animation.bg.p': palette.neutral.p2,
 

@@ -10,6 +10,7 @@ interface MenuListItemProps {
 	disabled?: boolean;
 	onPress?: () => void;
 	icon?: IconNames;
+	iconProps?: Partial<React.ComponentProps<typeof Icon>>;
 	prefixIconProps?: React.ComponentProps<typeof Icon>;
 }
 
@@ -19,6 +20,7 @@ const MenuListItem: React.FC<MenuListItemProps> = ({
 	disabled = false,
 	onPress,
 	icon = 'arrow-right',
+	iconProps,
 	prefixIconProps
 }) => {
 	return (
@@ -31,7 +33,7 @@ const MenuListItem: React.FC<MenuListItemProps> = ({
 				)}
 				<TitleText {...titleTextProps} />
 				<View marginHorizontal='m'>
-					<Icon name={icon} color='text.t' size='s' />
+					<Icon name={icon} color='text.t' size='s' {...iconProps} />
 				</View>
 			</Container>
 		</BgTouchAnimation>

@@ -19,7 +19,9 @@ const HeaderSection: React.FC<HeaderSectionProps> = ({
 		paddingHorizontal='s'
 		margin='m'
 	>
-		<View flex={1}>{LeftComponent}</View>
+		<View flex={1} alignItems='flex-start'>
+			{LeftComponent}
+		</View>
 		<View flex={2} alignItems='center'>
 			{CenterComponent}
 		</View>
