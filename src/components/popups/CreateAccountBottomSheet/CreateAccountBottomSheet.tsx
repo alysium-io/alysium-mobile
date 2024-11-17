@@ -7,7 +7,7 @@ import { LoginResponseDto } from '@flux/api/user/dto/user-login.dto';
 import { BottomSheetFooterProps } from '@gorhom/bottom-sheet';
 import { SheetApi, useLayoutDimensions, useTextInput, useToast } from '@hooks';
 import { Button, useButtonState } from '@molecules';
-import { FullScreenSheet } from '@organisms';
+import { FullScreenSheet, FullScreenSheetStandardHeader } from '@organisms';
 import FullScreenSheetFooter from '@src/components/organisms/BottomSheet/sheets/FullScreenSheetFooter';
 import useLoginUserPhoneNumber from '@src/utils/redux-hook-form/useLoginUserPhoneNumberFormApi';
 import useRegisterUserPhoneNumber from '@src/utils/redux-hook-form/useRegisterUserPhoneNumberFormApi';
@@ -138,11 +138,7 @@ const CreateAccountBottomSheet: React.FC<CreateAccountBottomSheetProps> = ({
 	const footerComponent = useCallback(
 		(props: BottomSheetFooterProps) => {
 			return (
-				<FullScreenSheetFooter
-					{...props}
-					animatedKeyboard={keyboard}
-					layoutApi={footerLayoutApi}
-				>
+				<FullScreenSheetFooter {...props}>
 					<View flexDirection='row' flex={1}>
 						<View marginRight='s' flex={1}>
 							{step === 0 ? (
@@ -188,9 +184,9 @@ const CreateAccountBottomSheet: React.FC<CreateAccountBottomSheetProps> = ({
 			sheetApi={sheetApi}
 			footerComponent={footerComponent}
 			sheetDidOpen={textInputApi.focus}
-			footerLayoutApi={footerLayoutApi}
 			onDismiss={onPressCancel}
 		>
+			<FullScreenSheetStandardHeader />
 			<View margin='m'>
 				<View marginTop='l' marginBottom='xl' alignItems='center'>
 					<Icon name='logo' size='l' color='text.p' />
