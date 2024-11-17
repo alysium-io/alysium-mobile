@@ -24,6 +24,10 @@ const EventsSection: React.FC<EventsSectionProps> = ({ artistData }) => {
 		}
 	});
 
+	if (!data || data.length === 0) {
+		return null;
+	}
+
 	return (
 		<Section>
 			<Text variant='section-header-2' marginHorizontal='m' marginBottom='m'>

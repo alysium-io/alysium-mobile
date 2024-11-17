@@ -12,6 +12,10 @@ interface ExternalUrlsSectionProps {
 const ExternalUrlsSection: React.FC<ExternalUrlsSectionProps> = ({
 	artistData
 }) => {
+	if (!artistData.external_urls || artistData.external_urls.length === 0) {
+		return null;
+	}
+
 	return (
 		<Section>
 			<Text marginLeft='m' variant='section-header-1'>
