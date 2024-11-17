@@ -7,6 +7,7 @@ export interface TextInputApi {
 	blur: () => void;
 	clear: () => void;
 	setText: (text: string) => void;
+	reset: () => void;
 }
 
 const useTextInput = (defaultText: string = ''): TextInputApi => {
@@ -15,6 +16,7 @@ const useTextInput = (defaultText: string = ''): TextInputApi => {
 	const blur = () => ref.current?.blur();
 	const clear = () => ref.current?.clear();
 	const setText = (text: string) => ref.current?.setNativeProps({ text });
+	const reset = () => setText(defaultText);
 
 	useEffect(() => {
 		setText(defaultText);
@@ -25,7 +27,8 @@ const useTextInput = (defaultText: string = ''): TextInputApi => {
 		focus,
 		blur,
 		clear,
-		setText
+		setText,
+		reset
 	};
 };
 
