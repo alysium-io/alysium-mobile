@@ -20,6 +20,7 @@ export type UserAppContextType = {
 	createAccountBottomSheetApi: SheetApi;
 	checkUserWantsToRegisterBottomSheet: SheetApi;
 	userArtistsData: PrivateFindAllArtistsResponseDto;
+	revertToUser: () => void;
 };
 
 export const UserAppContext = createContext({} as UserAppContextType);
@@ -27,7 +28,8 @@ export const UserAppContext = createContext({} as UserAppContextType);
 export const UserAppProvider: React.FC<ProviderProps> = ({ children }) => {
 	const createAccountBottomSheetApi = useSheet();
 	const checkUserWantsToRegisterBottomSheet = useSheet();
-	const { personaId, personaType, initializePersona } = usePersonaAppContext();
+	const { personaId, personaType, initializePersona, changePersona } =
+		usePersonaAppContext();
 	const {
 		data: userData,
 		error: userError,
@@ -52,6 +54,18 @@ export const UserAppProvider: React.FC<ProviderProps> = ({ children }) => {
 		}
 	};
 
+	const revertToUser = () => {
+		// If for any reason run into a complication where being a "persona" is not
+		// working out, then we can revert to being a user.
+		// For example, let's say your app is currently logged in and "personified"
+		// as an artist, but you make a call to the api to delete that artist account.
+		// When you open the app and the local storage says you're currently still that artist
+		// and that request fails, it should revert to being a user.
+		if (userData) {
+			changePersona(Persona.user, userData.user_uid);
+		}
+	};
+
 	if (!userData || !userArtistsData || personaId === null) {
 		return <></>;
 	}
@@ -67,7 +81,8 @@ export const UserAppProvider: React.FC<ProviderProps> = ({ children }) => {
 				setUserProfileImage,
 				createAccountBottomSheetApi,
 				checkUserWantsToRegisterBottomSheet,
-				userArtistsData
+				userArtistsData,
+				revertToUser
 			}}
 		>
 			{children}

@@ -2,7 +2,7 @@ import { artistApiSlice } from '@flux/api/artist';
 import { PrivateArtist } from '@flux/api/artist/artist.entity';
 import { createUseContextHook } from '@hooks';
 import { ProviderProps } from '@types';
-import React, { createContext } from 'react';
+import React, { createContext, useEffect } from 'react';
 import { useUserAppContext } from './User.context';
 
 export type ArtistAppContextType = {
@@ -14,7 +14,7 @@ export type ArtistAppContextType = {
 export const ArtistAppContext = createContext({} as ArtistAppContextType);
 
 export const ArtistAppProvider: React.FC<ProviderProps> = ({ children }) => {
-	const { personaId } = useUserAppContext();
+	const { personaId, revertToUser } = useUserAppContext();
 
 	const {
 		data: artistData,
@@ -23,6 +23,12 @@ export const ArtistAppProvider: React.FC<ProviderProps> = ({ children }) => {
 	} = artistApiSlice.usePrivateFindOneArtistQuery({
 		params: { artist_uid: personaId }
 	});
+
+	useEffect(() => {
+		if (artistError && 'status' in artistError) {
+			revertToUser();
+		}
+	}, [artistError]);
 
 	if (!artistData) {
 		return <></>;
