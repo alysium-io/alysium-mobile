@@ -12,10 +12,13 @@ const Header: React.FC<HeaderProps> = ({ googleMapsAutocompleteResult }) => {
 	return (
 		<View
 			padding='m'
+			justifyContent='center'
+			alignItems='center'
 			borderBottomColor='border.light'
 			borderBottomWidth={theme.borderWidth.normal}
+			flex={1}
 		>
-			<Text variant='page-header' marginBottom='s'>
+			<Text variant='section-header-1' marginBottom='s'>
 				{googleMapsAutocompleteResult?.main_text}
 			</Text>
 			<Text variant='paragraph' color='text.q'>

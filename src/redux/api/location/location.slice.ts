@@ -7,6 +7,10 @@ import {
 	AutocompleteSceneBodyDto,
 	AutocompleteSceneResponseDto
 } from './dto/autocomplete-scene.dto';
+import {
+	FindGoogleLocationDetailsByPlaceIdBodyDto,
+	FindGoogleLocationDetailsByPlaceIdResponseDto
+} from './dto/find-google-location-details-by-place-id.dto';
 
 const url = rtkBaseUrl('location');
 
@@ -28,6 +32,16 @@ export default serviceApi.injectEndpoints({
 		>({
 			query: ({ body }) => ({
 				url: url(`/autocomplete-scene`),
+				method: 'POST',
+				body
+			})
+		}),
+		findGoogleLocationDetailsByPlaceId: builder.query<
+			FindGoogleLocationDetailsByPlaceIdResponseDto,
+			{ body: FindGoogleLocationDetailsByPlaceIdBodyDto }
+		>({
+			query: ({ body }) => ({
+				url: url(`/place`),
 				method: 'POST',
 				body
 			})
