@@ -1,9 +1,10 @@
 import { Text, View } from '@atomic';
+import { Props } from '@types';
 import React from 'react';
 
 type WrapTextProps = {
-	numberOfLines: React.ComponentProps<typeof Text>['numberOfLines'];
-	ellipsizeMode: React.ComponentProps<typeof Text>['ellipsizeMode'];
+	numberOfLines: Props<typeof Text>['numberOfLines'];
+	ellipsizeMode: Props<typeof Text>['ellipsizeMode'];
 };
 
 export interface TitleTextProps {
@@ -13,13 +14,13 @@ export interface TitleTextProps {
 	wrapTitle?: boolean;
 	wrapTopSubtext?: boolean;
 	wrapBottomSubtext?: boolean;
-	titleVariant?: React.ComponentProps<typeof Text>['variant'];
-	topSubtextVariant?: React.ComponentProps<typeof Text>['variant'];
-	bottomSubtextVariant?: React.ComponentProps<typeof Text>['variant'];
-	titleColor?: React.ComponentProps<typeof Text>['color'];
-	topSubtextColor?: React.ComponentProps<typeof Text>['color'];
-	bottomSubtextColor?: React.ComponentProps<typeof Text>['color'];
-	containerProps?: React.ComponentProps<typeof View>;
+	titleVariant?: Props<typeof Text>['variant'];
+	topSubtextVariant?: Props<typeof Text>['variant'];
+	bottomSubtextVariant?: Props<typeof Text>['variant'];
+	titleColor?: Props<typeof Text>['color'];
+	topSubtextColor?: Props<typeof Text>['color'];
+	bottomSubtextColor?: Props<typeof Text>['color'];
+	containerProps?: Props<typeof View>;
 }
 
 const TitleText: React.FC<TitleTextProps> = ({

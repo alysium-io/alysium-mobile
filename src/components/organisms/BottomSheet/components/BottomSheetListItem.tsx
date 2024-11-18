@@ -1,13 +1,14 @@
 import { BgTouchAnimation, Icon, Text, View } from '@atomic';
 import { useTheme } from '@hooks';
 import { IconNames } from '@svg';
+import { Props } from '@types';
 import React from 'react';
 
 interface BottomSheetListItemProps {
 	text: string;
 	icon?: IconNames;
-	textProps?: React.ComponentProps<typeof Text>;
-	iconProps?: Partial<React.ComponentProps<typeof Icon>>;
+	textProps?: Props<typeof Text>;
+	iconProps?: Partial<Props<typeof Icon>>;
 	onPress: () => void;
 }
 

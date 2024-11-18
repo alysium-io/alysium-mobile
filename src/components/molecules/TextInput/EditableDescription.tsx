@@ -1,11 +1,11 @@
 import { TextInput, View } from '@atomic';
 import { TextInputApi, useTextInput } from '@hooks';
+import { Props } from '@types';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
-interface EditableDescriptionProps
-	extends React.ComponentProps<typeof TextInput> {
+interface EditableDescriptionProps extends Props<typeof TextInput> {
 	textInputApi?: TextInputApi;
 }
 

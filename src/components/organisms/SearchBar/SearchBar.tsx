@@ -1,10 +1,11 @@
 import { Icon, Text, TextInput, View } from '@atomic';
 import { SearchApi, useTheme } from '@hooks';
+import { Props } from '@types';
 import React from 'react';
 import { StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import { FadeIn, LinearTransition } from 'react-native-reanimated';
 
-type SearchBarProps = React.ComponentProps<typeof TextInput> & {
+type SearchBarProps = Props<typeof TextInput> & {
 	searchApi: SearchApi;
 };
 

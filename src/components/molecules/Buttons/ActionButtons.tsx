@@ -1,8 +1,9 @@
 import { View } from '@atomic';
+import { Props } from '@types';
 import React from 'react';
 import Button from './Button';
 
-type ButtonProps = React.ComponentProps<typeof Button>;
+type ButtonProps = Props<typeof Button>;
 
 interface ActionButtonsProps {
 	buttonProps: ButtonProps | ButtonProps[];

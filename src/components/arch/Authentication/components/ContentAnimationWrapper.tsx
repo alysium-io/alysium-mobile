@@ -1,11 +1,9 @@
 import { View } from '@atomic';
+import { Props } from '@types';
 import React from 'react';
 import { FadeInLeft, FadeOutRight } from 'react-native-reanimated';
 
-type ContentAnimationWrapperProps = Omit<
-	React.ComponentProps<typeof View>,
-	'animated'
-> & {};
+type ContentAnimationWrapperProps = Omit<Props<typeof View>, 'animated'> & {};
 
 const ContentAnimationWrapper: React.FC<ContentAnimationWrapperProps> = (
 	props

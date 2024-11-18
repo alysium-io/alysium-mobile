@@ -1,5 +1,6 @@
 import { View } from '@atomic';
 import { useTheme } from '@hooks';
+import { Props } from '@types';
 import React, { useEffect } from 'react';
 import {
 	useAnimatedStyle,
@@ -8,7 +9,7 @@ import {
 } from 'react-native-reanimated';
 import { ButtonThemeSettings } from '../Button';
 
-type ContainerProps = Omit<React.ComponentProps<typeof View>, 'animated'> & {
+type ContainerProps = Omit<Props<typeof View>, 'animated'> & {
 	settings: ButtonThemeSettings;
 };
 

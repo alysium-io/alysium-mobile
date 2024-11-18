@@ -1,9 +1,9 @@
 import { Icon, Text, View } from '@atomic';
 import { IconNames } from '@svg';
-import { SemanticColor } from '@types';
+import { Props, SemanticColor } from '@types';
 import React from 'react';
 
-type ContentProps = React.ComponentProps<typeof Text> & {
+type ContentProps = Props<typeof Text> & {
 	afterIcon?: IconNames;
 	afterIconColor?: SemanticColor;
 	beforeIcon?: IconNames;

@@ -13,16 +13,14 @@ import {
 	layout,
 	spacing
 } from '@shopify/restyle';
-import { Theme } from '@types';
-import React from 'react';
+import { Props, Theme } from '@types';
 import { Text as RNText } from 'react-native';
 import Animated from 'react-native-reanimated';
 
-const RestyleText = createText<Theme, React.ComponentProps<typeof RNText>>();
-const AnimatedRestyleText = createText<
-	Theme,
-	React.ComponentProps<typeof Animated.Text>
->(Animated.Text);
+const RestyleText = createText<Theme, Props<typeof RNText>>();
+const AnimatedRestyleText = createText<Theme, Props<typeof Animated.Text>>(
+	Animated.Text
+);
 
 const textRestyleFunctions = [
 	createVariant({ themeKey: 'textVariants' }),
@@ -34,13 +32,13 @@ const textRestyleFunctions = [
 ];
 
 export type InanimateTextProps = RestyleTextProps<Theme> &
-	React.ComponentProps<typeof RestyleText> &
+	Props<typeof RestyleText> &
 	LayoutProps<Theme> &
 	SpacingProps<Theme> &
 	BorderProps<Theme> &
 	BackgroundColorProps<Theme>;
 export type AnimatedTextProps = RestyleTextProps<Theme> &
-	React.ComponentProps<typeof Animated.Text> &
+	Props<typeof Animated.Text> &
 	LayoutProps<Theme> &
 	SpacingProps<Theme> &
 	BorderProps<Theme> &

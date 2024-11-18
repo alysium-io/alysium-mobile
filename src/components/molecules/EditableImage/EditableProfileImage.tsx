@@ -1,5 +1,6 @@
 import { Avatar, DefaultImage, SkeletonPlaceholder, View } from '@atomic';
 import { usePhotosAndCamera } from '@hooks';
+import { Props } from '@types';
 import React from 'react';
 import { Else, If, Then } from 'react-if';
 import { StyleSheet } from 'react-native';
@@ -14,9 +15,9 @@ const sizes = {
 };
 
 interface EditableProfileImageProps
-	extends React.ComponentProps<typeof TouchableWithoutFeedback> {
+	extends Props<typeof TouchableWithoutFeedback> {
 	image?: string;
-	defaultImageProps?: React.ComponentProps<typeof DefaultImage>;
+	defaultImageProps?: Props<typeof DefaultImage>;
 	onChooseImage?: (imagePickerAsset: Asset) => void;
 	size?: keyof typeof sizes;
 	isLoading?: boolean;

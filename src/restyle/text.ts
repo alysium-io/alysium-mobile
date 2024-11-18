@@ -26,15 +26,15 @@ export const textVariants = {
 	defaults: textVariantDefaults,
 	'page-header': {
 		fontFamily: fontWeights.bold,
-		fontSize: 26
+		fontSize: 36
 	},
 	'section-header-1': {
 		fontFamily: fontWeights.bold,
-		fontSize: 18
+		fontSize: 22
 	},
 	'section-header-2': {
 		fontFamily: fontWeights.regular,
-		fontSize: 24
+		fontSize: 26
 	},
 	'paragraph-large': {
 		fontFamily: fontWeights.regular,

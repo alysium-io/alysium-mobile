@@ -6,7 +6,7 @@ import {
 	DeclarativeText,
 	InternationalPhoneNumberTextInput
 } from '@molecules';
-import { RegisterUserPhoneNumberFormApi } from '@src/utils/redux-hook-form/useRegisterUserPhoneNumber';
+import { RegisterUserPhoneNumberFormApi } from '@src/utils/redux-hook-form/useRegisterUserPhoneNumberFormApi';
 import React, { useEffect } from 'react';
 import { Controller } from 'react-hook-form';
 import { useAuthenticationAppContext } from '../Authentication.context';

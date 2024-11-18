@@ -1,9 +1,10 @@
 import { BgTouchAnimation, Text } from '@atomic';
+import { Props } from '@types';
 import React from 'react';
 import Container from './components/Container';
 
 type SeeAllBottomButtonProps = {
-	containerProps?: React.ComponentProps<typeof Container>;
+	containerProps?: Props<typeof Container>;
 	onPress?: () => void;
 };
 

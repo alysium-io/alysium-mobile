@@ -1,17 +1,18 @@
 import { BgTouchAnimation, Icon, View } from '@atomic';
 import { IconNames } from '@svg';
+import { Props } from '@types';
 import React from 'react';
 import Container from './components/Container';
 import TitleText from './components/TitleText';
 
 interface MenuListItemProps {
-	containerProps?: React.ComponentProps<typeof Container>;
-	titleTextProps: React.ComponentProps<typeof TitleText>;
+	containerProps?: Props<typeof Container>;
+	titleTextProps: Props<typeof TitleText>;
 	disabled?: boolean;
 	onPress?: () => void;
 	icon?: IconNames;
-	iconProps?: Partial<React.ComponentProps<typeof Icon>>;
-	prefixIconProps?: React.ComponentProps<typeof Icon>;
+	iconProps?: Partial<Props<typeof Icon>>;
+	prefixIconProps?: Props<typeof Icon>;
 }
 
 const MenuListItem: React.FC<MenuListItemProps> = ({

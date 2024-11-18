@@ -1,12 +1,13 @@
 import { BlurView as RNBlurView } from '@react-native-community/blur';
+import { Props } from '@types';
 import React from 'react';
 import Animated from 'react-native-reanimated';
 
 const AnimatedBlurView = Animated.createAnimatedComponent(RNBlurView);
 
-type InanimateBlurViewProps = React.ComponentProps<typeof RNBlurView>;
+type InanimateBlurViewProps = Props<typeof RNBlurView>;
 type AnimatedBlurViewProps = InanimateBlurViewProps &
-	React.ComponentProps<typeof AnimatedBlurView>;
+	Props<typeof AnimatedBlurView>;
 
 type BlurViewProps =
 	| (InanimateBlurViewProps & { animated: false })

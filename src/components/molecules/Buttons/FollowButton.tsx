@@ -1,7 +1,8 @@
+import { Props } from '@types';
 import React from 'react';
 import ToggleButton from './ToggleButton';
 
-interface FollowButtonProps extends React.ComponentProps<typeof ToggleButton> {}
+interface FollowButtonProps extends Props<typeof ToggleButton> {}
 
 const FollowButton: React.FC<FollowButtonProps> = ({ ...props }) => {
 	return (

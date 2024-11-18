@@ -1,7 +1,8 @@
 import { View } from '@atomic';
+import { Props } from '@types';
 import React from 'react';
 
-type SectionProps = React.ComponentProps<typeof View> & {
+type SectionProps = Props<typeof View> & {
 	children?: React.ReactNode;
 };
 

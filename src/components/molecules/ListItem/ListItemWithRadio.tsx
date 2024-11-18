@@ -1,4 +1,5 @@
 import { BgTouchAnimation } from '@atomic';
+import { Props } from '@types';
 import React from 'react';
 import Container from './components/Container';
 import RadioButton from './components/RadioButton';
@@ -6,9 +7,9 @@ import TitleText from './components/TitleText';
 
 interface ListItemWithRadioProps {
 	id: string;
-	containerProps?: React.ComponentProps<typeof Container>;
-	radioButtonProps: React.ComponentProps<typeof RadioButton>;
-	titleTextProps: React.ComponentProps<typeof TitleText>;
+	containerProps?: Props<typeof Container>;
+	radioButtonProps: Props<typeof RadioButton>;
+	titleTextProps: Props<typeof TitleText>;
 	disabled?: boolean;
 	onPress?: () => void;
 }

@@ -4,19 +4,20 @@ import {
 	useBottomSheetTimingConfigs
 } from '@gorhom/bottom-sheet';
 import { SheetRef, useTheme } from '@hooks';
+import { Props } from '@types';
 import React, { useMemo } from 'react';
 import { Easing } from 'react-native-reanimated';
 import BottomSheetBackdrop from './BottomSheetBackdrop';
 import BottomSheetHandle from './BottomSheetHandle';
 
-type BottomSheetProps = React.ComponentProps<typeof BottomSheetModal> & {
+type BottomSheetProps = Props<typeof BottomSheetModal> & {
 	children?: React.ReactNode;
 	sheetRef: SheetRef;
 	maxHeight?: string;
 	borderRadius?: boolean;
 	backgroundColor?: string;
 	borderColor?: string;
-	contentContainerStyle?: React.ComponentProps<typeof BottomSheetView>['style'];
+	contentContainerStyle?: Props<typeof BottomSheetView>['style'];
 };
 
 const BottomSheet: React.FC<BottomSheetProps> = ({

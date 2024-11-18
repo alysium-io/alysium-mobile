@@ -1,5 +1,6 @@
 import { Vibrator } from '@etc';
 import { ToggleApi, useTheme, useToggle } from '@hooks';
+import { Props } from '@types';
 import _ from 'lodash';
 import React, { useMemo } from 'react';
 import Button from './Button';
@@ -7,8 +8,8 @@ import Button from './Button';
 interface ToggleButtonProps {
 	defaultState?: boolean;
 	onChange?: (isActive: boolean) => void;
-	inactiveButtonProps?: Omit<React.ComponentProps<typeof Button>, 'onPress'>;
-	activeButtonProps?: Omit<React.ComponentProps<typeof Button>, 'onPress'>;
+	inactiveButtonProps?: Omit<Props<typeof Button>, 'onPress'>;
+	activeButtonProps?: Omit<Props<typeof Button>, 'onPress'>;
 	toggleApi?: ToggleApi;
 }
 

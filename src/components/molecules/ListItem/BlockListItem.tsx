@@ -1,5 +1,6 @@
 import { Icon, View } from '@atomic';
 import { IconNames } from '@svg';
+import { Props } from '@types';
 import React from 'react';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import BlockContainer from './components/BlockContainer';
@@ -8,7 +9,7 @@ import TitleText from './components/TitleText';
 interface BlockListItemProps {
 	icon?: IconNames;
 	onPress?: () => void;
-	titleTextProps: React.ComponentProps<typeof TitleText>;
+	titleTextProps: Props<typeof TitleText>;
 }
 
 const BlockListItem: React.FC<BlockListItemProps> = ({

@@ -1,11 +1,11 @@
 import { View } from '@atomic';
 import React from 'react';
-import DeepLinking from './displays/DeepLinking';
+import Parallax from './displays/Parallax';
 
 const Scratch = () => {
 	return (
 		<View flex={1}>
-			<DeepLinking />
+			<Parallax />
 		</View>
 	);
 };

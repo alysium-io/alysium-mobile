@@ -1,8 +1,9 @@
 import { View } from '@atomic';
+import { Props } from '@types';
 import React from 'react';
 import { ActivityIndicator, StyleSheet } from 'react-native';
 
-interface LoadingProps extends React.ComponentProps<typeof ActivityIndicator> {}
+interface LoadingProps extends Props<typeof ActivityIndicator> {}
 
 const Loading: React.FC<LoadingProps> = (props) => {
 	return (

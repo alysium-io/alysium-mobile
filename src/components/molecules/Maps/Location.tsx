@@ -1,11 +1,12 @@
 import { Location as LocationModel } from '@flux/api/location';
+import { Props } from '@types';
 import React from 'react';
 import LocationContainer from './LocationContainer';
 import LocationMapView from './LocationMapView';
 import MissingMapView from './MissingMapView';
 
 interface LocationProps {
-	containerProps?: React.ComponentProps<typeof LocationContainer>;
+	containerProps?: Props<typeof LocationContainer>;
 	location?: LocationModel | null;
 	zoomDelta?: number;
 }

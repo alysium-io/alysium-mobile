@@ -1,7 +1,7 @@
 import { ActivityIndicator } from '@atomic';
 import { Vibrator } from '@etc';
 import { useTheme } from '@hooks';
-import { SemanticColor } from '@types';
+import { Props, SemanticColor } from '@types';
 import React, { useMemo } from 'react';
 import { Case, Default, Switch } from 'react-if';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -25,8 +25,8 @@ export interface ButtonProps {
 	color?: 'default' | 'p' | 's' | 't' | 'q';
 	variant?: 'solid' | 'outlined';
 	buttonThemeSettings?: Partial<ButtonThemeSettings>;
-	buttonContent?: React.ComponentProps<typeof Content>;
-	containerProps?: Omit<React.ComponentProps<typeof Container>, 'settings'>;
+	buttonContent?: Props<typeof Content>;
+	containerProps?: Omit<Props<typeof Container>, 'settings'>;
 }
 
 const Button: React.FC<ButtonProps> = ({

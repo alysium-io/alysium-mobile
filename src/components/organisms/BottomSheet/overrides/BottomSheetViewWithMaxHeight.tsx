@@ -1,11 +1,12 @@
 import { BottomSheetView } from '@gorhom/bottom-sheet';
+import { Props } from '@types';
 import React from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useBottomSheetMaxHeight } from '../hooks';
 
 interface BottomSheetViewWithMaxHeightProps {
 	maxHeight?: string;
-	contentContainerStyle?: React.ComponentProps<typeof BottomSheetView>['style'];
+	contentContainerStyle?: Props<typeof BottomSheetView>['style'];
 	children?: React.ReactNode;
 }
 

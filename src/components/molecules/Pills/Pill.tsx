@@ -1,4 +1,5 @@
 import { Text } from '@atomic';
+import { Props } from '@types';
 import React from 'react';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import Container from './components/Container';
@@ -6,7 +7,7 @@ import Container from './components/Container';
 interface PillProps {
 	text: string;
 	onPress?: () => void;
-	containerProps?: React.ComponentProps<typeof Container>;
+	containerProps?: Props<typeof Container>;
 }
 
 const Pill: React.FC<PillProps> = ({ text, onPress, containerProps }) => {

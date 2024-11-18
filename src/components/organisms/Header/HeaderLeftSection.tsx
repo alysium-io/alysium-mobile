@@ -1,8 +1,8 @@
 import { View } from '@atomic';
-import { ChildrenProps } from '@types';
+import { ChildrenProps, Props } from '@types';
 import React from 'react';
 
-type HeaderLeftSectionProps = React.ComponentProps<typeof View> & ChildrenProps;
+type HeaderLeftSectionProps = Props<typeof View> & ChildrenProps;
 
 const HeaderLeftSection: React.FC<HeaderLeftSectionProps> = (props) => (
 	<View

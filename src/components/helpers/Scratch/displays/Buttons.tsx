@@ -1,9 +1,10 @@
 import { Text, View } from '@atomic';
 import { Button } from '@molecules';
+import { Props } from '@types';
 import React from 'react';
 import { ScrollView } from 'react-native-gesture-handler';
 
-const RenderButton: React.FC<React.ComponentProps<typeof Button>> = (props) => (
+const RenderButton: React.FC<Props<typeof Button>> = (props) => (
 	<View marginBottom='m'>
 		<Button {...props} />
 	</View>

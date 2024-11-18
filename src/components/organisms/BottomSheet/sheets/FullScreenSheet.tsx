@@ -3,7 +3,7 @@ import {
 	BottomSheetModalProps
 } from '@gorhom/bottom-sheet';
 import { SheetApi } from '@hooks';
-import { IChildrenProps } from '@types';
+import { IChildrenProps, Props } from '@types';
 import React, { useCallback } from 'react';
 import { BottomSheet } from '../overrides';
 import FullScreenSheetScrollView from './FullScreenSheetScrollView';
@@ -16,7 +16,7 @@ interface FullScreenSheetProps
 	sheetApi: SheetApi;
 	sheetDidOpen?: () => void;
 	animateFooterWithKeyboard?: boolean;
-	scrollViewProps?: React.ComponentProps<typeof FullScreenSheetScrollView>;
+	scrollViewProps?: Props<typeof FullScreenSheetScrollView>;
 }
 
 const FullScreenSheet: React.FC<FullScreenSheetProps> = ({

@@ -1,11 +1,10 @@
 import { ComplexImage } from '@atomic';
 import { Image } from '@flux/api/media';
+import { Props } from '@types';
 import React from 'react';
 import GalleryItemInnerContainerView from '../components/GalleryItemInnerContainerView';
 
-type GalleryItemThumbnailOverlayProps = React.ComponentProps<
-	typeof ComplexImage
-> & {
+type GalleryItemThumbnailOverlayProps = Props<typeof ComplexImage> & {
 	image?: Image | null;
 };
 

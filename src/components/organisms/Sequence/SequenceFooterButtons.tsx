@@ -1,9 +1,10 @@
 import { View } from '@atomic';
 import { Button } from '@molecules';
+import { Props } from '@types';
 import React from 'react';
 
 interface SequenceFooterButtonsProps {
-	buttons: React.ComponentProps<typeof Button>[];
+	buttons: Props<typeof Button>[];
 }
 
 const SequenceFooterButtons: React.FC<SequenceFooterButtonsProps> = ({

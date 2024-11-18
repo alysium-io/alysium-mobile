@@ -1,12 +1,10 @@
 import { Text } from '@atomic';
+import { Props } from '@types';
 import React from 'react';
 import { TouchableWithoutFeedback } from 'react-native';
 
-type HyperlinkProps = React.ComponentProps<typeof Text> & {
-	buttonProps?: Omit<
-		React.ComponentProps<typeof TouchableWithoutFeedback>,
-		'children'
-	>;
+type HyperlinkProps = Props<typeof Text> & {
+	buttonProps?: Omit<Props<typeof TouchableWithoutFeedback>, 'children'>;
 };
 
 export const Hyperlink: React.FC<HyperlinkProps> = ({

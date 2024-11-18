@@ -1,5 +1,5 @@
 import { Image, View } from '@atomic';
-import { BorderRadii } from '@types';
+import { BorderRadii, Props } from '@types';
 import React, { useMemo } from 'react';
 import { StyleSheet } from 'react-native';
 import { useEnvContext } from 'src/utils/contexts';
@@ -8,7 +8,7 @@ import DefaultImage from './DefaultImage';
 interface AvatarProps {
 	image?: string | null;
 	borderRadius?: keyof BorderRadii;
-	defaultImageProps?: React.ComponentProps<typeof DefaultImage>;
+	defaultImageProps?: Props<typeof DefaultImage>;
 }
 
 const Avatar: React.FC<AvatarProps> = ({

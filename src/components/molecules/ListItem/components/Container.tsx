@@ -1,10 +1,10 @@
 import { View } from '@atomic';
 import { useTheme } from '@hooks';
-import { ChildrenProps } from '@types';
+import { ChildrenProps, Props } from '@types';
 import React from 'react';
 
 type ContainerProps = ChildrenProps &
-	React.ComponentProps<typeof View> & {
+	Props<typeof View> & {
 		border?: boolean;
 	};
 

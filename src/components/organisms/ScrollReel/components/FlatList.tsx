@@ -1,3 +1,4 @@
+import { Props } from '@types';
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import {
 	ListRenderItemInfo,
@@ -8,7 +9,7 @@ import {
 import Animated from 'react-native-reanimated';
 import FlatListItem from './FlatListItem';
 
-type FlatListItemProps = React.ComponentProps<typeof FlatListItem>;
+type FlatListItemProps = Props<typeof FlatListItem>;
 
 interface FlatListProps {
 	items: FlatListItemProps[];

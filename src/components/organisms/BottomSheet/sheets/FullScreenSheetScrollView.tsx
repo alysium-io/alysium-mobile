@@ -1,11 +1,11 @@
 import { useKeyboard } from '@hooks';
-import { ChildrenProps } from '@types';
+import { ChildrenProps, Props } from '@types';
 import React from 'react';
 import { ScrollView } from 'react-native';
 import { useFullScreenSheet } from './useFullScreenSheet';
 
 type FullScreenSheetScrollViewProps = ChildrenProps &
-	React.ComponentProps<typeof ScrollView> & {};
+	Props<typeof ScrollView> & {};
 
 const FullScreenSheetScrollView: React.FC<FullScreenSheetScrollViewProps> = ({
 	children

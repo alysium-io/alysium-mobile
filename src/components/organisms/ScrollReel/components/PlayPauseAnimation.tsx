@@ -1,10 +1,11 @@
 import { Icon, View } from '@atomic';
 import { IconNames } from '@svg';
+import { Props } from '@types';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { SharedValue, useAnimatedStyle } from 'react-native-reanimated';
 
-type CenterIconProps = React.ComponentProps<typeof View> & {
+type CenterIconProps = Props<typeof View> & {
 	icon: IconNames;
 };
 

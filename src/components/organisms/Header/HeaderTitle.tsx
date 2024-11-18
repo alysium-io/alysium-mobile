@@ -1,11 +1,12 @@
 import { Text, View } from '@atomic';
+import { Props } from '@types';
 import React from 'react';
 
 interface HeaderTitleProps {
 	title: string;
 	subtitle?: string;
-	titleProps?: React.ComponentProps<typeof Text>;
-	subtitleProps?: React.ComponentProps<typeof Text>;
+	titleProps?: Props<typeof Text>;
+	subtitleProps?: Props<typeof Text>;
 }
 
 const HeaderTitle: React.FC<HeaderTitleProps> = ({

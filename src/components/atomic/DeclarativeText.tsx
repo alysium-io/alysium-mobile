@@ -1,21 +1,19 @@
+import { Props } from '@types';
 import React from 'react';
 import { TouchableWithoutFeedback } from 'react-native';
 import Text from './Text';
 import View from './View';
 
-export const Bold: React.FC<React.ComponentProps<typeof Text>> = (props) => (
+export const Bold: React.FC<Props<typeof Text>> = (props) => (
 	<Text variant='paragraph-medium' {...props} />
 );
 
-export const P: React.FC<React.ComponentProps<typeof Text>> = (props) => (
+export const P: React.FC<Props<typeof Text>> = (props) => (
 	<Text variant='paragraph-light' marginBottom='s' {...props} />
 );
 
-type LinkProps = React.ComponentProps<typeof Text> & {
-	buttonProps?: Omit<
-		React.ComponentProps<typeof TouchableWithoutFeedback>,
-		'children'
-	>;
+type LinkProps = Props<typeof Text> & {
+	buttonProps?: Omit<Props<typeof TouchableWithoutFeedback>, 'children'>;
 };
 
 export const Link: React.FC<LinkProps> = ({ buttonProps, ...props }) => (

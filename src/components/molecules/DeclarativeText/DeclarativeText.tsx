@@ -1,9 +1,10 @@
 import { Text } from '@atomic';
+import { Props } from '@types';
 import React from 'react';
 import DeclarativeTextItem from './DeclarativeTextItem';
 import { DeclarativeTextItems } from './shared';
 
-type DeclarativeTextProps = React.ComponentProps<typeof Text> & {
+type DeclarativeTextProps = Props<typeof Text> & {
 	textItems: DeclarativeTextItems;
 };
 
@@ -17,7 +18,7 @@ const DeclarativeText: React.FC<DeclarativeTextProps> = ({
 
 	return (
 		<Text {...props} textAlignVertical='bottom'>
-			{textItems.map((item, index) => (
+			{textItems.map((item: DeclarativeTextItems[number], index: number) => (
 				<DeclarativeTextItem key={index} {...item} />
 			))}
 		</Text>

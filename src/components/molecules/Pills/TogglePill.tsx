@@ -1,4 +1,5 @@
 import { Text } from '@atomic';
+import { Props } from '@types';
 import React, { useMemo } from 'react';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import Container from './components/Container';
@@ -7,7 +8,7 @@ interface TogglePillProps {
 	text: string;
 	onPress?: () => void;
 	isActive: boolean;
-	containerProps?: React.ComponentProps<typeof Container>;
+	containerProps?: Props<typeof Container>;
 }
 
 const TogglePill: React.FC<TogglePillProps> = ({

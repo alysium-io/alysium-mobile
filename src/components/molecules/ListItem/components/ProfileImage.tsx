@@ -1,4 +1,5 @@
 import { Avatar, View } from '@atomic';
+import { Props } from '@types';
 import React from 'react';
 
 const sizeScheme = {
@@ -7,7 +8,7 @@ const sizeScheme = {
 	large: 95
 };
 
-interface ProfileImageProps extends React.ComponentProps<typeof Avatar> {
+interface ProfileImageProps extends Props<typeof Avatar> {
 	size?: keyof typeof sizeScheme;
 }
 

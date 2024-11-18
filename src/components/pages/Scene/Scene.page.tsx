@@ -1,8 +1,9 @@
 import { View } from '@atomic';
 import { sceneApiSlice } from '@flux/api/scene';
 import { Location } from '@molecules';
-import { BasePage, Parallax } from '@organisms';
+import { BasePage } from '@organisms';
 import { useRoute } from '@react-navigation/native';
+import ParallaxScroll from '@src/components/organisms/Parallax/ParallaxScroll';
 import { ScenePageRouteProp } from '@types';
 import React, { useCallback } from 'react';
 import ScenePageHeader from './Scene.header';
@@ -17,7 +18,7 @@ const Scene = () => {
 		}
 	});
 
-	const CustomBackground = useCallback(
+	const CustomImage = useCallback(
 		() =>
 			sceneData?.location && (
 				<View height='100%'>
@@ -39,18 +40,10 @@ const Scene = () => {
 	return (
 		<BasePage>
 			<ScenePageHeader title={sceneData.name} subtitle={sceneData.country} />
-			<Parallax
-				bannerTitleProps={{
-					title: ''
-				}}
-				bannerImageProps={{
-					image: undefined
-				}}
-				CustomBackground={CustomBackground}
-			>
+			<ParallaxScroll CustomImage={CustomImage}>
 				<SubHeader sceneData={sceneData} />
 				<ArtistsSection scene_uid={params.scene_uid} />
-			</Parallax>
+			</ParallaxScroll>
 		</BasePage>
 	);
 };

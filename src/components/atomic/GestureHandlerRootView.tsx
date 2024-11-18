@@ -1,10 +1,11 @@
 import { useTheme } from '@hooks';
+import { Props } from '@types';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { GestureHandlerRootView as RNGestureHandlerRootView } from 'react-native-gesture-handler';
 
 interface GestureHandlerRootView
-	extends React.ComponentProps<typeof RNGestureHandlerRootView> {}
+	extends Props<typeof RNGestureHandlerRootView> {}
 
 const GestureHandlerRootView: React.FC<GestureHandlerRootView> = ({
 	children

@@ -4,23 +4,21 @@ import {
 	createRestyleComponent,
 	createVariant
 } from '@shopify/restyle';
-import { Theme } from '@types';
-import React from 'react';
+import { Props, Theme } from '@types';
 import { View as RNView } from 'react-native';
 import Animated from 'react-native-reanimated';
 
-const RestyleView = createBox<Theme, React.ComponentProps<typeof RNView>>();
-const AnimatedRestyleView = createBox<
-	Theme,
-	React.ComponentProps<typeof Animated.View>
->(Animated.View);
+const RestyleView = createBox<Theme, Props<typeof RNView>>();
+const AnimatedRestyleView = createBox<Theme, Props<typeof Animated.View>>(
+	Animated.View
+);
 
 const viewRestyleFunctions = [createVariant({ themeKey: 'cardVariants' })];
 
 export type InanimateViewProps = VariantProps<Theme, 'cardVariants'> &
-	React.ComponentProps<typeof RestyleView>;
+	Props<typeof RestyleView>;
 export type AnimatedViewProps = VariantProps<Theme, 'cardVariants'> &
-	React.ComponentProps<typeof AnimatedRestyleView>;
+	Props<typeof AnimatedRestyleView>;
 
 const InanimateView = createRestyleComponent<InanimateViewProps, Theme>(
 	[viewRestyleFunctions],

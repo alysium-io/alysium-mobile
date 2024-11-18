@@ -1,9 +1,10 @@
 import { KeyboardViewFill } from '@atomic';
 import { BottomSheetView } from '@gorhom/bottom-sheet';
+import { Props } from '@types';
 import React from 'react';
 
 interface BottomSheetKeyboardAvoidingViewProps
-	extends React.ComponentProps<typeof BottomSheetView> {}
+	extends Props<typeof BottomSheetView> {}
 
 const BottomSheetKeyboardAvoidingView: React.FC<
 	BottomSheetKeyboardAvoidingViewProps

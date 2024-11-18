@@ -4,12 +4,12 @@ import React from 'react';
 import { TouchableWithoutFeedback } from 'react-native';
 
 type HeaderIconButtonProps = Props<typeof Icon> & {
-	onPress: () => void;
+	onPress?: () => void;
 };
 
 const HeaderIconButton: React.FC<HeaderIconButtonProps> = ({
 	onPress,
-	name,
+	name = 'artist',
 	color = 'text.s',
 	size = 'm',
 	...props

@@ -1,5 +1,5 @@
 import { View } from '@atomic';
-import { IChildrenProps } from '@types';
+import { IChildrenProps, Props } from '@types';
 import React from 'react';
 import {
 	FadeInLeft,
@@ -20,10 +20,7 @@ const animationConfigurations = {
 	}
 };
 
-type ViewProps = Omit<
-	React.ComponentProps<typeof View>,
-	'entering' | 'exiting' | 'animated'
->;
+type ViewProps = Omit<Props<typeof View>, 'entering' | 'exiting' | 'animated'>;
 type SlideInOutViewProps = IChildrenProps &
 	ViewProps & {
 		direction: keyof typeof animationConfigurations;

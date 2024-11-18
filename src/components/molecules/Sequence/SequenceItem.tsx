@@ -1,4 +1,5 @@
 import { View } from '@atomic';
+import { Props } from '@types';
 import React from 'react';
 import Animated, {
 	EntryAnimationsValues,
@@ -20,7 +21,7 @@ const slideInRightAnimation = new SlideInRight().duration(duration).build();
 
 const instantEnterAnimation = new SlideInRight().duration(-1).build();
 
-type SequenceItemProps = React.ComponentProps<typeof View> & {
+type SequenceItemProps = Props<typeof View> & {
 	sequenceIndex: number;
 	index: number;
 	exitDirection: SharedValue<'left' | 'right' | null>;

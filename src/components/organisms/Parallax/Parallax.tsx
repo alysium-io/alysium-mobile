@@ -1,5 +1,6 @@
 import { View } from '@atomic';
 import { useScrollView, useTheme } from '@hooks';
+import { Props } from '@types';
 import React from 'react';
 import { ScrollView } from 'react-native';
 import { interpolate, useAnimatedStyle } from 'react-native-reanimated';
@@ -10,10 +11,10 @@ import useParallax from './useParallax';
 interface ParallaxProps {
 	children?: React.ReactNode;
 	bannerImageProps: Omit<
-		React.ComponentProps<typeof BannerImage>,
+		Props<typeof BannerImage>,
 		'scrollY' | 'bannerImageHeight'
 	>;
-	bannerTitleProps: React.ComponentProps<typeof BannerTitle>;
+	bannerTitleProps: Props<typeof BannerTitle>;
 	CustomBackground?: React.FC;
 }
 

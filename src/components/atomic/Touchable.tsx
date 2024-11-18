@@ -1,4 +1,5 @@
 import { View } from '@atomic';
+import { Props } from '@types';
 import React from 'react';
 import { TapGestureHandler } from 'react-native-gesture-handler';
 
@@ -8,7 +9,7 @@ interface TouchableProps {
 	onPressIn?: () => void;
 	onPressOut?: () => void;
 	hitSlop?: number;
-	containerProps?: React.ComponentProps<typeof View>;
+	containerProps?: Props<typeof View>;
 }
 
 const Touchable: React.FC<TouchableProps> = ({

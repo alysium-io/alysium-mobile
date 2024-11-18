@@ -1,17 +1,18 @@
 import { BgTouchAnimation, Icon, View } from '@atomic';
+import { Props } from '@types';
 import React from 'react';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Container from './components/Container';
 import TitleText from './components/TitleText';
 
 interface MenuListItemWithButtonProps {
-	containerProps?: React.ComponentProps<typeof Container>;
-	titleTextProps: React.ComponentProps<typeof TitleText>;
+	containerProps?: Props<typeof Container>;
+	titleTextProps: Props<typeof TitleText>;
 	disabled?: boolean;
 	onPress?: () => void;
 	onPressButton?: () => void;
-	prefixIconProps?: React.ComponentProps<typeof Icon>;
-	buttonIconProps: React.ComponentProps<typeof Icon>;
+	prefixIconProps?: Props<typeof Icon>;
+	buttonIconProps: Props<typeof Icon>;
 }
 
 const MenuListItemWithButton: React.FC<MenuListItemWithButtonProps> = ({

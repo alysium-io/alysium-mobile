@@ -1,9 +1,7 @@
 import { Text } from '@atomic';
+import { Props } from '@types';
 
-export type TextVariant = Pick<
-	React.ComponentProps<typeof Text>,
-	'variant'
->['variant'];
+export type TextVariant = Pick<Props<typeof Text>, 'variant'>['variant'];
 
 export enum ThemeMode {
 	light = 'light',

@@ -1,4 +1,5 @@
 import { BgTouchAnimation, Icon, View } from '@atomic';
+import { Props } from '@types';
 import React from 'react';
 import Container from './components/Container';
 import ProfileImage from './components/ProfileImage';
@@ -6,9 +7,9 @@ import Rank from './components/Rank';
 import TitleText from './components/TitleText';
 
 interface ContentListItemWithRankProps {
-	containerProps?: React.ComponentProps<typeof Container>;
-	titleTextProps: React.ComponentProps<typeof TitleText>;
-	profileImageProps?: React.ComponentProps<typeof ProfileImage>;
+	containerProps?: Props<typeof Container>;
+	titleTextProps: Props<typeof TitleText>;
+	profileImageProps?: Props<typeof ProfileImage>;
 	onPress?: () => void;
 	rank: number;
 }

@@ -1,3 +1,4 @@
+import { Props } from '@types';
 import React from 'react';
 import RNLinearGradient from 'react-native-linear-gradient';
 import Animated from 'react-native-reanimated';
@@ -5,10 +6,8 @@ import Animated from 'react-native-reanimated';
 const AnimatedRNLinearGradient =
 	Animated.createAnimatedComponent(RNLinearGradient);
 
-type RNLinearGradientProps = React.ComponentProps<typeof RNLinearGradient>;
-type AnimatedRNLinearGradientProps = React.ComponentProps<
-	typeof AnimatedRNLinearGradient
->;
+type RNLinearGradientProps = Props<typeof RNLinearGradient>;
+type AnimatedRNLinearGradientProps = Props<typeof AnimatedRNLinearGradient>;
 
 type LinearGradientProps =
 	| (RNLinearGradientProps & { animated: false })

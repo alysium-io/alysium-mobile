@@ -1,12 +1,13 @@
 import { SkeletonPlaceholder, View } from '@atomic';
 import { Image } from '@flux/api/media';
 import { usePriorityImage } from '@hooks';
+import { Props } from '@types';
 import React from 'react';
 import { Case, Default, Switch } from 'react-if';
 import { StyleSheet } from 'react-native';
 import Animated from 'react-native-reanimated';
 
-type ComplexImageProps = React.ComponentProps<typeof Animated.Image> & {
+type ComplexImageProps = Props<typeof Animated.Image> & {
 	image?: Image | null;
 };
 
