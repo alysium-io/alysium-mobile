@@ -61,7 +61,9 @@ const EditBasicInfoSection: React.FC<EditBasicInfoSectionProps> = ({
 						defaultValue={artistData.bio ?? undefined}
 						onChangeText={onChange}
 						onBlur={onBlurEditable}
+						scrollEnabled={false}
 						multiline
+						maxLength={200}
 						style={{
 							padding: 0 // because `multiline` prop adds padding
 						}}
