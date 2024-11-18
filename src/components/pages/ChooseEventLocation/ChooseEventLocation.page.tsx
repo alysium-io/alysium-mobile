@@ -9,7 +9,7 @@ import { BasePage, SearchBar } from '@organisms';
 import { ConfirmEventLocationChoiceBottomSheet } from '@popups';
 import { useRoute } from '@react-navigation/native';
 import { ChooseEventLocationRouteProp } from '@types';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Else, If, Then } from 'react-if';
 import { ScrollView } from 'react-native';
 import ChooseEventLocationPageHeader from './ChooseEventLocation.header';
@@ -22,6 +22,12 @@ const ChooseEventLocation = () => {
 	const [googleMapsAutocompleteResult, setGoogleMapsAutocompleteResult] =
 		useState<GoogleMapsAutocompleteResult | null>(null);
 	const { artistData } = useArtistAppContext();
+
+	useEffect(() => {
+		setTimeout(() => {
+			searchApi.textInputApi.focus();
+		}, 500);
+	}, []);
 
 	const { data: autocompleteAddressData } =
 		locationApiSlice.useAutocompleteAddressQuery(

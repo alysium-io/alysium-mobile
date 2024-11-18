@@ -5,7 +5,7 @@ import { useKeyboard, useSearch, useSheet } from '@hooks';
 import { MenuListItem } from '@molecules';
 import { BasePage, SearchBar } from '@organisms';
 import { JoinScenePreviewBottomSheet } from '@popups';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Else, If, Then } from 'react-if';
 import { ScrollView } from 'react-native';
 import ChooseScenePageHeader from './ChooseScene.header';
@@ -16,6 +16,12 @@ const ChooseScene = () => {
 	const { dismiss } = useKeyboard();
 	const [googleMapsAutocompleteResult, setGoogleMapsAutocompleteResult] =
 		useState<GoogleMapsAutocompleteResult | null>(null);
+
+	useEffect(() => {
+		setTimeout(() => {
+			searchApi.textInputApi.focus();
+		}, 500);
+	}, []);
 
 	const { data } = locationApiSlice.useAutocompleteSceneQuery(
 		{
