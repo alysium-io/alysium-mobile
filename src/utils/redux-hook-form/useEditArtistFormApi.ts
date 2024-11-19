@@ -37,8 +37,6 @@ const useEditArtistFormApi = (
 					);
 				}
 
-				console.log('Sending with: ', data);
-
 				updateArtistMutation({
 					body: data,
 					params: { artist_uid: artistData.artist_uid }

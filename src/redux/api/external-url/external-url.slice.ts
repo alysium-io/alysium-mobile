@@ -21,7 +21,13 @@ export default serviceApi.injectEndpoints({
 				method: 'POST',
 				body
 			}),
-			invalidatesTags: [{ type: 'PrivateArtist', id: 'CURRENT' }]
+			invalidatesTags: (result, error, { body }) =>
+				result
+					? [
+							{ type: 'PrivateArtist', id: 'CURRENT' },
+							{ type: 'PublicArtist', id: body.refId }
+					  ]
+					: []
 		}),
 		deleteExternalUrl: builder.mutation<
 			DeleteExternalUrlResponseDto,
