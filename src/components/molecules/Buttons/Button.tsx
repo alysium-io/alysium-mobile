@@ -1,4 +1,4 @@
-import { ActivityIndicator } from '@atomic';
+import { ActivityIndicator, Text, View } from '@atomic';
 import { Vibrator } from '@etc';
 import { useTheme } from '@hooks';
 import { Props, SemanticColor } from '@types';
@@ -127,7 +127,10 @@ const Button: React.FC<ButtonProps> = ({
 			>
 				<Switch>
 					<Case condition={buttonState === 'loading'}>
-						<ActivityIndicator color={settings.activityIndicatorColor} />
+						<View position='absolute'>
+							<ActivityIndicator color={settings.activityIndicatorColor} />
+						</View>
+						<Text color='transparent'>Placeholder Text</Text>
 					</Case>
 					<Case condition={buttonState === 'success'}>
 						<Success settings={settings} />

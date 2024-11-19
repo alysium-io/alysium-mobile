@@ -1,11 +1,11 @@
 import { View } from '@atomic';
 import React from 'react';
-import Parallax from './displays/Parallax';
+import Buttons from './displays/Buttons';
 
 const Scratch = () => {
 	return (
 		<View flex={1}>
-			<Parallax />
+			<Buttons />
 		</View>
 	);
 };
