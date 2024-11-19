@@ -1,17 +1,11 @@
 import { Loading, View } from '@atomic';
 import { BottomSheetFooterProps } from '@gorhom/bottom-sheet';
 import { SheetApi } from '@hooks';
-import { StepBar } from '@molecules';
-import {
-	CancelXButton,
-	FullScreenSheet,
-	Header,
-	HeaderSection
-} from '@organisms';
+import { FullScreenSheet, FullScreenSheetStandardHeader } from '@organisms';
 import ActionButtons from '@src/components/molecules/Buttons/ActionButtons';
 import FullScreenSheetFooter from '@src/components/organisms/BottomSheet/sheets/FullScreenSheetFooter';
 import React, { useCallback } from 'react';
-import { Case, Default, If, Switch, Then } from 'react-if';
+import { Case, Default, Switch } from 'react-if';
 import { FadeIn, FadeOut } from 'react-native-reanimated';
 import CreateArtistSequence from './components/CreateArtistSequence/CreateArtistSequence';
 import CreateArtistSuccess from './components/CreateArtistSuccess';
@@ -30,11 +24,7 @@ const CreateArtistBottomSheet: React.FC<CreateArtistBottomSheetProps> = ({
 		createArtistFormApi,
 		artistNameTextInputApi,
 		onSheetIndexChangeFocusTextInput,
-		createArtistSequenceApi,
-		artistNameNextButtonStateApi,
-		profileImage,
-		setProfileImage,
-		selectedTagsListApi
+		artistNameNextButtonStateApi
 	} = useCreateArtistBottomSheet(sheetApi);
 
 	const footerComponent = useCallback(
@@ -43,59 +33,27 @@ const CreateArtistBottomSheet: React.FC<CreateArtistBottomSheetProps> = ({
 				return (
 					<FullScreenSheetFooter {...props}>
 						<View flex={1}>
-							<Switch>
-								<Case condition={createArtistSequenceApi.sequenceIndex === 0}>
-									<ActionButtons
-										buttonProps={[
-											{
-												text: 'cancel',
-												variant: 'outlined',
-												onPress: cancel
-											},
-											{
-												text: 'Next',
-												onPress: createArtistSequenceApi.next,
-												buttonState: artistNameNextButtonStateApi.buttonState
-											}
-										]}
-									/>
-								</Case>
-								<Case condition={createArtistSequenceApi.sequenceIndex === 1}>
-									<ActionButtons
-										buttonProps={[
-											{
-												text: 'back',
-												variant: 'outlined',
-												onPress: createArtistSequenceApi.back
-											},
-											{ text: 'Next', onPress: createArtistSequenceApi.next }
-										]}
-									/>
-								</Case>
-								<Case condition={createArtistSequenceApi.sequenceIndex === 2}>
-									<ActionButtons
-										buttonProps={[
-											{
-												text: 'back',
-												variant: 'outlined',
-												onPress: createArtistSequenceApi.back
-											},
-											{
-												text: 'Create',
-												onPress: createArtistFormApi.onSubmit,
-												color: 'p'
-											}
-										]}
-									/>
-								</Case>
-							</Switch>
+							<ActionButtons
+								buttonProps={[
+									{
+										text: 'cancel',
+										variant: 'outlined',
+										onPress: cancel
+									},
+									{
+										text: 'Create',
+										onPress: createArtistFormApi.onSubmit,
+										color: 'p',
+										buttonState: artistNameNextButtonStateApi.buttonState
+									}
+								]}
+							/>
 						</View>
 					</FullScreenSheetFooter>
 				);
 			}
 		},
 		[
-			createArtistSequenceApi.sequenceIndex,
 			artistNameNextButtonStateApi.buttonState,
 			createArtistFormApi.onSubmit,
 			createArtistFormApi.isLoading,
@@ -110,27 +68,7 @@ const CreateArtistBottomSheet: React.FC<CreateArtistBottomSheetProps> = ({
 			onChange={onSheetIndexChangeFocusTextInput}
 			footerComponent={footerComponent}
 		>
-			<If
-				condition={
-					!createArtistFormApi.isLoading && !createArtistFormApi.isSuccess
-				}
-			>
-				<Then>
-					<Header>
-						<HeaderSection
-							LeftComponent={<CancelXButton />}
-							CenterComponent={
-								<View width='100%'>
-									<StepBar
-										steps={createArtistSequenceApi.numItems}
-										currentStep={createArtistSequenceApi.sequenceIndex}
-									/>
-								</View>
-							}
-						/>
-					</Header>
-				</Then>
-			</If>
+			<FullScreenSheetStandardHeader />
 			<Switch>
 				<Case condition={createArtistFormApi.isLoading}>
 					<View flex={1} animated entering={FadeIn} exiting={FadeOut}>
@@ -145,12 +83,8 @@ const CreateArtistBottomSheet: React.FC<CreateArtistBottomSheetProps> = ({
 				</Case>
 				<Default>
 					<CreateArtistSequence
-						createArtistSequenceApi={createArtistSequenceApi}
 						createArtistFormApi={createArtistFormApi}
 						artistNameTextInputApi={artistNameTextInputApi}
-						profileImage={profileImage}
-						setProfileImage={setProfileImage}
-						selectedTagsListApi={selectedTagsListApi}
 					/>
 				</Default>
 			</Switch>

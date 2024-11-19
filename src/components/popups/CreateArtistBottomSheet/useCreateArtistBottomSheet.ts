@@ -2,8 +2,6 @@ import { artistTagLinkApiSlice } from '@flux/api/artist-tag-link';
 import { CreateArtistTagLinkBodyDto } from '@flux/api/artist-tag-link/dto/artist-tag-link-create.dto';
 import { profileImageApiSlice } from '@flux/api/profile-image';
 import {
-	ListApi,
-	SequenceApi,
 	SheetApi,
 	TextInputApi,
 	useList,
@@ -24,11 +22,7 @@ interface IUseCreateArtistBottomSheet {
 	onSheetIndexChangeFocusTextInput: (index: number) => void;
 	resetAll: () => void;
 	cancel: () => void;
-	createArtistSequenceApi: SequenceApi;
 	artistNameNextButtonStateApi: ButtonStateApi;
-	profileImage: Asset | null;
-	setProfileImage: (profileImage: Asset | null) => void;
-	selectedTagsListApi: ListApi<Omit<CreateArtistTagLinkBodyDto, 'artist_uid'>>;
 }
 
 const useCreateArtistBottomSheet = (
@@ -121,11 +115,7 @@ const useCreateArtistBottomSheet = (
 		onSheetIndexChangeFocusTextInput,
 		resetAll,
 		cancel,
-		createArtistSequenceApi,
-		artistNameNextButtonStateApi,
-		profileImage,
-		setProfileImage,
-		selectedTagsListApi
+		artistNameNextButtonStateApi
 	};
 };
 
