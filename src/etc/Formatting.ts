@@ -77,11 +77,13 @@ class Formatting {
 	static toUtcIsoFormat = (timestamp: Date | string | null): string | null => {
 		/**
 		 * Function that formats a JS date object to a string that can be used in a Postgres timestamp (US Standard Format)
+		 * Example: 2024-09-11T00:00:00Z
+		 * Bad Example: 2024-11-23T06:00:00+00:00
 		 */
 		if (timestamp === null) {
 			return null;
 		}
-		return day(timestamp).utc().format();
+		return day(timestamp).utc().format('YYYY-MM-DDTHH:mm:ss[Z]');
 	};
 
 	static abbreviateNumber = (num: number | null | undefined): string => {

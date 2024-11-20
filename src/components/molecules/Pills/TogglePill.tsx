@@ -1,4 +1,5 @@
 import { Text } from '@atomic';
+import { useTheme } from '@hooks';
 import { Props } from '@types';
 import React, { useMemo } from 'react';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
@@ -17,6 +18,7 @@ const TogglePill: React.FC<TogglePillProps> = ({
 	isActive,
 	containerProps
 }) => {
+	const { theme } = useTheme();
 	const settings = useMemo(() => {
 		return {
 			backgroundColor: isActive ? 'bg.negative.p' : 'transparent',
@@ -31,6 +33,9 @@ const TogglePill: React.FC<TogglePillProps> = ({
 				{...containerProps}
 				backgroundColor={settings.backgroundColor}
 				borderColor={settings.borderColor}
+				borderWidth={
+					isActive ? theme.borderWidth.xthick : theme.borderWidth.thick
+				}
 			>
 				<Text variant='paragraph-small' color={settings.textColor}>
 					{text}

@@ -1,11 +1,11 @@
 import { View } from '@atomic';
 import React from 'react';
-import Buttons from './displays/Buttons';
+import SelectDatetimeWithDuration from './displays/SelectDatetimeWithDuration';
 
 const Scratch = () => {
 	return (
 		<View flex={1}>
-			<Buttons />
+			<SelectDatetimeWithDuration />
 		</View>
 	);
 };

@@ -2,7 +2,7 @@ import { View } from '@atomic';
 import { Props } from '@types';
 import React from 'react';
 
-type GalleryItemInnerContainerViewProps = Props<typeof View> & {};
+type GalleryItemInnerContainerViewProps = Props<typeof View>;
 
 const GalleryItemInnerContainerView: React.FC<
 	GalleryItemInnerContainerViewProps

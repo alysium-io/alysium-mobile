@@ -1,12 +1,10 @@
 import { View } from '@atomic';
-import { useTheme } from '@hooks';
-import { ChildrenProps, Props } from '@types';
+import { Props } from '@types';
 import React from 'react';
 
-type ContainerProps = ChildrenProps & Props<typeof View> & {};
+type ContainerProps = Props<typeof View>;
 
-const Container: React.FC<ContainerProps> = ({ children, ...props }) => {
-	const { theme } = useTheme();
+const Container: React.FC<ContainerProps> = ({ ...props }) => {
 	return (
 		<View
 			borderRadius='round'
@@ -15,14 +13,10 @@ const Container: React.FC<ContainerProps> = ({ children, ...props }) => {
 			justifyContent='center'
 			paddingHorizontal='m'
 			paddingVertical='s'
-			borderWidth={theme.borderWidth.normal}
 			marginRight='s'
-			marginBottom='s'
 			borderColor='border.medium'
 			{...props}
-		>
-			{children}
-		</View>
+		/>
 	);
 };
 

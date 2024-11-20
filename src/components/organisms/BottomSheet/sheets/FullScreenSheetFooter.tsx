@@ -4,7 +4,7 @@ import {
 	BottomSheetFooterProps
 } from '@gorhom/bottom-sheet';
 import { useTheme } from '@hooks';
-import { IChildrenProps } from '@types';
+import { IChildrenProps, Props } from '@types';
 import React from 'react';
 import { interpolate, useAnimatedStyle } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -14,11 +14,13 @@ interface FullScreenSheetFooterProps
 	extends BottomSheetFooterProps,
 		IChildrenProps {
 	animateFooterWithKeyboard?: boolean;
+	containerProps?: Props<typeof View>;
 }
 
 const FullScreenSheetFooter: React.FC<FullScreenSheetFooterProps> = ({
 	animateFooterWithKeyboard = true,
 	children,
+	containerProps,
 	...props
 }) => {
 	const { theme } = useTheme();
@@ -56,6 +58,7 @@ const FullScreenSheetFooter: React.FC<FullScreenSheetFooterProps> = ({
 				borderTopWidth={theme.borderWidth.thin}
 				borderColor='border.light'
 				onLayout={footerLayoutApi.onLayout}
+				{...containerProps}
 			>
 				{children}
 			</View>

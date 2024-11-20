@@ -2,16 +2,10 @@ import { View } from '@atomic';
 import { Props } from '@types';
 import React from 'react';
 
-type SectionProps = Props<typeof View> & {
-	children?: React.ReactNode;
-};
+type SectionProps = Props<typeof View>;
 
-const Section: React.FC<SectionProps> = ({ children, ...props }) => {
-	return (
-		<View marginBottom='xxl' {...props}>
-			{children}
-		</View>
-	);
+const Section: React.FC<SectionProps> = ({ ...props }) => {
+	return <View marginBottom='xxl' {...props} />;
 };
 
 export default Section;

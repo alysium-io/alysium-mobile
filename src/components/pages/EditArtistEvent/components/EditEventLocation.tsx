@@ -1,7 +1,7 @@
 import { View } from '@atomic';
 import { FindOneArtistEventResponseDto } from '@flux/api/event/dto/artist-event-find-one.dto';
 import { useLocation, useNavigation } from '@hooks';
-import { ContentListItem } from '@molecules';
+import { MenuListItem } from '@molecules';
 import React from 'react';
 
 interface EditEventLocationProps {
@@ -25,17 +25,14 @@ const EditEventLocation: React.FC<EditEventLocationProps> = ({ eventData }) => {
 
 	return (
 		<View>
-			<ContentListItem
+			<MenuListItem
 				onPress={() => chooseEventLocationPage(eventData.event.event_uid)}
 				titleTextProps={{
 					title: locationApi.hasLocation ? title : 'Select a Location',
-					bottomSubtext: subtitle
-				}}
-				profileImageProps={{
-					borderRadius: 'none',
-					defaultImageProps: {
-						icon: 'location'
-					}
+					titleVariant: 'paragraph-medium',
+					bottomSubtext: subtitle,
+					bottomSubtextVariant: 'paragraph-small',
+					bottomSubtextColor: 'text.q'
 				}}
 			/>
 		</View>
