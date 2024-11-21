@@ -39,9 +39,15 @@ const SubHeader: React.FC<SubHeaderProps> = ({ eventData }) => {
 							<Text variant='paragraph-medium' marginBottom='xs'>
 								{day(eventData.event.start_time).format('ddd. MMM D')}
 							</Text>
-							<Text variant='paragraph-small' color='text.t' marginBottom='xs'>
-								{dateApi.getSemanticTimeUntil()}
-							</Text>
+							{dateApi.hasValidDate && (
+								<Text
+									variant='paragraph-small'
+									color='text.t'
+									marginBottom='xs'
+								>
+									{dateApi.getSemanticTimeUntil()}
+								</Text>
+							)}
 							<Text variant='paragraph-small' color='text.t' marginBottom='xs'>
 								{day(eventData.event.start_time).format('h:mma')}
 								{eventData.event.end_time &&
