@@ -55,7 +55,11 @@ const ChooseEventLocation = () => {
 	return (
 		<BasePage>
 			<ChooseEventLocationPageHeader />
-			<ScrollView alwaysBounceVertical onScrollBeginDrag={dismiss}>
+			<ScrollView
+				alwaysBounceVertical
+				onScrollBeginDrag={dismiss}
+				keyboardShouldPersistTaps='always'
+			>
 				<View margin='m'>
 					<SearchBar searchApi={searchApi} placeholder='Search for Location' />
 				</View>
