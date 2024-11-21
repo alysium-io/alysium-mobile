@@ -1,12 +1,11 @@
 import { View } from '@atomic';
-
 import React from 'react';
-import Location from './displays/Location';
+import StandardTextInputs from './displays/StandardTextInputs';
 
 const Scratch = () => {
 	return (
 		<View flex={1}>
-			<Location />
+			<StandardTextInputs />
 		</View>
 	);
 };

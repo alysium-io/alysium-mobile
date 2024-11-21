@@ -1,5 +1,5 @@
 import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
-import { Section, Text } from '@atomic';
+import { Section } from '@atomic';
 import { artistEventApiSlice } from '@flux/api/event';
 import { useImage, useNavigation, usePagination, useSheet } from '@hooks';
 import { ContentListItem, SeeAllBottomButton } from '@molecules';
@@ -12,16 +12,15 @@ const EditEvents = () => {
 	const { editArtistEventPage, artistEventsPage } = useNavigation();
 	const { urlForKey } = useImage();
 	const { page } = usePagination();
-	const { data, isFetching } =
-		artistEventApiSlice.usePrivateFindAllArtistEventsQuery({
-			params: {
-				artist_uid: artistData.artist_uid
-			},
-			query: {
-				page,
-				limit: 5
-			}
-		});
+	const { data } = artistEventApiSlice.usePrivateFindAllArtistEventsQuery({
+		params: {
+			artist_uid: artistData.artist_uid
+		},
+		query: {
+			page,
+			limit: 5
+		}
+	});
 
 	const onPressCreateEvent = () => {
 		createArtistEventBottomSheet.open();
@@ -29,9 +28,6 @@ const EditEvents = () => {
 
 	return (
 		<Section>
-			<Text variant='section-header-2' marginHorizontal='m' marginBottom='m'>
-				Events
-			</Text>
 			<ContentListItem
 				onPress={onPressCreateEvent}
 				titleTextProps={{

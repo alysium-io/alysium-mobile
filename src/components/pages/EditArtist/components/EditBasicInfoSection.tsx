@@ -1,10 +1,8 @@
 import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
-import { Section, Text } from '@atomic';
+import { Section, Text, View } from '@atomic';
 import { Formatting, regexPatterns } from '@etc';
-import {
-	FormPhoneNumberTextInputWithLabel,
-	FormTextInputWithLabel
-} from '@molecules';
+import { useNavigation } from '@hooks';
+import { FormPhoneNumber, FormText, MenuListItem } from '@molecules';
 import { EditArtistFormApi } from '@src/utils/redux-hook-form/useEditArtistFormApi';
 import React from 'react';
 import { Controller } from 'react-hook-form';
@@ -19,56 +17,62 @@ const EditBasicInfoSection: React.FC<EditBasicInfoSectionProps> = ({
 	onBlurEditable
 }) => {
 	const { artistData } = useArtistAppContext();
+	const { chooseScenePage } = useNavigation();
 
 	return (
-		<Section marginTop='xl'>
-			<Text variant='section-header-1'>Info</Text>
-			<Controller
-				name='phone_number'
-				control={editArtistFormApi.formMethods.control}
-				rules={{
-					required: false,
-					pattern: {
-						value: regexPatterns.phoneNumber,
-						message: 'Invalid phone number'
-					},
-					maxLength: {
-						value: 14,
-						message: 'Invalid phone number'
-					}
-				}}
-				render={({ field: { onChange } }) => (
-					<FormPhoneNumberTextInputWithLabel
-						label='phone #'
-						placeholder='(123) 456-7890'
-						defaultValue={
-							artistData.phone_number
-								? Formatting.formatPhoneNumber(artistData.phone_number)
-								: undefined
+		<Section>
+			<View margin='m' marginBottom='none'>
+				<Text variant='section-header-1'>Info</Text>
+				<Controller
+					name='phone_number'
+					control={editArtistFormApi.formMethods.control}
+					rules={{
+						required: false,
+						pattern: {
+							value: regexPatterns.phoneNumber,
+							message: 'Invalid phone number'
+						},
+						maxLength: {
+							value: 14,
+							message: 'Invalid phone number'
 						}
-						onChangeText={onChange}
-						onBlur={onBlurEditable}
-					/>
-				)}
-			/>
-			<Controller
-				name='bio'
-				control={editArtistFormApi.formMethods.control}
-				render={({ field: { onChange } }) => (
-					<FormTextInputWithLabel
-						label='Bio'
-						placeholder='Tell people what you offer...'
-						defaultValue={artistData.bio ?? undefined}
-						onChangeText={onChange}
-						onBlur={onBlurEditable}
-						scrollEnabled={false}
-						multiline
-						maxLength={200}
-						style={{
-							padding: 0 // because `multiline` prop adds padding
-						}}
-					/>
-				)}
+					}}
+					render={({ field: { onChange } }) => (
+						<FormPhoneNumber
+							label='Phone'
+							placeholder='(123) 456-7890'
+							defaultValue={
+								artistData.phone_number
+									? Formatting.formatPhoneNumber(artistData.phone_number)
+									: undefined
+							}
+							onChangeText={onChange}
+							onBlur={onBlurEditable}
+						/>
+					)}
+				/>
+				<Controller
+					name='bio'
+					control={editArtistFormApi.formMethods.control}
+					render={({ field: { onChange } }) => (
+						<FormText
+							label='Bio'
+							placeholder='Tell people what you offer...'
+							defaultValue={artistData.bio ?? undefined}
+							onChangeText={onChange}
+							onBlur={onBlurEditable}
+							maxLength={200}
+						/>
+					)}
+				/>
+			</View>
+			<MenuListItem
+				titleTextProps={{
+					title: artistData.scene?.scene.name ?? 'City',
+					bottomSubtext: artistData.scene?.scene.country ?? 'Join a scene',
+					titleVariant: 'paragraph-medium'
+				}}
+				onPress={chooseScenePage}
 			/>
 		</Section>
 	);

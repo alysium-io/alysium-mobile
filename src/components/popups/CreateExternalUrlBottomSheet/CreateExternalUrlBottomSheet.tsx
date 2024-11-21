@@ -2,7 +2,7 @@ import { View } from '@atomic';
 import { ExternalUrlRefType } from '@flux/api/external-url/types';
 import { BottomSheetFooterProps } from '@gorhom/bottom-sheet';
 import { SheetApi } from '@hooks';
-import { ActionButtons, FormTextInputWithLabel } from '@molecules';
+import { ActionButtons, FormText } from '@molecules';
 import { FullScreenSheet, FullScreenSheetStandardHeader } from '@organisms';
 import FullScreenSheetFooter from '@src/components/organisms/BottomSheet/sheets/FullScreenSheetFooter';
 import { isValidUrlString } from '@src/etc/url';
@@ -20,8 +20,13 @@ interface CreateExternalUrlBottomSheetProps {
 const CreateExternalUrlBottomSheet: React.FC<
 	CreateExternalUrlBottomSheetProps
 > = ({ sheetApi, refType, refId }) => {
-	const { createExternalUrlFormApi, resetAll, close, saveButtonStateApi } =
-		useCreateExternalUrlBottomSheet(sheetApi, refType, refId);
+	const {
+		createExternalUrlFormApi,
+		resetAll,
+		close,
+		saveButtonStateApi,
+		nameTextInputApi
+	} = useCreateExternalUrlBottomSheet(sheetApi, refType, refId);
 
 	const footerComponent = useCallback(
 		(props: BottomSheetFooterProps) => {
@@ -56,6 +61,7 @@ const CreateExternalUrlBottomSheet: React.FC<
 			sheetApi={sheetApi}
 			footerComponent={footerComponent}
 			onDismiss={resetAll}
+			sheetDidOpen={nameTextInputApi.focus}
 		>
 			<FullScreenSheetStandardHeader />
 			<View margin='m'>
@@ -67,10 +73,11 @@ const CreateExternalUrlBottomSheet: React.FC<
 						maxLength: { value: 50, message: 'Name is too long' }
 					}}
 					render={({ field: { onChange } }) => (
-						<FormTextInputWithLabel
+						<FormText
 							label='Name'
 							placeholder='Instagram, Facebook, etc.'
 							onChangeText={onChange}
+							textInputApi={nameTextInputApi}
 						/>
 					)}
 				/>
@@ -82,7 +89,7 @@ const CreateExternalUrlBottomSheet: React.FC<
 						validate: (value) => isValidUrlString(value) || 'Invalid URL'
 					}}
 					render={({ field: { onChange } }) => (
-						<FormTextInputWithLabel
+						<FormText
 							label='Url'
 							placeholder='https://instagram.com/...'
 							onChangeText={onChange}

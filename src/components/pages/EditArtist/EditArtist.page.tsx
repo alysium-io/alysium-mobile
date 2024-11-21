@@ -7,7 +7,6 @@ import EditBasicInfoSection from './components/EditBasicInfoSection';
 import EditEvents from './components/EditEvents';
 import EditExternalUrlsSection from './components/EditExternalUrlsSection';
 import EditProfileImage from './components/EditProfileImage';
-import EditScene from './components/EditScene';
 import GallerySection from './components/GallerySection';
 import EditArtistPageHeader from './EditArtist.header';
 import useEditArtistPage from './useEditArtistPage';
@@ -38,14 +37,11 @@ const EditArtistPage = () => {
 					editArtistFormApi={editArtistFormApi}
 					onBlurEditable={onBlurEditable}
 				/>
-				<EditScene />
 				<EditEvents />
-				<View margin='m'>
-					<EditBasicInfoSection
-						editArtistFormApi={editArtistFormApi}
-						onBlurEditable={onBlurEditable}
-					/>
-				</View>
+				<EditBasicInfoSection
+					editArtistFormApi={editArtistFormApi}
+					onBlurEditable={onBlurEditable}
+				/>
 				<EditExternalUrlsSection />
 				<GallerySection />
 			</SelfAwareScrollView>

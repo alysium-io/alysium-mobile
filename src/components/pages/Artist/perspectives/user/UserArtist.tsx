@@ -6,7 +6,6 @@ import React from 'react';
 import ArtistPageHeader from '../../Artist.header';
 import SubHeader from '../../components/SubHeader';
 import ActionButtons from './components/ActionButtons';
-import ArtistTags from './components/ArtistTags';
 import EventsSection from './components/EventsSection';
 import ExternalUrlsSection from './components/ExternalUrlsSection';
 import GallerySection from './components/GallerySection';
@@ -33,7 +32,6 @@ const UserArtist: React.FC<UserArtistProps> = ({ artist_uid }) => {
 				<View margin='m'>
 					<SubHeader artistData={artistData} />
 					<ActionButtons artistData={artistData} />
-					<ArtistTags artistData={artistData} />
 				</View>
 				<EventsSection artistData={artistData} eventsData={eventsData} />
 				<ExternalUrlsSection artistData={artistData} />

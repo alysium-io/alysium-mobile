@@ -18,6 +18,7 @@ const SeeAllBottomButton: React.FC<SeeAllBottomButtonProps> = ({
 				{...containerProps}
 				justifyContent='center'
 				borderBottomColor='transparent'
+				paddingVertical='xl'
 			>
 				<Text textAlign='center' textDecorationLine='underline'>
 					See All

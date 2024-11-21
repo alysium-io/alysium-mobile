@@ -1,5 +1,5 @@
 import { ExternalUrlRefType } from '@flux/api/external-url/types';
-import { SheetApi } from '@hooks';
+import { SheetApi, TextInputApi, useTextInput } from '@hooks';
 import { ButtonStateApi, useButtonState } from '@molecules';
 import useCreateExternalUrlFormApi, {
 	CreateExternalUrlFormApi
@@ -12,6 +12,7 @@ interface IUseCreateExternalUrlBottomSheet {
 	resetAll: () => void;
 	close: () => void;
 	saveButtonStateApi: ButtonStateApi;
+	nameTextInputApi: TextInputApi;
 }
 
 const useCreateExternalUrlBottomSheet = (
@@ -19,6 +20,7 @@ const useCreateExternalUrlBottomSheet = (
 	refType: ExternalUrlRefType,
 	refId: NanoId
 ): IUseCreateExternalUrlBottomSheet => {
+	const nameTextInputApi = useTextInput();
 	const saveButtonStateApi = useButtonState('disabled');
 
 	const createExternalUrlFormApi = useCreateExternalUrlFormApi({
@@ -55,6 +57,7 @@ const useCreateExternalUrlBottomSheet = (
 	};
 
 	return {
+		nameTextInputApi,
 		createExternalUrlFormApi,
 		resetAll,
 		close,

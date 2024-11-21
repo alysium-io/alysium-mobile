@@ -21,21 +21,23 @@ const FormPhoneNumberTextInputWithLabel: React.FC<
 			<View
 				flexDirection='row'
 				paddingVertical='xl'
-				borderBottomColor='border.medium'
+				borderBottomColor='border.light'
 				borderBottomWidth={theme.borderWidth.normal}
 			>
 				<If condition={label}>
 					<Then>
-						<Text variant='paragraph-medium' color='text.s' marginRight='m'>
-							{label}
-						</Text>
+						<View width={75}>
+							<Text variant='paragraph-medium' color='text.s' marginRight='m'>
+								{label}
+							</Text>
+						</View>
 					</Then>
 				</If>
 				<View flex={1}>
 					<PhoneNumberTextInput
 						ref={_textInputApi.ref}
 						variant='paragraph'
-						color='text.s'
+						color='text.t'
 						placeholderTextColor={theme.colors['text.q']}
 						{...props}
 					/>

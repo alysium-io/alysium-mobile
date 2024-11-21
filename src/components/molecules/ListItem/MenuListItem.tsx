@@ -26,7 +26,7 @@ const MenuListItem: React.FC<MenuListItemProps> = ({
 }) => {
 	return (
 		<BgTouchAnimation disabled={disabled} onPress={onPress}>
-			<Container {...containerProps}>
+			<Container paddingVertical='xl' {...containerProps}>
 				{prefixIconProps && (
 					<View marginRight='m' marginLeft='s'>
 						<Icon size='s' {...prefixIconProps} />

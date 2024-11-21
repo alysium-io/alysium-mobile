@@ -4,7 +4,7 @@ import React from 'react';
 
 const sizeScheme = {
 	small: 50,
-	medium: 65,
+	medium: 75,
 	large: 95
 };
 

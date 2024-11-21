@@ -16,7 +16,7 @@ const Container: React.FC<ContainerProps> = ({
 	const { theme } = useTheme();
 	return (
 		<View
-			paddingVertical='l'
+			paddingVertical='m'
 			marginHorizontal='m'
 			flexDirection='row'
 			alignItems='center'
