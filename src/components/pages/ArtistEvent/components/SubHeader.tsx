@@ -1,6 +1,6 @@
 import { Section, Text, View } from '@atomic';
 import { FindOneEventResponseDto } from '@flux/api/event/dto/event-find-one.dto';
-import { useDate, useLocation } from '@hooks';
+import { useDateFormatter, useLocation } from '@hooks';
 import day from 'dayjs';
 import React from 'react';
 import { Else, If, Then } from 'react-if';
@@ -11,7 +11,7 @@ interface SubHeaderProps {
 }
 
 const SubHeader: React.FC<SubHeaderProps> = ({ eventData }) => {
-	const { semantic } = useDate();
+	const dateApi = useDateFormatter(eventData.event.start_time);
 	const locationApi = useLocation(eventData.event.location);
 	const onPressLocation = () => locationApi.openMap(eventData.event.name);
 
@@ -30,8 +30,6 @@ const SubHeader: React.FC<SubHeaderProps> = ({ eventData }) => {
 		{ type: 'country', nameLength: 'short_name' }
 	]);
 
-	const semanticDate = semantic(eventData.event.start_time);
-
 	return (
 		<Section marginBottom='s'>
 			<View flexDirection='row' justifyContent='space-between' marginBottom='m'>
@@ -42,12 +40,12 @@ const SubHeader: React.FC<SubHeaderProps> = ({ eventData }) => {
 								{day(eventData.event.start_time).format('ddd. MMM D')}
 							</Text>
 							<Text variant='paragraph-small' color='text.t' marginBottom='xs'>
+								{dateApi.getSemanticTimeUntil()}
+							</Text>
+							<Text variant='paragraph-small' color='text.t' marginBottom='xs'>
 								{day(eventData.event.start_time).format('h:mma')}
 								{eventData.event.end_time &&
 									day(eventData.event.end_time).format(' - h:mma')}
-							</Text>
-							<Text variant='paragraph-small' color='text.t'>
-								{semanticDate}
 							</Text>
 						</Then>
 						<Else>
