@@ -10,7 +10,6 @@ import ArtistTags from './components/ArtistTags';
 import EventsSection from './components/EventsSection';
 import ExternalUrlsSection from './components/ExternalUrlsSection';
 import GallerySection from './components/GallerySection';
-import RelatedArtists from './components/RelatedArtists';
 import useUserArtistPage from './useUserArtistPage';
 
 interface UserArtistProps {
@@ -18,9 +17,9 @@ interface UserArtistProps {
 }
 
 const UserArtist: React.FC<UserArtistProps> = ({ artist_uid }) => {
-	const { artistData } = useUserArtistPage(artist_uid);
+	const { artistData, eventsData } = useUserArtistPage(artist_uid);
 
-	if (!artistData) {
+	if (!artistData || !eventsData) {
 		return null;
 	}
 
@@ -36,10 +35,9 @@ const UserArtist: React.FC<UserArtistProps> = ({ artist_uid }) => {
 					<ActionButtons artistData={artistData} />
 					<ArtistTags artistData={artistData} />
 				</View>
-				<EventsSection artistData={artistData} />
+				<EventsSection artistData={artistData} eventsData={eventsData} />
 				<ExternalUrlsSection artistData={artistData} />
 				<GallerySection artistData={artistData} />
-				<RelatedArtists artist_uid={artist_uid} />
 			</ParallaxScroll>
 		</BasePage>
 	);

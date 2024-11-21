@@ -5,7 +5,7 @@ import { FindOneArtistEventResponseDto } from '@flux/api/event/dto/artist-event-
 import { locationApiSlice } from '@flux/api/location';
 import { GoogleMapsAutocompleteResult } from '@flux/api/location/types';
 import { BottomSheetView } from '@gorhom/bottom-sheet';
-import { SheetApi, useNavigation, useTheme } from '@hooks';
+import { SheetApi, useNavigation } from '@hooks';
 import { ActionButtons, useButtonState } from '@molecules';
 import { BottomSheet } from '@organisms';
 import LocationMapView from '@src/components/molecules/Maps/LocationMapView';
@@ -21,7 +21,6 @@ interface ConfirmEventLocationChoiceBottomSheetProps {
 const ConfirmEventLocationChoiceBottomSheet: React.FC<
 	ConfirmEventLocationChoiceBottomSheetProps
 > = ({ sheetApi, googleMapsAutocompleteResult, eventData }) => {
-	const { theme } = useTheme();
 	const joinButtonStateApi = useButtonState();
 	const insets = useSafeAreaInsets();
 	const { back } = useNavigation();
@@ -93,7 +92,14 @@ const ConfirmEventLocationChoiceBottomSheet: React.FC<
 					</Text>
 				</View>
 				<View height={300} width='100%'>
-					{locationData && <LocationMapView location={locationData} />}
+					{locationData && (
+						<LocationMapView
+							markers={{
+								location: locationData,
+								label: googleMapsAutocompleteResult?.main_text
+							}}
+						/>
+					)}
 				</View>
 				<View margin='m' paddingBottom='m'>
 					<ActionButtons

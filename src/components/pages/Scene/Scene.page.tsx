@@ -23,7 +23,11 @@ const Scene = () => {
 			sceneData?.location && (
 				<View height='100%'>
 					<Location
-						location={sceneData.location}
+						markers={{
+							location: sceneData.location,
+							label: sceneData.name,
+							color: 'blue'
+						}}
 						containerProps={{
 							height: '100%'
 						}}

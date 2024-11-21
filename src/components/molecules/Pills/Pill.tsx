@@ -1,4 +1,5 @@
 import { Text } from '@atomic';
+import { useTheme } from '@hooks';
 import { Props } from '@types';
 import React from 'react';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
@@ -11,9 +12,10 @@ interface PillProps {
 }
 
 const Pill: React.FC<PillProps> = ({ text, onPress, containerProps }) => {
+	const { theme } = useTheme();
 	return (
 		<TouchableWithoutFeedback onPress={onPress}>
-			<Container {...containerProps}>
+			<Container borderWidth={theme.borderWidth.thick} {...containerProps}>
 				<Text variant='paragraph-small' color='text.s'>
 					{text}
 				</Text>

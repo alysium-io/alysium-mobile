@@ -30,7 +30,9 @@ const EditEventLocation: React.FC<EditEventLocationProps> = ({ eventData }) => {
 				titleTextProps={{
 					title: locationApi.hasLocation ? title : 'Select a Location',
 					titleVariant: 'paragraph-medium',
-					bottomSubtext: subtitle,
+					bottomSubtext: locationApi.hasLocation
+						? subtitle
+						: 'Where is your event?',
 					bottomSubtextVariant: 'paragraph-small',
 					bottomSubtextColor: 'text.q'
 				}}

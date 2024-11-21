@@ -20,10 +20,17 @@ const EditLocation: React.FC<EditLocationProps> = ({ eventData }) => {
 		}
 	};
 
+	if (!locationApi.hasLocation) {
+		return null;
+	}
+
 	return (
 		<TouchableOpacity onPress={onPressLocation} activeOpacity={0.9}>
 			<Location
-				location={eventData.event.location}
+				markers={{
+					location: eventData.event.location,
+					label: eventData.event.name
+				}}
 				containerProps={{
 					height: 300,
 					margin: 'm',

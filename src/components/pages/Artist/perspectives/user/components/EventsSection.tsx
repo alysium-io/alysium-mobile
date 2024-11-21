@@ -1,39 +1,36 @@
 import { Section, Text } from '@atomic';
 import { PublicFindOneArtistResponseDto } from '@flux/api/artist/dto/artist-find-one.dto';
-import { artistEventApiSlice } from '@flux/api/event';
+import { FindAllArtistEventsResponseDto } from '@flux/api/event/dto/artist-event-find-all.dto';
 import { useDate, useImage, useNavigation } from '@hooks';
-import { ContentListItem, SeeAllBottomButton } from '@molecules';
+import { ContentListItem, Location, SeeAllBottomButton } from '@molecules';
 import day from 'dayjs';
 import React from 'react';
 
 interface EventsSectionProps {
 	artistData: PublicFindOneArtistResponseDto;
+	eventsData: FindAllArtistEventsResponseDto;
 }
 
-const EventsSection: React.FC<EventsSectionProps> = ({ artistData }) => {
+const EventsSection: React.FC<EventsSectionProps> = ({
+	artistData,
+	eventsData
+}) => {
 	const { artistEventPage, artistEventsPage } = useNavigation();
 	const { semantic } = useDate();
 	const { urlForKey } = useImage();
-	const { data } = artistEventApiSlice.usePublicFindAllArtistEventsQuery({
-		params: {
-			artist_uid: artistData.artist_uid
-		},
-		query: {
-			page: 1,
-			limit: 5
-		}
-	});
 
-	if (!data || data.length === 0) {
-		return null;
-	}
+	const markers = eventsData.map((event) => ({
+		location: event.event.location,
+		label: event.event.name,
+		color: 'blue'
+	}));
 
 	return (
 		<Section>
 			<Text variant='section-header-2' marginHorizontal='m' marginBottom='m'>
 				Events
 			</Text>
-			{data?.map((event) => {
+			{eventsData?.map((event) => {
 				const semanticDateString = semantic(event.event.start_time);
 				const defaultDateString =
 					event.event.start_time !== null
@@ -77,6 +74,15 @@ const EventsSection: React.FC<EventsSectionProps> = ({ artistData }) => {
 						using: 'ARTIST_PAGE_EVENTS_SECTION_SEE_ALL'
 					})
 				}
+			/>
+			<Location
+				markers={markers}
+				showUserLocation={true}
+				containerProps={{
+					height: 300,
+					margin: 'm',
+					style: { borderRadius: 25 }
+				}}
 			/>
 		</Section>
 	);

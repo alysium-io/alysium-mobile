@@ -71,7 +71,14 @@ const JoinScenePreviewBottomSheet: React.FC<
 			>
 				<Header googleMapsAutocompleteResult={googleMapsAutocompleteResult} />
 				<View height={400} width='100%'>
-					{locationData && <LocationMapView location={locationData} />}
+					{locationData && (
+						<LocationMapView
+							markers={{
+								location: locationData,
+								label: googleMapsAutocompleteResult?.main_text
+							}}
+						/>
+					)}
 				</View>
 				<View margin='m'>
 					<ActionButtons

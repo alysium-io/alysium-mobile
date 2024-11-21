@@ -19,7 +19,10 @@ const LocationSection: React.FC<LocationSectionProps> = ({ eventData }) => {
 	return (
 		<TouchableOpacity onPress={onPressLocation} activeOpacity={0.9}>
 			<Location
-				location={eventData.event.location}
+				markers={{
+					location: eventData.event.location,
+					label: eventData.event.name
+				}}
 				containerProps={{
 					height: 300,
 					margin: 'm',

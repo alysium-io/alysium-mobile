@@ -24,7 +24,7 @@ const EditExternalUrlsSection = () => {
 	return (
 		<Section>
 			<Text margin='m' variant='section-header-1'>
-				Links
+				External Links
 			</Text>
 			<MenuListItem
 				titleTextProps={{
