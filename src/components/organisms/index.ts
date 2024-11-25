@@ -10,6 +10,7 @@ export * from './Parallax';
 export * from './PillList';
 export * from './SearchBar';
 export * from './Sequence';
+export * from './Sharing';
 export * from './Slider';
 export * from './Stats';
 export * from './SwipeUpToSubmit';

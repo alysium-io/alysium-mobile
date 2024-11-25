@@ -1,12 +1,7 @@
-import {
-	BottomSheetModal,
-	BottomSheetView,
-	useBottomSheetTimingConfigs
-} from '@gorhom/bottom-sheet';
+import { BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet';
 import { SheetRef, useTheme } from '@hooks';
 import { Props } from '@types';
-import React, { useMemo } from 'react';
-import { Easing } from 'react-native-reanimated';
+import React from 'react';
 import BottomSheetBackdrop from './BottomSheetBackdrop';
 import BottomSheetHandle from './BottomSheetHandle';
 
@@ -34,12 +29,11 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
 }) => {
 	const { theme } = useTheme();
 
-	const easingConfig = useMemo(() => Easing.inOut(Easing.cubic), []);
-
-	const animationConfigs = useBottomSheetTimingConfigs({
-		duration: 300,
-		easing: easingConfig
-	});
+	const springConfig = {
+		damping: 30,
+		mass: 1,
+		stiffness: 300
+	};
 
 	return (
 		<BottomSheetModal
@@ -48,7 +42,7 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
 			backdropComponent={BottomSheetBackdrop}
 			handleComponent={handleComponent}
 			enablePanDownToClose={enablePanDownToClose}
-			animationConfigs={animationConfigs}
+			animationConfigs={springConfig}
 			enableDynamicSizing={props.snapPoints ? false : true}
 			enableContentPanningGesture={enableContentPanningGesture}
 			backgroundStyle={{

@@ -36,19 +36,15 @@ const SubHeader: React.FC<SubHeaderProps> = ({ eventData }) => {
 				<View flex={1}>
 					<If condition={eventData.event.start_time}>
 						<Then>
-							<Text variant='paragraph-medium' marginBottom='xs'>
+							<Text variant='paragraph-large-medium' marginBottom='xs'>
 								{day(eventData.event.start_time).format('ddd. MMM D')}
 							</Text>
-							{dateApi.hasValidDate && (
-								<Text
-									variant='paragraph-small'
-									color='text.t'
-									marginBottom='xs'
-								>
+							{dateApi.hasValidDate && dateApi.getSemanticTimeUntil() && (
+								<Text variant='paragraph' color='text.t' marginBottom='xs'>
 									{dateApi.getSemanticTimeUntil()}
 								</Text>
 							)}
-							<Text variant='paragraph-small' color='text.t' marginBottom='xs'>
+							<Text variant='paragraph' color='text.t' marginBottom='xs'>
 								{day(eventData.event.start_time).format('h:mma')}
 								{eventData.event.end_time &&
 									day(eventData.event.end_time).format(' - h:mma')}
@@ -67,25 +63,21 @@ const SubHeader: React.FC<SubHeaderProps> = ({ eventData }) => {
 							<TouchableOpacity onPress={onPressLocation} activeOpacity={0.5}>
 								<View>
 									<Text
-										variant='paragraph-medium'
+										variant='paragraph-large-medium'
 										marginBottom='xs'
 										textAlign='right'
 									>
 										{address}
 									</Text>
 									<Text
-										variant='paragraph-small'
+										variant='paragraph'
 										color='text.t'
 										marginBottom='xs'
 										textAlign='right'
 									>
 										{locality}
 									</Text>
-									<Text
-										variant='paragraph-small'
-										color='text.t'
-										textAlign='right'
-									>
+									<Text variant='paragraph' color='text.t' textAlign='right'>
 										{country}
 									</Text>
 								</View>

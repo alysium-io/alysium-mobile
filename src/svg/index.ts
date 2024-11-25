@@ -15,6 +15,7 @@ import BellNotification from './BellNotification';
 import BigCartel from './BigCartel';
 import BuyMeACoffee from './BuyMeACoffee';
 import Calendar from './Calendar';
+import Chainlink from './Chainlink';
 import Checkmark from './Checkmark';
 import Cheeseburger from './Cheeseburger';
 import Clear from './Clear';
@@ -62,6 +63,7 @@ import SearchFilled from './SearchFilled';
 import Security from './Security';
 import Settings from './Settings';
 import Share from './Share';
+import ShareExternal from './ShareExternal';
 import Shopify from './Shopify';
 import Soundcloud from './Soundcloud';
 import Spotify from './Spotify';
@@ -161,7 +163,9 @@ export const SvgIcons = {
 	rank: Rank,
 	play: Play,
 	pause: Pause,
-	trash: Trash
+	trash: Trash,
+	'share-external': ShareExternal,
+	chainlink: Chainlink
 };
 
 export type IconNames = keyof typeof SvgIcons;

@@ -2,7 +2,7 @@ import { View } from '@atomic';
 import { EventStatus } from '@flux/api/event/types';
 import { useKeyboard, useSheet } from '@hooks';
 import { ActionButtons } from '@molecules';
-import { BasePage } from '@organisms';
+import { BasePage, ShareExternal } from '@organisms';
 import {
 	ConfirmPublishEventBottomSheet,
 	EditArtistEventPopupMenuBottomSheet
@@ -26,6 +26,7 @@ const EditArtistEventPage = () => {
 	const { dismiss } = useKeyboard();
 	const confirmPublishEventSheetApi = useSheet();
 	const editArtistEventPopupMenuBottomSheet = useSheet();
+	const shareExternalSheetApi = useSheet();
 	const {
 		eventData,
 		isProfileImageLoading,
@@ -88,8 +89,13 @@ const EditArtistEventPage = () => {
 			</ScrollView>
 			<EditArtistEventPopupMenuBottomSheet
 				sheetApi={editArtistEventPopupMenuBottomSheet}
+				onPressShare={() => {
+					editArtistEventPopupMenuBottomSheet.close();
+					shareExternalSheetApi.open();
+				}}
 				event_uid={eventData.event.event_uid}
 			/>
+			<ShareExternal event={eventData} sheetApi={shareExternalSheetApi} />
 		</BasePage>
 	);
 };

@@ -11,12 +11,13 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface EditArtistEventPopupMenuBottomSheetProps {
 	sheetApi: SheetApi;
+	onPressShare: () => void;
 	event_uid: NanoId;
 }
 
 const EditArtistEventPopupMenuBottomSheet: React.FC<
 	EditArtistEventPopupMenuBottomSheetProps
-> = ({ sheetApi, event_uid }) => {
+> = ({ sheetApi, event_uid, onPressShare }) => {
 	const insets = useSafeAreaInsets();
 	const [deleteArtistEventMutation] =
 		artistEventApiSlice.useDeleteArtistEventMutation();
@@ -63,8 +64,22 @@ const EditArtistEventPopupMenuBottomSheet: React.FC<
 			<BottomSheetView style={{ flex: 1, paddingBottom: insets.bottom + 25 }}>
 				<MenuListItem
 					titleTextProps={{
+						title: 'Share',
+						bottomSubtext: 'iMessage, Instagram, etc.',
+						titleVariant: 'paragraph',
+						bottomSubtextVariant: 'paragraph-small',
+						bottomSubtextColor: 'text.q'
+					}}
+					icon='share'
+					iconProps={{
+						size: 'm'
+					}}
+					onPress={onPressShare}
+				/>
+				<MenuListItem
+					titleTextProps={{
 						title: 'Delete Event',
-						titleVariant: 'paragraph-bold'
+						titleVariant: 'paragraph'
 					}}
 					icon='trash'
 					iconProps={{
