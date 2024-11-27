@@ -1,3 +1,4 @@
+import { Contact } from '@flux/api/contact';
 import { FindGalleryParamsDto } from '@flux/api/gallery/dto/gallery-find.dto';
 import { GalleryRefType } from '@flux/api/gallery/types';
 import { type BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
@@ -76,6 +77,8 @@ type ViewGalleryPage = {
 
 type ScenePage = { scene_uid: NanoId };
 
+type EditContactPage = { contact: Contact };
+
 export type RouteNames =
 	| 'SearchPage'
 	| 'HostPage'
@@ -104,7 +107,8 @@ export type RouteNames =
 	| 'ChooseEventLocationPage'
 	| 'ArtistEventPage'
 	| 'ArtistEventsPage'
-	| 'ScenePage';
+	| 'ScenePage'
+	| 'EditContactPage';
 
 /**
  * Stack Navigators
@@ -173,6 +177,7 @@ export type EditArtistStackNavigatorParamList = {
 	ChooseEventLocationPage: ChooseEventLocationPage;
 	ScenePage: ScenePage;
 	ArtistEventsPage: ArtistEventsPage;
+	EditContactPage: EditContactPage;
 };
 
 /**
@@ -283,6 +288,10 @@ export type ArtistEventsPageRouteProp = RouteProp<
 export type ScenePageRouteProp = RouteProp<
 	CompositeStackNavigatorParamList,
 	'ScenePage'
+>;
+export type EditContactPageRouteProp = RouteProp<
+	CompositeStackNavigatorParamList,
+	'EditContactPage'
 >;
 
 /**

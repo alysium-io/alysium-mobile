@@ -12,6 +12,7 @@ export { default as usePersistedSearchState } from './usePersistedSearchState';
 export { default as useNavigation } from './useNavigation';
 
 // APIs
+export { default as useContactPicker } from './useContactPicker';
 export { default as useLocationPermissions } from './useLocationPermissions';
 export { default as usePhotosAndCamera } from './usePhotosAndCamera';
 

@@ -9,7 +9,7 @@ const TextInput = React.forwardRef<RNText, TextProps>(
 		{
 			autoCorrect = false,
 			autoComplete = 'off',
-			autoCapitalize = 'none',
+			autoCapitalize = 'sentences',
 			...props
 		},
 		ref

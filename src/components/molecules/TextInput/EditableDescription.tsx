@@ -1,35 +1,41 @@
 import { TextInput, View } from '@atomic';
-import { TextInputApi, useTextInput } from '@hooks';
+import { TextInputApi } from '@hooks';
 import { Props } from '@types';
-import React from 'react';
-import { StyleSheet } from 'react-native';
+import React, { useRef } from 'react';
+import { TextInput as RNTextInput, StyleSheet } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 interface EditableDescriptionProps extends Props<typeof TextInput> {
 	textInputApi?: TextInputApi;
+	containerProps?: Props<typeof View>;
 }
 
 const EditableDescription: React.FC<EditableDescriptionProps> = ({
 	textInputApi,
+	containerProps,
 	...props
 }) => {
-	const defaultTextInputApi = useTextInput(props.defaultValue);
-	const _textInputApi = textInputApi || defaultTextInputApi;
+	const ref = useRef<RNTextInput>(null);
 	return (
-		<TouchableWithoutFeedback
-			onPress={() => {
-				_textInputApi.focus();
-			}}
-		>
+		<TouchableWithoutFeedback onPress={() => ref.current?.focus()}>
 			<View
 				style={styles.container}
 				borderColor='border.light'
 				paddingHorizontal='m'
 				paddingVertical='s'
+				marginVertical='xl'
+				{...containerProps}
 			>
 				<TextInput
-					ref={_textInputApi.ref}
-					onChangeText={_textInputApi.setText}
+					ref={ref}
+					editable
+					multiline
+					scrollEnabled={false}
+					variant='paragraph'
+					placeholder='Add a description'
+					style={{
+						padding: 0
+					}}
 					{...props}
 				/>
 			</View>

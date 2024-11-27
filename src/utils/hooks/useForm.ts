@@ -1,7 +1,5 @@
 import { useToast } from '@hooks';
 import { OnSubmitHandler } from '@types';
-import _ from 'lodash';
-import { useEffect, useRef } from 'react';
 import {
 	DefaultValues,
 	FieldValues,
@@ -50,14 +48,14 @@ function useForm<T extends FieldValues>(
 		}
 	};
 
-	const _initialValues = useRef<typeof initialValues>(initialValues);
+	// const _initialValues = useRef<typeof initialValues>(initialValues);
 
-	useEffect(() => {
-		if (!_.isEqual(initialValues, _initialValues.current)) {
-			_initialValues.current = initialValues;
-			formMethods.reset(initialValues, { keepDirty: true });
-		}
-	}, [initialValues]);
+	// useEffect(() => {
+	// 	if (!_.isEqual(initialValues, _initialValues.current)) {
+	// 		_initialValues.current = initialValues;
+	// 		formMethods.reset(initialValues, { keepDirty: true });
+	// 	}
+	// }, [initialValues]);
 
 	const onSubmit = formMethods.handleSubmit(
 		methods.onValid || defaultOnValid,

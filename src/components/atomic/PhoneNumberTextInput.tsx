@@ -29,8 +29,7 @@ const RestyleTextInputMask = createRestyleComponent<
 	Theme
 >(textInputRestyleFunctions, TextInput);
 
-export interface PhoneNumberTextInputProps
-	extends Omit<RestyleTextInputProps, 'value'> {}
+export interface PhoneNumberTextInputProps extends RestyleTextInputProps {}
 
 const PhoneNumberTextInput = forwardRef<TextInput, PhoneNumberTextInputProps>(
 	(props, ref) => {
@@ -48,7 +47,7 @@ const PhoneNumberTextInput = forwardRef<TextInput, PhoneNumberTextInputProps>(
 				text: formattedText
 			});
 
-			props.onChangeText && props.onChangeText(formattedText);
+			props.onChangeText && props.onChangeText(formattedText || '');
 		};
 
 		return (

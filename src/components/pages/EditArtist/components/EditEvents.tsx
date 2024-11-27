@@ -1,12 +1,20 @@
 import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
-import { Section } from '@atomic';
+import { Section, Text } from '@atomic';
 import { artistEventApiSlice } from '@flux/api/event';
-import { useImage, useNavigation, usePagination, useSheet } from '@hooks';
+import {
+	useImage,
+	useNavigation,
+	usePagination,
+	useSheet,
+	useTheme
+} from '@hooks';
 import { ContentListItem, SeeAllBottomButton } from '@molecules';
 import { CreateArtistEventBottomSheet } from '@popups';
 import React from 'react';
+import Separator from './Separator';
 
 const EditEvents = () => {
+	const { theme } = useTheme();
 	const createArtistEventBottomSheet = useSheet();
 	const { artistData } = useArtistAppContext();
 	const { editArtistEventPage, artistEventsPage } = useNavigation();
@@ -28,6 +36,9 @@ const EditEvents = () => {
 
 	return (
 		<Section>
+			<Text variant='section-header-2' marginBottom='m' marginHorizontal='m'>
+				Events
+			</Text>
 			<ContentListItem
 				onPress={onPressCreateEvent}
 				titleTextProps={{
@@ -78,6 +89,7 @@ const EditEvents = () => {
 				}
 			/>
 			<CreateArtistEventBottomSheet sheetApi={createArtistEventBottomSheet} />
+			<Separator marginTop='m' />
 		</Section>
 	);
 };

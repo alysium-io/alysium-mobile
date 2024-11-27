@@ -3606,6 +3606,7 @@ __metadata:
     react-if: "npm:^4.1.5"
     react-native: "npm:0.74.3"
     react-native-config: "npm:^1.5.1"
+    react-native-contacts: "npm:^8.0.4"
     react-native-date-picker: "npm:^4.3.3"
     react-native-device-info: "npm:^11.1.0"
     react-native-encrypted-storage: "npm:^4.0.3"
@@ -3620,6 +3621,7 @@ __metadata:
     react-native-reanimated: "npm:^3.16.1"
     react-native-safe-area-context: "npm:^4.7.1"
     react-native-screens: "npm:^3.32.0"
+    react-native-select-contact: "npm:^1.6.3"
     react-native-share: "npm:^11.1.0"
     react-native-skeleton-placeholder: "npm:^5.2.4"
     react-native-svg: "npm:12.4.4"
@@ -9109,6 +9111,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-action-sheet@npm:^2.2.0":
+  version: 2.2.0
+  resolution: "react-native-action-sheet@npm:2.2.0"
+  checksum: 10c0/41fd14792811ea256eb70f460ed7df333b341b5768df2231d3997058674b20eab4b58180711f74d04f970cc5716e74edbc173584974a01c8b91b76568b7ed01a
+  languageName: node
+  linkType: hard
+
 "react-native-config@npm:^1.5.1":
   version: 1.5.3
   resolution: "react-native-config@npm:1.5.3"
@@ -9118,6 +9127,16 @@ __metadata:
     react-native-windows:
       optional: true
   checksum: 10c0/98e4659191881a72bf756efa469debe90b84ba5f366489dbdebabd45b4f9ec5b05f116db5bdf181c5c688b759c5bc60365b675ff7446b10216056cef15b5ce3b
+  languageName: node
+  linkType: hard
+
+"react-native-contacts@npm:^8.0.4":
+  version: 8.0.4
+  resolution: "react-native-contacts@npm:8.0.4"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 10c0/d7de6f274f3fd4381829ca8c1a5cbd0cb1786bda12807e2a65622c85c7a0d3fd32d7181be431b4f0d8edc4a28ba76c489ddcac16bf88e28fd2b281da558bde98
   languageName: node
   linkType: hard
 
@@ -9287,6 +9306,20 @@ __metadata:
     react: "*"
     react-native: "*"
   checksum: 10c0/568af49a1d79797ebecf5b8c815d44b651b0affdd82d7a8024b9e5e71250a23e108d73562200ef571b806c6a9ebba0484510e710246165dbdc50ad18e4d77619
+  languageName: node
+  linkType: hard
+
+"react-native-select-contact@npm:^1.6.3":
+  version: 1.6.3
+  resolution: "react-native-select-contact@npm:1.6.3"
+  dependencies:
+    react-native-action-sheet: "npm:^2.2.0"
+  peerDependencies:
+    react-native: ">=0.51.0"
+  dependenciesMeta:
+    react-native-action-sheet:
+      optional: true
+  checksum: 10c0/2032c8909228d4405e540a40a79c90932846dc8a5dd5d459414993781e6dcdbb81191397461694e8720d5361f64e42250037e9fe34a6eba2c631f42570953ccc
   languageName: node
   linkType: hard
 

@@ -27,9 +27,7 @@ const EditArtistEventPageHeader: React.FC<EditArtistEventPageHeaderProps> = ({
 						titleProps={{ variant: 'paragraph-small' }}
 					/>
 				}
-				RightComponent={
-					<HeaderIconButton onPress={onPressMenu} name='meatballs' />
-				}
+				RightComponent={<HeaderIconButton onPress={onPressMenu} name='menu' />}
 			/>
 		</Header>
 	);

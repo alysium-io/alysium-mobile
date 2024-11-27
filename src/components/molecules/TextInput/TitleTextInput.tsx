@@ -1,9 +1,10 @@
 import { TextInput, View } from '@atomic';
-import { useAnimatedState, useTextInput, useTheme } from '@hooks';
+import { useAnimatedState, useTheme } from '@hooks';
 import { IconNames } from '@svg';
-import React from 'react';
+import React, { useRef } from 'react';
 import {
 	NativeSyntheticEvent,
+	TextInput as RNTextInput,
 	TextInputFocusEventData,
 	TextInputProps,
 	TouchableWithoutFeedback
@@ -21,7 +22,7 @@ const TitleTextInput: React.FC<TitleTextInputProps> = ({
 	...props
 }) => {
 	const { theme } = useTheme();
-	const textInputApi = useTextInput(props.defaultValue);
+	const ref = useRef<RNTextInput>(null);
 	const { animatedValue, off, on } = useAnimatedState();
 	const activeColor = theme.colors['text.p'];
 	const inactiveColor = theme.colors['text.q'];
@@ -44,13 +45,12 @@ const TitleTextInput: React.FC<TitleTextInputProps> = ({
 				[inactiveColor, activeColor]
 			)
 		};
-	});
+	}, []);
 
 	return (
-		<TouchableWithoutFeedback onPress={textInputApi.focus}>
+		<TouchableWithoutFeedback onPress={() => ref.current?.focus()}>
 			<View
 				animated
-				marginHorizontal='xs'
 				paddingVertical='s'
 				flexDirection='row'
 				alignItems='center'
@@ -58,7 +58,7 @@ const TitleTextInput: React.FC<TitleTextInputProps> = ({
 				style={animatedBorderStyle}
 			>
 				<TextInput
-					ref={textInputApi.ref}
+					ref={ref}
 					placeholderTextColor={theme.colors['text.q']}
 					variant='page-header'
 					onFocus={_onFocus}

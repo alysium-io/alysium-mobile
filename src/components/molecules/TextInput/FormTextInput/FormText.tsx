@@ -1,7 +1,8 @@
 import { TextInput, View } from '@atomic';
-import { TextInputApi, useTextInput, useTheme } from '@hooks';
+import { TextInputApi, useTheme } from '@hooks';
 import { Props } from '@types';
-import React from 'react';
+import React, { useRef } from 'react';
+import { TextInput as RNTextInput } from 'react-native';
 import Container from './components/Container';
 import Label from './components/Label';
 
@@ -13,25 +14,25 @@ type FormTextProps = Props<typeof TextInput> & {
 const FormText: React.FC<FormTextProps> = ({
 	label,
 	textInputApi,
+	defaultValue,
 	...props
 }) => {
 	const { theme } = useTheme();
-	const defaultTextInputApi = useTextInput(props.defaultValue);
-	const _textInputApi = textInputApi || defaultTextInputApi;
+	const ref = useRef<RNTextInput>(null);
 
 	return (
-		<Container onPress={_textInputApi.focus}>
+		<Container onPress={() => ref.current?.focus()}>
 			<Label>{label}</Label>
 			<View flex={1}>
 				<TextInput
-					ref={_textInputApi.ref}
+					ref={ref}
 					variant='paragraph'
-					color='text.t'
+					color='text.p'
 					placeholderTextColor={theme.colors['text.q']}
 					scrollEnabled={false}
 					multiline
 					style={{
-						padding: 0 // because `multiline` prop adds padding
+						padding: 0
 					}}
 					{...props}
 				/>

@@ -1,3 +1,4 @@
+import { Contact } from '@flux/api/contact';
 import { FindGalleryParamsDto } from '@flux/api/gallery/dto/gallery-find.dto';
 import { GalleryRefType } from '@flux/api/gallery/types';
 import { useNavigation as useRNNavigation } from '@react-navigation/native';
@@ -89,6 +90,8 @@ interface IUseNavigation {
 		scene_uid: NanoId,
 		navigationMeta: NavigationBehaviorMetadata
 	) => void;
+
+	editContactPage: (contact: Contact) => void;
 
 	/** General */
 	back: () => void;
@@ -280,6 +283,10 @@ const useNavigation = (): IUseNavigation => {
 		navigationBehavior(navigationMeta);
 	};
 
+	const editContactPage = (contact: Contact) => {
+		navigation.push('EditContactPage', { contact });
+	};
+
 	/**
 	 * General
 	 */
@@ -310,6 +317,7 @@ const useNavigation = (): IUseNavigation => {
 		artistEventPage,
 		artistEventsPage,
 		scenePage,
+		editContactPage,
 		back
 	};
 };

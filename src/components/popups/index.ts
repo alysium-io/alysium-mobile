@@ -6,6 +6,7 @@ export * from './ConfirmPublishEventBottomSheet';
 export * from './CreateAccountBottomSheet';
 export * from './CreateArtistBottomSheet';
 export * from './CreateArtistEventBottomSheet';
+export * from './CreateContactBottomSheet';
 export * from './CreateContractBottomSheet';
 export * from './CreateEventBottomSheet';
 export * from './CreateExternalUrlBottomSheet';

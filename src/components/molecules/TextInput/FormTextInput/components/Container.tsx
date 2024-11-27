@@ -2,7 +2,7 @@ import { View } from '@atomic';
 import { useTheme } from '@hooks';
 import { Props } from '@types';
 import React from 'react';
-import { TouchableWithoutFeedback } from 'react-native';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 type ContainerProps = Props<typeof View> & {
 	onPress?: () => void;

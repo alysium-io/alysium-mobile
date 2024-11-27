@@ -1,7 +1,8 @@
-import { PhoneNumberTextInput, View } from '@atomic';
-import { TextInputApi, useTextInput, useTheme } from '@hooks';
+import { PhoneNumberTextInput, TextInput, View } from '@atomic';
+import { TextInputApi, useTheme } from '@hooks';
 import { Props } from '@types';
-import React from 'react';
+import React, { useRef } from 'react';
+import { TextInput as RNTextInput } from 'react-native';
 import Container from './components/Container';
 import Label from './components/Label';
 
@@ -13,22 +14,27 @@ type FormPhoneNumberProps = Props<typeof PhoneNumberTextInput> & {
 const FormPhoneNumber: React.FC<FormPhoneNumberProps> = ({
 	label,
 	textInputApi,
+	defaultValue,
 	...props
 }) => {
 	const { theme } = useTheme();
-	const defaultTextInputApi = useTextInput(props.defaultValue);
-	const _textInputApi = textInputApi || defaultTextInputApi;
+	const ref = useRef<RNTextInput>(null);
 
 	return (
-		<Container onPress={_textInputApi.focus}>
+		<Container onPress={() => ref.current?.focus()}>
 			<Label>{label}</Label>
 			<View flex={1}>
-				<PhoneNumberTextInput
-					ref={_textInputApi.ref}
+				<TextInput
+					ref={ref}
 					variant='paragraph'
-					color='text.t'
 					placeholderTextColor={theme.colors['text.q']}
+					textContentType='telephoneNumber'
+					keyboardType='phone-pad'
+					inputMode='tel'
+					placeholder='(123) 456-7890'
+					color='text.p'
 					{...props}
+					maxLength={14}
 				/>
 			</View>
 		</Container>

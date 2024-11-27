@@ -1,0 +1,188 @@
+import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
+import { DismissKeyboardWrapper, View } from '@atomic';
+import { Formatting } from '@etc';
+import { contactApiSlice } from '@flux/api/contact';
+import { CreateContactBodyDto } from '@flux/api/contact/dto/contact-create.dto';
+import { BottomSheetFooterProps } from '@gorhom/bottom-sheet';
+import { SheetApi, useContactPicker, useToast } from '@hooks';
+import {
+	ActionButtons,
+	Button,
+	FormPhoneNumber,
+	FormText,
+	useButtonState
+} from '@molecules';
+import { FullScreenSheet, FullScreenSheetStandardHeader } from '@organisms';
+import FullScreenSheetFooter from '@src/components/organisms/BottomSheet/sheets/FullScreenSheetFooter';
+import React, { useCallback, useEffect } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+
+interface CreateContactBottomSheetProps {
+	sheetApi: SheetApi;
+}
+
+const CreateContactBottomSheet: React.FC<CreateContactBottomSheetProps> = ({
+	sheetApi
+}) => {
+	const { toastError } = useToast();
+	const { artistData } = useArtistAppContext();
+	const [createContactMutation] = contactApiSlice.useCreateContactMutation();
+	const { pickContact } = useContactPicker();
+	const {
+		setButtonState,
+		buttonState,
+		reset: resetButtonState
+	} = useButtonState('disabled');
+
+	const {
+		handleSubmit,
+		setValue,
+		control,
+		reset: resetForm,
+		formState: { isValid }
+	} = useForm<CreateContactBodyDto>({
+		defaultValues: {
+			name: '',
+			role: null,
+			phone_number: null,
+			email: null
+		}
+	});
+
+	useEffect(() => {
+		setButtonState(isValid ? 'active' : 'disabled');
+	}, [isValid]);
+
+	const reset = () => {
+		resetButtonState();
+		resetForm();
+	};
+
+	const onSubmit = async (data: CreateContactBodyDto) => {
+		setButtonState('loading');
+		createContactMutation({
+			params: { artist_uid: artistData.artist_uid },
+			body: {
+				...data,
+				phone_number: Formatting.preparePhoneNumberForApi(data.phone_number)
+			}
+		})
+			.unwrap()
+			.then(sheetApi.close)
+			.catch(toastError)
+			.finally(() => setButtonState('active'));
+	};
+
+	const importFromContacts = async () => {
+		const contact = await pickContact();
+		if (contact) {
+			setValue('name', contact.name, { shouldValidate: true });
+			setValue(
+				'phone_number',
+				Formatting.formatPhoneNumber(contact.phone_number),
+				{ shouldValidate: true }
+			);
+			setValue('email', contact.email, { shouldValidate: true });
+		}
+	};
+
+	const footerComponent = useCallback(
+		(props: BottomSheetFooterProps) => {
+			return (
+				<FullScreenSheetFooter {...props}>
+					<View flex={1}>
+						<ActionButtons
+							buttonProps={[
+								{
+									text: 'Cancel',
+									color: 'default',
+									variant: 'outlined',
+									onPress: sheetApi.close
+								},
+								{
+									text: 'Save',
+									color: 'default',
+									onPress: handleSubmit(onSubmit),
+									buttonState: buttonState
+								}
+							]}
+						/>
+					</View>
+				</FullScreenSheetFooter>
+			);
+		},
+		[buttonState]
+	);
+
+	return (
+		<FullScreenSheet
+			sheetApi={sheetApi}
+			footerComponent={footerComponent}
+			onDismiss={reset}
+		>
+			<FullScreenSheetStandardHeader />
+			<DismissKeyboardWrapper>
+				<View margin='m'>
+					<Controller
+						control={control}
+						name='name'
+						rules={{
+							required: 'Must enter a name',
+							maxLength: { value: 50, message: 'Name is too long' }
+						}}
+						render={({ field: { onChange, value } }) => (
+							<FormText
+								label='Name'
+								placeholder='John Smith'
+								onChangeText={onChange}
+								defaultValue={value}
+								value={value}
+							/>
+						)}
+					/>
+					<Controller
+						control={control}
+						name='role'
+						render={({ field: { onChange, value } }) => (
+							<FormText
+								label='Role'
+								placeholder='Manager, booking agent, etc.'
+								onChangeText={onChange}
+								value={value ?? undefined}
+							/>
+						)}
+					/>
+					<Controller
+						control={control}
+						name='phone_number'
+						render={({ field: { onChange, value } }) => (
+							<FormPhoneNumber
+								label='Phone'
+								onChangeText={onChange}
+								value={Formatting.formatPhoneNumber(value) ?? undefined}
+							/>
+						)}
+					/>
+					<Controller
+						control={control}
+						name='email'
+						render={({ field: { onChange, value } }) => (
+							<FormText
+								label='Email'
+								placeholder='johnsmith@gmail.com'
+								onChangeText={onChange}
+								defaultValue={value ?? undefined}
+								value={value ?? undefined}
+							/>
+						)}
+					/>
+				</View>
+				<View margin='m'>
+					<Button onPress={importFromContacts} text='Import from Contacts' />
+				</View>
+			</DismissKeyboardWrapper>
+		</FullScreenSheet>
+	);
+};
+
+export default CreateContactBottomSheet;

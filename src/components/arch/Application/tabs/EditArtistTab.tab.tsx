@@ -5,6 +5,7 @@ import {
 	ChooseScenePage,
 	EditArtistEventPage,
 	EditArtistPage,
+	EditContactPage,
 	ViewGalleryPage
 } from '@pages';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -24,6 +25,7 @@ const EditArtistTab = () => {
 				name='EditArtistPage'
 				component={EditArtistPage}
 			/>
+
 			<EditArtistStack.Screen
 				name='ViewGalleryPage'
 				component={ViewGalleryPage}
@@ -32,15 +34,19 @@ const EditArtistTab = () => {
 					animation: 'fade'
 				}}
 			/>
+
 			<EditArtistStack.Screen
 				name='EditArtistEventPage'
 				component={EditArtistEventPage}
 			/>
+
 			<EditArtistStack.Screen
 				name='ChooseScenePage'
 				component={ChooseScenePage}
 			/>
+
 			<EditArtistStack.Screen name='ArtistPage' component={ArtistPage} />
+
 			<EditArtistStack.Screen
 				name='ChooseEventLocationPage'
 				component={ChooseEventLocationPage}
@@ -49,6 +55,14 @@ const EditArtistTab = () => {
 			<EditArtistStack.Screen
 				name='ArtistEventsPage'
 				component={ArtistEventsPage}
+			/>
+
+			<EditArtistStack.Screen
+				name='EditContactPage'
+				component={EditContactPage}
+				options={{
+					gestureEnabled: false
+				}}
 			/>
 		</EditArtistStack.Navigator>
 	);

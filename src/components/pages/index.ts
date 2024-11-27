@@ -7,6 +7,7 @@ export * from './ChooseScene';
 export * from './ContractManager';
 export * from './EditArtist';
 export * from './EditArtistEvent';
+export * from './EditContact';
 export * from './EditContract';
 export * from './EditEventTicketTypes';
 export * from './EditTicketType';

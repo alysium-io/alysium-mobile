@@ -8,6 +8,7 @@ import { CreateExternalUrlBottomSheet } from '@popups';
 import { CheckShouldDeleteExternalUrlBottomSheet } from '@src/components/popups/CheckShouldDeleteExternalUrlBottomSheet';
 import { getIconFromUrl } from '@src/etc/domains';
 import React, { useState } from 'react';
+import Separator from './Separator';
 
 const EditExternalUrlsSection = () => {
 	const createExternalUrlBottomSheetApi = useSheet();
@@ -23,18 +24,20 @@ const EditExternalUrlsSection = () => {
 
 	return (
 		<Section>
-			<Text margin='m' variant='section-header-1'>
+			<Text margin='m' variant='section-header-2'>
 				External Links
 			</Text>
 			<MenuListItem
 				titleTextProps={{
 					title: 'Create Link',
-					titleVariant: 'paragraph-medium'
+					titleVariant: 'paragraph-medium',
+					bottomSubtext: 'Instagram, Soundcloud, etc.',
+					bottomSubtextColor: 'text.q'
 				}}
 				icon='plus'
 				onPress={createExternalUrlBottomSheetApi.open}
 			/>
-			{artistData.external_urls.map((externalUrl) => {
+			{artistData.external_urls.map((externalUrl, idx) => {
 				const { go } = useLinking(externalUrl.url, externalUrl.url);
 				return (
 					<MenuListItemWithButton
@@ -54,6 +57,9 @@ const EditExternalUrlsSection = () => {
 							bottomSubtextVariant: 'paragraph-tiny',
 							bottomSubtextColor: 'text.q'
 						}}
+						containerProps={{
+							border: idx !== artistData.external_urls.length - 1
+						}}
 					/>
 				);
 			})}
@@ -67,6 +73,7 @@ const EditExternalUrlsSection = () => {
 				externalUrl={deleteExternalUrlState}
 				refType={ExternalUrlRefType.artist}
 			/>
+			<Separator marginTop='xl' />
 		</Section>
 	);
 };

@@ -6,10 +6,12 @@ day.extend(utc);
 day.extend(timezone);
 
 class Formatting {
-	static formatPhoneNumber = (input: string): string => {
+	static formatPhoneNumber = (input?: string | null): string | undefined => {
 		/**
 		 * Function that formats a phone number to (XXX) XXX-XXXX
 		 */
+
+		if (input === undefined || input === null) return undefined;
 
 		// If the input starts with +1 remove it
 		if (input.startsWith('+1')) {
@@ -42,7 +44,11 @@ class Formatting {
 		return input;
 	};
 
-	static preparePhoneNumberForApi = (phoneNumber: string): string => {
+	static preparePhoneNumberForApi = (
+		phoneNumber?: string | null
+	): string | null => {
+		if (phoneNumber === undefined || phoneNumber === null || phoneNumber === '')
+			return null;
 		return '+1' + Formatting.cleanStringToNumber(phoneNumber);
 	};
 

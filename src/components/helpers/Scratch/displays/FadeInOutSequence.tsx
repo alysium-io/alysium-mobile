@@ -3,10 +3,8 @@ import { useSequence } from '@hooks';
 import { Button, TabToggler } from '@molecules';
 import { Sequence } from '@organisms';
 import React from 'react';
-import { Dimensions, ScrollView } from 'react-native';
+import { ScrollView } from 'react-native';
 import { LinearTransition } from 'react-native-reanimated';
-
-const { width } = Dimensions.get('window');
 
 const FadeInOutSequence = () => {
 	/**

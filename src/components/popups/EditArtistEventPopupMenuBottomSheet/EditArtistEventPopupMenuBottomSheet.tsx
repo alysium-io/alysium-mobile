@@ -79,7 +79,10 @@ const EditArtistEventPopupMenuBottomSheet: React.FC<
 				<MenuListItem
 					titleTextProps={{
 						title: 'Delete Event',
-						titleVariant: 'paragraph'
+						titleVariant: 'paragraph',
+						bottomSubtext: 'Permanent action',
+						bottomSubtextVariant: 'paragraph-small',
+						bottomSubtextColor: 'text.q'
 					}}
 					icon='trash'
 					iconProps={{
