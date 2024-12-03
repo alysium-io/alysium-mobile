@@ -1,6 +1,5 @@
 import { View } from '@atomic';
-import { BasePage } from '@organisms';
-import ParallaxScroll from '@src/components/organisms/Parallax/ParallaxScroll';
+import { BasePage, Parallax } from '@organisms';
 import { NanoId } from '@types';
 import React from 'react';
 import ArtistPageHeader from '../../Artist.header';
@@ -25,7 +24,7 @@ const UserArtist: React.FC<UserArtistProps> = ({ artist_uid }) => {
 	return (
 		<BasePage>
 			<ArtistPageHeader title={artistData.name} />
-			<ParallaxScroll
+			<Parallax
 				title={artistData.name}
 				image={artistData.profile_image?.large.key}
 			>
@@ -36,7 +35,7 @@ const UserArtist: React.FC<UserArtistProps> = ({ artist_uid }) => {
 				<EventsSection artistData={artistData} eventsData={eventsData} />
 				<ExternalUrlsSection artistData={artistData} />
 				<GallerySection artistData={artistData} />
-			</ParallaxScroll>
+			</Parallax>
 		</BasePage>
 	);
 };

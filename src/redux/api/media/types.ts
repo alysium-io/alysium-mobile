@@ -1,8 +1,6 @@
 export enum MediaRefType {
 	artist = 'artist',
-	host = 'host',
 	user = 'user',
-	venue = 'venue',
 	event = 'event'
 }
 

@@ -2,7 +2,6 @@ import {
 	ArtistEventPage,
 	ArtistEventsPage,
 	ArtistPage,
-	HostPage,
 	ScenePage,
 	SearchPage,
 	TagPage,
@@ -25,8 +24,6 @@ const SearchTab = () => {
 	return (
 		<SearchStack.Navigator screenOptions={screenOptions}>
 			<SearchStack.Screen name='SearchPage' component={SearchPage} />
-
-			<SearchStack.Screen name='HostPage' component={HostPage} />
 
 			<SearchStack.Screen name='ArtistPage' component={ArtistPage} />
 

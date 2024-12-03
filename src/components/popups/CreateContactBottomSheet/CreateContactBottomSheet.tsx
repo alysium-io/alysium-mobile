@@ -4,7 +4,7 @@ import { Formatting } from '@etc';
 import { contactApiSlice } from '@flux/api/contact';
 import { CreateContactBodyDto } from '@flux/api/contact/dto/contact-create.dto';
 import { BottomSheetFooterProps } from '@gorhom/bottom-sheet';
-import { SheetApi, useContactPicker, useToast } from '@hooks';
+import { SheetApi, useSheet, useToast } from '@hooks';
 import {
 	ActionButtons,
 	Button,
@@ -16,6 +16,8 @@ import { FullScreenSheet, FullScreenSheetStandardHeader } from '@organisms';
 import FullScreenSheetFooter from '@src/components/organisms/BottomSheet/sheets/FullScreenSheetFooter';
 import React, { useCallback, useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
+import { Contact } from 'react-native-contacts/type';
+import { ContactPickerBottomSheet } from '../ContactPickerBottomSheet';
 
 interface CreateContactBottomSheetProps {
 	sheetApi: SheetApi;
@@ -24,10 +26,10 @@ interface CreateContactBottomSheetProps {
 const CreateContactBottomSheet: React.FC<CreateContactBottomSheetProps> = ({
 	sheetApi
 }) => {
+	const contactPickerSheetApi = useSheet();
 	const { toastError } = useToast();
 	const { artistData } = useArtistAppContext();
 	const [createContactMutation] = contactApiSlice.useCreateContactMutation();
-	const { pickContact } = useContactPicker();
 	const {
 		setButtonState,
 		buttonState,
@@ -73,17 +75,15 @@ const CreateContactBottomSheet: React.FC<CreateContactBottomSheetProps> = ({
 			.finally(() => setButtonState('active'));
 	};
 
-	const importFromContacts = async () => {
-		const contact = await pickContact();
-		if (contact) {
-			setValue('name', contact.name, { shouldValidate: true });
-			setValue(
-				'phone_number',
-				Formatting.formatPhoneNumber(contact.phone_number),
-				{ shouldValidate: true }
-			);
-			setValue('email', contact.email, { shouldValidate: true });
-		}
+	const onImportContact = (contact: Contact) => {
+		const name = contact.givenName + ' ' + contact.familyName;
+		const phone_number = contact.phoneNumbers[0]?.number;
+		const email = contact.emailAddresses[0]?.email;
+		setValue('name', name, { shouldValidate: true });
+		setValue('phone_number', Formatting.formatPhoneNumber(phone_number), {
+			shouldValidate: true
+		});
+		setValue('email', email, { shouldValidate: true });
 	};
 
 	const footerComponent = useCallback(
@@ -178,9 +178,16 @@ const CreateContactBottomSheet: React.FC<CreateContactBottomSheetProps> = ({
 					/>
 				</View>
 				<View margin='m'>
-					<Button onPress={importFromContacts} text='Import from Contacts' />
+					<Button
+						onPress={contactPickerSheetApi.open}
+						text='Import from Contacts'
+					/>
 				</View>
 			</DismissKeyboardWrapper>
+			<ContactPickerBottomSheet
+				sheetApi={contactPickerSheetApi}
+				onSelect={onImportContact}
+			/>
 		</FullScreenSheet>
 	);
 };

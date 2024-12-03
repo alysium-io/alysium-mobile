@@ -46,7 +46,7 @@ const OrganizerSection: React.FC<OrganizerSectionProps> = ({ eventData }) => {
 				profileImageProps={{
 					image: urlForKey(eventData.artist.profile_image?.small.key),
 					defaultImageProps: {
-						icon: eventData.ref_type === 'artist' ? 'artist' : 'host'
+						icon: eventData.ref_type
 					}
 				}}
 			/>

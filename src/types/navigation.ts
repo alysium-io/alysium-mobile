@@ -16,12 +16,6 @@ import { NanoId } from './api';
  */
 type SearchPage = undefined;
 
-type HostPage = { host_uid: NanoId };
-type HostFollowersAndShowsPage = {
-	host_uid: NanoId;
-	defaultTabIndex: number;
-};
-
 type ArtistPage = { artist_uid: NanoId };
 type ArtistFollowersAndShowsPage = {
 	artist_uid: NanoId;
@@ -38,8 +32,6 @@ type EditArtistEventPage = { event_uid: NanoId };
 
 type ChooseScenePage = undefined;
 
-type EditVenuePage = { venue_uid: NanoId };
-
 type EventPage = { event_uid: NanoId };
 type ArtistEventPage = { event_uid: NanoId };
 type ArtistEventsPage = { artist_uid: NanoId };
@@ -47,19 +39,6 @@ type ArtistEventsPage = { artist_uid: NanoId };
 type EditContractPage = { contract_uid: NanoId };
 
 type ChooseEventLocationPage = { event_uid: NanoId };
-
-type ContractManagerPage = undefined;
-
-type EventCandidatesPage = { event_uid: NanoId };
-
-type EditEventTicketTypesPage = { event_uid: NanoId };
-
-type EditTicketTypePage = {
-	ticket_collection_uid: NanoId;
-	ticket_type_uid: NanoId;
-};
-
-type ArtistViewContractPage = { contract_uid: NanoId };
 
 type UserArtistsFollowingPage = undefined;
 type UserTagsFollowingPage = undefined;
@@ -90,14 +69,8 @@ export type RouteNames =
 	| 'ProfilePage'
 	| 'EventManagerPage'
 	| 'EditArtistEventPage'
-	| 'EditVenuePage'
 	| 'EventPage'
 	| 'EditContractPage'
-	| 'ContractManagerPage'
-	| 'EventCandidatesPage'
-	| 'EditEventTicketTypesPage'
-	| 'EditTicketTypePage'
-	| 'ArtistViewContractPage'
 	| 'UserArtistsFollowingPage'
 	| 'UserTagsFollowingPage'
 	| 'TopTagsPage'
@@ -123,9 +96,6 @@ export type RouteNames =
  */
 export type SearchStackNavigatorParamList = {
 	SearchPage: SearchPage;
-
-	HostPage: HostPage;
-	HostFollowersAndShowsPage: HostFollowersAndShowsPage;
 
 	ArtistPage: ArtistPage;
 	ArtistFollowersAndShowsPage: ArtistFollowersAndShowsPage;
@@ -153,19 +123,8 @@ export type ProfileStackNavigatorParamList = {
 export type EventManagerStackNavigatorParamList = {
 	EventManagerPage: EventManagerPage;
 	EventPage: EventPage;
-	EditVenuePage: EditVenuePage;
-	EventCandidatesPage: EventCandidatesPage;
-	EditEventTicketTypesPage: EditEventTicketTypesPage;
-	EditTicketTypePage: EditTicketTypePage;
 	EditContractPage: EditContractPage;
 	ArtistPage: ArtistPage;
-};
-
-export type ContractManagerStackNavigatorParamList = {
-	ContractManagerPage: ContractManagerPage;
-	EditContractPage: EditContractPage;
-	EditVenuePage: EditVenuePage;
-	ArtistViewContractPage: ArtistViewContractPage;
 };
 
 export type EditArtistStackNavigatorParamList = {
@@ -215,7 +174,6 @@ export type BottomTabNavigatorParamList = {
 	Search: NavigatorScreenParams<SearchStackNavigatorParamList>;
 	Profile: NavigatorScreenParams<ProfileStackNavigatorParamList>;
 	EventManager: NavigatorScreenParams<EventManagerStackNavigatorParamList>;
-	ContractManager: NavigatorScreenParams<ContractManagerStackNavigatorParamList>;
 	EditArtist: NavigatorScreenParams<EditArtistStackNavigatorParamList>;
 };
 
@@ -232,35 +190,22 @@ export type ProfileScreenNavigationProp =
 	ComposeTabNavigationProp<ProfileStackNavigatorParamList>;
 export type EventManagerScreenNavigationProp =
 	ComposeTabNavigationProp<EventManagerStackNavigatorParamList>;
-export type ContractManagerScreenNavigationProp =
-	ComposeTabNavigationProp<ContractManagerStackNavigatorParamList>;
 export type EditArtistScreenNavigationProp =
 	ComposeTabNavigationProp<EditArtistStackNavigatorParamList>;
 
 export type CompositeScreenNavigationProp = SearchScreenNavigationProp &
 	ProfileScreenNavigationProp &
 	EventManagerScreenNavigationProp &
-	ContractManagerScreenNavigationProp &
 	EditArtistScreenNavigationProp;
 
 export type CompositeStackNavigatorParamList = SearchStackNavigatorParamList &
 	ProfileStackNavigatorParamList &
 	EventManagerStackNavigatorParamList &
-	ContractManagerStackNavigatorParamList &
 	EditArtistStackNavigatorParamList;
 
 /**
  * Search Route Props
  */
-export type HostPageRouteProp = RouteProp<
-	CompositeStackNavigatorParamList,
-	'HostPage'
->;
-export type HostFollowersAndShowsPageRouteProp = RouteProp<
-	CompositeStackNavigatorParamList,
-	'HostFollowersAndShowsPage'
->;
-
 export type ArtistPageRouteProp = RouteProp<
 	CompositeStackNavigatorParamList,
 	'ArtistPage'
@@ -313,22 +258,6 @@ export type EditArtistEventPageRouteProp = RouteProp<
 	CompositeStackNavigatorParamList,
 	'EditArtistEventPage'
 >;
-export type EventCandidatesPageRouteProp = RouteProp<
-	CompositeStackNavigatorParamList,
-	'EventCandidatesPage'
->;
-export type EditEventTicketTypesPageRouteProp = RouteProp<
-	CompositeStackNavigatorParamList,
-	'EditEventTicketTypesPage'
->;
-export type EditTicketTypePageRouteProp = RouteProp<
-	CompositeStackNavigatorParamList,
-	'EditTicketTypePage'
->;
-export type EditVenuePageRouteProp = RouteProp<
-	CompositeStackNavigatorParamList,
-	'EditVenuePage'
->;
 export type EventPageRouteProp = RouteProp<
 	CompositeStackNavigatorParamList,
 	'EventPage'
@@ -336,14 +265,6 @@ export type EventPageRouteProp = RouteProp<
 export type EditContractPageRouteProp = RouteProp<
 	CompositeStackNavigatorParamList,
 	'EditContractPage'
->;
-
-/**
- * Contract Manager Route Props
- */
-export type ArtistViewContractPageRouteProp = RouteProp<
-	CompositeStackNavigatorParamList,
-	'ArtistViewContractPage'
 >;
 
 /**

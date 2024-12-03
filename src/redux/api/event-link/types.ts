@@ -5,6 +5,5 @@ export enum EventLinkPermissions {
 }
 
 export enum EventLinkRefType {
-	artist = 'artist',
-	host = 'host'
+	artist = 'artist'
 }

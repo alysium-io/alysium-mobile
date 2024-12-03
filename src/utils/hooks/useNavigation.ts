@@ -10,10 +10,6 @@ import {
 
 interface IUseNavigation {
 	/** Pages */
-	hostPage: (
-		host_uid: NanoId,
-		navigationMeta: NavigationBehaviorMetadata
-	) => void;
 	artistPage: (
 		artist_uid: NanoId,
 		navigationMeta: NavigationBehaviorMetadata
@@ -27,38 +23,12 @@ interface IUseNavigation {
 		event_uid: NanoId,
 		navigationMeta: NavigationBehaviorMetadata
 	) => void;
-	eventCandidatesPage: (
-		event_uid: NanoId,
-		navigationMeta: NavigationBehaviorMetadata
-	) => void;
-	editEventTicketTypesPage: (
-		event_uid: NanoId,
-		navigationMeta: NavigationBehaviorMetadata
-	) => void;
-	editTicketTypePage: (
-		ticket_collection_uid: NanoId,
-		ticket_type_uid: NanoId,
-		navigationMeta: NavigationBehaviorMetadata
-	) => void;
 	editArtistEventPage: (
 		event_uid: NanoId,
 		navigationMeta: NavigationBehaviorMetadata
 	) => void;
-	editVenuePage: (
-		venue_uid: NanoId,
-		navigationMeta: NavigationBehaviorMetadata
-	) => void;
-	editContractPage: (
-		contract_uid: NanoId,
-		navigationMeta: NavigationBehaviorMetadata
-	) => void;
 	searchPage: (navigationMeta: NavigationBehaviorMetadata) => void;
 	eventManagerPage: (navigationMeta: NavigationBehaviorMetadata) => void;
-	contractManager: (navigationMeta: NavigationBehaviorMetadata) => void;
-	artistViewContract: (
-		contract_uid: NanoId,
-		navigationMeta: NavigationBehaviorMetadata
-	) => void;
 	userArtistsFollowingPage: (
 		navigationMeta: NavigationBehaviorMetadata
 	) => void;
@@ -104,13 +74,6 @@ const useNavigation = (): IUseNavigation => {
 	/**
 	 * Pages
 	 */
-	const hostPage = (
-		host_uid: NanoId,
-		navigationMeta: NavigationBehaviorMetadata
-	) => {
-		navigation.push('HostPage', { host_uid });
-		navigationBehavior(navigationMeta);
-	};
 
 	const artistPage = (
 		artist_uid: NanoId,
@@ -141,49 +104,11 @@ const useNavigation = (): IUseNavigation => {
 		navigationBehavior(navigationMeta);
 	};
 
-	const eventCandidatesPage = (
-		event_uid: NanoId,
-		navigationMeta: NavigationBehaviorMetadata
-	) => {
-		navigation.push('EventCandidatesPage', { event_uid });
-		navigationBehavior(navigationMeta);
-	};
-
-	const editEventTicketTypesPage = (
-		event_uid: NanoId,
-		navigationMeta: NavigationBehaviorMetadata
-	) => {
-		navigation.push('EditEventTicketTypesPage', {
-			event_uid
-		});
-		navigationBehavior(navigationMeta);
-	};
-
-	const editTicketTypePage = (
-		ticket_collection_uid: NanoId,
-		ticket_type_uid: NanoId,
-		navigationMeta: NavigationBehaviorMetadata
-	) => {
-		navigation.push('EditTicketTypePage', {
-			ticket_collection_uid,
-			ticket_type_uid
-		});
-		navigationBehavior(navigationMeta);
-	};
-
 	const editArtistEventPage = (
 		event_uid: NanoId,
 		navigationMeta: NavigationBehaviorMetadata
 	) => {
 		navigation.push('EditArtistEventPage', { event_uid });
-		navigationBehavior(navigationMeta);
-	};
-
-	const editVenuePage = (
-		venue_uid: NanoId,
-		navigationMeta: NavigationBehaviorMetadata
-	) => {
-		navigation.push('EditVenuePage', { venue_uid });
 		navigationBehavior(navigationMeta);
 	};
 
@@ -202,19 +127,6 @@ const useNavigation = (): IUseNavigation => {
 
 	const eventManagerPage = (navigationMeta: NavigationBehaviorMetadata) => {
 		navigation.push('EventManagerPage');
-		navigationBehavior(navigationMeta);
-	};
-
-	const contractManager = (navigationMeta: NavigationBehaviorMetadata) => {
-		navigation.push('ContractManagerPage');
-		navigationBehavior(navigationMeta);
-	};
-
-	const artistViewContract = (
-		contract_uid: NanoId,
-		navigationMeta: NavigationBehaviorMetadata
-	) => {
-		navigation.push('ArtistViewContractPage', { contract_uid });
 		navigationBehavior(navigationMeta);
 	};
 
@@ -293,21 +205,13 @@ const useNavigation = (): IUseNavigation => {
 	const back = () => navigation.goBack();
 
 	return {
-		hostPage,
 		artistPage,
 		tagPage,
 		profilePage,
 		eventPage,
-		eventCandidatesPage,
-		editEventTicketTypesPage,
-		editTicketTypePage,
 		editArtistEventPage,
-		editVenuePage,
-		editContractPage,
 		searchPage,
 		eventManagerPage,
-		contractManager,
-		artistViewContract,
 		userArtistsFollowingPage,
 		userTagsFollowingPage,
 		topTagsPage,

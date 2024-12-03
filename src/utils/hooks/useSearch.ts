@@ -19,12 +19,14 @@ type UseSearchConfig = {
 
 export type SearchApi = UseSearchConfigMethods & {
 	searchText: string;
+	isEmpty: boolean;
 	textInputApi: TextInputApi;
 	activeToggleApi: ToggleApi;
 	clearButtonToggleApi: ToggleApi;
 	pressActivate: () => void;
 	pressDeactivate: () => void;
 	pressClear: () => void;
+	reset: () => void;
 };
 
 const useSearch = (config?: UseSearchConfig): SearchApi => {
@@ -74,15 +76,23 @@ const useSearch = (config?: UseSearchConfig): SearchApi => {
 		config?.methods?.onChangeText?.(text);
 	};
 
+	const reset = () => {
+		setSearchText('');
+		clearButtonToggleApi.off();
+		textInputApi.reset();
+	};
+
 	return {
 		searchText,
+		isEmpty: searchText.length === 0,
 		onChangeText: _onChangeText,
 		textInputApi,
 		activeToggleApi,
 		clearButtonToggleApi,
 		pressActivate,
 		pressDeactivate,
-		pressClear
+		pressClear,
+		reset
 	};
 };
 

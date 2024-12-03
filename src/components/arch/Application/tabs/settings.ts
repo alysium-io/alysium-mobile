@@ -2,7 +2,6 @@ import { useTheme } from '@hooks';
 import { NativeStackNavigationOptions } from '@react-navigation/native-stack';
 import {
 	ArtistAppBottomTabNavigatorParamList,
-	BottomTabNavigatorParamList,
 	ScreenOptions,
 	UserAppBottomTabNavigatorParamList
 } from '@types';
@@ -13,8 +12,6 @@ interface IUseNavigationSettings {
 	sceneContainerStyle: StyleProp<ViewStyle>;
 	initialRoutes: {
 		initialArtistAppTab: keyof ArtistAppBottomTabNavigatorParamList;
-		initialHostAppTab: keyof BottomTabNavigatorParamList;
-		initialTestAppTab: keyof BottomTabNavigatorParamList;
 		initialUserAppTab: keyof UserAppBottomTabNavigatorParamList;
 	};
 }
@@ -40,8 +37,6 @@ export const useNavigationSettings = (): IUseNavigationSettings => {
 		routes: {
 			initialArtistAppTab:
 				'Search' as keyof ArtistAppBottomTabNavigatorParamList,
-			initialHostAppTab: 'Profile' as keyof BottomTabNavigatorParamList,
-			initialTestAppTab: 'Pages' as keyof BottomTabNavigatorParamList,
 			initialUserAppTab: 'Search' as keyof UserAppBottomTabNavigatorParamList
 		}
 	};
@@ -66,8 +61,6 @@ export const useNavigationSettings = (): IUseNavigationSettings => {
 		sceneContainerStyle,
 		initialRoutes: {
 			initialArtistAppTab: navigationConfig.routes.initialArtistAppTab,
-			initialHostAppTab: navigationConfig.routes.initialHostAppTab,
-			initialTestAppTab: navigationConfig.routes.initialTestAppTab,
 			initialUserAppTab: navigationConfig.routes.initialUserAppTab
 		}
 	};
@@ -84,6 +77,7 @@ export const useTabSettings = (): IUseTabSettings => {
 			headerShown: false,
 			headerBackTitleVisible: false,
 			headerTransparent: true
+			// TODO: Check if this is the reason why base pages appear white in dark mode
 			// cardStyle: {
 			// 	backgroundColor: theme.colors['bg.p']
 			// },

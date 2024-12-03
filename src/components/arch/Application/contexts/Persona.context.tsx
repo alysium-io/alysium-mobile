@@ -5,8 +5,7 @@ import usePersistedAppState from 'src/utils/hooks/usePersistedAppState';
 
 const appThemeModeMap = {
 	[Persona.user]: ThemeMode.dark,
-	[Persona.artist]: ThemeMode.light,
-	[Persona.host]: ThemeMode.light
+	[Persona.artist]: ThemeMode.light
 };
 
 export type PersonaAppContextType = {

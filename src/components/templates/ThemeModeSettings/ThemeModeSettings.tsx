@@ -1,6 +1,6 @@
 import { Vibrator } from '@etc';
 import { useTheme } from '@hooks';
-import { SingleOptionRadioToggler } from '@organisms';
+import { SingleOptionRadioToggler } from '@molecules';
 import { ColorModeState } from '@types';
 import React from 'react';
 

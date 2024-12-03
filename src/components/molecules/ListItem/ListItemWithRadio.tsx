@@ -23,7 +23,7 @@ const ListItemWithRadio: React.FC<ListItemWithRadioProps> = ({
 }) => {
 	return (
 		<BgTouchAnimation disabled={disabled || !onPress} onPress={onPress}>
-			<Container {...containerProps}>
+			<Container paddingVertical='xl' {...containerProps}>
 				<TitleText {...titleTextProps} />
 				<RadioButton {...radioButtonProps} />
 			</Container>

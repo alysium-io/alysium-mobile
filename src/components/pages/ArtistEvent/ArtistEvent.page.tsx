@@ -1,8 +1,7 @@
 import { View } from '@atomic';
 import { eventApiSlice } from '@flux/api/event';
-import { BasePage } from '@organisms';
+import { BasePage, Parallax } from '@organisms';
 import { useRoute } from '@react-navigation/native';
-import ParallaxScroll from '@src/components/organisms/Parallax/ParallaxScroll';
 import { ArtistEventPageRouteProp } from '@types';
 import React from 'react';
 import ArtistEventPageHeader from './ArtistEvent.header';
@@ -26,7 +25,7 @@ const ArtistEvent = () => {
 	return (
 		<BasePage>
 			<ArtistEventPageHeader title={eventData.event.name} />
-			<ParallaxScroll
+			<Parallax
 				title={eventData.event.name}
 				image={eventData.event.profile_image?.large.key}
 				titleTextProps={{
@@ -39,7 +38,7 @@ const ArtistEvent = () => {
 				<OrganizerSection eventData={eventData} />
 				<LocationSection eventData={eventData} />
 				<GallerySection eventData={eventData} />
-			</ParallaxScroll>
+			</Parallax>
 		</BasePage>
 	);
 };
