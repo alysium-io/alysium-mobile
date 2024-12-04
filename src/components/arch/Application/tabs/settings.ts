@@ -5,11 +5,9 @@ import {
 	ScreenOptions,
 	UserAppBottomTabNavigatorParamList
 } from '@types';
-import { StyleProp, ViewStyle } from 'react-native';
 
 interface IUseNavigationSettings {
 	screenOptions: ScreenOptions;
-	sceneContainerStyle: StyleProp<ViewStyle>;
 	initialRoutes: {
 		initialArtistAppTab: keyof ArtistAppBottomTabNavigatorParamList;
 		initialUserAppTab: keyof UserAppBottomTabNavigatorParamList;
@@ -31,9 +29,6 @@ export const useNavigationSettings = (): IUseNavigationSettings => {
 				borderTopColor: undefined
 			}
 		},
-		sceneContainerStyle: {
-			backgroundColor: undefined
-		},
 		routes: {
 			initialArtistAppTab:
 				'Search' as keyof ArtistAppBottomTabNavigatorParamList,
@@ -51,14 +46,8 @@ export const useNavigationSettings = (): IUseNavigationSettings => {
 		}
 	};
 
-	const sceneContainerStyle = {
-		...navigationConfig.sceneContainerStyle,
-		backgroundColor: theme.colors['bg.p']
-	};
-
 	return {
 		screenOptions,
-		sceneContainerStyle,
 		initialRoutes: {
 			initialArtistAppTab: navigationConfig.routes.initialArtistAppTab,
 			initialUserAppTab: navigationConfig.routes.initialUserAppTab
@@ -75,14 +64,8 @@ export const useTabSettings = (): IUseTabSettings => {
 	return {
 		screenOptions: {
 			headerShown: false,
-			headerBackTitleVisible: false,
-			headerTransparent: true
-			// TODO: Check if this is the reason why base pages appear white in dark mode
-			// cardStyle: {
-			// 	backgroundColor: theme.colors['bg.p']
-			// },
-			// cardOverlayEnabled: true,
-			// cardShadowEnabled: true
+			headerTransparent: true,
+			contentStyle: { backgroundColor: theme.colors['bg.p'] }
 		}
 	};
 };

@@ -17,8 +17,7 @@ import AppDependencies from './AppDependencies';
 const Tab = createBottomTabNavigator<UserAppBottomTabNavigatorParamList>();
 
 const UserApp = () => {
-	const { screenOptions, sceneContainerStyle, initialRoutes } =
-		useNavigationSettings();
+	const { screenOptions, initialRoutes } = useNavigationSettings();
 	const {
 		userData,
 		createAccountBottomSheetApi,
@@ -31,7 +30,6 @@ const UserApp = () => {
 				<NavigationContainer linking={userAppDeepLinkingConfig}>
 					<Tab.Navigator
 						initialRouteName={initialRoutes.initialUserAppTab}
-						sceneContainerStyle={sceneContainerStyle}
 						screenOptions={screenOptions}
 					>
 						<Tab.Screen

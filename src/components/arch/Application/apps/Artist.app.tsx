@@ -14,8 +14,7 @@ import AppDependencies from './AppDependencies';
 const Tab = createBottomTabNavigator<ArtistAppBottomTabNavigatorParamList>();
 
 const ArtistApp = () => {
-	const { screenOptions, sceneContainerStyle, initialRoutes } =
-		useNavigationSettings();
+	const { screenOptions, initialRoutes } = useNavigationSettings();
 
 	return (
 		<AppDependencies>
@@ -23,7 +22,6 @@ const ArtistApp = () => {
 				<NavigationContainer linking={artistAppDeepLinkingConfig}>
 					<Tab.Navigator
 						initialRouteName={initialRoutes.initialArtistAppTab}
-						sceneContainerStyle={sceneContainerStyle}
 						screenOptions={screenOptions}
 					>
 						<Tab.Screen
