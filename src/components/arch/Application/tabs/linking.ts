@@ -10,7 +10,8 @@ import {
  */
 
 // Prefixes for deep linking
-const prefixes: string[] = ['alysium://', 'https://alysium.io'];
+export const UNIVERSAL_LINK_PREFIX = 'https://www.alysium.ninja';
+const prefixes: string[] = [UNIVERSAL_LINK_PREFIX];
 
 // Specific page configurations
 const artistPageConfigMap = {

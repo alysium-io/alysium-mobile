@@ -1,7 +1,7 @@
 import { Icon, View } from '@atomic';
 import { Props } from '@types';
 import React from 'react';
-import { TouchableWithoutFeedback } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 
 type HeaderIconButtonProps = Props<typeof Icon> & {
 	onPress?: () => void;
@@ -15,11 +15,11 @@ const HeaderIconButton: React.FC<HeaderIconButtonProps> = ({
 	...props
 }) => {
 	return (
-		<TouchableWithoutFeedback onPress={onPress}>
+		<TouchableOpacity activeOpacity={0.5} onPress={onPress}>
 			<View padding='s'>
 				<Icon name={name} size={size} color={color} {...props} />
 			</View>
-		</TouchableWithoutFeedback>
+		</TouchableOpacity>
 	);
 };
 

@@ -24,7 +24,10 @@ const ArtistEvent = () => {
 
 	return (
 		<BasePage>
-			<ArtistEventPageHeader title={eventData.event.name} />
+			<ArtistEventPageHeader
+				title={eventData.event.name}
+				event_uid={params.event_uid}
+			/>
 			<Parallax
 				title={eventData.event.name}
 				image={eventData.event.profile_image?.large.key}

@@ -1,3 +1,4 @@
+import { UNIVERSAL_LINK_PREFIX } from '@arch/Application/tabs/linking';
 import { Image, Text, View } from '@atomic';
 import { EventLink } from '@flux/api/event-link/event-link.entity';
 import {
@@ -29,7 +30,7 @@ const ShareExternal: React.FC<ShareExternalProps> = ({ sheetApi, event }) => {
 		shareiMessage,
 		copyToClipboard,
 		shareVia
-	} = useShareViewShot('https://alysium.io/event/' + event.event.event_uid);
+	} = useShareViewShot(UNIVERSAL_LINK_PREFIX + event.event.event_uid);
 
 	const CBottomSheetBackdrop = useCallback(
 		(props: BottomSheetBackdropProps) => (

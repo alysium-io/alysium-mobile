@@ -1,18 +1,25 @@
-import { useNavigation } from '@hooks';
+import { useNavigation, useSheet } from '@hooks';
 import {
 	Header,
 	HeaderIconButton,
 	HeaderSection,
 	HeaderTitle
 } from '@organisms';
+import { ArtistPopupMenuBottomSheet } from '@popups';
+import { NanoId } from '@types';
 import React from 'react';
 
 interface ArtistPageHeaderProps {
 	title: string;
+	artist_uid: NanoId;
 }
 
-const ArtistPageHeader: React.FC<ArtistPageHeaderProps> = ({ title }) => {
+const ArtistPageHeader: React.FC<ArtistPageHeaderProps> = ({
+	title,
+	artist_uid
+}) => {
 	const { back } = useNavigation();
+	const artistPopupMenuSheetApi = useSheet();
 	return (
 		<Header>
 			<HeaderSection
@@ -23,6 +30,16 @@ const ArtistPageHeader: React.FC<ArtistPageHeaderProps> = ({ title }) => {
 						titleProps={{ variant: 'paragraph-small' }}
 					/>
 				}
+				RightComponent={
+					<HeaderIconButton
+						name='menu'
+						onPress={artistPopupMenuSheetApi.open}
+					/>
+				}
+			/>
+			<ArtistPopupMenuBottomSheet
+				sheetApi={artistPopupMenuSheetApi}
+				artist_uid={artist_uid}
 			/>
 		</Header>
 	);

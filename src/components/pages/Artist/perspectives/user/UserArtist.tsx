@@ -23,7 +23,7 @@ const UserArtist: React.FC<UserArtistProps> = ({ artist_uid }) => {
 
 	return (
 		<BasePage>
-			<ArtistPageHeader title={artistData.name} />
+			<ArtistPageHeader title={artistData.name} artist_uid={artist_uid} />
 			<Parallax
 				title={artistData.name}
 				image={artistData.profile_image?.large.key}

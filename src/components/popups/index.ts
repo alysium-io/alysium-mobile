@@ -1,3 +1,5 @@
+export * from './ArtistEventPopupMenuBottomSheet';
+export * from './ArtistPopupMenuBottomSheet';
 export * from './CheckUserWantsToRegisterBottomSheet';
 export * from './ConfirmDeleteBottomSheet';
 export * from './ConfirmEventLocationChoiceBottomSheet';
@@ -10,6 +12,7 @@ export * from './CreateContactBottomSheet';
 export * from './CreateExternalUrlBottomSheet';
 export * from './Documents';
 export * from './EditArtistEventPopupMenuBottomSheet';
+export * from './EditArtistPopupMenuBottomSheet';
 export * from './EditUserProfileBottomSheet';
 export * from './JoinScenePreviewBottomSheet';
 export * from './SelectEventDateTimeBottomSheet';

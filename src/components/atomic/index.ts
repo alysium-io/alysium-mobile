@@ -72,6 +72,7 @@ export {
 	default as PhoneNumberTextInput,
 	type PhoneNumberTextInputProps
 } from './PhoneNumberTextInput';
+export { default as QRCode } from './QRCode';
 export { default as Section } from './Section';
 export { default as SlideInOutView } from './SlideInOutView';
 export { default as StatusBar } from './StatusBar';

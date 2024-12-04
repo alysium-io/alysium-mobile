@@ -45,7 +45,7 @@
 		A028C50F0B5646F78F29C199 /* HelveticaNeue-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A4F0C244A8754AE9818FD5D2 /* HelveticaNeue-Medium.ttf */; };
 		B3B5ADD1F0BB1BA325CF44C4 /* libPods-alysiumCommonPods-alysium-demo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E82E171A949239398311226 /* libPods-alysiumCommonPods-alysium-demo.a */; };
 		BABC424DBCAB4FB8AD3B1156 /* HelveticaNeue-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C65BCBC1D82405389E1C939 /* HelveticaNeue-MediumItalic.ttf */; };
-		C32B2C5EB76CA18DA93833D4 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; };
+		C32B2C5EB76CA18DA93833D4 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		CED8BFF63CA34C90AFC09F8D /* HelveticaNeue-CondensedBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BF05AECD7CB2497EADFF030A /* HelveticaNeue-CondensedBold.ttf */; };
 		FA1210A7CE040408AC01B47C /* libPods-alysiumCommonPods-alysium-dev.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5433521EA551F9F8ECB29560 /* libPods-alysiumCommonPods-alysium-dev.a */; };
 		FA5DE11ECDAF6FB557635631 /* libPods-alysiumCommonPods-alysium.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 848CF8F5884765B4592D204D /* libPods-alysiumCommonPods-alysium.a */; };
@@ -54,7 +54,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		00B7845E60F648A7AAFE679B /* HelveticaNeue-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "HelveticaNeue-Bold.ttf"; path = "../src/assets/fonts/HelveticaNeue-Bold.ttf"; sourceTree = "<group>"; };
+		00B7845E60F648A7AAFE679B /* HelveticaNeue-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "HelveticaNeue-Bold.ttf"; path = "../src/assets/fonts/HelveticaNeue-Bold.ttf"; sourceTree = "<group>"; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* alysiumTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = alysiumTests.m; sourceTree = "<group>"; };
 		01DFB5D063E91C3A6EB605C0 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
@@ -65,16 +65,17 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = alysium/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = alysium/main.m; sourceTree = "<group>"; };
 		20B8D67A7BC78B72D61988DB /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		22675444DC5C49C1BF5B2097 /* HelveticaNeue-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "HelveticaNeue-Italic.ttf"; path = "../src/assets/fonts/HelveticaNeue-Italic.ttf"; sourceTree = "<group>"; };
+		22675444DC5C49C1BF5B2097 /* HelveticaNeue-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "HelveticaNeue-Italic.ttf"; path = "../src/assets/fonts/HelveticaNeue-Italic.ttf"; sourceTree = "<group>"; };
 		2A9ADE1B7F3D46174E1E6E2E /* Pods-alysiumCommonPods-alysium-demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alysiumCommonPods-alysium-demo.release.xcconfig"; path = "Target Support Files/Pods-alysiumCommonPods-alysium-demo/Pods-alysiumCommonPods-alysium-demo.release.xcconfig"; sourceTree = "<group>"; };
 		31634737770ADD4E48CC41D4 /* Pods-alysiumCommonPods-alysium-dev.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alysiumCommonPods-alysium-dev.release.xcconfig"; path = "Target Support Files/Pods-alysiumCommonPods-alysium-dev/Pods-alysiumCommonPods-alysium-dev.release.xcconfig"; sourceTree = "<group>"; };
-		3C9E2C9F264E4F74B8B52A9F /* HelveticaNeue-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "HelveticaNeue-Thin.ttf"; path = "../src/assets/fonts/HelveticaNeue-Thin.ttf"; sourceTree = "<group>"; };
+		3C9E2C9F264E4F74B8B52A9F /* HelveticaNeue-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "HelveticaNeue-Thin.ttf"; path = "../src/assets/fonts/HelveticaNeue-Thin.ttf"; sourceTree = "<group>"; };
 		427BC3A6B4E6F047A039ED9B /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		5433521EA551F9F8ECB29560 /* libPods-alysiumCommonPods-alysium-dev.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-alysiumCommonPods-alysium-dev.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F097B54DAA0F1E75E1C61A1 /* Pods-alysiumCommonPods-alysium-dev.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alysiumCommonPods-alysium-dev.debug.xcconfig"; path = "Target Support Files/Pods-alysiumCommonPods-alysium-dev/Pods-alysiumCommonPods-alysium-dev.debug.xcconfig"; sourceTree = "<group>"; };
-		5FF740E20CE94A7D9BC520F6 /* HelveticaNeue-LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "HelveticaNeue-LightItalic.ttf"; path = "../src/assets/fonts/HelveticaNeue-LightItalic.ttf"; sourceTree = "<group>"; };
+		5FF740E20CE94A7D9BC520F6 /* HelveticaNeue-LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "HelveticaNeue-LightItalic.ttf"; path = "../src/assets/fonts/HelveticaNeue-LightItalic.ttf"; sourceTree = "<group>"; };
 		682B7D637AED01443F294F1B /* Pods-alysiumCommonPods-alysium-qa.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alysiumCommonPods-alysium-qa.debug.xcconfig"; path = "Target Support Files/Pods-alysiumCommonPods-alysium-qa/Pods-alysiumCommonPods-alysium-qa.debug.xcconfig"; sourceTree = "<group>"; };
 		69C1244E09558CE9EBB2A3AF /* Pods-alysiumCommonPods-alysium.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alysiumCommonPods-alysium.release.xcconfig"; path = "Target Support Files/Pods-alysiumCommonPods-alysium/Pods-alysiumCommonPods-alysium.release.xcconfig"; sourceTree = "<group>"; };
+		6A47F53A2CFFD3F000D2A355 /* alysium-dev.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "alysium-dev.entitlements"; sourceTree = "<group>"; };
 		6A4C6A212BF8FBE3009B660D /* alysium-qa.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "alysium-qa.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A4C6A422BF8FE90009B660D /* alysium-demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "alysium-demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A9DC0482C989F4B00BC262D /* alysium.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = alysium.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -85,20 +86,20 @@
 		6AEA19F92C502B9500BD73FB /* LocalCustomIOSBuild.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = LocalCustomIOSBuild.xcconfig; sourceTree = "<group>"; };
 		6AF109532A95344A00DB24EC /* alysium-dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "alysium-dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FC20CA38F57C1ADDDC4FF47 /* Pods-alysiumCommonPods-alysium-demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alysiumCommonPods-alysium-demo.debug.xcconfig"; path = "Target Support Files/Pods-alysiumCommonPods-alysium-demo/Pods-alysiumCommonPods-alysium-demo.debug.xcconfig"; sourceTree = "<group>"; };
-		74ADEB6A72AB4D6DBB54B0BC /* HelveticaNeue-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "HelveticaNeue-BoldItalic.ttf"; path = "../src/assets/fonts/HelveticaNeue-BoldItalic.ttf"; sourceTree = "<group>"; };
-		78B24290CFB84AC595F569BC /* HelveticaNeue-CondensedBlack.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "HelveticaNeue-CondensedBlack.ttf"; path = "../src/assets/fonts/HelveticaNeue-CondensedBlack.ttf"; sourceTree = "<group>"; };
-		7D000DAF115D48179107B2D7 /* HelveticaNeue-ThinItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "HelveticaNeue-ThinItalic.ttf"; path = "../src/assets/fonts/HelveticaNeue-ThinItalic.ttf"; sourceTree = "<group>"; };
+		74ADEB6A72AB4D6DBB54B0BC /* HelveticaNeue-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "HelveticaNeue-BoldItalic.ttf"; path = "../src/assets/fonts/HelveticaNeue-BoldItalic.ttf"; sourceTree = "<group>"; };
+		78B24290CFB84AC595F569BC /* HelveticaNeue-CondensedBlack.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "HelveticaNeue-CondensedBlack.ttf"; path = "../src/assets/fonts/HelveticaNeue-CondensedBlack.ttf"; sourceTree = "<group>"; };
+		7D000DAF115D48179107B2D7 /* HelveticaNeue-ThinItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "HelveticaNeue-ThinItalic.ttf"; path = "../src/assets/fonts/HelveticaNeue-ThinItalic.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = alysium/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		848CF8F5884765B4592D204D /* libPods-alysiumCommonPods-alysium.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-alysiumCommonPods-alysium.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		8C65BCBC1D82405389E1C939 /* HelveticaNeue-MediumItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "HelveticaNeue-MediumItalic.ttf"; path = "../src/assets/fonts/HelveticaNeue-MediumItalic.ttf"; sourceTree = "<group>"; };
+		8C65BCBC1D82405389E1C939 /* HelveticaNeue-MediumItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "HelveticaNeue-MediumItalic.ttf"; path = "../src/assets/fonts/HelveticaNeue-MediumItalic.ttf"; sourceTree = "<group>"; };
 		8E4AFCA6B473F8EECA057181 /* libPods-alysiumCommonPods-alysiumTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-alysiumCommonPods-alysiumTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		A4F0C244A8754AE9818FD5D2 /* HelveticaNeue-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "HelveticaNeue-Medium.ttf"; path = "../src/assets/fonts/HelveticaNeue-Medium.ttf"; sourceTree = "<group>"; };
-		AFD9AF79306E4BD1B057DE14 /* HelveticaNeue-UltraLightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "HelveticaNeue-UltraLightItalic.ttf"; path = "../src/assets/fonts/HelveticaNeue-UltraLightItalic.ttf"; sourceTree = "<group>"; };
+		A4F0C244A8754AE9818FD5D2 /* HelveticaNeue-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "HelveticaNeue-Medium.ttf"; path = "../src/assets/fonts/HelveticaNeue-Medium.ttf"; sourceTree = "<group>"; };
+		AFD9AF79306E4BD1B057DE14 /* HelveticaNeue-UltraLightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "HelveticaNeue-UltraLightItalic.ttf"; path = "../src/assets/fonts/HelveticaNeue-UltraLightItalic.ttf"; sourceTree = "<group>"; };
 		B0F58A06782AD0E67EF2D17A /* Pods-alysiumCommonPods-alysium.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alysiumCommonPods-alysium.debug.xcconfig"; path = "Target Support Files/Pods-alysiumCommonPods-alysium/Pods-alysiumCommonPods-alysium.debug.xcconfig"; sourceTree = "<group>"; };
-		B8392C730B1549D08640C5BE /* HelveticaNeue.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = HelveticaNeue.ttf; path = ../src/assets/fonts/HelveticaNeue.ttf; sourceTree = "<group>"; };
-		BF05AECD7CB2497EADFF030A /* HelveticaNeue-CondensedBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "HelveticaNeue-CondensedBold.ttf"; path = "../src/assets/fonts/HelveticaNeue-CondensedBold.ttf"; sourceTree = "<group>"; };
-		D057EC4CBBC94FC3964E7763 /* HelveticaNeue-UltraLight.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "HelveticaNeue-UltraLight.ttf"; path = "../src/assets/fonts/HelveticaNeue-UltraLight.ttf"; sourceTree = "<group>"; };
-		E17A5D6CF5944BE896ECB759 /* HelveticaNeue-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "HelveticaNeue-Light.ttf"; path = "../src/assets/fonts/HelveticaNeue-Light.ttf"; sourceTree = "<group>"; };
+		B8392C730B1549D08640C5BE /* HelveticaNeue.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = HelveticaNeue.ttf; path = ../src/assets/fonts/HelveticaNeue.ttf; sourceTree = "<group>"; };
+		BF05AECD7CB2497EADFF030A /* HelveticaNeue-CondensedBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "HelveticaNeue-CondensedBold.ttf"; path = "../src/assets/fonts/HelveticaNeue-CondensedBold.ttf"; sourceTree = "<group>"; };
+		D057EC4CBBC94FC3964E7763 /* HelveticaNeue-UltraLight.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "HelveticaNeue-UltraLight.ttf"; path = "../src/assets/fonts/HelveticaNeue-UltraLight.ttf"; sourceTree = "<group>"; };
+		E17A5D6CF5944BE896ECB759 /* HelveticaNeue-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "HelveticaNeue-Light.ttf"; path = "../src/assets/fonts/HelveticaNeue-Light.ttf"; sourceTree = "<group>"; };
 		E7C51D011E5976EE089E69E7 /* libPods-alysiumCommonPods-alysium-qa.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-alysiumCommonPods-alysium-qa.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -108,7 +109,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C32B2C5EB76CA18DA93833D4 /* BuildFile in Frameworks */,
+				C32B2C5EB76CA18DA93833D4 /* (null) in Frameworks */,
 				0EAAC9E7C3A11FAC25921E60 /* libPods-alysiumCommonPods-alysium-qa.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -217,6 +218,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				6A47F53A2CFFD3F000D2A355 /* alysium-dev.entitlements */,
 				6AEA19F92C502B9500BD73FB /* LocalCustomIOSBuild.xcconfig */,
 				13B07FAE1A68108700A75B9A /* alysium */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -1083,6 +1085,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "alysium-dev.entitlements";
 				CURRENT_PROJECT_VERSION = "$(CURRENT_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = 3S5R5B5ACT;
 				ENABLE_BITCODE = NO;
@@ -1118,6 +1121,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "alysium-dev.entitlements";
 				CURRENT_PROJECT_VERSION = "$(CURRENT_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = 3S5R5B5ACT;
 				INFOPLIST_FILE = "alysium/alysium-dev Info.plist";

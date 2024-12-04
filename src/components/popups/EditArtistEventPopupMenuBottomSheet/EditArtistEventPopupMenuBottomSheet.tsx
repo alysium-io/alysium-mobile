@@ -1,4 +1,6 @@
 import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
+import { UNIVERSAL_LINK_PREFIX } from '@arch/Application/tabs/linking';
+import { QRCode, View } from '@atomic';
 import { artistEventApiSlice } from '@flux/api/event';
 import { BottomSheetView } from '@gorhom/bottom-sheet';
 import { SheetApi, useNavigation, useToast } from '@hooks';
@@ -62,6 +64,11 @@ const EditArtistEventPopupMenuBottomSheet: React.FC<
 	return (
 		<BottomSheet sheetRef={sheetApi.sheetRef} enableDynamicSizing>
 			<BottomSheetView style={{ flex: 1, paddingBottom: insets.bottom + 25 }}>
+				<View margin='m' alignItems='center'>
+					<QRCode
+						value={UNIVERSAL_LINK_PREFIX + '/artist/event/' + event_uid}
+					/>
+				</View>
 				<MenuListItem
 					titleTextProps={{
 						title: 'Share',
