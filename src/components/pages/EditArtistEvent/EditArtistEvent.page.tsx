@@ -101,8 +101,6 @@ const EditArtistEventPage = () => {
 		return null;
 	}
 
-	console.log(eventData.event.location);
-
 	return (
 		<BasePage FooterComponent={FooterComponent}>
 			<EditArtistEventPageHeader

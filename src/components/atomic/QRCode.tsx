@@ -9,11 +9,8 @@ const QRCode: React.FC<QRCodeProps> = ({ ...props }) => {
 	const { theme } = useTheme();
 	return (
 		<RNQRCode
-			linearGradient={[
-				theme.colors['text.s'],
-				theme.colors['text.color.p.heavy']
-			]}
-			enableLinearGradient
+			backgroundColor={theme.colors['bg.p']}
+			color={theme.colors['text.s']}
 			{...props}
 		/>
 	);
