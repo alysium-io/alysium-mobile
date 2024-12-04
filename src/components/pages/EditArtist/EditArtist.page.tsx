@@ -1,5 +1,4 @@
 import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
-import { Formatting } from '@etc';
 import { artistApiSlice } from '@flux/api/artist';
 import { UpdateArtistBodyDto } from '@flux/api/artist/dto/artist-update.dto';
 import { useToast } from '@hooks';
@@ -27,7 +26,6 @@ const EditArtistPage = () => {
 	} = useForm<UpdateArtistBodyDto>({
 		defaultValues: {
 			name: artistData.name,
-			phone_number: Formatting.formatPhoneNumber(artistData.phone_number),
 			bio: artistData.bio
 		}
 	});
@@ -36,8 +34,7 @@ const EditArtistPage = () => {
 		updateArtistMutation({
 			params: { artist_uid: artistData.artist_uid },
 			body: {
-				...data,
-				phone_number: Formatting.preparePhoneNumberForApi(data.phone_number)
+				...data
 			}
 		})
 			.unwrap()
@@ -59,9 +56,9 @@ const EditArtistPage = () => {
 				selfAwareScrollViewApi={selfAwareScrollViewApi}
 				showsVerticalScrollIndicator={false}
 			>
-				<HeaderSection control={control} />
+				<HeaderSection control={control} onBlurEditable={onBlurEditable} />
 				<EditEvents />
-				<AssetsSection />
+				<AssetsSection control={control} onBlurEditable={onBlurEditable} />
 				<EditContactsSection />
 				<EditExternalUrlsSection />
 			</SelfAwareScrollView>

@@ -7,7 +7,6 @@ export interface UpdateArtistParamsDto {
 
 export interface UpdateArtistBodyDto {
 	name: string;
-	phone_number: string | null;
 	bio: string | null;
 }
 

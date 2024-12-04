@@ -1,23 +1,56 @@
-import { useUserAppContext } from '@arch/Application/contexts/User.context';
+import { View } from '@atomic';
+import { artistApiSlice } from '@flux/api/artist';
+import { artistEventApiSlice } from '@flux/api/event';
+import { BasePage, Parallax } from '@organisms';
 import { useRoute } from '@react-navigation/native';
-import { ArtistPageRouteProp, Persona } from '@types';
+import { ArtistPageRouteProp } from '@types';
 import React from 'react';
-import { Case, Switch } from 'react-if';
-import UserPerspective from './perspectives/user/UserArtist';
+import ArtistPageHeader from './Artist.header';
+import ActionButtons from './components/ActionButtons';
+import EventsSection from './components/EventsSection';
+import ExternalUrlsSection from './components/ExternalUrlsSection';
+import GallerySection from './components/GallerySection';
+import SubHeader from './components/SubHeader';
 
-const ArtistPage = () => {
+const ArtistPage: React.FC = () => {
 	const route = useRoute<ArtistPageRouteProp>();
-	const { personaType } = useUserAppContext();
+
+	const { data: artistData } = artistApiSlice.usePublicFindOneArtistQuery({
+		params: { artist_uid: route.params.artist_uid }
+	});
+
+	const { data: eventsData } =
+		artistEventApiSlice.usePublicFindAllArtistEventsQuery({
+			params: { artist_uid: route.params.artist_uid },
+			query: {
+				page: 1,
+				limit: 20
+			}
+		});
+
+	if (!artistData || !eventsData) {
+		return null;
+	}
 
 	return (
-		<Switch>
-			<Case condition={personaType === Persona.user}>
-				<UserPerspective artist_uid={route.params.artist_uid} />
-			</Case>
-			<Case condition={personaType === Persona.artist}>
-				<UserPerspective artist_uid={route.params.artist_uid} />
-			</Case>
-		</Switch>
+		<BasePage>
+			<ArtistPageHeader
+				title={artistData.name}
+				artist_uid={route.params.artist_uid}
+			/>
+			<Parallax
+				title={artistData.name}
+				image={artistData.profile_image?.large.key}
+			>
+				<View margin='m'>
+					<SubHeader artistData={artistData} />
+					<ActionButtons artistData={artistData} />
+				</View>
+				<EventsSection artistData={artistData} eventsData={eventsData} />
+				<ExternalUrlsSection artistData={artistData} />
+				<GallerySection artistData={artistData} />
+			</Parallax>
+		</BasePage>
 	);
 };
 

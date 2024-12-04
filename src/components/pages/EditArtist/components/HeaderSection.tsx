@@ -11,28 +11,28 @@ import Separator from './Separator';
 
 interface HeaderSectionProps {
 	control: Control<UpdateArtistBodyDto, any>;
+	onBlurEditable: () => void;
 }
 
-const HeaderSection: React.FC<HeaderSectionProps> = ({ control }) => {
-	const { artistData } = useArtistAppContext();
+const HeaderSection: React.FC<HeaderSectionProps> = ({
+	control,
+	onBlurEditable
+}) => {
+	const { artistData, artistIsLoading } = useArtistAppContext();
 	const { chooseScenePage } = useNavigation();
 	const [isProfileImageLoading, setIsProfileImageLoading] = useState(false);
 	const [createArtistProfileImageMutation] =
 		profileImageApiSlice.useCreateArtistProfileImageMutation();
 
 	const updateArtistProfileImage = async (profileImage: Asset) => {
-		setIsProfileImageLoading(true);
 		try {
+			setIsProfileImageLoading(true);
 			await createArtistProfileImageMutation({
 				file: profileImage,
 				query: { artist_uid: artistData.artist_uid }
 			});
 		} finally {
-			// Give it another second to invalidate the artist data
-			// which is where we're actually getting this image from
-			setTimeout(() => {
-				setIsProfileImageLoading(false);
-			}, 1000);
+			setIsProfileImageLoading(false);
 		}
 	};
 
@@ -44,7 +44,7 @@ const HeaderSection: React.FC<HeaderSectionProps> = ({ control }) => {
 						size='large'
 						onChooseImage={updateArtistProfileImage}
 						image={artistData.profile_image?.medium.key}
-						isLoading={isProfileImageLoading}
+						isLoading={artistIsLoading || isProfileImageLoading}
 					/>
 				</View>
 				<Controller
@@ -55,6 +55,7 @@ const HeaderSection: React.FC<HeaderSectionProps> = ({ control }) => {
 						<TitleTextInput
 							placeholder='Artist name'
 							onChangeText={onChange}
+							onBlur={onBlurEditable}
 							value={value}
 						/>
 					)}
