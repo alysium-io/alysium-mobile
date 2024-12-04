@@ -1,68 +1,66 @@
+import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
 import { View } from '@atomic';
 import { Formatting } from '@etc';
+import { artistEventApiSlice } from '@flux/api/event';
 import { useSheet } from '@hooks';
 import { MenuListItem } from '@molecules';
 import { SelectEventDateTimeBottomSheet } from '@popups';
-import { UpdateArtistEventFormApi } from '@src/utils/redux-hook-form/useUpdateArtistEventFormApi';
+import { NanoId } from '@types';
 import day from 'dayjs';
 import React from 'react';
-import { Controller } from 'react-hook-form';
 
 interface EditBasicInfoProps {
-	updateArtistEventFormApi: UpdateArtistEventFormApi;
-	onBlurEditable: () => void;
+	event_uid: NanoId;
+	startTime: string | null;
+	endTime: string | null;
 }
 
 const EditBasicInfo: React.FC<EditBasicInfoProps> = ({
-	updateArtistEventFormApi,
-	onBlurEditable
+	event_uid,
+	startTime,
+	endTime
 }) => {
+	const { artistData } = useArtistAppContext();
+	const [updateArtistEventMutation] =
+		artistEventApiSlice.useUpdateArtistEventMutation();
 	const sheetApi = useSheet();
-
-	const onPressSave = (startDateTime: Date, endDateTime: Date | null) => {
-		updateArtistEventFormApi.formMethods.setValue(
-			'start_time',
-			Formatting.toUtcIsoFormat(startDateTime)
-		);
-		updateArtistEventFormApi.formMethods.setValue(
-			'end_time',
-			Formatting.toUtcIsoFormat(endDateTime)
-		);
-		onBlurEditable();
-	};
-
-	const startTime =
-		updateArtistEventFormApi.formMethods.getValues('start_time');
-	const endTime = updateArtistEventFormApi.formMethods.getValues('end_time');
-
 	const defaultStartDateTime = startTime ? new Date(startTime) : null;
 	const defaultEndDateTime = endTime ? new Date(endTime) : null;
 
+	const onSave = (startDateTime: Date, endDateTime: Date | null) => {
+		updateArtistEventMutation({
+			params: {
+				event_uid,
+				artist_uid: artistData.artist_uid
+			},
+			body: {
+				start_time: Formatting.toUtcIsoFormat(startDateTime),
+				end_time: endDateTime ? Formatting.toUtcIsoFormat(endDateTime) : null
+			}
+		});
+	};
+
 	return (
 		<View>
-			<Controller
-				name='start_time'
-				control={updateArtistEventFormApi.formMethods.control}
-				render={({ field: { value } }) => (
-					<MenuListItem
-						titleTextProps={{
-							title: value ? day(value).format('dddd, MMM. Do') : 'Event Date',
-							titleVariant: 'paragraph-medium',
-							bottomSubtextVariant: 'paragraph-small',
-							bottomSubtextColor: 'text.q',
-							bottomSubtext: value
-								? day(value).format('h:mma')
-								: 'No Date Selected'
-						}}
-						onPress={sheetApi.open}
-					/>
-				)}
+			<MenuListItem
+				titleTextProps={{
+					title: defaultStartDateTime
+						? day(defaultStartDateTime).format('dddd, MMM. Do')
+						: 'Event Date',
+					titleVariant: 'paragraph-medium',
+					bottomSubtextVariant: 'paragraph-small',
+					bottomSubtextColor: 'text.q',
+					bottomSubtext: defaultStartDateTime
+						? day(defaultStartDateTime).format('h:mma')
+						: 'No Date Selected'
+				}}
+				onPress={sheetApi.open}
 			/>
 			<SelectEventDateTimeBottomSheet
 				sheetApi={sheetApi}
 				defaultStartDateTime={defaultStartDateTime}
 				defaultEndDateTime={defaultEndDateTime}
-				onPressSave={onPressSave}
+				onPressSave={onSave}
 			/>
 		</View>
 	);

@@ -1,21 +1,35 @@
 import { Section } from '@atomic';
 import { FindOneArtistEventResponseDto } from '@flux/api/event/dto/artist-event-find-one.dto';
+import { profileImageApiSlice } from '@flux/api/profile-image';
 import { usePriorityImage } from '@hooks';
 import { EditableProfileImage } from '@molecules';
-import React from 'react';
+import React, { useState } from 'react';
 import { Asset } from 'react-native-image-picker';
 
 interface EditProfileImageProps {
-	updateArtistEventProfileImage: (profileImage: Asset) => void;
-	isProfileImageLoading: boolean;
-	eventData?: FindOneArtistEventResponseDto;
+	eventData: FindOneArtistEventResponseDto;
 }
 
-const EditProfileImage: React.FC<EditProfileImageProps> = ({
-	updateArtistEventProfileImage,
-	isProfileImageLoading,
-	eventData
-}) => {
+const EditProfileImage: React.FC<EditProfileImageProps> = ({ eventData }) => {
+	const [createArtistEventProfileImageMutation] =
+		profileImageApiSlice.useCreateArtistEventProfileImageMutation();
+	const [isProfileImageLoading, setIsProfileImageLoading] =
+		useState<boolean>(false);
+	const updateArtistEventProfileImage = (profileImage: Asset) => {
+		setIsProfileImageLoading(true);
+		createArtistEventProfileImageMutation({
+			file: profileImage,
+			query: {
+				event_uid: eventData.event.event_uid
+			}
+		}).finally(() => {
+			// We give it an extra second to give it time to invalidate the cache
+			// to avoid flickering
+			setTimeout(() => {
+				setIsProfileImageLoading(false);
+			}, 1000);
+		});
+	};
 	const { currentUrl } = usePriorityImage(eventData?.event.profile_image);
 
 	return (

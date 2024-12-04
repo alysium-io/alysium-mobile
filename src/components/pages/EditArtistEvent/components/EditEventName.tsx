@@ -1,19 +1,19 @@
 import { Section } from '@atomic';
 import { FindOneArtistEventResponseDto } from '@flux/api/event/dto/artist-event-find-one.dto';
+import { UpdateArtistEventBodyDto } from '@flux/api/event/dto/artist-event-update.dto';
 import { TitleTextInput } from '@molecules';
-import { UpdateArtistEventFormApi } from '@src/utils/redux-hook-form/useUpdateArtistEventFormApi';
 import React from 'react';
-import { Controller } from 'react-hook-form';
+import { Control, Controller } from 'react-hook-form';
 
 interface EditEventNameProps {
 	eventData: FindOneArtistEventResponseDto;
-	updateArtistEventFormApi: UpdateArtistEventFormApi;
+	control: Control<UpdateArtistEventBodyDto>;
 	onBlurEditable: () => void;
 }
 
 const EditEventName: React.FC<EditEventNameProps> = ({
 	eventData,
-	updateArtistEventFormApi,
+	control,
 	onBlurEditable
 }) => {
 	return (
@@ -21,7 +21,7 @@ const EditEventName: React.FC<EditEventNameProps> = ({
 			<Controller
 				name='name'
 				rules={{ required: true }}
-				control={updateArtistEventFormApi.formMethods.control}
+				control={control}
 				render={({ field: { onChange } }) => (
 					<TitleTextInput
 						placeholder='Event name'

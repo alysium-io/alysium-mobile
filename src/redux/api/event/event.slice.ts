@@ -17,7 +17,7 @@ export default serviceApi.injectEndpoints({
 				method: 'GET'
 			}),
 			providesTags: (result, error, { params }) => [
-				{ type: 'ArtistEvent', id: params.event_uid }
+				{ type: 'PublicEvent', id: params.event_uid }
 			]
 		})
 	})

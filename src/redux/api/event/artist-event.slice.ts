@@ -100,7 +100,7 @@ const artistEventApiSlice = serviceApi.injectEndpoints({
 				return !_.isEqual(currentArg, previousArg);
 			},
 			providesTags: (results) =>
-				results ? [{ type: 'PublicArtistEvent', id: 'LIST' }] : []
+				results ? [{ type: 'PublicEvent', id: 'LIST' }] : []
 		}),
 		createArtistEvent: builder.mutation<
 			CreateArtistEventResponseDto,
@@ -162,8 +162,9 @@ const artistEventApiSlice = serviceApi.injectEndpoints({
 			}),
 			invalidatesTags: (result, error, { params }) => [
 				{ type: 'ArtistEvent', id: params.event_uid },
+				{ type: 'PublicEvent', id: params.event_uid },
 				{ type: 'ArtistEvent', id: 'LIST' },
-				{ type: 'PublicArtistEvent', id: 'LIST' }
+				{ type: 'PublicEvent', id: 'LIST' }
 			]
 		}),
 		updateArtistEventLocation: builder.mutation<
@@ -179,7 +180,8 @@ const artistEventApiSlice = serviceApi.injectEndpoints({
 				body
 			}),
 			invalidatesTags: (result, error, { params }) => [
-				{ type: 'ArtistEvent', id: params.event_uid }
+				{ type: 'ArtistEvent', id: params.event_uid },
+				{ type: 'PublicEvent', id: params.event_uid }
 			]
 		})
 	})

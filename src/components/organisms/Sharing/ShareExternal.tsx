@@ -94,7 +94,7 @@ const ShareExternal: React.FC<ShareExternalProps> = ({ sheetApi, event }) => {
 				</ViewShot>
 			</BottomSheetBackdrop>
 		),
-		[]
+		[event]
 	);
 
 	return (

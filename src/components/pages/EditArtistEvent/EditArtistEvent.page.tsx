@@ -1,4 +1,7 @@
+import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
 import { View } from '@atomic';
+import { artistEventApiSlice } from '@flux/api/event';
+import { UpdateArtistEventBodyDto } from '@flux/api/event/dto/artist-event-update.dto';
 import { EventStatus } from '@flux/api/event/types';
 import { useKeyboard, useSheet } from '@hooks';
 import { ActionButtons } from '@molecules';
@@ -10,6 +13,7 @@ import {
 import { useRoute } from '@react-navigation/native';
 import { EditArtistEventPageRouteProp } from '@types';
 import React, { useCallback } from 'react';
+import { useForm } from 'react-hook-form';
 import { If, Then } from 'react-if';
 import { ScrollView } from 'react-native';
 import EditBasicInfo from './components/EditBasicInfo';
@@ -19,21 +23,56 @@ import EditGallery from './components/EditGallery';
 import EditLocation from './components/EditLocation';
 import EditProfileImage from './components/EditProfileImage';
 import EditArtistEventPageHeader from './EditArtistEvent.header';
-import useEditArtistEventPage from './useEditArtistEventPage';
 
 const EditArtistEventPage = () => {
 	const route = useRoute<EditArtistEventPageRouteProp>();
 	const { dismiss } = useKeyboard();
+	const { artistData } = useArtistAppContext();
 	const confirmPublishEventSheetApi = useSheet();
 	const editArtistEventPopupMenuBottomSheet = useSheet();
 	const shareExternalSheetApi = useSheet();
+	const [updateArtistEventMutation] =
+		artistEventApiSlice.useUpdateArtistEventMutation();
+
+	const { data: eventData } =
+		artistEventApiSlice.usePrivateFindOneArtistEventQuery({
+			params: {
+				event_uid: route.params.event_uid,
+				artist_uid: artistData.artist_uid
+			}
+		});
+
 	const {
-		eventData,
-		isProfileImageLoading,
-		updateArtistEventProfileImage,
-		updateArtistEventFormApi,
-		onBlurEditable
-	} = useEditArtistEventPage(route.params.event_uid);
+		formState: { isDirty },
+		control,
+		handleSubmit
+	} = useForm<UpdateArtistEventBodyDto>({
+		defaultValues: {
+			name: eventData?.event.name,
+			about: eventData?.event.about,
+			start_time: eventData?.event.start_time,
+			end_time: eventData?.event.end_time,
+			status: eventData?.event.status
+		}
+	});
+
+	const onSubmit = (data: UpdateArtistEventBodyDto) => {
+		if (eventData) {
+			updateArtistEventMutation({
+				params: {
+					artist_uid: artistData.artist_uid,
+					event_uid: eventData.event.event_uid
+				},
+				body: data
+			});
+		}
+	};
+
+	const onBlurEditable = () => {
+		if (isDirty) {
+			handleSubmit(onSubmit)();
+		}
+	};
 
 	const FooterComponent = useCallback(
 		() => (
@@ -62,6 +101,8 @@ const EditArtistEventPage = () => {
 		return null;
 	}
 
+	console.log(eventData.event.location);
+
 	return (
 		<BasePage FooterComponent={FooterComponent}>
 			<EditArtistEventPageHeader
@@ -69,19 +110,16 @@ const EditArtistEventPage = () => {
 				onPressMenu={editArtistEventPopupMenuBottomSheet.open}
 			/>
 			<ScrollView onScrollBeginDrag={dismiss}>
-				<EditProfileImage
-					eventData={eventData}
-					isProfileImageLoading={isProfileImageLoading}
-					updateArtistEventProfileImage={updateArtistEventProfileImage}
-				/>
+				<EditProfileImage eventData={eventData} />
 				<EditEventName
+					control={control}
 					eventData={eventData}
-					updateArtistEventFormApi={updateArtistEventFormApi}
 					onBlurEditable={onBlurEditable}
 				/>
 				<EditBasicInfo
-					updateArtistEventFormApi={updateArtistEventFormApi}
-					onBlurEditable={onBlurEditable}
+					event_uid={eventData.event.event_uid}
+					startTime={eventData.event.start_time}
+					endTime={eventData.event.end_time}
 				/>
 				<EditEventLocation eventData={eventData} />
 				<EditLocation eventData={eventData} />
