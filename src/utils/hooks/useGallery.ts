@@ -5,6 +5,9 @@ interface IUseGallery {
 	create:
 		| typeof galleryApiSlice.useCreateArtistGalleryItemMutation
 		| typeof galleryApiSlice.useCreateArtistEventGalleryItemMutation;
+	delete:
+		| typeof galleryApiSlice.useDeleteArtistGalleryItemMutation
+		| typeof galleryApiSlice.useDeleteArtistEventGalleryItemMutation;
 	find:
 		| typeof galleryApiSlice.useFindArtistGalleryQuery
 		| typeof galleryApiSlice.useFindArtistEventGalleryQuery;
@@ -15,7 +18,7 @@ interface IUseGallery {
 }
 
 const useGallery = (galleryRefType: GalleryRefType): IUseGallery => {
-	const mutations: Record<
+	const creates: Record<
 		GalleryRefType,
 		| typeof galleryApiSlice.useCreateArtistGalleryItemMutation
 		| typeof galleryApiSlice.useCreateArtistEventGalleryItemMutation
@@ -23,6 +26,16 @@ const useGallery = (galleryRefType: GalleryRefType): IUseGallery => {
 		[GalleryRefType.artist]: galleryApiSlice.useCreateArtistGalleryItemMutation,
 		[GalleryRefType.artistEvent]:
 			galleryApiSlice.useCreateArtistEventGalleryItemMutation
+	};
+
+	const deletes: Record<
+		GalleryRefType,
+		| typeof galleryApiSlice.useDeleteArtistGalleryItemMutation
+		| typeof galleryApiSlice.useDeleteArtistEventGalleryItemMutation
+	> = {
+		[GalleryRefType.artist]: galleryApiSlice.useDeleteArtistGalleryItemMutation,
+		[GalleryRefType.artistEvent]:
+			galleryApiSlice.useDeleteArtistEventGalleryItemMutation
 	};
 
 	const findQueries = {
@@ -42,7 +55,8 @@ const useGallery = (galleryRefType: GalleryRefType): IUseGallery => {
 	};
 
 	return {
-		create: mutations[galleryRefType],
+		create: creates[galleryRefType],
+		delete: deletes[galleryRefType],
 		find: findQueries[galleryRefType],
 		findItem: findItemQueries[galleryRefType],
 		reduxTag: reduxTags[galleryRefType]

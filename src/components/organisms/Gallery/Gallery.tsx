@@ -1,41 +1,51 @@
-import { View } from '@atomic';
-import { useGallery } from '@hooks';
-import React from 'react';
-import GalleryItemRow from './components/GalleryItemRow';
-import { createGallerymap, GalleryProps } from './etc';
-import GalleryItem from './gallery-items/GalleryItem';
-import { GALLERY_ITEM_MARGIN } from './settings';
+import { DynamicGrid } from '@atomic';
+import { generateId } from '@etc';
+import { Gallery as IGallery } from '@flux/api/gallery/gallery.entity';
+import { GalleryRefType } from '@flux/api/gallery/types';
+import { useMultimedia, useNavigation } from '@hooks';
+import { NanoId } from '@types';
+import React, { useMemo } from 'react';
+import GalleryItemContainer from './components/GalleryItemContainer';
+import GalleryItemThumbnailOverlay from './overlays/GalleryItemThumbnailOverlay';
+
+interface GalleryProps {
+	gallery: IGallery | null;
+	galleryRefType: GalleryRefType;
+	galleryRefUid: NanoId;
+}
 
 const Gallery: React.FC<GalleryProps> = ({
-	findGalleryParamsDto,
-	galleryRefType
+	gallery,
+	galleryRefType,
+	galleryRefUid
 }) => {
-	const gallery = useGallery(galleryRefType);
-	const { data } = gallery.find({
-		params: findGalleryParamsDto
-	});
+	const { getImage } = useMultimedia();
+	const { viewGalleryPage } = useNavigation();
 
 	return (
-		<View>
-			{createGallerymap(data?.items)?.map((row, rowIndex) => (
-				<GalleryItemRow
-					key={rowIndex}
-					style={{ marginBottom: GALLERY_ITEM_MARGIN }}
-				>
-					{row.map((item) => {
-						return (
-							<GalleryItem
-								key={item.orderIndex}
-								galleryItem={item.galleryItem}
-								index={item.orderIndex}
-								findGalleryParamsDto={findGalleryParamsDto}
-								galleryRefType={galleryRefType}
-							/>
-						);
-					})}
-				</GalleryItemRow>
-			))}
-		</View>
+		<DynamicGrid
+			data={gallery?.items ?? []}
+			renderItem={({ item, index }) => {
+				const transitionTagId = useMemo(() => generateId(10), []);
+				return (
+					<GalleryItemContainer
+						onPress={() => {
+							viewGalleryPage(
+								transitionTagId,
+								index,
+								{ refId: galleryRefUid },
+								galleryRefType
+							);
+						}}
+					>
+						<GalleryItemThumbnailOverlay
+							image={getImage(item?.multimedia)}
+							sharedTransitionTag={transitionTagId}
+						/>
+					</GalleryItemContainer>
+				);
+			}}
+		/>
 	);
 };
 

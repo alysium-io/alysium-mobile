@@ -1,11 +1,11 @@
 import { View } from '@atomic';
 import React from 'react';
-import SelectContactTest from './displays/SelectContactTest';
+import GalleryTest from './displays/GalleryTest';
 
 const Scratch = () => {
 	return (
 		<View flex={1}>
-			<SelectContactTest />
+			<GalleryTest />
 		</View>
 	);
 };

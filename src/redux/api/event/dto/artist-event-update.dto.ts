@@ -6,7 +6,7 @@ export interface UpdateArtistEventParamsDto extends ArtistEventParamsDto {}
 
 export interface UpdateArtistEventBodyDto {
 	readonly name: string;
-	readonly about: string;
+	readonly about: string | null;
 	readonly start_time: string | null;
 	readonly end_time: string | null;
 	readonly status: EventStatus;

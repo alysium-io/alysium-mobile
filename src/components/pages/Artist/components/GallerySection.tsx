@@ -12,10 +12,9 @@ const GallerySection: React.FC<GallerySectionProps> = ({ artistData }) => {
 	return (
 		<Section marginBottom='none'>
 			<Gallery
+				gallery={artistData.gallery}
 				galleryRefType={GalleryRefType.artist}
-				findGalleryParamsDto={{
-					refId: artistData.artist_uid
-				}}
+				galleryRefUid={artistData.artist_uid}
 			/>
 		</Section>
 	);

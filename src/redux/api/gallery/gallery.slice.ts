@@ -2,9 +2,13 @@ import { createImageFormDataFromAsset } from '@src/etc/Images';
 import { Asset } from 'react-native-image-picker';
 import { rtkBaseUrl, serviceApi } from '../base';
 import {
-	CreateGalleryBodyDto,
-	CreateGalleryResponseDto
+	CreateGalleryItemBodyDto,
+	CreateGalleryItemResponseDto
 } from './dto/gallery-create.dto';
+import {
+	DeleteGalleryItemBodyDto,
+	DeleteGalleryItemResponseDto
+} from './dto/gallery-delete.dto';
 import {
 	FindGalleryItemParamsDto,
 	FindGalleryItemQueryDto,
@@ -22,8 +26,8 @@ export default serviceApi.injectEndpoints({
 	endpoints: (builder) => ({
 		// Artist Event Gallery
 		createArtistEventGalleryItem: builder.mutation<
-			CreateGalleryResponseDto,
-			{ body: CreateGalleryBodyDto; file: Asset }
+			CreateGalleryItemResponseDto,
+			{ body: CreateGalleryItemBodyDto; file: Asset }
 		>({
 			query: ({ body, file }) => ({
 				url: artistEventGalleryUrl('/'),
@@ -32,6 +36,19 @@ export default serviceApi.injectEndpoints({
 			}),
 			invalidatesTags: (result, error, { body }) => [
 				{ type: 'ArtistEventGallery', id: body.refId }
+			]
+		}),
+		deleteArtistEventGalleryItem: builder.mutation<
+			DeleteGalleryItemResponseDto,
+			{ body: DeleteGalleryItemBodyDto }
+		>({
+			query: ({ body }) => ({
+				url: artistEventGalleryUrl('/'),
+				method: 'DELETE',
+				body
+			}),
+			invalidatesTags: (result, error, { body }) => [
+				{ type: 'ArtistEvent', id: body.refId }
 			]
 		}),
 		findArtistEventGallery: builder.query<
@@ -59,8 +76,8 @@ export default serviceApi.injectEndpoints({
 
 		// Artist Gallery
 		createArtistGalleryItem: builder.mutation<
-			CreateGalleryResponseDto,
-			{ body: CreateGalleryBodyDto; file: Asset }
+			CreateGalleryItemResponseDto,
+			{ body: CreateGalleryItemBodyDto; file: Asset }
 		>({
 			query: ({ body, file }) => ({
 				url: artistGalleryUrl('/'),
@@ -68,10 +85,20 @@ export default serviceApi.injectEndpoints({
 				body: createImageFormDataFromAsset(file, body)
 			}),
 			invalidatesTags: (result, error, { body }) => [
-				{
-					type: 'ArtistGallery',
-					id: body.refId
-				}
+				{ type: 'PrivateArtist', id: 'CURRENT' }
+			]
+		}),
+		deleteArtistGalleryItem: builder.mutation<
+			DeleteGalleryItemResponseDto,
+			{ body: DeleteGalleryItemBodyDto }
+		>({
+			query: ({ body }) => ({
+				url: artistGalleryUrl('/'),
+				method: 'DELETE',
+				body
+			}),
+			invalidatesTags: (result, error, { body }) => [
+				{ type: 'PrivateArtist', id: 'CURRENT' }
 			]
 		}),
 		findArtistGallery: builder.query<

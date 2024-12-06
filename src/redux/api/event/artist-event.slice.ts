@@ -181,7 +181,9 @@ const artistEventApiSlice = serviceApi.injectEndpoints({
 			}),
 			invalidatesTags: (result, error, { params }) => [
 				{ type: 'ArtistEvent', id: params.event_uid },
-				{ type: 'PublicEvent', id: params.event_uid }
+				{ type: 'PublicEvent', id: params.event_uid },
+				{ type: 'PublicEvent', id: 'LIST' },
+				{ type: 'ArtistEvent', id: 'LIST' }
 			]
 		})
 	})

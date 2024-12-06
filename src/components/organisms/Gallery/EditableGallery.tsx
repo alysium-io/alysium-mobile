@@ -1,39 +1,65 @@
-import { View } from '@atomic';
-import { useGallery } from '@hooks';
-import React from 'react';
-import GalleryItemRow from './components/GalleryItemRow';
-import { createGallerymap, GalleryProps } from './etc';
+import { DynamicGrid } from '@atomic';
+import { Gallery as IGallery } from '@flux/api/gallery/gallery.entity';
+import { GalleryRefType } from '@flux/api/gallery/types';
+import { NanoId } from '@types';
+import React, { useMemo } from 'react';
+import CreateNewGalleryItem from './gallery-items/CreateNewGalleryItem';
 import EditableGalleryItem from './gallery-items/EditableGalleryItem';
-import { GALLERY_ITEM_MARGIN } from './settings';
 
-const EditableGallery: React.FC<GalleryProps> = ({
-	findGalleryParamsDto,
-	galleryRefType
+interface EditableGalleryProps {
+	gallery: IGallery | null;
+	galleryRefType: GalleryRefType;
+	galleryRefUid: NanoId;
+}
+
+const EditableGallery: React.FC<EditableGalleryProps> = ({
+	gallery,
+	galleryRefType,
+	galleryRefUid
 }) => {
-	const gallery = useGallery(galleryRefType);
-	const { data } = gallery.find({ params: findGalleryParamsDto });
+	const data = useMemo(() => {
+		// This "empty item" acts as the placeholder for the "Create New" button
+		const emptyItem = { is_new: true, item: null };
+
+		// If they have yet to create a gallery, we show only the "Create New" button
+		if (!gallery?.items) return [emptyItem];
+
+		// Gather the items in with the wrapper
+		const items = gallery.items.map((i) => ({ is_new: false, item: i }));
+
+		// If there's less than 6 items, we show the "Create New" button
+		if (gallery.items.length < 6) {
+			return [...items, emptyItem];
+		}
+
+		// Otherwise, we just show the items
+		return items;
+	}, [gallery]);
 
 	return (
-		<View>
-			{createGallerymap(data?.items ?? [])?.map((row, rowIndex) => (
-				<GalleryItemRow
-					key={rowIndex}
-					style={{ marginBottom: GALLERY_ITEM_MARGIN }}
-				>
-					{row.map((item) => {
-						return (
-							<EditableGalleryItem
-								key={item.orderIndex}
-								galleryItem={item.galleryItem}
-								index={item.orderIndex}
-								findGalleryParamsDto={findGalleryParamsDto}
-								galleryRefType={galleryRefType}
-							/>
-						);
-					})}
-				</GalleryItemRow>
-			))}
-		</View>
+		<DynamicGrid
+			data={data}
+			renderItem={({ item, index }) => {
+				if (!item.item || item.is_new) {
+					return (
+						<CreateNewGalleryItem
+							galleryRefType={galleryRefType}
+							galleryRefUid={galleryRefUid}
+							order={Math.max(...data.map((i) => i.item?.order || 0)) + 1}
+						/>
+					);
+				}
+				return (
+					<EditableGalleryItem
+						key={index}
+						galleryItem={item.item}
+						galleryRefType={galleryRefType}
+						galleryRefUid={galleryRefUid}
+						order={item.item.order}
+					/>
+				);
+			}}
+		/>
 	);
 };
 

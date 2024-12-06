@@ -1,5 +1,5 @@
 import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
-import { View } from '@atomic';
+import { Section, Text } from '@atomic';
 import { Formatting } from '@etc';
 import { artistEventApiSlice } from '@flux/api/event';
 import { useSheet } from '@hooks';
@@ -8,14 +8,15 @@ import { SelectEventDateTimeBottomSheet } from '@popups';
 import { NanoId } from '@types';
 import day from 'dayjs';
 import React from 'react';
+import Separator from '../../EditArtist/components/Separator';
 
-interface EditBasicInfoProps {
+interface DateSectionProps {
 	event_uid: NanoId;
 	startTime: string | null;
 	endTime: string | null;
 }
 
-const EditBasicInfo: React.FC<EditBasicInfoProps> = ({
+const DateSection: React.FC<DateSectionProps> = ({
 	event_uid,
 	startTime,
 	endTime
@@ -41,7 +42,10 @@ const EditBasicInfo: React.FC<EditBasicInfoProps> = ({
 	};
 
 	return (
-		<View>
+		<Section>
+			<Text variant='section-header-2' marginHorizontal='m'>
+				Date
+			</Text>
 			<MenuListItem
 				titleTextProps={{
 					title: defaultStartDateTime
@@ -62,8 +66,9 @@ const EditBasicInfo: React.FC<EditBasicInfoProps> = ({
 				defaultEndDateTime={defaultEndDateTime}
 				onPressSave={onSave}
 			/>
-		</View>
+			<Separator marginTop='m' />
+		</Section>
 	);
 };
 
-export default EditBasicInfo;
+export default DateSection;

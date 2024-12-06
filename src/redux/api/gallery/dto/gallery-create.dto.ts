@@ -3,11 +3,11 @@ import { NanoId } from '@types';
 import { Gallery } from '../gallery.entity';
 import { GalleryRefType } from '../types';
 
-export interface CreateGalleryBodyDto {
+export interface CreateGalleryItemBodyDto {
 	readonly mediaType: MediaType;
 	readonly refType: GalleryRefType;
 	readonly refId: NanoId;
 	readonly order: number;
 }
 
-export interface CreateGalleryResponseDto extends Gallery {}
+export interface CreateGalleryItemResponseDto extends Gallery {}

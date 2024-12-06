@@ -1,35 +1,35 @@
-import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
 import { Section, Text, View } from '@atomic';
-import { UpdateArtistBodyDto } from '@flux/api/artist/dto/artist-update.dto';
+import { FindOneArtistEventResponseDto } from '@flux/api/event/dto/artist-event-find-one.dto';
+import { UpdateArtistEventBodyDto } from '@flux/api/event/dto/artist-event-update.dto';
 import { GalleryRefType } from '@flux/api/gallery/types';
 import { EditableDescription } from '@molecules';
 import { EditableGallery } from '@organisms';
 import React from 'react';
 import { Control, Controller } from 'react-hook-form';
-import Separator from './Separator';
+import Separator from '../../EditArtist/components/Separator';
 
 interface AssetsSectionProps {
-	control: Control<UpdateArtistBodyDto, any>;
+	eventData: FindOneArtistEventResponseDto;
+	control: Control<UpdateArtistEventBodyDto, any>;
 	onBlurEditable: () => void;
 }
 
 const AssetsSection: React.FC<AssetsSectionProps> = ({
+	eventData,
 	control,
 	onBlurEditable
 }) => {
-	const { artistData } = useArtistAppContext();
-
 	return (
 		<Section>
 			<View margin='m'>
 				<Text variant='section-header-2'>Assets</Text>
 				<Controller
-					name='bio'
+					name='about'
 					control={control}
 					rules={{ required: true }}
 					render={({ field: { onChange, value } }) => (
 						<EditableDescription
-							placeholder='Tell your audience about yourself...'
+							placeholder='Tell us about this event...'
 							onChangeText={onChange}
 							onBlur={onBlurEditable}
 							value={value ?? undefined}
@@ -37,9 +37,9 @@ const AssetsSection: React.FC<AssetsSectionProps> = ({
 					)}
 				/>
 				<EditableGallery
-					gallery={artistData.gallery}
-					galleryRefType={GalleryRefType.artist}
-					galleryRefUid={artistData.artist_uid}
+					gallery={eventData.event.gallery}
+					galleryRefType={GalleryRefType.artistEvent}
+					galleryRefUid={eventData.event.event_uid}
 				/>
 			</View>
 			<Separator marginTop='xl' />
