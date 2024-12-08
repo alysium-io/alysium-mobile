@@ -1,20 +1,13 @@
 import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
 import { Section, Text } from '@atomic';
 import { artistEventApiSlice } from '@flux/api/event';
-import {
-	useImage,
-	useNavigation,
-	usePagination,
-	useSheet,
-	useTheme
-} from '@hooks';
+import { useImage, useNavigation, usePagination, useSheet } from '@hooks';
 import { ContentListItem, SeeAllBottomButton } from '@molecules';
 import { CreateArtistEventBottomSheet } from '@popups';
 import React from 'react';
 import Separator from './Separator';
 
 const EditEvents = () => {
-	const { theme } = useTheme();
 	const createArtistEventBottomSheet = useSheet();
 	const { artistData } = useArtistAppContext();
 	const { editArtistEventPage, artistEventsPage } = useNavigation();
@@ -43,7 +36,7 @@ const EditEvents = () => {
 				onPress={onPressCreateEvent}
 				titleTextProps={{
 					title: 'Create Event',
-					bottomSubtext: 'Add a new event to your profile'
+					bottomSubtext: 'Where are you playing next?'
 				}}
 				profileImageProps={{
 					borderRadius: 'none',

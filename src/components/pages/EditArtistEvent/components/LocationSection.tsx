@@ -33,13 +33,9 @@ const LocationSection: React.FC<LocationSectionProps> = ({ eventData }) => {
 		}
 	};
 
-	if (!locationApi.hasLocation) {
-		return null;
-	}
-
 	return (
 		<Section>
-			<Text variant='section-header-2' marginHorizontal='m'>
+			<Text variant='section-header-2' marginHorizontal='m' marginBottom='m'>
 				Location
 			</Text>
 			<MenuListItem
@@ -54,19 +50,21 @@ const LocationSection: React.FC<LocationSectionProps> = ({ eventData }) => {
 					bottomSubtextColor: 'text.q'
 				}}
 			/>
-			<TouchableOpacity onPress={onPressLocation} activeOpacity={0.9}>
-				<Location
-					markers={{
-						location: eventData.event.location,
-						label: eventData.event.name
-					}}
-					containerProps={{
-						height: 300,
-						margin: 'm',
-						style: { borderRadius: 25 }
-					}}
-				/>
-			</TouchableOpacity>
+			{locationApi.hasLocation && (
+				<TouchableOpacity onPress={onPressLocation} activeOpacity={0.9}>
+					<Location
+						markers={{
+							location: eventData.event.location,
+							label: eventData.event.name
+						}}
+						containerProps={{
+							height: 300,
+							margin: 'm',
+							style: { borderRadius: 25 }
+						}}
+					/>
+				</TouchableOpacity>
+			)}
 			<Separator marginTop='m' />
 		</Section>
 	);

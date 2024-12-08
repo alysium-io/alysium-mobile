@@ -45,6 +45,7 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
 			animationConfigs={springConfig}
 			enableDynamicSizing={props.snapPoints ? false : true}
 			enableContentPanningGesture={enableContentPanningGesture}
+			stackBehavior='push'
 			backgroundStyle={{
 				backgroundColor: theme.colors['bg.p'],
 				borderRadius: 25

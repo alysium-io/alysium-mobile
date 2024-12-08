@@ -68,7 +68,11 @@ const Parallax: React.FC<ParallaxProps> = ({
 	}, []);
 
 	return (
-		<Animated.ScrollView ref={scrollRef} scrollEventThrottle={16}>
+		<Animated.ScrollView
+			ref={scrollRef}
+			scrollEventThrottle={16}
+			showsVerticalScrollIndicator={false}
+		>
 			<Animated.View style={[styles.imageContainer, imageAnimatedStyle]}>
 				<Switch>
 					<Case condition={CustomImage !== undefined}>

@@ -1,23 +1,20 @@
-import { View } from '@atomic';
-import React from 'react';
-import { FadeIn, FadeOut } from 'react-native-reanimated';
+import React, { useMemo } from 'react';
+import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 
 interface AppTransitionWrapperProps {
 	children: React.ReactNode;
 }
 
-const AppTransitionWrapper: React.FC<AppTransitionWrapperProps> = ({
-	children
-}) => {
+const AppTransitionWrapper: React.FC<AppTransitionWrapperProps> = (props) => {
+	const entering = useMemo(() => FadeIn.duration(300).delay(300), []);
+	const exiting = useMemo(() => FadeOut.duration(300), []);
 	return (
-		<View
-			animated
-			entering={FadeIn.duration(500).delay(500)}
-			exiting={FadeOut.duration(500)}
-			flex={1}
-		>
-			{children}
-		</View>
+		<Animated.View
+			entering={entering}
+			exiting={exiting}
+			style={{ flex: 1 }}
+			{...props}
+		/>
 	);
 };
 

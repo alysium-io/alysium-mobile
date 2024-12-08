@@ -4,7 +4,7 @@ import { Formatting } from '@etc';
 import { contactApiSlice } from '@flux/api/contact';
 import { CreateContactBodyDto } from '@flux/api/contact/dto/contact-create.dto';
 import { BottomSheetFooterProps } from '@gorhom/bottom-sheet';
-import { SheetApi, useSheet, useToast } from '@hooks';
+import { SheetApi, useContact, useSheet, useToast } from '@hooks';
 import {
 	ActionButtons,
 	Button,
@@ -30,6 +30,7 @@ const CreateContactBottomSheet: React.FC<CreateContactBottomSheetProps> = ({
 	const { toastError } = useToast();
 	const { artistData } = useArtistAppContext();
 	const [createContactMutation] = contactApiSlice.useCreateContactMutation();
+	const { extractContact } = useContact();
 	const {
 		setButtonState,
 		buttonState,
@@ -76,14 +77,16 @@ const CreateContactBottomSheet: React.FC<CreateContactBottomSheetProps> = ({
 	};
 
 	const onImportContact = (contact: Contact) => {
-		const name = contact.givenName + ' ' + contact.familyName;
-		const phone_number = contact.phoneNumbers[0]?.number;
-		const email = contact.emailAddresses[0]?.email;
-		setValue('name', name, { shouldValidate: true });
-		setValue('phone_number', Formatting.formatPhoneNumber(phone_number), {
-			shouldValidate: true
-		});
-		setValue('email', email, { shouldValidate: true });
+		const _contact = extractContact(contact);
+		setValue('name', _contact.name, { shouldValidate: true });
+		setValue(
+			'phone_number',
+			Formatting.formatPhoneNumber(_contact.phone_number),
+			{
+				shouldValidate: true
+			}
+		);
+		setValue('email', _contact.email, { shouldValidate: true });
 	};
 
 	const footerComponent = useCallback(

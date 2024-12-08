@@ -48,6 +48,7 @@ import Logo from './Logo';
 import Meatballs from './Meatballs';
 import Menu from './Menu';
 import Mobile from './Mobile';
+import OldPhone from './OldPhone';
 import Outdoors from './Outdoors';
 import Patreon from './Patreon';
 import Pause from './Pause';
@@ -165,7 +166,8 @@ export const SvgIcons = {
 	pause: Pause,
 	trash: Trash,
 	'share-external': ShareExternal,
-	chainlink: Chainlink
+	chainlink: Chainlink,
+	'old-phone': OldPhone
 };
 
 export type IconNames = keyof typeof SvgIcons;

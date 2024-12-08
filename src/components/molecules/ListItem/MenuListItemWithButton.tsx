@@ -13,6 +13,7 @@ interface MenuListItemWithButtonProps {
 	onPressButton?: () => void;
 	prefixIconProps?: Props<typeof Icon>;
 	buttonIconProps: Props<typeof Icon>;
+	buttonIconContainerProps?: Props<typeof View>;
 }
 
 const MenuListItemWithButton: React.FC<MenuListItemWithButtonProps> = ({
@@ -22,7 +23,8 @@ const MenuListItemWithButton: React.FC<MenuListItemWithButtonProps> = ({
 	onPress,
 	onPressButton,
 	prefixIconProps,
-	buttonIconProps
+	buttonIconProps,
+	buttonIconContainerProps
 }) => {
 	return (
 		<BgTouchAnimation disabled={disabled} onPress={onPress}>
@@ -34,7 +36,7 @@ const MenuListItemWithButton: React.FC<MenuListItemWithButtonProps> = ({
 				)}
 				<TitleText {...titleTextProps} />
 				<TouchableOpacity onPress={onPressButton}>
-					<View padding='xl' paddingRight='m'>
+					<View padding='xl' paddingRight='m' {...buttonIconContainerProps}>
 						<Icon size='m' {...buttonIconProps} />
 					</View>
 				</TouchableOpacity>

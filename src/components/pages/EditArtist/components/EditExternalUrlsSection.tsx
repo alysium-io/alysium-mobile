@@ -14,6 +14,7 @@ const EditExternalUrlsSection = () => {
 	const createExternalUrlBottomSheetApi = useSheet();
 	const checkShouldDeleteExternalUrlBottomSheetApi = useSheet();
 	const { artistData } = useArtistAppContext();
+	const { go } = useLinking();
 	const [deleteExternalUrlState, setDeleteExternalUrlState] =
 		useState<ExternalUrl | null>(null);
 
@@ -38,11 +39,10 @@ const EditExternalUrlsSection = () => {
 				onPress={createExternalUrlBottomSheetApi.open}
 			/>
 			{artistData.external_urls.map((externalUrl, idx) => {
-				const { go } = useLinking(externalUrl.url, externalUrl.url);
 				return (
 					<MenuListItemWithButton
 						key={externalUrl.external_url_uid}
-						onPress={go}
+						onPress={() => go(externalUrl.url)}
 						onPressButton={() => onPressDeleteExternalUrl(externalUrl)}
 						prefixIconProps={{
 							name: getIconFromUrl(externalUrl.url)

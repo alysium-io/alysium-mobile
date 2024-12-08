@@ -22,7 +22,9 @@ const AssetsSection: React.FC<AssetsSectionProps> = ({
 	return (
 		<Section>
 			<View margin='m'>
-				<Text variant='section-header-2'>Assets</Text>
+				<Text variant='section-header-2' marginBottom='m'>
+					Assets
+				</Text>
 				<Controller
 					name='about'
 					control={control}

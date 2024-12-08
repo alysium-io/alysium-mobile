@@ -1,5 +1,6 @@
 import { Application, Authentication, Dependencies } from '@arch';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
 import { Scratch } from 'src/components/scratch';
 import './ignore-warnings';
@@ -13,9 +14,11 @@ const App = () => {
 	if (sandboxMode) {
 		return (
 			<Dependencies>
-				<BottomSheetModalProvider>
-					<Scratch />
-				</BottomSheetModalProvider>
+				<NavigationContainer>
+					<BottomSheetModalProvider>
+						<Scratch />
+					</BottomSheetModalProvider>
+				</NavigationContainer>
 			</Dependencies>
 		);
 	}

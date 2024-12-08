@@ -1,11 +1,13 @@
-import { Section, Text, View } from '@atomic';
+import { Icon, Section, Text, View } from '@atomic';
 import { Formatting } from '@etc';
 import { PublicFindOneArtistResponseDto } from '@flux/api/artist/dto/artist-find-one.dto';
-import { useNavigation } from '@hooks';
+import { useNavigation, useSheet } from '@hooks';
 import { Stats } from '@organisms';
 import React from 'react';
 import { Else, If, Then } from 'react-if';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import ContactsSheet from '../sheets/ContactsSheet';
+import ExternalUrlsSheet from '../sheets/ExternalUrlsSheet';
 
 interface SubHeaderProps {
 	artistData: PublicFindOneArtistResponseDto;
@@ -13,6 +15,9 @@ interface SubHeaderProps {
 
 const SubHeader: React.FC<SubHeaderProps> = ({ artistData }) => {
 	const { scenePage } = useNavigation();
+	const externalUrlsSheetApi = useSheet();
+	const contactsSheetApi = useSheet();
+
 	const onPressScene = () => {
 		if (artistData?.scene) {
 			scenePage(artistData.scene.scene.scene_uid, {
@@ -71,7 +76,54 @@ const SubHeader: React.FC<SubHeaderProps> = ({ artistData }) => {
 			</View>
 			<View width='75%'>
 				<Text variant='paragraph-small'>{artistData.bio}</Text>
+				{artistData.contacts?.length > 0 &&
+					artistData.external_urls?.length > 0 && (
+						<View marginTop='m' flexDirection='row' alignItems='center'>
+							{artistData.contacts?.length > 0 && (
+								<TouchableOpacity hitSlop={20} onPress={contactsSheetApi.open}>
+									<View flexDirection='row' alignItems='center'>
+										<Icon name='old-phone' size='s' />
+										<Text variant='paragraph-small-medium' marginLeft='xs'>
+											Contacts
+										</Text>
+									</View>
+								</TouchableOpacity>
+							)}
+							{artistData.external_urls?.length > 0 && (
+								<>
+									<View
+										marginHorizontal='s'
+										backgroundColor='text.q'
+										borderRadius='round'
+										style={{
+											height: 4,
+											width: 4
+										}}
+									/>
+									<TouchableOpacity
+										hitSlop={20}
+										onPress={externalUrlsSheetApi.open}
+									>
+										<View flexDirection='row' alignItems='center'>
+											<Icon name='link' size='s' />
+											<Text variant='paragraph-small-medium' marginLeft='xs'>
+												Links
+											</Text>
+										</View>
+									</TouchableOpacity>
+								</>
+							)}
+						</View>
+					)}
 			</View>
+			<ExternalUrlsSheet
+				sheetApi={externalUrlsSheetApi}
+				externalUrls={artistData.external_urls}
+			/>
+			<ContactsSheet
+				sheetApi={contactsSheetApi}
+				contacts={artistData.contacts}
+			/>
 		</Section>
 	);
 };

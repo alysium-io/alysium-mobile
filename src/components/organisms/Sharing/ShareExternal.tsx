@@ -5,7 +5,7 @@ import {
 	BottomSheetBackdrop,
 	BottomSheetBackdropProps
 } from '@gorhom/bottom-sheet';
-import { SheetApi, useImage } from '@hooks';
+import { SheetApi, useClipboard, useImage } from '@hooks';
 import { BottomSheet } from '@organisms';
 import SubHeader from '@src/components/pages/ArtistEvent/components/SubHeader';
 import React, { useCallback } from 'react';
@@ -24,13 +24,10 @@ interface ShareExternalProps {
 const ShareExternal: React.FC<ShareExternalProps> = ({ sheetApi, event }) => {
 	const { height } = useWindowDimensions();
 	const { urlForKey } = useImage();
-	const {
-		viewShotRef,
-		shareIGStory,
-		shareiMessage,
-		copyToClipboard,
-		shareVia
-	} = useShareViewShot(UNIVERSAL_LINK_PREFIX + event.event.event_uid);
+	const link = UNIVERSAL_LINK_PREFIX + event.event.event_uid;
+	const { viewShotRef, shareIGStory, shareiMessage, shareVia } =
+		useShareViewShot(link);
+	const { copy } = useClipboard();
 
 	const CBottomSheetBackdrop = useCallback(
 		(props: BottomSheetBackdropProps) => (
@@ -109,7 +106,7 @@ const ShareExternal: React.FC<ShareExternalProps> = ({ sheetApi, event }) => {
 				<ShareButton
 					CustomImage={() => <CustomShareButtonIcon icon='chainlink' />}
 					title='Copy Link'
-					onPress={copyToClipboard}
+					onPress={() => copy(link)}
 				/>
 				<ShareButton
 					CustomImage={() => <CustomShareButtonIcon icon='share-external' />}

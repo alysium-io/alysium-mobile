@@ -3036,6 +3036,7 @@ __metadata:
     react-native-contacts: "npm:^8.0.4"
     react-native-date-picker: "npm:^5.0.7"
     react-native-device-info: "npm:^14.0.1"
+    react-native-email-link: "npm:^1.16.1"
     react-native-fast-image: "npm:^8.6.3"
     react-native-gesture-handler: "npm:^2.21.2"
     react-native-haptic-feedback: "npm:^2.3.3"
@@ -8429,6 +8430,16 @@ __metadata:
   peerDependencies:
     react-native: "*"
   checksum: 10c0/5894d4106dcc43b9bb132171db31462c39fecf1395602b80df6831d6c77d98dd8be9fa974eeb4d0fd657d5d6fde022131530a5c8490ed3b14d385cc6d89de664
+  languageName: node
+  linkType: hard
+
+"react-native-email-link@npm:^1.16.1":
+  version: 1.16.1
+  resolution: "react-native-email-link@npm:1.16.1"
+  peerDependencies:
+    react: ">=16.8.0"
+    react-native: ">=0.40.0"
+  checksum: 10c0/656a1ba1280042d1d321ae7bf1a9599dd8be7a8e06f9e6f7adf3861d4ecc1552259c3bc7c6fd487c43d6dc237aca755249fb6c8dded6d72608cd1b8fb53531ae
   languageName: node
   linkType: hard
 

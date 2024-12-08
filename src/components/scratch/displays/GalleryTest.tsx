@@ -1,7 +1,5 @@
 import { Text, View } from '@atomic';
 import { artistApiSlice } from '@flux/api/artist';
-import { GalleryRefType } from '@flux/api/gallery/types';
-import { Gallery } from '@organisms';
 import React from 'react';
 import { ScrollView } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -20,11 +18,11 @@ const GalleryTest = () => {
 		<View style={{ marginTop: insets.top, flex: 1 }}>
 			<ScrollView>
 				<Text>GalleryTest</Text>
-				<Gallery
+				{/* <Gallery
 					gallery={data.gallery}
 					galleryRefType={GalleryRefType.artist}
 					galleryRefUid={artist_uid}
-				/>
+				/> */}
 			</ScrollView>
 		</View>
 	);

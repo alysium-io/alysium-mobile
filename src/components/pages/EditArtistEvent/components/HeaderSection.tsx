@@ -33,11 +33,7 @@ const HeaderSection: React.FC<HeaderSectionProps> = ({
 				event_uid: eventData.event.event_uid
 			}
 		}).finally(() => {
-			// We give it an extra second to give it time to invalidate the cache
-			// to avoid flickering
-			setTimeout(() => {
-				setIsProfileImageLoading(false);
-			}, 1000);
+			setIsProfileImageLoading(false);
 		});
 	};
 

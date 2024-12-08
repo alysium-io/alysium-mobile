@@ -25,6 +25,10 @@ const EventsSection: React.FC<EventsSectionProps> = ({
 		color: 'blue'
 	}));
 
+	if (eventsData.length === 0) {
+		return null;
+	}
+
 	return (
 		<Section>
 			<Text variant='section-header-2' marginHorizontal='m' marginBottom='m'>
@@ -75,15 +79,17 @@ const EventsSection: React.FC<EventsSectionProps> = ({
 					})
 				}
 			/>
-			<Location
-				markers={markers}
-				showUserLocation={true}
-				containerProps={{
-					height: 300,
-					margin: 'm',
-					style: { borderRadius: 25 }
-				}}
-			/>
+			{markers.length > 0 && (
+				<Location
+					markers={markers}
+					showUserLocation={true}
+					containerProps={{
+						height: 300,
+						margin: 'm',
+						style: { borderRadius: 25 }
+					}}
+				/>
+			)}
 		</Section>
 	);
 };

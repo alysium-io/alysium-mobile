@@ -48,6 +48,7 @@ const ChooseEventLocation = () => {
 		});
 
 	const onPressSearchResult = (item: GoogleMapsAutocompleteResult) => {
+		dismiss();
 		setGoogleMapsAutocompleteResult(item);
 		confirmEventLocationChoiceSheetApi.open();
 	};

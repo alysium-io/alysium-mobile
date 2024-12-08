@@ -43,7 +43,7 @@ const DateSection: React.FC<DateSectionProps> = ({
 
 	return (
 		<Section>
-			<Text variant='section-header-2' marginHorizontal='m'>
+			<Text variant='section-header-2' marginHorizontal='m' marginBottom='m'>
 				Date
 			</Text>
 			<MenuListItem

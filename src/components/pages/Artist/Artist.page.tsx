@@ -8,7 +8,6 @@ import React from 'react';
 import ArtistPageHeader from './Artist.header';
 import ActionButtons from './components/ActionButtons';
 import EventsSection from './components/EventsSection';
-import ExternalUrlsSection from './components/ExternalUrlsSection';
 import GallerySection from './components/GallerySection';
 import SubHeader from './components/SubHeader';
 
@@ -47,7 +46,6 @@ const ArtistPage: React.FC = () => {
 					<ActionButtons artistData={artistData} />
 				</View>
 				<EventsSection artistData={artistData} eventsData={eventsData} />
-				<ExternalUrlsSection artistData={artistData} />
 				<GallerySection artistData={artistData} />
 			</Parallax>
 		</BasePage>

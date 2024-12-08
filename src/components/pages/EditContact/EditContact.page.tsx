@@ -1,32 +1,37 @@
 import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
-import { DismissKeyboardWrapper, View } from '@atomic';
+import { View } from '@atomic';
 import { Formatting } from '@etc';
 import { contactApiSlice } from '@flux/api/contact';
 import { UpdateContactBodyDto } from '@flux/api/contact/dto/contact-update.dto';
-// TODO: Error useContactPicker is not exported by module
-import { useContactPicker, useNavigation, useToast } from '@hooks';
-import { Button, FormPhoneNumber, FormText, useButtonState } from '@molecules';
+import { useKeyboard, useNavigation, useSheet, useToast } from '@hooks';
+import {
+	ActionButtons,
+	FormPhoneNumber,
+	FormText,
+	useButtonState
+} from '@molecules';
 import { BasePage } from '@organisms';
 import { useRoute } from '@react-navigation/native';
 import { EditContactPageRouteProp } from '@types';
-import React, { useState } from 'react';
+import React, { useCallback } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { Alert } from 'react-native';
+import { Alert, ScrollView } from 'react-native';
 import EditContactPageHeader from './EditContact.header';
+import PopupMenuSheet from './sheets/PopupMenuSheet';
 
 const EditContactPage = () => {
 	const route = useRoute<EditContactPageRouteProp>();
 	const { back } = useNavigation();
 	const { toastError } = useToast();
 	const { artistData } = useArtistAppContext();
-	const { pickContact } = useContactPicker();
-	const [isLoading, setIsLoading] = useState(false);
 	const [deleteContactMutation] = contactApiSlice.useDeleteContactMutation();
 	const [updateContactMutation] = contactApiSlice.useUpdateContactMutation();
-	const { setButtonState, buttonState } = useButtonState();
+	const saveButtonStateApi = useButtonState();
+	const deleteButtonStateApi = useButtonState();
+	const { dismiss } = useKeyboard();
+	const popupMenuSheetApi = useSheet();
 
 	const {
-		setValue,
 		control,
 		handleSubmit,
 		formState: { isDirty }
@@ -43,7 +48,7 @@ const EditContactPage = () => {
 
 	const onSubmit = (data: UpdateContactBodyDto) => {
 		if (isDirty) {
-			setIsLoading(true);
+			saveButtonStateApi.setButtonState('loading');
 			updateContactMutation({
 				params: {
 					artist_uid: artistData.artist_uid,
@@ -57,7 +62,7 @@ const EditContactPage = () => {
 				.unwrap()
 				.then(back)
 				.catch(toastError)
-				.finally(() => setIsLoading(false));
+				.finally(() => saveButtonStateApi.reset());
 		} else {
 			back();
 		}
@@ -77,7 +82,7 @@ const EditContactPage = () => {
 					style: 'destructive',
 					onPress: async () => {
 						try {
-							setButtonState('loading');
+							deleteButtonStateApi.setButtonState('loading');
 							await deleteContactMutation({
 								params: {
 									contact_uid: route.params.contact.contact_uid,
@@ -87,7 +92,7 @@ const EditContactPage = () => {
 							back();
 						} catch {
 							toastError('Failed to delete contact');
-							setButtonState('active');
+							deleteButtonStateApi.setButtonState('active');
 						}
 					}
 				}
@@ -117,27 +122,37 @@ const EditContactPage = () => {
 		}
 	};
 
-	const importFromContacts = async () => {
-		const contact = await pickContact();
-		if (contact) {
-			setValue('name', contact.name, { shouldDirty: true });
-			setValue(
-				'phone_number',
-				Formatting.formatPhoneNumber(contact.phone_number),
-				{ shouldDirty: true }
-			);
-			setValue('email', contact.email, { shouldDirty: true });
-		}
-	};
+	const FooterComponent = useCallback(
+		() => (
+			<View margin='m'>
+				<ActionButtons
+					buttonProps={[
+						{
+							text: 'Delete',
+							onPress: onDelete,
+							variant: 'outlined',
+							color: 't',
+							buttonState: deleteButtonStateApi.buttonState
+						},
+						{
+							text: 'Save',
+							onPress: handleSubmit(onSubmit),
+							buttonState: saveButtonStateApi.buttonState
+						}
+					]}
+				/>
+			</View>
+		),
+		[onSubmit, saveButtonStateApi.buttonState, deleteButtonStateApi.buttonState]
+	);
 
 	return (
-		<BasePage>
+		<BasePage FooterComponent={FooterComponent}>
 			<EditContactPageHeader
 				onCancel={onCancel}
-				onSave={handleSubmit(onSubmit)}
-				isLoading={isLoading}
+				popupMenuSheetApi={popupMenuSheetApi}
 			/>
-			<DismissKeyboardWrapper>
+			<ScrollView onScrollBeginDrag={dismiss}>
 				<View margin='m'>
 					<Controller
 						control={control}
@@ -195,19 +210,8 @@ const EditContactPage = () => {
 						}}
 					/>
 				</View>
-				<View margin='m'>
-					<Button onPress={importFromContacts} text='Import from Contacts' />
-					<View marginTop='m'>
-						<Button
-							onPress={onDelete}
-							text='Delete'
-							variant='outlined'
-							color='t'
-							buttonState={buttonState}
-						/>
-					</View>
-				</View>
-			</DismissKeyboardWrapper>
+			</ScrollView>
+			<PopupMenuSheet sheetApi={popupMenuSheetApi} />
 		</BasePage>
 	);
 };

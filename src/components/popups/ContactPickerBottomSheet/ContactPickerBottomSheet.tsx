@@ -1,14 +1,13 @@
 import { Text, View } from '@atomic';
 import { BottomSheetView } from '@gorhom/bottom-sheet';
 import { SheetApi, useKeyboard, useSearch, useTheme } from '@hooks';
-import { ActionButtons, ContentListItem } from '@molecules';
+import { ContentListItem } from '@molecules';
 import { BottomSheet, SearchBar } from '@organisms';
 import React, { useState } from 'react';
 import { Case, Switch } from 'react-if';
 import { ScrollView } from 'react-native';
 import Contacts from 'react-native-contacts';
 import { Contact } from 'react-native-contacts/type';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface ContactPickerBottomSheetProps {
 	sheetApi: SheetApi;
@@ -22,7 +21,6 @@ const ContactPickerBottomSheet: React.FC<ContactPickerBottomSheetProps> = ({
 	const [searchResults, setSearchResults] = useState<Contact[]>([]);
 	const { theme } = useTheme();
 	const { dismiss } = useKeyboard();
-	const insets = useSafeAreaInsets();
 
 	const searchApi = useSearch({
 		methods: {
@@ -115,23 +113,6 @@ const ContactPickerBottomSheet: React.FC<ContactPickerBottomSheetProps> = ({
 							</ScrollView>
 						</Case>
 					</Switch>
-				</View>
-				<View
-					borderTopColor='border.light'
-					borderTopWidth={theme.borderWidth.normal}
-					paddingHorizontal='m'
-					paddingTop='m'
-					style={{
-						marginBottom: insets.bottom
-					}}
-				>
-					<ActionButtons
-						buttonProps={{
-							text: 'Dismiss',
-							color: 'default',
-							onPress: sheetApi.close
-						}}
-					/>
 				</View>
 			</BottomSheetView>
 		</BottomSheet>

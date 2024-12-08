@@ -1,5 +1,3 @@
-import { useToast } from '@hooks';
-import Clipboard from '@react-native-clipboard/clipboard';
 import { useRef } from 'react';
 import { Alert, Share as RNShare } from 'react-native';
 import { getBundleId } from 'react-native-device-info';
@@ -11,12 +9,9 @@ interface IUseShareViewShot {
 	shareIGStory: () => Promise<void>;
 	shareiMessage: () => Promise<void>;
 	shareVia: () => Promise<void>;
-	copyToClipboard: () => void;
 }
 
 const useShareViewShot = (url: string): IUseShareViewShot => {
-	const { toastSuccess } = useToast();
-
 	const viewShotRef = useRef<ViewShot>(null);
 
 	const shareIGStory = async () => {
@@ -71,17 +66,11 @@ const useShareViewShot = (url: string): IUseShareViewShot => {
 		}
 	};
 
-	const copyToClipboard = () => {
-		Clipboard.setString(url);
-		toastSuccess('Link copied to clipboard');
-	};
-
 	return {
 		viewShotRef,
 		shareIGStory,
 		shareiMessage,
-		shareVia,
-		copyToClipboard
+		shareVia
 	};
 };
 

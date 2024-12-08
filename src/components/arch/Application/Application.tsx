@@ -20,7 +20,7 @@ const Application = () => {
 	return (
 		<Switch>
 			<Case condition={personaType === Persona.user}>
-				<UserApp />
+				<UserApp key={Persona.user} />
 			</Case>
 			<Case condition={personaType === Persona.artist}>
 				<ArtistApp key={Persona.artist} />

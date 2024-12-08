@@ -50,4 +50,4 @@ export type CustomAnimatedSvgWrapperProps = CustomAnimatedSvgProps &
 		animatedPathProps?: AnimatedProps<RNPathProps>;
 	};
 
-export type IconProps = CustomSvgWrapperProps | CustomAnimatedSvgWrapperProps;
+export type IconProps = CustomSvgWrapperProps;

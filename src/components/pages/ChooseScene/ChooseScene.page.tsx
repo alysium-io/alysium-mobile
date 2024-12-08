@@ -35,6 +35,7 @@ const ChooseScene = () => {
 	const onPressScene = (
 		googleMapsAutocompleteResult: GoogleMapsAutocompleteResult
 	) => {
+		dismiss();
 		setGoogleMapsAutocompleteResult(googleMapsAutocompleteResult);
 		joinScenePreviewSheetApi.open();
 	};

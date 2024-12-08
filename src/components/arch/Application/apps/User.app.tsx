@@ -5,12 +5,10 @@ import {
 	CreateAccountBottomSheet
 } from '@popups';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigationContainer } from '@react-navigation/native';
 import { UserAppBottomTabNavigatorParamList } from '@types';
 import React from 'react';
 import { useUserAppContext } from '../contexts/User.context';
 import { ProfileTab, SearchTab } from '../tabs';
-import { userAppDeepLinkingConfig } from '../tabs/linking';
 import { useNavigationSettings } from '../tabs/settings';
 import AppDependencies from './AppDependencies';
 
@@ -27,52 +25,50 @@ const UserApp = () => {
 	return (
 		<AppDependencies>
 			<AppTransitionWrapper>
-				<NavigationContainer linking={userAppDeepLinkingConfig}>
-					<Tab.Navigator
-						initialRouteName={initialRoutes.initialUserAppTab}
-						screenOptions={screenOptions}
-					>
-						<Tab.Screen
-							name='Search'
-							component={SearchTab}
-							options={{
-								tabBarIcon: ({ focused }) =>
-									focused ? (
-										<Icon
-											name='search-filled'
-											size='m'
-											color={
-												focused ? 'navbar.icon.active' : 'navbar.icon.inactive'
-											}
-										/>
-									) : (
-										<Icon
-											name='search'
-											size='m'
-											color={
-												focused ? 'navbar.icon.active' : 'navbar.icon.inactive'
-											}
-										/>
-									)
-							}}
-						/>
-						<Tab.Screen
-							name='Profile'
-							component={ProfileTab}
-							options={{
-								tabBarIcon: ({ focused }) => (
+				<Tab.Navigator
+					initialRouteName={initialRoutes.initialUserAppTab}
+					screenOptions={screenOptions}
+				>
+					<Tab.Screen
+						name='Search'
+						component={SearchTab}
+						options={{
+							tabBarIcon: ({ focused }) =>
+								focused ? (
 									<Icon
-										name='profile'
+										name='search-filled'
+										size='m'
+										color={
+											focused ? 'navbar.icon.active' : 'navbar.icon.inactive'
+										}
+									/>
+								) : (
+									<Icon
+										name='search'
 										size='m'
 										color={
 											focused ? 'navbar.icon.active' : 'navbar.icon.inactive'
 										}
 									/>
 								)
-							}}
-						/>
-					</Tab.Navigator>
-				</NavigationContainer>
+						}}
+					/>
+					<Tab.Screen
+						name='Profile'
+						component={ProfileTab}
+						options={{
+							tabBarIcon: ({ focused }) => (
+								<Icon
+									name='profile'
+									size='m'
+									color={
+										focused ? 'navbar.icon.active' : 'navbar.icon.inactive'
+									}
+								/>
+							)
+						}}
+					/>
+				</Tab.Navigator>
 			</AppTransitionWrapper>
 			{userData?.role === Role.guest && (
 				<>

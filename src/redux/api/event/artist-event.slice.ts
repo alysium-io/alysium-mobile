@@ -62,11 +62,15 @@ const artistEventApiSlice = serviceApi.injectEndpoints({
 				artist_uid: params.artist_uid
 			}),
 			merge: (currentCache, newItems) => {
-				return _.unionBy(
-					currentCache,
-					newItems,
-					(item) => item.event.event_uid
+				// Remove any items that exist in newItems from currentCache
+				const filteredCache = currentCache.filter(
+					(cacheItem) =>
+						!newItems.find(
+							(newItem) => newItem.event.event_uid === cacheItem.event.event_uid
+						)
 				);
+				// Then concat the new items
+				return [...filteredCache, ...newItems];
 			},
 			forceRefetch({ currentArg, previousArg }) {
 				return !_.isEqual(currentArg, previousArg);
@@ -121,7 +125,10 @@ const artistEventApiSlice = serviceApi.injectEndpoints({
 				url: url(`/${params.artist_uid}/${params.event_uid}`),
 				method: 'DELETE'
 			}),
-			invalidatesTags: () => [{ type: 'ArtistEvent', id: 'LIST' }],
+			invalidatesTags: () => [
+				{ type: 'ArtistEvent', id: 'LIST' },
+				{ type: 'PublicEvent', id: 'LIST' }
+			],
 			async onQueryStarted({ params }, { dispatch, queryFulfilled }) {
 				const patches = dispatch(
 					artistEventApiSlice.util.updateQueryData(

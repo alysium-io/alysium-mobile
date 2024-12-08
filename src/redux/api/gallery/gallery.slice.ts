@@ -35,7 +35,7 @@ export default serviceApi.injectEndpoints({
 				body: createImageFormDataFromAsset(file, body)
 			}),
 			invalidatesTags: (result, error, { body }) => [
-				{ type: 'ArtistEventGallery', id: body.refId }
+				{ type: 'ArtistEvent', id: body.refId }
 			]
 		}),
 		deleteArtistEventGalleryItem: builder.mutation<

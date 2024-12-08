@@ -13,8 +13,8 @@ const BottomSheetHandle: React.FC<BottomSheetHandleProps> = () => {
 
 const styles = StyleSheet.create({
 	handle: {
-		height: 4,
-		width: 45,
+		height: 2,
+		width: 35,
 		borderRadius: 15
 	}
 });
