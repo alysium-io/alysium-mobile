@@ -17,7 +17,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.1.0</string>
+	<string>1.1.1</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
@@ -68,7 +68,7 @@
 		<string>HelveticaNeue.ttf</string>
 	</array>
 	<key>NSContactsUsageDescription</key>
-  	<string>This app can import contact information from your address book to attach to your artist profile.</string>
+	<string>This app can import contact information from your address book to attach to your artist profile.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen.storyboard</string>
 	<key>UIRequiredDeviceCapabilities</key>

@@ -17,15 +17,15 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.1.0</string>
+	<string>1.1.1</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_BUILD_NUMBER)</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
-	<false/>
+	<false />
 	<key>LSRequiresIPhoneOS</key>
-	<true/>
+	<true />
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSExceptionDomains</key>
@@ -33,57 +33,46 @@
 			<key>localhost</key>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
-				<true/>
+				<true />
 			</dict>
 		</dict>
 	</dict>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
-		<!-- Music Streaming -->
 		<string>spotify</string>
-		<string>music</string><!-- Apple Music -->
+		<string>music</string>
 		<string>soundcloud</string>
 		<string>tidal</string>
 		<string>amazonmusic</string>
 		<string>deezer</string>
 		<string>beatport</string>
 		<string>bandcamp</string>
-
-		<!-- Video Platforms -->
 		<string>youtube</string>
 		<string>vimeo</string>
 		<string>tiktok</string>
-
-		<!-- Social Media -->
 		<string>instagram</string>
 		<string>instagram-stories</string>
 		<string>facebook</string>
 		<string>twitter</string>
-		<string>x</string><!-- new Twitter/X scheme -->
+		<string>x</string>
 		<string>threads</string>
-
-		<!-- Ticketing/Events -->
 		<string>eventbrite</string>
 		<string>seetickets</string>
 		<string>ticketmaster</string>
 		<string>resident</string>
 		<string>dice</string>
-
-		<!-- Merch/Support -->
 		<string>shopify</string>
 		<string>bigcartel</string>
 		<string>patreon</string>
 		<string>buymeacoffee</string>
 		<string>ko-fi</string>
-
-		<!-- General Purpose -->
 		<string>http</string>
 		<string>https</string>
 	</array>
 	<key>NSCameraUsageDescription</key>
 	<string>Alysium requires access to the camera to allow you to take and set a profile picture. This photo will only be used within the app to personalize your account.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string/>
+	<string />
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Alysium requests permission to save images to your photo library. This allows you to export and keep copies of photos you edit or create within the app.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
@@ -124,7 +113,7 @@
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<false/>
+	<false />
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>

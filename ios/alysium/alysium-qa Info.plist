@@ -17,7 +17,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.1.0</string>
+	<string>1.1.1</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
@@ -39,44 +39,33 @@
 	</dict>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
-		<!-- Music Streaming -->
 		<string>spotify</string>
-		<string>music</string><!-- Apple Music -->
+		<string>music</string>
 		<string>soundcloud</string>
 		<string>tidal</string>
 		<string>amazonmusic</string>
 		<string>deezer</string>
 		<string>beatport</string>
 		<string>bandcamp</string>
-
-		<!-- Video Platforms -->
 		<string>youtube</string>
 		<string>vimeo</string>
 		<string>tiktok</string>
-
-		<!-- Social Media -->
 		<string>instagram</string>
 		<string>instagram-stories</string>
 		<string>facebook</string>
 		<string>twitter</string>
-		<string>x</string><!-- new Twitter/X scheme -->
+		<string>x</string>
 		<string>threads</string>
-
-		<!-- Ticketing/Events -->
 		<string>eventbrite</string>
 		<string>seetickets</string>
 		<string>ticketmaster</string>
 		<string>resident</string>
 		<string>dice</string>
-
-		<!-- Merch/Support -->
 		<string>shopify</string>
 		<string>bigcartel</string>
 		<string>patreon</string>
 		<string>buymeacoffee</string>
 		<string>ko-fi</string>
-
-		<!-- General Purpose -->
 		<string>http</string>
 		<string>https</string>
 	</array>
@@ -106,7 +95,7 @@
 		<string>HelveticaNeue.ttf</string>
 	</array>
 	<key>NSContactsUsageDescription</key>
-  	<string>This app can import contact information from your address book to attach to your artist profile.</string>
+	<string>This app can import contact information from your address book to attach to your artist profile.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen.storyboard</string>
 	<key>UIRequiredDeviceCapabilities</key>
