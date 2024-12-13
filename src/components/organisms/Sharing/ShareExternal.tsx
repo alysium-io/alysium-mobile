@@ -24,7 +24,7 @@ interface ShareExternalProps {
 const ShareExternal: React.FC<ShareExternalProps> = ({ sheetApi, event }) => {
 	const { height } = useWindowDimensions();
 	const { urlForKey } = useImage();
-	const link = UNIVERSAL_LINK_PREFIX + event.event.event_uid;
+	const link = UNIVERSAL_LINK_PREFIX + '/event/' + event.event.event_uid;
 	const { viewShotRef, shareIGStory, shareiMessage, shareVia } =
 		useShareViewShot(link);
 	const { copy } = useClipboard();

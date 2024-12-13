@@ -22,9 +22,7 @@ const ArtistEventPopupMenuBottomSheet: React.FC<
 		<BottomSheet sheetRef={sheetApi.sheetRef} enableDynamicSizing>
 			<BottomSheetView style={{ flex: 1, paddingBottom: insets.bottom + 25 }}>
 				<View margin='m' alignItems='center'>
-					<QRCode
-						value={UNIVERSAL_LINK_PREFIX + '/artist/event/' + event_uid}
-					/>
+					<QRCode value={UNIVERSAL_LINK_PREFIX + '/event/' + event_uid} />
 				</View>
 				<MenuListItem
 					titleTextProps={{

@@ -23,4 +23,13 @@ runs:
         # Images base url (e.g. IMAGES_BASE_URL='https://dev-images.alysium.ninja/')
         echo "IMAGES_BASE_URL=https://${{ inputs.ENV }}-images.alysium.ninja/" >> .env.${{ inputs.ENV }}
 
+        # Web URL
+        if [ "${{ inputs.ENV }}" = "qa" ]; then
+          echo "WEB_URL=https://qa.alysium.ninja" >> .env.${{ inputs.ENV }}
+        elif [ "${{ inputs.ENV }}" = "prod" ]; then
+          echo "WEB_URL=https://www.alysium.ninja" >> .env.${{ inputs.ENV }}
+        else
+          echo "WEB_URL=http://localhost:5173" >> .env.${{ inputs.ENV }}
+        fi
+
       shell: bash

@@ -7,6 +7,7 @@ const envNames = ['dev', 'qa', 'demo', 'prod'] as const;
 export const envSchema = yup.object().shape({
 	imagesBaseUrl: yup.string().required('IMAGES_BASE_URL is required'),
 	apiUrl: yup.string().required('API_URL is required'),
+	webUrl: yup.string().required('WEB_URL is required'),
 	env: yup
 		.string()
 		.oneOf(envNames, 'ENV must be one of the following: ' + envNames.join(', '))
@@ -20,6 +21,7 @@ export const validateEnv = (): { env: Env | null; errors: any | null } => {
 		const validatedEnv = envSchema.validateSync(
 			{
 				imagesBaseUrl: Config.IMAGES_BASE_URL,
+				webUrl: Config.WEB_URL,
 				apiUrl:
 					Config.ENV === 'dev' ? `http://${getHostIp()}:3000` : Config.API_URL,
 				env: Config.ENV

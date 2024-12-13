@@ -1,3 +1,4 @@
+import { env } from '@etc';
 import { LinkingOptions, PathConfig } from '@react-navigation/native';
 import {
 	ArtistAppBottomTabNavigatorParamList,
@@ -10,7 +11,7 @@ import {
  */
 
 // Prefixes for deep linking
-export const UNIVERSAL_LINK_PREFIX = 'https://www.alysium.ninja';
+export const UNIVERSAL_LINK_PREFIX = env.env?.webUrl as string; // TODO: Change this to the actual domain
 const prefixes: string[] = [UNIVERSAL_LINK_PREFIX];
 
 // Specific page configurations
