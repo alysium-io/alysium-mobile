@@ -9,6 +9,7 @@ import ArtistPageHeader from './Artist.header';
 import ActionButtons from './components/ActionButtons';
 import EventsSection from './components/EventsSection';
 import GallerySection from './components/GallerySection';
+import HistorySection from './components/HistorySection';
 import SubHeader from './components/SubHeader';
 
 const ArtistPage: React.FC = () => {
@@ -47,6 +48,10 @@ const ArtistPage: React.FC = () => {
 				</View>
 				<EventsSection artistData={artistData} eventsData={eventsData} />
 				<GallerySection artistData={artistData} />
+				<HistorySection
+					artist_uid={route.params.artist_uid}
+					events={eventsData}
+				/>
 			</Parallax>
 		</BasePage>
 	);

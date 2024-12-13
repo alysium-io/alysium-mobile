@@ -8,3 +8,4 @@ export { default as MenuListItem } from './MenuListItem';
 export { default as MenuListItemWithButton } from './MenuListItemWithButton';
 export { default as SeeAllBottomButton } from './SeeAllBottomButton';
 export { default as SingleOptionRadioToggler } from './SingleOptionRadioToggler';
+export { default as TimelineListItem } from './TimelineListItem';

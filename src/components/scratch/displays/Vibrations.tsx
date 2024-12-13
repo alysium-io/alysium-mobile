@@ -8,7 +8,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 const Vibrations = () => {
 	const { top } = useSafeAreaInsets();
 	return (
-		<View style={{ marginTop: top }}>
+		<View style={{ marginTop: top }} backgroundColor='bg.p'>
 			<ScrollView>
 				<Text variant='section-header-2' textAlign='center' margin='m'>
 					Vibrations

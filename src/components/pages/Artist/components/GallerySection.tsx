@@ -10,7 +10,7 @@ interface GallerySectionProps {
 
 const GallerySection: React.FC<GallerySectionProps> = ({ artistData }) => {
 	return (
-		<Section marginBottom='none'>
+		<Section>
 			<Gallery
 				gallery={artistData.gallery}
 				galleryRefType={GalleryRefType.artist}

@@ -11,9 +11,6 @@ export interface TitleTextProps {
 	title: string;
 	topSubtext?: string;
 	bottomSubtext?: string;
-	wrapTitle?: boolean;
-	wrapTopSubtext?: boolean;
-	wrapBottomSubtext?: boolean;
 	titleVariant?: Props<typeof Text>['variant'];
 	topSubtextVariant?: Props<typeof Text>['variant'];
 	bottomSubtextVariant?: Props<typeof Text>['variant'];
@@ -27,9 +24,6 @@ const TitleText: React.FC<TitleTextProps> = ({
 	title,
 	topSubtext,
 	bottomSubtext,
-	wrapTitle = true,
-	wrapTopSubtext,
-	wrapBottomSubtext,
 	titleVariant = 'paragraph-large-medium',
 	topSubtextVariant = 'paragraph-small',
 	bottomSubtextVariant = 'paragraph-small',
@@ -50,16 +44,12 @@ const TitleText: React.FC<TitleTextProps> = ({
 					marginBottom='xs'
 					variant={topSubtextVariant}
 					color={topSubtextColor}
-					{...(wrapTopSubtext && wrapTextProps)}
+					{...wrapTextProps}
 				>
 					{topSubtext}
 				</Text>
 			)}
-			<Text
-				variant={titleVariant}
-				color={titleColor}
-				{...(wrapTitle && wrapTextProps)}
-			>
+			<Text variant={titleVariant} color={titleColor} {...wrapTextProps}>
 				{title}
 			</Text>
 			{bottomSubtext && (
@@ -67,7 +57,7 @@ const TitleText: React.FC<TitleTextProps> = ({
 					marginTop='xs'
 					variant={bottomSubtextVariant}
 					color={bottomSubtextColor}
-					{...(wrapBottomSubtext && wrapTextProps)}
+					{...wrapTextProps}
 				>
 					{bottomSubtext}
 				</Text>

@@ -9,15 +9,20 @@ const sizeScheme = {
 };
 
 interface ProfileImageProps extends Props<typeof Avatar> {
+	containerProps?: Props<typeof View>;
 	size?: keyof typeof sizeScheme;
 }
 
 const ProfileImage: React.FC<ProfileImageProps> = ({
+	containerProps,
 	size = 'medium',
 	...props
 }) => {
 	return (
-		<View style={{ height: sizeScheme[size], aspectRatio: 1 }}>
+		<View
+			style={{ height: sizeScheme[size], aspectRatio: 1 }}
+			{...containerProps}
+		>
 			<Avatar {...props} />
 		</View>
 	);
