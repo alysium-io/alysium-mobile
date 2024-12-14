@@ -1,5 +1,9 @@
 import { NanoId } from './api';
 import { Persona } from './enums';
+import {
+	ArtistAppBottomTabNavigatorParamList,
+	UserAppBottomTabNavigatorParamList
+} from './navigation';
 import { ThemeMode } from './restyle';
 import { ThemeName } from './themes';
 
@@ -20,4 +24,7 @@ export type AppState = {
 	themeMode: ThemeMode;
 	colorModeState: ColorModeState;
 	authStage: AuthStage;
+	tab:
+		| keyof ArtistAppBottomTabNavigatorParamList
+		| keyof UserAppBottomTabNavigatorParamList;
 };

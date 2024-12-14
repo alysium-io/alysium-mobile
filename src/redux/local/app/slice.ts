@@ -1,3 +1,4 @@
+import { FALLBACK_TAB } from '@arch/Application/apps/settings';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { AppState, AuthStage, Persona, ThemeMode } from '@types';
 
@@ -8,7 +9,8 @@ const initialState: AppState = {
 	themeName: 'alysium',
 	themeMode: ThemeMode.dark,
 	colorModeState: 'default',
-	authStage: AuthStage.loading
+	authStage: AuthStage.loading,
+	tab: FALLBACK_TAB
 };
 
 const appSlice = createSlice({

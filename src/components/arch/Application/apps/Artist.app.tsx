@@ -1,27 +1,41 @@
 import { AppTransitionWrapper, Icon } from '@atomic';
-import { withProvider } from '@hooks';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { usePersistedAppState, withProvider } from '@hooks';
 import { ArtistAppBottomTabNavigatorParamList } from '@types';
 import React from 'react';
 import { ArtistAppProvider } from '../contexts/Artist.context';
 import { ProfileTab, SearchTab } from '../tabs';
-import EditArtistTab from '../tabs/EditArtistTab.tab';
-import { useNavigationSettings } from '../tabs/settings';
+import EditArtistTab from '../tabs/EditArtist.tab';
 import AppDependencies from './AppDependencies';
-
-const Tab = createBottomTabNavigator<ArtistAppBottomTabNavigatorParamList>();
+import { ArtistTabNavigator, FALLBACK_TAB, useAppSettings } from './settings';
 
 const ArtistApp = () => {
-	const { screenOptions, initialRoutes } = useNavigationSettings();
+	const appTabNavigatorProps = useAppSettings();
+	const { setPersistedAppState, tab } = usePersistedAppState();
+
+	const getInitialRouteName =
+		(): keyof ArtistAppBottomTabNavigatorParamList => {
+			if (!['Search', 'EditArtist', 'Profile'].includes(tab)) {
+				return FALLBACK_TAB;
+			} else {
+				return tab as keyof ArtistAppBottomTabNavigatorParamList;
+			}
+		};
+	const initialTab = getInitialRouteName();
 
 	return (
 		<AppDependencies>
 			<AppTransitionWrapper>
-				<Tab.Navigator
-					initialRouteName={initialRoutes.initialArtistAppTab}
-					screenOptions={screenOptions}
+				<ArtistTabNavigator.Navigator
+					{...appTabNavigatorProps}
+					initialRouteName={initialTab}
+					screenListeners={{
+						state: (e) => {
+							const currentTab = e.data.state.routes[e.data.state.index].name;
+							setPersistedAppState({ tab: currentTab });
+						}
+					}}
 				>
-					<Tab.Screen
+					<ArtistTabNavigator.Screen
 						name='Search'
 						component={SearchTab}
 						options={{
@@ -45,7 +59,7 @@ const ArtistApp = () => {
 								)
 						}}
 					/>
-					<Tab.Screen
+					<ArtistTabNavigator.Screen
 						name='EditArtist'
 						component={EditArtistTab}
 						options={{
@@ -60,7 +74,7 @@ const ArtistApp = () => {
 							)
 						}}
 					/>
-					<Tab.Screen
+					<ArtistTabNavigator.Screen
 						name='Profile'
 						component={ProfileTab}
 						options={{
@@ -75,7 +89,7 @@ const ArtistApp = () => {
 							)
 						}}
 					/>
-				</Tab.Navigator>
+				</ArtistTabNavigator.Navigator>
 			</AppTransitionWrapper>
 		</AppDependencies>
 	);

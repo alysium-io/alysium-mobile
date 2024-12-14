@@ -10,7 +10,8 @@ const persistedAppReducer = configurePersistor<AppState>(
 		'personaId',
 		'themeName',
 		'themeMode',
-		'colorModeState'
+		'colorModeState',
+		'tab'
 	],
 	appReducer
 );

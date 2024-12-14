@@ -30,6 +30,7 @@ const usePersistedAppState = (): IUsePersistedAppState => {
 		colorModeState: persistedApp.colorModeState,
 		token: persistedApp.token,
 		authStage: persistedApp.authStage,
+		tab: persistedApp.tab,
 		setPersistedAppState,
 		resetPersistedAppState,
 		setPersistedAppStateWithDefaults

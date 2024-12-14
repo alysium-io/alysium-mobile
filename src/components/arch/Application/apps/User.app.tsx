@@ -1,35 +1,49 @@
 import { AppTransitionWrapper, Icon } from '@atomic';
 import { Role } from '@flux/api/user/user.entity';
+import { usePersistedAppState } from '@hooks';
 import {
 	CheckUserWantsToRegisterBottomSheet,
 	CreateAccountBottomSheet
 } from '@popups';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { UserAppBottomTabNavigatorParamList } from '@types';
 import React from 'react';
 import { useUserAppContext } from '../contexts/User.context';
 import { ProfileTab, SearchTab } from '../tabs';
-import { useNavigationSettings } from '../tabs/settings';
 import AppDependencies from './AppDependencies';
-
-const Tab = createBottomTabNavigator<UserAppBottomTabNavigatorParamList>();
+import { FALLBACK_TAB, useAppSettings, UserTabNavigator } from './settings';
 
 const UserApp = () => {
-	const { screenOptions, initialRoutes } = useNavigationSettings();
+	const appTabNavigatorProps = useAppSettings();
+	const { setPersistedAppState, tab } = usePersistedAppState();
 	const {
 		userData,
 		createAccountBottomSheetApi,
 		checkUserWantsToRegisterBottomSheet
 	} = useUserAppContext();
 
+	const getInitialRouteName = (): keyof UserAppBottomTabNavigatorParamList => {
+		if (!['Search', 'Profile'].includes(tab)) {
+			return FALLBACK_TAB;
+		} else {
+			return tab as keyof UserAppBottomTabNavigatorParamList;
+		}
+	};
+	const initialTab = getInitialRouteName();
+
 	return (
 		<AppDependencies>
 			<AppTransitionWrapper>
-				<Tab.Navigator
-					initialRouteName={initialRoutes.initialUserAppTab}
-					screenOptions={screenOptions}
+				<UserTabNavigator.Navigator
+					{...appTabNavigatorProps}
+					initialRouteName={initialTab}
+					screenListeners={{
+						state: (e) => {
+							const currentTab = e.data.state.routes[e.data.state.index].name;
+							setPersistedAppState({ tab: currentTab });
+						}
+					}}
 				>
-					<Tab.Screen
+					<UserTabNavigator.Screen
 						name='Search'
 						component={SearchTab}
 						options={{
@@ -53,7 +67,7 @@ const UserApp = () => {
 								)
 						}}
 					/>
-					<Tab.Screen
+					<UserTabNavigator.Screen
 						name='Profile'
 						component={ProfileTab}
 						options={{
@@ -68,7 +82,7 @@ const UserApp = () => {
 							)
 						}}
 					/>
-				</Tab.Navigator>
+				</UserTabNavigator.Navigator>
 			</AppTransitionWrapper>
 			{userData?.role === Role.guest && (
 				<>

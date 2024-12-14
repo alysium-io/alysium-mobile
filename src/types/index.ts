@@ -8,6 +8,5 @@ export * from './react-native';
 export * from './reanimated';
 export * from './redux';
 export * from './restyle';
-export * from './settings';
 export * from './svg';
 export * from './themes';
