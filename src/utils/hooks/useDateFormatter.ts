@@ -1,4 +1,4 @@
-import day from 'dayjs';
+import dayjs from 'dayjs';
 import isBetween from 'dayjs/plugin/isBetween';
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -6,21 +6,27 @@ import weekday from 'dayjs/plugin/weekday';
 import weekOfYear from 'dayjs/plugin/weekOfYear';
 
 // Initialize dayjs plugins
-day.extend(relativeTime);
-day.extend(isSameOrBefore);
-day.extend(weekday);
-day.extend(isBetween);
-day.extend(weekOfYear);
+dayjs.extend(relativeTime);
+dayjs.extend(isSameOrBefore);
+dayjs.extend(weekday);
+dayjs.extend(isBetween);
+dayjs.extend(weekOfYear);
 
-type DateInput = Date | day.Dayjs | string | null | undefined;
+type DateInput = Date | dayjs.Dayjs | string | null | undefined;
 
 interface DateFormatterReturn {
 	hasValidDate: boolean;
 	getSemanticTimeUntil: () => string | null;
+	formattedDate: string | null;
+	formattedTime: string | null;
 }
 
 const useDateFormatter = (date: DateInput): DateFormatterReturn => {
-	const normalizedDate = date ? (day(date).isValid() ? day(date) : null) : null;
+	const normalizedDate = date
+		? dayjs(date).isValid()
+			? dayjs(date)
+			: null
+		: null;
 	const hasValidDate = normalizedDate !== null;
 
 	/**
@@ -36,11 +42,11 @@ const useDateFormatter = (date: DateInput): DateFormatterReturn => {
 	 * // Returns "In 2 years" for dates ~2 years away
 	 */
 	const getSemanticTimeUntil = (): string | null => {
-		if (!normalizedDate || normalizedDate.isSameOrBefore(day(), 'day')) {
+		if (!normalizedDate || normalizedDate.isBefore(dayjs(), 'day')) {
 			return null;
 		}
 
-		const now = day();
+		const now = dayjs();
 		const diffDays = normalizedDate.diff(now, 'day');
 		const diffWeeks = normalizedDate.diff(now, 'week');
 		const diffMonths = normalizedDate.diff(now, 'month');
@@ -77,7 +83,9 @@ const useDateFormatter = (date: DateInput): DateFormatterReturn => {
 
 	return {
 		hasValidDate,
-		getSemanticTimeUntil
+		getSemanticTimeUntil,
+		formattedDate: dayjs(normalizedDate).format('ddd. MMM D'),
+		formattedTime: dayjs(normalizedDate).format('h:mma')
 	};
 };
 

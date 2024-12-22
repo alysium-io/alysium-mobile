@@ -1,8 +1,8 @@
 import { GalleryRefType } from '@flux/api/gallery/types';
 import { useGallery, usePhotosAndCamera, useToast } from '@hooks';
 import { getAssetMediaType } from '@src/etc/detect-media-type';
+import { Alert } from '@templates';
 import { NanoId } from '@types';
-import { Alert } from 'react-native';
 
 interface IUseCreateNewGalleryItem {
 	onPressCreateNewGalleryItem: () => void;

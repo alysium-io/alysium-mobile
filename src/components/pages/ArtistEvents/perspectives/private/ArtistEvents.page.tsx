@@ -11,7 +11,7 @@ import ArtistEventsPageHeader from './ArtistEvents.header';
 
 const ArtistEvents = () => {
 	const { params } = useRoute<ArtistEventsPageRouteProp>();
-	const { artistEventPage } = useNavigation();
+	const { eventPage } = useNavigation();
 	const { urlForKey } = useImage();
 	const { data: artistData } = artistApiSlice.usePrivateFindOneArtistQuery({
 		params: {
@@ -43,10 +43,10 @@ const ArtistEvents = () => {
 					<ContentListItem
 						key={item.event.event_uid}
 						onPress={() =>
-							artistEventPage(item.event.event_uid, {
+							eventPage(item.event.event_uid, {
 								from: 'ArtistPage',
 								from_uid: artistData.artist_uid,
-								to: 'ArtistEventPage',
+								to: 'EventPage',
 								to_uid: item.event.event_uid,
 								using: 'ARTIST_PAGE_EVENT_CONTENT_LIST_ITEM'
 							})

@@ -1,6 +1,10 @@
 import _ from 'lodash';
 import { rtkBaseUrl, serviceApi } from '../base';
 import {
+	ArchiveParamsDto,
+	ArchiveResponseDto
+} from './dto/artist-event-archive.dto';
+import {
 	CreateArtistEventBodyDto,
 	CreateArtistEventParamsDto,
 	CreateArtistEventResponseDto
@@ -19,17 +23,31 @@ import {
 	FindOneArtistEventResponseDto
 } from './dto/artist-event-find-one.dto';
 import {
+	PatchArtistEventLocationBodyDto,
+	PatchArtistEventLocationParamsDto,
+	PatchArtistEventLocationResponseDto
+} from './dto/artist-event-patch-location.dto';
+import {
+	PatchArtistEventStatusBodyDto,
+	PatchArtistEventStatusParamsDto,
+	PatchArtistEventStatusResponseDto
+} from './dto/artist-event-patch-status.dto';
+import {
+	PatchArtistEventTimeBodyDto,
+	PatchArtistEventTimeParamsDto,
+	PatchArtistEventTimeResponseDto
+} from './dto/artist-event-patch-time.dto';
+import {
 	UpdateArtistEventBodyDto,
 	UpdateArtistEventParamsDto,
 	UpdateArtistEventResponseDto
 } from './dto/artist-event-update.dto';
 import {
-	UpdateArtistEventLocationBodyDto,
-	UpdateArtistEventLocationParamsDto,
-	UpdateArtistEventLocationResponseDto
-} from './dto/update-artist-event-location.dto';
+	WorkbenchParamsDto,
+	WorkbenchResponseDto
+} from './dto/artist-event-workbench.dto';
 
-const url = rtkBaseUrl('event/artist');
+const url = rtkBaseUrl('');
 
 const artistEventApiSlice = serviceApi.injectEndpoints({
 	endpoints: (builder) => ({
@@ -38,7 +56,7 @@ const artistEventApiSlice = serviceApi.injectEndpoints({
 			{ params: FindOneArtistEventParamsDto }
 		>({
 			query: ({ params }) => ({
-				url: url(`/${params.artist_uid}/${params.event_uid}`),
+				url: url(`/artist/${params.artist_uid}/event/${params.event_uid}`),
 				method: 'GET'
 			}),
 			providesTags: (result, error, { params }) => [
@@ -53,7 +71,7 @@ const artistEventApiSlice = serviceApi.injectEndpoints({
 			}
 		>({
 			query: ({ params, query }) => ({
-				url: url(`/${params.artist_uid}`),
+				url: url(`/artist/${params.artist_uid}/event`),
 				method: 'GET',
 				params: query
 			}),
@@ -85,7 +103,7 @@ const artistEventApiSlice = serviceApi.injectEndpoints({
 			}
 		>({
 			query: ({ params, query }) => ({
-				url: url(`/${params.artist_uid}/public`),
+				url: url(`/artist/${params.artist_uid}/event/public`),
 				method: 'GET',
 				params: query
 			}),
@@ -111,7 +129,7 @@ const artistEventApiSlice = serviceApi.injectEndpoints({
 			{ params: CreateArtistEventParamsDto; body: CreateArtistEventBodyDto }
 		>({
 			query: ({ params, body }) => ({
-				url: url(`/${params.artist_uid}`),
+				url: url(`/artist/${params.artist_uid}/event`),
 				method: 'POST',
 				body
 			}),
@@ -122,7 +140,7 @@ const artistEventApiSlice = serviceApi.injectEndpoints({
 			{ params: DeleteArtistEventParamsDto }
 		>({
 			query: ({ params }) => ({
-				url: url(`/${params.artist_uid}/${params.event_uid}`),
+				url: url(`/artist/${params.artist_uid}/event/${params.event_uid}`),
 				method: 'DELETE'
 			}),
 			invalidatesTags: () => [
@@ -163,7 +181,7 @@ const artistEventApiSlice = serviceApi.injectEndpoints({
 			}
 		>({
 			query: ({ params, body }) => ({
-				url: url(`/${params.artist_uid}/${params.event_uid}`),
+				url: url(`/artist/${params.artist_uid}/event/${params.event_uid}`),
 				method: 'PUT',
 				body
 			}),
@@ -174,16 +192,18 @@ const artistEventApiSlice = serviceApi.injectEndpoints({
 				{ type: 'PublicEvent', id: 'LIST' }
 			]
 		}),
-		updateArtistEventLocation: builder.mutation<
-			UpdateArtistEventLocationResponseDto,
+		patchArtistEventLocation: builder.mutation<
+			PatchArtistEventLocationResponseDto,
 			{
-				params: UpdateArtistEventLocationParamsDto;
-				body: UpdateArtistEventLocationBodyDto;
+				params: PatchArtistEventLocationParamsDto;
+				body: PatchArtistEventLocationBodyDto;
 			}
 		>({
 			query: ({ params, body }) => ({
-				url: url(`/${params.artist_uid}/${params.event_uid}/location`),
-				method: 'PUT',
+				url: url(
+					`/artist/${params.artist_uid}/event/${params.event_uid}/location`
+				),
+				method: 'PATCH',
 				body
 			}),
 			invalidatesTags: (result, error, { params }) => [
@@ -192,6 +212,65 @@ const artistEventApiSlice = serviceApi.injectEndpoints({
 				{ type: 'PublicEvent', id: 'LIST' },
 				{ type: 'ArtistEvent', id: 'LIST' }
 			]
+		}),
+		patchArtistEventStatus: builder.mutation<
+			PatchArtistEventStatusResponseDto,
+			{
+				params: PatchArtistEventStatusParamsDto;
+				body: PatchArtistEventStatusBodyDto;
+			}
+		>({
+			query: ({ params, body }) => ({
+				url: url(
+					`/artist/${params.artist_uid}/event/${params.event_uid}/status`
+				),
+				method: 'PATCH',
+				body
+			}),
+			invalidatesTags: (result, error, { params }) => [
+				{ type: 'ArtistEvent', id: params.event_uid },
+				{ type: 'PublicEvent', id: params.event_uid },
+				{ type: 'PublicEvent', id: 'LIST' },
+				{ type: 'ArtistEvent', id: 'LIST' }
+			]
+		}),
+		patchArtistEventTime: builder.mutation<
+			PatchArtistEventTimeResponseDto,
+			{
+				params: PatchArtistEventTimeParamsDto;
+				body: PatchArtistEventTimeBodyDto;
+			}
+		>({
+			query: ({ params, body }) => ({
+				url: url(`/artist/${params.artist_uid}/event/${params.event_uid}/time`),
+				method: 'PATCH',
+				body
+			}),
+			invalidatesTags: (result, error, { params }) => [
+				{ type: 'ArtistEvent', id: params.event_uid },
+				{ type: 'PublicEvent', id: params.event_uid },
+				{ type: 'PublicEvent', id: 'LIST' },
+				{ type: 'ArtistEvent', id: 'LIST' }
+			]
+		}),
+		workbench: builder.query<
+			WorkbenchResponseDto,
+			{ params: WorkbenchParamsDto }
+		>({
+			query: ({ params }) => ({
+				url: url(`/artist/${params.artist_uid}/event/workbench`),
+				method: 'GET'
+			}),
+			providesTags: (result) =>
+				result ? [{ type: 'ArtistEvent', id: 'WORKBENCH' }] : []
+		}),
+		archive: builder.query<ArchiveResponseDto, { params: ArchiveParamsDto }>({
+			query: ({ params }) => ({
+				url: url(`/artist/${params.artist_uid}/event/archive`),
+				method: 'GET'
+			}),
+			providesTags: (result) =>
+				result ? [{ type: 'ArtistEvent', id: 'ARCHIVE' }] : []
 		})
 	})
 });

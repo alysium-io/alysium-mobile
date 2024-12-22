@@ -1,17 +1,18 @@
 import { Text, View } from '@atomic';
-import { SheetApi } from '@hooks';
-import { Header, HeaderIconButton, HeaderSection } from '@organisms';
+import { Header, HeaderSection } from '@organisms';
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
 
 interface EditContactPageHeaderProps {
 	onCancel: () => void;
-	popupMenuSheetApi: SheetApi;
+	onSubmit: () => void;
+	isValid: boolean;
 }
 
 const EditContactPageHeader: React.FC<EditContactPageHeaderProps> = ({
 	onCancel,
-	popupMenuSheetApi
+	onSubmit,
+	isValid
 }) => {
 	return (
 		<Header>
@@ -26,7 +27,13 @@ const EditContactPageHeader: React.FC<EditContactPageHeaderProps> = ({
 					</TouchableOpacity>
 				}
 				RightComponent={
-					<HeaderIconButton name='menu' onPress={popupMenuSheetApi.open} />
+					<TouchableOpacity onPress={onSubmit} disabled={!isValid}>
+						<View>
+							<Text variant='paragraph' color={isValid ? 'text.p' : 'text.q'}>
+								Done
+							</Text>
+						</View>
+					</TouchableOpacity>
 				}
 			/>
 		</Header>

@@ -12,6 +12,11 @@ const useImage = (): IUseImage => {
 			return undefined;
 		}
 
+		// If it already starts with the base url, return it as is
+		if (key.startsWith(env.imagesBaseUrl)) {
+			return key;
+		}
+
 		return env.imagesBaseUrl + key;
 	};
 

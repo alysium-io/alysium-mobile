@@ -1,8 +1,8 @@
 import { Image, View } from '@atomic';
+import { useImage } from '@hooks';
 import { BorderRadii, Props } from '@types';
 import React, { useMemo } from 'react';
 import { StyleSheet } from 'react-native';
-import { useEnvContext } from 'src/utils/contexts';
 import DefaultImage from './DefaultImage';
 
 interface AvatarProps {
@@ -16,7 +16,7 @@ const Avatar: React.FC<AvatarProps> = ({
 	borderRadius = 'round',
 	defaultImageProps
 }) => {
-	const { env } = useEnvContext();
+	const { urlForKey } = useImage();
 
 	const imageCache = useMemo(() => {
 		if (!image) return { uri: undefined };
@@ -30,7 +30,7 @@ const Avatar: React.FC<AvatarProps> = ({
 		// By default, we assume that the image comes from our own internal image
 		// protocol system, so we prepend the base url
 		return {
-			uri: env.imagesBaseUrl + image
+			uri: urlForKey(image)
 		};
 	}, [image]);
 

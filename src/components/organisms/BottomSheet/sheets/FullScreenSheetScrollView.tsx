@@ -8,7 +8,8 @@ type FullScreenSheetScrollViewProps = ChildrenProps &
 	Props<typeof ScrollView> & {};
 
 const FullScreenSheetScrollView: React.FC<FullScreenSheetScrollViewProps> = ({
-	children
+	children,
+	...props
 }) => {
 	const { footerLayoutApi } = useFullScreenSheet();
 	const { dismiss } = useKeyboard();
@@ -24,6 +25,7 @@ const FullScreenSheetScrollView: React.FC<FullScreenSheetScrollViewProps> = ({
 				bottom: footerLayoutApi.dimensions.height
 			}}
 			onScrollBeginDrag={dismiss}
+			{...props}
 		>
 			{children}
 		</ScrollView>

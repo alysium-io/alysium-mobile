@@ -60,6 +60,8 @@ const useSearch = (config?: UseSearchConfig): SearchApi => {
 		dismiss();
 		activeToggleApi.off();
 		textInputApi.blur();
+		textInputApi.reset();
+		setSearchText('');
 		config?.methods?.onBarDidDeactivate?.();
 	};
 

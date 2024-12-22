@@ -1,2 +1,2 @@
-export { default as EditArtistEventPageHeader } from './EditArtistEvent.header';
-export { default as EditArtistEventPage } from './EditArtistEvent.page';
+export { default as EditEventPageHeader } from './EditArtistEvent.header';
+export { default as EditEventPage } from './EditArtistEvent.page';

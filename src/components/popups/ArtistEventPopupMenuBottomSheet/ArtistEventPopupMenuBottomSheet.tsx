@@ -1,7 +1,6 @@
-import { UNIVERSAL_LINK_PREFIX } from '@arch/Application/tabs/linking';
 import { QRCode, View } from '@atomic';
 import { BottomSheetView } from '@gorhom/bottom-sheet';
-import { SheetApi } from '@hooks';
+import { SheetApi, useHyperlink } from '@hooks';
 import { MenuListItem } from '@molecules';
 import { BottomSheet } from '@organisms';
 import { NanoId } from '@types';
@@ -16,13 +15,14 @@ interface ArtistEventPopupMenuBottomSheetProps {
 const ArtistEventPopupMenuBottomSheet: React.FC<
 	ArtistEventPopupMenuBottomSheetProps
 > = ({ sheetApi, event_uid }) => {
+	const { eventPageHyperlink } = useHyperlink();
 	const insets = useSafeAreaInsets();
 
 	return (
 		<BottomSheet sheetRef={sheetApi.sheetRef} enableDynamicSizing>
 			<BottomSheetView style={{ flex: 1, paddingBottom: insets.bottom + 25 }}>
 				<View margin='m' alignItems='center'>
-					<QRCode value={UNIVERSAL_LINK_PREFIX + '/event/' + event_uid} />
+					<QRCode data={eventPageHyperlink(event_uid)} />
 				</View>
 				<MenuListItem
 					titleTextProps={{

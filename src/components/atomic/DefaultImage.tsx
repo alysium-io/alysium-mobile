@@ -1,11 +1,12 @@
 import { Icon, View } from '@atomic';
 import { IconNames } from '@svg';
-import { SemanticColor } from '@types';
+import { Props, SemanticColor } from '@types';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 
 interface DefaultImageProps {
 	icon?: IconNames;
+	containerProps?: Props<typeof View>;
 	backgroundColor?: SemanticColor;
 	iconColor?: SemanticColor;
 }
@@ -13,11 +14,16 @@ interface DefaultImageProps {
 const DefaultImage: React.FC<DefaultImageProps> = ({
 	icon = 'user',
 	backgroundColor = 'default-profile-image.bg',
-	iconColor = 'default-profile-image.icon'
+	iconColor = 'default-profile-image.icon',
+	containerProps
 }) => {
 	return (
-		<View style={styles.container} backgroundColor={backgroundColor}>
-			<Icon name={icon} color={iconColor} size={18} />
+		<View
+			style={styles.container}
+			backgroundColor={backgroundColor}
+			{...containerProps}
+		>
+			<Icon name={icon} color={iconColor} size={20} />
 		</View>
 	);
 };

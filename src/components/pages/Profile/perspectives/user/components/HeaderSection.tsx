@@ -2,9 +2,9 @@ import { useUserAppContext } from '@arch/Application/contexts/User.context';
 import { Icon, Section, Text, View } from '@atomic';
 import { useSheet } from '@hooks';
 import { EditableProfileImage } from '@molecules';
-import { EditUserProfileBottomSheet } from '@popups';
 import React from 'react';
 import { TouchableWithoutFeedback } from 'react-native';
+import EditUserProfileBottomSheet from '../sheets/EditUserProfileBottomSheet';
 
 const HeaderSection = () => {
 	const { userData, setUserProfileImage } = useUserAppContext();

@@ -43,6 +43,7 @@ export const createSemanticLightTheme = (
 
 		'bg-touch-animation.bg.p': palette.neutral.p2,
 
+		'border.xlight': '#E5E5E5',
 		'border.light': palette.neutral.p2,
 		'border.medium': palette.neutral.p5,
 		'border.heavy': palette.neutral.p7,
@@ -155,6 +156,8 @@ export const createSemanticLightTheme = (
 		'palette.t.dark': palette.t.p9,
 		'palette.q.light': palette.q.p1,
 		'palette.q.medium': palette.q.p5,
-		'palette.q.dark': palette.q.p9
+		'palette.q.dark': palette.q.p9,
+
+		danger: '#F46666'
 	};
 };

@@ -3,7 +3,7 @@ import { Props } from '@types';
 import React from 'react';
 
 interface HeaderTitleProps {
-	title: string;
+	title: string | React.ReactNode;
 	subtitle?: string;
 	titleProps?: Props<typeof Text>;
 	subtitleProps?: Props<typeof Text>;
@@ -17,9 +17,13 @@ const HeaderTitle: React.FC<HeaderTitleProps> = ({
 }) => {
 	return (
 		<View>
-			<Text variant='paragraph-small' color='text.p' {...titleProps}>
-				{title}
-			</Text>
+			{typeof title === 'string' ? (
+				<Text variant='paragraph-small' color='text.p' {...titleProps}>
+					{title}
+				</Text>
+			) : (
+				title
+			)}
 			{subtitle && (
 				<Text variant='paragraph-small' color='subtext.p' {...subtitleProps}>
 					{subtitle}

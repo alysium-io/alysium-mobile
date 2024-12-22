@@ -1,67 +1,91 @@
 import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
-import { artistApiSlice } from '@flux/api/artist';
-import { UpdateArtistBodyDto } from '@flux/api/artist/dto/artist-update.dto';
-import { useToast } from '@hooks';
-import { SelfAwareScrollView, useSelfAwareScrollView } from '@molecules';
-import { BasePage } from '@organisms';
+import { Section, View } from '@atomic';
+import { GalleryRefType } from '@flux/api/gallery/types';
+import { useNavigation } from '@hooks';
+import { ContentListItem } from '@molecules';
+import { BasePage, EditableGallery } from '@organisms';
+import FormTextDisplay from '@src/components/molecules/TextInput/FormTextInput/FormTextDisplay';
 import React from 'react';
-import { useForm } from 'react-hook-form';
-import AssetsSection from './components/AssetsSection';
-import EditContactsSection from './components/EditContacts';
-import EditEvents from './components/EditEvents';
-import EditExternalUrlsSection from './components/EditExternalUrlsSection';
-import HeaderSection from './components/HeaderSection';
+import { ScrollView } from 'react-native';
+import ProfileImage from './components/ProfileImage';
 import EditArtistPageHeader from './EditArtist.header';
 
 const EditArtistPage = () => {
-	const selfAwareScrollViewApi = useSelfAwareScrollView();
-	const { toastError } = useToast();
 	const { artistData } = useArtistAppContext();
-	const [updateArtistMutation] = artistApiSlice.useUpdateArtistMutation();
-
 	const {
-		handleSubmit,
-		control,
-		formState: { isDirty }
-	} = useForm<UpdateArtistBodyDto>({
-		defaultValues: {
-			name: artistData.name,
-			bio: artistData.bio
-		}
-	});
-
-	const onSubmit = (data: UpdateArtistBodyDto) => {
-		updateArtistMutation({
-			params: { artist_uid: artistData.artist_uid },
-			body: {
-				...data
-			}
-		})
-			.unwrap()
-			.catch(() => {
-				toastError('Failed to update artist');
-			});
-	};
-
-	const onBlurEditable = () => {
-		if (isDirty) {
-			handleSubmit(onSubmit)();
-		}
-	};
+		chooseScenePage,
+		editContactsPage,
+		editExternalLinksPage,
+		editArtistNamePage,
+		editArtistBioPage
+	} = useNavigation();
 
 	return (
 		<BasePage>
 			<EditArtistPageHeader />
-			<SelfAwareScrollView
-				selfAwareScrollViewApi={selfAwareScrollViewApi}
-				showsVerticalScrollIndicator={false}
-			>
-				<HeaderSection control={control} onBlurEditable={onBlurEditable} />
-				<EditEvents />
-				<AssetsSection control={control} onBlurEditable={onBlurEditable} />
-				<EditContactsSection />
-				<EditExternalUrlsSection />
-			</SelfAwareScrollView>
+			<ScrollView showsVerticalScrollIndicator={false}>
+				<Section>
+					<ProfileImage />
+					<View margin='m' marginBottom='none'>
+						<FormTextDisplay label='Name' onPress={editArtistNamePage}>
+							{artistData.name ?? 'Artist name'}
+						</FormTextDisplay>
+						<FormTextDisplay label='Scene' onPress={chooseScenePage}>
+							{artistData.scene?.scene.name ?? 'What city are you based in?'}
+						</FormTextDisplay>
+						<FormTextDisplay label='Bio' onPress={editArtistBioPage}>
+							{artistData.bio?.length
+								? artistData.bio
+								: 'What can people expect from you?'}
+						</FormTextDisplay>
+					</View>
+					<View marginBottom='m'>
+						<ContentListItem
+							onPress={editExternalLinksPage}
+							profileImageProps={{
+								defaultImageProps: {
+									icon: 'link'
+								},
+								containerProps: {
+									borderWidth: 1,
+									borderRadius: 'round',
+									borderColor: 'border.light'
+								}
+							}}
+							titleTextProps={{
+								title: 'Links',
+								bottomSubtext:
+									artistData.external_urls?.length.toLocaleString() ?? '0'
+							}}
+						/>
+						<ContentListItem
+							onPress={editContactsPage}
+							profileImageProps={{
+								defaultImageProps: {
+									icon: 'old-phone'
+								},
+								containerProps: {
+									borderWidth: 1,
+									borderRadius: 'round',
+									borderColor: 'border.light'
+								}
+							}}
+							titleTextProps={{
+								title: 'Contacts',
+								bottomSubtext:
+									artistData.contacts?.length.toLocaleString() ?? '0'
+							}}
+						/>
+					</View>
+					<View margin='m'>
+						<EditableGallery
+							gallery={artistData.gallery}
+							galleryRefType={GalleryRefType.artist}
+							galleryRefUid={artistData.artist_uid}
+						/>
+					</View>
+				</Section>
+			</ScrollView>
 		</BasePage>
 	);
 };

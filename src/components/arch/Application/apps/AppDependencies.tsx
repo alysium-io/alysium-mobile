@@ -1,7 +1,7 @@
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
-import { artistAppDeepLinkingConfig } from '../tabs/linking';
+import { artistAppDeepLinkingConfig } from '../config/linking';
 
 interface AppDependenciesProps {
 	children: React.ReactNode;

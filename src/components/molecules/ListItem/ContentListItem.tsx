@@ -1,4 +1,5 @@
 import { BgTouchAnimation, Icon, View } from '@atomic';
+import { IconNames } from '@svg';
 import { Props } from '@types';
 import React from 'react';
 import Container from './components/Container';
@@ -10,13 +11,15 @@ interface ContentListItemProps {
 	titleTextProps: Props<typeof TitleText>;
 	profileImageProps?: Props<typeof ProfileImage>;
 	onPress?: () => void;
+	icon?: IconNames | null;
 }
 
 const ContentListItem: React.FC<ContentListItemProps> = ({
 	containerProps,
 	titleTextProps,
 	profileImageProps,
-	onPress
+	onPress,
+	icon = 'arrow-right'
 }) => {
 	return (
 		<BgTouchAnimation onPress={onPress}>
@@ -25,9 +28,11 @@ const ContentListItem: React.FC<ContentListItemProps> = ({
 					<ProfileImage {...profileImageProps} />
 				</View>
 				<TitleText {...titleTextProps} />
-				<View marginHorizontal='m'>
-					<Icon name='arrow-right' color='text.t' size='s' />
-				</View>
+				{icon !== null && (
+					<View marginHorizontal='m'>
+						<Icon name={icon} color='text.t' size='s' />
+					</View>
+				)}
 			</Container>
 		</BgTouchAnimation>
 	);

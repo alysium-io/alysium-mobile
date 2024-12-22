@@ -1,6 +1,5 @@
 export * from './BasePage';
 export * from './BottomSheet';
-export * from './DatePicker';
 export * from './Forms';
 export * from './Gallery';
 export * from './Header';

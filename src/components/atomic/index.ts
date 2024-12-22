@@ -41,7 +41,7 @@ export { default as ViewRef } from './ViewRef';
  * Dependency Overrides
  */
 export { default as BlurView } from './BlurView';
-export { default as DatetimePicker } from './DatetimePicker';
+export { default as DateTimePicker } from './DateTimePicker';
 export { default as LinearGradient } from './LinearGradient';
 export { default as Path } from './Path';
 export { default as SkeletonPlaceholder } from './SkeletonPlaceholder';
@@ -65,10 +65,12 @@ export { default as Hyperlink } from './Hyperlink';
 export { default as Icon } from './Icon';
 export { default as KeyboardAvoidingFooter } from './KeyboardAvoidingFooter';
 export { default as KeyboardViewFill } from './KeyboardViewFill';
+export { default as LiveIndicator } from './LiveIndicator';
 export { default as Loading } from './Loading';
 export { default as NotchMargin } from './NotchMargin';
 export { default as NotchSafeArea } from './NotchSafeArea';
 export { default as Or } from './Or';
+export { default as Overlay } from './Overlay';
 export {
 	default as PhoneNumberTextInput,
 	type PhoneNumberTextInputProps

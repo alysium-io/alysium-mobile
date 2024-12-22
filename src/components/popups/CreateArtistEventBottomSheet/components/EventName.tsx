@@ -1,19 +1,22 @@
 import { DismissKeyboardWrapper, Text, View } from '@atomic';
-import { TextInputApi } from '@hooks';
+import { CreateArtistEventBodyDto } from '@flux/api/event/dto/artist-event-create.dto';
 import { TextBox } from '@molecules';
-import { CreateArtistEventFormApi } from '@src/utils/redux-hook-form/useCreateArtistEventFormApi';
-import React from 'react';
-import { Controller } from 'react-hook-form';
+import React, { useEffect, useRef } from 'react';
+import { Control, Controller } from 'react-hook-form';
+import { TextInput } from 'react-native';
 
 interface EventNameProps {
-	createArtistEventFormApi: CreateArtistEventFormApi;
-	eventNameTextInputApi: TextInputApi;
+	control: Control<CreateArtistEventBodyDto>;
 }
 
-const EventName: React.FC<EventNameProps> = ({
-	createArtistEventFormApi,
-	eventNameTextInputApi
-}) => {
+const EventName: React.FC<EventNameProps> = ({ control }) => {
+	const ref = useRef<TextInput>(null);
+	useEffect(() => {
+		setTimeout(() => {
+			ref.current?.focus();
+		}, 300);
+	}, []);
+
 	return (
 		<DismissKeyboardWrapper>
 			<View margin='m'>
@@ -22,11 +25,11 @@ const EventName: React.FC<EventNameProps> = ({
 				</Text>
 				<Controller
 					name='name'
-					control={createArtistEventFormApi.formMethods.control}
+					control={control}
 					rules={{ required: 'Name is required' }}
 					render={({ field: { onChange } }) => (
 						<TextBox
-							textInputApi={eventNameTextInputApi}
+							ref={ref}
 							onChangeText={onChange}
 							placeholder='What was the event called?'
 							subtitle="EDX Nightclub on Tuesdays, Sarah's Wedding, Ultra Miami 2024, etc."

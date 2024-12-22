@@ -6,7 +6,9 @@ import Animated, { LinearTransition } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import HeaderBackground from './HeaderBackground';
 
-type HeaderProps = Props<typeof Animated.View> & IChildrenProps;
+type HeaderProps = Props<typeof Animated.View> &
+	Props<typeof View> &
+	IChildrenProps;
 
 const Header: React.FC<HeaderProps> = ({ children, ...props }) => {
 	const insets = useSafeAreaInsets();

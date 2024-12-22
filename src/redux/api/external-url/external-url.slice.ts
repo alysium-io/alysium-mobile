@@ -1,44 +1,76 @@
 import { rtkBaseUrl, serviceApi } from '../base';
 import {
 	CreateExternalUrlBodyDto,
+	CreateExternalUrlParamsDto,
 	CreateExternalUrlResponseDto
 } from './dto/external-url-create.dto';
 import {
-	DeleteExternalUrlBodyDto,
+	DeleteExternalUrlParamsDto,
 	DeleteExternalUrlResponseDto
 } from './dto/external-url-delete.dto';
+import {
+	UpdateExternalUrlBodyDto,
+	UpdateExternalUrlParamsDto,
+	UpdateExternalUrlResponseDto
+} from './dto/external-url-update.dto';
 
-const url = rtkBaseUrl('external-url');
+const url = rtkBaseUrl('');
 
 export default serviceApi.injectEndpoints({
 	endpoints: (builder) => ({
 		createExternalUrl: builder.mutation<
 			CreateExternalUrlResponseDto,
-			{ body: CreateExternalUrlBodyDto }
+			{ params: CreateExternalUrlParamsDto; body: CreateExternalUrlBodyDto }
 		>({
-			query: ({ body }) => ({
-				url: url('/'),
+			query: ({ params, body }) => ({
+				url: url(`artist/${params.artist_uid}/external-url`),
 				method: 'POST',
 				body
 			}),
-			invalidatesTags: (result, error, { body }) =>
+			invalidatesTags: (result, error, { params }) =>
 				result
 					? [
 							{ type: 'PrivateArtist', id: 'CURRENT' },
-							{ type: 'PublicArtist', id: body.refId }
+							{ type: 'PublicArtist', id: params.artist_uid }
 					  ]
 					: []
 		}),
 		deleteExternalUrl: builder.mutation<
 			DeleteExternalUrlResponseDto,
-			{ body: DeleteExternalUrlBodyDto }
+			{ params: DeleteExternalUrlParamsDto }
 		>({
-			query: ({ body }) => ({
-				url: url('/'),
-				method: 'DELETE',
+			query: ({ params }) => ({
+				url: url(
+					`artist/${params.artist_uid}/external-url/${params.external_url_uid}`
+				),
+				method: 'DELETE'
+			}),
+			invalidatesTags: (result, error, { params }) =>
+				result
+					? [
+							{ type: 'PrivateArtist', id: 'CURRENT' },
+							{ type: 'PublicArtist', id: params.external_url_uid }
+					  ]
+					: []
+		}),
+		updateExternalUrl: builder.mutation<
+			UpdateExternalUrlResponseDto,
+			{ body: UpdateExternalUrlBodyDto; params: UpdateExternalUrlParamsDto }
+		>({
+			query: ({ body, params }) => ({
+				url: url(
+					`artist/${params.artist_uid}/external-url/${params.external_url_uid}`
+				),
+				method: 'PUT',
 				body
 			}),
-			invalidatesTags: [{ type: 'PrivateArtist', id: 'CURRENT' }]
+			invalidatesTags: (result, error, { params }) =>
+				result
+					? [
+							{ type: 'PrivateArtist', id: 'CURRENT' },
+							{ type: 'PublicArtist', id: params.artist_uid }
+					  ]
+					: []
 		})
 	})
 });

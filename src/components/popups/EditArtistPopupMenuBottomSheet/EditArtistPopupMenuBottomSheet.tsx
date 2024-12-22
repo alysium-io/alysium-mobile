@@ -1,8 +1,7 @@
 import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
-import { UNIVERSAL_LINK_PREFIX } from '@arch/Application/tabs/linking';
 import { QRCode, View } from '@atomic';
 import { BottomSheetView } from '@gorhom/bottom-sheet';
-import { SheetApi } from '@hooks';
+import { SheetApi, useHyperlink } from '@hooks';
 import { MenuListItem } from '@molecules';
 import { BottomSheet } from '@organisms';
 import React from 'react';
@@ -15,6 +14,7 @@ interface EditArtistPopupMenuBottomSheetProps {
 const EditArtistPopupMenuBottomSheet: React.FC<
 	EditArtistPopupMenuBottomSheetProps
 > = ({ sheetApi }) => {
+	const { artistPageHyperlink } = useHyperlink();
 	const insets = useSafeAreaInsets();
 	const { artistData } = useArtistAppContext();
 
@@ -22,9 +22,7 @@ const EditArtistPopupMenuBottomSheet: React.FC<
 		<BottomSheet sheetRef={sheetApi.sheetRef} enableDynamicSizing>
 			<BottomSheetView style={{ flex: 1, paddingBottom: insets.bottom + 25 }}>
 				<View margin='m' alignItems='center'>
-					<QRCode
-						value={UNIVERSAL_LINK_PREFIX + '/artist/' + artistData.artist_uid}
-					/>
+					<QRCode data={artistPageHyperlink(artistData.artist_uid)} />
 				</View>
 				<MenuListItem
 					titleTextProps={{

@@ -15,13 +15,8 @@ interface CreateArtistEventBottomSheetProps {
 const CreateArtistEventBottomSheet: React.FC<
 	CreateArtistEventBottomSheetProps
 > = ({ sheetApi }) => {
-	const {
-		close,
-		onSheetIndexChangeFocusTextInput,
-		eventNameTextInputApi,
-		createArtistEventFormApi,
-		createArtistEventButtonStateApi
-	} = useCreateArtistEventBottomSheet(sheetApi);
+	const { close, control, buttonState, onSubmit, resetAll } =
+		useCreateArtistEventBottomSheet(sheetApi);
 
 	const footerComponent = useCallback(
 		(props: BottomSheetFooterProps) => (
@@ -36,29 +31,26 @@ const CreateArtistEventBottomSheet: React.FC<
 							},
 							{
 								text: 'Create',
-								onPress: createArtistEventFormApi.onSubmit,
+								onPress: onSubmit,
 								color: 'p',
-								buttonState: createArtistEventButtonStateApi.buttonState
+								buttonState: buttonState
 							}
 						]}
 					/>
 				</View>
 			</FullScreenSheetFooter>
 		),
-		[createArtistEventButtonStateApi.buttonState]
+		[onSubmit, close, buttonState]
 	);
 
 	return (
 		<FullScreenSheet
 			sheetApi={sheetApi}
-			onChange={onSheetIndexChangeFocusTextInput}
 			footerComponent={footerComponent}
+			onDismiss={resetAll}
 		>
 			<FullScreenSheetStandardHeader />
-			<EventName
-				eventNameTextInputApi={eventNameTextInputApi}
-				createArtistEventFormApi={createArtistEventFormApi}
-			/>
+			<EventName control={control} />
 		</FullScreenSheet>
 	);
 };

@@ -15,11 +15,15 @@ import BellNotification from './BellNotification';
 import BigCartel from './BigCartel';
 import BuyMeACoffee from './BuyMeACoffee';
 import Calendar from './Calendar';
+import Cancel from './Cancel';
 import Chainlink from './Chainlink';
 import Checkmark from './Checkmark';
 import Cheeseburger from './Cheeseburger';
+import Chrome from './Chrome';
 import Clear from './Clear';
 import Clipboard from './Clipboard';
+import ClockFilled from './ClockFilled';
+import ClockOutlined from './ClockOutlined';
 import Club from './Club';
 import Components from './Components';
 import Contract from './Contract';
@@ -57,8 +61,10 @@ import Phone from './Phone';
 import Play from './Play';
 import Plus from './Plus';
 import Profile from './Profile';
+import Question from './Question';
 import Rank from './Rank';
 import Restaurant from './Restaurant';
+import Save from './Save';
 import Search from './Search';
 import SearchFilled from './SearchFilled';
 import Security from './Security';
@@ -167,7 +173,13 @@ export const SvgIcons = {
 	trash: Trash,
 	'share-external': ShareExternal,
 	chainlink: Chainlink,
-	'old-phone': OldPhone
+	'old-phone': OldPhone,
+	'clock-outlined': ClockOutlined,
+	'clock-filled': ClockFilled,
+	question: Question,
+	cancel: Cancel,
+	chrome: Chrome,
+	save: Save
 };
 
 export type IconNames = keyof typeof SvgIcons;

@@ -1,4 +1,5 @@
 import { Contact } from '@flux/api/contact';
+import { ExternalUrl } from '@flux/api/external-url/external-url.entity';
 import { FindGalleryParamsDto } from '@flux/api/gallery/dto/gallery-find.dto';
 import { GalleryRefType } from '@flux/api/gallery/types';
 import { type BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
@@ -27,16 +28,12 @@ type TagFollowersPage = { tag_uid: NanoId };
 
 type ProfilePage = undefined;
 
-type EventManagerPage = undefined;
-type EditArtistEventPage = { event_uid: NanoId };
+type EditEventPage = { event_uid: NanoId };
 
 type ChooseScenePage = undefined;
 
 type EventPage = { event_uid: NanoId };
-type ArtistEventPage = { event_uid: NanoId };
 type ArtistEventsPage = { artist_uid: NanoId };
-
-type EditContractPage = { contract_uid: NanoId };
 
 type ChooseEventLocationPage = { event_uid: NanoId };
 
@@ -56,7 +53,23 @@ type ViewGalleryPage = {
 
 type ScenePage = { scene_uid: NanoId };
 
+type EventManagerPage = undefined;
+
+type EditContactsPage = undefined;
 type EditContactPage = { contact: Contact };
+type CreateContactPage = undefined;
+
+type EditExternalLinksPage = undefined;
+type EditExternalLinkPage = { externalLink: ExternalUrl };
+type CreateExternalLinkPage = undefined;
+
+type EditArtistNamePage = undefined;
+type EditArtistBioPage = undefined;
+
+type EditArtistEventAboutPage = { event_uid: NanoId };
+
+type ManageEventPage = { event_uid: NanoId };
+type EditPublishedEventPage = { event_uid: NanoId };
 
 export type RouteNames =
 	| 'SearchPage'
@@ -68,7 +81,7 @@ export type RouteNames =
 	| 'TagFollowersPage'
 	| 'ProfilePage'
 	| 'EventManagerPage'
-	| 'EditArtistEventPage'
+	| 'EditEventPage'
 	| 'EventPage'
 	| 'EditContractPage'
 	| 'UserArtistsFollowingPage'
@@ -78,10 +91,19 @@ export type RouteNames =
 	| 'ViewGalleryPage'
 	| 'ChooseScenePage'
 	| 'ChooseEventLocationPage'
-	| 'ArtistEventPage'
+	| 'EventPage'
 	| 'ArtistEventsPage'
 	| 'ScenePage'
-	| 'EditContactPage';
+	| 'EditContactPage'
+	| 'EventManagerPage'
+	| 'EditContactsPage'
+	| 'CreateContactPage'
+	| 'EditExternalLinksPage'
+	| 'EditExternalLinkPage'
+	| 'CreateExternalLinkPage'
+	| 'EditArtistEventAboutPage'
+	| 'ManageEventPage'
+	| 'EditPublishedEventPage';
 
 /**
  * Stack Navigators
@@ -110,7 +132,7 @@ export type SearchStackNavigatorParamList = {
 
 	ViewGalleryPage: ViewGalleryPage;
 
-	ArtistEventPage: ArtistEventPage;
+	EventPage: EventPage;
 	ArtistEventsPage: ArtistEventsPage;
 
 	ScenePage: ScenePage;
@@ -118,25 +140,26 @@ export type SearchStackNavigatorParamList = {
 
 export type ProfileStackNavigatorParamList = {
 	ProfilePage: ProfilePage;
+	EditArtistPage: EditArtistPage;
+	EditContactsPage: EditContactsPage;
+	CreateContactPage: CreateContactPage;
+	EditContactPage: EditContactPage;
+	EditExternalLinksPage: EditExternalLinksPage;
+	EditExternalLinkPage: EditExternalLinkPage;
+	CreateExternalLinkPage: CreateExternalLinkPage;
+	EditArtistNamePage: EditArtistNamePage;
+	EditArtistBioPage: EditArtistBioPage;
+	ChooseScenePage: ChooseScenePage;
 };
 
 export type EventManagerStackNavigatorParamList = {
 	EventManagerPage: EventManagerPage;
-	EventPage: EventPage;
-	EditContractPage: EditContractPage;
-	ArtistPage: ArtistPage;
-};
-
-export type EditArtistStackNavigatorParamList = {
-	EditArtistPage: EditArtistPage;
-	ViewGalleryPage: ViewGalleryPage;
-	EditArtistEventPage: EditArtistEventPage;
-	ChooseScenePage: ChooseScenePage;
-	ArtistPage: ArtistPage;
+	EditEventPage: EditEventPage;
 	ChooseEventLocationPage: ChooseEventLocationPage;
-	ScenePage: ScenePage;
-	ArtistEventsPage: ArtistEventsPage;
-	EditContactPage: EditContactPage;
+	EditArtistEventAboutPage: EditArtistEventAboutPage;
+	ManageEventPage: ManageEventPage;
+	EventPage: EventPage;
+	EditPublishedEventPage: EditPublishedEventPage;
 };
 
 /**
@@ -160,8 +183,8 @@ export type EditArtistStackNavigatorParamList = {
 // The tab list for only the artist app
 export type ArtistAppBottomTabNavigatorParamList = {
 	Search: NavigatorScreenParams<SearchStackNavigatorParamList>;
-	EditArtist: NavigatorScreenParams<EditArtistStackNavigatorParamList>;
 	Profile: NavigatorScreenParams<ProfileStackNavigatorParamList>;
+	EventManager: NavigatorScreenParams<EventManagerStackNavigatorParamList>;
 };
 
 export type UserAppBottomTabNavigatorParamList = {
@@ -174,7 +197,6 @@ export type BottomTabNavigatorParamList = {
 	Search: NavigatorScreenParams<SearchStackNavigatorParamList>;
 	Profile: NavigatorScreenParams<ProfileStackNavigatorParamList>;
 	EventManager: NavigatorScreenParams<EventManagerStackNavigatorParamList>;
-	EditArtist: NavigatorScreenParams<EditArtistStackNavigatorParamList>;
 };
 
 type ComposeTabNavigationProp<T extends ParamListBase> =
@@ -190,18 +212,16 @@ export type ProfileScreenNavigationProp =
 	ComposeTabNavigationProp<ProfileStackNavigatorParamList>;
 export type EventManagerScreenNavigationProp =
 	ComposeTabNavigationProp<EventManagerStackNavigatorParamList>;
-export type EditArtistScreenNavigationProp =
-	ComposeTabNavigationProp<EditArtistStackNavigatorParamList>;
 
 export type CompositeScreenNavigationProp = SearchScreenNavigationProp &
 	ProfileScreenNavigationProp &
 	EventManagerScreenNavigationProp &
-	EditArtistScreenNavigationProp;
+	EventManagerScreenNavigationProp;
 
 export type CompositeStackNavigatorParamList = SearchStackNavigatorParamList &
 	ProfileStackNavigatorParamList &
 	EventManagerStackNavigatorParamList &
-	EditArtistStackNavigatorParamList;
+	EventManagerStackNavigatorParamList;
 
 /**
  * Search Route Props
@@ -221,10 +241,6 @@ export type TagPageRouteProp = RouteProp<
 export type TagFollowersPageRouteProp = RouteProp<
 	CompositeStackNavigatorParamList,
 	'TagFollowersPage'
->;
-export type ArtistEventPageRouteProp = RouteProp<
-	CompositeStackNavigatorParamList,
-	'ArtistEventPage'
 >;
 export type ArtistEventsPageRouteProp = RouteProp<
 	CompositeStackNavigatorParamList,
@@ -246,25 +262,21 @@ export type ProfilePageRouteProp = RouteProp<
 	CompositeStackNavigatorParamList,
 	'ProfilePage'
 >;
+export type EditExternalLinkPageRouteProp = RouteProp<
+	CompositeStackNavigatorParamList,
+	'EditExternalLinkPage'
+>;
 
 /**
  * Event Manager Route Props
  */
-export type EventManagerPageRouteProp = RouteProp<
+export type EditEventPageRouteProp = RouteProp<
 	CompositeStackNavigatorParamList,
-	'EventManagerPage'
->;
-export type EditArtistEventPageRouteProp = RouteProp<
-	CompositeStackNavigatorParamList,
-	'EditArtistEventPage'
+	'EditEventPage'
 >;
 export type EventPageRouteProp = RouteProp<
 	CompositeStackNavigatorParamList,
 	'EventPage'
->;
-export type EditContractPageRouteProp = RouteProp<
-	CompositeStackNavigatorParamList,
-	'EditContractPage'
 >;
 
 /**
@@ -281,4 +293,24 @@ export type ViewGalleryPageRouteProp = RouteProp<
 export type ChooseEventLocationRouteProp = RouteProp<
 	CompositeStackNavigatorParamList,
 	'ChooseEventLocationPage'
+>;
+
+/**
+ * Artist Event Manager
+ */
+export type EventManagerPageRouteProp = RouteProp<
+	CompositeStackNavigatorParamList,
+	'EventManagerPage'
+>;
+export type EditArtistEventAboutPageRouteProp = RouteProp<
+	CompositeStackNavigatorParamList,
+	'EditArtistEventAboutPage'
+>;
+export type ManageEventPageRouteProp = RouteProp<
+	CompositeStackNavigatorParamList,
+	'ManageEventPage'
+>;
+export type EditPublishedEventPageRouteProp = RouteProp<
+	CompositeStackNavigatorParamList,
+	'EditPublishedEventPage'
 >;

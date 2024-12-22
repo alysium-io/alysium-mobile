@@ -1,8 +1,9 @@
 import { convert, Unit } from '@etc';
 import { MediaType } from '@flux/api/media/types';
-import { useTheme } from '@shopify/restyle';
+import { CameraRoll } from '@react-native-camera-roll/camera-roll';
 import { getAssetMediaType } from '@src/etc/detect-media-type';
-import { Alert, Linking, Platform } from 'react-native';
+import { Alert } from '@templates';
+import { Linking, Platform } from 'react-native';
 import {
 	Asset,
 	ImagePickerResponse,
@@ -46,43 +47,120 @@ interface IUsePhotosAndCamera {
 		mediaType?: RNMediaType
 	) => Promise<ImagePickerResponse | null>;
 	extractAsset: (response: ImagePickerResponse | null) => Asset | null;
+	saveImage: (uri: string) => Promise<boolean>;
+	hasImageSavePermissions: () => Promise<boolean>;
 }
 
 const usePhotosAndCamera = (): IUsePhotosAndCamera => {
 	const { toastError } = useToast();
-	const { mode } = useTheme();
 
 	const handleApiResolve = async (fn: () => Promise<any>, resolve: any) =>
 		fn().then((result: any) => resolve(result));
+
+	const requestSavePermissions = async (): Promise<PermissionStatus> => {
+		if (Platform.OS === 'android') {
+			const permission = PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE;
+			const status = await check(permission);
+
+			if (status === RESULTS.GRANTED) {
+				return status;
+			} else if (status === RESULTS.BLOCKED) {
+				Alert.alert(
+					'Storage Permission Required: Open Settings',
+					'Permission to save images to your device is required. Please enable it in settings.',
+					[
+						{ text: 'Cancel', style: 'cancel' },
+						{ text: 'Open Settings', onPress: () => Linking.openSettings() }
+					]
+				);
+				return status;
+			} else {
+				return request(permission);
+			}
+		} else {
+			// iOS requires photo library permission for saving
+			const permission = PERMISSIONS.IOS.PHOTO_LIBRARY;
+			const status = await check(permission);
+
+			if (status === RESULTS.GRANTED || status === RESULTS.LIMITED) {
+				return status;
+			} else if (status === RESULTS.BLOCKED) {
+				Alert.alert(
+					'Photo Library Permission Required: Open Settings',
+					'Permission to save images to your photo library is required. Please enable it in settings.',
+					[
+						{ text: 'Cancel', style: 'cancel' },
+						{ text: 'Open Settings', onPress: () => Linking.openSettings() }
+					]
+				);
+				return status;
+			} else {
+				return request(permission);
+			}
+		}
+	};
+
+	const hasImageSavePermissions = async (): Promise<boolean> => {
+		try {
+			const status = await requestSavePermissions();
+			return status === RESULTS.GRANTED || status === RESULTS.LIMITED;
+		} catch (error) {
+			console.error('Error checking save permissions:', error);
+			return false;
+		}
+	};
+
+	const saveImage = async (uri: string): Promise<boolean> => {
+		try {
+			const hasPermission = await hasImageSavePermissions();
+			if (!hasPermission) {
+				return false;
+			}
+
+			await CameraRoll.save(uri, {
+				type: 'photo'
+			});
+			return true;
+		} catch (error) {
+			console.error('Error saving image:', error);
+			toastError('Failed to save image. Please try again.');
+			return false;
+		}
+	};
 
 	const chooseMediaOrTakeNew = async (
 		mediaType: RNMediaType = 'mixed'
 	): Promise<ImagePickerResponse | null> => {
 		return new Promise((resolve) => {
 			Alert.alert(
-				`Select media`,
-				`Choose media from library or capture a new one`,
+				'Select media',
+				'Choose media from library or capture a new one',
 				[
 					{
 						text: 'Camera',
 						onPress: () =>
-							handleApiResolve(() => captureWithCamera(mediaType), resolve)
+							handleApiResolve(() => captureWithCamera(mediaType), resolve),
+						style: 'accent'
 					},
 					{
 						text: 'Library',
 						onPress: () =>
-							handleApiResolve(() => chooseFromLibrary(mediaType), resolve)
+							handleApiResolve(async () => {
+								return new Promise((res) => {
+									setTimeout(async () => {
+										const result = await chooseFromLibrary(mediaType);
+										res(result);
+									}, 500);
+								});
+							}, resolve),
+						style: 'accent'
 					},
 					{
 						text: 'Cancel',
-						style: 'destructive',
+						style: 'cancel',
 						onPress: () => resolve(null)
 					}
-				],
-				{
-					cancelable: true,
-					userInterfaceStyle: mode
-				}
+				]
 			);
 		});
 	};
@@ -238,7 +316,9 @@ const usePhotosAndCamera = (): IUsePhotosAndCamera => {
 
 	return {
 		chooseMediaOrTakeNew,
-		extractAsset
+		extractAsset,
+		saveImage,
+		hasImageSavePermissions
 	};
 };
 

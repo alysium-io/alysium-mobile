@@ -1,30 +1,23 @@
-import { View } from '@atomic';
 import { useTheme } from '@hooks';
+import { Props } from '@types';
 import React from 'react';
+import { useWindowDimensions } from 'react-native';
 import DatePicker from 'react-native-date-picker';
 
-interface DatetimePickerProps {
-	date: Date;
-	onDateChange: (date: Date) => void;
-}
+type DateTimePickerProps = Props<typeof DatePicker>;
 
-const DatetimePicker: React.FC<DatetimePickerProps> = ({
-	date,
-	onDateChange
-}) => {
+const DateTimePicker: React.FC<DateTimePickerProps> = (props) => {
 	const { themeMode } = useTheme();
+	const { width } = useWindowDimensions();
 	return (
-		<View flexDirection='row' justifyContent='center'>
-			<DatePicker
-				date={date}
-				minimumDate={new Date()}
-				mode='datetime'
-				minuteInterval={15}
-				onDateChange={onDateChange}
-				theme={themeMode}
-			/>
-		</View>
+		<DatePicker
+			mode='datetime'
+			minuteInterval={15}
+			theme={themeMode}
+			style={{ width }}
+			{...props}
+		/>
 	);
 };
 
-export default DatetimePicker;
+export default DateTimePicker;

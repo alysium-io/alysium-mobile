@@ -1,9 +1,9 @@
-import day from 'dayjs';
+import dayjs from 'dayjs';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
 
-day.extend(utc);
-day.extend(timezone);
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 class Formatting {
 	static formatPhoneNumber = (input?: string | null): string | undefined => {
@@ -89,7 +89,7 @@ class Formatting {
 		if (timestamp === null) {
 			return null;
 		}
-		return day(timestamp).utc().format('YYYY-MM-DDTHH:mm:ss[Z]');
+		return dayjs(timestamp).utc().format('YYYY-MM-DDTHH:mm:ss[Z]');
 	};
 
 	static abbreviateNumber = (num: number | null | undefined): string => {

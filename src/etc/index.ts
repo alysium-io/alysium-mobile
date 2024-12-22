@@ -10,3 +10,4 @@ export * from './size-conversions';
 export * from './string';
 export { default as Time } from './Time';
 export { default as Vibrator } from './Vibrator';
+export * from './wait';

@@ -1,4 +1,5 @@
 import { Contact } from '@flux/api/contact';
+import { ExternalUrl } from '@flux/api/external-url/external-url.entity';
 import { FindGalleryParamsDto } from '@flux/api/gallery/dto/gallery-find.dto';
 import { GalleryRefType } from '@flux/api/gallery/types';
 import { useNavigation as useRNNavigation } from '@react-navigation/native';
@@ -23,7 +24,7 @@ interface IUseNavigation {
 		event_uid: NanoId,
 		navigationMeta: NavigationBehaviorMetadata
 	) => void;
-	editArtistEventPage: (
+	editEventPage: (
 		event_uid: NanoId,
 		navigationMeta: NavigationBehaviorMetadata
 	) => void;
@@ -46,11 +47,6 @@ interface IUseNavigation {
 
 	chooseEventLocationPage: (event_uid: NanoId) => void;
 
-	artistEventPage: (
-		event_uid: NanoId,
-		navigationMeta: NavigationBehaviorMetadata
-	) => void;
-
 	artistEventsPage: (
 		artist_uid: NanoId,
 		navigationMeta: NavigationBehaviorMetadata
@@ -61,7 +57,23 @@ interface IUseNavigation {
 		navigationMeta: NavigationBehaviorMetadata
 	) => void;
 
+	editArtistPage: () => void;
+
+	editContactsPage: () => void;
+	createContactPage: () => void;
 	editContactPage: (contact: Contact) => void;
+
+	editExternalLinksPage: () => void;
+	editExternalLinkPage: (externalLink: ExternalUrl) => void;
+	createExternalLinkPage: () => void;
+
+	editArtistNamePage: () => void;
+	editArtistBioPage: () => void;
+
+	editArtistEventAboutPage: (event_uid: NanoId) => void;
+
+	manageEventPage: (event_uid: NanoId) => void;
+	editPublishedEventPage: (event_uid: NanoId) => void;
 
 	/** General */
 	back: () => void;
@@ -104,19 +116,11 @@ const useNavigation = (): IUseNavigation => {
 		navigationBehavior(navigationMeta);
 	};
 
-	const editArtistEventPage = (
+	const editEventPage = (
 		event_uid: NanoId,
 		navigationMeta: NavigationBehaviorMetadata
 	) => {
-		navigation.push('EditArtistEventPage', { event_uid });
-		navigationBehavior(navigationMeta);
-	};
-
-	const editContractPage = (
-		contract_uid: NanoId,
-		navigationMeta: NavigationBehaviorMetadata
-	) => {
-		navigation.push('EditContractPage', { contract_uid });
+		navigation.push('EditEventPage', { event_uid });
 		navigationBehavior(navigationMeta);
 	};
 
@@ -171,14 +175,6 @@ const useNavigation = (): IUseNavigation => {
 		navigation.navigate('ChooseEventLocationPage', { event_uid });
 	};
 
-	const artistEventPage = (
-		event_uid: NanoId,
-		navigationMeta: NavigationBehaviorMetadata
-	) => {
-		navigation.push('ArtistEventPage', { event_uid });
-		navigationBehavior(navigationMeta);
-	};
-
 	const artistEventsPage = (
 		artist_uid: NanoId,
 		navigationMeta: NavigationBehaviorMetadata
@@ -199,6 +195,50 @@ const useNavigation = (): IUseNavigation => {
 		navigation.push('EditContactPage', { contact });
 	};
 
+	const editArtistPage = () => {
+		navigation.push('EditArtistPage');
+	};
+
+	const editContactsPage = () => {
+		navigation.push('EditContactsPage');
+	};
+
+	const createContactPage = () => {
+		navigation.push('CreateContactPage');
+	};
+
+	const editExternalLinksPage = () => {
+		navigation.push('EditExternalLinksPage');
+	};
+
+	const editExternalLinkPage = (externalLink: ExternalUrl) => {
+		navigation.push('EditExternalLinkPage', { externalLink });
+	};
+
+	const createExternalLinkPage = () => {
+		navigation.push('CreateExternalLinkPage');
+	};
+
+	const editArtistNamePage = () => {
+		navigation.push('EditArtistNamePage');
+	};
+
+	const editArtistBioPage = () => {
+		navigation.push('EditArtistBioPage');
+	};
+
+	const editArtistEventAboutPage = (event_uid: NanoId) => {
+		navigation.push('EditArtistEventAboutPage', { event_uid });
+	};
+
+	const manageEventPage = (event_uid: NanoId) => {
+		navigation.push('ManageEventPage', { event_uid });
+	};
+
+	const editPublishedEventPage = (event_uid: NanoId) => {
+		navigation.push('EditPublishedEventPage', { event_uid });
+	};
+
 	/**
 	 * General
 	 */
@@ -209,7 +249,7 @@ const useNavigation = (): IUseNavigation => {
 		tagPage,
 		profilePage,
 		eventPage,
-		editArtistEventPage,
+		editEventPage,
 		searchPage,
 		eventManagerPage,
 		userArtistsFollowingPage,
@@ -218,10 +258,20 @@ const useNavigation = (): IUseNavigation => {
 		viewGalleryPage,
 		chooseScenePage,
 		chooseEventLocationPage,
-		artistEventPage,
 		artistEventsPage,
 		scenePage,
 		editContactPage,
+		editArtistPage,
+		editContactsPage,
+		createContactPage,
+		editExternalLinksPage,
+		editExternalLinkPage,
+		createExternalLinkPage,
+		editArtistNamePage,
+		editArtistBioPage,
+		editArtistEventAboutPage,
+		manageEventPage,
+		editPublishedEventPage,
 		back
 	};
 };

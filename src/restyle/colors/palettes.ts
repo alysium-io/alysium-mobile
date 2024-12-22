@@ -3,7 +3,7 @@ import { createColorPalette, createGradientPalette } from './utils';
 
 // Brand
 const ION_CORE = '#BCCBDA';
-const MATT_CORE = '#7BA493';
+const MATT_CORE = '#50B788';
 export const ionPalette = createColorPalette(ION_CORE);
 export const mattPalette = createColorPalette(MATT_CORE);
 
@@ -16,7 +16,7 @@ export const neutralPalette = createGradientPalette(
 );
 
 // Accents
-const HAZE_CORE = '#A47B91';
+const HAZE_CORE = '#E17B8E';
 const METEOR_CORE = '#EBECA0';
 const SIEON_CORE = '#F09C9C';
 const HONEY_CORE = '#FFD48F';

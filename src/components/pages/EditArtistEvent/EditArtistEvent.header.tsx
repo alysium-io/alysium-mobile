@@ -5,15 +5,16 @@ import {
 	HeaderSection,
 	HeaderTitle
 } from '@organisms';
+import { Props } from '@types';
 import React from 'react';
 
-interface EditArtistEventPageHeaderProps {
-	title: string;
+interface EditEventPageHeaderProps {
+	titleProps: Props<typeof HeaderTitle>;
 	onPressMenu: () => void;
 }
 
-const EditArtistEventPageHeader: React.FC<EditArtistEventPageHeaderProps> = ({
-	title,
+const EditEventPageHeader: React.FC<EditEventPageHeaderProps> = ({
+	titleProps,
 	onPressMenu
 }) => {
 	const { back } = useNavigation();
@@ -21,16 +22,11 @@ const EditArtistEventPageHeader: React.FC<EditArtistEventPageHeaderProps> = ({
 		<Header>
 			<HeaderSection
 				LeftComponent={<HeaderIconButton onPress={back} name='arrow-left' />}
-				CenterComponent={
-					<HeaderTitle
-						title={title}
-						titleProps={{ variant: 'paragraph-small' }}
-					/>
-				}
+				CenterComponent={<HeaderTitle {...titleProps} />}
 				RightComponent={<HeaderIconButton onPress={onPressMenu} name='menu' />}
 			/>
 		</Header>
 	);
 };
 
-export default EditArtistEventPageHeader;
+export default EditEventPageHeader;

@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 type DurationOption = {
 	id: string;
@@ -59,7 +59,8 @@ const getInitialDurationOption = (
 };
 
 export const useEventTiming = (
-	defaultSettings: DefaultSettings = {}
+	defaultSettings: DefaultSettings = {},
+	key?: string
 ): UseEventTimingReturn => {
 	const minimumStartTime = getStartMinimumDate();
 	const initialStartTime = defaultSettings.startDateTime
@@ -70,15 +71,7 @@ export const useEventTiming = (
 		? roundToNearest15Minutes(dayjs(defaultSettings.endDateTime))
 		: null;
 
-	// Define duration options
-	const durationOptions: DurationOption[] = [
-		{ id: 'none', label: 'None', minutes: null },
-		{ id: '1hr', label: '1 hour', minutes: 60 },
-		{ id: '2hrs', label: '2 hours', minutes: 120 },
-		{ id: 'custom', label: 'Custom', minutes: 60 }
-	];
-
-	// Initialize states with dayjs internally
+	// Use key in dependency array to force state reset
 	const [startDateTimeInternal, setStartDateTimeInternal] =
 		useState(initialStartTime);
 	const [endDateTimeInternal, setEndDateTimeInternal] =
@@ -92,6 +85,27 @@ export const useEventTiming = (
 	const [isEditingStartOrEnd, setIsEditingStartOrEnd] = useState<
 		'start' | 'end'
 	>('start');
+
+	// Reset all state when key changes
+	useEffect(() => {
+		setStartDateTimeInternal(initialStartTime);
+		setEndDateTimeInternal(initialEndTime);
+		setSelectedDurationOption(
+			getInitialDurationOption(initialStartTime, initialEndTime)
+		);
+		setCurrentDuration(
+			initialEndTime ? initialEndTime.diff(initialStartTime, 'minute') : null
+		);
+		setIsEditingStartOrEnd('start');
+	}, [key]);
+
+	// Define duration options
+	const durationOptions: DurationOption[] = [
+		{ id: 'none', label: 'None', minutes: null },
+		{ id: '1hr', label: '1 hour', minutes: 60 },
+		{ id: '2hrs', label: '2 hours', minutes: 120 },
+		{ id: 'custom', label: 'Custom', minutes: 60 }
+	];
 
 	// Helper to safely set start date time
 	const setStartDateTime = (newStartDate: Date) => {

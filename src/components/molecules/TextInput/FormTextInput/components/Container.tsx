@@ -15,8 +15,8 @@ const Container: React.FC<ContainerProps> = ({ onPress, ...props }) => {
 			<View
 				flexDirection='row'
 				paddingVertical='xl'
-				borderBottomColor='border.light'
-				borderBottomWidth={theme.borderWidth.normal}
+				borderBottomColor='border.xlight'
+				borderBottomWidth={theme.borderWidth.hairline}
 				{...props}
 			/>
 		</TouchableWithoutFeedback>

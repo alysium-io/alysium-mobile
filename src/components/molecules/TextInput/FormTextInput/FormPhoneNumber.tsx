@@ -1,24 +1,43 @@
 import { PhoneNumberTextInput, TextInput, View } from '@atomic';
 import { TextInputApi, useTheme } from '@hooks';
 import { Props } from '@types';
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { TextInput as RNTextInput } from 'react-native';
+import ClearButton from './components/ClearButton';
 import Container from './components/Container';
 import Label from './components/Label';
 
 type FormPhoneNumberProps = Props<typeof PhoneNumberTextInput> & {
 	label: string;
 	textInputApi?: TextInputApi;
+	focusOnMount?: boolean;
+	focusOnMountDelay?: number;
+	onPressClear?: () => void;
 };
 
 const FormPhoneNumber: React.FC<FormPhoneNumberProps> = ({
 	label,
 	textInputApi,
 	defaultValue,
+	focusOnMount,
+	focusOnMountDelay,
+	onPressClear,
 	...props
 }) => {
 	const { theme } = useTheme();
 	const ref = useRef<RNTextInput>(null);
+
+	useEffect(() => {
+		if (focusOnMount) {
+			if (focusOnMountDelay) {
+				setTimeout(() => {
+					ref.current?.focus();
+				}, focusOnMountDelay);
+			} else {
+				ref.current?.focus();
+			}
+		}
+	}, []);
 
 	return (
 		<Container onPress={() => ref.current?.focus()}>
@@ -37,6 +56,7 @@ const FormPhoneNumber: React.FC<FormPhoneNumberProps> = ({
 					maxLength={14}
 				/>
 			</View>
+			{onPressClear && <ClearButton onPress={onPressClear} />}
 		</Container>
 	);
 };

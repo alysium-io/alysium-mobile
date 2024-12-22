@@ -11,19 +11,21 @@ import {
 	EditArtistEventPopupMenuBottomSheet
 } from '@popups';
 import { useRoute } from '@react-navigation/native';
-import { EditArtistEventPageRouteProp } from '@types';
+import { EditEventPageRouteProp } from '@types';
 import React, { useCallback, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { If, Then } from 'react-if';
 import { ScrollView } from 'react-native';
+import AboutSection from './components/AboutSection';
 import AssetsSection from './components/AssetsSection';
 import DateSection from './components/DateSection';
 import HeaderSection from './components/HeaderSection';
 import LocationSection from './components/LocationSection';
-import EditArtistEventPageHeader from './EditArtistEvent.header';
+import EditEventPageHeader from './EditArtistEvent.header';
+import { Loading } from './Loading';
 
-const EditArtistEventPage = () => {
-	const route = useRoute<EditArtistEventPageRouteProp>();
+const EditEventPage = () => {
+	const route = useRoute<EditEventPageRouteProp>();
 	const { dismiss } = useKeyboard();
 	const { artistData } = useArtistAppContext();
 	const confirmPublishEventSheetApi = useSheet();
@@ -48,20 +50,14 @@ const EditArtistEventPage = () => {
 	} = useForm<UpdateArtistEventBodyDto>({
 		defaultValues: {
 			name: eventData?.event.name,
-			about: eventData?.event.about,
-			start_time: eventData?.event.start_time,
-			end_time: eventData?.event.end_time,
-			status: eventData?.event.status
+			about: eventData?.event.about
 		}
 	});
 
 	useEffect(() => {
 		reset({
 			name: eventData?.event.name,
-			about: eventData?.event.about,
-			start_time: eventData?.event.start_time,
-			end_time: eventData?.event.end_time,
-			status: eventData?.event.status
+			about: eventData?.event.about
 		});
 	}, [eventData]);
 
@@ -105,13 +101,16 @@ const EditArtistEventPage = () => {
 	);
 
 	if (!eventData) {
-		return null;
+		return <Loading />;
 	}
 
 	return (
 		<BasePage FooterComponent={FooterComponent}>
-			<EditArtistEventPageHeader
-				title={eventData.event.name}
+			<EditEventPageHeader
+				titleProps={{
+					title: eventData.event.status,
+					titleProps: { color: 'text.q', variant: 'paragraph-small' }
+				}}
 				onPressMenu={editArtistEventPopupMenuBottomSheet.open}
 			/>
 			<ScrollView onScrollBeginDrag={dismiss}>
@@ -126,11 +125,8 @@ const EditArtistEventPage = () => {
 					endTime={eventData.event.end_time}
 				/>
 				<LocationSection eventData={eventData} />
-				<AssetsSection
-					eventData={eventData}
-					control={control}
-					onBlurEditable={onBlurEditable}
-				/>
+				<AboutSection eventData={eventData} />
+				<AssetsSection eventData={eventData} />
 			</ScrollView>
 			<EditArtistEventPopupMenuBottomSheet
 				sheetApi={editArtistEventPopupMenuBottomSheet}
@@ -145,4 +141,4 @@ const EditArtistEventPage = () => {
 	);
 };
 
-export default EditArtistEventPage;
+export default EditEventPage;

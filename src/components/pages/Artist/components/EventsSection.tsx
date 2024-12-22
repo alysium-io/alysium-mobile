@@ -3,7 +3,7 @@ import { PublicFindOneArtistResponseDto } from '@flux/api/artist/dto/artist-find
 import { FindAllArtistEventsResponseDto } from '@flux/api/event/dto/artist-event-find-all.dto';
 import { useDate, useImage, useNavigation } from '@hooks';
 import { ContentListItem, Location, SeeAllBottomButton } from '@molecules';
-import day from 'dayjs';
+import dayjs from 'dayjs';
 import React from 'react';
 
 interface EventsSectionProps {
@@ -15,7 +15,7 @@ const EventsSection: React.FC<EventsSectionProps> = ({
 	artistData,
 	eventsData
 }) => {
-	const { artistEventPage, artistEventsPage } = useNavigation();
+	const { eventPage, artistEventsPage } = useNavigation();
 	const { semantic } = useDate();
 	const { urlForKey } = useImage();
 
@@ -38,7 +38,7 @@ const EventsSection: React.FC<EventsSectionProps> = ({
 				const semanticDateString = semantic(event.event.start_time);
 				const defaultDateString =
 					event.event.start_time !== null
-						? day(event.event.start_time).format('MMM D, YYYY')
+						? dayjs(event.event.start_time).format('MMM D, YYYY')
 						: event.event.status;
 				const bottomSubtext =
 					semanticDateString !== '' ? semanticDateString : defaultDateString;
@@ -46,10 +46,10 @@ const EventsSection: React.FC<EventsSectionProps> = ({
 					<ContentListItem
 						key={event.event.event_uid}
 						onPress={() =>
-							artistEventPage(event.event.event_uid, {
+							eventPage(event.event.event_uid, {
 								from: 'ArtistPage',
 								from_uid: artistData.artist_uid,
-								to: 'ArtistEventPage',
+								to: 'EventPage',
 								to_uid: event.event.event_uid,
 								using: 'ARTIST_PAGE_EVENT_CONTENT_LIST_ITEM'
 							})

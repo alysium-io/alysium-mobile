@@ -3,7 +3,7 @@ import { EventLink } from '@flux/api/event-link/event-link.entity';
 import { useNavigation } from '@hooks';
 import { TimelineListItem } from '@molecules';
 import { NanoId } from '@types';
-import day from 'dayjs';
+import dayjs from 'dayjs';
 import React from 'react';
 
 interface HistorySectionProps {
@@ -15,7 +15,7 @@ const HistorySection: React.FC<HistorySectionProps> = ({
 	artist_uid,
 	events
 }) => {
-	const { artistEventPage } = useNavigation();
+	const { eventPage } = useNavigation();
 	if (!events) return null;
 
 	if (events?.length === 0) {
@@ -47,10 +47,10 @@ const HistorySection: React.FC<HistorySectionProps> = ({
 				<TimelineListItem
 					key={event.event.event_uid}
 					onPress={() =>
-						artistEventPage(event.event.event_uid, {
+						eventPage(event.event.event_uid, {
 							from: 'ArtistPage',
 							from_uid: artist_uid,
-							to: 'ArtistEventPage',
+							to: 'EventPage',
 							to_uid: event.event.event_uid,
 							using: 'EVENT_PAGE_ARTIST_EVENT_HISTORY'
 						})
@@ -66,7 +66,7 @@ const HistorySection: React.FC<HistorySectionProps> = ({
 						image: event.event.profile_image?.medium.key
 					}}
 					fixedTextProps={{
-						text: day(event.event.start_time).format('MMM. Do')
+						text: dayjs(event.event.start_time).format('MMM. Do')
 					}}
 				/>
 			))}

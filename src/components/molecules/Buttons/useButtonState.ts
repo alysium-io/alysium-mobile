@@ -5,7 +5,7 @@ export type ButtonState = 'active' | 'loading' | 'disabled' | 'success';
 export interface ButtonStateApi {
 	buttonState: ButtonState;
 	setButtonState: (buttonState: ButtonState) => void;
-	buttonSuccess: () => void;
+	buttonSuccess: (timeout?: number) => Promise<void>;
 	reset: () => void;
 }
 
@@ -15,13 +15,13 @@ const useButtonState = (
 	const [initialButtonState] = useState<ButtonState>(defaultState);
 	const [buttonState, setButtonState] = useState<ButtonState>(defaultState);
 
-	const buttonSuccess = () => {
+	const buttonSuccess = (timeout: number = 1500): Promise<void> => {
 		return new Promise((resolve) => {
 			setButtonState('success');
 			setTimeout(() => {
 				setButtonState('active');
 				resolve(undefined);
-			}, 1500);
+			}, timeout);
 		});
 	};
 

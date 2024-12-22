@@ -1,7 +1,7 @@
 import {
-	ArtistEventPage,
 	ArtistEventsPage,
 	ArtistPage,
+	EventPage,
 	ScenePage,
 	SearchPage,
 	TagPage,
@@ -13,7 +13,7 @@ import {
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { SearchStackNavigatorParamList } from '@types';
 import React from 'react';
-import { useTabSettings } from './settings';
+import { useTabSettings } from './useTabSettings';
 
 export const SearchStack =
 	createNativeStackNavigator<SearchStackNavigatorParamList>();
@@ -50,7 +50,7 @@ const SearchTab = () => {
 				}}
 			/>
 
-			<SearchStack.Screen name='ArtistEventPage' component={ArtistEventPage} />
+			<SearchStack.Screen name='EventPage' component={EventPage} />
 			<SearchStack.Screen
 				name='ArtistEventsPage'
 				component={ArtistEventsPage}

@@ -21,8 +21,8 @@ const Container: React.FC<ContainerProps> = ({
 			flexDirection='row'
 			alignItems='center'
 			justifyContent='space-between'
-			borderBottomColor='border.light'
-			borderBottomWidth={border ? theme.borderWidth.normal : 0}
+			borderBottomColor='border.xlight'
+			borderBottomWidth={border ? theme.borderWidth.hairline : 0}
 			{...props}
 		>
 			{children}

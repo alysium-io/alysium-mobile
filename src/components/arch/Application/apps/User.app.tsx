@@ -5,15 +5,19 @@ import {
 	CheckUserWantsToRegisterBottomSheet,
 	CreateAccountBottomSheet
 } from '@popups';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { UserAppBottomTabNavigatorParamList } from '@types';
 import React from 'react';
 import { useUserAppContext } from '../contexts/User.context';
 import { ProfileTab, SearchTab } from '../tabs';
 import AppDependencies from './AppDependencies';
-import { FALLBACK_TAB, useAppSettings, UserTabNavigator } from './settings';
+import { useAppSettings } from './useAppSettings';
+
+export const UserTabNavigator =
+	createBottomTabNavigator<UserAppBottomTabNavigatorParamList>();
 
 const UserApp = () => {
-	const appTabNavigatorProps = useAppSettings();
+	const { screenOptions, fallbackTab } = useAppSettings();
 	const { setPersistedAppState, tab } = usePersistedAppState();
 	const {
 		userData,
@@ -23,7 +27,7 @@ const UserApp = () => {
 
 	const getInitialRouteName = (): keyof UserAppBottomTabNavigatorParamList => {
 		if (!['Search', 'Profile'].includes(tab)) {
-			return FALLBACK_TAB;
+			return fallbackTab;
 		} else {
 			return tab as keyof UserAppBottomTabNavigatorParamList;
 		}
@@ -34,7 +38,7 @@ const UserApp = () => {
 		<AppDependencies>
 			<AppTransitionWrapper>
 				<UserTabNavigator.Navigator
-					{...appTabNavigatorProps}
+					screenOptions={screenOptions}
 					initialRouteName={initialTab}
 					screenListeners={{
 						state: (e) => {

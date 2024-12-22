@@ -41,7 +41,9 @@ const ShareButton: React.FC<ShareExternalProps> = ({
 						/>
 					)}
 				</View>
-				<Text marginTop='s'>{title}</Text>
+				<Text marginTop='s' color='palette.neutral.p9'>
+					{title}
+				</Text>
 			</View>
 		</TouchableOpacity>
 	);

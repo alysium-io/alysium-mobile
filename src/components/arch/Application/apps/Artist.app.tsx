@@ -1,21 +1,24 @@
 import { AppTransitionWrapper, Icon } from '@atomic';
 import { usePersistedAppState, withProvider } from '@hooks';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { ArtistAppBottomTabNavigatorParamList } from '@types';
 import React from 'react';
 import { ArtistAppProvider } from '../contexts/Artist.context';
-import { ProfileTab, SearchTab } from '../tabs';
-import EditArtistTab from '../tabs/EditArtist.tab';
+import { EventManagerTab, ProfileTab, SearchTab } from '../tabs';
 import AppDependencies from './AppDependencies';
-import { ArtistTabNavigator, FALLBACK_TAB, useAppSettings } from './settings';
+import { useAppSettings } from './useAppSettings';
+
+export const ArtistTabNavigator =
+	createBottomTabNavigator<ArtistAppBottomTabNavigatorParamList>();
 
 const ArtistApp = () => {
-	const appTabNavigatorProps = useAppSettings();
+	const { screenOptions, fallbackTab } = useAppSettings();
 	const { setPersistedAppState, tab } = usePersistedAppState();
 
 	const getInitialRouteName =
 		(): keyof ArtistAppBottomTabNavigatorParamList => {
-			if (!['Search', 'EditArtist', 'Profile'].includes(tab)) {
-				return FALLBACK_TAB;
+			if (!['Search', 'EditArtist', 'EventManager', 'Profile'].includes(tab)) {
+				return fallbackTab;
 			} else {
 				return tab as keyof ArtistAppBottomTabNavigatorParamList;
 			}
@@ -26,7 +29,7 @@ const ArtistApp = () => {
 		<AppDependencies>
 			<AppTransitionWrapper>
 				<ArtistTabNavigator.Navigator
-					{...appTabNavigatorProps}
+					screenOptions={screenOptions}
 					initialRouteName={initialTab}
 					screenListeners={{
 						state: (e) => {
@@ -60,8 +63,8 @@ const ArtistApp = () => {
 						}}
 					/>
 					<ArtistTabNavigator.Screen
-						name='EditArtist'
-						component={EditArtistTab}
+						name='EventManager'
+						component={EventManagerTab}
 						options={{
 							tabBarIcon: ({ focused }) => (
 								<Icon

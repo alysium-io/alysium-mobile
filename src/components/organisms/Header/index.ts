@@ -1,4 +1,5 @@
 export { default as Header } from './Header';
+export { default as HeaderBackButton } from './HeaderBackButton';
 export { default as HeaderCenterSection } from './HeaderCenterSection';
 export { default as HeaderIconButton } from './HeaderIconButton';
 export { default as HeaderLeftSection } from './HeaderLeftSection';

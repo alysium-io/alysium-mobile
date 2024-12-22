@@ -1,4 +1,8 @@
-import { BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet';
+import {
+	BottomSheetModal,
+	BottomSheetView,
+	SNAP_POINT_TYPE
+} from '@gorhom/bottom-sheet';
 import { SheetRef, useTheme } from '@hooks';
 import { Props } from '@types';
 import React from 'react';
@@ -13,6 +17,7 @@ type BottomSheetProps = Props<typeof BottomSheetModal> & {
 	backgroundColor?: string;
 	borderColor?: string;
 	contentContainerStyle?: Props<typeof BottomSheetView>['style'];
+	sheetDidOpen?: () => void;
 };
 
 const BottomSheet: React.FC<BottomSheetProps> = ({
@@ -25,6 +30,8 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
 	enableContentPanningGesture = false,
 	borderRadius = true,
 	contentContainerStyle,
+	onChange,
+	sheetDidOpen,
 	...props
 }) => {
 	const { theme } = useTheme();
@@ -33,6 +40,17 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
 		damping: 30,
 		mass: 1,
 		stiffness: 300
+	};
+
+	const _onChange = (
+		index: number,
+		position: number,
+		type: SNAP_POINT_TYPE
+	): void => {
+		if (index === 0 && sheetDidOpen) {
+			sheetDidOpen();
+		}
+		onChange && onChange(index, position, type);
 	};
 
 	return (
@@ -46,8 +64,9 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
 			enableDynamicSizing={props.snapPoints ? false : true}
 			enableContentPanningGesture={enableContentPanningGesture}
 			stackBehavior='push'
+			onChange={_onChange}
 			backgroundStyle={{
-				backgroundColor: theme.colors['bg.p'],
+				backgroundColor: backgroundColor ?? theme.colors['bg.p'],
 				borderRadius: 25
 			}}
 			{...props}

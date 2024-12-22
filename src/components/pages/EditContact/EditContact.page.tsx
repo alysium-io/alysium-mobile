@@ -1,23 +1,18 @@
 import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
-import { View } from '@atomic';
+import { Text, View } from '@atomic';
 import { Formatting } from '@etc';
 import { contactApiSlice } from '@flux/api/contact';
 import { UpdateContactBodyDto } from '@flux/api/contact/dto/contact-update.dto';
-import { useKeyboard, useNavigation, useSheet, useToast } from '@hooks';
-import {
-	ActionButtons,
-	FormPhoneNumber,
-	FormText,
-	useButtonState
-} from '@molecules';
+import { useKeyboard, useNavigation, useToast } from '@hooks';
+import { FormPhoneNumber, FormText } from '@molecules';
 import { BasePage } from '@organisms';
 import { useRoute } from '@react-navigation/native';
+import { Alert, useGlobalLoader } from '@templates';
 import { EditContactPageRouteProp } from '@types';
-import React, { useCallback } from 'react';
+import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { Alert, ScrollView } from 'react-native';
+import { ScrollView, TouchableOpacity } from 'react-native';
 import EditContactPageHeader from './EditContact.header';
-import PopupMenuSheet from './sheets/PopupMenuSheet';
 
 const EditContactPage = () => {
 	const route = useRoute<EditContactPageRouteProp>();
@@ -26,15 +21,13 @@ const EditContactPage = () => {
 	const { artistData } = useArtistAppContext();
 	const [deleteContactMutation] = contactApiSlice.useDeleteContactMutation();
 	const [updateContactMutation] = contactApiSlice.useUpdateContactMutation();
-	const saveButtonStateApi = useButtonState();
-	const deleteButtonStateApi = useButtonState();
 	const { dismiss } = useKeyboard();
-	const popupMenuSheetApi = useSheet();
+	const { showLoader, hideLoader } = useGlobalLoader();
 
 	const {
 		control,
 		handleSubmit,
-		formState: { isDirty }
+		formState: { isDirty, isValid }
 	} = useForm<UpdateContactBodyDto>({
 		defaultValues: {
 			name: route.params.contact.name,
@@ -48,7 +41,7 @@ const EditContactPage = () => {
 
 	const onSubmit = (data: UpdateContactBodyDto) => {
 		if (isDirty) {
-			saveButtonStateApi.setButtonState('loading');
+			showLoader();
 			updateContactMutation({
 				params: {
 					artist_uid: artistData.artist_uid,
@@ -60,9 +53,11 @@ const EditContactPage = () => {
 				}
 			})
 				.unwrap()
-				.then(back)
 				.catch(toastError)
-				.finally(() => saveButtonStateApi.reset());
+				.finally(() => {
+					hideLoader();
+					back();
+				});
 		} else {
 			back();
 		}
@@ -82,17 +77,18 @@ const EditContactPage = () => {
 					style: 'destructive',
 					onPress: async () => {
 						try {
-							deleteButtonStateApi.setButtonState('loading');
+							showLoader();
 							await deleteContactMutation({
 								params: {
 									contact_uid: route.params.contact.contact_uid,
 									artist_uid: artistData.artist_uid
 								}
 							});
-							back();
 						} catch {
 							toastError('Failed to delete contact');
-							deleteButtonStateApi.setButtonState('active');
+						} finally {
+							hideLoader();
+							back();
 						}
 					}
 				}
@@ -122,35 +118,12 @@ const EditContactPage = () => {
 		}
 	};
 
-	const FooterComponent = useCallback(
-		() => (
-			<View margin='m'>
-				<ActionButtons
-					buttonProps={[
-						{
-							text: 'Delete',
-							onPress: onDelete,
-							variant: 'outlined',
-							color: 't',
-							buttonState: deleteButtonStateApi.buttonState
-						},
-						{
-							text: 'Save',
-							onPress: handleSubmit(onSubmit),
-							buttonState: saveButtonStateApi.buttonState
-						}
-					]}
-				/>
-			</View>
-		),
-		[onSubmit, saveButtonStateApi.buttonState, deleteButtonStateApi.buttonState]
-	);
-
 	return (
-		<BasePage FooterComponent={FooterComponent}>
+		<BasePage>
 			<EditContactPageHeader
 				onCancel={onCancel}
-				popupMenuSheetApi={popupMenuSheetApi}
+				onSubmit={handleSubmit(onSubmit)}
+				isValid={isValid}
 			/>
 			<ScrollView onScrollBeginDrag={dismiss}>
 				<View margin='m'>
@@ -163,6 +136,8 @@ const EditContactPage = () => {
 						}}
 						render={({ field: { onChange, value } }) => (
 							<FormText
+								focusOnMount
+								onPressClear={() => onChange('')}
 								label='Name'
 								placeholder='John Smith'
 								onChangeText={onChange}
@@ -175,6 +150,7 @@ const EditContactPage = () => {
 						name='role'
 						render={({ field: { value, onChange } }) => (
 							<FormText
+								onPressClear={() => onChange('')}
 								label='Role'
 								placeholder='Manager, booking agent, etc.'
 								value={value ?? undefined}
@@ -187,6 +163,7 @@ const EditContactPage = () => {
 						name='phone_number'
 						render={({ field: { value, onChange } }) => (
 							<FormPhoneNumber
+								onPressClear={() => onChange('')}
 								label='Phone'
 								value={value ?? undefined}
 								onChangeText={(text: string) =>
@@ -201,6 +178,7 @@ const EditContactPage = () => {
 						render={({ field: { value, onChange } }) => {
 							return (
 								<FormText
+									onPressClear={() => onChange('')}
 									label='Email'
 									placeholder='johnsmith@gmail.com'
 									value={value ?? undefined}
@@ -209,9 +187,19 @@ const EditContactPage = () => {
 							);
 						}}
 					/>
+					<TouchableOpacity onPress={onDelete}>
+						<View marginTop='l'>
+							<Text
+								color='danger'
+								variant='paragraph-medium'
+								textAlign='center'
+							>
+								Delete Contact
+							</Text>
+						</View>
+					</TouchableOpacity>
 				</View>
 			</ScrollView>
-			<PopupMenuSheet sheetApi={popupMenuSheetApi} />
 		</BasePage>
 	);
 };

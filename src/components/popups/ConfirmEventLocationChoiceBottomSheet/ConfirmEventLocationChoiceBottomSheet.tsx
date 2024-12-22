@@ -6,9 +6,8 @@ import { locationApiSlice } from '@flux/api/location';
 import { GoogleMapsAutocompleteResult } from '@flux/api/location/types';
 import { BottomSheetView } from '@gorhom/bottom-sheet';
 import { SheetApi, useNavigation } from '@hooks';
-import { ActionButtons, useButtonState } from '@molecules';
+import { ActionButtons, Location, useButtonState } from '@molecules';
 import { BottomSheet } from '@organisms';
-import LocationMapView from '@src/components/molecules/Maps/LocationMapView';
 import React from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -25,8 +24,8 @@ const ConfirmEventLocationChoiceBottomSheet: React.FC<
 	const insets = useSafeAreaInsets();
 	const { back } = useNavigation();
 	const { artistData } = useArtistAppContext();
-	const [updateArtistEventLocationMutation] =
-		artistEventApiSlice.useUpdateArtistEventLocationMutation();
+	const [patchArtistEventLocationMutation] =
+		artistEventApiSlice.usePatchArtistEventLocationMutation();
 
 	const { data: locationData } =
 		locationApiSlice.useFindGoogleLocationDetailsByPlaceIdQuery(
@@ -45,7 +44,7 @@ const ConfirmEventLocationChoiceBottomSheet: React.FC<
 			joinButtonStateApi.setButtonState('loading');
 			const place_id = googleMapsAutocompleteResult?.place_id;
 			if (place_id && eventData) {
-				await updateArtistEventLocationMutation({
+				await patchArtistEventLocationMutation({
 					params: {
 						artist_uid: artistData.artist_uid,
 						event_uid: eventData.event.event_uid
@@ -65,8 +64,11 @@ const ConfirmEventLocationChoiceBottomSheet: React.FC<
 	return (
 		<BottomSheet
 			sheetRef={sheetApi.sheetRef}
-			snapPoints={['70%']}
 			handleComponent={null}
+			// Using enableDynamicSizing causes really strange behavior
+			// with the location map view. Give it a specific snap point
+			// to avoid that.
+			snapPoints={['70%']}
 		>
 			<BottomSheetView
 				style={{
@@ -74,13 +76,7 @@ const ConfirmEventLocationChoiceBottomSheet: React.FC<
 					marginBottom: insets.bottom
 				}}
 			>
-				<View
-					flex={1}
-					padding='m'
-					alignItems='center'
-					justifyContent='center'
-					marginBottom='m'
-				>
+				<View flex={1} padding='m' alignItems='center' justifyContent='center'>
 					<View margin='l'>
 						<Icon name='location' size='l' />
 					</View>
@@ -91,17 +87,21 @@ const ConfirmEventLocationChoiceBottomSheet: React.FC<
 						{googleMapsAutocompleteResult?.secondary_text}
 					</Text>
 				</View>
-				<View height={300} width='100%'>
+				<View height={300} padding='m' borderRadius='m'>
 					{locationData && (
-						<LocationMapView
+						<Location
 							markers={{
 								location: locationData,
 								label: googleMapsAutocompleteResult?.main_text
 							}}
+							containerProps={{
+								margin: 'm',
+								style: { borderRadius: 25 }
+							}}
 						/>
 					)}
 				</View>
-				<View margin='m' paddingBottom='m'>
+				<View margin='m'>
 					<ActionButtons
 						buttonProps={[
 							{

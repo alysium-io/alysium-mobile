@@ -4,7 +4,7 @@ import { ActionButtons, PillGroup } from '@molecules';
 import TogglePill from '@src/components/molecules/Pills/TogglePill';
 import { useEventTiming } from '@src/utils/hooks/useEventTiming';
 import { Props } from '@types';
-import day from 'dayjs';
+import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 import React from 'react';
 import { useWindowDimensions } from 'react-native';
@@ -12,8 +12,8 @@ import DatePicker from 'react-native-date-picker';
 import { LinearTransition } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 var advancedFormat = require('dayjs/plugin/advancedFormat');
-day.extend(advancedFormat);
-day.extend(duration);
+dayjs.extend(advancedFormat);
+dayjs.extend(duration);
 
 type Resolution =
 	| 'year'
@@ -29,7 +29,7 @@ export function formatDuration(
 	end: Date,
 	resolution: Resolution = 'second'
 ): string {
-	const duration = day.duration(day(end).diff(day(start)));
+	const duration = dayjs.duration(dayjs(end).diff(dayjs(start)));
 	const units: Resolution[] = [
 		'year',
 		'month',
@@ -119,10 +119,10 @@ const SelectDatetimeWithDuration = () => {
 							Start Date
 						</Text>
 						<Text variant='section-header-1' marginBottom='xs'>
-							{day(startDateTime).format('MMM. Do')}
+							{dayjs(startDateTime).format('MMM. Do')}
 						</Text>
 						<Text variant='paragraph-large' color='text.s'>
-							{day(startDateTime).format('h:mm A')}
+							{dayjs(startDateTime).format('h:mm A')}
 						</Text>
 					</View>
 					{selectedDurationOption.id === 'custom' && endDateTime && (
@@ -143,10 +143,10 @@ const SelectDatetimeWithDuration = () => {
 								marginBottom='xs'
 								textAlign='right'
 							>
-								{day(endDateTime).format('MMM. Do')}
+								{dayjs(endDateTime).format('MMM. Do')}
 							</Text>
 							<Text variant='paragraph-large' color='text.s' textAlign='right'>
-								{day(endDateTime).format('h:mm A')}
+								{dayjs(endDateTime).format('h:mm A')}
 							</Text>
 						</View>
 					)}

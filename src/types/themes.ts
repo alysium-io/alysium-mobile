@@ -85,6 +85,7 @@ export type SemanticColors = {
 	'bg-touch-animation.bg.p': HexColor;
 
 	// Borders
+	'border.xlight': HexColor;
 	'border.light': HexColor;
 	'border.medium': HexColor;
 	'border.heavy': HexColor;
@@ -204,6 +205,8 @@ export type SemanticColors = {
 	'palette.q.light': HexColor;
 	'palette.q.medium': HexColor;
 	'palette.q.dark': HexColor;
+
+	danger: HexColor;
 };
 
 export type SemanticColor = keyof SemanticColors;

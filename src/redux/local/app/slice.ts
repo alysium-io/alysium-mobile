@@ -1,4 +1,4 @@
-import { FALLBACK_TAB } from '@arch/Application/apps/settings';
+import { FALLBACK_TAB } from '@arch/Application/apps/useAppSettings';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { AppState, AuthStage, Persona, ThemeMode } from '@types';
 
