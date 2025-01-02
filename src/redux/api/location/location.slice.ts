@@ -11,6 +11,10 @@ import {
 	FindGoogleLocationDetailsByPlaceIdBodyDto,
 	FindGoogleLocationDetailsByPlaceIdResponseDto
 } from './dto/find-google-location-details-by-place-id.dto';
+import {
+	DriveTimeQueryDto,
+	DriveTimeResponseDto
+} from './dto/get-drive-time.dto';
 
 const url = rtkBaseUrl('location');
 
@@ -21,7 +25,7 @@ export default serviceApi.injectEndpoints({
 			{ body: AutocompleteAddressBodyDto }
 		>({
 			query: ({ body }) => ({
-				url: url(`/autocomplete-place`),
+				url: url('/autocomplete-place'),
 				method: 'POST',
 				body
 			})
@@ -31,7 +35,7 @@ export default serviceApi.injectEndpoints({
 			{ body: AutocompleteSceneBodyDto }
 		>({
 			query: ({ body }) => ({
-				url: url(`/autocomplete-scene`),
+				url: url('/autocomplete-scene'),
 				method: 'POST',
 				body
 			})
@@ -41,9 +45,19 @@ export default serviceApi.injectEndpoints({
 			{ body: FindGoogleLocationDetailsByPlaceIdBodyDto }
 		>({
 			query: ({ body }) => ({
-				url: url(`/place`),
+				url: url('/place'),
 				method: 'POST',
 				body
+			})
+		}),
+		getDriveTime: builder.query<
+			DriveTimeResponseDto,
+			{ query: DriveTimeQueryDto }
+		>({
+			query: ({ query }) => ({
+				url: url('/directions'),
+				method: 'GET',
+				params: query
 			})
 		})
 	})

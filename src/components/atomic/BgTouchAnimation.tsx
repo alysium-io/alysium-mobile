@@ -1,4 +1,4 @@
-import { View } from '@atomic';
+import { AView } from '@atomic';
 import { Colors } from '@etc';
 import { useTheme } from '@hooks';
 import { SemanticColor } from '@types';
@@ -59,9 +59,7 @@ const BgTouchAnimation: React.FC<BgTouchAnimationProps> = ({
 			onPressOut={onPressOut}
 			onPress={onPress}
 		>
-			<View animated style={animatedStyle}>
-				{children}
-			</View>
+			<AView style={animatedStyle}>{children}</AView>
 		</TouchableWithoutFeedback>
 	);
 };

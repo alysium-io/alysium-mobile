@@ -8,13 +8,15 @@ interface SubHeaderProps {
 
 const SubHeader: React.FC<SubHeaderProps> = ({ sceneData }) => {
 	return (
-		<View margin='m'>
-			<Text variant='paragraph-large-medium' marginBottom='xs'>
-				{sceneData.name}
-			</Text>
-			<Text variant='paragraph-medium' color='text.q'>
-				{sceneData.country}
-			</Text>
+		<View margin='m' flexDirection='row' justifyContent='space-between'>
+			<View>
+				<Text variant='paragraph-large-medium' marginBottom='xs'>
+					{sceneData.name}
+				</Text>
+				<Text variant='paragraph-medium' color='text.q'>
+					{sceneData.country}
+				</Text>
+			</View>
 		</View>
 	);
 };

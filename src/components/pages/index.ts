@@ -15,6 +15,8 @@ export * from './EditExternalLink';
 export * from './EditExternalLinks';
 export * from './Event';
 export * from './EventManager';
+export * from './Home';
+export * from './LocalEventsMap';
 export * from './ManageEvent';
 export * from './Profile';
 export * from './Scene';

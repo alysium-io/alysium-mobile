@@ -2,13 +2,14 @@ import { View } from '@atomic';
 import { eventApiSlice } from '@flux/api/event';
 import { BasePage, Parallax } from '@organisms';
 import { useRoute } from '@react-navigation/native';
+import { ParallaxLoading } from '@templates';
 import { EventPageRouteProp } from '@types';
 import React from 'react';
-import EventPageHeader from './Event.header';
 import GallerySection from './components/GallerySection';
 import LocationSection from './components/LocationSection';
 import OrganizerSection from './components/OrganizerSection';
 import SubHeader from './components/SubHeader';
+import EventPageHeader from './Event.header';
 
 const ArtistEvent = () => {
 	const { params } = useRoute<EventPageRouteProp>();
@@ -19,9 +20,9 @@ const ArtistEvent = () => {
 	});
 
 	if (!eventData) {
-		return null;
+		return <ParallaxLoading />;
 	}
-
+	console.log(eventData.event.gallery);
 	return (
 		<BasePage>
 			<EventPageHeader event_uid={params.event_uid} event={eventData.event} />

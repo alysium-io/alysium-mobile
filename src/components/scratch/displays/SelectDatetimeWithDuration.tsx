@@ -1,4 +1,4 @@
-import { Text, View } from '@atomic';
+import { LView, Text, View } from '@atomic';
 import { useTheme } from '@hooks';
 import { ActionButtons, PillGroup } from '@molecules';
 import TogglePill from '@src/components/molecules/Pills/TogglePill';
@@ -9,7 +9,6 @@ import duration from 'dayjs/plugin/duration';
 import React from 'react';
 import { useWindowDimensions } from 'react-native';
 import DatePicker from 'react-native-date-picker';
-import { LinearTransition } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 var advancedFormat = require('dayjs/plugin/advancedFormat');
 dayjs.extend(advancedFormat);
@@ -100,7 +99,7 @@ const SelectDatetimeWithDuration = () => {
 			justifyContent='flex-end'
 			flex={1}
 		>
-			<View animated layout={LinearTransition} margin='m'>
+			<LView margin='m'>
 				<View
 					flexDirection='row'
 					alignItems='flex-end'
@@ -161,11 +160,11 @@ const SelectDatetimeWithDuration = () => {
 						</Text>
 					</View>
 				)}
-			</View>
-			<View animated layout={LinearTransition}>
+			</LView>
+			<LView>
 				<DefaultDatePicker {...datePickerOptions} />
-			</View>
-			<View margin='m' animated layout={LinearTransition}>
+			</LView>
+			<LView margin='m'>
 				{selectedDurationOption.id === 'custom' && (
 					<PillGroup alignItems='center' justifyContent='center'>
 						<TogglePill
@@ -180,31 +179,27 @@ const SelectDatetimeWithDuration = () => {
 						/>
 					</PillGroup>
 				)}
-				<PillGroup
-					padding='m'
-					alignItems='center'
-					justifyContent='center'
-					animated
-					layout={LinearTransition}
-				>
-					{durationOptions.map((option, idx) => (
-						<TogglePill
-							key={idx}
-							text={option.label}
-							isActive={selectedDurationOption.id === option.id}
-							onPress={() => setSelectedDurationOption(option.id)}
-						/>
-					))}
-				</PillGroup>
-				<View animated layout={LinearTransition}>
+				<LView>
+					<PillGroup padding='m' alignItems='center' justifyContent='center'>
+						{durationOptions.map((option, idx) => (
+							<TogglePill
+								key={idx}
+								text={option.label}
+								isActive={selectedDurationOption.id === option.id}
+								onPress={() => setSelectedDurationOption(option.id)}
+							/>
+						))}
+					</PillGroup>
+				</LView>
+				<LView>
 					<ActionButtons
 						buttonProps={[
 							{ text: 'cancel', variant: 'outlined', onPress: () => {} },
 							{ text: 'save', color: 'p', onPress: () => {} }
 						]}
 					/>
-				</View>
-			</View>
+				</LView>
+			</LView>
 		</View>
 	);
 };

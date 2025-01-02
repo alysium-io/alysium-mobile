@@ -1,11 +1,11 @@
-import { View } from '@atomic';
+import { LView, View } from '@atomic';
 import { regexPatterns } from '@etc';
 import { TextInputApi } from '@hooks';
 import { DeclarativeText, InternationalPhoneNumberTextInput } from '@molecules';
 import { RegisterUserPhoneNumberFormApi } from '@src/utils/redux-hook-form/useRegisterUserPhoneNumberFormApi';
 import React from 'react';
 import { Controller } from 'react-hook-form';
-import { FadeIn, FadeOutLeft } from 'react-native-reanimated';
+import { FadeOutLeft } from 'react-native-reanimated';
 
 interface InputPhoneNumberProps {
 	registerUserPhoneNumberFormApi: RegisterUserPhoneNumberFormApi;
@@ -17,7 +17,7 @@ const InputPhoneNumber: React.FC<InputPhoneNumberProps> = ({
 	textInputApi
 }) => {
 	return (
-		<View animated entering={FadeIn} exiting={FadeOutLeft}>
+		<LView exiting={FadeOutLeft}>
 			<Controller
 				control={registerUserPhoneNumberFormApi.formMethods.control}
 				name='phone_number'
@@ -52,7 +52,7 @@ const InputPhoneNumber: React.FC<InputPhoneNumberProps> = ({
 					]}
 				/>
 			</View>
-		</View>
+		</LView>
 	);
 };
 

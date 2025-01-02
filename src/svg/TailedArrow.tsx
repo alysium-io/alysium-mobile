@@ -15,7 +15,9 @@ const path: PathProps = {
 	d: 'M236.667 38v400m0-400L70 204.667M236.667 38l166.666 166.667'
 };
 
-const TailedArrow: React.FC<IconProps> = (props) => {
+const TailedArrow: React.FC<
+	IconProps & { direction: 'up' | 'down' | 'left' | 'right' }
+> = (props) => {
 	const getDirection = (): string => {
 		/**
 		 * Returns 'right' by default
@@ -33,25 +35,6 @@ const TailedArrow: React.FC<IconProps> = (props) => {
 				return '0deg';
 		}
 	};
-
-	if (props.animated) {
-		return (
-			<Svg
-				{...svg}
-				size={props.size}
-				animated={true}
-				animatedProps={props.animatedSvgProps}
-				style={{ transform: [{ rotate: getDirection() }] }}
-			>
-				<Path
-					{...path}
-					stroke={props.color}
-					animated={true}
-					animatedProps={props.animatedPathProps}
-				/>
-			</Svg>
-		);
-	}
 
 	return (
 		<Svg

@@ -1,4 +1,4 @@
-import { Text, TextInput, View } from '@atomic';
+import { AView, Text, TextInput, View } from '@atomic';
 import { useTheme } from '@hooks';
 import { Props } from '@types';
 import React, { forwardRef } from 'react';
@@ -22,8 +22,7 @@ const TextBox = forwardRef<RNTextInput, TextBoxProps>(
 						}
 					}}
 				>
-					<View
-						animated
+					<AView
 						backgroundColor='bg.light'
 						padding='m'
 						borderWidth={theme.borderWidth.normal}
@@ -38,7 +37,7 @@ const TextBox = forwardRef<RNTextInput, TextBoxProps>(
 							multiline
 							{...props}
 						/>
-					</View>
+					</AView>
 				</TouchableWithoutFeedback>
 				{typeof subtitle === 'string' ? (
 					<Text

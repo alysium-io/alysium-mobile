@@ -1,4 +1,4 @@
-import { View } from '@atomic';
+import { AView, View } from '@atomic';
 import { Button } from '@molecules';
 import React, { useEffect, useRef, useState } from 'react';
 import {
@@ -191,8 +191,7 @@ const VideoPlayer = () => {
 				}}
 				renderLoader={() => <ActivityIndicator />}
 			/>
-			<View
-				animated
+			<AView
 				style={[
 					animatedWidth,
 					{

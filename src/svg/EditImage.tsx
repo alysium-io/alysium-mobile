@@ -31,48 +31,6 @@ const path5: PathProps = {
 };
 
 const EditImage: React.FC<IconProps> = (props) => {
-	if (props.animated) {
-		return (
-			<Svg
-				{...svg}
-				size={props.size}
-				animated
-				animatedProps={props.animatedSvgProps}
-			>
-				<Path
-					{...path1}
-					fill={props.color}
-					animated
-					animatedProps={props.animatedPathProps}
-				/>
-				<Path
-					{...path2}
-					fill={props.color}
-					animated
-					animatedProps={props.animatedPathProps}
-				/>
-				<Path
-					{...path3}
-					fill={props.color}
-					animated
-					animatedProps={props.animatedPathProps}
-				/>
-				<Path
-					{...path4}
-					fill={props.color}
-					animated
-					animatedProps={props.animatedPathProps}
-				/>
-				<Path
-					{...path5}
-					fill={props.color}
-					animated
-					animatedProps={props.animatedPathProps}
-				/>
-			</Svg>
-		);
-	}
-
 	return (
 		<Svg {...svg} size={props.size}>
 			<Path {...path1} fill={props.color} />

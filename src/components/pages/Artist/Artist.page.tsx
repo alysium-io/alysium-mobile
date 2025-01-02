@@ -3,6 +3,7 @@ import { artistApiSlice } from '@flux/api/artist';
 import { artistEventApiSlice } from '@flux/api/event';
 import { BasePage, Parallax } from '@organisms';
 import { useRoute } from '@react-navigation/native';
+import { ParallaxLoading } from '@templates';
 import { ArtistPageRouteProp } from '@types';
 import React from 'react';
 import ArtistPageHeader from './Artist.header';
@@ -29,7 +30,7 @@ const ArtistPage: React.FC = () => {
 		});
 
 	if (!artistData || !eventsData) {
-		return null;
+		return <ParallaxLoading />;
 	}
 
 	return (

@@ -1,13 +1,13 @@
-import { View } from '@atomic';
+import { AView } from '@atomic';
 import React from 'react';
 import { ActivityIndicator } from 'react-native';
 import { FadeIn, FadeOut } from 'react-native-reanimated';
 
 const ButtonLoading = () => {
 	return (
-		<View animated entering={FadeIn} exiting={FadeOut}>
+		<AView entering={FadeIn} exiting={FadeOut}>
 			<ActivityIndicator size='small' color='#cccccc' />
-		</View>
+		</AView>
 	);
 };
 

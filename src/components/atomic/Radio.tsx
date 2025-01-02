@@ -1,4 +1,4 @@
-import { View } from '@atomic';
+import { AView, View } from '@atomic';
 import { SemanticColor } from '@types';
 import React, { useEffect } from 'react';
 import { StyleSheet } from 'react-native';
@@ -45,11 +45,7 @@ const Radio: React.FC<RadioProps> = ({
 	return (
 		<TouchableWithoutFeedback onPress={onPress}>
 			<View borderColor={color} style={styles.container}>
-				<View
-					animated
-					style={[styles.dot, animatedStyles]}
-					backgroundColor={color}
-				/>
+				<AView style={[styles.dot, animatedStyles]} backgroundColor={color} />
 			</View>
 		</TouchableWithoutFeedback>
 	);

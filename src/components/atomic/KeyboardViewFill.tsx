@@ -1,4 +1,4 @@
-import { View } from '@atomic';
+import { AView } from '@atomic';
 import React from 'react';
 import { useAnimatedKeyboard, useAnimatedStyle } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -12,7 +12,7 @@ const KeyboardViewFill = () => {
 		};
 	}, [bottom]);
 
-	return <View animated style={animatedContainerStyle} />;
+	return <AView style={animatedContainerStyle} />;
 };
 
 export default KeyboardViewFill;

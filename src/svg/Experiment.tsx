@@ -17,20 +17,6 @@ const path2: PathProps = {
 };
 
 const Experiment: React.FC<IconProps> = (props) => {
-	if (props.animated) {
-		return (
-			<Svg
-				{...svg}
-				size={props.size}
-				animated={true}
-				animatedProps={props.animatedSvgProps}
-			>
-				<Path {...path1} fill={props.color} />
-				<Path {...path2} fill={props.color} />
-			</Svg>
-		);
-	}
-
 	return (
 		<Svg {...svg} size={props.size}>
 			<Path {...path1} fill={props.color} />

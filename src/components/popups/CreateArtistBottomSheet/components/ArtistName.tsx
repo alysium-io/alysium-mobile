@@ -26,7 +26,6 @@ const ArtistName: React.FC<ArtistNameProps> = ({
 					rules={{ required: 'Feedback is required' }}
 					render={({ field: { onChange, onBlur } }) => (
 						<TextBox
-							textInputApi={artistNameTextInputApi}
 							onChangeText={onChange}
 							onBlur={onBlur}
 							placeholder='Name'

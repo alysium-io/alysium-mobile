@@ -17,30 +17,6 @@ const path2: PathProps = {
 };
 
 const Link: React.FC<IconProps> = (props) => {
-	if (props.animated) {
-		return (
-			<Svg
-				{...svg}
-				size={props.size}
-				animated={true}
-				animatedProps={props.animatedSvgProps}
-			>
-				<Path
-					{...path1}
-					fill={props.color}
-					animated={true}
-					animatedProps={props.animatedPathProps}
-				/>
-				<Path
-					{...path2}
-					fill={props.color}
-					animated={true}
-					animatedProps={props.animatedPathProps}
-				/>
-			</Svg>
-		);
-	}
-
 	return (
 		<Svg {...svg} size={props.size}>
 			<Path {...path1} fill={props.color} />

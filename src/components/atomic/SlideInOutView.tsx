@@ -1,4 +1,4 @@
-import { View } from '@atomic';
+import { AView, View } from '@atomic';
 import { IChildrenProps, Props } from '@types';
 import React from 'react';
 import {
@@ -20,7 +20,7 @@ const animationConfigurations = {
 	}
 };
 
-type ViewProps = Omit<Props<typeof View>, 'entering' | 'exiting' | 'animated'>;
+type ViewProps = Omit<Props<typeof View>, 'entering' | 'exiting'>;
 type SlideInOutViewProps = IChildrenProps &
 	ViewProps & {
 		direction: keyof typeof animationConfigurations;
@@ -32,14 +32,13 @@ const SlideInOutView: React.FC<SlideInOutViewProps> = ({
 	...props
 }) => {
 	return (
-		<View
-			animated
+		<AView
 			entering={animationConfigurations[direction].entering}
 			exiting={animationConfigurations[direction].exiting}
 			{...props}
 		>
 			{children}
-		</View>
+		</AView>
 	);
 };
 

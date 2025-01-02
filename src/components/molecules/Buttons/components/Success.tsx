@@ -1,4 +1,4 @@
-import { Icon, View } from '@atomic';
+import { AView, Icon, View } from '@atomic';
 import React, { useEffect } from 'react';
 import {
 	useAnimatedStyle,
@@ -26,9 +26,9 @@ const Success: React.FC<SuccessProps> = ({ settings }) => {
 
 	return (
 		<View>
-			<View animated style={animatedContainer} overflow='hidden'>
+			<AView style={animatedContainer} overflow='hidden'>
 				<Icon name='checkmark' size='m' color={settings.textColor} />
-			</View>
+			</AView>
 		</View>
 	);
 };

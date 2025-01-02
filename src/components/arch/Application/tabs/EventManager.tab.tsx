@@ -4,7 +4,8 @@ import {
 	EditPublishedEventPage,
 	EventManager,
 	EventPage,
-	ManageEventPage
+	ManageEventPage,
+	ViewGalleryPage
 } from '@pages';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { EventManagerStackNavigatorParamList } from '@types';
@@ -44,6 +45,15 @@ const EventManagerTab = () => {
 			<EventManagerStack.Screen
 				name='EditPublishedEventPage'
 				component={EditPublishedEventPage}
+			/>
+
+			<EventManagerStack.Screen
+				name='ViewGalleryPage'
+				component={ViewGalleryPage}
+				options={{
+					presentation: 'transparentModal',
+					animation: 'fade'
+				}}
 			/>
 		</EventManagerStack.Navigator>
 	);

@@ -1,8 +1,8 @@
-import { View } from '@atomic';
+import { LView, View } from '@atomic';
 import { useTheme } from '@hooks';
 import { IChildrenProps, Props } from '@types';
 import React from 'react';
-import Animated, { LinearTransition } from 'react-native-reanimated';
+import Animated from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import HeaderBackground from './HeaderBackground';
 
@@ -15,9 +15,7 @@ const Header: React.FC<HeaderProps> = ({ children, ...props }) => {
 	const { theme } = useTheme();
 
 	return (
-		<View
-			animated
-			layout={LinearTransition.duration(300)}
+		<LView
 			style={{ paddingTop: insets.top }}
 			borderColor='border.light'
 			borderBottomWidth={theme.borderWidth.normal}
@@ -26,7 +24,7 @@ const Header: React.FC<HeaderProps> = ({ children, ...props }) => {
 		>
 			<HeaderBackground />
 			{children}
-		</View>
+		</LView>
 	);
 };
 

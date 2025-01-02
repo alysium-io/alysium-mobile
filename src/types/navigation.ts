@@ -1,7 +1,6 @@
 import { Contact } from '@flux/api/contact';
 import { ExternalUrl } from '@flux/api/external-url/external-url.entity';
-import { FindGalleryParamsDto } from '@flux/api/gallery/dto/gallery-find.dto';
-import { GalleryRefType } from '@flux/api/gallery/types';
+import { GalleryItem } from '@flux/api/gallery/gallery-item.entity';
 import { type BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import {
 	CompositeNavigationProp,
@@ -15,6 +14,9 @@ import { NanoId } from './api';
 /**
  * Individual Pages
  */
+type HomePage = undefined;
+type LocalEventsMapPage = undefined;
+
 type SearchPage = undefined;
 
 type ArtistPage = { artist_uid: NanoId };
@@ -46,9 +48,7 @@ type EditArtistPage = undefined;
 
 type ViewGalleryPage = {
 	transitionTagId: string;
-	findGalleryParamsDto: FindGalleryParamsDto;
-	pressIndex: number;
-	galleryRefType: GalleryRefType;
+	galleryItems: GalleryItem[];
 };
 
 type ScenePage = { scene_uid: NanoId };
@@ -72,6 +72,8 @@ type ManageEventPage = { event_uid: NanoId };
 type EditPublishedEventPage = { event_uid: NanoId };
 
 export type RouteNames =
+	| 'HomePage'
+	| 'LocalEventsMapPage'
 	| 'SearchPage'
 	| 'HostPage'
 	| 'HostFollowersAndShowsPage'
@@ -160,6 +162,16 @@ export type EventManagerStackNavigatorParamList = {
 	ManageEventPage: ManageEventPage;
 	EventPage: EventPage;
 	EditPublishedEventPage: EditPublishedEventPage;
+	ViewGalleryPage: ViewGalleryPage;
+};
+
+export type HomeStackNavigatorParamList = {
+	HomePage: HomePage;
+	LocalEventsMapPage: LocalEventsMapPage;
+	ArtistPage: ArtistPage;
+	ScenePage: ScenePage;
+	EventPage: EventPage;
+	ViewGalleryPage: ViewGalleryPage;
 };
 
 /**
@@ -188,12 +200,14 @@ export type ArtistAppBottomTabNavigatorParamList = {
 };
 
 export type UserAppBottomTabNavigatorParamList = {
+	Home: NavigatorScreenParams<HomeStackNavigatorParamList>;
 	Search: NavigatorScreenParams<SearchStackNavigatorParamList>;
 	Profile: NavigatorScreenParams<ProfileStackNavigatorParamList>;
 };
 
 // This is all the possible tabs
 export type BottomTabNavigatorParamList = {
+	Home: NavigatorScreenParams<HomeStackNavigatorParamList>;
 	Search: NavigatorScreenParams<SearchStackNavigatorParamList>;
 	Profile: NavigatorScreenParams<ProfileStackNavigatorParamList>;
 	EventManager: NavigatorScreenParams<EventManagerStackNavigatorParamList>;
@@ -206,6 +220,8 @@ type ComposeTabNavigationProp<T extends ParamListBase> =
 	>;
 
 // Bottom Tab Navigation Props
+export type HomeScreenNavigationProp =
+	ComposeTabNavigationProp<HomeStackNavigatorParamList>;
 export type SearchScreenNavigationProp =
 	ComposeTabNavigationProp<SearchStackNavigatorParamList>;
 export type ProfileScreenNavigationProp =
@@ -213,12 +229,14 @@ export type ProfileScreenNavigationProp =
 export type EventManagerScreenNavigationProp =
 	ComposeTabNavigationProp<EventManagerStackNavigatorParamList>;
 
-export type CompositeScreenNavigationProp = SearchScreenNavigationProp &
+export type CompositeScreenNavigationProp = HomeScreenNavigationProp &
+	SearchScreenNavigationProp &
 	ProfileScreenNavigationProp &
 	EventManagerScreenNavigationProp &
 	EventManagerScreenNavigationProp;
 
-export type CompositeStackNavigatorParamList = SearchStackNavigatorParamList &
+export type CompositeStackNavigatorParamList = HomeStackNavigatorParamList &
+	SearchStackNavigatorParamList &
 	ProfileStackNavigatorParamList &
 	EventManagerStackNavigatorParamList &
 	EventManagerStackNavigatorParamList;

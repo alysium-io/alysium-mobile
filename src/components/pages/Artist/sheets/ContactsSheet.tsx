@@ -149,8 +149,11 @@ const ContactsSheet: React.FC<ContactsSheetProps> = ({
 				<NavigationContainer>
 					<Stack.Navigator
 						screenOptions={{
+							headerStyle: {
+								backgroundColor: theme.colors['bg.p']
+							},
 							headerTintColor: theme.colors['text.s'],
-							headerTitleStyle: { color: theme.colors['text.s'] },
+							headerTitleStyle: { color: theme.colors['text.p'] },
 							headerBackButtonDisplayMode: 'minimal',
 							contentStyle: {
 								backgroundColor: theme.colors['bg.p']

@@ -1,9 +1,9 @@
+import { SkeletonPlaceholder } from '@atomic';
 import { BasePage } from '@organisms';
 import React from 'react';
 import { View } from 'react-native';
-import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 
-export const Loading = () => {
+const Loading = () => {
 	return (
 		<BasePage>
 			<SkeletonPlaceholder>
@@ -239,3 +239,5 @@ export const Loading = () => {
 		</BasePage>
 	);
 };
+
+export default Loading;

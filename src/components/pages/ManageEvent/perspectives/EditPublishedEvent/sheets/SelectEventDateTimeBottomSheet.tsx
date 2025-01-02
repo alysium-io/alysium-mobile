@@ -1,4 +1,4 @@
-import { DateTimePicker, Text, View } from '@atomic';
+import { DateTimePicker, LView, Text, View } from '@atomic';
 import { BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import { SheetApi } from '@hooks';
 import { ActionButtons, PillGroup, TogglePill } from '@molecules';
@@ -8,7 +8,7 @@ import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 import duration from 'dayjs/plugin/duration';
 import React, { useState } from 'react';
-import { FadeIn, FadeOut, LinearTransition } from 'react-native-reanimated';
+import { FadeIn, FadeOut } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 dayjs.extend(duration);
@@ -106,8 +106,8 @@ const SelectEventDateTimeBottomSheet: React.FC<
 	return (
 		<BottomSheet sheetRef={sheetApi.sheetRef} onDismiss={onDismiss}>
 			<BottomSheetScrollView style={{ flex: 1 }}>
-				<View margin='m' animated layout={LinearTransition}>
-					<View
+				<LView margin='m'>
+					<LView
 						flexDirection={
 							selectedDurationOption.id === 'custom' ? 'row' : 'column'
 						}
@@ -117,18 +117,14 @@ const SelectEventDateTimeBottomSheet: React.FC<
 								? 'space-between'
 								: 'center'
 						}
-						animated
-						layout={LinearTransition}
 					>
-						<View
+						<LView
 							alignItems={
 								selectedDurationOption.id === 'custom' ? 'flex-start' : 'center'
 							}
-							animated
-							layout={LinearTransition}
 							opacity={isEditingStartOrEnd === 'start' ? 1 : 0.6}
 						>
-							<View animated layout={LinearTransition}>
+							<LView>
 								<Text
 									variant='paragraph'
 									color='text.q'
@@ -137,22 +133,22 @@ const SelectEventDateTimeBottomSheet: React.FC<
 								>
 									Start Date
 								</Text>
-							</View>
-							<View animated layout={LinearTransition}>
+							</LView>
+							<LView>
 								<Text variant={'section-header-1'} marginBottom='xs'>
 									{dayjs(startDateTime).format('MMM. Do')}
 								</Text>
-							</View>
+							</LView>
 							{selectedDurationOption.id === 'custom' && (
-								<View animated layout={LinearTransition}>
+								<LView>
 									<Text variant='paragraph'>
 										{dayjs(startDateTime).format('h:mma')}
 									</Text>
-								</View>
+								</LView>
 							)}
-						</View>
+						</LView>
 						{currentDuration && (
-							<View alignItems='center' animated layout={LinearTransition}>
+							<LView alignItems='center'>
 								<Text
 									variant='paragraph-medium'
 									color='text.s'
@@ -160,20 +156,15 @@ const SelectEventDateTimeBottomSheet: React.FC<
 								>
 									{formatDuration(startDateTime, endDateTime!, 'minute')}
 								</Text>
-							</View>
+							</LView>
 						)}
 						{selectedDurationOption.id === 'custom' && (
-							<View
-								animated
-								layout={LinearTransition}
-								entering={FadeIn}
-								exiting={FadeOut}
-							>
+							<LView entering={FadeIn} exiting={FadeOut}>
 								<View
 									alignItems='flex-end'
 									opacity={isEditingStartOrEnd === 'end' ? 1 : 0.6}
 								>
-									<View animated layout={LinearTransition}>
+									<LView>
 										<Text
 											variant='paragraph'
 											color='text.q'
@@ -182,8 +173,8 @@ const SelectEventDateTimeBottomSheet: React.FC<
 										>
 											End Date
 										</Text>
-									</View>
-									<View animated layout={LinearTransition}>
+									</LView>
+									<LView>
 										<Text
 											variant={
 												selectedDurationOption.id === 'custom'
@@ -194,60 +185,46 @@ const SelectEventDateTimeBottomSheet: React.FC<
 										>
 											{dayjs(endDateTime).format('MMM. Do')}
 										</Text>
-									</View>
-									<View animated layout={LinearTransition}>
+									</LView>
+									<LView>
 										<Text variant='paragraph'>
 											{dayjs(endDateTime).format('h:mma')}
 										</Text>
-									</View>
+									</LView>
 								</View>
-							</View>
+							</LView>
 						)}
-					</View>
-				</View>
-				<View animated layout={LinearTransition}>
+					</LView>
+				</LView>
+				<LView>
 					<DateTimePicker {...datePickerOptions} />
-				</View>
-				<View
-					flex={1}
-					margin='m'
-					style={{ marginBottom: insets.bottom }}
-					animated
-					layout={LinearTransition}
-				>
+				</LView>
+				<LView flex={1} margin='m' style={{ marginBottom: insets.bottom }}>
 					{selectedDurationOption.id === 'custom' && (
-						<PillGroup
-							alignItems='center'
-							justifyContent='center'
-							paddingTop='m'
-							animated
-							layout={LinearTransition}
-							entering={FadeIn}
-							exiting={FadeOut}
-						>
-							<View animated layout={LinearTransition}>
-								<TogglePill
-									text='Start Time'
-									isActive={isEditingStartOrEnd === 'start'}
-									onPress={() => setIsEditingStartOrEnd('start')}
-								/>
-							</View>
-							<View animated layout={LinearTransition}>
-								<TogglePill
-									text='End Time'
-									isActive={isEditingStartOrEnd === 'end'}
-									onPress={() => setIsEditingStartOrEnd('end')}
-								/>
-							</View>
-						</PillGroup>
+						<LView entering={FadeIn} exiting={FadeOut}>
+							<PillGroup
+								alignItems='center'
+								justifyContent='center'
+								paddingTop='m'
+							>
+								<LView>
+									<TogglePill
+										text='Start Time'
+										isActive={isEditingStartOrEnd === 'start'}
+										onPress={() => setIsEditingStartOrEnd('start')}
+									/>
+								</LView>
+								<LView>
+									<TogglePill
+										text='End Time'
+										isActive={isEditingStartOrEnd === 'end'}
+										onPress={() => setIsEditingStartOrEnd('end')}
+									/>
+								</LView>
+							</PillGroup>
+						</LView>
 					)}
-					<PillGroup
-						padding='m'
-						alignItems='center'
-						justifyContent='center'
-						animated
-						layout={LinearTransition}
-					>
+					<PillGroup padding='m' alignItems='center' justifyContent='center'>
 						{durationOptions.map((option, idx) => (
 							<TogglePill
 								key={idx}
@@ -257,7 +234,7 @@ const SelectEventDateTimeBottomSheet: React.FC<
 							/>
 						))}
 					</PillGroup>
-					<View animated layout={LinearTransition}>
+					<LView>
 						<ActionButtons
 							buttonProps={[
 								{
@@ -268,8 +245,8 @@ const SelectEventDateTimeBottomSheet: React.FC<
 								{ text: 'save', color: 'p', onPress: _onPressSave }
 							]}
 						/>
-					</View>
-				</View>
+					</LView>
+				</LView>
 			</BottomSheetScrollView>
 		</BottomSheet>
 	);

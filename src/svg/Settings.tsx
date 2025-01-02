@@ -19,31 +19,6 @@ const path2: PathProps = {
 };
 
 const Settings: React.FC<IconProps> = (props) => {
-	if (props.animated) {
-		return (
-			<Svg
-				{...svg}
-				size={props.size}
-				animated={true}
-				animatedProps={props.animatedSvgProps}
-			>
-				<G clipPath='url(#a)'>
-					<Path {...path1} fill={props.color} />
-				</G>
-				<Defs>
-					<ClipPath id='a'>
-						<Path
-							{...path2}
-							fill={props.color}
-							animated={true}
-							animatedProps={props.animatedPathProps}
-						/>
-					</ClipPath>
-				</Defs>
-			</Svg>
-		);
-	}
-
 	return (
 		<Svg {...svg} size={props.size}>
 			<G clipPath='url(#a)'>

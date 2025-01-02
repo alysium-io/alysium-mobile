@@ -9,27 +9,32 @@ import React from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-import { ValidateEnvProvider } from 'src/utils/contexts';
+import {
+	CurrentLocationProvider,
+	ValidateEnvProvider
+} from 'src/utils/contexts';
 
 const Dependencies: React.FC<ChildrenProps> = ({ children }) => {
 	return (
 		<Provider store={store}>
 			<PersistGate loading={null} persistor={persistor}>
 				<ThemeProvider>
-					<ValidateEnvProvider>
-						<BehaviorProvider>
-							<GestureHandlerRootView>
-								<SafeAreaProvider>
-									<LoaderProvider>
-										<AlertProvider>
-											<PortalProvider>{children}</PortalProvider>
-											<Toast />
-										</AlertProvider>
-									</LoaderProvider>
-								</SafeAreaProvider>
-							</GestureHandlerRootView>
-						</BehaviorProvider>
-					</ValidateEnvProvider>
+					<CurrentLocationProvider>
+						<ValidateEnvProvider>
+							<BehaviorProvider>
+								<GestureHandlerRootView>
+									<SafeAreaProvider>
+										<LoaderProvider>
+											<AlertProvider>
+												<PortalProvider>{children}</PortalProvider>
+												<Toast />
+											</AlertProvider>
+										</LoaderProvider>
+									</SafeAreaProvider>
+								</GestureHandlerRootView>
+							</BehaviorProvider>
+						</ValidateEnvProvider>
+					</CurrentLocationProvider>
 				</ThemeProvider>
 			</PersistGate>
 		</Provider>

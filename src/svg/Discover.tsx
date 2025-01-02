@@ -1,7 +1,7 @@
 import { Path, Svg } from '@atomic';
 import { IconProps } from '@types';
 import React from 'react';
-import { G, PathProps, SvgProps } from 'react-native-svg';
+import { PathProps, SvgProps } from 'react-native-svg';
 
 const svg: SvgProps = {
 	viewBox: '0 0 18 18',
@@ -13,30 +13,9 @@ const path1: PathProps = {
 };
 
 const Discover: React.FC<IconProps> = (props) => {
-	if (props.animated) {
-		return (
-			<Svg
-				{...svg}
-				size={props.size}
-				animated={true}
-				animatedProps={props.animatedSvgProps}
-			>
-				<G fill={props.color} clipPath='url(#a)'>
-					<Path
-						{...path1}
-						animated={true}
-						animatedProps={props.animatedPathProps}
-					/>
-				</G>
-			</Svg>
-		);
-	}
-
 	return (
 		<Svg {...svg} size={props.size}>
-			<G fill={props.color} clipPath='url(#a)'>
-				<Path {...path1} />
-			</G>
+			<Path {...path1} fill={props.color} />
 		</Svg>
 	);
 };

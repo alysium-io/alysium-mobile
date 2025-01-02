@@ -1,7 +1,7 @@
 import { Path, Svg } from '@atomic';
 import { IconProps } from '@types';
 import React from 'react';
-import { ClipPath, Defs, G, PathProps, SvgProps } from 'react-native-svg';
+import { PathProps, SvgProps } from 'react-native-svg';
 
 const svg: SvgProps = {
 	viewBox: '0 0 18 18',
@@ -14,51 +14,10 @@ const path1: PathProps = {
 	clipRule: 'evenodd'
 };
 
-const path2: PathProps = {
-	d: 'M0 0h18v18H0z'
-};
-
 const Clear: React.FC<IconProps> = (props) => {
-	if (props.animated) {
-		return (
-			<Svg
-				{...svg}
-				size={props.size}
-				animated={true}
-				animatedProps={props.animatedSvgProps}
-			>
-				<G clipPath='url(#a)'>
-					<Path
-						{...path1}
-						fill={props.color}
-						animated={true}
-						animatedProps={props.animatedPathProps}
-					/>
-				</G>
-				<Defs>
-					<ClipPath id='a'>
-						<Path
-							{...path2}
-							fill={props.color}
-							animated={true}
-							animatedProps={props.animatedPathProps}
-						/>
-					</ClipPath>
-				</Defs>
-			</Svg>
-		);
-	}
-
 	return (
 		<Svg {...svg} size={props.size}>
-			<G clipPath='url(#a)'>
-				<Path {...path1} fill={props.color} />
-			</G>
-			<Defs>
-				<ClipPath id='a'>
-					<Path {...path2} fill={props.color} />
-				</ClipPath>
-			</Defs>
+			<Path {...path1} fill={props.color} />
 		</Svg>
 	);
 };

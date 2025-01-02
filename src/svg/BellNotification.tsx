@@ -19,31 +19,6 @@ const path2: PathProps = {
 
 const BellNotification: React.FC<IconProps> = (props) => {
 	const { theme } = useTheme();
-
-	if (props.animated) {
-		return (
-			<Svg
-				{...svg}
-				size={props.size}
-				animated={true}
-				animatedProps={props.animatedSvgProps}
-			>
-				<Path
-					{...path1}
-					fill={props.color}
-					animated={true}
-					animatedProps={props.animatedPathProps}
-				/>
-				<Path
-					{...path2}
-					fill={theme.colors.lightGreen}
-					animated={true}
-					animatedProps={props.animatedPathProps}
-				/>
-			</Svg>
-		);
-	}
-
 	return (
 		<Svg {...svg} size={props.size}>
 			<Path {...path1} fill={props.color} />

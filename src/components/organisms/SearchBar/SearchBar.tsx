@@ -1,9 +1,9 @@
-import { Icon, Text, TextInput, View } from '@atomic';
+import { AView, Icon, LView, Text, TextInput, View } from '@atomic';
 import { SearchApi, useTheme } from '@hooks';
 import { Props } from '@types';
 import React from 'react';
 import { StyleSheet, TouchableWithoutFeedback } from 'react-native';
-import { FadeIn, LinearTransition } from 'react-native-reanimated';
+import { FadeIn } from 'react-native-reanimated';
 
 type SearchBarProps = Props<typeof TextInput> & {
 	searchApi: SearchApi;
@@ -18,9 +18,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
 
 	return (
 		<View style={styles.container}>
-			<View
-				animated
-				layout={LinearTransition.duration(200)}
+			<LView
 				style={styles.textContainer}
 				backgroundColor='search.search-bar.bg'
 			>
@@ -46,8 +44,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
 				{searchApi.clearButtonToggleApi.state &&
 					searchApi.activeToggleApi.state && (
 						<TouchableWithoutFeedback onPress={searchApi.pressClear}>
-							<View
-								animated
+							<AView
 								entering={FadeIn.delay(100).duration(100)}
 								padding='s'
 								style={styles.textContainerRight}
@@ -57,14 +54,13 @@ const SearchBar: React.FC<SearchBarProps> = ({
 									size='m'
 									color='search.search-bar.clear-btn-icon'
 								/>
-							</View>
+							</AView>
 						</TouchableWithoutFeedback>
 					)}
-			</View>
+			</LView>
 			{searchApi.activeToggleApi.state && (
 				<TouchableWithoutFeedback onPress={searchApi.pressDeactivate}>
-					<View
-						animated
+					<AView
 						entering={FadeIn.delay(200).duration(200)}
 						exiting={FadeIn.delay(200).duration(200)}
 						padding='s'
@@ -72,7 +68,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
 						<Text variant='paragraph-medium' color='text.p'>
 							cancel
 						</Text>
-					</View>
+					</AView>
 				</TouchableWithoutFeedback>
 			)}
 		</View>

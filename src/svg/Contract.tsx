@@ -21,22 +21,6 @@ const path3: PathProps = {
 };
 
 const Contract: React.FC<IconProps> = (props) => {
-	if (props.animated) {
-		return (
-			<Svg {...svg} size={props.size}>
-				<G fill={props.color} clipPath='url(#a)'>
-					<Path {...path1} />
-					<Path {...path2} />
-				</G>
-				<Defs>
-					<ClipPath id='a'>
-						<Path {...path3} fill={props.color} />
-					</ClipPath>
-				</Defs>
-			</Svg>
-		);
-	}
-
 	return (
 		<Svg {...svg} size={props.size}>
 			<G fill={props.color} clipPath='url(#a)'>

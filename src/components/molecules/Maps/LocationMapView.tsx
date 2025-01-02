@@ -1,5 +1,6 @@
 import { Location } from '@flux/api/location';
 import { useLocationPermissions } from '@hooks';
+import { useCurrentLocationContext } from '@src/utils/contexts';
 import { Props } from '@types';
 import React, { useEffect, useRef } from 'react';
 import MapView, { Marker, Region } from 'react-native-maps';
@@ -26,10 +27,10 @@ const LocationMapView: React.FC<LocationMapProps> = ({
 	zoomDelta = DEFAULT_ZOOM_DELTA,
 	mapViewProps
 }) => {
+	const { currentLocation } = useCurrentLocationContext();
 	const mapRef = useRef<MapView>(null);
 	const { hasPermission, requestPermission } = useLocationPermissions();
 
-	// Request location permissions when needed
 	useEffect(() => {
 		if (mapViewProps?.showsUserLocation && !hasPermission) {
 			requestPermission();
@@ -42,9 +43,18 @@ const LocationMapView: React.FC<LocationMapProps> = ({
 			marker.location != null
 	);
 
-	// Calculate region based on all markers
-	const getRegion = (): Region => {
-		// If we only have one marker, use its viewport or location
+	const getRegion = (): Region | undefined => {
+		if (validMarkers.length === 0) {
+			return currentLocation
+				? {
+						latitude: currentLocation.latitude,
+						longitude: currentLocation.longitude,
+						latitudeDelta: zoomDelta,
+						longitudeDelta: zoomDelta
+				  }
+				: undefined;
+		}
+
 		if (validMarkers.length === 1) {
 			const location = validMarkers[0].location;
 			if (location.viewport) {
@@ -71,7 +81,6 @@ const LocationMapView: React.FC<LocationMapProps> = ({
 			};
 		}
 
-		// For multiple markers, calculate the bounding box
 		const lats = validMarkers.map((m) => Number(m.location.latitude));
 		const lngs = validMarkers.map((m) => Number(m.location.longitude));
 
@@ -83,7 +92,6 @@ const LocationMapView: React.FC<LocationMapProps> = ({
 		const centerLat = (minLat + maxLat) / 2;
 		const centerLng = (minLng + maxLng) / 2;
 
-		// Add padding to the calculated delta
 		const latDelta = Math.max((maxLat - minLat) * 1.5, zoomDelta);
 		const lngDelta = Math.max((maxLng - minLng) * 1.5, zoomDelta);
 
@@ -95,23 +103,21 @@ const LocationMapView: React.FC<LocationMapProps> = ({
 		};
 	};
 
-	// Update map region when markers change
 	useEffect(() => {
 		const region = getRegion();
-		mapRef.current?.animateToRegion(region, 500);
-	}, [validMarkers]);
+		if (region) {
+			mapRef.current?.animateToRegion(region, 500);
+		}
+	}, [validMarkers, currentLocation]);
 
-	// Don't render the map if there are no valid markers
-	if (validMarkers.length === 0) {
-		return null;
-	}
+	const region = getRegion();
 
 	return (
 		<DefaultMapView
 			ref={mapRef}
-			initialRegion={getRegion()}
+			initialRegion={region}
 			{...mapViewProps}
-			showsUserLocation={mapViewProps?.showsUserLocation && hasPermission}
+			showsUserLocation
 		>
 			{validMarkers.map((markerConfig, index) => (
 				<Marker

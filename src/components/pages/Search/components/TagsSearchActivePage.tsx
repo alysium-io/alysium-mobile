@@ -1,4 +1,4 @@
-import { View } from '@atomic';
+import { LView } from '@atomic';
 import { Formatting } from '@etc';
 import { searchApiSlice } from '@flux/api/search';
 import { SearchItem, TagSearchItem } from '@flux/api/search/search.entity';
@@ -7,11 +7,7 @@ import { ListItemWithRadio } from '@molecules';
 import _ from 'lodash';
 import React, { useState } from 'react';
 import { Else, If, Then } from 'react-if';
-import Animated, {
-	FadeIn,
-	FadeOut,
-	LinearTransition
-} from 'react-native-reanimated';
+import Animated from 'react-native-reanimated';
 
 interface TagsSearchActivePageProps {
 	searchTagsApi: SearchApi;
@@ -66,7 +62,7 @@ const TagsSearchActivePage: React.FC<TagsSearchActivePageProps> = ({
 		>
 			{_.orderBy(selectedItems, ['spotifyFollowersSum'], ['desc']).map(
 				(selectedItem) => (
-					<View key={selectedItem.uid} animated layout={LinearTransition}>
+					<LView key={selectedItem.uid}>
 						<ListItemWithRadio
 							id={selectedItem.uid}
 							titleTextProps={{
@@ -81,7 +77,7 @@ const TagsSearchActivePage: React.FC<TagsSearchActivePageProps> = ({
 							}}
 							onPress={() => onPressSearchResult(selectedItem)}
 						/>
-					</View>
+					</LView>
 				)
 			)}
 			<If condition={searchTagsApi.searchText.length === 0}>
@@ -93,7 +89,7 @@ const TagsSearchActivePage: React.FC<TagsSearchActivePageProps> = ({
 						['spotifyFollowersSum'],
 						['desc']
 					).map((i) => (
-						<View key={i.uid} animated layout={LinearTransition}>
+						<LView key={i.uid}>
 							<ListItemWithRadio
 								id={i.uid}
 								titleTextProps={{
@@ -108,11 +104,11 @@ const TagsSearchActivePage: React.FC<TagsSearchActivePageProps> = ({
 								}}
 								onPress={() => onPressSearchResult(i)}
 							/>
-						</View>
+						</LView>
 					))}
 				</Then>
 				<Else>
-					<View animated entering={FadeIn} exiting={FadeOut}>
+					<LView>
 						{tagSearchResults?.hits.map((result) => (
 							<ListItemWithRadio
 								key={result.uid}
@@ -130,7 +126,7 @@ const TagsSearchActivePage: React.FC<TagsSearchActivePageProps> = ({
 								onPress={() => onPressSearchResult(result)}
 							/>
 						))}
-					</View>
+					</LView>
 				</Else>
 			</If>
 		</Animated.ScrollView>

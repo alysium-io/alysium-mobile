@@ -1,4 +1,4 @@
-import { View } from '@atomic';
+import { AView } from '@atomic';
 import React from 'react';
 import {
 	interpolate,
@@ -34,11 +34,7 @@ const BottomSheetFooter: React.FC<BottomSheetFooterProps> = ({ children }) => {
 		};
 	}, [keyboardPosition.height.value, insets.bottom]);
 
-	return (
-		<View animated style={animatedPosition}>
-			{children}
-		</View>
-	);
+	return <AView style={animatedPosition}>{children}</AView>;
 };
 
 export default BottomSheetFooter;

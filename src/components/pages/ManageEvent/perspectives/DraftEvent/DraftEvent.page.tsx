@@ -11,7 +11,7 @@ import React, { useCallback, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { If, Then } from 'react-if';
 import { ScrollView } from 'react-native';
-import { Loading } from '../../Loading';
+import Loading from '../../Loading';
 import AboutSection from './components/AboutSection';
 import AssetsSection from './components/AssetsSection';
 import DateSection from './components/DateSection';

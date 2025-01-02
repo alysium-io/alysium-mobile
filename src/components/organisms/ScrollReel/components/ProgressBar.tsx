@@ -1,4 +1,4 @@
-import { View } from '@atomic';
+import { AView, View } from '@atomic';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { SharedValue, useAnimatedStyle } from 'react-native-reanimated';
@@ -17,7 +17,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ progress }) => {
 
 	return (
 		<View style={styles.container}>
-			<View animated style={[animatedStyle, styles.progressBar]} />
+			<AView style={[animatedStyle, styles.progressBar]} />
 		</View>
 	);
 };

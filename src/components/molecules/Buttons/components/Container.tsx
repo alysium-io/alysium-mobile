@@ -1,4 +1,4 @@
-import { View } from '@atomic';
+import { AView, View } from '@atomic';
 import { useTheme } from '@hooks';
 import { Props } from '@types';
 import React, { useEffect } from 'react';
@@ -32,8 +32,7 @@ const Container: React.FC<ContainerProps> = ({ settings, ...props }) => {
 	}, [theme, settings]);
 
 	return (
-		<View
-			animated
+		<AView
 			flexDirection='row'
 			alignItems='center'
 			justifyContent='center'

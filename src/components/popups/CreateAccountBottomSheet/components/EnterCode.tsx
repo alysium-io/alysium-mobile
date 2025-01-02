@@ -1,4 +1,4 @@
-import { View } from '@atomic';
+import { LView, View } from '@atomic';
 import { TextInputApi } from '@hooks';
 import { DeclarativeText, TextInputWithLabel } from '@molecules';
 import { LoginUserPhoneNumberFormApi } from '@src/utils/redux-hook-form/useLoginUserPhoneNumberFormApi';
@@ -16,7 +16,7 @@ const EnterCode: React.FC<EnterCodeProps> = ({
 	textInputApi
 }) => {
 	return (
-		<View animated entering={FadeInRight} exiting={FadeOutRight}>
+		<LView entering={FadeInRight} exiting={FadeOutRight}>
 			<Controller
 				name='passcode'
 				control={loginUserPhoneNumberFormApi.formMethods.control}
@@ -40,7 +40,7 @@ const EnterCode: React.FC<EnterCodeProps> = ({
 					]}
 				/>
 			</View>
-		</View>
+		</LView>
 	);
 };
 

@@ -13,9 +13,8 @@ const GallerySection: React.FC<GallerySectionProps> = ({ eventData }) => {
 		<Section marginBottom='none'>
 			<Gallery
 				galleryRefType={GalleryRefType.artistEvent}
-				findGalleryParamsDto={{
-					refId: eventData.event.event_uid
-				}}
+				galleryRefUid={eventData.event.event_uid}
+				gallery={eventData.event.gallery}
 			/>
 		</Section>
 	);

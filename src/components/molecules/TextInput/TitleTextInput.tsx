@@ -1,4 +1,4 @@
-import { TextInput, View } from '@atomic';
+import { AView, TextInput } from '@atomic';
 import { useAnimatedState, useTheme } from '@hooks';
 import { IconNames } from '@svg';
 import React, { useRef } from 'react';
@@ -49,8 +49,7 @@ const TitleTextInput: React.FC<TitleTextInputProps> = ({
 
 	return (
 		<TouchableWithoutFeedback onPress={() => ref.current?.focus()}>
-			<View
-				animated
+			<AView
 				paddingVertical='s'
 				flexDirection='row'
 				alignItems='center'
@@ -68,7 +67,7 @@ const TitleTextInput: React.FC<TitleTextInputProps> = ({
 					style={{ flex: 1 }}
 					{...props}
 				/>
-			</View>
+			</AView>
 		</TouchableWithoutFeedback>
 	);
 };

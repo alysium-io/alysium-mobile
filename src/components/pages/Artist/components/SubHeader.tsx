@@ -72,7 +72,7 @@ const SubHeader: React.FC<SubHeaderProps> = ({ artistData }) => {
 				/>
 			</View>
 			<Text variant='paragraph-small'>{artistData.bio}</Text>
-			<ArtistContactsAndLinks />
+			<ArtistContactsAndLinks artist_uid={artistData.artist_uid} />
 		</Section>
 	);
 };

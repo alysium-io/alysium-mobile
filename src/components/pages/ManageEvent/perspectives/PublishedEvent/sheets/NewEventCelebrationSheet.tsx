@@ -1,5 +1,5 @@
 import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
-import { Icon, QRCode, Text, View } from '@atomic';
+import { AView, Icon, QRCode, Text, View } from '@atomic';
 import { Vibrator } from '@etc';
 import { artistEventApiSlice } from '@flux/api/event';
 import {
@@ -110,7 +110,7 @@ const NewEventCelebrationSheet: React.FC<NewEventCelebrationSheetProps> = ({
 			<BottomSheetView style={{ height: 500 }}>
 				<View flex={1} justifyContent='center'>
 					{isLoaded && (
-						<View animated entering={FadeInDown.duration(500)}>
+						<AView entering={FadeInDown.duration(500)}>
 							<Text variant='section-header-2' textAlign='center'>
 								Event Published 🎉
 							</Text>
@@ -121,23 +121,21 @@ const NewEventCelebrationSheet: React.FC<NewEventCelebrationSheetProps> = ({
 							>
 								starts in {countdown}
 							</Text>
-						</View>
+						</AView>
 					)}
 					{isLoaded && (
-						<View
-							animated
+						<AView
 							entering={FadeInDown.duration(500).delay(300)}
 							marginVertical='xl'
 						>
 							<Text variant='paragraph-small' color='text.s' textAlign='center'>
 								Don't forget to share...
 							</Text>
-						</View>
+						</AView>
 					)}
 					<View>
 						{isLoaded && (
-							<View
-								animated
+							<AView
 								entering={FadeInDown.duration(500).delay(400)}
 								height={75}
 								flexDirection='row'
@@ -167,11 +165,10 @@ const NewEventCelebrationSheet: React.FC<NewEventCelebrationSheetProps> = ({
 										instagram story, imessage, etc.
 									</Text>
 								</View>
-							</View>
+							</AView>
 						)}
 						{isLoaded && (
-							<View
-								animated
+							<AView
 								entering={FadeInDown.duration(500).delay(500)}
 								height={75}
 								flexDirection='row'
@@ -197,11 +194,10 @@ const NewEventCelebrationSheet: React.FC<NewEventCelebrationSheetProps> = ({
 										they do not have the app.
 									</Text>
 								</View>
-							</View>
+							</AView>
 						)}
 						{isLoaded && (
-							<View
-								animated
+							<AView
 								entering={FadeInDown.duration(500).delay(600)}
 								height={75}
 								flexDirection='row'
@@ -234,7 +230,7 @@ const NewEventCelebrationSheet: React.FC<NewEventCelebrationSheetProps> = ({
 										← Press the icon to copy the link to your clipboard
 									</Text>
 								</View>
-							</View>
+							</AView>
 						)}
 					</View>
 				</View>

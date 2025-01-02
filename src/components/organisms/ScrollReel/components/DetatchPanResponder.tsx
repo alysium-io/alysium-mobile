@@ -1,4 +1,4 @@
-import { View } from '@atomic';
+import { AView } from '@atomic';
 import { useNavigation } from '@hooks';
 import { ChildrenProps } from '@types';
 import React from 'react';
@@ -19,15 +19,10 @@ import {
 	OUTER_VIEW_BORDER_RADIUS
 } from '../settings';
 
-type DetatchPanResponderProps = ChildrenProps & {
-	playCurrentVideo: () => void;
-	pauseCurrentVideo: () => void;
-};
+type DetatchPanResponderProps = ChildrenProps & {};
 
 const DetatchPanResponder: React.FC<DetatchPanResponderProps> = ({
-	children,
-	playCurrentVideo,
-	pauseCurrentVideo
+	children
 }) => {
 	const { back } = useNavigation();
 	const translateX = useSharedValue(0);
@@ -41,7 +36,6 @@ const DetatchPanResponder: React.FC<DetatchPanResponderProps> = ({
 		]) // Adjust these values to fine-tune when the gesture activates
 		.failOffsetY([-DETATCH_ACTIVATE_Y_THRESHOLD, DETATCH_ACTIVATE_Y_THRESHOLD]) // This will make the handler fail if the movement is more vertical
 		.onStart(() => {
-			runOnJS(pauseCurrentVideo)();
 			isGestureActive.value = false;
 		})
 		.onUpdate((event) => {
@@ -65,9 +59,7 @@ const DetatchPanResponder: React.FC<DetatchPanResponderProps> = ({
 				runOnJS(back)();
 			} else {
 				translateY.value = withTiming(0, { duration: 200 });
-				translateX.value = withTiming(0, { duration: 200 }, () => {
-					runOnJS(playCurrentVideo)();
-				});
+				translateX.value = withTiming(0, { duration: 200 });
 				isGestureActive.value = false;
 			}
 		});
@@ -95,13 +87,13 @@ const DetatchPanResponder: React.FC<DetatchPanResponderProps> = ({
 	}, []);
 
 	return (
-		<View animated style={[animatedOuterStyle, styles.outer]}>
+		<AView style={[animatedOuterStyle, styles.outer]}>
 			<GestureDetector gesture={panGesture}>
 				<Animated.View style={[animatedInnerStyle, styles.inner]}>
 					{children}
 				</Animated.View>
 			</GestureDetector>
-		</View>
+		</AView>
 	);
 };
 

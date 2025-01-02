@@ -55,6 +55,10 @@ const EPKExplanationBottomSheet: React.FC<EPKExplanationBottomSheetProps> = ({
 							potential venues. Your Alysium EPK is built automatically as you
 							perform and share your events.
 						</P>
+						<P>
+							TLDR; It's a link to your Alysium profile on the Web (or in-app if
+							they have Alysium downloaded).
+						</P>
 						<Text variant='section-header-1' marginTop='m' marginBottom='s'>
 							Why is it important?
 						</Text>
@@ -89,6 +93,20 @@ const EPKExplanationBottomSheet: React.FC<EPKExplanationBottomSheetProps> = ({
 						<P marginBottom='none'>
 							Your EPK is always accessible through your profile's QR code,
 							making it easy to share with venues and promoters anytime.
+						</P>
+						<Text variant='section-header-1' marginTop='m' marginBottom='s'>
+							Helpful Tip!
+						</Text>
+						<P>
+							After you finish a show, don't forget to go back to the event and
+							add any photos or videos from the performance. This adds depth to
+							your EPK, provides a more comprehensive view of your work, and
+							makes it easy for future fans/venues to see what you're capable
+							of!
+						</P>
+						<P>
+							Remember... each show you perform is like a small gem, and your
+							goal is to capture it in your EPK!
 						</P>
 					</Section>
 				</View>

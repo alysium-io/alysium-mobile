@@ -1,4 +1,4 @@
-import { Loading, View } from '@atomic';
+import { Loading, LView, View } from '@atomic';
 import { BottomSheetFooterProps } from '@gorhom/bottom-sheet';
 import { SheetApi } from '@hooks';
 import { FullScreenSheet, FullScreenSheetStandardHeader } from '@organisms';
@@ -6,8 +6,7 @@ import ActionButtons from '@src/components/molecules/Buttons/ActionButtons';
 import FullScreenSheetFooter from '@src/components/organisms/BottomSheet/sheets/FullScreenSheetFooter';
 import React, { useCallback } from 'react';
 import { Case, Default, Switch } from 'react-if';
-import { FadeIn, FadeOut } from 'react-native-reanimated';
-import CreateArtistSequence from './components/CreateArtistSequence/CreateArtistSequence';
+import ArtistName from './components/ArtistName';
 import CreateArtistSuccess from './components/CreateArtistSuccess';
 import useCreateArtistBottomSheet from './useCreateArtistBottomSheet';
 
@@ -71,9 +70,9 @@ const CreateArtistBottomSheet: React.FC<CreateArtistBottomSheetProps> = ({
 			<FullScreenSheetStandardHeader />
 			<Switch>
 				<Case condition={createArtistFormApi.isLoading}>
-					<View flex={1} animated entering={FadeIn} exiting={FadeOut}>
+					<LView flex={1}>
 						<Loading />
-					</View>
+					</LView>
 				</Case>
 				<Case condition={createArtistFormApi.isSuccess}>
 					<CreateArtistSuccess
@@ -82,10 +81,12 @@ const CreateArtistBottomSheet: React.FC<CreateArtistBottomSheetProps> = ({
 					/>
 				</Case>
 				<Default>
-					<CreateArtistSequence
-						createArtistFormApi={createArtistFormApi}
-						artistNameTextInputApi={artistNameTextInputApi}
-					/>
+					<View flex={1}>
+						<ArtistName
+							createArtistFormApi={createArtistFormApi}
+							artistNameTextInputApi={artistNameTextInputApi}
+						/>
+					</View>
 				</Default>
 			</Switch>
 		</FullScreenSheet>

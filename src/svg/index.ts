@@ -40,6 +40,7 @@ import Eventbrite from './Eventbrite';
 import Experiment from './Experiment';
 import Facebook from './Facebook';
 import Filter from './Filter';
+import Home from './Home';
 import Host from './Host';
 import InfoOne from './InfoOne';
 import InfoTwo from './InfoTwo';
@@ -179,7 +180,8 @@ export const SvgIcons = {
 	question: Question,
 	cancel: Cancel,
 	chrome: Chrome,
-	save: Save
+	save: Save,
+	home: Home
 };
 
 export type IconNames = keyof typeof SvgIcons;

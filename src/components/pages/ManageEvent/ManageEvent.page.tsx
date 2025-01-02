@@ -1,5 +1,5 @@
 import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
-import { Text, View } from '@atomic';
+import { AView, Text, View } from '@atomic';
 import { artistEventApiSlice } from '@flux/api/event';
 import { EventStatus } from '@flux/api/event/types';
 import { useComplexEventStatus, useSheet } from '@hooks';
@@ -15,7 +15,7 @@ import {
 	withSequence,
 	withTiming
 } from 'react-native-reanimated';
-import { Loading } from './Loading';
+import Loading from './Loading';
 import { CanceledEventPage } from './perspectives/CanceledEvent';
 import { DraftEventPage } from './perspectives/DraftEvent';
 import { PublishedEventPage } from './perspectives/PublishedEvent';
@@ -77,10 +77,9 @@ const ManageEventPage = () => {
 	}, []);
 
 	return (
-		<View
+		<AView
 			flex={1}
 			backgroundColor='transparent'
-			animated
 			style={animatedContainerProps}
 		>
 			<Switch>
@@ -113,7 +112,7 @@ const ManageEventPage = () => {
 				sheetApi={newEventCelebrationSheetApi}
 				event_uid={route.params.event_uid}
 			/>
-		</View>
+		</AView>
 	);
 };
 

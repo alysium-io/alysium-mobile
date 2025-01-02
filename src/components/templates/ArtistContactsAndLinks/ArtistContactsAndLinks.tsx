@@ -1,15 +1,30 @@
-import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
 import { Icon, Text, View } from '@atomic';
+import { artistApiSlice } from '@flux/api/artist';
 import { useSheet } from '@hooks';
 import ContactsSheet from '@src/components/pages/Artist/sheets/ContactsSheet';
 import ExternalUrlsSheet from '@src/components/pages/Artist/sheets/ExternalUrlsSheet';
+import { NanoId } from '@types';
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
 
-const ArtistContactsAndLinks = () => {
-	const { artistData } = useArtistAppContext();
+interface ArtistContactsAndLinksProps {
+	artist_uid: NanoId;
+}
+
+const ArtistContactsAndLinks: React.FC<ArtistContactsAndLinksProps> = ({
+	artist_uid
+}) => {
+	const { data: artistData } = artistApiSlice.usePublicFindOneArtistQuery({
+		params: { artist_uid }
+	});
+
 	const externalUrlsSheetApi = useSheet();
 	const contactsSheetApi = useSheet();
+
+	if (!artistData) {
+		return null;
+	}
+
 	return (
 		<>
 			<View width='75%'>

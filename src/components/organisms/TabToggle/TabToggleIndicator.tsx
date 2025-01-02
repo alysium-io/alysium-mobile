@@ -1,4 +1,4 @@
-import { View } from '@atomic';
+import { AView } from '@atomic';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { SharedValue, useAnimatedStyle } from 'react-native-reanimated';
@@ -23,8 +23,7 @@ const TabToggleIndicator: React.FC<TabToggleIndicatorProps> = ({
 	});
 
 	return (
-		<View
-			animated
+		<AView
 			backgroundColor='bg.p'
 			style={[
 				styles.tabIndicator,

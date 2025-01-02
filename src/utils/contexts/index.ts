@@ -1,1 +1,5 @@
-export { ValidateEnvProvider, useEnvContext } from './ValidateEnv';
+export {
+	CurrentLocationProvider,
+	useCurrentLocationContext
+} from './CurrentLocationContext';
+export { useEnvContext, ValidateEnvProvider } from './ValidateEnv';

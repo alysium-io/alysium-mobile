@@ -18,7 +18,6 @@ const BasePage: React.FC<BasePageProps> = ({ children, FooterComponent }) => {
 
 	return (
 		<View
-			animated
 			backgroundColor='bg.p'
 			style={{
 				flex: 1,

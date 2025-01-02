@@ -1,5 +1,6 @@
 import {
 	PhoneNumberTextInput as AtomicPhoneNumberTextInput,
+	AView,
 	PhoneNumberTextInputProps,
 	Text,
 	View
@@ -54,8 +55,7 @@ const InternationalPhoneNumberTextInput: React.FC<
 
 	return (
 		<TouchableWithoutFeedback onPress={_textInputApi?.focus}>
-			<View
-				animated
+			<AView
 				backgroundColor='bg.light'
 				borderWidth={theme.borderWidth.thick}
 				borderRadius='m'
@@ -78,7 +78,7 @@ const InternationalPhoneNumberTextInput: React.FC<
 						/>
 					</View>
 				</View>
-			</View>
+			</AView>
 		</TouchableWithoutFeedback>
 	);
 };

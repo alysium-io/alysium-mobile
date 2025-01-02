@@ -1026,6 +1026,27 @@ PODS:
     - React-Core
   - react-native-date-picker (5.0.7):
     - React-Core
+  - react-native-geolocation (3.4.0):
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - RCT-Folly (= 2024.01.01.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Codegen
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - Yoga
   - react-native-image-picker (7.2.2):
     - DoubleConversion
     - glog
@@ -1424,7 +1445,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - RNReanimated (3.16.3):
+  - RNReanimated (3.16.6):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -1444,10 +1465,10 @@ PODS:
     - React-utils
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
-    - RNReanimated/reanimated (= 3.16.3)
-    - RNReanimated/worklets (= 3.16.3)
+    - RNReanimated/reanimated (= 3.16.6)
+    - RNReanimated/worklets (= 3.16.6)
     - Yoga
-  - RNReanimated/reanimated (3.16.3):
+  - RNReanimated/reanimated (3.16.6):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -1467,9 +1488,9 @@ PODS:
     - React-utils
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
-    - RNReanimated/reanimated/apple (= 3.16.3)
+    - RNReanimated/reanimated/apple (= 3.16.6)
     - Yoga
-  - RNReanimated/reanimated/apple (3.16.3):
+  - RNReanimated/reanimated/apple (3.16.6):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -1490,7 +1511,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - RNReanimated/worklets (3.16.3):
+  - RNReanimated/worklets (3.16.6):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -1606,6 +1627,7 @@ DEPENDENCIES:
   - react-native-config/Extension (from `../node_modules/react-native-config`)
   - react-native-contacts (from `../node_modules/react-native-contacts`)
   - react-native-date-picker (from `../node_modules/react-native-date-picker`)
+  - "react-native-geolocation (from `../node_modules/@react-native-community/geolocation`)"
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
   - react-native-loader-kit (from `../node_modules/react-native-loader-kit`)
   - react-native-maps (from `../node_modules/react-native-maps`)
@@ -1735,6 +1757,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-contacts"
   react-native-date-picker:
     :path: "../node_modules/react-native-date-picker"
+  react-native-geolocation:
+    :path: "../node_modules/@react-native-community/geolocation"
   react-native-image-picker:
     :path: "../node_modules/react-native-image-picker"
   react-native-loader-kit:
@@ -1863,6 +1887,7 @@ SPEC CHECKSUMS:
   react-native-config: 8f7283449bbb048902f4e764affbbf24504454af
   react-native-contacts: cdeb7709dcc626e5fd7ee3d3e3685357e877cbd5
   react-native-date-picker: 06a4d96ab525a163c7a90bccd68833d136b0bb13
+  react-native-geolocation: 67d909c955daedea3f8c30d912f004f806edff64
   react-native-image-picker: dd85e2530d366acf77745830b053294afed66339
   react-native-loader-kit: ed18c8ce83b69083211912326897d8286f37d797
   react-native-maps: d7c0974353b8a495642d7ce3b80f239fc6b87bfb
@@ -1901,7 +1926,7 @@ SPEC CHECKSUMS:
   RNGestureHandler: 6fee3422fd8c81c5ee756fa72e3d1780e9943d9d
   RNPermissions: dec6481e344807a55da01e120be2e33d1cb640df
   RNReactNativeHapticFeedback: 7c701396d35a0e8863d8d8f97a7273c5f8509b40
-  RNReanimated: e1c250aeb93d6738eaf51e3d93871873a0c41b81
+  RNReanimated: 5a19d7bc2fd0f1929d81301359a627d83c3684be
   RNScreens: a422459b99276a83c145986def122a430aa14194
   RNShare: b4362b6233f15b92ccdaf25e9343cc384d320f8b
   RNSVG: 3d2bdcaef51c8071880a9c0072fe324f4423a3ba

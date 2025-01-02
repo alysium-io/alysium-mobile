@@ -1,4 +1,4 @@
-import { View } from '@atomic';
+import { AView } from '@atomic';
 import React from 'react';
 import { useAnimatedStyle } from 'react-native-reanimated';
 
@@ -8,6 +8,6 @@ interface AnimatedBottomBufferProps {
 
 const AnimatedBottomBuffer: React.FC<AnimatedBottomBufferProps> = ({
 	animatedBottomBlockStyle
-}) => <View animated style={animatedBottomBlockStyle} />;
+}) => <AView style={animatedBottomBlockStyle} />;
 
 export default AnimatedBottomBuffer;

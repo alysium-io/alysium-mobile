@@ -1,4 +1,4 @@
-import { Icon, Image, View } from '@atomic';
+import { AView, Icon, Image, View } from '@atomic';
 import { useImage } from '@hooks';
 import { IconNames } from '@svg';
 import React from 'react';
@@ -48,12 +48,11 @@ const BannerImage: React.FC<BannerImageProps> = ({
 	}, [bannerImageHeight]);
 
 	return (
-		<View
-			animated
+		<AView
 			position='absolute'
 			style={[animatedContainerStyle, { width: '100%' }]}
 		>
-			<View height='100%' animated style={animatedImageStyle}>
+			<AView height='100%' style={animatedImageStyle}>
 				<Switch>
 					<Case condition={CustomBackground !== undefined}>
 						{/** react-if does not catch type check for undefined values YAY! */}
@@ -74,8 +73,8 @@ const BannerImage: React.FC<BannerImageProps> = ({
 						</View>
 					</Default>
 				</Switch>
-			</View>
-		</View>
+			</AView>
+		</AView>
 	);
 };
 

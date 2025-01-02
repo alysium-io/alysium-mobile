@@ -1,4 +1,4 @@
-import { PhoneNumberTextInput, Text, View } from '@atomic';
+import { AView, PhoneNumberTextInput, Text, View } from '@atomic';
 import { TextInputApi, useAnimatedState, useTextInput, useTheme } from '@hooks';
 import React from 'react';
 import {
@@ -47,8 +47,7 @@ const PhoneNumberTextInputWithLabel: React.FC<
 
 	return (
 		<TouchableWithoutFeedback onPress={_textInputApi.focus}>
-			<View
-				animated
+			<AView
 				paddingVertical='l'
 				paddingHorizontal='s'
 				borderBottomWidth={theme.borderWidth.thin}
@@ -72,7 +71,7 @@ const PhoneNumberTextInputWithLabel: React.FC<
 						{...props}
 					/>
 				</View>
-			</View>
+			</AView>
 		</TouchableWithoutFeedback>
 	);
 };

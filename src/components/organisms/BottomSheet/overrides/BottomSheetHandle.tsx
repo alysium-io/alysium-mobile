@@ -1,22 +1,9 @@
-import { View } from '@atomic';
 import { BottomSheetHandleProps } from '@gorhom/bottom-sheet';
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import Handle from './Handle';
 
 const BottomSheetHandle: React.FC<BottomSheetHandleProps> = () => {
-	return (
-		<View marginVertical='m' flexDirection='row' justifyContent='center'>
-			<View style={styles.handle} backgroundColor='sheet.handle' />
-		</View>
-	);
+	return <Handle />;
 };
-
-const styles = StyleSheet.create({
-	handle: {
-		height: 2,
-		width: 35,
-		borderRadius: 15
-	}
-});
 
 export default BottomSheetHandle;

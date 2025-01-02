@@ -1,4 +1,4 @@
-import { Text, View } from '@atomic';
+import { AView, Text } from '@atomic';
 import React from 'react';
 import { TouchableWithoutFeedback } from 'react-native';
 import { FadeIn } from 'react-native-reanimated';
@@ -10,8 +10,7 @@ interface SearchBarCancelProps {
 const SearchBarCancel: React.FC<SearchBarCancelProps> = ({ onPress }) => {
 	return (
 		<TouchableWithoutFeedback onPress={onPress}>
-			<View
-				animated
+			<AView
 				entering={FadeIn.delay(200).duration(200)}
 				exiting={FadeIn.delay(200).duration(200)}
 				padding='s'
@@ -19,7 +18,7 @@ const SearchBarCancel: React.FC<SearchBarCancelProps> = ({ onPress }) => {
 				<Text variant='paragraph-small' color='t1'>
 					Cancel
 				</Text>
-			</View>
+			</AView>
 		</TouchableWithoutFeedback>
 	);
 };

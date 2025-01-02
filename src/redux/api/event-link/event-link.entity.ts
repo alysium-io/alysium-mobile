@@ -6,5 +6,5 @@ export interface EventLink {
 	readonly permissions: EventLinkPermissions;
 	readonly ref_type: EventLinkRefType;
 	readonly event: Event;
-	readonly artist: PublicArtist | null;
+	readonly artist: PublicArtist;
 }

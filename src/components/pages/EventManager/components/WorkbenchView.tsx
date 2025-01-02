@@ -3,6 +3,7 @@ import { EventLink } from '@flux/api/event-link/event-link.entity';
 import { ComplexEventStatus } from '@flux/api/event/types';
 import {
 	useComplexEventStatuses,
+	useDatetimeCountdown,
 	useEventDateFormatter,
 	useNavigation,
 	useTheme
@@ -20,13 +21,16 @@ const EventListItem: React.FC<{ event: EventLink }> = ({ event }) => {
 		event.event.start_time,
 		event.event.end_time
 	);
+	const { countdown } = useDatetimeCountdown(
+		event.event.start_time ?? undefined
+	);
 
 	return (
 		<ContentListItem
 			onPress={() => manageEventPage(event.event.event_uid)}
 			titleTextProps={{
 				title: event.event.name,
-				bottomSubtext: dateFormatter.timeAgoConcise() || ''
+				bottomSubtext: dateFormatter.timeAgoConcise() || countdown || ''
 			}}
 			profileImageProps={{
 				image: event.event.profile_image?.small.key,
@@ -46,6 +50,7 @@ const WorkbenchView: React.FC<WorkbenchViewProps> = ({ events = [] }) => {
 	const sections = [
 		{ id: ComplexEventStatus.live, title: 'Live Now' },
 		{ id: ComplexEventStatus.coming_up, title: 'Coming Up' },
+		{ id: ComplexEventStatus.draft, title: 'Drafts' },
 		{ id: ComplexEventStatus.archived, title: 'Recently Completed' },
 		{ id: ComplexEventStatus.canceled, title: 'Canceled' }
 	];

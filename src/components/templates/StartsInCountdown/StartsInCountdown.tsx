@@ -30,9 +30,11 @@ const StartsInCountdown: React.FC<StartsInCountdownProps> = ({
 	);
 
 	if (countdown) {
-		<Text variant='paragraph' color='text.s' marginBottom='s' {...props}>
-			starts in {countdown}
-		</Text>;
+		return (
+			<Text variant='paragraph' color='text.s' marginBottom='s' {...props}>
+				starts in {countdown}
+			</Text>
+		);
 	}
 
 	if (complexStatus === ComplexEventStatus.live) {

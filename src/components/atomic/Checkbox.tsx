@@ -1,4 +1,4 @@
-import { Icon, View } from '@atomic';
+import { AView, Icon, View } from '@atomic';
 import { SemanticColor } from '@types';
 import React from 'react';
 import { StyleSheet, TouchableWithoutFeedback } from 'react-native';
@@ -19,15 +19,13 @@ const Checkbox: React.FC<CheckboxProps> = ({
 	return (
 		<TouchableWithoutFeedback onPress={onPress}>
 			<View flexDirection='row'>
-				<View
-					animated
+				<AView
 					borderColor={bgColor}
 					backgroundColor={checked ? bgColor : 'transparent'}
 					borderRadius='m'
 					style={styles.container}
 				>
-					<View
-						animated
+					<AView
 						style={[
 							{
 								height: 16,
@@ -37,8 +35,8 @@ const Checkbox: React.FC<CheckboxProps> = ({
 						]}
 					>
 						<Icon name='checkmark' size='expanded' color={iconColor} />
-					</View>
-				</View>
+					</AView>
+				</AView>
 			</View>
 		</TouchableWithoutFeedback>
 	);

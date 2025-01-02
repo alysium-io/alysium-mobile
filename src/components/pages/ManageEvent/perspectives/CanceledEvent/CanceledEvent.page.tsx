@@ -7,7 +7,7 @@ import Separator from '@src/components/pages/EditArtist/components/Separator';
 import SubHeader from '@src/components/pages/Event/components/SubHeader';
 import { NanoId } from '@types';
 import React from 'react';
-import { Loading } from '../../Loading';
+import Loading from '../../Loading';
 import CanceledEventPageHeader from './CanceledEvent.header';
 
 interface CanceledEventPageProps {

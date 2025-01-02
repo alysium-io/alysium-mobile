@@ -13,23 +13,6 @@ const path: PathProps = {
 };
 
 const DM: React.FC<IconProps> = (props) => {
-	if (props.animated) {
-		return (
-			<Svg
-				{...svg}
-				size={props.size}
-				animated={true}
-				animatedProps={props.animatedSvgProps}
-			>
-				<Path
-					{...path}
-					animated={true}
-					animatedProps={props.animatedPathProps}
-				/>
-			</Svg>
-		);
-	}
-
 	return (
 		<Svg {...svg} size={props.size}>
 			<Path {...path} fill={props.color} />

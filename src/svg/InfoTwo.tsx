@@ -21,40 +21,6 @@ const path3: PathProps = {
 };
 
 const InfoTwo: React.FC<IconProps> = (props) => {
-	if (props.animated) {
-		return (
-			<Svg
-				{...svg}
-				size={props.size}
-				animated={true}
-				animatedProps={props.animatedSvgProps}
-			>
-				<G fill={props.color} clipPath='url(#a)'>
-					<Path
-						{...path1}
-						animated={true}
-						animatedProps={props.animatedPathProps}
-					/>
-					<Path
-						{...path2}
-						animated={true}
-						animatedProps={props.animatedPathProps}
-					/>
-				</G>
-				<Defs>
-					<ClipPath id='a'>
-						<Path
-							{...path3}
-							fill={props.color}
-							animated={true}
-							animatedProps={props.animatedPathProps}
-						/>
-					</ClipPath>
-				</Defs>
-			</Svg>
-		);
-	}
-
 	return (
 		<Svg {...svg} size={props.size}>
 			<G fill={props.color} clipPath='url(#a)'>

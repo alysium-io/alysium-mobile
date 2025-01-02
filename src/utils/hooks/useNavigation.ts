@@ -1,7 +1,6 @@
 import { Contact } from '@flux/api/contact';
 import { ExternalUrl } from '@flux/api/external-url/external-url.entity';
-import { FindGalleryParamsDto } from '@flux/api/gallery/dto/gallery-find.dto';
-import { GalleryRefType } from '@flux/api/gallery/types';
+import { GalleryItem } from '@flux/api/gallery/gallery-item.entity';
 import { useNavigation as useRNNavigation } from '@react-navigation/native';
 import { CompositeScreenNavigationProp, NanoId } from '@types';
 import {
@@ -38,9 +37,7 @@ interface IUseNavigation {
 
 	viewGalleryPage: (
 		transitionTagId: string,
-		pressIndex: number,
-		findGalleryParamsDto: FindGalleryParamsDto,
-		galleryRefType: GalleryRefType
+		galleryItems: GalleryItem[]
 	) => void;
 
 	chooseScenePage: () => void;
@@ -74,6 +71,8 @@ interface IUseNavigation {
 
 	manageEventPage: (event_uid: NanoId) => void;
 	editPublishedEventPage: (event_uid: NanoId) => void;
+
+	localEventsMapPage: () => void;
 
 	/** General */
 	back: () => void;
@@ -155,15 +154,11 @@ const useNavigation = (): IUseNavigation => {
 
 	const viewGalleryPage = (
 		transitionTagId: string,
-		pressIndex: number,
-		findGalleryParamsDto: FindGalleryParamsDto,
-		galleryRefType: GalleryRefType
+		galleryItems: GalleryItem[]
 	) => {
 		navigation.navigate('ViewGalleryPage', {
 			transitionTagId,
-			pressIndex,
-			findGalleryParamsDto,
-			galleryRefType
+			galleryItems
 		});
 	};
 
@@ -239,6 +234,10 @@ const useNavigation = (): IUseNavigation => {
 		navigation.push('EditPublishedEventPage', { event_uid });
 	};
 
+	const localEventsMapPage = () => {
+		navigation.push('LocalEventsMapPage');
+	};
+
 	/**
 	 * General
 	 */
@@ -272,6 +271,7 @@ const useNavigation = (): IUseNavigation => {
 		editArtistEventAboutPage,
 		manageEventPage,
 		editPublishedEventPage,
+		localEventsMapPage,
 		back
 	};
 };

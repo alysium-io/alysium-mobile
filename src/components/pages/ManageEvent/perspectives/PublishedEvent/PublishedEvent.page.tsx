@@ -17,7 +17,7 @@ import { StartsInCountdown } from '@templates';
 import { NanoId } from '@types';
 import React from 'react';
 import { Linking } from 'react-native';
-import { Loading } from '../../Loading';
+import Loading from '../../Loading';
 import PublishedEventPageHeader from './PublishedEvent.header';
 import PopupMenu from './sheets/PopupMenu';
 

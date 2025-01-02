@@ -44,7 +44,7 @@ const HeaderSection = () => {
 						{artistData.scene?.scene.name ?? 'No Location'}
 					</Text>
 				</View>
-				<ArtistContactsAndLinks />
+				<ArtistContactsAndLinks artist_uid={artistData.artist_uid} />
 			</View>
 		</Section>
 	);

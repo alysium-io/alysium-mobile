@@ -1,4 +1,4 @@
-import { View } from '@atomic';
+import { AView } from '@atomic';
 import React from 'react';
 import {
 	interpolate,
@@ -41,11 +41,7 @@ const KeyboardAvoidingFooter: React.FC<KeyboardAvoidingFooterProps> = ({
 		};
 	}, [insets.bottom]);
 
-	return (
-		<View animated style={animatedPosition}>
-			{children}
-		</View>
-	);
+	return <AView style={animatedPosition}>{children}</AView>;
 };
 
 export default KeyboardAvoidingFooter;

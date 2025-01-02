@@ -1,4 +1,4 @@
-import { Text, TextInput, View } from '@atomic';
+import { AView, Text, TextInput, View } from '@atomic';
 import { TextInputApi, useAnimatedState, useTextInput, useTheme } from '@hooks';
 import React from 'react';
 import {
@@ -49,8 +49,7 @@ const TextInputWithLabel: React.FC<TextInputWithLabelProps> = ({
 
 	return (
 		<TouchableWithoutFeedback onPress={_textInputApi.focus}>
-			<View
-				animated
+			<AView
 				paddingVertical='l'
 				paddingHorizontal='s'
 				borderBottomWidth={theme.borderWidth.thin}
@@ -74,7 +73,7 @@ const TextInputWithLabel: React.FC<TextInputWithLabelProps> = ({
 						{...props}
 					/>
 				</View>
-			</View>
+			</AView>
 		</TouchableWithoutFeedback>
 	);
 };

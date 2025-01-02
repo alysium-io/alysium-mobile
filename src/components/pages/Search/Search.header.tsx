@@ -1,4 +1,4 @@
-import { Icon, View } from '@atomic';
+import { Icon, LView, View } from '@atomic';
 import { Vibrator } from '@etc';
 import { SearchApi, SequenceApi, ToggleApi } from '@hooks';
 import { TabToggler } from '@molecules';
@@ -11,7 +11,6 @@ import {
 } from '@organisms';
 import React from 'react';
 import { Else, If, Then } from 'react-if';
-import { FadeIn, LinearTransition } from 'react-native-reanimated';
 
 interface SearchPageHeaderProps {
 	activeSearchTypeSequenceApi: SequenceApi;
@@ -35,12 +34,7 @@ const SearchPageHeader: React.FC<SearchPageHeaderProps> = ({
 		<Header>
 			<If condition={searchActiveApi.state}>
 				<Then>
-					<View
-						margin='m'
-						animated
-						entering={FadeIn.duration(300)}
-						layout={LinearTransition.duration(300)}
-					>
+					<LView margin='m'>
 						<TabToggler
 							defaultActiveTab={activeSearchTypeSequenceApi.sequenceIndex}
 							onChange={onPressTabToggler}
@@ -49,14 +43,10 @@ const SearchPageHeader: React.FC<SearchPageHeaderProps> = ({
 								{ text: 'tags', id: 1 }
 							]}
 						/>
-					</View>
+					</LView>
 				</Then>
 				<Else>
-					<View
-						animated
-						entering={FadeIn.duration(300)}
-						layout={LinearTransition.duration(300)}
-					>
+					<LView>
 						<HeaderSection
 							LeftComponent={
 								<HeaderTitle
@@ -66,10 +56,10 @@ const SearchPageHeader: React.FC<SearchPageHeaderProps> = ({
 							}
 							RightComponent={<Icon name='logo' size='m' color='text.s' />}
 						/>
-					</View>
+					</LView>
 				</Else>
 			</If>
-			<View animated layout={LinearTransition.duration(300)}>
+			<LView>
 				<Sequence sequenceIndex={activeSearchTypeSequenceApi.sequenceIndex}>
 					<View margin='m' marginTop='m'>
 						<SearchBar searchApi={searchAnythingApi} />
@@ -78,7 +68,7 @@ const SearchPageHeader: React.FC<SearchPageHeaderProps> = ({
 						<SearchBar searchApi={searchTagsApi} />
 					</View>
 				</Sequence>
-			</View>
+			</LView>
 		</Header>
 	);
 };

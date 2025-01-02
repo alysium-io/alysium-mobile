@@ -24,7 +24,7 @@ const useCreateArtistEventBottomSheet = (
 		reset: resetButtonState,
 		buttonState
 	} = useButtonState('disabled');
-	const { editEventPage } = useNavigation();
+	const { manageEventPage } = useNavigation();
 	const { artistData } = useArtistAppContext();
 	const [createArtistEventMutation] =
 		artistEventApiSlice.useCreateArtistEventMutation();
@@ -48,13 +48,7 @@ const useCreateArtistEventBottomSheet = (
 
 			close();
 			setTimeout(() => {
-				editEventPage(response.event.event_uid, {
-					from: 'EditArtistPage',
-					from_uid: artistData.artist_uid,
-					to: 'EditEventPage',
-					to_uid: response.event.event_uid,
-					using: 'CREATE_ARTIST_EVENT_CONTENT_LIST_ITEM'
-				});
+				manageEventPage(response.event.event_uid);
 			}, 500);
 		} catch {
 			setButtonState('active');

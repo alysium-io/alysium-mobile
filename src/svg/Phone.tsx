@@ -13,24 +13,6 @@ const path: PathProps = {
 };
 
 const Phone: React.FC<IconProps> = (props) => {
-	if (props.animated) {
-		return (
-			<Svg
-				{...svg}
-				size={props.size}
-				animated={props.animated}
-				animatedProps={props.animatedSvgProps}
-			>
-				<Path
-					{...path}
-					fill={props.color}
-					animated={props.animated}
-					animatedProps={props.animatedPathProps}
-				/>
-			</Svg>
-		);
-	}
-
 	return (
 		<Svg {...svg} size={props.size}>
 			<Path {...path} fill={props.color} />

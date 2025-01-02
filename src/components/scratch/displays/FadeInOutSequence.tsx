@@ -1,10 +1,9 @@
-import { Text, View } from '@atomic';
+import { LView, Text, View } from '@atomic';
 import { useSequence } from '@hooks';
 import { Button, TabToggler } from '@molecules';
 import { Sequence } from '@organisms';
 import React from 'react';
 import { ScrollView } from 'react-native';
-import { LinearTransition } from 'react-native-reanimated';
 
 const FadeInOutSequence = () => {
 	/**
@@ -37,8 +36,7 @@ const FadeInOutSequence = () => {
 						</Text>
 					))}
 				</ScrollView>
-				<View
-					layout={LinearTransition.duration(200)}
+				<LView
 					style={{
 						flex: 1,
 						backgroundColor: 'blue'
@@ -47,9 +45,8 @@ const FadeInOutSequence = () => {
 					<Text variant='paragraph-large-medium' color='text.negative.p'>
 						Index: 1/{sequenceApi.numItems}
 					</Text>
-				</View>
-				<View
-					layout={LinearTransition.duration(200)}
+				</LView>
+				<LView
 					style={{
 						backgroundColor: 'green'
 					}}
@@ -57,23 +54,17 @@ const FadeInOutSequence = () => {
 					<Text variant='paragraph-large-medium' color='text.negative.p'>
 						Index: 2/{sequenceApi.numItems}
 					</Text>
-				</View>
+				</LView>
 			</Sequence>
-			<View
-				margin='m'
-				flexDirection='row'
-				marginBottom='xxl'
-				animated
-				layout={LinearTransition.duration(200)}
-			>
+			<LView margin='m' flexDirection='row' marginBottom='xxl'>
 				<View marginRight='s' flex={1}>
 					<Button text='back' onPress={sequenceApi.back} />
 				</View>
 				<View marginLeft='s' flex={1}>
 					<Button text='next' onPress={sequenceApi.next} />
 				</View>
-			</View>
-			<View margin='m' animated layout={LinearTransition.duration(200)}>
+			</LView>
+			<LView margin='m'>
 				<TabToggler
 					defaultActiveTab={sequenceApi.sequenceIndex}
 					onChange={(id: number) => sequenceApi.goTo(id)}
@@ -83,16 +74,10 @@ const FadeInOutSequence = () => {
 						{ text: 'artists', id: 2 }
 					]}
 				/>
-			</View>
-			<View
-				margin='m'
-				flexDirection='row'
-				justifyContent='center'
-				animated
-				layout={LinearTransition.duration(200)}
-			>
+			</LView>
+			<LView margin='m' flexDirection='row' justifyContent='center'>
 				<Text>Current Index: {sequenceApi.sequenceIndex}</Text>
-			</View>
+			</LView>
 		</View>
 	);
 };

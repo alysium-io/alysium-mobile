@@ -10,6 +10,7 @@ import { UserAppBottomTabNavigatorParamList } from '@types';
 import React from 'react';
 import { useUserAppContext } from '../contexts/User.context';
 import { ProfileTab, SearchTab } from '../tabs';
+import HomeTab from '../tabs/Home.tab';
 import AppDependencies from './AppDependencies';
 import { useAppSettings } from './useAppSettings';
 
@@ -26,7 +27,7 @@ const UserApp = () => {
 	} = useUserAppContext();
 
 	const getInitialRouteName = (): keyof UserAppBottomTabNavigatorParamList => {
-		if (!['Search', 'Profile'].includes(tab)) {
+		if (!['Home', 'Search', 'Profile'].includes(tab)) {
 			return fallbackTab;
 		} else {
 			return tab as keyof UserAppBottomTabNavigatorParamList;
@@ -47,6 +48,30 @@ const UserApp = () => {
 						}
 					}}
 				>
+					<UserTabNavigator.Screen
+						name='Home'
+						component={HomeTab}
+						options={{
+							tabBarIcon: ({ focused }) =>
+								focused ? (
+									<Icon
+										name='home'
+										size='m'
+										color={
+											focused ? 'navbar.icon.active' : 'navbar.icon.inactive'
+										}
+									/>
+								) : (
+									<Icon
+										name='home'
+										size='m'
+										color={
+											focused ? 'navbar.icon.active' : 'navbar.icon.inactive'
+										}
+									/>
+								)
+						}}
+					/>
 					<UserTabNavigator.Screen
 						name='Search'
 						component={SearchTab}

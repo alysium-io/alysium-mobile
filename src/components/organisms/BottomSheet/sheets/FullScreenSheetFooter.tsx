@@ -1,4 +1,4 @@
-import { View } from '@atomic';
+import { AView, View } from '@atomic';
 import {
 	BottomSheetFooter,
 	BottomSheetFooterProps
@@ -48,8 +48,7 @@ const FullScreenSheetFooter: React.FC<FullScreenSheetFooterProps> = ({
 
 	return (
 		<BottomSheetFooter {...props}>
-			<View
-				animated
+			<AView
 				paddingHorizontal='m'
 				paddingTop='l'
 				flexDirection='row'
@@ -61,7 +60,7 @@ const FullScreenSheetFooter: React.FC<FullScreenSheetFooterProps> = ({
 				{...containerProps}
 			>
 				{children}
-			</View>
+			</AView>
 		</BottomSheetFooter>
 	);
 };

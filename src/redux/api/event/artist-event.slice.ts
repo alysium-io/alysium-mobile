@@ -133,7 +133,10 @@ const artistEventApiSlice = serviceApi.injectEndpoints({
 				method: 'POST',
 				body
 			}),
-			invalidatesTags: [{ type: 'ArtistEvent', id: 'LIST' }]
+			invalidatesTags: [
+				{ type: 'ArtistEvent', id: 'LIST' },
+				{ type: 'ArtistEvent', id: 'WORKBENCH' }
+			]
 		}),
 		deleteArtistEvent: builder.mutation<
 			DeleteArtistEventResponseDto,
@@ -145,7 +148,8 @@ const artistEventApiSlice = serviceApi.injectEndpoints({
 			}),
 			invalidatesTags: () => [
 				{ type: 'ArtistEvent', id: 'LIST' },
-				{ type: 'PublicEvent', id: 'LIST' }
+				{ type: 'PublicEvent', id: 'LIST' },
+				{ type: 'ArtistEvent', id: 'WORKBENCH' }
 			],
 			async onQueryStarted({ params }, { dispatch, queryFulfilled }) {
 				const patches = dispatch(
@@ -189,7 +193,8 @@ const artistEventApiSlice = serviceApi.injectEndpoints({
 				{ type: 'ArtistEvent', id: params.event_uid },
 				{ type: 'PublicEvent', id: params.event_uid },
 				{ type: 'ArtistEvent', id: 'LIST' },
-				{ type: 'PublicEvent', id: 'LIST' }
+				{ type: 'PublicEvent', id: 'LIST' },
+				{ type: 'ArtistEvent', id: 'WORKBENCH' }
 			]
 		}),
 		patchArtistEventLocation: builder.mutation<
@@ -210,7 +215,8 @@ const artistEventApiSlice = serviceApi.injectEndpoints({
 				{ type: 'ArtistEvent', id: params.event_uid },
 				{ type: 'PublicEvent', id: params.event_uid },
 				{ type: 'PublicEvent', id: 'LIST' },
-				{ type: 'ArtistEvent', id: 'LIST' }
+				{ type: 'ArtistEvent', id: 'LIST' },
+				{ type: 'ArtistEvent', id: 'WORKBENCH' }
 			]
 		}),
 		patchArtistEventStatus: builder.mutation<
@@ -231,7 +237,8 @@ const artistEventApiSlice = serviceApi.injectEndpoints({
 				{ type: 'ArtistEvent', id: params.event_uid },
 				{ type: 'PublicEvent', id: params.event_uid },
 				{ type: 'PublicEvent', id: 'LIST' },
-				{ type: 'ArtistEvent', id: 'LIST' }
+				{ type: 'ArtistEvent', id: 'LIST' },
+				{ type: 'ArtistEvent', id: 'WORKBENCH' }
 			]
 		}),
 		patchArtistEventTime: builder.mutation<
@@ -250,7 +257,8 @@ const artistEventApiSlice = serviceApi.injectEndpoints({
 				{ type: 'ArtistEvent', id: params.event_uid },
 				{ type: 'PublicEvent', id: params.event_uid },
 				{ type: 'PublicEvent', id: 'LIST' },
-				{ type: 'ArtistEvent', id: 'LIST' }
+				{ type: 'ArtistEvent', id: 'LIST' },
+				{ type: 'ArtistEvent', id: 'WORKBENCH' }
 			]
 		}),
 		workbench: builder.query<

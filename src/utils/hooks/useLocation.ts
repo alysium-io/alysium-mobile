@@ -132,7 +132,7 @@ export const useLocation = (
 			.trim();
 	};
 
-	const build = ((
+	const build = (
 		param: FormatSpecification[] | FormatSpecification | AddressComponentType
 	): string => {
 		if (typeof param === 'string') {
@@ -145,7 +145,7 @@ export const useLocation = (
 			// Handle single specification object
 			return buildAddress([param]);
 		}
-	}) as LocationApi['build'];
+	};
 
 	const openMap = (label?: string) => {
 		if (!location) return;

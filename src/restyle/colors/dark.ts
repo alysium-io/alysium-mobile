@@ -52,6 +52,9 @@ export const createSemanticDarkTheme = (
 
 		'sheet.handle': palette.neutral.p4,
 
+		'skeleton-placeholder.bg': 'rgba(32, 32, 32, 1)',
+		'skeleton-placeholder.highlight': 'rgba(255, 255, 255, 0.1)',
+
 		'button.solid.loading.bg': palette.neutral.p5,
 		'button.solid.loading.activity-indicator': palette.neutral.p1,
 		'button.solid.disabled.bg': palette.neutral.p4,

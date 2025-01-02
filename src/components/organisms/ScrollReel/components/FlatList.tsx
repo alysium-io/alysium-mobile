@@ -1,5 +1,5 @@
 import { Props } from '@types';
-import React, { useCallback, useEffect, useMemo, useRef } from 'react';
+import React, { useCallback } from 'react';
 import {
 	ListRenderItemInfo,
 	NativeScrollEvent,
@@ -15,27 +15,16 @@ interface FlatListProps {
 	items: FlatListItemProps[];
 	currentIndex: number;
 	setCurrentIndex: (index: number) => void;
-	rewindCurrentVideo: () => void;
-	playCurrentVideo: () => void;
-	pauseCurrentVideo: () => void;
 }
 
 const FlatList: React.FC<FlatListProps> = ({
 	items,
 	currentIndex,
-	setCurrentIndex,
-	rewindCurrentVideo,
-	playCurrentVideo,
-	pauseCurrentVideo
+	setCurrentIndex
 }) => {
-	// see `./scrollViewWasDragged.md` to see explanation for this
-	const scrollViewWasDragged = useRef<boolean>(false);
-
-	const FlatListItemMemo = useMemo(() => FlatListItem, []);
-
 	const renderItem = useCallback(
 		({ item }: ListRenderItemInfo<FlatListItemProps>) => {
-			return <FlatListItemMemo {...item} />;
+			return <FlatListItem {...item} />;
 		},
 		[]
 	);
@@ -49,23 +38,6 @@ const FlatList: React.FC<FlatListProps> = ({
 		}
 	};
 
-	const onScrollBeginDrag = () => {
-		scrollViewWasDragged.current = true;
-		pauseCurrentVideo();
-	};
-
-	const onMomentumScrollEnd = () => {
-		if (scrollViewWasDragged.current === true) {
-			scrollViewWasDragged.current = false;
-			playCurrentVideo();
-		}
-	};
-
-	useEffect(() => {
-		rewindCurrentVideo();
-		playCurrentVideo();
-	}, [currentIndex]);
-
 	return (
 		<Animated.FlatList
 			data={items}
@@ -77,8 +49,6 @@ const FlatList: React.FC<FlatListProps> = ({
 			renderItem={renderItem}
 			style={styles.flatlist}
 			onScroll={onScroll}
-			onScrollBeginDrag={onScrollBeginDrag}
-			onMomentumScrollEnd={onMomentumScrollEnd}
 			initialNumToRender={1}
 			maxToRenderPerBatch={2}
 		/>

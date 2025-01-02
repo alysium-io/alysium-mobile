@@ -1,5 +1,5 @@
 import { usePersonaAppContext } from '@arch/Application/contexts/Persona.context';
-import { Avatar, Text, View } from '@atomic';
+import { Avatar, AView, Text, View } from '@atomic';
 import { SheetApi } from '@hooks';
 import { Button } from '@molecules';
 import { CreateArtistFormApi } from '@src/utils/redux-hook-form/useCreateArtistFormApi';
@@ -28,8 +28,7 @@ const CreateArtistSuccess: React.FC<CreateArtistSuccessProps> = ({
 	};
 
 	return (
-		<View
-			animated
+		<AView
 			entering={FadeIn}
 			flex={1}
 			padding='m'
@@ -62,7 +61,7 @@ const CreateArtistSuccess: React.FC<CreateArtistSuccessProps> = ({
 				</View>
 				<Button text='Switch to Artist' onPress={continueAsArtist} color='p' />
 			</View>
-		</View>
+		</AView>
 	);
 };
 

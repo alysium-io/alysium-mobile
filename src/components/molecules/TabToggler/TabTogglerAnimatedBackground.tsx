@@ -1,4 +1,4 @@
-import { View } from '@atomic';
+import { AView } from '@atomic';
 import React, { useEffect } from 'react';
 import { StyleSheet } from 'react-native';
 import {
@@ -29,11 +29,7 @@ const TabTogglerAnimatedBackground: React.FC<
 	}, [numItems]);
 
 	return (
-		<View
-			animated
-			style={[styles.container, animatedStyles]}
-			backgroundColor='bg.p'
-		/>
+		<AView style={[styles.container, animatedStyles]} backgroundColor='bg.p' />
 	);
 };
 
