@@ -137,26 +137,45 @@ const useEventDateFormatter = (
 		const diffMinutes = now.diff(normalizedStartDate, 'minute');
 		const diffHours = now.diff(normalizedStartDate, 'hour');
 		const diffDays = now.diff(normalizedStartDate, 'day');
-		const diffWeeks = Math.round(diffDays / 7);
+		const diffWeeks = Math.floor(diffDays / 7);
 		const diffMonths = now.diff(normalizedStartDate, 'month');
 		const diffYears = now.diff(normalizedStartDate, 'year');
 
+		// Just now / minutes
+		if (diffMinutes < 1) {
+			return 'Just now';
+		}
 		if (diffMinutes < 60) {
 			return `${diffMinutes} minute${diffMinutes === 1 ? '' : 's'} ago`;
 		}
+
+		// Hours
 		if (diffHours < 24) {
 			return `${diffHours} hour${diffHours === 1 ? '' : 's'} ago`;
 		}
+
+		// Days
 		if (diffDays < 7) {
 			return `${diffDays} day${diffDays === 1 ? '' : 's'} ago`;
 		}
-		if (diffWeeks < 4) {
+
+		// Weeks
+		if (diffWeeks < 4 && diffWeeks > 0) {
 			return `${diffWeeks} week${diffWeeks === 1 ? '' : 's'} ago`;
 		}
-		if (diffMonths < 12) {
+
+		// Months
+		if (diffMonths < 12 && diffMonths > 0) {
 			return `${diffMonths} month${diffMonths === 1 ? '' : 's'} ago`;
 		}
-		return `${diffYears} year${diffYears === 1 ? '' : 's'} ago`;
+
+		// Years
+		if (diffYears > 0) {
+			return `${diffYears} year${diffYears === 1 ? '' : 's'} ago`;
+		}
+
+		// Fallback to showing "1 month ago" if none of the above conditions match
+		return '1 month ago';
 	};
 
 	return {
