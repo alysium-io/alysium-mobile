@@ -40,6 +40,7 @@ type ArtistEventsPage = { artist_uid: NanoId };
 type ChooseEventLocationPage = { event_uid: NanoId };
 
 type UserArtistsFollowingPage = undefined;
+type UserScenesFollowingPage = undefined;
 type UserTagsFollowingPage = undefined;
 
 type TopTagsPage = undefined;
@@ -87,6 +88,7 @@ export type RouteNames =
 	| 'EventPage'
 	| 'EditContractPage'
 	| 'UserArtistsFollowingPage'
+	| 'UserScenesFollowingPage'
 	| 'UserTagsFollowingPage'
 	| 'TopTagsPage'
 	| 'EditArtistPage'
@@ -128,6 +130,7 @@ export type SearchStackNavigatorParamList = {
 	TagFollowersPage: TagFollowersPage;
 
 	UserArtistsFollowingPage: UserArtistsFollowingPage;
+	UserScenesFollowingPage: UserScenesFollowingPage;
 	UserTagsFollowingPage: UserTagsFollowingPage;
 
 	TopTagsPage: TopTagsPage;
@@ -163,6 +166,7 @@ export type EventManagerStackNavigatorParamList = {
 	EventPage: EventPage;
 	EditPublishedEventPage: EditPublishedEventPage;
 	ViewGalleryPage: ViewGalleryPage;
+	ArtistPage: ArtistPage;
 };
 
 export type HomeStackNavigatorParamList = {

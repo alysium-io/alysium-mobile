@@ -3,6 +3,7 @@ import { sceneApiSlice } from '@flux/api/scene';
 import { Location } from '@molecules';
 import { BasePage, Parallax } from '@organisms';
 import { useRoute } from '@react-navigation/native';
+import { ParallaxLoading } from '@templates';
 import { ScenePageRouteProp } from '@types';
 import React, { useCallback } from 'react';
 import ScenePageHeader from './Scene.header';
@@ -33,11 +34,11 @@ const Scene = () => {
 					/>
 				</View>
 			),
-		[sceneData]
+		[sceneData?.location]
 	);
 
 	if (!sceneData) {
-		return null;
+		return <ParallaxLoading />;
 	}
 
 	return (

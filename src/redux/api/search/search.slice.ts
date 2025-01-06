@@ -6,6 +6,11 @@ import {
 	SearchArtistsResponseDto
 } from './dto/search-artists.dto';
 import {
+	SearchScenesBodyDto,
+	SearchScenesQueryDto,
+	SearchScenesResponseDto
+} from './dto/search-scenes.dto';
+import {
 	SearchTagsBodyDto,
 	SearchTagsQueryDto,
 	SearchTagsResponseDto
@@ -27,7 +32,31 @@ const apiSlice = serviceApi.injectEndpoints({
 			}),
 			serializeQueryArgs: ({ endpointName, queryArgs: { body } }) => ({
 				endpointName,
-				tag_uid: body?.q
+				q: body?.q
+			}),
+			merge: (currentCache, newItems) => {
+				return {
+					...newItems,
+					hits: _.unionBy(currentCache.hits, newItems.hits, (item) => item.uid)
+				};
+			},
+			forceRefetch({ currentArg, previousArg }) {
+				return !_.isEqual(currentArg, previousArg);
+			}
+		}),
+		searchScenes: builder.query<
+			SearchScenesResponseDto,
+			{ body: SearchScenesBodyDto; query: SearchScenesQueryDto }
+		>({
+			query: ({ body, query }) => ({
+				url: url('/scenes'),
+				method: 'POST',
+				params: query,
+				body
+			}),
+			serializeQueryArgs: ({ endpointName, queryArgs: { body } }) => ({
+				endpointName,
+				q: body?.q
 			}),
 			merge: (currentCache, newItems) => {
 				return {

@@ -183,6 +183,8 @@ export type SemanticColors = {
 
 	'search-inactive-page.artists-following.image.bg': HexColor;
 	'search-inactive-page.artists-following.image.icon': HexColor;
+	'search-inactive-page.scenes-following.image.bg': HexColor;
+	'search-inactive-page.scenes-following.image.icon': HexColor;
 	'search-inactive-page.tags-following.image.bg': HexColor;
 	'search-inactive-page.tags-following.image.icon': HexColor;
 	'search-inactive-page.top-tags.image.bg': HexColor;

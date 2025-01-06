@@ -8,17 +8,16 @@ const ViewMapButton = () => {
 	const { theme } = useTheme();
 	return (
 		<View
-			margin='m'
 			position='absolute'
-			bottom={0}
-			left={0}
-			right={0}
+			bottom={theme.spacing.m}
 			flexDirection='row'
 			justifyContent='center'
+			width='100%'
+			alignItems='center'
+			pointerEvents='box-none'
 		>
 			<TouchableOpacity activeOpacity={0.8} onPress={localEventsMapPage}>
 				<View
-					margin='m'
 					paddingVertical='m'
 					paddingHorizontal='l'
 					backgroundColor='button.solid.active.bg.p'

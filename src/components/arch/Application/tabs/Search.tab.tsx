@@ -7,6 +7,7 @@ import {
 	TagPage,
 	TopTagsPage,
 	UserArtistsFollowingPage,
+	UserScenesFollowingPage,
 	UserTagsFollowingPage,
 	ViewGalleryPage
 } from '@pages';
@@ -32,6 +33,11 @@ const SearchTab = () => {
 			<SearchStack.Screen
 				name='UserArtistsFollowingPage'
 				component={UserArtistsFollowingPage}
+			/>
+
+			<SearchStack.Screen
+				name='UserScenesFollowingPage'
+				component={UserScenesFollowingPage}
 			/>
 
 			<SearchStack.Screen

@@ -1,54 +1,53 @@
+import { Vibrator } from '@etc';
 import { SearchItem } from '@flux/api/search';
 import { SearchType } from '@flux/api/search/search.entity';
 import {
 	SearchApi,
-	SequenceApi,
-	ToggleApi,
 	useNavigation,
 	usePersistedSearchState,
-	useSearch,
-	useSequence,
-	useToggle
+	useSearch
 } from '@hooks';
+import { useState } from 'react';
 
 interface IUseSearchPage {
 	onPressSearchResult: (item: SearchItem) => void;
 	recentSearches: SearchItem[];
-	activeSearchTypeSequenceApi: SequenceApi;
-	searchAnythingApi: SearchApi;
-	searchTagsApi: SearchApi;
-	searchActiveApi: ToggleApi;
+	searchApi: SearchApi;
+	activeSearchType: SearchType;
+	setActiveSearchType: (searchType: SearchType) => void;
 }
 
 const useSearchPage = (): IUseSearchPage => {
-	const activeSearchTypeSequenceApi = useSequence(1);
-	const { artistPage, tagPage } = useNavigation();
+	const { artistPage, tagPage, scenePage } = useNavigation();
 	const { addRecentSearch, recentSearches } = usePersistedSearchState();
+	const [activeSearchType, setActiveSearchType] = useState<SearchType>(
+		SearchType.artist
+	);
+	const searchApi = useSearch();
 
-	const searchActiveApi = useToggle();
-	const searchAnythingApi = useSearch({
-		methods: {
-			onBarDidActivate: searchActiveApi.on,
-			onBarDidDeactivate: searchActiveApi.off
-		}
-	});
-	const searchTagsApi = useSearch({
-		methods: {
-			onBarDidActivate: searchActiveApi.on,
-			onBarDidDeactivate: searchActiveApi.off
-		}
-	});
+	const _setActiveSearchType = (searchType: SearchType) => {
+		Vibrator.notificationWarning();
+		setActiveSearchType(searchType);
+		searchApi.reset();
+	};
 
 	const onPressSearchResult = (item: SearchItem) => {
 		addRecentSearch(item);
-		if (item.searchType === SearchType.ARTIST) {
+		if (item.searchType === SearchType.artist) {
 			artistPage(item.uid, {
 				from: 'SearchPage',
 				to: 'ArtistPage',
 				to_uid: item.uid,
 				using: 'ARTIST_SEARCH_RESULT'
 			});
-		} else if (item.searchType === SearchType.TAG) {
+		} else if (item.searchType === SearchType.scene) {
+			scenePage(item.uid, {
+				from: 'SearchPage',
+				to: 'ScenePage',
+				to_uid: item.uid,
+				using: 'SCENE_SEARCH_RESULT'
+			});
+		} else if (item.searchType === SearchType.tag) {
 			tagPage(item.uid, {
 				from: 'SearchPage',
 				to: 'TagPage',
@@ -61,10 +60,9 @@ const useSearchPage = (): IUseSearchPage => {
 	return {
 		onPressSearchResult,
 		recentSearches,
-		activeSearchTypeSequenceApi,
-		searchAnythingApi,
-		searchTagsApi,
-		searchActiveApi
+		searchApi,
+		activeSearchType,
+		setActiveSearchType: _setActiveSearchType
 	};
 };
 

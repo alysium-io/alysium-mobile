@@ -1,61 +1,24 @@
-import { Section, Text, View } from '@atomic';
+import { Section } from '@atomic';
 import { Formatting } from '@etc';
-import { SearchArtistsResponseDto } from '@flux/api/search/dto/search-artists.dto';
-import { SearchTagsResponseDto } from '@flux/api/search/dto/search-tags.dto';
+import { SearchItem } from '@flux/api/search';
+import { SearchResponseDto } from '@flux/api/search/search.entity';
 import { ContentListItem } from '@molecules';
 import React from 'react';
 
 interface SearchResultsProps {
-	artistSearchResults?: SearchArtistsResponseDto;
-	tagSearchResults?: SearchTagsResponseDto;
-	onPressSearchResult: (result: any) => void;
+	searchResults?: SearchResponseDto<any>;
+	onPressSearchResult: (result: SearchItem) => void;
 }
 
 const SearchResults: React.FC<SearchResultsProps> = ({
-	artistSearchResults,
-	tagSearchResults,
+	searchResults,
 	onPressSearchResult
 }) => {
 	return (
-		<View marginTop='xl'>
-			{tagSearchResults && tagSearchResults.hits.length > 0 && (
+		<Section>
+			{searchResults && searchResults.hits.length > 0 && (
 				<Section>
-					<Text
-						variant='section-header-1'
-						marginBottom='m'
-						marginHorizontal='m'
-					>
-						Tags
-					</Text>
-					{tagSearchResults.hits.map((result) => (
-						<ContentListItem
-							key={result.uid}
-							onPress={() => onPressSearchResult(result)}
-							titleTextProps={{
-								title: result.name,
-								bottomSubtext: Formatting.formatNumFollowers(
-									result.spotifyFollowersSum
-								)
-							}}
-							profileImageProps={{
-								defaultImageProps: {
-									icon: 'tag'
-								}
-							}}
-						/>
-					))}
-				</Section>
-			)}
-			{artistSearchResults && artistSearchResults.hits.length > 0 && (
-				<Section>
-					<Text
-						variant='section-header-1'
-						marginBottom='m'
-						marginHorizontal='m'
-					>
-						Artists
-					</Text>
-					{artistSearchResults.hits.map((result) => {
+					{searchResults.hits.map((result) => {
 						return (
 							<ContentListItem
 								key={result.uid}
@@ -64,18 +27,12 @@ const SearchResults: React.FC<SearchResultsProps> = ({
 									title: result.name,
 									bottomSubtext: Formatting.formatNumFollowers(result.followers)
 								}}
-								profileImageProps={{
-									defaultImageProps: {
-										icon: 'artist'
-									},
-									image: result.profile_image?.small.key
-								}}
 							/>
 						);
 					})}
 				</Section>
 			)}
-		</View>
+		</Section>
 	);
 };
 

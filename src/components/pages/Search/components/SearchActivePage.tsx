@@ -1,40 +1,44 @@
-import { View } from '@atomic';
+import { LView } from '@atomic';
 import { SearchItem } from '@flux/api/search';
-import { SearchApi, SequenceApi } from '@hooks';
-import { Sequence } from '@organisms';
+import { SearchType } from '@flux/api/search/search.entity';
+import { SearchApi } from '@hooks';
 import React from 'react';
-import AnythingSearchActivePage from './AnythingSearchActivePage';
-import TagsSearchActivePage from './TagsSearchActivePage';
+import { Case, Switch } from 'react-if';
+import SearchArtistsPage from './SearchArtistsPage';
+import SearchScenesPage from './SearchScenesPage';
 
 interface SearchActivePageProps {
 	recentSearches: SearchItem[];
 	onPressSearchResult: (item: SearchItem) => void;
-	activeSearchTypeSequenceApi: SequenceApi;
-	searchAnythingApi: SearchApi;
-	searchTagsApi: SearchApi;
+	searchApi: SearchApi;
+	activeSearchType: SearchType;
 }
 
 const SearchActivePage: React.FC<SearchActivePageProps> = ({
 	recentSearches,
 	onPressSearchResult,
-	activeSearchTypeSequenceApi,
-	searchAnythingApi,
-	searchTagsApi
+	searchApi,
+	activeSearchType
 }) => {
 	return (
-		<View flex={1}>
-			<Sequence sequenceIndex={activeSearchTypeSequenceApi.sequenceIndex}>
-				<AnythingSearchActivePage
-					searchAnythingApi={searchAnythingApi}
-					recentSearches={recentSearches}
-					onPressSearchResult={onPressSearchResult}
-				/>
-				<TagsSearchActivePage
-					searchTagsApi={searchTagsApi}
-					onPressSearchResult={onPressSearchResult}
-				/>
-			</Sequence>
-		</View>
+		<LView flex={1}>
+			<Switch>
+				<Case condition={activeSearchType === SearchType.artist}>
+					<SearchArtistsPage
+						searchApi={searchApi}
+						recentSearches={recentSearches}
+						onPressSearchResult={onPressSearchResult}
+					/>
+				</Case>
+				<Case condition={activeSearchType === SearchType.scene}>
+					<SearchScenesPage
+						searchApi={searchApi}
+						recentSearches={recentSearches}
+						onPressSearchResult={onPressSearchResult}
+					/>
+				</Case>
+			</Switch>
+		</LView>
 	);
 };
 

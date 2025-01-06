@@ -1,7 +1,6 @@
 import { BasePage } from '@organisms';
 import React from 'react';
 import { Case, Switch } from 'react-if';
-import { LayoutAnimationConfig } from 'react-native-reanimated';
 import SearchActivePage from './components/SearchActivePage';
 import SearchInactivePage from './components/SearchInactivePage';
 import SearchPageHeader from './Search.header';
@@ -11,36 +10,31 @@ const SearchPage = () => {
 	const {
 		recentSearches,
 		onPressSearchResult,
-		activeSearchTypeSequenceApi,
-		searchAnythingApi,
-		searchTagsApi,
-		searchActiveApi
+		searchApi,
+		activeSearchType,
+		setActiveSearchType
 	} = useSearchPage();
 
 	return (
 		<BasePage>
 			<SearchPageHeader
-				activeSearchTypeSequenceApi={activeSearchTypeSequenceApi}
-				searchAnythingApi={searchAnythingApi}
-				searchTagsApi={searchTagsApi}
-				searchActiveApi={searchActiveApi}
+				searchApi={searchApi}
+				activeSearchType={activeSearchType}
+				setActiveSearchType={setActiveSearchType}
 			/>
-			<LayoutAnimationConfig skipEntering>
-				<Switch>
-					<Case condition={searchActiveApi.state}>
-						<SearchActivePage
-							recentSearches={recentSearches}
-							onPressSearchResult={onPressSearchResult}
-							activeSearchTypeSequenceApi={activeSearchTypeSequenceApi}
-							searchAnythingApi={searchAnythingApi}
-							searchTagsApi={searchTagsApi}
-						/>
-					</Case>
-					<Case condition={!searchActiveApi.state}>
-						<SearchInactivePage />
-					</Case>
-				</Switch>
-			</LayoutAnimationConfig>
+			<Switch>
+				<Case condition={searchApi.activeToggleApi.state}>
+					<SearchActivePage
+						recentSearches={recentSearches}
+						onPressSearchResult={onPressSearchResult}
+						activeSearchType={activeSearchType}
+						searchApi={searchApi}
+					/>
+				</Case>
+				<Case condition={!searchApi.activeToggleApi.state}>
+					<SearchInactivePage />
+				</Case>
+			</Switch>
 		</BasePage>
 	);
 };

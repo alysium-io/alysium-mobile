@@ -1,6 +1,7 @@
 export * from './Alert';
 export * from './ArtistContactsAndLinks';
 export * from './ComplexEventStatusIndicator';
+export * from './ContentListItemsLoading';
 export * from './GlobalLoadingOverlay';
 export * from './ParallaxLoading';
 export * from './StandardFeedback';

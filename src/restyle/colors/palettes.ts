@@ -17,7 +17,7 @@ export const neutralPalette = createGradientPalette(
 
 // Accents
 const HAZE_CORE = '#E17B8E';
-const METEOR_CORE = '#EBECA0';
+const METEOR_CORE = '#8B7CB5';
 const SIEON_CORE = '#F09C9C';
 const HONEY_CORE = '#FFD48F';
 const MINT_CORE = '#98EECA';

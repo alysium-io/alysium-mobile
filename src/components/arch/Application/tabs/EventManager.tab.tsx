@@ -1,4 +1,5 @@
 import {
+	ArtistPage,
 	ChooseEventLocationPage,
 	EditArtistEventAboutPage,
 	EditPublishedEventPage,
@@ -55,6 +56,8 @@ const EventManagerTab = () => {
 					animation: 'fade'
 				}}
 			/>
+
+			<EventManagerStack.Screen name='ArtistPage' component={ArtistPage} />
 		</EventManagerStack.Navigator>
 	);
 };

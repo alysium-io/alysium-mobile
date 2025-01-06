@@ -134,6 +134,8 @@ export const createSemanticDarkTheme = (
 
 		'search-inactive-page.artists-following.image.bg': palette.p.p5,
 		'search-inactive-page.artists-following.image.icon': palette.p.p1,
+		'search-inactive-page.scenes-following.image.bg': palette.q.p5,
+		'search-inactive-page.scenes-following.image.icon': palette.q.p1,
 		'search-inactive-page.tags-following.image.bg': palette.t.p5,
 		'search-inactive-page.tags-following.image.icon': palette.t.p1,
 		'search-inactive-page.top-tags.image.bg': palette.q.p1,

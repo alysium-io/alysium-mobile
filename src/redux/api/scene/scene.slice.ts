@@ -49,7 +49,9 @@ export default serviceApi.injectEndpoints({
 			query: ({ params }) => ({
 				url: url(`/${params.scene_uid}`),
 				method: 'GET'
-			})
+			}),
+			providesTags: (result) =>
+				result ? [{ type: 'Scene', id: result.scene_uid }] : []
 		}),
 		findSceneArtists: builder.query<
 			FindSceneArtistsResponseDto,

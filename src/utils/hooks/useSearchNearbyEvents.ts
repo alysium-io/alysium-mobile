@@ -2,10 +2,16 @@ import { eventApiSlice } from '@flux/api/event';
 import { NearbyEventsResponseDto } from '@flux/api/event/dto/event-nearby.dto';
 import { useCurrentLocationContext } from '@src/utils/contexts';
 
-const SEARCH_RADIUS = 50; // in kilometers
+const SEARCH_RADIUS = 50;
 
 interface IUseSearchNearbyEvents {
 	data?: NearbyEventsResponseDto;
+	error?: unknown;
+	isLoading: boolean;
+	isError: boolean;
+	isSuccess: boolean;
+	isFetching: boolean;
+	refetch: () => void;
 }
 
 const useSearchNearbyEvents = (): IUseSearchNearbyEvents => {
@@ -23,13 +29,9 @@ const useSearchNearbyEvents = (): IUseSearchNearbyEvents => {
 		}
 	};
 
-	const { data } = eventApiSlice.useNearbyEventsQuery({
+	return eventApiSlice.useNearbyEventsQuery({
 		query: getQuery()
 	});
-
-	return {
-		data
-	};
 };
 
 export default useSearchNearbyEvents;

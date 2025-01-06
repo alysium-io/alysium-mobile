@@ -18,5 +18,6 @@ export interface PrivateUser {
 	readonly artists: PrivateArtist[];
 	readonly num_tags_following: number;
 	readonly num_artists_following: number;
+	readonly num_scenes_following: number;
 	readonly role: Role;
 }

@@ -15,17 +15,17 @@ export const createColorPalette = (
 	const topColor =
 		options.top ||
 		Colors.RGB2Hex([
-			Math.min(255, core.r + Math.round((255 - core.r) * 0.9)),
-			Math.min(255, core.g + Math.round((255 - core.g) * 0.9)),
-			Math.min(255, core.b + Math.round((255 - core.b) * 0.9))
+			Math.min(255, core.r + Math.round((255 - core.r) * 0.99)),
+			Math.min(255, core.g + Math.round((255 - core.g) * 0.99)),
+			Math.min(255, core.b + Math.round((255 - core.b) * 0.99))
 		]);
 
 	const bottomColor =
 		options.bottom ||
 		Colors.RGB2Hex([
-			Math.max(0, core.r - Math.round(core.r * 0.9)),
-			Math.max(0, core.g - Math.round(core.g * 0.9)),
-			Math.max(0, core.b - Math.round(core.b * 0.9))
+			Math.max(0, core.r - Math.round(core.r * 0.99)),
+			Math.max(0, core.g - Math.round(core.g * 0.99)),
+			Math.max(0, core.b - Math.round(core.b * 0.99))
 		]);
 
 	const upperColors = Colors.createIntermediateColors(topColor, coreColor, 5);

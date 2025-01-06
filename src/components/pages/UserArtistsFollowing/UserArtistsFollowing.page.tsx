@@ -1,32 +1,40 @@
-import { Text } from '@atomic';
-import { useNavigation } from '@hooks';
+import { View } from '@atomic';
+import { userArtistsFollowingApiSlice } from '@flux/api/user-artists-following';
+import { useNavigation, usePagination } from '@hooks';
 import { ContentListItem } from '@molecules';
 import { BasePage } from '@organisms';
+import { ContentListItemsLoading } from '@templates';
 import React from 'react';
 import { FlatList } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import UserArtistsFollowingPageHeader from './UserArtistsFollowing.header';
-import useUserArtistsFollowingPage from './useUserArtistsFollowingPage';
 
 const UserArtistsFollowingPage = () => {
-	const { userArtistsFollowingData, nextPage } = useUserArtistsFollowingPage();
+	const insets = useSafeAreaInsets();
 	const { artistPage } = useNavigation();
+	const { page, nextPage, defaultLimit } = usePagination();
 
-	const Header = () => (
-		<Text variant='section-header-1' margin='m'>
-			Following
-		</Text>
-	);
+	const { data, isLoading } =
+		userArtistsFollowingApiSlice.useFindAllUserArtistsFollowingQuery({
+			query: {
+				page,
+				limit: defaultLimit
+			}
+		});
 
-	if (!userArtistsFollowingData) {
-		return null;
+	if (isLoading) {
+		return (
+			<View style={{ marginTop: insets.top }}>
+				<ContentListItemsLoading />
+			</View>
+		);
 	}
 
 	return (
 		<BasePage>
 			<UserArtistsFollowingPageHeader />
 			<FlatList
-				data={userArtistsFollowingData}
-				ListHeaderComponent={Header}
+				data={data}
 				keyExtractor={(item) => item.artist.artist_uid}
 				onEndReached={nextPage}
 				onEndReachedThreshold={0.2}

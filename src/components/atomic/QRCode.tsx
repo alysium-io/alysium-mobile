@@ -19,15 +19,7 @@ const QRCode: React.FC<QRCodeProps> = ({ size = 0.5, ...props }) => {
 					backgroundColor: 'transparent'
 				}
 			]}
-			gradient={{
-				type: 'radial',
-				options: {
-					center: [0.5, 0.5],
-					radius: [1, 1],
-					colors: [theme.colors['text.q'], theme.colors['text.p']],
-					locations: [0, 1]
-				}
-			}}
+			color={theme.colors['text.p']}
 			{...qrCodeSizes}
 			{...props}
 		/>

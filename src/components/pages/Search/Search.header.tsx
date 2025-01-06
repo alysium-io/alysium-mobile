@@ -1,73 +1,40 @@
-import { Icon, LView, View } from '@atomic';
-import { Vibrator } from '@etc';
-import { SearchApi, SequenceApi, ToggleApi } from '@hooks';
+import { LView } from '@atomic';
+import { SearchType } from '@flux/api/search/search.entity';
+import { SearchApi } from '@hooks';
 import { TabToggler } from '@molecules';
-import {
-	Header,
-	HeaderSection,
-	HeaderTitle,
-	SearchBar,
-	Sequence
-} from '@organisms';
+import { Header, SearchBar } from '@organisms';
 import React from 'react';
-import { Else, If, Then } from 'react-if';
+import { If, Then } from 'react-if';
 
 interface SearchPageHeaderProps {
-	activeSearchTypeSequenceApi: SequenceApi;
-	searchAnythingApi: SearchApi;
-	searchTagsApi: SearchApi;
-	searchActiveApi: ToggleApi;
+	searchApi: SearchApi;
+	activeSearchType: SearchType;
+	setActiveSearchType: (searchType: SearchType) => void;
 }
 
 const SearchPageHeader: React.FC<SearchPageHeaderProps> = ({
-	activeSearchTypeSequenceApi,
-	searchAnythingApi,
-	searchTagsApi,
-	searchActiveApi
+	searchApi,
+	activeSearchType,
+	setActiveSearchType
 }) => {
-	const onPressTabToggler = (index: number) => {
-		Vibrator.notificationWarning();
-		activeSearchTypeSequenceApi.goTo(index);
-	};
-
 	return (
 		<Header>
-			<If condition={searchActiveApi.state}>
+			<If condition={searchApi.activeToggleApi.state}>
 				<Then>
 					<LView margin='m'>
 						<TabToggler
-							defaultActiveTab={activeSearchTypeSequenceApi.sequenceIndex}
-							onChange={onPressTabToggler}
+							defaultActiveTab={activeSearchType}
+							onChange={setActiveSearchType}
 							data={[
-								{ text: 'anything', id: 0 },
-								{ text: 'tags', id: 1 }
+								{ text: 'artists', id: SearchType.artist },
+								{ text: 'scenes', id: SearchType.scene }
 							]}
 						/>
 					</LView>
 				</Then>
-				<Else>
-					<LView>
-						<HeaderSection
-							LeftComponent={
-								<HeaderTitle
-									title='Alysium'
-									titleProps={{ variant: 'paragraph-medium' }}
-								/>
-							}
-							RightComponent={<Icon name='logo' size='m' color='text.s' />}
-						/>
-					</LView>
-				</Else>
 			</If>
-			<LView>
-				<Sequence sequenceIndex={activeSearchTypeSequenceApi.sequenceIndex}>
-					<View margin='m' marginTop='m'>
-						<SearchBar searchApi={searchAnythingApi} />
-					</View>
-					<View margin='m' marginTop='m'>
-						<SearchBar searchApi={searchTagsApi} />
-					</View>
-				</Sequence>
+			<LView margin='m' marginTop='m'>
+				<SearchBar searchApi={searchApi} />
 			</LView>
 		</Header>
 	);

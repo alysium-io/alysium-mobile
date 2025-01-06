@@ -1,8 +1,9 @@
 import { ProfileImage } from '../profile-image';
 
 export enum SearchType {
-	ARTIST = 'artist',
-	TAG = 'tag'
+	artist = 'artist',
+	scene = 'scene',
+	tag = 'tag'
 }
 
 export interface SearchItem {
@@ -10,13 +11,15 @@ export interface SearchItem {
 	readonly name: string;
 	readonly searchType: SearchType;
 	readonly rankingScore: number;
+	readonly profile_image: ProfileImage | null;
 }
 
 export interface ArtistSearchItem extends SearchItem {
 	readonly followers: number;
 	readonly popularity: number;
-	readonly profile_image: ProfileImage | null;
 }
+
+export interface SceneSearchItem extends SearchItem {}
 
 export interface TagSearchItem extends SearchItem {
 	readonly numArtists: number;

@@ -4,26 +4,34 @@ import { StyleSheet } from 'react-native';
 import TabTogglerAnimatedBackground from './TabTogglerAnimatedBackground';
 import TabTogglerText from './TabTogglerText';
 
-type TabTogglerItem = {
-	id: number;
+interface TabTogglerItem<T> {
+	id: T;
 	text: string;
-};
-
-interface TabTogglerProps {
-	data: TabTogglerItem[];
-	defaultActiveTab: number;
-	onChange: (id: number) => void;
 }
 
-const TabToggler: React.FC<TabTogglerProps> = ({
+interface TabTogglerProps<T> {
+	data: TabTogglerItem<T>[];
+	defaultActiveTab: T;
+	onChange: (id: T) => void;
+}
+
+const TabToggler = <T,>({
 	data,
 	defaultActiveTab,
 	onChange
-}) => {
-	const [tabIndex, setTabIndex] = useState<number>(defaultActiveTab);
+}: TabTogglerProps<T>) => {
+	const getTabIndex = (id: T) => {
+		return data.findIndex((item) => item.id === id);
+	};
 
-	const _onChange = (id: number) => {
-		setTabIndex(id);
+	const [tabIndex, setTabIndex] = useState<number>(
+		getTabIndex(defaultActiveTab)
+	);
+	const [activeTab, setActiveTab] = useState<T>(defaultActiveTab);
+
+	const _onChange = (id: T) => {
+		setTabIndex(getTabIndex(id));
+		setActiveTab(id);
 		onChange(id);
 	};
 
@@ -33,11 +41,11 @@ const TabToggler: React.FC<TabTogglerProps> = ({
 				numItems={data.length}
 				tabIndex={tabIndex}
 			/>
-			{data.map(({ id, text }) => (
+			{data.map(({ id, text }, index) => (
 				<TabTogglerText
-					key={id}
+					key={index}
 					text={text}
-					isActive={id === tabIndex}
+					isActive={id === activeTab}
 					onPress={() => _onChange(id)}
 				/>
 			))}

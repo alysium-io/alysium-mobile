@@ -20,7 +20,7 @@ const TabTogglerText: React.FC<TabTogglerTextProps> = ({
 					margin='s'
 					textAlign='center'
 					color={isActive ? 'text.p' : 'text.negative.p'}
-					variant={isActive ? 'paragraph-small-bold' : 'paragraph-small'}
+					variant={isActive ? 'paragraph-medium' : 'paragraph'}
 				>
 					{text}
 				</Text>

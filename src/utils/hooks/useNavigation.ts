@@ -32,6 +32,7 @@ interface IUseNavigation {
 	userArtistsFollowingPage: (
 		navigationMeta: NavigationBehaviorMetadata
 	) => void;
+	userScenesFollowingPage: (navigationMeta: NavigationBehaviorMetadata) => void;
 	userTagsFollowingPage: (navigationMeta: NavigationBehaviorMetadata) => void;
 	topTagsPage: (navigationMeta: NavigationBehaviorMetadata) => void;
 
@@ -137,6 +138,13 @@ const useNavigation = (): IUseNavigation => {
 		navigationMeta: NavigationBehaviorMetadata
 	) => {
 		navigation.push('UserArtistsFollowingPage');
+		navigationBehavior(navigationMeta);
+	};
+
+	const userScenesFollowingPage = (
+		navigationMeta: NavigationBehaviorMetadata
+	) => {
+		navigation.push('UserScenesFollowingPage');
 		navigationBehavior(navigationMeta);
 	};
 
@@ -252,6 +260,7 @@ const useNavigation = (): IUseNavigation => {
 		searchPage,
 		eventManagerPage,
 		userArtistsFollowingPage,
+		userScenesFollowingPage,
 		userTagsFollowingPage,
 		topTagsPage,
 		viewGalleryPage,

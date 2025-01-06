@@ -1,39 +1,66 @@
-import { View } from '@atomic';
+import { SkeletonPlaceholder, View } from '@atomic';
+import { useTheme } from '@hooks';
 import React from 'react';
-import { StyleSheet } from 'react-native';
-import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 
-const ContentListItemSkeletonPlaceholder = () => (
-	<View style={styles.container}>
+interface ContentListItemSkeletonPlaceholderProps {
+	withImage?: boolean;
+}
+
+const ContentListItemSkeletonPlaceholder: React.FC<
+	ContentListItemSkeletonPlaceholderProps
+> = ({ withImage = true }) => {
+	const { theme } = useTheme();
+	return (
 		<SkeletonPlaceholder>
-			<SkeletonPlaceholder.Item
-				flexDirection='row'
-				alignItems='center'
-				padding={24}
+			<View
+				style={{
+					flexDirection: 'row',
+					marginVertical: 0,
+					marginHorizontal: theme.spacing.m,
+					paddingVertical: theme.spacing.m,
+					paddingHorizontal: 0,
+					borderBottomWidth: theme.borderWidth.hairline
+				}}
 			>
-				<SkeletonPlaceholder.Item width={65} height={65} borderRadius={999} />
-				<SkeletonPlaceholder.Item marginLeft={16} flex={1}>
-					<SkeletonPlaceholder.Item width='60%' height={20} borderRadius={4} />
-					<SkeletonPlaceholder.Item
-						marginTop={6}
-						width='80%'
-						height={16}
-						borderRadius={4}
+				{withImage && (
+					<View
+						style={{
+							width: 65,
+							height: 65,
+							borderRadius: 9999,
+							marginBottom: 0,
+							paddingBottom: 0,
+							marginRight: theme.spacing.m
+						}}
 					/>
-				</SkeletonPlaceholder.Item>
-			</SkeletonPlaceholder.Item>
+				)}
+				<View
+					style={{
+						flex: 1,
+						margin: 0,
+						padding: 0,
+						paddingVertical: theme.spacing.m
+					}}
+				>
+					<View
+						style={{
+							width: '60%',
+							height: 16,
+							marginBottom: theme.spacing.s,
+							borderRadius: theme.borderRadii.s
+						}}
+					/>
+					<View
+						style={{
+							width: '40%',
+							height: 12,
+							borderRadius: theme.borderRadii.s
+						}}
+					/>
+				</View>
+			</View>
 		</SkeletonPlaceholder>
-		<View style={styles.border} />
-	</View>
-);
-
-const styles = StyleSheet.create({
-	container: {},
-	border: {
-		height: StyleSheet.hairlineWidth,
-		backgroundColor: '#E5E5E5',
-		marginLeft: 16
-	}
-});
+	);
+};
 
 export default ContentListItemSkeletonPlaceholder;
