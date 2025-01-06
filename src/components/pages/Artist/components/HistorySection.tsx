@@ -1,6 +1,6 @@
 import { Section, Text } from '@atomic';
-import { EventLink } from '@flux/api/event-link/event-link.entity';
-import { useNavigation } from '@hooks';
+import { artistEventApiSlice } from '@flux/api/event';
+import { useNavigation, usePagination } from '@hooks';
 import { TimelineListItem } from '@molecules';
 import { NanoId } from '@types';
 import dayjs from 'dayjs';
@@ -8,17 +8,25 @@ import React from 'react';
 
 interface HistorySectionProps {
 	artist_uid: NanoId;
-	events?: EventLink[];
 }
 
-const HistorySection: React.FC<HistorySectionProps> = ({
-	artist_uid,
-	events
-}) => {
+const HistorySection: React.FC<HistorySectionProps> = ({ artist_uid }) => {
 	const { eventPage } = useNavigation();
-	if (!events) return null;
 
-	if (events?.length === 0) {
+	const { page, defaultLimit } = usePagination();
+	const { data } = artistEventApiSlice.useArchiveQuery({
+		params: {
+			artist_uid
+		},
+		query: {
+			page,
+			limit: defaultLimit
+		}
+	});
+
+	if (!data) return null;
+
+	if (data?.length === 0) {
 		return (
 			<Section>
 				<Text
@@ -43,7 +51,7 @@ const HistorySection: React.FC<HistorySectionProps> = ({
 			>
 				History
 			</Text>
-			{events.map((event, index) => (
+			{data.map((event, index) => (
 				<TimelineListItem
 					key={event.event.event_uid}
 					onPress={() =>

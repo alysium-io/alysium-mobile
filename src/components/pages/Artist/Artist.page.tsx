@@ -49,10 +49,7 @@ const ArtistPage: React.FC = () => {
 				</View>
 				<EventsSection artistData={artistData} eventsData={eventsData} />
 				<GallerySection artistData={artistData} />
-				<HistorySection
-					artist_uid={route.params.artist_uid}
-					events={eventsData}
-				/>
+				<HistorySection artist_uid={route.params.artist_uid} />
 			</Parallax>
 		</BasePage>
 	);

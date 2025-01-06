@@ -1,11 +1,11 @@
 import { View } from '@atomic';
 import React from 'react';
-import Lottie from './displays/Lottie';
+import CarouselText from './displays/CarouselText';
 
 const Scratch = () => {
 	return (
 		<View flex={1}>
-			<Lottie />
+			<CarouselText />
 		</View>
 	);
 };

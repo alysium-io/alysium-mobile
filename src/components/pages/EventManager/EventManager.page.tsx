@@ -1,7 +1,7 @@
 import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
 import { View } from '@atomic';
 import { artistEventApiSlice } from '@flux/api/event';
-import { useSheet } from '@hooks';
+import { usePagination, useSheet } from '@hooks';
 import { Button } from '@molecules';
 import { BasePage } from '@organisms';
 import { CreateArtistEventBottomSheet } from '@popups';
@@ -26,10 +26,15 @@ const EventManagerPage: React.FC = () => {
 			}
 		});
 
+	const { page, defaultLimit } = usePagination();
 	const { data: archiveData, isLoading: isLoadingArchive } =
 		artistEventApiSlice.useArchiveQuery({
 			params: {
 				artist_uid: artistData.artist_uid
+			},
+			query: {
+				page,
+				limit: defaultLimit
 			}
 		});
 

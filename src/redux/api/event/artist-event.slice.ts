@@ -2,6 +2,7 @@ import _ from 'lodash';
 import { rtkBaseUrl, serviceApi } from '../base';
 import {
 	ArchiveParamsDto,
+	ArchiveQueryDto,
 	ArchiveResponseDto
 } from './dto/artist-event-archive.dto';
 import {
@@ -272,10 +273,14 @@ const artistEventApiSlice = serviceApi.injectEndpoints({
 			providesTags: (result) =>
 				result ? [{ type: 'ArtistEvent', id: 'WORKBENCH' }] : []
 		}),
-		archive: builder.query<ArchiveResponseDto, { params: ArchiveParamsDto }>({
-			query: ({ params }) => ({
+		archive: builder.query<
+			ArchiveResponseDto,
+			{ params: ArchiveParamsDto; query: ArchiveQueryDto }
+		>({
+			query: ({ params, query }) => ({
 				url: url(`/artist/${params.artist_uid}/event/archive`),
-				method: 'GET'
+				method: 'GET',
+				params: query
 			}),
 			providesTags: (result) =>
 				result ? [{ type: 'ArtistEvent', id: 'ARCHIVE' }] : []

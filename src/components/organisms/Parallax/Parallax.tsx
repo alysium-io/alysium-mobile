@@ -94,6 +94,10 @@ const Parallax: React.FC<ParallaxProps> = ({
 					padding='m'
 					width='100%'
 					style={[styles.title, image ? styles.titleShadow : undefined]}
+					adjustsFontSizeToFit
+					numberOfLines={1}
+					maxFontSizeMultiplier={1.2}
+					minimumFontScale={0.6}
 					{...titleTextProps}
 				>
 					{title}
