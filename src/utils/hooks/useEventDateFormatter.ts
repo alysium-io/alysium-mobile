@@ -26,6 +26,9 @@ interface EventDateFormatterReturn {
 	endTime: () => string | null;
 	duration: () => string | null;
 	timeAgoConcise: () => string | null;
+	isInFuture: boolean;
+	isInPast: boolean;
+	isToday: boolean;
 }
 
 const useEventDateFormatter = (
@@ -46,6 +49,9 @@ const useEventDateFormatter = (
 
 	const hasValidDate = normalizedStartDate !== null;
 	const hasEndDate = normalizedEndDate !== null;
+	const isInFuture = hasValidDate && normalizedStartDate!.isAfter(dayjs());
+	const isInPast = hasValidDate && normalizedStartDate!.isBefore(dayjs());
+	const isToday = hasValidDate && normalizedStartDate!.isSame(dayjs(), 'day');
 
 	const semantic = (): string | null => {
 		if (!normalizedStartDate || normalizedStartDate.isBefore(dayjs(), 'day')) {
@@ -187,7 +193,10 @@ const useEventDateFormatter = (
 		endDate,
 		endTime,
 		duration,
-		timeAgoConcise
+		timeAgoConcise,
+		isInFuture,
+		isInPast,
+		isToday
 	};
 };
 

@@ -9,6 +9,7 @@ import {
 	useTheme
 } from '@hooks';
 import { ContentListItem } from '@molecules';
+import { orderBy } from 'lodash';
 import React, { useMemo } from 'react';
 
 interface WorkbenchViewProps {
@@ -21,16 +22,29 @@ const EventListItem: React.FC<{ event: EventLink }> = ({ event }) => {
 		event.event.start_time,
 		event.event.end_time
 	);
+
 	const { countdown } = useDatetimeCountdown(
 		event.event.start_time ?? undefined
 	);
+
+	const getSubtext = () => {
+		if (!dateFormatter.hasValidDate) return 'No date';
+
+		// If the event is today, show the countdown
+		if (dateFormatter.isToday) return 'Today, ' + countdown;
+
+		if (dateFormatter.isInFuture)
+			return dateFormatter.semantic() + ', ' + dateFormatter.startDate();
+		if (dateFormatter.isInPast) return dateFormatter.timeAgoConcise();
+		return 'No date';
+	};
 
 	return (
 		<ContentListItem
 			onPress={() => manageEventPage(event.event.event_uid)}
 			titleTextProps={{
 				title: event.event.name,
-				bottomSubtext: dateFormatter.timeAgoConcise() || countdown || ''
+				bottomSubtext: getSubtext() || undefined
 			}}
 			profileImageProps={{
 				image: event.event.profile_image?.small.key,
@@ -55,7 +69,7 @@ const WorkbenchView: React.FC<WorkbenchViewProps> = ({ events = [] }) => {
 		{ id: ComplexEventStatus.canceled, title: 'Canceled' }
 	];
 
-	// Group events by their complex status
+	// Group events by their complex status and sort by start_time
 	const eventsBySection = useMemo(() => {
 		const grouped: Partial<Record<ComplexEventStatus, EventLink[]>> = {};
 
@@ -65,6 +79,15 @@ const WorkbenchView: React.FC<WorkbenchViewProps> = ({ events = [] }) => {
 				grouped[status] = grouped[status] || [];
 				grouped[status]!.push(event);
 			}
+		});
+
+		// Sort events within each section
+		Object.keys(grouped).forEach((status) => {
+			grouped[status as ComplexEventStatus] = orderBy(
+				grouped[status as ComplexEventStatus],
+				[(event) => event.event.start_time || '9999-12-31'], // Push nulls to end
+				['asc']
+			);
 		});
 
 		return grouped;
