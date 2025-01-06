@@ -6,6 +6,7 @@ export interface UpdateArtistEventParamsDto extends ArtistEventParamsDto {}
 export interface UpdateArtistEventBodyDto {
 	readonly name?: string;
 	readonly about?: string | null;
+	readonly tickets_url?: string | null;
 }
 
 export interface UpdateArtistEventResponseDto extends EventLink {}

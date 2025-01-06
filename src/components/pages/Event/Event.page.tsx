@@ -1,10 +1,12 @@
 import { View } from '@atomic';
 import { eventApiSlice } from '@flux/api/event';
+import { ActionButtons } from '@molecules';
 import { BasePage, Parallax } from '@organisms';
 import { useRoute } from '@react-navigation/native';
 import { ParallaxLoading } from '@templates';
 import { EventPageRouteProp } from '@types';
-import React from 'react';
+import React, { useCallback } from 'react';
+import { Linking } from 'react-native';
 import GallerySection from './components/GallerySection';
 import LocationSection from './components/LocationSection';
 import OrganizerSection from './components/OrganizerSection';
@@ -19,12 +21,29 @@ const ArtistEvent = () => {
 		}
 	});
 
+	const FooterComponent = useCallback(() => {
+		if (!eventData?.event.tickets_url?.length) return undefined;
+		return (
+			<View flex={1} margin='m'>
+				<ActionButtons
+					buttonProps={{
+						text: 'Get Tickets',
+						onPress: () =>
+							eventData?.event.tickets_url &&
+							Linking.openURL(eventData.event.tickets_url),
+						color: 'p'
+					}}
+				/>
+			</View>
+		);
+	}, [eventData]);
+
 	if (!eventData) {
 		return <ParallaxLoading />;
 	}
-	console.log(eventData.event.gallery);
+
 	return (
-		<BasePage>
+		<BasePage FooterComponent={FooterComponent}>
 			<EventPageHeader event_uid={params.event_uid} event={eventData.event} />
 			<Parallax
 				title={eventData.event.name}

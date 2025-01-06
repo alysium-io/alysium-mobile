@@ -13,4 +13,5 @@ export interface Event {
 	readonly location: Location | null;
 	readonly status: EventStatus;
 	readonly gallery: Gallery | null;
+	readonly tickets_url: string | null;
 }

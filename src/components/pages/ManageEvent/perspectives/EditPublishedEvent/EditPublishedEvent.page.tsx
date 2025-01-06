@@ -18,6 +18,7 @@ import AssetsSection from './components/AssetsSection';
 import DateSection from './components/DateSection';
 import HeaderSection from './components/HeaderSection';
 import LocationSection from './components/LocationSection';
+import TicketsUrlSection from './components/TicketsUrlSection';
 import EditPublishedEventHeader from './EditPublishedEvent.header';
 import PopupMenu from './sheets/PopupMenu';
 
@@ -113,6 +114,7 @@ const EditPublishedEvent = () => {
 				/>
 				<LocationSection eventData={eventData} />
 				<AboutSection eventData={eventData} />
+				<TicketsUrlSection eventData={eventData} />
 				<AssetsSection eventData={eventData} />
 			</ScrollView>
 			<PopupMenu

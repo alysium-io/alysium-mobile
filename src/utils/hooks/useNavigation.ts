@@ -69,6 +69,7 @@ interface IUseNavigation {
 	editArtistBioPage: () => void;
 
 	editArtistEventAboutPage: (event_uid: NanoId) => void;
+	editArtistEventTicketsUrlPage: (event_uid: NanoId) => void;
 
 	manageEventPage: (event_uid: NanoId) => void;
 	editPublishedEventPage: (event_uid: NanoId) => void;
@@ -234,6 +235,10 @@ const useNavigation = (): IUseNavigation => {
 		navigation.push('EditArtistEventAboutPage', { event_uid });
 	};
 
+	const editArtistEventTicketsUrlPage = (event_uid: NanoId) => {
+		navigation.push('EditArtistEventTicketsUrlPage', { event_uid });
+	};
+
 	const manageEventPage = (event_uid: NanoId) => {
 		navigation.push('ManageEventPage', { event_uid });
 	};
@@ -278,6 +283,7 @@ const useNavigation = (): IUseNavigation => {
 		editArtistNamePage,
 		editArtistBioPage,
 		editArtistEventAboutPage,
+		editArtistEventTicketsUrlPage,
 		manageEventPage,
 		editPublishedEventPage,
 		localEventsMapPage,

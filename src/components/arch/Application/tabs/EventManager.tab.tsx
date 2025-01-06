@@ -2,6 +2,7 @@ import {
 	ArtistPage,
 	ChooseEventLocationPage,
 	EditArtistEventAboutPage,
+	EditArtistEventTicketsUrlPage,
 	EditPublishedEventPage,
 	EventManager,
 	EventPage,
@@ -58,6 +59,11 @@ const EventManagerTab = () => {
 			/>
 
 			<EventManagerStack.Screen name='ArtistPage' component={ArtistPage} />
+
+			<EventManagerStack.Screen
+				name='EditArtistEventTicketsUrlPage'
+				component={EditArtistEventTicketsUrlPage}
+			/>
 		</EventManagerStack.Navigator>
 	);
 };

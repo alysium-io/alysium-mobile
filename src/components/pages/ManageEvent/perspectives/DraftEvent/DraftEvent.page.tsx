@@ -17,6 +17,7 @@ import AssetsSection from './components/AssetsSection';
 import DateSection from './components/DateSection';
 import HeaderSection from './components/HeaderSection';
 import LocationSection from './components/LocationSection';
+import TicketsUrlSection from './components/TicketsUrlSection';
 import DraftEventPageHeader from './DraftEvent.header';
 import ConfirmPublishEvent from './sheets/ConfirmPublishEvent';
 import PopupMenu from './sheets/PopupMenu';
@@ -131,6 +132,7 @@ const DraftEventPage: React.FC<DraftEventPageProps> = ({
 				/>
 				<LocationSection eventData={eventData} />
 				<AboutSection eventData={eventData} />
+				<TicketsUrlSection eventData={eventData} />
 				<AssetsSection eventData={eventData} />
 			</ScrollView>
 			<PopupMenu

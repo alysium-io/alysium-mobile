@@ -3,15 +3,14 @@ import { Header, HeaderSection } from '@organisms';
 import React from 'react';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-interface EditArtistEventAboutHeaderProps {
+interface EditArtistEventTicketsUrlHeaderProps {
 	onCancel: () => void;
 	onSubmit: () => void;
 }
 
-const EditArtistEventAboutHeader: React.FC<EditArtistEventAboutHeaderProps> = ({
-	onCancel,
-	onSubmit
-}) => {
+const EditArtistEventTicketsUrlHeader: React.FC<
+	EditArtistEventTicketsUrlHeaderProps
+> = ({ onCancel, onSubmit }) => {
 	return (
 		<Header>
 			<HeaderSection
@@ -38,4 +37,4 @@ const EditArtistEventAboutHeader: React.FC<EditArtistEventAboutHeaderProps> = ({
 	);
 };
 
-export default EditArtistEventAboutHeader;
+export default EditArtistEventTicketsUrlHeader;

@@ -68,6 +68,7 @@ type EditArtistNamePage = undefined;
 type EditArtistBioPage = undefined;
 
 type EditArtistEventAboutPage = { event_uid: NanoId };
+type EditArtistEventTicketsUrlPage = { event_uid: NanoId };
 
 type ManageEventPage = { event_uid: NanoId };
 type EditPublishedEventPage = { event_uid: NanoId };
@@ -90,6 +91,7 @@ export type RouteNames =
 	| 'UserArtistsFollowingPage'
 	| 'UserScenesFollowingPage'
 	| 'UserTagsFollowingPage'
+	| 'EditArtistEventTicketsUrlPage'
 	| 'TopTagsPage'
 	| 'EditArtistPage'
 	| 'ViewGalleryPage'
@@ -162,6 +164,7 @@ export type EventManagerStackNavigatorParamList = {
 	EditEventPage: EditEventPage;
 	ChooseEventLocationPage: ChooseEventLocationPage;
 	EditArtistEventAboutPage: EditArtistEventAboutPage;
+	EditArtistEventTicketsUrlPage: EditArtistEventTicketsUrlPage;
 	ManageEventPage: ManageEventPage;
 	EventPage: EventPage;
 	EditPublishedEventPage: EditPublishedEventPage;
@@ -236,13 +239,11 @@ export type EventManagerScreenNavigationProp =
 export type CompositeScreenNavigationProp = HomeScreenNavigationProp &
 	SearchScreenNavigationProp &
 	ProfileScreenNavigationProp &
-	EventManagerScreenNavigationProp &
 	EventManagerScreenNavigationProp;
 
 export type CompositeStackNavigatorParamList = HomeStackNavigatorParamList &
 	SearchStackNavigatorParamList &
 	ProfileStackNavigatorParamList &
-	EventManagerStackNavigatorParamList &
 	EventManagerStackNavigatorParamList;
 
 /**
@@ -335,4 +336,8 @@ export type ManageEventPageRouteProp = RouteProp<
 export type EditPublishedEventPageRouteProp = RouteProp<
 	CompositeStackNavigatorParamList,
 	'EditPublishedEventPage'
+>;
+export type EditArtistEventTicketsUrlPageRouteProp = RouteProp<
+	CompositeStackNavigatorParamList,
+	'EditArtistEventTicketsUrlPage'
 >;

@@ -11,14 +11,14 @@ import {
 	EditExternalLinksPage,
 	ProfilePage
 } from '@pages';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Persona, ProfileStackNavigatorParamList } from '@types';
 import React from 'react';
 import { useUserAppContext } from '../contexts/User.context';
 import { useTabSettings } from './useTabSettings';
 
 export const ProfileStack =
-	createStackNavigator<ProfileStackNavigatorParamList>();
+	createNativeStackNavigator<ProfileStackNavigatorParamList>();
 
 const ProfileTab = () => {
 	const { screenOptions } = useTabSettings();
