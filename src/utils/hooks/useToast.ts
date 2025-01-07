@@ -3,6 +3,7 @@ import Toast from 'react-native-toast-message';
 interface IUseToast {
 	toastError: (msg?: string) => void;
 	toastSuccess: (msg?: string) => void;
+	toastInfo: (msg?: string) => void;
 }
 
 const useToast = (): IUseToast => {
@@ -22,9 +23,18 @@ const useToast = (): IUseToast => {
 		});
 	};
 
+	const toastInfo = (msg?: string) => {
+		Toast.show({
+			type: 'info',
+			text1: 'Info',
+			text2: msg || 'This is an info message.'
+		});
+	};
+
 	return {
 		toastError,
-		toastSuccess
+		toastSuccess,
+		toastInfo
 	};
 };
 

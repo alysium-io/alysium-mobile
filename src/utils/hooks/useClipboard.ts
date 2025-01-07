@@ -7,12 +7,12 @@ interface IUseClipboard {
 }
 
 const useClipboard = (): IUseClipboard => {
-	const { toastSuccess } = useToast();
+	const { toastInfo } = useToast();
 
 	const copy = (text: string, message?: string) => {
 		Vibrator.notificationSuccess();
 		Clipboard.setString(text);
-		toastSuccess(message || 'Copied to clipboard');
+		toastInfo(message || 'Copied to clipboard');
 	};
 
 	return {

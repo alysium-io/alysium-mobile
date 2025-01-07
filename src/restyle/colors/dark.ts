@@ -163,6 +163,9 @@ export const createSemanticDarkTheme = (
 		'palette.q.medium': palette.q.p5,
 		'palette.q.dark': palette.q.p9,
 
-		danger: '#F46666'
+		danger: '#F46666',
+		warning: '#FFA500',
+		success: '#50B788',
+		info: '#0000FF'
 	};
 };

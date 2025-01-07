@@ -213,6 +213,9 @@ export type SemanticColors = {
 	'palette.q.dark': HexColor;
 
 	danger: HexColor;
+	warning: HexColor;
+	success: HexColor;
+	info: HexColor;
 };
 
 export type SemanticColor = keyof SemanticColors;
