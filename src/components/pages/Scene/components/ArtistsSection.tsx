@@ -18,7 +18,6 @@ const ArtistsSection: React.FC<ArtistsSectionProps> = ({ scene_uid }) => {
 			scene_uid
 		}
 	});
-	console.log(data);
 
 	if (isLoading) {
 		return <ContentListItemsLoading />;

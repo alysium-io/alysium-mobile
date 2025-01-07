@@ -61,6 +61,15 @@ const PublishedEventPage: React.FC<PublishedEventPageProps> = ({
 		);
 	};
 
+	const onCopyEventLink = () => {
+		if (eventData) {
+			copy(
+				eventPageHyperlink(eventData.event.event_uid),
+				'Event link copied to clipboard'
+			);
+		}
+	};
+
 	const onCopyAddress = () => {
 		copy(
 			locationApi.build([
@@ -133,6 +142,21 @@ const PublishedEventPage: React.FC<PublishedEventPageProps> = ({
 						titleTextProps={{
 							title: 'Edit Event',
 							bottomSubtext: 'Make last minute changes to your event',
+							titleVariant: 'paragraph',
+							bottomSubtextColor: 'text.q'
+						}}
+					/>
+					<MenuListItem
+						onPress={onCopyEventLink}
+						prefixIconProps={{
+							name: 'link',
+							size: 'm'
+						}}
+						icon='event'
+						iconProps={{ size: 'm' }}
+						titleTextProps={{
+							title: 'Copy Event Link',
+							bottomSubtext: 'Copy shareable link to your event',
 							titleVariant: 'paragraph',
 							bottomSubtextColor: 'text.q'
 						}}

@@ -3,16 +3,16 @@ import Clipboard from '@react-native-clipboard/clipboard';
 import useToast from './useToast';
 
 interface IUseClipboard {
-	copy: (text: string) => void;
+	copy: (text: string, message?: string) => void;
 }
 
 const useClipboard = (): IUseClipboard => {
 	const { toastSuccess } = useToast();
 
-	const copy = (text: string) => {
+	const copy = (text: string, message?: string) => {
 		Vibrator.notificationSuccess();
 		Clipboard.setString(text);
-		toastSuccess('Copied to clipboard');
+		toastSuccess(message || 'Copied to clipboard');
 	};
 
 	return {

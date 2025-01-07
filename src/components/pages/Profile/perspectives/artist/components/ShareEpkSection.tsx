@@ -1,10 +1,16 @@
 import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
 import { Text, View } from '@atomic';
-import { useHyperlink, useQRCodeSize, useSheet, useTheme } from '@hooks';
+import {
+	useClipboard,
+	useHyperlink,
+	useQRCodeSize,
+	useSheet,
+	useTheme
+} from '@hooks';
 import { EPKExplanationBottomSheet } from '@popups';
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { Pressable } from 'react-native-gesture-handler';
+import { Pressable, TouchableOpacity } from 'react-native-gesture-handler';
 import QRCode from 'react-native-qrcode-styled';
 
 const ShareEpkSection = () => {
@@ -13,51 +19,62 @@ const ShareEpkSection = () => {
 	const { artistData } = useArtistAppContext();
 	const qrCodeSizes = useQRCodeSize();
 	const epkExplanationBottomSheet = useSheet();
+	const { copy } = useClipboard();
 	return (
 		<View alignItems='center' marginVertical='xxl'>
-			<View
-				style={{
-					backgroundColor: theme.colors['bg.p'],
-					borderRadius: 25,
-					shadowColor: theme.colors['text.p'],
-					shadowOffset: { width: 0, height: 2 },
-					shadowOpacity: 0.25,
-					shadowRadius: 3.84
-				}}
+			<TouchableOpacity
+				activeOpacity={0.8}
+				onPress={() =>
+					copy(
+						artistPageHyperlink(artistData.artist_uid),
+						'Link to artist page copied to clipboard'
+					)
+				}
 			>
-				<QRCode
-					data={artistPageHyperlink(artistData.artist_uid)}
-					style={styles.svg}
-					gradient={{
-						type: 'linear',
-						options: {
-							start: [0, 0],
-							end: [1, 1],
-							colors: ['#da0c8b', '#00bfff'],
-							locations: [0, 1]
-						}
-					}}
-					{...qrCodeSizes}
-				/>
 				<View
-					borderTopWidth={2}
-					backgroundColor='bg.negative.p'
 					style={{
-						borderTopColor: 'rgba(150, 150, 150, 1)',
-						borderBottomLeftRadius: 25,
-						borderBottomRightRadius: 25
+						backgroundColor: theme.colors['bg.p'],
+						borderRadius: 25,
+						shadowColor: theme.colors['text.p'],
+						shadowOffset: { width: 0, height: 2 },
+						shadowOpacity: 0.25,
+						shadowRadius: 3.84
 					}}
 				>
-					<Text
-						variant='section-header-1'
-						marginVertical='m'
-						textAlign='center'
-						color='text.negative.p'
+					<QRCode
+						data={artistPageHyperlink(artistData.artist_uid)}
+						style={styles.svg}
+						gradient={{
+							type: 'linear',
+							options: {
+								start: [0, 0],
+								end: [1, 1],
+								colors: ['#da0c8b', '#00bfff'],
+								locations: [0, 1]
+							}
+						}}
+						{...qrCodeSizes}
+					/>
+					<View
+						borderTopWidth={2}
+						backgroundColor='bg.negative.p'
+						style={{
+							borderTopColor: 'rgba(150, 150, 150, 1)',
+							borderBottomLeftRadius: 25,
+							borderBottomRightRadius: 25
+						}}
 					>
-						EPK
-					</Text>
+						<Text
+							variant='section-header-1'
+							marginVertical='m'
+							textAlign='center'
+							color='text.negative.p'
+						>
+							EPK
+						</Text>
+					</View>
 				</View>
-			</View>
+			</TouchableOpacity>
 			<View marginTop='xl'>
 				<Pressable onPress={epkExplanationBottomSheet.open}>
 					<Text
