@@ -2,22 +2,26 @@ import { Props } from '@types';
 import React, { useState } from 'react';
 import ListItemWithRadio from './ListItemWithRadio';
 
-interface SingleOptionRadioTogglerProps {
-	defaultId: string;
-	onChange: (id: string) => void;
-	items: Omit<Props<typeof ListItemWithRadio>, 'radioButtonProps'>[];
+interface SingleOptionRadioTogglerProps<T> {
+	defaultId: T;
+	onChange: (id: T) => void;
+	items: (Omit<Props<typeof ListItemWithRadio>, 'radioButtonProps'> & {
+		id: T;
+	})[];
 }
 
-const SingleOptionRadioToggler: React.FC<SingleOptionRadioTogglerProps> = ({
+const SingleOptionRadioToggler = <T extends React.Key>({
 	defaultId,
 	onChange,
 	items
-}) => {
+}: SingleOptionRadioTogglerProps<T>) => {
 	const [activeId, setActiveId] = useState(defaultId);
-	const _onChange = (id: string) => {
+
+	const _onChange = (id: T) => {
 		setActiveId(id);
 		onChange(id);
 	};
+
 	return items.map((item, idx) => (
 		<ListItemWithRadio
 			key={item.id}

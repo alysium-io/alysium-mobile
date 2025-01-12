@@ -1,24 +1,28 @@
-import { BlurView, View } from '@atomic';
+import { BlurView, LView } from '@atomic';
 import { useTheme } from '@hooks';
 import { ThemeMode } from '@types';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 
-const HeaderBackground = () => {
-	const { theme, themeMode } = useTheme();
+interface HeaderBackgroundProps {
+	withBlur?: boolean;
+}
+
+const HeaderBackground: React.FC<HeaderBackgroundProps> = ({
+	withBlur = true
+}) => {
+	const { themeMode } = useTheme();
+
+	if (withBlur) {
+		return <BlurView blurAmount={25} style={styles.background} />;
+	}
 
 	if (themeMode === ThemeMode.light) {
-		return (
-			<BlurView
-				blurAmount={25}
-				blurType={theme.colors['etc.blur']}
-				style={styles.background}
-			/>
-		);
+		return <LView style={styles.background} backgroundColor='bg.p' />;
 	}
 
 	if (themeMode === ThemeMode.dark) {
-		return <View style={styles.background} backgroundColor='bg.p' />;
+		return <LView style={styles.background} backgroundColor='bg.p' />;
 	}
 
 	return null;

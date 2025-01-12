@@ -6,7 +6,6 @@ import { Button } from '@molecules';
 import { BasePage } from '@organisms';
 import { CreateArtistEventBottomSheet } from '@popups';
 import React, { useCallback, useState } from 'react';
-import { ScrollView } from 'react-native';
 import ArchiveView from './components/ArchiveView';
 import LoadingView from './components/LoadingView';
 import WorkbenchView from './components/WorkbenchView';
@@ -62,11 +61,9 @@ const EventManagerPage: React.FC = () => {
 				eventsView={eventsView}
 				onPressFilters={filtersPopupMenuSheetApi.open}
 			/>
-			<ScrollView>
-				{isCurrentViewLoading && <LoadingView />}
-				{eventsView === 'workbench' && <WorkbenchView events={workbenchData} />}
-				{eventsView === 'archive' && <ArchiveView events={archiveData} />}
-			</ScrollView>
+			{isCurrentViewLoading && <LoadingView />}
+			{eventsView === 'workbench' && <WorkbenchView events={workbenchData} />}
+			{eventsView === 'archive' && <ArchiveView events={archiveData} />}
 			<FiltersPopupMenu
 				sheetApi={filtersPopupMenuSheetApi}
 				eventsView={eventsView}

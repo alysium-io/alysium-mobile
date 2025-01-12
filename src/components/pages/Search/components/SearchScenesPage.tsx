@@ -1,8 +1,9 @@
 import { ScrollView } from '@atomic';
-import { searchApiSlice, SearchItem } from '@flux/api/search';
-import { SearchApi, useKeyboard, usePagination } from '@hooks';
+import { searchApiSlice } from '@flux/api/search';
+import { SearchApi, usePagination, usePersistedSearchState } from '@hooks';
 import React from 'react';
 import { Case, Switch } from 'react-if';
+import usePressSearchIteraction from '../usePressSearchIteraction';
 import NoRecentSearches from './NoRecentSearches';
 import RecentSearches from './RecentSearches';
 import SearchResults from './SearchResults';
@@ -10,17 +11,16 @@ import LoadingSearchResults from './SearchResultsLoading';
 
 interface SearchScenesPageProps {
 	searchApi: SearchApi;
-	recentSearches: SearchItem[];
-	onPressSearchResult: (item: SearchItem) => void;
 }
 
-const SearchScenesPage: React.FC<SearchScenesPageProps> = ({
-	searchApi,
-	recentSearches,
-	onPressSearchResult
-}) => {
-	const { dismiss } = useKeyboard();
+const SearchScenesPage: React.FC<SearchScenesPageProps> = ({ searchApi }) => {
 	const { page, defaultLimit } = usePagination();
+	const { onPressSceneSearchItem } = usePressSearchIteraction();
+	const {
+		isSceneRecentSearchesEmpty,
+		resetSceneRecentSearches,
+		sceneRecentSearches
+	} = usePersistedSearchState();
 	const { data, isFetching } = searchApiSlice.useSearchScenesQuery(
 		{
 			body: { q: searchApi.searchText },
@@ -33,28 +33,29 @@ const SearchScenesPage: React.FC<SearchScenesPageProps> = ({
 	);
 
 	return (
-		<ScrollView style={{ overflow: 'visible' }}>
+		<ScrollView>
 			<Switch>
 				<Case condition={isFetching}>
 					<LoadingSearchResults />
 				</Case>
 				<Case
 					condition={
-						searchApi.searchText.length === 0 && recentSearches.length === 0
+						searchApi.searchText.length === 0 && isSceneRecentSearchesEmpty
 					}
 				>
 					<NoRecentSearches />
 				</Case>
 				<Case condition={searchApi.searchText.length === 0}>
 					<RecentSearches
-						recentSearches={recentSearches}
-						onPressSearchResult={onPressSearchResult}
+						recentSearches={sceneRecentSearches}
+						onPressSearchResult={onPressSceneSearchItem}
+						onPressClear={resetSceneRecentSearches}
 					/>
 				</Case>
 				<Case condition={searchApi.searchText.length > 0}>
 					<SearchResults
-						onPressSearchResult={onPressSearchResult}
 						searchResults={data}
+						onPressSearchResult={onPressSceneSearchItem}
 					/>
 				</Case>
 			</Switch>

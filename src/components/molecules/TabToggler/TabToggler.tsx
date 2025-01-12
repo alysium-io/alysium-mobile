@@ -1,4 +1,5 @@
 import { View } from '@atomic';
+import { Vibrator } from '@etc';
 import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import TabTogglerAnimatedBackground from './TabTogglerAnimatedBackground';
@@ -30,6 +31,7 @@ const TabToggler = <T,>({
 	const [activeTab, setActiveTab] = useState<T>(defaultActiveTab);
 
 	const _onChange = (id: T) => {
+		Vibrator.effectTick();
 		setTabIndex(getTabIndex(id));
 		setActiveTab(id);
 		onChange(id);

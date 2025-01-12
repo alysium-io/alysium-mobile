@@ -1,6 +1,6 @@
 import { Section, Text, View } from '@atomic';
 import { FindOneEventResponseDto } from '@flux/api/event/dto/event-find-one.dto';
-import { useDateFormatter, useLocation } from '@hooks';
+import { useDateFormatter, useDriveTime, useLocation } from '@hooks';
 import dayjs from 'dayjs';
 import React from 'react';
 import { Else, If, Then } from 'react-if';
@@ -14,6 +14,7 @@ const SubHeader: React.FC<SubHeaderProps> = ({ eventData }) => {
 	const dateApi = useDateFormatter(eventData.event.start_time);
 	const locationApi = useLocation(eventData.event.location);
 	const onPressLocation = () => locationApi.openMap(eventData.event.name);
+	const { formattedDriveTime } = useDriveTime(eventData.event.location);
 
 	const semanticTimeUntil = dateApi.getSemanticTimeUntil(); // ex: "Today", "Tomorrow", "This Thursday", "Next Friday", "In 2 weeks", "In 3 months", "In 2 years"
 	const formattedStartDate = dayjs(eventData.event.start_time).format(
@@ -73,6 +74,16 @@ const SubHeader: React.FC<SubHeaderProps> = ({ eventData }) => {
 						<Then>
 							<TouchableOpacity onPress={onPressLocation} activeOpacity={0.5}>
 								<View>
+									{formattedDriveTime && (
+										<Text
+											variant='paragraph-small'
+											color='text.q'
+											marginBottom='xs'
+											textAlign='right'
+										>
+											{formattedDriveTime}
+										</Text>
+									)}
 									<Text
 										variant='paragraph-large-medium'
 										marginBottom='xs'

@@ -5,9 +5,9 @@ import {
 	HeaderSection,
 	HeaderTitle
 } from '@organisms';
-import { ArtistPopupMenuBottomSheet } from '@popups';
 import { NanoId } from '@types';
 import React from 'react';
+import MenuPopupSheet from './sheets/MenuPopupSheet';
 
 interface ArtistPageHeaderProps {
 	title: string;
@@ -37,7 +37,7 @@ const ArtistPageHeader: React.FC<ArtistPageHeaderProps> = ({
 					/>
 				}
 			/>
-			<ArtistPopupMenuBottomSheet
+			<MenuPopupSheet
 				sheetApi={artistPopupMenuSheetApi}
 				artist_uid={artist_uid}
 			/>

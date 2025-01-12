@@ -28,45 +28,33 @@ const ArtistContactsAndLinks: React.FC<ArtistContactsAndLinksProps> = ({
 	return (
 		<>
 			<View width='75%'>
-				{artistData.contacts?.length > 0 &&
-					artistData.external_urls?.length > 0 && (
-						<View marginTop='m' flexDirection='row' alignItems='center'>
-							{artistData.contacts?.length > 0 && (
-								<TouchableOpacity hitSlop={20} onPress={contactsSheetApi.open}>
-									<View flexDirection='row' alignItems='center'>
-										<Icon name='old-phone' size='s' />
-										<Text variant='paragraph-small-medium' marginLeft='xs'>
-											Contacts
-										</Text>
-									</View>
-								</TouchableOpacity>
-							)}
-							{artistData.external_urls?.length > 0 && (
-								<>
-									<View
-										marginHorizontal='s'
-										backgroundColor='text.q'
-										borderRadius='round'
-										style={{
-											height: 4,
-											width: 4
-										}}
-									/>
-									<TouchableOpacity
-										hitSlop={20}
-										onPress={externalUrlsSheetApi.open}
-									>
-										<View flexDirection='row' alignItems='center'>
-											<Icon name='link' size='s' />
-											<Text variant='paragraph-small-medium' marginLeft='xs'>
-												Links
-											</Text>
-										</View>
-									</TouchableOpacity>
-								</>
-							)}
+				<View marginTop='m' flexDirection='row' alignItems='center'>
+					<TouchableOpacity hitSlop={20} onPress={contactsSheetApi.open}>
+						<View flexDirection='row' alignItems='center'>
+							<Icon name='old-phone' size='s' />
+							<Text variant='paragraph-small-medium' marginLeft='xs'>
+								Contacts
+							</Text>
 						</View>
-					)}
+					</TouchableOpacity>
+					<View
+						marginHorizontal='s'
+						backgroundColor='text.q'
+						borderRadius='round'
+						style={{
+							height: 4,
+							width: 4
+						}}
+					/>
+					<TouchableOpacity hitSlop={20} onPress={externalUrlsSheetApi.open}>
+						<View flexDirection='row' alignItems='center'>
+							<Icon name='link' size='s' />
+							<Text variant='paragraph-small-medium' marginLeft='xs'>
+								Links
+							</Text>
+						</View>
+					</TouchableOpacity>
+				</View>
 			</View>
 			<ExternalUrlsSheet
 				sheetApi={externalUrlsSheetApi}

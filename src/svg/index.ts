@@ -50,6 +50,7 @@ import Link from './Link';
 import Location from './Location';
 import Lock from './Lock';
 import Logo from './Logo';
+import Manager from './Manager';
 import Meatballs from './Meatballs';
 import Menu from './Menu';
 import Mobile from './Mobile';
@@ -181,7 +182,8 @@ export const SvgIcons = {
 	cancel: Cancel,
 	chrome: Chrome,
 	save: Save,
-	home: Home
+	home: Home,
+	manager: Manager
 };
 
 export type IconNames = keyof typeof SvgIcons;

@@ -21,6 +21,9 @@ const TabTogglerText: React.FC<TabTogglerTextProps> = ({
 					textAlign='center'
 					color={isActive ? 'text.p' : 'text.negative.p'}
 					variant={isActive ? 'paragraph-medium' : 'paragraph'}
+					style={{
+						marginVertical: 12
+					}}
 				>
 					{text}
 				</Text>

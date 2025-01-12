@@ -1,18 +1,20 @@
 import { Vibrator } from '@etc';
 import Clipboard from '@react-native-clipboard/clipboard';
-import useToast from './useToast';
+import Toast, { ToastShowParams } from 'react-native-toast-message';
 
 interface IUseClipboard {
-	copy: (text: string, message?: string) => void;
+	copy: (text: string, toastProps?: ToastShowParams) => void;
 }
 
 const useClipboard = (): IUseClipboard => {
-	const { toastInfo } = useToast();
-
-	const copy = (text: string, message?: string) => {
+	const copy = (text: string, toastProps?: ToastShowParams) => {
 		Vibrator.notificationSuccess();
 		Clipboard.setString(text);
-		toastInfo(message || 'Copied to clipboard');
+		Toast.show({
+			text1: toastProps?.text1 ?? 'Copied to clipboard',
+			text2: toastProps?.text2,
+			props: { icon: 'link' }
+		});
 	};
 
 	return {

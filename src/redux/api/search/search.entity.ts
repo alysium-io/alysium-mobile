@@ -16,14 +16,21 @@ export interface SearchItem {
 
 export interface ArtistSearchItem extends SearchItem {
 	readonly followers: number;
-	readonly popularity: number;
 }
 
-export interface SceneSearchItem extends SearchItem {}
+export interface SceneSearchItem extends SearchItem {
+	readonly followers: number;
+}
 
 export interface TagSearchItem extends SearchItem {
 	readonly numArtists: number;
 	readonly spotifyFollowersSum: number;
+}
+
+export interface UserSearchItem extends SearchItem {
+	readonly handle: string;
+	readonly email: string | null;
+	readonly phone_number: string | null;
 }
 
 export interface SearchResponseDto<T extends SearchItem> {

@@ -1,12 +1,7 @@
 import { useUserAppContext } from '@arch/Application/contexts/User.context';
-import { View } from '@atomic';
+import { ScrollView, View } from '@atomic';
 import { useNavigation } from '@hooks';
 import React from 'react';
-import Animated, {
-	FadeIn,
-	FadeOut,
-	LinearTransition
-} from 'react-native-reanimated';
 import ArtistsFollowingButton from './ArtistsFollowingButton';
 import ScenesFollowingButton from './ScenesFollowingButton';
 
@@ -15,11 +10,7 @@ const SearchInactivePage: React.FC = () => {
 	const { userArtistsFollowingPage, userScenesFollowingPage } = useNavigation();
 
 	return (
-		<Animated.ScrollView
-			entering={FadeIn.duration(300)}
-			exiting={FadeOut.duration(300)}
-			layout={LinearTransition.duration(300)}
-		>
+		<ScrollView>
 			<View marginBottom='l'>
 				<ArtistsFollowingButton
 					onPress={() =>
@@ -67,7 +58,7 @@ const SearchInactivePage: React.FC = () => {
 					}}
 				/>
 			</View>
-		</Animated.ScrollView>
+		</ScrollView>
 	);
 };
 

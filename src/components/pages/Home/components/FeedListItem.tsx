@@ -54,7 +54,12 @@ const FeedListItem: React.FC<EventLink> = (event) => {
 		<TouchableWithoutFeedback onPress={onPress}>
 			<LView key={event.event.event_uid} marginBottom='m'>
 				{/* Artist header */}
-				<View flexDirection='row' alignItems='center' margin='m'>
+				<View
+					flexDirection='row'
+					alignItems='center'
+					margin='m'
+					marginBottom='s'
+				>
 					<TouchableWithoutFeedback
 						onPress={() =>
 							artistPage(event.artist.artist_uid, {
@@ -65,11 +70,11 @@ const FeedListItem: React.FC<EventLink> = (event) => {
 							})
 						}
 					>
-						<View height={40} width={40}>
+						<View height={35} width={35}>
 							<Avatar image={event.artist?.profile_image?.small.key} />
 						</View>
 					</TouchableWithoutFeedback>
-					<View flex={1} marginLeft='m'>
+					<View flex={1} marginLeft='s'>
 						<TouchableWithoutFeedback
 							onPress={() =>
 								eventPage(event.event.event_uid, {
@@ -80,7 +85,9 @@ const FeedListItem: React.FC<EventLink> = (event) => {
 								})
 							}
 						>
-							<Text marginBottom='xs'>{event.event?.name}</Text>
+							<Text variant='paragraph-small-medium' marginBottom='xs'>
+								{event.event?.name}
+							</Text>
 						</TouchableWithoutFeedback>
 						<TouchableWithoutFeedback
 							onPress={() =>
@@ -92,7 +99,13 @@ const FeedListItem: React.FC<EventLink> = (event) => {
 								})
 							}
 						>
-							<Text color='text.q'>{event.artist?.name}</Text>
+							<Text
+								color='text.s'
+								variant='paragraph-small'
+								style={{ fontSize: 12 }}
+							>
+								{event.artist?.name}
+							</Text>
 						</TouchableWithoutFeedback>
 					</View>
 				</View>
@@ -104,24 +117,34 @@ const FeedListItem: React.FC<EventLink> = (event) => {
 				<View margin='m' marginTop={images.length > 1 ? 'xs' : 'm'}>
 					<View flexDirection='row' justifyContent='space-between'>
 						<View>
-							{semanticDate && <Text marginBottom='xs'>{semanticDate}</Text>}
-							<Text>{dateFormatter.startDate()}</Text>
+							{semanticDate && (
+								<Text marginBottom='xs' variant='paragraph-medium'>
+									{semanticDate}
+								</Text>
+							)}
+							<Text variant='paragraph'>{dateFormatter.startDate()}</Text>
 						</View>
 						<LView>
 							{formattedDriveTime && (
 								<LView entering={FadeIn.delay(100).duration(200)}>
-									<Text textAlign='right' marginBottom='xs'>
+									<Text
+										textAlign='right'
+										marginBottom='xs'
+										variant='paragraph-medium'
+									>
 										{formattedDriveTime}
 									</Text>
 								</LView>
 							)}
 							<LView>
-								<Text textAlign='right' marginBottom='xs'>
+								<Text textAlign='right' marginBottom='xs' variant='paragraph'>
 									{address}
 								</Text>
 							</LView>
 							<LView>
-								<Text textAlign='right'>{locality}</Text>
+								<Text textAlign='right' variant='paragraph'>
+									{locality}
+								</Text>
 							</LView>
 						</LView>
 					</View>

@@ -1,5 +1,5 @@
 import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
-import { View } from '@atomic';
+import { ScrollView, View } from '@atomic';
 import { artistEventApiSlice } from '@flux/api/event';
 import { UpdateArtistEventBodyDto } from '@flux/api/event/dto/artist-event-update.dto';
 import { EventStatus } from '@flux/api/event/types';
@@ -10,7 +10,6 @@ import { NanoId } from '@types';
 import React, { useCallback, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { If, Then } from 'react-if';
-import { ScrollView } from 'react-native';
 import Loading from '../../Loading';
 import AboutSection from './components/AboutSection';
 import AssetsSection from './components/AssetsSection';
@@ -119,7 +118,7 @@ const DraftEventPage: React.FC<DraftEventPageProps> = ({
 				}}
 				onPressMenu={draftEventPopupMenuBottomSheet.open}
 			/>
-			<ScrollView onScrollBeginDrag={dismiss}>
+			<ScrollView>
 				<HeaderSection
 					control={control}
 					eventData={eventData}

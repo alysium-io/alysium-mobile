@@ -1,5 +1,5 @@
 import { BlurView, Overlay } from '@atomic';
-import { createUseContextHook, useDisclosure } from '@hooks';
+import { createUseContextHook, useDisclosure, useTheme } from '@hooks';
 import { ProviderProps } from '@types';
 import React, { createContext, useMemo } from 'react';
 import LoaderKit from 'react-native-loader-kit';
@@ -12,6 +12,7 @@ interface LoaderContextType {
 const LoaderContext = createContext<LoaderContextType>({} as LoaderContextType);
 
 export const LoaderProvider: React.FC<ProviderProps> = ({ children }) => {
+	const { theme } = useTheme();
 	const { isOpen, onOpen, onClose } = useDisclosure();
 
 	const value = useMemo(
@@ -30,7 +31,7 @@ export const LoaderProvider: React.FC<ProviderProps> = ({ children }) => {
 					<LoaderKit
 						style={{ width: 50, height: 50 }}
 						name='BallClipRotateMultiple'
-						color='white'
+						color={theme.colors['etc.loader-kit']}
 					/>
 				</BlurView>
 			</Overlay>

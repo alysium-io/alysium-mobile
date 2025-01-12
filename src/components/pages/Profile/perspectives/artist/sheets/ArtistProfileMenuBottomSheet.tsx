@@ -1,15 +1,8 @@
-import { View } from '@atomic';
-import { BottomSheetFooterProps } from '@gorhom/bottom-sheet';
+import { ScrollView } from '@atomic';
 import { SheetApi } from '@hooks';
-import { ActionButtons } from '@molecules';
-import {
-	FullScreenSheet,
-	FullScreenSheetFooter,
-	FullScreenSheetScrollView,
-	FullScreenSheetStandardHeader
-} from '@organisms';
+import { FullScreenSheet } from '@organisms';
 import { ThemeModeSettings, ThemePicker } from '@templates';
-import React, { useCallback } from 'react';
+import React from 'react';
 
 interface UserEditUserProfileBottomSheetProps {
 	sheetApi: SheetApi;
@@ -18,28 +11,12 @@ interface UserEditUserProfileBottomSheetProps {
 const UserEditUserProfileBottomSheet: React.FC<
 	UserEditUserProfileBottomSheetProps
 > = ({ sheetApi }) => {
-	const footerComponent = useCallback((props: BottomSheetFooterProps) => {
-		return (
-			<FullScreenSheetFooter {...props}>
-				<View flex={1}>
-					<ActionButtons
-						buttonProps={{
-							text: 'Dismiss',
-							onPress: sheetApi.close
-						}}
-					/>
-				</View>
-			</FullScreenSheetFooter>
-		);
-	}, []);
-
 	return (
-		<FullScreenSheet footerComponent={footerComponent} sheetApi={sheetApi}>
-			<FullScreenSheetStandardHeader />
-			<FullScreenSheetScrollView alwaysBounceVertical={false}>
+		<FullScreenSheet sheetApi={sheetApi}>
+			<ScrollView alwaysBounceVertical={false}>
 				<ThemePicker />
 				<ThemeModeSettings />
-			</FullScreenSheetScrollView>
+			</ScrollView>
 		</FullScreenSheet>
 	);
 };

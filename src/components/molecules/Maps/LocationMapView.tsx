@@ -15,7 +15,7 @@ export interface MarkerConfig {
 interface LocationMapProps {
 	markers: MarkerConfig | MarkerConfig[];
 	zoomDelta?: number;
-	showUserLocation?: boolean;
+	showsUserLocation?: boolean;
 	mapViewProps?: Props<typeof DefaultMapView>;
 }
 
@@ -25,6 +25,7 @@ const DEFAULT_MARKER_COLOR = 'blue';
 const LocationMapView: React.FC<LocationMapProps> = ({
 	markers,
 	zoomDelta = DEFAULT_ZOOM_DELTA,
+	showsUserLocation = true,
 	mapViewProps
 }) => {
 	const { currentLocation } = useCurrentLocationContext();
@@ -32,10 +33,10 @@ const LocationMapView: React.FC<LocationMapProps> = ({
 	const { hasPermission, requestPermission } = useLocationPermissions();
 
 	useEffect(() => {
-		if (mapViewProps?.showsUserLocation && !hasPermission) {
+		if (showsUserLocation && !hasPermission) {
 			requestPermission();
 		}
-	}, [mapViewProps?.showsUserLocation, hasPermission]);
+	}, [showsUserLocation, hasPermission]);
 
 	const markersArray = Array.isArray(markers) ? markers : [markers];
 	const validMarkers = markersArray.filter(
@@ -117,7 +118,7 @@ const LocationMapView: React.FC<LocationMapProps> = ({
 			ref={mapRef}
 			initialRegion={region}
 			{...mapViewProps}
-			showsUserLocation
+			showsUserLocation={showsUserLocation}
 		>
 			{validMarkers.map((markerConfig, index) => (
 				<Marker

@@ -26,10 +26,14 @@ const ViewMapButton = () => {
 					justifyContent='center'
 					alignItems='center'
 				>
-					<Text variant='paragraph-large' marginRight='s'>
+					<Text
+						variant='paragraph-large'
+						marginRight='s'
+						color='button.solid.active.text.p'
+					>
 						View Map
 					</Text>
-					<Icon name='location' size={20} />
+					<Icon name='location' size={20} color='button.solid.active.text.p' />
 				</View>
 			</TouchableOpacity>
 		</View>

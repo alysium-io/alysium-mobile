@@ -8,10 +8,17 @@ interface IUseToast {
 
 const useToast = (): IUseToast => {
 	const toastError = (msg?: string) => {
+		if (typeof msg !== 'string') {
+			console.log(msg);
+		}
+
 		Toast.show({
 			type: 'error',
 			text1: 'Error',
-			text2: msg || 'This one is on us... it may work if you try again.'
+			text2:
+				typeof msg === 'string'
+					? msg
+					: 'This one is on us... it may work if you try again.'
 		});
 	};
 

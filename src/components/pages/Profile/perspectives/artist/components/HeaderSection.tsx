@@ -16,7 +16,10 @@ const HeaderSection = () => {
 				marginBottom='m'
 			>
 				<View height={100} width={100}>
-					<Avatar image={artistData.profile_image?.small.key} />
+					<Avatar
+						image={artistData.profile_image?.small.key}
+						defaultImageProps={{ icon: 'artist' }}
+					/>
 				</View>
 				<Stats
 					items={[
@@ -35,9 +38,11 @@ const HeaderSection = () => {
 				<Text variant='paragraph-large-medium' marginBottom='s'>
 					{artistData.name}
 				</Text>
-				<Text variant='paragraph' color='text.s' marginBottom='s'>
-					{artistData.bio}
-				</Text>
+				{artistData.bio && artistData.bio.length > 0 && (
+					<Text variant='paragraph' color='text.s' marginBottom='s'>
+						{artistData.bio}
+					</Text>
+				)}
 				<View flexDirection='row' alignItems='center' marginBottom='s'>
 					<Icon name='location' size='m' color='text.s' />
 					<Text variant='paragraph' marginLeft='s' color='text.s'>

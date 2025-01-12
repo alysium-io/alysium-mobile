@@ -31,6 +31,7 @@ const Scene = () => {
 						containerProps={{
 							height: '100%'
 						}}
+						showsUserLocation={false}
 					/>
 				</View>
 			),

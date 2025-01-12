@@ -1,14 +1,14 @@
-import { Loading, LView, View } from '@atomic';
-import { BottomSheetFooterProps } from '@gorhom/bottom-sheet';
+import { usePersonaAppContext } from '@arch/Application/contexts/Persona.context';
+import { Text, View } from '@atomic';
+import { artistApiSlice } from '@flux/api/artist';
+import { CreateArtistBodyDto } from '@flux/api/artist/dto/artist-create.dto';
 import { SheetApi } from '@hooks';
-import { FullScreenSheet, FullScreenSheetStandardHeader } from '@organisms';
-import ActionButtons from '@src/components/molecules/Buttons/ActionButtons';
-import FullScreenSheetFooter from '@src/components/organisms/BottomSheet/sheets/FullScreenSheetFooter';
-import React, { useCallback } from 'react';
-import { Case, Default, Switch } from 'react-if';
-import ArtistName from './components/ArtistName';
-import CreateArtistSuccess from './components/CreateArtistSuccess';
-import useCreateArtistBottomSheet from './useCreateArtistBottomSheet';
+import { TextBox, useButtonState } from '@molecules';
+import { FullScreenSheet } from '@organisms';
+import { Persona } from '@types';
+import React, { useEffect } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import Toast from 'react-native-toast-message';
 
 interface CreateArtistBottomSheetProps {
 	sheetApi: SheetApi;
@@ -17,78 +17,83 @@ interface CreateArtistBottomSheetProps {
 const CreateArtistBottomSheet: React.FC<CreateArtistBottomSheetProps> = ({
 	sheetApi
 }) => {
-	const {
-		cancel,
-		resetAll,
-		createArtistFormApi,
-		artistNameTextInputApi,
-		onSheetIndexChangeFocusTextInput,
-		artistNameNextButtonStateApi
-	} = useCreateArtistBottomSheet(sheetApi);
+	const [createArtistMutation] = artistApiSlice.useCreateArtistMutation();
+	const { setButtonState, buttonState } = useButtonState('disabled');
+	const { changePersona } = usePersonaAppContext();
 
-	const footerComponent = useCallback(
-		(props: BottomSheetFooterProps) => {
-			if (!createArtistFormApi.isLoading && !createArtistFormApi.isSuccess) {
-				return (
-					<FullScreenSheetFooter {...props}>
-						<View flex={1}>
-							<ActionButtons
-								buttonProps={[
-									{
-										text: 'cancel',
-										variant: 'outlined',
-										onPress: cancel
-									},
-									{
-										text: 'Create',
-										onPress: createArtistFormApi.onSubmit,
-										color: 'p',
-										buttonState: artistNameNextButtonStateApi.buttonState
-									}
-								]}
-							/>
-						</View>
-					</FullScreenSheetFooter>
-				);
-			}
-		},
-		[
-			artistNameNextButtonStateApi.buttonState,
-			createArtistFormApi.onSubmit,
-			createArtistFormApi.isLoading,
-			createArtistFormApi.isSuccess
-		]
-	);
+	const {
+		handleSubmit,
+		reset,
+		control,
+		formState: { isValid }
+	} = useForm<CreateArtistBodyDto>();
+
+	useEffect(() => {
+		setButtonState(isValid ? 'active' : 'disabled');
+	}, [isValid]);
+
+	const resetAll = () => {
+		setButtonState('disabled');
+		reset();
+	};
+
+	const onSubmit = (data: CreateArtistBodyDto) => {
+		setButtonState('loading');
+		createArtistMutation({ body: data })
+			.unwrap()
+			.then((data) => {
+				sheetApi.close();
+				setTimeout(() => {
+					changePersona(Persona.artist, data.artist_uid);
+				}, 300);
+			})
+			.catch((err) => {
+				Toast.show({
+					text1: 'Error creating artist',
+					text2: 'Please try again'
+				});
+				setButtonState('active');
+			});
+	};
 
 	return (
 		<FullScreenSheet
 			sheetApi={sheetApi}
 			onDismiss={resetAll}
-			onChange={onSheetIndexChangeFocusTextInput}
-			footerComponent={footerComponent}
+			buttonProps={[
+				{
+					text: 'cancel',
+					variant: 'outlined',
+					onPress: sheetApi.close
+				},
+				{
+					text: 'Create',
+					onPress: handleSubmit(onSubmit),
+					color: 'p',
+					buttonState: buttonState
+				}
+			]}
 		>
-			<FullScreenSheetStandardHeader />
-			<Switch>
-				<Case condition={createArtistFormApi.isLoading}>
-					<LView flex={1}>
-						<Loading />
-					</LView>
-				</Case>
-				<Case condition={createArtistFormApi.isSuccess}>
-					<CreateArtistSuccess
-						sheetApi={sheetApi}
-						createArtistFormApi={createArtistFormApi}
-					/>
-				</Case>
-				<Default>
-					<View flex={1}>
-						<ArtistName
-							createArtistFormApi={createArtistFormApi}
-							artistNameTextInputApi={artistNameTextInputApi}
+			<View margin='m'>
+				<Text marginBottom='m' marginLeft='s' marginTop='m'>
+					Artist Name
+				</Text>
+				<Controller
+					name='name'
+					control={control}
+					rules={{ required: 'Name is required' }}
+					render={({ field: { onChange, onBlur, value } }) => (
+						<TextBox
+							focusOnMount
+							onChangeText={onChange}
+							onBlur={onBlur}
+							placeholder='Name'
+							subtitle='This field is required.'
+							value={value}
 						/>
-					</View>
-				</Default>
-			</Switch>
+					)}
+				/>
+			</View>
 		</FullScreenSheet>
 	);
 };

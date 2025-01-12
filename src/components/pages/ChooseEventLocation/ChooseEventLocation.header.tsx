@@ -1,4 +1,3 @@
-import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
 import { useNavigation } from '@hooks';
 import {
 	Header,
@@ -14,14 +13,13 @@ const ChooseEventLocationPageHeader: React.FC<
 	ChooseEventLocationPageHeaderProps
 > = () => {
 	const { back } = useNavigation();
-	const { artistData } = useArtistAppContext();
 	return (
 		<Header>
 			<HeaderSection
 				LeftComponent={<HeaderIconButton onPress={back} name='arrow-left' />}
 				CenterComponent={
 					<HeaderTitle
-						title={artistData.scene?.scene?.name ?? 'Choose Event Location'}
+						title='Choose Event Location'
 						titleProps={{ variant: 'paragraph-small' }}
 					/>
 				}

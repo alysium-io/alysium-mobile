@@ -6,8 +6,8 @@ import {
 	HeaderSection,
 	HeaderTitle
 } from '@organisms';
-import { EditArtistPopupMenuBottomSheet } from '@popups';
 import React from 'react';
+import PopupMenuSheet from './sheets/PopupMenuSheet';
 
 interface EditArtistPageHeaderProps {}
 
@@ -21,7 +21,7 @@ const EditArtistPageHeader: React.FC<EditArtistPageHeaderProps> = () => {
 				LeftComponent={<HeaderIconButton name='arrow-left' onPress={back} />}
 				CenterComponent={<HeaderTitle title={artistData.name} />}
 			/>
-			<EditArtistPopupMenuBottomSheet sheetApi={editArtistPopupMenuSheetApi} />
+			<PopupMenuSheet sheetApi={editArtistPopupMenuSheetApi} />
 		</Header>
 	);
 };

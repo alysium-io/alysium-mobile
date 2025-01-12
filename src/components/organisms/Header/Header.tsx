@@ -8,9 +8,15 @@ import HeaderBackground from './HeaderBackground';
 
 type HeaderProps = Props<typeof Animated.View> &
 	Props<typeof View> &
-	IChildrenProps;
+	IChildrenProps & {
+		headerBackgroundProps?: Props<typeof HeaderBackground>;
+	};
 
-const Header: React.FC<HeaderProps> = ({ children, ...props }) => {
+const Header: React.FC<HeaderProps> = ({
+	children,
+	headerBackgroundProps,
+	...props
+}) => {
 	const insets = useSafeAreaInsets();
 	const { theme } = useTheme();
 
@@ -22,7 +28,7 @@ const Header: React.FC<HeaderProps> = ({ children, ...props }) => {
 			zIndex={999}
 			{...props}
 		>
-			<HeaderBackground />
+			<HeaderBackground {...headerBackgroundProps} />
 			{children}
 		</LView>
 	);

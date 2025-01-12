@@ -1,5 +1,4 @@
 export * from './ArtistEventPopupMenuBottomSheet';
-export * from './ArtistPopupMenuBottomSheet';
 export * from './CheckUserWantsToRegisterBottomSheet';
 export * from './ConfirmDeleteBottomSheet';
 export * from './ConfirmEventLocationChoiceBottomSheet';
@@ -8,5 +7,5 @@ export * from './CreateAccountBottomSheet';
 export * from './CreateArtistBottomSheet';
 export * from './CreateArtistEventBottomSheet';
 export * from './Documents';
-export * from './EditArtistPopupMenuBottomSheet';
 export * from './JoinScenePreviewBottomSheet';
+export * from './ModifyArtistTeamMemberPermissionsBottomSheet';

@@ -4,6 +4,7 @@ import { useUserAppContext } from '@arch/Application/contexts/User.context';
 import { useAuthenticationAppContext } from '@arch/Authentication/Authentication.context';
 import { Text, View } from '@atomic';
 import { artistApiSlice } from '@flux/api/artist';
+import { UserArtistLinkPermissions } from '@flux/api/user-artist-link/types';
 import { useSheet, useToast } from '@hooks';
 import { Button } from '@molecules';
 import { ConfirmDeleteBottomSheet } from '@popups';
@@ -43,14 +44,16 @@ const LogoutSection = () => {
 
 	return (
 		<View margin='m' marginTop='xl'>
-			<View marginBottom='m'>
-				<Button
-					variant='outlined'
-					color='t'
-					text='Delete Artist Profile'
-					onPress={confirmDeleteAccountSheetApi.open}
-				/>
-			</View>
+			{artistData.user?.permissions === UserArtistLinkPermissions.owner && (
+				<View marginBottom='m'>
+					<Button
+						variant='outlined'
+						color='t'
+						text='Delete Artist Profile'
+						onPress={confirmDeleteAccountSheetApi.open}
+					/>
+				</View>
+			)}
 			<Button color='t' text='Logout' onPress={onPressLogout} />
 			<ConfirmDeleteBottomSheet
 				sheetApi={confirmDeleteAccountSheetApi}

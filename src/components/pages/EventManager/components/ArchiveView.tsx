@@ -1,4 +1,4 @@
-import { View } from '@atomic';
+import { ScrollView, Text, View } from '@atomic';
 import { EventLink } from '@flux/api/event-link/event-link.entity';
 import { useEventDateFormatter, useNavigation } from '@hooks';
 import { ContentListItem } from '@molecules';
@@ -13,8 +13,23 @@ const ArchiveView: React.FC<ArchiveViewProps> = ({ events }) => {
 	const { manageEventPage } = useNavigation();
 	const sortedEvents = orderBy(events, ['event.start_time'], ['desc']);
 
+	if (!events?.length) {
+		return (
+			<View flex={1} justifyContent='center' alignItems='center'>
+				<Text variant='paragraph-medium' color='text.q' textAlign='center'>
+					When you complete an{' '}
+					<Text variant='paragraph-medium' color='text.s'>
+						event
+					</Text>
+					{'\n'}
+					it will appear here
+				</Text>
+			</View>
+		);
+	}
+
 	return (
-		<View>
+		<ScrollView>
 			{sortedEvents?.map((event) => {
 				const dateFormatter = useEventDateFormatter(
 					event.event.start_time,
@@ -38,7 +53,7 @@ const ArchiveView: React.FC<ArchiveViewProps> = ({ events }) => {
 					/>
 				);
 			})}
-		</View>
+		</ScrollView>
 	);
 };
 

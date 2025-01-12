@@ -13,7 +13,7 @@ const GalleryTest = () => {
 		}
 	});
 	if (!data) return null;
-	console.log(data.gallery);
+
 	return (
 		<View style={{ marginTop: insets.top, flex: 1 }}>
 			<ScrollView>

@@ -1,7 +1,7 @@
 import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
 import { Section, View } from '@atomic';
 import { GalleryRefType } from '@flux/api/gallery/types';
-import { useNavigation } from '@hooks';
+import { useArtistTeam, useNavigation } from '@hooks';
 import { ContentListItem } from '@molecules';
 import { BasePage, EditableGallery } from '@organisms';
 import FormTextDisplay from '@src/components/molecules/TextInput/FormTextInput/FormTextDisplay';
@@ -12,12 +12,14 @@ import EditArtistPageHeader from './EditArtist.header';
 
 const EditArtistPage = () => {
 	const { artistData } = useArtistAppContext();
+	const { numTeamMembers } = useArtistTeam();
 	const {
 		chooseScenePage,
 		editContactsPage,
 		editExternalLinksPage,
 		editArtistNamePage,
-		editArtistBioPage
+		editArtistBioPage,
+		editArtistTeamPage
 	} = useNavigation();
 
 	return (
@@ -54,8 +56,9 @@ const EditArtistPage = () => {
 							}}
 							titleTextProps={{
 								title: 'Links',
-								bottomSubtext:
-									artistData.external_urls?.length.toLocaleString() ?? '0'
+								bottomSubtext: artistData.external_urls?.length
+									? artistData.external_urls.length.toLocaleString()
+									: 'Instagram, Soundcloud, etc.'
 							}}
 						/>
 						<ContentListItem
@@ -72,8 +75,30 @@ const EditArtistPage = () => {
 							}}
 							titleTextProps={{
 								title: 'Contacts',
-								bottomSubtext:
-									artistData.contacts?.length.toLocaleString() ?? '0'
+								bottomSubtext: artistData.contacts?.length
+									? artistData.contacts.length.toLocaleString()
+									: 'Manger, booking agent, etc.'
+							}}
+						/>
+						<ContentListItem
+							onPress={editArtistTeamPage}
+							profileImageProps={{
+								defaultImageProps: {
+									icon: 'manager'
+								},
+								containerProps: {
+									borderWidth: 1,
+									borderRadius: 'round',
+									borderColor: 'border.light'
+								}
+							}}
+							titleTextProps={{
+								title: 'Team',
+								bottomSubtext: numTeamMembers
+									? `${numTeamMembers} team member${
+											numTeamMembers > 1 ? 's' : ''
+									  }`
+									: 'To manage/view your account'
 							}}
 						/>
 					</View>

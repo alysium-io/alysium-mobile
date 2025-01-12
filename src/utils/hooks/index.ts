@@ -14,6 +14,7 @@ export { default as usePhotosAndCamera } from './usePhotosAndCamera';
 export { default as createUseContextHook } from './createUseContextHook';
 export { default as useAnimatedState } from './useAnimatedState';
 export { default as useAnimatedValue } from './useAnimatedValue';
+export { default as useArtistTeam } from './useArtistTeam';
 export { default as useBottomTabHeight } from './useBottomTabHeight';
 export { default as useClipboard } from './useClipboard';
 export { default as useComplexEventStatus } from './useComplexEventStatus';

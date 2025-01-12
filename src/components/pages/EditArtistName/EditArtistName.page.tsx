@@ -8,7 +8,7 @@ import { BasePage } from '@organisms';
 import { Alert, useGlobalLoader } from '@templates';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { ScrollView } from 'react-native';
+import { Keyboard } from 'react-native';
 import EditArtistNamePageHeader from './EditArtistName.header';
 
 const EditArtistName = () => {
@@ -37,10 +37,12 @@ const EditArtistName = () => {
 			body: data
 		})
 			.unwrap()
-			.catch(toastError)
+			.catch(() => {
+				toastError('Failed to update artist name');
+			})
 			.finally(() => {
-				hideLoader();
 				back();
+				hideLoader();
 			});
 	};
 
@@ -56,7 +58,10 @@ const EditArtistName = () => {
 					},
 					{
 						text: 'Discard',
-						onPress: () => back(),
+						onPress: () => {
+							Keyboard.dismiss();
+							back();
+						},
 						style: 'destructive'
 					}
 				]
@@ -76,27 +81,25 @@ const EditArtistName = () => {
 				onCancel={onCancel}
 				onSubmit={handleSubmit(onSubmit, onInvalid)}
 			/>
-			<ScrollView>
-				<View margin='m'>
-					<Controller
-						control={control}
-						name='name'
-						rules={{
-							required: 'Must enter a name'
-						}}
-						render={({ field: { onChange, value } }) => (
-							<FormText
-								focusOnMount
-								onPressClear={() => onChange('')}
-								label='Name'
-								placeholder={artistData.name}
-								onChangeText={onChange}
-								value={value}
-							/>
-						)}
-					/>
-				</View>
-			</ScrollView>
+			<View margin='m'>
+				<Controller
+					control={control}
+					name='name'
+					rules={{
+						required: 'Must enter a name'
+					}}
+					render={({ field: { onChange, value } }) => (
+						<FormText
+							focusOnMount
+							onPressClear={() => onChange('')}
+							label='Name'
+							placeholder={artistData.name}
+							onChangeText={onChange}
+							value={value}
+						/>
+					)}
+				/>
+			</View>
 		</BasePage>
 	);
 };

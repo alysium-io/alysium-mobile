@@ -1,12 +1,10 @@
 import { useKeyboard } from '@hooks';
 import React from 'react';
-import { ScrollViewProps } from 'react-native';
-import { ScrollView as RNScrollView } from 'react-native-gesture-handler';
+import { ScrollView as RNScrollView, ScrollViewProps } from 'react-native';
 
 const ScrollView = React.forwardRef<RNScrollView, ScrollViewProps>(
 	(props, ref) => {
 		const { dismiss } = useKeyboard();
-
 		return (
 			<RNScrollView
 				ref={ref}
@@ -18,6 +16,7 @@ const ScrollView = React.forwardRef<RNScrollView, ScrollViewProps>(
 					props.showsHorizontalScrollIndicator || false
 				}
 				keyboardShouldPersistTaps='always'
+				style={{ overflow: 'visible' }}
 				{...props}
 			>
 				{props.children}

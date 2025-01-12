@@ -75,6 +75,8 @@ interface IUseNavigation {
 	editPublishedEventPage: (event_uid: NanoId) => void;
 
 	localEventsMapPage: () => void;
+	editArtistTeamPage: () => void;
+	addArtistTeamMemberPage: () => void;
 
 	/** General */
 	back: () => void;
@@ -251,6 +253,14 @@ const useNavigation = (): IUseNavigation => {
 		navigation.push('LocalEventsMapPage');
 	};
 
+	const editArtistTeamPage = () => {
+		navigation.push('EditArtistTeamPage');
+	};
+
+	const addArtistTeamMemberPage = () => {
+		navigation.push('AddArtistTeamMemberPage');
+	};
+
 	/**
 	 * General
 	 */
@@ -287,6 +297,8 @@ const useNavigation = (): IUseNavigation => {
 		manageEventPage,
 		editPublishedEventPage,
 		localEventsMapPage,
+		editArtistTeamPage,
+		addArtistTeamMemberPage,
 		back
 	};
 };

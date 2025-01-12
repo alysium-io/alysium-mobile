@@ -1,3 +1,6 @@
+import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
+import { useUserAppContext } from '@arch/Application/contexts/User.context';
+import { Icon, Text, View } from '@atomic';
 import { useSheet } from '@hooks';
 import {
 	Header,
@@ -10,12 +13,25 @@ import ArtistProfileMenuBottomSheet from './sheets/ArtistProfileMenuBottomSheet'
 
 const ArtistProfilePageHeader: React.FC = () => {
 	const artistProfileMenuBottomSheet = useSheet();
+	const { userData } = useUserAppContext();
+	const { artistData } = useArtistAppContext();
 	return (
 		<Header>
 			<HeaderSection
-				CenterComponent={
+				LeftComponent={
 					<HeaderTitle
-						title='Artist'
+						title={
+							<View flexDirection='row' alignItems='center'>
+								<Icon name='at' color='text.s' size='xs' />
+								<Text marginLeft='xs' variant='paragraph'>
+									{userData.handle}
+								</Text>
+							</View>
+						}
+						subtitle={artistData.name}
+						subtitleProps={{
+							marginTop: 'xs'
+						}}
 						titleProps={{ variant: 'paragraph', color: 'text.q' }}
 					/>
 				}

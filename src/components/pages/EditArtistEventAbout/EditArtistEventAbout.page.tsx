@@ -10,7 +10,6 @@ import { Alert, useGlobalLoader } from '@templates';
 import { EditArtistEventAboutPageRouteProp } from '@types';
 import React, { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { ScrollView } from 'react-native';
 import EditArtistEventAboutPageHeader from './EditArtistEventAbout.header';
 
 const EditArtistEventAbout = () => {
@@ -49,19 +48,25 @@ const EditArtistEventAbout = () => {
 	}, [eventData]);
 
 	const onSubmit = (data: UpdateArtistEventBodyDto) => {
-		showLoader();
-		updateArtistEventMutation({
-			params: {
-				artist_uid: artistData.artist_uid,
-				event_uid: route.params.event_uid
-			},
-			body: data
-		})
-			.catch(toastError)
-			.finally(() => {
-				hideLoader();
-				back();
-			});
+		const { about } = data;
+		const trimmed = about?.trim();
+		if (trimmed && trimmed.length > 0) {
+			showLoader();
+			updateArtistEventMutation({
+				params: {
+					artist_uid: artistData.artist_uid,
+					event_uid: route.params.event_uid
+				},
+				body: data
+			})
+				.catch(toastError)
+				.finally(() => {
+					hideLoader();
+					back();
+				});
+		} else {
+			back();
+		}
 	};
 
 	const onCancel = () => {
@@ -92,28 +97,26 @@ const EditArtistEventAbout = () => {
 				onCancel={onCancel}
 				onSubmit={handleSubmit(onSubmit)}
 			/>
-			<ScrollView>
-				<View margin='m'>
-					<Controller
-						control={control}
-						name='about'
-						render={({ field: { onChange, value } }) => (
-							<FormText
-								focusOnMount
-								onPressClear={() => onChange('')}
-								label='About'
-								placeholder='Tell fans what to expect'
-								onChangeText={onChange}
-								value={value ?? ''}
-							/>
-						)}
-					/>
-					<Text variant='paragraph-small-medium' color='text.q' marginTop='m'>
-						We will put this description on your public event page so fans know
-						what to expect.
-					</Text>
-				</View>
-			</ScrollView>
+			<View margin='m'>
+				<Controller
+					control={control}
+					name='about'
+					render={({ field: { onChange, value } }) => (
+						<FormText
+							focusOnMount
+							onPressClear={() => onChange('')}
+							label='About'
+							placeholder='Tell fans what to expect'
+							onChangeText={onChange}
+							value={value ?? ''}
+						/>
+					)}
+				/>
+				<Text variant='paragraph-small-medium' color='text.q' marginTop='m'>
+					We will put this description on your public event page so fans know
+					what to expect.
+				</Text>
+			</View>
 		</BasePage>
 	);
 };

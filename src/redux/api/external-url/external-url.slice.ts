@@ -49,7 +49,7 @@ export default serviceApi.injectEndpoints({
 				result
 					? [
 							{ type: 'PrivateArtist', id: 'CURRENT' },
-							{ type: 'PublicArtist', id: params.external_url_uid }
+							{ type: 'PublicArtist', id: params.artist_uid }
 					  ]
 					: []
 		}),

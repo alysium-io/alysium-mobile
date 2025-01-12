@@ -7,6 +7,7 @@ import {
 	EventManager,
 	EventPage,
 	ManageEventPage,
+	ScenePage,
 	ViewGalleryPage
 } from '@pages';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -64,6 +65,8 @@ const EventManagerTab = () => {
 				name='EditArtistEventTicketsUrlPage'
 				component={EditArtistEventTicketsUrlPage}
 			/>
+
+			<EventManagerStack.Screen name='ScenePage' component={ScenePage} />
 		</EventManagerStack.Navigator>
 	);
 };

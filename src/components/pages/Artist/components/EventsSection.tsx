@@ -2,7 +2,7 @@ import { Section, Text } from '@atomic';
 import { PublicFindOneArtistResponseDto } from '@flux/api/artist/dto/artist-find-one.dto';
 import { FindAllArtistEventsResponseDto } from '@flux/api/event/dto/artist-event-find-all.dto';
 import { useDate, useImage, useNavigation } from '@hooks';
-import { ContentListItem, Location, SeeAllBottomButton } from '@molecules';
+import { ContentListItem, Location } from '@molecules';
 import dayjs from 'dayjs';
 import React from 'react';
 
@@ -68,21 +68,9 @@ const EventsSection: React.FC<EventsSectionProps> = ({
 					/>
 				);
 			})}
-			<SeeAllBottomButton
-				onPress={() =>
-					artistEventsPage(artistData.artist_uid, {
-						from: 'ArtistPage',
-						from_uid: artistData.artist_uid,
-						to: 'ArtistEventsPage',
-						to_uid: artistData.artist_uid,
-						using: 'ARTIST_PAGE_EVENTS_SECTION_SEE_ALL'
-					})
-				}
-			/>
 			{markers.length > 0 && (
 				<Location
 					markers={markers}
-					showUserLocation={true}
 					containerProps={{
 						height: 300,
 						margin: 'm',

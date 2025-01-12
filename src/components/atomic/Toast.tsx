@@ -1,38 +1,67 @@
-import { BlurView, LinearGradient, Text, View } from '@atomic';
+import { BlurView, Icon, Text, View } from '@atomic';
 import { useTheme } from '@hooks';
 import { Handle } from '@organisms';
+import { IconNames } from '@svg';
+import { ThemeMode } from '@types';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import RNToast, { BaseToastProps } from 'react-native-toast-message';
+import { Shadow } from 'react-native-shadow-2';
+import RNToast, { ToastConfigParams } from 'react-native-toast-message';
 
-type CustomToastProps = BaseToastProps & {
-	color: string;
-};
+type CustomToastProps = ToastConfigParams<{
+	icon?: IconNames;
+}>;
 
-const CustomToast = (props: CustomToastProps) => {
+const CustomToast: React.FC<CustomToastProps> = ({ props, ...toastProps }) => {
+	const { themeMode } = useTheme();
+
 	return (
-		<View style={styles.container} marginHorizontal='m'>
-			<LinearGradient
-				style={{
-					position: 'absolute',
-					width: '100%',
-					height: '100%'
-				}}
-				colors={[props.color, 'transparent']}
-				start={{ x: 0, y: 0 }}
-				end={{ x: 1, y: 1 }}
-			/>
-			<BlurView style={StyleSheet.absoluteFillObject} blurAmount={15} />
-			<View marginHorizontal='xs' padding='m' paddingBottom='s'>
-				<Text variant='paragraph-medium' color='text.p' marginBottom='xs'>
-					{props.text1}
-				</Text>
-				<Text variant='paragraph-small' color='text.q'>
-					{props.text2}
-				</Text>
-			</View>
-			<Handle />
+		<View style={styles.container}>
+			<Shadow
+				style={{ width: '100%' }}
+				paintInside={false}
+				distance={4}
+				startColor={themeMode === ThemeMode.dark ? '#FFFFFF15' : '#00000015'}
+				endColor={themeMode === ThemeMode.dark ? '#FFFFFF00' : '#00000000'}
+			>
+				<BlurView
+					style={{ borderRadius: 18 }}
+					blurAmount={20}
+					blurType={themeMode === ThemeMode.dark ? 'dark' : 'xlight'}
+				>
+					<View
+						marginHorizontal='xs'
+						padding='m'
+						paddingBottom='xs'
+						flexDirection='row'
+						alignItems='center'
+					>
+						{props.icon && (
+							<View marginRight='s'>
+								<Icon name={props.icon} size='m' color='text.t' />
+							</View>
+						)}
+						<View justifyContent='center'>
+							{toastProps.text1 && (
+								<Text
+									variant='paragraph-medium'
+									color='text.p'
+									marginBottom='xs'
+								>
+									{toastProps.text1}
+								</Text>
+							)}
+							{toastProps.text2 && (
+								<Text variant='paragraph-small' color='text.t'>
+									{toastProps.text2}
+								</Text>
+							)}
+						</View>
+					</View>
+					<Handle />
+				</BlurView>
+			</Shadow>
 		</View>
 	);
 };
@@ -42,15 +71,9 @@ const Toast = () => {
 	const { theme } = useTheme();
 
 	const toastConfig = {
-		success: (props: BaseToastProps) => (
-			<CustomToast {...props} color={theme.colors['success']} />
-		),
-		error: (props: BaseToastProps) => (
-			<CustomToast {...props} color={theme.colors['danger']} />
-		),
-		info: (props: BaseToastProps) => (
-			<CustomToast {...props} color={theme.colors['transparent']} />
-		)
+		success: CustomToast,
+		error: CustomToast,
+		info: CustomToast
 	};
 
 	return (
@@ -61,10 +84,9 @@ const Toast = () => {
 const styles = StyleSheet.create({
 	container: {
 		width: '95%',
-		overflow: 'hidden',
 		justifyContent: 'center',
 		borderRadius: 18,
-		backgroundColor: 'rgba(0, 0, 0, 0.1)'
+		padding: 8
 	}
 });
 

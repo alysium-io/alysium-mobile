@@ -1,8 +1,9 @@
 import { ScrollView } from '@atomic';
-import { searchApiSlice, SearchItem } from '@flux/api/search';
-import { SearchApi, useKeyboard, usePagination } from '@hooks';
+import { searchApiSlice } from '@flux/api/search';
+import { SearchApi, usePagination, usePersistedSearchState } from '@hooks';
 import React from 'react';
 import { Case, Switch } from 'react-if';
+import usePressSearchIteraction from '../usePressSearchIteraction';
 import NoRecentSearches from './NoRecentSearches';
 import RecentSearches from './RecentSearches';
 import SearchResults from './SearchResults';
@@ -10,17 +11,16 @@ import LoadingSearchResults from './SearchResultsLoading';
 
 interface SearchArtistsPageProps {
 	searchApi: SearchApi;
-	recentSearches: SearchItem[];
-	onPressSearchResult: (item: SearchItem) => void;
 }
 
-const SearchArtistsPage: React.FC<SearchArtistsPageProps> = ({
-	searchApi,
-	recentSearches,
-	onPressSearchResult
-}) => {
-	const { dismiss } = useKeyboard();
+const SearchArtistsPage: React.FC<SearchArtistsPageProps> = ({ searchApi }) => {
+	const { onPressArtistSearchItem } = usePressSearchIteraction();
 	const { page, defaultLimit } = usePagination();
+	const {
+		isArtistRecentSearchesEmpty,
+		resetArtistRecentSearches,
+		artistRecentSearches
+	} = usePersistedSearchState();
 	const { data, isFetching } = searchApiSlice.useSearchArtistsQuery(
 		{
 			body: { q: searchApi.searchText },
@@ -33,27 +33,28 @@ const SearchArtistsPage: React.FC<SearchArtistsPageProps> = ({
 	);
 
 	return (
-		<ScrollView style={{ overflow: 'visible' }}>
+		<ScrollView>
 			<Switch>
 				<Case condition={isFetching}>
 					<LoadingSearchResults />
 				</Case>
 				<Case
 					condition={
-						searchApi.searchText.length === 0 && recentSearches.length === 0
+						searchApi.searchText.length === 0 && isArtistRecentSearchesEmpty
 					}
 				>
 					<NoRecentSearches />
 				</Case>
 				<Case condition={searchApi.searchText.length === 0}>
 					<RecentSearches
-						recentSearches={recentSearches}
-						onPressSearchResult={onPressSearchResult}
+						recentSearches={artistRecentSearches}
+						onPressSearchResult={onPressArtistSearchItem}
+						onPressClear={resetArtistRecentSearches}
 					/>
 				</Case>
 				<Case condition={searchApi.searchText.length > 0}>
 					<SearchResults
-						onPressSearchResult={onPressSearchResult}
+						onPressSearchResult={onPressArtistSearchItem}
 						searchResults={data}
 					/>
 				</Case>

@@ -20,15 +20,15 @@ const ShareEpkSection = () => {
 	const qrCodeSizes = useQRCodeSize();
 	const epkExplanationBottomSheet = useSheet();
 	const { copy } = useClipboard();
+
 	return (
 		<View alignItems='center' marginVertical='xxl'>
 			<TouchableOpacity
 				activeOpacity={0.8}
 				onPress={() =>
-					copy(
-						artistPageHyperlink(artistData.artist_uid),
-						'Link to artist page copied to clipboard'
-					)
+					copy(artistPageHyperlink(artistData.artist_uid), {
+						text2: 'You can now share your EPK'
+					})
 				}
 			>
 				<View

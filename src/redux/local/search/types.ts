@@ -1,5 +1,9 @@
-import { SearchItem } from '@flux/api/search';
+import {
+	ArtistSearchItem,
+	SceneSearchItem
+} from '@flux/api/search/search.entity';
 
 export type SearchState = {
-	recentSearches: SearchItem[];
+	artistRecentSearches: ArtistSearchItem[];
+	sceneRecentSearches: SceneSearchItem[];
 };

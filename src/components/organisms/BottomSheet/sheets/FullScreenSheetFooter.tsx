@@ -1,67 +1,48 @@
-import { AView, View } from '@atomic';
-import {
-	BottomSheetFooter,
-	BottomSheetFooterProps
-} from '@gorhom/bottom-sheet';
-import { useTheme } from '@hooks';
-import { IChildrenProps, Props } from '@types';
+import { AView } from '@atomic';
+import { SheetApi, useTheme } from '@hooks';
+import { ActionButtons } from '@molecules';
+import { Props } from '@types';
 import React from 'react';
-import { interpolate, useAnimatedStyle } from 'react-native-reanimated';
+import { useAnimatedKeyboard, useAnimatedStyle } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useFullScreenSheet } from './useFullScreenSheet';
 
-interface FullScreenSheetFooterProps
-	extends BottomSheetFooterProps,
-		IChildrenProps {
-	animateFooterWithKeyboard?: boolean;
-	containerProps?: Props<typeof View>;
+interface FullScreenSheetFooterProps {
+	buttonProps?: Props<typeof ActionButtons>['buttonProps'];
+	sheetApi: SheetApi;
 }
 
 const FullScreenSheetFooter: React.FC<FullScreenSheetFooterProps> = ({
-	animateFooterWithKeyboard = true,
-	children,
-	containerProps,
-	...props
+	sheetApi,
+	buttonProps
 }) => {
 	const { theme } = useTheme();
 	const insets = useSafeAreaInsets();
-	const { footerLayoutApi, keyboard } = useFullScreenSheet();
-
-	const animatedFooterStyle = useAnimatedStyle(() => {
-		if (!animateFooterWithKeyboard) {
-			return {};
-		}
-		const keyboardHeight = keyboard.height.value;
-		return {
-			transform: [
-				{
-					translateY: interpolate(
-						keyboardHeight,
-						[0, 1],
-						[0, -keyboardHeight],
-						'clamp'
-					)
-				}
-			]
-		};
-	}, []);
-
+	const keyboard = useAnimatedKeyboard();
+	const animatedStyle = useAnimatedStyle(
+		() => ({
+			paddingBottom: insets.bottom,
+			bottom: keyboard.height.value
+		}),
+		[]
+	);
 	return (
-		<BottomSheetFooter {...props}>
-			<AView
-				paddingHorizontal='m'
-				paddingTop='l'
-				flexDirection='row'
-				style={[{ paddingBottom: insets.bottom }, animatedFooterStyle]}
-				backgroundColor='bg.p'
-				borderTopWidth={theme.borderWidth.thin}
-				borderColor='border.light'
-				onLayout={footerLayoutApi.onLayout}
-				{...containerProps}
-			>
-				{children}
-			</AView>
-		</BottomSheetFooter>
+		<AView
+			paddingHorizontal='m'
+			paddingTop='m'
+			backgroundColor='bg.p'
+			borderTopWidth={theme.borderWidth.thin}
+			borderColor='border.light'
+			style={animatedStyle}
+		>
+			<ActionButtons
+				buttonProps={
+					buttonProps ?? {
+						text: 'Dismiss',
+						onPress: sheetApi.close
+					}
+				}
+			/>
+		</AView>
 	);
 };
 

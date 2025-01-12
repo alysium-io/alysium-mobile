@@ -4,16 +4,13 @@ import { Icon, View } from '@atomic';
 import { regexPatterns } from '@etc';
 import { userApiSlice } from '@flux/api/user';
 import { LoginResponseDto } from '@flux/api/user/dto/user-login.dto';
-import { BottomSheetFooterProps } from '@gorhom/bottom-sheet';
-import { SheetApi, useLayoutDimensions, useTextInput, useToast } from '@hooks';
+import { SheetApi, useTextInput, useToast } from '@hooks';
 import { Button, useButtonState } from '@molecules';
-import { FullScreenSheet, FullScreenSheetStandardHeader } from '@organisms';
-import FullScreenSheetFooter from '@src/components/organisms/BottomSheet/sheets/FullScreenSheetFooter';
+import { FullScreenSheet } from '@organisms';
 import useLoginUserPhoneNumber from '@src/utils/redux-hook-form/useLoginUserPhoneNumberFormApi';
 import useRegisterUserPhoneNumber from '@src/utils/redux-hook-form/useRegisterUserPhoneNumberFormApi';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Case, Switch } from 'react-if';
-import { useAnimatedKeyboard } from 'react-native-reanimated';
 import EnterCode from './components/EnterCode';
 import InputPhoneNumber from './components/InputPhoneNumber';
 
@@ -30,8 +27,6 @@ const CreateAccountBottomSheet: React.FC<CreateAccountBottomSheetProps> = ({
 	const [privateFindOneUserQuery] =
 		userApiSlice.useLazyPrivateFindOneUserQuery();
 	const textInputApi = useTextInput();
-	const keyboard = useAnimatedKeyboard();
-	const footerLayoutApi = useLayoutDimensions();
 	const sendTextButtonStateApi = useButtonState('disabled');
 	const oneTimeCodeButtonStateApi = useButtonState('disabled');
 	const [step, setStep] = useState(0);
@@ -135,58 +130,12 @@ const CreateAccountBottomSheet: React.FC<CreateAccountBottomSheetProps> = ({
 		}, 300);
 	};
 
-	const footerComponent = useCallback(
-		(props: BottomSheetFooterProps) => {
-			return (
-				<FullScreenSheetFooter {...props}>
-					<View flexDirection='row' flex={1}>
-						<View marginRight='s' flex={1}>
-							{step === 0 ? (
-								<Button
-									text='cancel'
-									variant='outlined'
-									onPress={onPressCancel}
-								/>
-							) : (
-								<Button text='Back' variant='outlined' onPress={onPressBack} />
-							)}
-						</View>
-						<View marginLeft='s' flex={1}>
-							{step === 0 ? (
-								<Button
-									text='Send Text'
-									color='p'
-									onPress={onPressSendText}
-									buttonState={sendTextButtonStateApi.buttonState}
-								/>
-							) : (
-								<Button
-									text='Login'
-									color='p'
-									onPress={onPressCreateAccount}
-									buttonState={oneTimeCodeButtonStateApi.buttonState}
-								/>
-							)}
-						</View>
-					</View>
-				</FullScreenSheetFooter>
-			);
-		},
-		[
-			sendTextButtonStateApi.buttonState,
-			oneTimeCodeButtonStateApi.buttonState,
-			step
-		]
-	);
-
 	return (
 		<FullScreenSheet
 			sheetApi={sheetApi}
-			footerComponent={footerComponent}
-			sheetDidOpen={textInputApi.focus}
 			onDismiss={onPressCancel}
+			withButtons={false}
 		>
-			<FullScreenSheetStandardHeader />
 			<View margin='m'>
 				<View marginTop='l' marginBottom='xl' alignItems='center'>
 					<Icon name='logo' size='l' color='text.p' />
@@ -205,6 +154,32 @@ const CreateAccountBottomSheet: React.FC<CreateAccountBottomSheetProps> = ({
 						/>
 					</Case>
 				</Switch>
+			</View>
+			<View flexDirection='row' flex={1}>
+				<View marginRight='s' flex={1}>
+					{step === 0 ? (
+						<Button text='cancel' variant='outlined' onPress={onPressCancel} />
+					) : (
+						<Button text='Back' variant='outlined' onPress={onPressBack} />
+					)}
+				</View>
+				<View marginLeft='s' flex={1}>
+					{step === 0 ? (
+						<Button
+							text='Send Text'
+							color='p'
+							onPress={onPressSendText}
+							buttonState={sendTextButtonStateApi.buttonState}
+						/>
+					) : (
+						<Button
+							text='Login'
+							color='p'
+							onPress={onPressCreateAccount}
+							buttonState={oneTimeCodeButtonStateApi.buttonState}
+						/>
+					)}
+				</View>
 			</View>
 		</FullScreenSheet>
 	);

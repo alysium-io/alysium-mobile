@@ -20,8 +20,6 @@ const GoogleMapsAutocomplete = () => {
 		}
 	);
 
-	console.log(searchApi.searchText);
-
 	return (
 		<SafeAreaView>
 			<View margin='m'>

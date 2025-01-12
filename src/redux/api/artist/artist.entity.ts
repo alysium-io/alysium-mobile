@@ -5,6 +5,7 @@ import { ExternalUrl } from '../external-url/external-url.entity';
 import { Gallery } from '../gallery/gallery.entity';
 import { Location } from '../location/location.entity';
 import { ProfileImage } from '../profile-image';
+import { UserArtistLink } from '../user-artist-link/user-artist-link.entity';
 import { ArtistSpotifyData } from './types';
 
 interface ArtistCommon {
@@ -15,7 +16,6 @@ interface ArtistCommon {
 	readonly is_following: boolean;
 	readonly num_followers: number;
 	readonly num_events: number;
-	readonly artist_rank: number;
 	readonly profile_image: ProfileImage | null;
 	readonly tags: ArtistTagLink[];
 	readonly location: Location | null;
@@ -24,6 +24,7 @@ interface ArtistCommon {
 	readonly scene: ArtistSceneLink | null;
 	readonly contacts: Contact[];
 	readonly gallery: Gallery | null;
+	readonly user: UserArtistLink | null;
 }
 
 export interface PublicArtist extends ArtistCommon {}

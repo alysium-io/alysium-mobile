@@ -32,6 +32,7 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
 	contentContainerStyle,
 	onChange,
 	sheetDidOpen,
+	maxDynamicContentSize = 600,
 	...props
 }) => {
 	const { theme } = useTheme();
@@ -65,6 +66,7 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
 			enableContentPanningGesture={enableContentPanningGesture}
 			stackBehavior='push'
 			onChange={_onChange}
+			maxDynamicContentSize={maxDynamicContentSize}
 			backgroundStyle={{
 				backgroundColor: backgroundColor ?? theme.colors['bg.p'],
 				borderRadius: 25

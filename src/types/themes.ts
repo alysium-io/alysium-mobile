@@ -167,6 +167,7 @@ export type SemanticColors = {
 	'etc.keyboard': KeyboardColor;
 	'etc.blur': BlurColor;
 	'etc.scrollbar-indicator': 'default' | 'black' | 'white';
+	'etc.loader-kit': 'black' | 'white';
 
 	// Molecules
 	'block-list-item.bg': HexColor;

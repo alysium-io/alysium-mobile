@@ -1,7 +1,8 @@
 import { TextInput, View } from '@atomic';
 import { TextInputApi, useTheme } from '@hooks';
+import { useFocusEffect } from '@react-navigation/native';
 import { Props } from '@types';
-import React, { useEffect, useRef } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { TextInput as RNTextInput } from 'react-native';
 import ClearButton from './components/ClearButton';
 import Container from './components/Container';
@@ -21,24 +22,35 @@ const FormText: React.FC<FormTextProps> = ({
 	defaultValue,
 	editable,
 	focusOnMount = false,
-	focusOnMountDelay = 300,
+	focusOnMountDelay = 500,
 	onPressClear,
 	...props
 }) => {
 	const { theme } = useTheme();
 	const ref = useRef<RNTextInput>(null);
 
-	useEffect(() => {
-		if (focusOnMount) {
-			if (focusOnMountDelay) {
-				setTimeout(() => {
-					ref.current?.focus();
-				}, focusOnMountDelay);
-			} else {
+	// useEffect(() => {
+	// 	if (focusOnMount) {
+	// 		if (focusOnMountDelay) {
+	// 			setTimeout(() => {
+	// 				ref.current?.focus();
+	// 			}, focusOnMountDelay);
+	// 		} else {
+	// 			ref.current?.focus();
+	// 		}
+	// 	}
+	// }, []);
+
+	useFocusEffect(
+		useCallback(() => {
+			// Small delay to ensure the transition is complete
+			const timeout = setTimeout(() => {
 				ref.current?.focus();
-			}
-		}
-	}, []);
+			}, 100);
+
+			return () => clearTimeout(timeout);
+		}, [])
+	);
 
 	return (
 		<Container onPress={() => ref.current?.focus()}>

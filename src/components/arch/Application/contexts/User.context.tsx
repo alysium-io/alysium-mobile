@@ -21,6 +21,7 @@ export type UserAppContextType = {
 	checkUserWantsToRegisterBottomSheet: SheetApi;
 	userArtistsData: PrivateFindAllArtistsResponseDto;
 	revertToUser: () => void;
+	numberOfAccounts: number;
 };
 
 export const UserAppContext = createContext({} as UserAppContextType);
@@ -82,7 +83,8 @@ export const UserAppProvider: React.FC<ProviderProps> = ({ children }) => {
 				createAccountBottomSheetApi,
 				checkUserWantsToRegisterBottomSheet,
 				userArtistsData,
-				revertToUser
+				revertToUser,
+				numberOfAccounts: userArtistsData.length + 1
 			}}
 		>
 			{children}

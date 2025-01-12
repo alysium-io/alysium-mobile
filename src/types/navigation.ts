@@ -73,6 +73,8 @@ type EditArtistEventTicketsUrlPage = { event_uid: NanoId };
 type ManageEventPage = { event_uid: NanoId };
 type EditPublishedEventPage = { event_uid: NanoId };
 
+type EditArtistTeamPage = undefined;
+type AddArtistTeamMemberPage = undefined;
 export type RouteNames =
 	| 'HomePage'
 	| 'LocalEventsMapPage'
@@ -109,7 +111,9 @@ export type RouteNames =
 	| 'CreateExternalLinkPage'
 	| 'EditArtistEventAboutPage'
 	| 'ManageEventPage'
-	| 'EditPublishedEventPage';
+	| 'EditPublishedEventPage'
+	| 'EditArtistTeamPage'
+	| 'AddArtistTeamMemberPage';
 
 /**
  * Stack Navigators
@@ -157,6 +161,8 @@ export type ProfileStackNavigatorParamList = {
 	EditArtistNamePage: EditArtistNamePage;
 	EditArtistBioPage: EditArtistBioPage;
 	ChooseScenePage: ChooseScenePage;
+	EditArtistTeamPage: EditArtistTeamPage;
+	AddArtistTeamMemberPage: AddArtistTeamMemberPage;
 };
 
 export type EventManagerStackNavigatorParamList = {
@@ -170,6 +176,7 @@ export type EventManagerStackNavigatorParamList = {
 	EditPublishedEventPage: EditPublishedEventPage;
 	ViewGalleryPage: ViewGalleryPage;
 	ArtistPage: ArtistPage;
+	ScenePage: ScenePage;
 };
 
 export type HomeStackNavigatorParamList = {

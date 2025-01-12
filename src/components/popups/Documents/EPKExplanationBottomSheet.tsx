@@ -1,15 +1,7 @@
-import { Bold, P, Section, Text, View } from '@atomic';
-import { BottomSheetFooterProps } from '@gorhom/bottom-sheet';
+import { Bold, P, ScrollView, Section, Text, View } from '@atomic';
 import { SheetApi } from '@hooks';
-import { Button } from '@molecules';
-import {
-	FullScreenSheet,
-	FullScreenSheetScrollView,
-	FullScreenSheetStandardHeader
-} from '@organisms';
-import FullScreenSheetFooter from '@src/components/organisms/BottomSheet/sheets/FullScreenSheetFooter';
-import { useBehaviorContext } from '@src/utils/contexts/Behavior';
-import React, { useCallback } from 'react';
+import { FullScreenSheet } from '@organisms';
+import React from 'react';
 
 interface EPKExplanationBottomSheetProps {
 	sheetApi: SheetApi;
@@ -18,35 +10,14 @@ interface EPKExplanationBottomSheetProps {
 const EPKExplanationBottomSheet: React.FC<EPKExplanationBottomSheetProps> = ({
 	sheetApi
 }) => {
-	const { behavior } = useBehaviorContext();
-	const sheetDidOpen = () => {
-		behavior('POPUP_WHAT_IS_EPK_ALYSIUM');
-	};
-
-	const footerComponent = useCallback(
-		(props: BottomSheetFooterProps) => (
-			<FullScreenSheetFooter {...props}>
-				<View flex={1}>
-					<Button text='Dismiss' onPress={sheetApi.close} />
-				</View>
-			</FullScreenSheetFooter>
-		),
-		[]
-	);
-
 	return (
-		<FullScreenSheet
-			sheetApi={sheetApi}
-			footerComponent={footerComponent}
-			sheetDidOpen={sheetDidOpen}
-		>
-			<FullScreenSheetStandardHeader />
-			<FullScreenSheetScrollView>
+		<FullScreenSheet sheetApi={sheetApi}>
+			<ScrollView>
 				<View margin='m'>
 					<Text variant='page-header' marginBottom='s'>
 						Electronic Press Kit
 					</Text>
-					<Section>
+					<Section marginBottom='none'>
 						<P>
 							An Electronic Press Kit (EPK) is your{' '}
 							<Bold>professional portfolio</Bold> as a performing artist. It's a
@@ -110,7 +81,7 @@ const EPKExplanationBottomSheet: React.FC<EPKExplanationBottomSheetProps> = ({
 						</P>
 					</Section>
 				</View>
-			</FullScreenSheetScrollView>
+			</ScrollView>
 		</FullScreenSheet>
 	);
 };

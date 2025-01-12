@@ -15,6 +15,11 @@ import {
 	SearchTagsQueryDto,
 	SearchTagsResponseDto
 } from './dto/search-tags.dto';
+import {
+	SearchUsersBodyDto,
+	SearchUsersQueryDto,
+	SearchUsersResponseDto
+} from './dto/search-users.dto';
 
 const url = rtkBaseUrl('search');
 
@@ -83,6 +88,30 @@ const apiSlice = serviceApi.injectEndpoints({
 				tag_uid: body?.q,
 				sort: body?.sort,
 				correlated_tag_uids: body?.correlated_tag_uids
+			}),
+			merge: (currentCache, newItems) => {
+				return {
+					...newItems,
+					hits: _.unionBy(currentCache.hits, newItems.hits, (item) => item.uid)
+				};
+			},
+			forceRefetch({ currentArg, previousArg }) {
+				return !_.isEqual(currentArg, previousArg);
+			}
+		}),
+		searchUsers: builder.query<
+			SearchUsersResponseDto,
+			{ body: SearchUsersBodyDto; query: SearchUsersQueryDto }
+		>({
+			query: ({ body, query }) => ({
+				url: url('/users'),
+				method: 'POST',
+				params: query,
+				body
+			}),
+			serializeQueryArgs: ({ endpointName, queryArgs: { body } }) => ({
+				endpointName,
+				q: body?.q
 			}),
 			merge: (currentCache, newItems) => {
 				return {

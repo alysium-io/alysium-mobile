@@ -32,7 +32,8 @@ export default serviceApi.injectEndpoints({
 				body
 			}),
 			invalidatesTags: (result, error, { params }) => [
-				{ type: 'PrivateArtist', id: 'CURRENT' }
+				{ type: 'PrivateArtist', id: 'CURRENT' },
+				{ type: 'PublicArtist', id: params.artist_uid }
 			]
 		}),
 		updateContact: builder.mutation<
@@ -45,7 +46,8 @@ export default serviceApi.injectEndpoints({
 				body
 			}),
 			invalidatesTags: (result, error, { params }) => [
-				{ type: 'PrivateArtist', id: 'CURRENT' }
+				{ type: 'PrivateArtist', id: 'CURRENT' },
+				{ type: 'PublicArtist', id: params.artist_uid }
 			]
 		}),
 		deleteContact: builder.mutation<
@@ -57,7 +59,8 @@ export default serviceApi.injectEndpoints({
 				method: 'DELETE'
 			}),
 			invalidatesTags: (result, error, { params }) => [
-				{ type: 'PrivateArtist', id: 'CURRENT' }
+				{ type: 'PrivateArtist', id: 'CURRENT' },
+				{ type: 'PublicArtist', id: params.artist_uid }
 			]
 		}),
 		findOneContact: builder.query<

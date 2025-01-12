@@ -1,4 +1,4 @@
-import { Section, Text, View } from '@atomic';
+import { ScrollView, Section, Text, View } from '@atomic';
 import { EventLink } from '@flux/api/event-link/event-link.entity';
 import { ComplexEventStatus } from '@flux/api/event/types';
 import {
@@ -94,11 +94,21 @@ const WorkbenchView: React.FC<WorkbenchViewProps> = ({ events = [] }) => {
 	}, [events, statusMap]);
 
 	if (!events?.length) {
-		return null;
+		return (
+			<View flex={1} justifyContent='center' alignItems='center'>
+				<Text variant='paragraph-medium' color='text.q' textAlign='center'>
+					Create an{' '}
+					<Text variant='paragraph-medium' color='text.s'>
+						event
+					</Text>{' '}
+					to get started
+				</Text>
+			</View>
+		);
 	}
 
 	return (
-		<View>
+		<ScrollView>
 			{sections.map((section) => {
 				const sectionEvents = eventsBySection[section.id];
 				if (!sectionEvents?.length) return null;
@@ -120,7 +130,7 @@ const WorkbenchView: React.FC<WorkbenchViewProps> = ({ events = [] }) => {
 					</Section>
 				);
 			})}
-		</View>
+		</ScrollView>
 	);
 };
 

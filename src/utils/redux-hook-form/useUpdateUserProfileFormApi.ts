@@ -25,10 +25,6 @@ const useUpdateUserProfileFormApi = (
 		{
 			onValid: async (data: UpdateUserBodyDto) => {
 				formApiOptions?.methods?.onConfirmedValid?.(data);
-				console.log({
-					...data,
-					handle: data.handle || formApiOptions?.initialValues?.handle || ''
-				});
 				updateUserMutation({
 					body: {
 						...data,

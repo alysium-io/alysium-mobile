@@ -14,6 +14,7 @@ import {
 	NativeStackScreenProps
 } from '@react-navigation/native-stack';
 import React, { useCallback } from 'react';
+import { Case, Switch } from 'react-if';
 
 type RootStackParamList = {
 	ContactsList: undefined;
@@ -39,19 +40,33 @@ const ContactsListScreen: React.FC<ContactsListScreenProps> = ({
 }) => {
 	return (
 		<BottomSheetScrollView>
-			{contacts.map((contact) => (
-				<MenuListItem
-					key={contact.contact_uid}
-					onPress={() => navigation.navigate('ContactDetail', { contact })}
-					titleTextProps={{
-						title: contact.name,
-						bottomSubtext: contact.role || 'Unknown role',
-						titleVariant: 'paragraph-medium',
-						bottomSubtextVariant: 'paragraph-small',
-						bottomSubtextColor: 'text.q'
-					}}
-				/>
-			))}
+			<Switch>
+				<Case condition={contacts.length > 0}>
+					{contacts.map((contact) => (
+						<MenuListItem
+							key={contact.contact_uid}
+							onPress={() => navigation.navigate('ContactDetail', { contact })}
+							titleTextProps={{
+								title: contact.name,
+								bottomSubtext: contact.role || 'Unknown role',
+								titleVariant: 'paragraph-medium',
+								bottomSubtextVariant: 'paragraph-small',
+								bottomSubtextColor: 'text.q'
+							}}
+						/>
+					))}
+				</Case>
+				<Case condition={contacts.length === 0}>
+					<Text
+						variant='paragraph-medium'
+						margin='m'
+						textAlign='center'
+						color='text.q'
+					>
+						No contacts available
+					</Text>
+				</Case>
+			</Switch>
 		</BottomSheetScrollView>
 	);
 };
@@ -78,7 +93,9 @@ const ContactDetailScreen: React.FC<ContactDetailScreenProps> = ({ route }) => {
 				<MenuListItemWithButton
 					onPress={() => call(phone_number)}
 					prefixIconProps={{ name: 'old-phone' }}
-					onPressButton={() => copy(phone_number)}
+					onPressButton={() =>
+						copy(phone_number, { text2: 'You can now share this phone number' })
+					}
 					buttonIconProps={{
 						name: 'link'
 					}}
@@ -102,7 +119,9 @@ const ContactDetailScreen: React.FC<ContactDetailScreenProps> = ({ route }) => {
 				<MenuListItemWithButton
 					onPress={() => handleEmail(email)}
 					prefixIconProps={{ name: 'at' }}
-					onPressButton={() => copy(email)}
+					onPressButton={() =>
+						copy(email, { text2: 'You can now share this email' })
+					}
 					buttonIconProps={{
 						name: 'link'
 					}}

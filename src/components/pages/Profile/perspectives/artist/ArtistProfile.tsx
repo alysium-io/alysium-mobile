@@ -1,9 +1,8 @@
-import { View } from '@atomic';
+import { ScrollView, View } from '@atomic';
 import { useNavigation } from '@hooks';
 import { BasePage } from '@organisms';
 import SimpleButton from '@src/components/molecules/Buttons/SimpleButton';
 import React from 'react';
-import { ScrollView } from 'react-native';
 import MenuSection from '../../components/MenuSection';
 import SelectAccountSection from '../../components/SelectAccountSection';
 import ArtistProfilePageHeader from './ArtistProfile.header';
@@ -16,7 +15,7 @@ const ArtistProfile = () => {
 	return (
 		<BasePage>
 			<ArtistProfilePageHeader />
-			<ScrollView alwaysBounceVertical>
+			<ScrollView>
 				<HeaderSection />
 				<View margin='m'>
 					<SimpleButton onPress={editArtistPage} />

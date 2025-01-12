@@ -1,3 +1,4 @@
+import { useDispatch } from '@flux';
 import { serviceApi } from '@flux/api/base';
 import { userApiSlice } from '@flux/api/user';
 import { createUseContextHook, usePersistedAppState, useToast } from '@hooks';
@@ -31,6 +32,7 @@ export const AuthenticationAppProvider: React.FC<ProviderProps> = ({
 		userApiSlice.useLazyPrivateFindOneUserQuery();
 	const [deleteUserMutation] = userApiSlice.useDeleteUserMutation();
 	const [loginGuestQuery] = userApiSlice.useLazyLoginGuestUserQuery();
+	const dispatch = useDispatch();
 
 	useEffect(() => {
 		const fetchMe = async () => {
@@ -56,7 +58,7 @@ export const AuthenticationAppProvider: React.FC<ProviderProps> = ({
 	}, [token]);
 
 	const logout = () => {
-		serviceApi.util.resetApiState();
+		dispatch(serviceApi.util.resetApiState());
 		setPersistedAppStateWithDefaults({
 			authStage: AuthStage.loggedOut,
 			token: null
@@ -64,7 +66,7 @@ export const AuthenticationAppProvider: React.FC<ProviderProps> = ({
 	};
 
 	const login = (token: string) => {
-		serviceApi.util.resetApiState();
+		dispatch(serviceApi.util.resetApiState());
 		setPersistedAppState({
 			token,
 			authStage: AuthStage.loggedIn

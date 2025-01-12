@@ -8,7 +8,7 @@ export enum Role {
 	admin = 'admin'
 }
 
-export interface PrivateUser {
+export interface User {
 	readonly user_uid: NanoId;
 	readonly name: string | null;
 	readonly handle: string;
@@ -21,3 +21,6 @@ export interface PrivateUser {
 	readonly num_scenes_following: number;
 	readonly role: Role;
 }
+
+export interface PrivateUser extends User {}
+export interface PublicUser extends User {}

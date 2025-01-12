@@ -1,20 +1,23 @@
 import { Section, Text, View } from '@atomic';
-import { SearchItem, SearchType } from '@flux/api/search/search.entity';
-import { usePersistedSearchState } from '@hooks';
+import {
+	ArtistSearchItem,
+	SceneSearchItem,
+	SearchType
+} from '@flux/api/search/search.entity';
 import { Button, ContentListItem } from '@molecules';
 import React from 'react';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 interface RecentSearchesProps {
-	recentSearches?: SearchItem[];
-	onPressSearchResult: (result: SearchItem) => void;
+	recentSearches: ArtistSearchItem[] | SceneSearchItem[];
+	onPressSearchResult: (result: ArtistSearchItem | SceneSearchItem) => void;
+	onPressClear: () => void;
 }
 
 const RecentSearches: React.FC<RecentSearchesProps> = ({
 	recentSearches,
-	onPressSearchResult
+	onPressSearchResult,
+	onPressClear
 }) => {
-	const { resetRecentSearches } = usePersistedSearchState();
 	return (
 		<Section marginTop='xl'>
 			<View
@@ -25,13 +28,11 @@ const RecentSearches: React.FC<RecentSearchesProps> = ({
 				marginBottom='m'
 			>
 				<Text variant='section-header-2'>Recent Searches</Text>
-				<TouchableOpacity>
-					<Button
-						onPress={resetRecentSearches}
-						text='Clear'
-						containerProps={{ paddingVertical: 's' }}
-					/>
-				</TouchableOpacity>
+				<Button
+					onPress={onPressClear}
+					text='Clear'
+					containerProps={{ paddingVertical: 's' }}
+				/>
 			</View>
 			{recentSearches?.map((result) => (
 				<ContentListItem

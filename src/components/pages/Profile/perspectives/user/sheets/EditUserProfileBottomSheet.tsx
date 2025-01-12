@@ -1,57 +1,142 @@
-import { DismissKeyboardWrapper, View } from '@atomic';
-import { BottomSheetFooterProps } from '@gorhom/bottom-sheet';
+import { useUserAppContext } from '@arch/Application/contexts/User.context';
+import { DismissKeyboardWrapper, ScrollView, View } from '@atomic';
+import { capitalizeFirstLetter } from '@etc';
+import { userApiSlice } from '@flux/api/user';
+import { UpdateUserBodyDto } from '@flux/api/user/dto/user-update.dto';
 import { SheetApi } from '@hooks';
-import { Button } from '@molecules';
 import {
-	FullScreenSheet,
-	FullScreenSheetScrollView,
-	FullScreenSheetStandardHeader
-} from '@organisms';
-import FullScreenSheetFooter from '@src/components/organisms/BottomSheet/sheets/FullScreenSheetFooter';
+	EditableProfileImage,
+	TextInputWithLabel,
+	useButtonState
+} from '@molecules';
+import { FullScreenSheet } from '@organisms';
 import { ThemeModeSettings, ThemePicker } from '@templates';
-import React, { useCallback } from 'react';
-import EditHandle from './components/EditHandle';
-import EditProfileImage from './components/EditProfileImage';
-import useUserEditUserProfileBottomSheet from './useUserEditUserProfileBottomSheet';
+import React, { useEffect } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import Toast from 'react-native-toast-message';
 
-interface UserEditUserProfileBottomSheetProps {
+interface EditUserProfileBottomSheetProps {
 	sheetApi: SheetApi;
 }
 
-const UserEditUserProfileBottomSheet: React.FC<
-	UserEditUserProfileBottomSheetProps
-> = ({ sheetApi }) => {
-	const { updateUserProfileFormApi } =
-		useUserEditUserProfileBottomSheet(sheetApi);
+const EditUserProfileBottomSheet: React.FC<EditUserProfileBottomSheetProps> = ({
+	sheetApi
+}) => {
+	const [updateUserMutation] = userApiSlice.useUpdateUserMutation();
+	const { userData, setUserProfileImage } = useUserAppContext();
+	const { buttonState, setButtonState } = useButtonState();
 
-	const footerComponent = useCallback((props: BottomSheetFooterProps) => {
-		return (
-			<FullScreenSheetFooter {...props}>
-				<View flex={1} flexDirection='row'>
-					<View flex={1} marginRight='s'>
-						<Button text='cancel' onPress={sheetApi.close} variant='outlined' />
-					</View>
-					<View flex={1} marginLeft='s'>
-						<Button text='Save' onPress={updateUserProfileFormApi.onSubmit} />
-					</View>
-				</View>
-			</FullScreenSheetFooter>
-		);
-	}, []);
+	const {
+		reset,
+		handleSubmit,
+		control,
+		watch,
+		getValues,
+		formState: { isValid }
+	} = useForm<UpdateUserBodyDto>({
+		defaultValues: {
+			handle: userData.handle
+		}
+	});
+
+	useEffect(() => {
+		setButtonState(isValid ? 'active' : 'disabled');
+	}, [isValid]);
+
+	const onSubmit = (data: UpdateUserBodyDto) => {
+		setButtonState('loading');
+		updateUserMutation({ body: data })
+			.unwrap()
+			.then(() => {
+				Toast.show({
+					text1: 'Your profile has been updated',
+					text2: `@${data.handle}`,
+					props: { icon: 'user' }
+				});
+				sheetApi.close();
+			})
+			.catch((err: any) => {
+				setButtonState('active');
+				if (err?.data?.error === 'UNIQUE_CONSTRAINT_EXCEPTION') {
+					const key = err.data.uniqueExceptionDetails?.key || 'Unknown';
+					Toast.show({
+						text1: `${capitalizeFirstLetter(key)} already exists 😭`,
+						text2: 'Try a different handle'
+					});
+				} else {
+					Toast.show({
+						text1: 'Something went wrong 💔',
+						text2: 'Please try again'
+					});
+				}
+			});
+	};
+
+	const resetAll = () => {
+		reset();
+		setButtonState('disabled');
+	};
 
 	return (
-		<FullScreenSheet footerComponent={footerComponent} sheetApi={sheetApi}>
-			<FullScreenSheetStandardHeader />
-			<FullScreenSheetScrollView>
+		<FullScreenSheet
+			sheetApi={sheetApi}
+			onDismiss={resetAll}
+			buttonProps={[
+				{
+					text: 'Cancel',
+					variant: 'outlined',
+					onPress: sheetApi.close
+				},
+				{
+					text: 'Save',
+					onPress: handleSubmit(onSubmit),
+					buttonState
+				}
+			]}
+		>
+			<ScrollView>
 				<DismissKeyboardWrapper>
-					<EditProfileImage />
-					<EditHandle formMethods={updateUserProfileFormApi.formMethods} />
+					<View margin='m' justifyContent='center' alignItems='center'>
+						<EditableProfileImage
+							image={userData.profile_image?.small.key}
+							onChooseImage={setUserProfileImage}
+						/>
+					</View>
+					<View margin='m'>
+						<Controller
+							name='handle'
+							control={control}
+							rules={{
+								required: 'Handle is required',
+								minLength: {
+									value: 3,
+									message: 'Handle must be at least 3 characters long'
+								},
+								pattern: {
+									value: /^[a-zA-Z0-9_]+$/,
+									message:
+										'Handle can only contain letters, numbers, and underscores'
+								},
+								validate: (value) =>
+									value.length >= 3 ||
+									'Handle must be at least 3 characters long'
+							}}
+							render={({ field: { onChange } }) => (
+								<TextInputWithLabel
+									autoCapitalize='none'
+									label='Handle'
+									placeholder={userData.handle}
+									onChangeText={onChange}
+								/>
+							)}
+						/>
+					</View>
 					<ThemePicker />
 					<ThemeModeSettings />
 				</DismissKeyboardWrapper>
-			</FullScreenSheetScrollView>
+			</ScrollView>
 		</FullScreenSheet>
 	);
 };
 
-export default UserEditUserProfileBottomSheet;
+export default EditUserProfileBottomSheet;

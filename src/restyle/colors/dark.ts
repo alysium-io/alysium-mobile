@@ -122,7 +122,7 @@ export const createSemanticDarkTheme = (
 		'search.search-bar.icon': palette.s.p2,
 		'search.search-bar.clear-btn-icon': palette.s.p5,
 
-		'hyperlink.text.p': palette.p.p3,
+		'hyperlink.text.p': '#34D399',
 		'hyperlink.text.s': palette.s.p5,
 
 		transparent: 'transparent',
@@ -131,6 +131,7 @@ export const createSemanticDarkTheme = (
 		'etc.keyboard': 'dark',
 		'etc.blur': 'dark',
 		'etc.scrollbar-indicator': 'white',
+		'etc.loader-kit': 'white',
 
 		'search-inactive-page.artists-following.image.bg': palette.p.p5,
 		'search-inactive-page.artists-following.image.icon': palette.p.p1,

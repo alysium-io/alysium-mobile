@@ -1,41 +1,36 @@
 import { useUserAppContext } from '@arch/Application/contexts/User.context';
-import { Icon, Section, Text, View } from '@atomic';
+import { Avatar, Section, View } from '@atomic';
 import { useSheet } from '@hooks';
-import { EditableProfileImage } from '@molecules';
+import { Stats } from '@organisms';
 import React from 'react';
-import { TouchableWithoutFeedback } from 'react-native';
-import EditUserProfileBottomSheet from '../sheets/EditUserProfileBottomSheet';
 
 const HeaderSection = () => {
-	const { userData, setUserProfileImage } = useUserAppContext();
+	const { userData, numberOfAccounts } = useUserAppContext();
 	const editUserProfileSheetApi = useSheet();
 
 	return (
-		<Section margin='m' marginTop='xl' alignItems='center'>
-			<EditableProfileImage
-				image={userData.profile_image?.small.key}
-				onChooseImage={setUserProfileImage}
-			/>
-			<View margin='m' alignItems='center'>
-				<View flexDirection='row' alignItems='center' marginBottom='m'>
-					<Icon name='at' size='s' color='text.p' />
-					<Text variant='paragraph-medium' marginLeft='xs'>
-						{userData.handle}
-					</Text>
+		<Section margin='m' marginTop='xl'>
+			<View
+				flexDirection='row'
+				alignItems='center'
+				justifyContent='space-between'
+				marginBottom='m'
+			>
+				<View height={75} width={75}>
+					<Avatar
+						image={userData.profile_image?.small.key}
+						defaultImageProps={{ icon: 'user' }}
+					/>
 				</View>
-				<TouchableWithoutFeedback onPress={editUserProfileSheetApi.open}>
-					<View>
-						<Text
-							variant='paragraph-medium'
-							textDecorationLine='underline'
-							color='hyperlink.text.p'
-						>
-							Edit Profile
-						</Text>
-					</View>
-				</TouchableWithoutFeedback>
+				<Stats
+					items={[
+						{
+							title: numberOfAccounts.toString(),
+							subtitle: 'account' + (numberOfAccounts === 1 ? '' : 's')
+						}
+					]}
+				/>
 			</View>
-			<EditUserProfileBottomSheet sheetApi={editUserProfileSheetApi} />
 		</Section>
 	);
 };

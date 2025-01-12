@@ -4,7 +4,7 @@ import { SearchState } from './types';
 
 const persistedSearchReducer = configurePersistor<SearchState>(
 	'search',
-	['recentSearches'],
+	['artistRecentSearches', 'sceneRecentSearches'],
 	searchReducer
 );
 

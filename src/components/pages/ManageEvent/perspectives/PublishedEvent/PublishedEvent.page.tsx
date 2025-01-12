@@ -63,10 +63,9 @@ const PublishedEventPage: React.FC<PublishedEventPageProps> = ({
 
 	const onCopyEventLink = () => {
 		if (eventData) {
-			copy(
-				eventPageHyperlink(eventData.event.event_uid),
-				'Event link copied to clipboard'
-			);
+			copy(eventPageHyperlink(eventData.event.event_uid), {
+				text2: 'You can now share this event'
+			});
 		}
 	};
 

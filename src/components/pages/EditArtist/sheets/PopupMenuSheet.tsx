@@ -7,13 +7,11 @@ import { BottomSheet } from '@organisms';
 import React from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-interface EditArtistPopupMenuBottomSheetProps {
+interface PopupMenuSheetProps {
 	sheetApi: SheetApi;
 }
 
-const EditArtistPopupMenuBottomSheet: React.FC<
-	EditArtistPopupMenuBottomSheetProps
-> = ({ sheetApi }) => {
+const PopupMenuSheet: React.FC<PopupMenuSheetProps> = ({ sheetApi }) => {
 	const { artistPageHyperlink } = useHyperlink();
 	const insets = useSafeAreaInsets();
 	const { artistData } = useArtistAppContext();
@@ -42,4 +40,4 @@ const EditArtistPopupMenuBottomSheet: React.FC<
 	);
 };
 
-export default EditArtistPopupMenuBottomSheet;
+export default PopupMenuSheet;

@@ -26,11 +26,10 @@ const AboutSection: React.FC<AboutSectionProps> = ({ eventData }) => {
 						? 'paragraph'
 						: 'paragraph-medium',
 					bottomSubtext: eventData.event.about?.length
-						? undefined
+						? 'About your event'
 						: 'Tell us about your event',
 					bottomSubtextVariant: 'paragraph-small',
 					bottomSubtextColor: 'text.q',
-					titleColor: eventData.event.about?.length ? 'text.q' : 'text.p',
 					titleProps: {
 						numberOfLines: eventData.event.about?.length ? 0 : 1
 					}

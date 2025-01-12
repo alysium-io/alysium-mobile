@@ -1,10 +1,13 @@
-import { InanimateTextInput, InanimateTextInputProps } from '@subatomic';
+import {
+	AnimateTextInput,
+	AnimateTextInputProps,
+	InanimateTextInput,
+	InanimateTextInputProps
+} from '@subatomic';
 import React from 'react';
 import { Text as RNText } from 'react-native';
 
-type TextProps = InanimateTextInputProps;
-
-const TextInput = React.forwardRef<RNText, TextProps>(
+const TextInput = React.forwardRef<RNText, InanimateTextInputProps>(
 	(
 		{
 			autoCorrect = false,
@@ -26,4 +29,26 @@ const TextInput = React.forwardRef<RNText, TextProps>(
 	}
 );
 
-export default TextInput;
+const AnimatedTextInput = React.forwardRef<RNText, AnimateTextInputProps>(
+	(
+		{
+			autoCorrect = false,
+			autoComplete = 'off',
+			autoCapitalize = 'sentences',
+			...props
+		},
+		ref
+	) => {
+		return (
+			<AnimateTextInput
+				ref={ref}
+				autoCorrect={autoCorrect}
+				autoComplete={autoComplete}
+				autoCapitalize={autoCapitalize}
+				{...props}
+			/>
+		);
+	}
+);
+
+export { AnimatedTextInput, TextInput };

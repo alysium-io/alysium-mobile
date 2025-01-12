@@ -1,10 +1,12 @@
 import {
+	AddArtistTeamMemberPage,
 	ChooseScenePage,
 	CreateContactPage,
 	CreateExternalLinkPage,
 	EditArtistBioPage,
 	EditArtistNamePage,
 	EditArtistPage,
+	EditArtistTeamPage,
 	EditContactPage,
 	EditContactsPage,
 	EditExternalLinkPage,
@@ -60,6 +62,9 @@ const ProfileTab = () => {
 				<ProfileStack.Screen
 					name='CreateContactPage'
 					component={CreateContactPage}
+					options={{
+						gestureEnabled: false
+					}}
 				/>
 			)}
 
@@ -74,6 +79,9 @@ const ProfileTab = () => {
 				<ProfileStack.Screen
 					name='EditExternalLinkPage'
 					component={EditExternalLinkPage}
+					options={{
+						gestureEnabled: false
+					}}
 				/>
 			)}
 
@@ -81,6 +89,9 @@ const ProfileTab = () => {
 				<ProfileStack.Screen
 					name='CreateExternalLinkPage'
 					component={CreateExternalLinkPage}
+					options={{
+						gestureEnabled: false
+					}}
 				/>
 			)}
 
@@ -88,6 +99,9 @@ const ProfileTab = () => {
 				<ProfileStack.Screen
 					name='EditArtistNamePage'
 					component={EditArtistNamePage}
+					options={{
+						gestureEnabled: false
+					}}
 				/>
 			)}
 
@@ -95,6 +109,23 @@ const ProfileTab = () => {
 				<ProfileStack.Screen
 					name='EditArtistBioPage'
 					component={EditArtistBioPage}
+					options={{
+						gestureEnabled: false
+					}}
+				/>
+			)}
+
+			{personaType === Persona.artist && (
+				<ProfileStack.Screen
+					name='EditArtistTeamPage'
+					component={EditArtistTeamPage}
+				/>
+			)}
+
+			{personaType === Persona.artist && (
+				<ProfileStack.Screen
+					name='AddArtistTeamMemberPage'
+					component={AddArtistTeamMemberPage}
 				/>
 			)}
 		</ProfileStack.Navigator>

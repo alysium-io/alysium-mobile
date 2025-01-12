@@ -49,7 +49,7 @@ const ShareExternal: React.FC<ShareExternalProps> = ({ sheetApi, event }) => {
 					{ backgroundColor: 'transparent' }
 				]}
 			>
-				<BlurView style={StyleSheet.absoluteFillObject}>
+				<BlurView style={StyleSheet.absoluteFillObject} blurType='dark'>
 					<View
 						style={{
 							margin: 15,
@@ -134,7 +134,7 @@ const ShareExternal: React.FC<ShareExternalProps> = ({ sheetApi, event }) => {
 				<ShareButton
 					CustomImage={() => <CustomShareButtonIcon icon='chainlink' />}
 					title='Copy Link'
-					onPress={() => copy(link)}
+					onPress={() => copy(link, { text2: 'You can now share this event' })}
 				/>
 				<ShareButton
 					CustomImage={() => <CustomShareButtonIcon icon='share-external' />}

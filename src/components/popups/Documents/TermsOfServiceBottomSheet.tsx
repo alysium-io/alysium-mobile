@@ -1,15 +1,7 @@
-import { Section, Text, View } from '@atomic';
-import { BottomSheetFooterProps } from '@gorhom/bottom-sheet';
+import { ScrollView, Section, Text, View } from '@atomic';
 import { SheetApi } from '@hooks';
-import { Button } from '@molecules';
-import {
-	FullScreenSheet,
-	FullScreenSheetScrollView,
-	FullScreenSheetStandardHeader
-} from '@organisms';
-import FullScreenSheetFooter from '@src/components/organisms/BottomSheet/sheets/FullScreenSheetFooter';
-import { useBehaviorContext } from '@src/utils/contexts/Behavior';
-import React, { useCallback } from 'react';
+import { FullScreenSheet } from '@organisms';
+import React from 'react';
 import SectionBody from './components/SectionBody';
 import SectionTitle from './components/SectionTitle';
 
@@ -20,30 +12,9 @@ interface TermsOfServiceBottomSheetProps {
 const TermsOfServiceBottomSheet: React.FC<TermsOfServiceBottomSheetProps> = ({
 	sheetApi
 }) => {
-	const { behavior } = useBehaviorContext();
-	const sheetDidOpen = () => {
-		behavior('POPUP_TERMS_OF_SERVICE');
-	};
-
-	const footerComponent = useCallback(
-		(props: BottomSheetFooterProps) => (
-			<FullScreenSheetFooter {...props}>
-				<View flex={1}>
-					<Button text='Dismiss' onPress={sheetApi.close} />
-				</View>
-			</FullScreenSheetFooter>
-		),
-		[]
-	);
-
 	return (
-		<FullScreenSheet
-			sheetApi={sheetApi}
-			footerComponent={footerComponent}
-			sheetDidOpen={sheetDidOpen}
-		>
-			<FullScreenSheetStandardHeader />
-			<FullScreenSheetScrollView>
+		<FullScreenSheet sheetApi={sheetApi}>
+			<ScrollView>
 				<View margin='m'>
 					<Section>
 						<Text variant='page-header' marginBottom='s'>
@@ -198,7 +169,7 @@ const TermsOfServiceBottomSheet: React.FC<TermsOfServiceBottomSheetProps> = ({
 						Aug. 1st, 2024
 					</Text>
 				</View>
-			</FullScreenSheetScrollView>
+			</ScrollView>
 		</FullScreenSheet>
 	);
 };

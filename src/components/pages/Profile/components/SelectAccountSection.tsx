@@ -42,12 +42,12 @@ const SelectAccountSection = () => {
 					titleTextProps={{
 						title: artist.name,
 						titleVariant: 'paragraph',
-						bottomSubtext: 'artist'
+						bottomSubtext: artist.user?.permissions
 					}}
 					profileImageProps={{
 						image: artist.profile_image?.small.key,
 						defaultImageProps: {
-							icon: 'user'
+							icon: 'artist'
 						}
 					}}
 					active={

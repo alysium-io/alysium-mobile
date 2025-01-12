@@ -1,3 +1,4 @@
+export * from './AddArtistTeamMember';
 export * from './Artist';
 export * from './ArtistEvents';
 export * from './ChooseEventLocation';
@@ -9,6 +10,7 @@ export * from './EditArtistBio';
 export * from './EditArtistEventAbout';
 export * from './EditArtistEventTicketsUrl';
 export * from './EditArtistName';
+export * from './EditArtistTeam';
 export * from './EditContact';
 export * from './EditContacts';
 export * from './EditExternalLink';

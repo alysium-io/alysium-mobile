@@ -1,58 +1,61 @@
-import {
-	BottomSheetFooterProps,
-	BottomSheetModalProps
-} from '@gorhom/bottom-sheet';
+import { View } from '@atomic';
+import { BottomSheetModalProps, BottomSheetView } from '@gorhom/bottom-sheet';
 import { SheetApi } from '@hooks';
+import { ActionButtons } from '@molecules';
 import { IChildrenProps, Props } from '@types';
-import React, { useCallback } from 'react';
+import React from 'react';
 import { BottomSheet } from '../overrides';
-import FullScreenSheetScrollView from './FullScreenSheetScrollView';
-import { FullScreenSheetProvider } from './useFullScreenSheet';
+import FullScreenSheetFooter from './FullScreenSheetFooter';
+import FullScreenSheetHeader from './FullScreenSheetHeader';
 
 interface FullScreenSheetProps
 	extends IChildrenProps,
-		Omit<BottomSheetModalProps, 'children'> {
-	footerComponent?: React.FC<BottomSheetFooterProps>;
+		Omit<BottomSheetModalProps, 'children' | 'onChange'> {
 	sheetApi: SheetApi;
+	withButtons?: boolean;
+	withHeader?: boolean;
+	buttonProps?: Props<typeof ActionButtons>['buttonProps'];
 	sheetDidOpen?: () => void;
-	animateFooterWithKeyboard?: boolean;
-	scrollViewProps?: Props<typeof FullScreenSheetScrollView>;
+	sheetDidClose?: () => void;
 }
 
 const FullScreenSheet: React.FC<FullScreenSheetProps> = ({
 	sheetApi,
-	footerComponent,
-	sheetDidOpen,
-	scrollViewProps,
 	children,
+	withButtons = true,
+	withHeader = true,
+	buttonProps,
+	sheetDidOpen,
+	sheetDidClose,
 	...props
 }) => {
 	const onChange = (index: number) => {
-		if (index === 0) {
-			sheetDidOpen && sheetDidOpen();
+		if (index === 0 && sheetDidOpen) {
+			sheetDidOpen();
+		}
+		if (index === -1 && sheetDidClose) {
+			sheetDidClose();
 		}
 	};
-
-	const containerComponent = useCallback(
-		(props: IChildrenProps) => (
-			<FullScreenSheetProvider sheetApi={sheetApi}>
-				{props.children}
-			</FullScreenSheetProvider>
-		),
-		[]
-	);
 
 	return (
 		<BottomSheet
 			sheetRef={sheetApi.sheetRef}
 			snapPoints={['100%']}
 			handleComponent={null}
-			footerComponent={footerComponent}
 			onChange={onChange}
-			containerComponent={containerComponent}
 			{...props}
 		>
-			{children}
+			<BottomSheetView style={{ flex: 1 }}>
+				{withHeader && <FullScreenSheetHeader sheetApi={sheetApi} />}
+				<View flex={1}>{children}</View>
+				{withButtons && (
+					<FullScreenSheetFooter
+						sheetApi={sheetApi}
+						buttonProps={buttonProps}
+					/>
+				)}
+			</BottomSheetView>
 		</BottomSheet>
 	);
 };
