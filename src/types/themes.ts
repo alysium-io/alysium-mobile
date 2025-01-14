@@ -217,6 +217,8 @@ export type SemanticColors = {
 	warning: HexColor;
 	success: HexColor;
 	info: HexColor;
+	white: HexColor;
+	black: HexColor;
 };
 
 export type SemanticColor = keyof SemanticColors;

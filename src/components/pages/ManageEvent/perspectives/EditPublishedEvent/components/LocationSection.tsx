@@ -11,17 +11,7 @@ interface LocationSectionProps {
 const LocationSection: React.FC<LocationSectionProps> = ({ eventData }) => {
 	const locationApi = useLocation(eventData.event.location);
 	const { chooseEventLocationPage } = useNavigation();
-
-	const title = locationApi.build([
-		{ type: 'street_number' },
-		{ type: 'route' }
-	]);
-
-	const subtitle = locationApi.build([
-		{ type: 'locality' },
-		{ type: 'administrative_area_level_1', nameLength: 'short_name' },
-		{ type: 'postal_code' }
-	]);
+	const { title, subtitle } = locationApi.getDisplayParts();
 
 	return (
 		<View>

@@ -15,6 +15,10 @@ dayjs.extend(isBetween);
 dayjs.extend(weekOfYear);
 
 type DateInput = Date | dayjs.Dayjs | string | null | undefined;
+type TimeDisplay = {
+	title: string;
+	subtitle: string;
+};
 
 interface EventDateFormatterReturn {
 	hasValidDate: boolean;
@@ -29,6 +33,7 @@ interface EventDateFormatterReturn {
 	isInFuture: boolean;
 	isInPast: boolean;
 	isToday: boolean;
+	getDisplayParts: () => TimeDisplay;
 }
 
 const useEventDateFormatter = (
@@ -180,8 +185,40 @@ const useEventDateFormatter = (
 			return `${diffYears} year${diffYears === 1 ? '' : 's'} ago`;
 		}
 
-		// Fallback to showing "1 month ago" if none of the above conditions match
-		return '1 month ago';
+		return null;
+	};
+
+	const getDisplayParts = (): TimeDisplay => {
+		// If no valid date, return default
+		if (!hasValidDate) {
+			return { title: 'No Date', subtitle: '' };
+		}
+
+		// Get the semantic phrase if available (for future dates)
+		const semanticPhrase = semantic();
+		const startTimeStr = startTime();
+
+		// Case 1: Semantic phrase available (future dates)
+		if (semanticPhrase) {
+			return {
+				title: startTimeStr
+					? `${semanticPhrase}, ${startTimeStr}`
+					: semanticPhrase,
+				subtitle: startDate() || ''
+			};
+		}
+
+		// Case 2: Past dates use timeAgoConcise
+		const timeAgo = timeAgoConcise();
+		if (timeAgo) {
+			return {
+				title: timeAgo,
+				subtitle: startDate() || ''
+			};
+		}
+
+		// Case 3: Something is wrong with the date
+		return { title: 'No Date', subtitle: '' };
 	};
 
 	return {
@@ -196,7 +233,8 @@ const useEventDateFormatter = (
 		timeAgoConcise,
 		isInFuture,
 		isInPast,
-		isToday
+		isToday,
+		getDisplayParts
 	};
 };
 

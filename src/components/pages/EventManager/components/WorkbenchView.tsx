@@ -31,7 +31,10 @@ const EventListItem: React.FC<{ event: EventLink }> = ({ event }) => {
 		if (!dateFormatter.hasValidDate) return 'No date';
 
 		// If the event is today, show the countdown
-		if (dateFormatter.isToday) return 'Today, ' + countdown;
+		if (dateFormatter.isToday) {
+			if (countdown) return 'Today, ' + countdown;
+			return 'Live';
+		}
 
 		if (dateFormatter.isInFuture)
 			return dateFormatter.semantic() + ', ' + dateFormatter.startDate();

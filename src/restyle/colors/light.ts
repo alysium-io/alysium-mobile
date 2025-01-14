@@ -167,6 +167,8 @@ export const createSemanticLightTheme = (
 		danger: '#F46666',
 		warning: '#FFA500',
 		success: '#50B788',
-		info: '#0000FF'
+		info: '#0000FF',
+		white: '#FFFFFF',
+		black: '#000000'
 	};
 };

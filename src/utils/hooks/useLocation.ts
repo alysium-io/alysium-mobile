@@ -53,6 +53,11 @@ type AddressComponentType =
 	| 'postal_code'
 	| 'political';
 
+type LocationDisplay = {
+	title: string;
+	subtitle: string;
+};
+
 interface FormatSpecification {
 	type: AddressComponentType;
 	coalesce?: string;
@@ -75,6 +80,7 @@ interface LocationApi {
 	openMap: (label?: string) => void;
 	hasLocation: boolean;
 	raw: Location | null | undefined;
+	getDisplayParts: () => LocationDisplay;
 }
 
 export const useLocation = (
@@ -147,6 +153,74 @@ export const useLocation = (
 		}
 	};
 
+	const getDisplayParts = (): LocationDisplay => {
+		if (!location) {
+			return { title: 'No Location', subtitle: '' };
+		}
+
+		// Case 1: Name is available (preferred title)
+		if (location.name) {
+			return {
+				title: location.name,
+				subtitle:
+					location.formatted_address ||
+					build([
+						{ type: 'locality', delimiter: ', ' },
+						{ type: 'administrative_area_level_1', nameLength: 'short_name' }
+					])
+			};
+		}
+
+		// Case 2: Street address available
+		const route = getAddressComponent('route');
+		if (route) {
+			return {
+				title: build([
+					{ type: 'street_number', delimiter: ' ' },
+					{ type: 'route' }
+				]),
+				subtitle: build([
+					{ type: 'locality', delimiter: ', ' },
+					{ type: 'administrative_area_level_1', nameLength: 'short_name' },
+					{ type: 'postal_code' }
+				])
+			};
+		}
+
+		// Case 3: City/Region available
+		const locality = getAddressComponent('locality');
+		if (locality) {
+			const state = getAddressComponent('administrative_area_level_1');
+			const country = getAddressComponent('country');
+
+			return {
+				title: locality.long_name,
+				subtitle: state
+					? `${state.short_name}, ${country?.short_name || ''}`
+					: country?.long_name || ''
+			};
+		}
+
+		// Case 4: Formatted address available
+		if (location.formatted_address) {
+			const parts = location.formatted_address.split(',');
+			return {
+				title: parts[0].trim(),
+				subtitle: parts.slice(1, 3).join(',').trim()
+			};
+		}
+
+		// Case 5: Fallback to whatever we can find
+		return {
+			title:
+				location.formatted_address ||
+				build('administrative_area_level_1') ||
+				build('country') ||
+				'',
+			subtitle: ''
+		};
+	};
+
 	const openMap = (label?: string) => {
 		if (!location) return;
 		const { latitude, longitude } = location;
@@ -178,7 +252,8 @@ export const useLocation = (
 		build,
 		openMap,
 		hasLocation: !!location,
-		raw: location
+		raw: location,
+		getDisplayParts
 	};
 };
 

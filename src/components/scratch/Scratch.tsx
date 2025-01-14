@@ -1,11 +1,11 @@
 import { View } from '@atomic';
 import React from 'react';
-import SimplifiedTextInput from './displays/SimplifiedTextInput';
+import IGStory from './displays/IGStory';
 
 const Scratch = () => {
 	return (
 		<View flex={1}>
-			<SimplifiedTextInput />
+			<IGStory />
 		</View>
 	);
 };

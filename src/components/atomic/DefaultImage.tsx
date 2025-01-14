@@ -9,13 +9,15 @@ interface DefaultImageProps {
 	containerProps?: Props<typeof View>;
 	backgroundColor?: SemanticColor;
 	iconColor?: SemanticColor;
+	iconProps?: Omit<Props<typeof Icon>, 'name'>;
 }
 
 const DefaultImage: React.FC<DefaultImageProps> = ({
 	icon = 'user',
 	backgroundColor = 'default-profile-image.bg',
 	iconColor = 'default-profile-image.icon',
-	containerProps
+	containerProps,
+	iconProps
 }) => {
 	return (
 		<View
@@ -23,7 +25,7 @@ const DefaultImage: React.FC<DefaultImageProps> = ({
 			backgroundColor={backgroundColor}
 			{...containerProps}
 		>
-			<Icon name={icon} color={iconColor} size={20} />
+			<Icon name={icon} color={iconColor} size={20} {...iconProps} />
 		</View>
 	);
 };

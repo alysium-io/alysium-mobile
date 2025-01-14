@@ -9,12 +9,14 @@ interface AvatarProps {
 	image?: string | null;
 	borderRadius?: keyof BorderRadii;
 	defaultImageProps?: Props<typeof DefaultImage>;
+	containerProps?: Props<typeof View>;
 }
 
 const Avatar: React.FC<AvatarProps> = ({
 	image,
 	borderRadius = 'round',
-	defaultImageProps
+	defaultImageProps,
+	containerProps
 }) => {
 	const { urlForKey } = useImage();
 
@@ -35,7 +37,11 @@ const Avatar: React.FC<AvatarProps> = ({
 	}, [image]);
 
 	return (
-		<View style={styles.container} borderRadius={borderRadius}>
+		<View
+			borderRadius={borderRadius}
+			{...containerProps}
+			style={[styles.container, containerProps?.style]}
+		>
 			{!image ? (
 				<DefaultImage {...defaultImageProps} />
 			) : (
