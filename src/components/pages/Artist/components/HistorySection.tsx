@@ -73,7 +73,11 @@ const HistorySection: React.FC<HistorySectionProps> = ({ artist_uid }) => {
 							topTailProps: { vertical: index === 0 ? 'none' : 'top' }
 						}}
 						profileImageProps={{
-							image: event.event.profile_image?.medium.key
+							image: event.event.profile_image?.medium.key,
+							borderRadius: 'l',
+							defaultImageProps: {
+								icon: 'event'
+							}
 						}}
 						fixedTextProps={{
 							text: dayjs(event.event.start_time).format('MMM. Do')

@@ -20,21 +20,22 @@ const ArtistProfilePageHeader: React.FC = () => {
 			<HeaderSection
 				LeftComponent={
 					<HeaderTitle
-						title={
+						title={artistData.name}
+						subtitle={
 							<View flexDirection='row' alignItems='center'>
-								<Icon name='at' color='text.s' size='xs' />
-								<Text marginLeft='xs' variant='paragraph'>
+								<Icon name='at' color='text.q' size='xs' />
+								<Text marginLeft='xs' variant='paragraph' color='text.q'>
 									{userData.handle}
 								</Text>
 							</View>
 						}
-						subtitle={artistData.name}
 						subtitleProps={{
 							marginTop: 'xs'
 						}}
-						titleProps={{ variant: 'paragraph', color: 'text.q' }}
+						titleProps={{ variant: 'paragraph' }}
 					/>
 				}
+				CenterComponent={null}
 				RightComponent={
 					<HeaderIconButton
 						name='menu'

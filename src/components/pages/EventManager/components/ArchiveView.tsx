@@ -56,7 +56,7 @@ const ArchiveView: React.FC<ArchiveViewProps> = () => {
 						}}
 						profileImageProps={{
 							image: event.event.profile_image?.small.key,
-							borderRadius: 'none',
+							borderRadius: 'l',
 							defaultImageProps: {
 								icon: 'event'
 							}

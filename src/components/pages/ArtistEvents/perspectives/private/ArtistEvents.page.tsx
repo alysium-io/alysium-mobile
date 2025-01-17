@@ -57,7 +57,7 @@ const ArtistEvents = () => {
 						}}
 						profileImageProps={{
 							image: urlForKey(item.event.profile_image?.small.key),
-							borderRadius: 'none',
+							borderRadius: 'l',
 							defaultImageProps: {
 								icon: 'event'
 							}

@@ -25,7 +25,7 @@ const PopupMenu: React.FC<PopupMenuBotto> = ({
 	const insets = useSafeAreaInsets();
 	const [patchArtistEventStatusMutation] =
 		artistEventApiSlice.usePatchArtistEventStatusMutation();
-	const { artistData } = useArtistAppContext();
+	const { artistData, isEditable } = useArtistAppContext();
 	const { toastError } = useToast();
 	const { back } = useNavigation();
 
@@ -79,18 +79,20 @@ const PopupMenu: React.FC<PopupMenuBotto> = ({
 					iconProps={{ size: 'm' }}
 					onPress={onPressShare}
 				/>
-				<MenuListItem
-					titleTextProps={{
-						title: 'Cancel Event',
-						titleVariant: 'paragraph',
-						bottomSubtext: 'You cannot undo this action',
-						bottomSubtextVariant: 'paragraph-small',
-						bottomSubtextColor: 'text.q'
-					}}
-					icon='cancel'
-					iconProps={{ size: 'm' }}
-					onPress={confirmDelete}
-				/>
+				{isEditable && (
+					<MenuListItem
+						titleTextProps={{
+							title: 'Cancel Event',
+							titleVariant: 'paragraph',
+							bottomSubtext: 'You cannot undo this action',
+							bottomSubtextVariant: 'paragraph-small',
+							bottomSubtextColor: 'text.q'
+						}}
+						icon='cancel'
+						iconProps={{ size: 'm' }}
+						onPress={confirmDelete}
+					/>
+				)}
 			</BottomSheetView>
 		</BottomSheet>
 	);

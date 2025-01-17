@@ -26,7 +26,7 @@ const PopupMenu: React.FC<PopupMenuBotto> = ({
 	const insets = useSafeAreaInsets();
 	const [deleteArtistEventMutation] =
 		artistEventApiSlice.useDeleteArtistEventMutation();
-	const { artistData } = useArtistAppContext();
+	const { artistData, isEditable } = useArtistAppContext();
 	const { toastError } = useToast();
 	const { back } = useNavigation();
 
@@ -80,18 +80,20 @@ const PopupMenu: React.FC<PopupMenuBotto> = ({
 					iconProps={{ size: 'm' }}
 					onPress={onPressShare}
 				/>
-				<MenuListItem
-					titleTextProps={{
-						title: 'Delete Event',
-						titleVariant: 'paragraph',
-						bottomSubtext: 'Permanent action',
-						bottomSubtextVariant: 'paragraph-small',
-						bottomSubtextColor: 'text.q'
-					}}
-					icon='trash'
-					iconProps={{ size: 'm' }}
-					onPress={confirmDelete}
-				/>
+				{isEditable && (
+					<MenuListItem
+						titleTextProps={{
+							title: 'Delete Event',
+							titleVariant: 'paragraph',
+							bottomSubtext: 'Permanent action',
+							bottomSubtextVariant: 'paragraph-small',
+							bottomSubtextColor: 'text.q'
+						}}
+						icon='trash'
+						iconProps={{ size: 'm' }}
+						onPress={confirmDelete}
+					/>
+				)}
 			</BottomSheetView>
 		</BottomSheet>
 	);

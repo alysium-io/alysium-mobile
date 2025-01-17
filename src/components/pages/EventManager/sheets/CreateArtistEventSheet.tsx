@@ -8,13 +8,13 @@ import { FullScreenSheet } from '@organisms';
 import React, { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 
-interface CreateArtistEventBottomSheetProps {
+interface CreateArtistEventSheetProps {
 	sheetApi: SheetApi;
 }
 
-const CreateArtistEventBottomSheet: React.FC<
-	CreateArtistEventBottomSheetProps
-> = ({ sheetApi }) => {
+const CreateArtistEventSheet: React.FC<CreateArtistEventSheetProps> = ({
+	sheetApi
+}) => {
 	const { toastError } = useToast();
 	const {
 		setButtonState,
@@ -103,4 +103,4 @@ const CreateArtistEventBottomSheet: React.FC<
 	);
 };
 
-export default CreateArtistEventBottomSheet;
+export default CreateArtistEventSheet;

@@ -32,7 +32,7 @@ const PublishedEventPage: React.FC<PublishedEventPageProps> = ({
 	const { copy } = useClipboard();
 	const { eventPage, editPublishedEventPage } = useNavigation();
 	const publishedEventPopupMenuSheet = useSheet();
-	const { artistData } = useArtistAppContext();
+	const { artistData, isEditable } = useArtistAppContext();
 	const { eventPageHyperlink } = useHyperlink();
 	const { data: eventData } =
 		artistEventApiSlice.usePrivateFindOneArtistEventQuery({
@@ -132,19 +132,21 @@ const PublishedEventPage: React.FC<PublishedEventPageProps> = ({
 					<Text variant='section-header-2' marginHorizontal='m'>
 						Actions
 					</Text>
-					<MenuListItem
-						onPress={() => editPublishedEventPage(eventData.event.event_uid)}
-						prefixIconProps={{
-							name: 'settings',
-							size: 'm'
-						}}
-						titleTextProps={{
-							title: 'Edit Event',
-							bottomSubtext: 'Make last minute changes to your event',
-							titleVariant: 'paragraph',
-							bottomSubtextColor: 'text.q'
-						}}
-					/>
+					{isEditable && (
+						<MenuListItem
+							onPress={() => editPublishedEventPage(eventData.event.event_uid)}
+							prefixIconProps={{
+								name: 'settings',
+								size: 'm'
+							}}
+							titleTextProps={{
+								title: 'Edit Event',
+								bottomSubtext: 'Make last minute changes to your event',
+								titleVariant: 'paragraph',
+								bottomSubtextColor: 'text.q'
+							}}
+						/>
+					)}
 					<MenuListItem
 						onPress={onCopyEventLink}
 						prefixIconProps={{

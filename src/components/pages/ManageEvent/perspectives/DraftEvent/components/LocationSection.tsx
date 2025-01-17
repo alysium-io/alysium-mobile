@@ -1,22 +1,29 @@
+import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
 import { View } from '@atomic';
 import { FindOneArtistEventResponseDto } from '@flux/api/event/dto/artist-event-find-one.dto';
 import { useLocation, useNavigation } from '@hooks';
 import { MenuListItem } from '@molecules';
 import React from 'react';
+import usePermissionsToastError from './usePermissionsError';
 
 interface LocationSectionProps {
 	eventData: FindOneArtistEventResponseDto;
 }
 
 const LocationSection: React.FC<LocationSectionProps> = ({ eventData }) => {
+	const { isEditable } = useArtistAppContext();
 	const locationApi = useLocation(eventData.event.location);
 	const { chooseEventLocationPage } = useNavigation();
 	const { title, subtitle } = locationApi.getDisplayParts();
+	const { permissionsError } = usePermissionsToastError();
+	const onPress = isEditable
+		? () => chooseEventLocationPage(eventData.event.event_uid)
+		: permissionsError;
 
 	return (
 		<View>
 			<MenuListItem
-				onPress={() => chooseEventLocationPage(eventData.event.event_uid)}
+				onPress={onPress}
 				prefixIconProps={{
 					name: 'location',
 					size: 'l'

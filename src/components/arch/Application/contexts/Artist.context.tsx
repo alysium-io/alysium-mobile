@@ -1,5 +1,6 @@
 import { artistApiSlice } from '@flux/api/artist';
 import { PrivateArtist } from '@flux/api/artist/artist.entity';
+import { UserArtistLinkPermissions } from '@flux/api/user-artist-link/types';
 import { createUseContextHook } from '@hooks';
 import { ProviderProps } from '@types';
 import React, { createContext, useEffect } from 'react';
@@ -9,6 +10,8 @@ export type ArtistAppContextType = {
 	artistData: PrivateArtist;
 	artistError: any;
 	artistIsLoading: boolean;
+	permissions: UserArtistLinkPermissions | null;
+	isEditable: boolean;
 };
 
 export const ArtistAppContext = createContext({} as ArtistAppContextType);
@@ -30,6 +33,10 @@ export const ArtistAppProvider: React.FC<ProviderProps> = ({ children }) => {
 		}
 	}, [artistError]);
 
+	const isEditable =
+		artistData?.user?.permissions === UserArtistLinkPermissions.manager ||
+		artistData?.user?.permissions === UserArtistLinkPermissions.owner;
+
 	if (!artistData) {
 		return <></>;
 	}
@@ -39,7 +46,9 @@ export const ArtistAppProvider: React.FC<ProviderProps> = ({ children }) => {
 			value={{
 				artistData,
 				artistError,
-				artistIsLoading
+				artistIsLoading,
+				permissions: artistData.user?.permissions ?? null,
+				isEditable
 			}}
 		>
 			{children}

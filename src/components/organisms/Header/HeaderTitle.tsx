@@ -4,7 +4,7 @@ import React from 'react';
 
 interface HeaderTitleProps {
 	title: string | React.ReactNode;
-	subtitle?: string | null;
+	subtitle?: string | React.ReactNode | null;
 	titleProps?: Props<typeof Text>;
 	subtitleProps?: Props<typeof Text>;
 }
@@ -31,7 +31,7 @@ const HeaderTitle: React.FC<HeaderTitleProps> = ({
 			)}
 			{subtitle && (
 				<Text variant='paragraph-small' color='subtext.p' {...subtitleProps}>
-					{subtitle}
+					{typeof subtitle === 'string' ? subtitle : subtitle}
 				</Text>
 			)}
 		</View>

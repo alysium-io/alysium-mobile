@@ -1,8 +1,10 @@
+import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
 import { View } from '@atomic';
 import { FindOneArtistEventResponseDto } from '@flux/api/event/dto/artist-event-find-one.dto';
 import { useNavigation } from '@hooks';
 import { MenuListItem } from '@molecules';
 import React from 'react';
+import usePermissionsToastError from './usePermissionsError';
 
 interface AboutSectionProps {
 	eventData: FindOneArtistEventResponseDto;
@@ -10,10 +12,15 @@ interface AboutSectionProps {
 
 const AboutSection: React.FC<AboutSectionProps> = ({ eventData }) => {
 	const { editArtistEventAboutPage } = useNavigation();
+	const { isEditable } = useArtistAppContext();
+	const { permissionsError } = usePermissionsToastError();
+	const onPress = isEditable
+		? () => editArtistEventAboutPage(eventData.event.event_uid)
+		: permissionsError;
 	return (
 		<View>
 			<MenuListItem
-				onPress={() => editArtistEventAboutPage(eventData.event.event_uid)}
+				onPress={onPress}
 				prefixIconProps={{
 					name: 'question',
 					size: 'l'

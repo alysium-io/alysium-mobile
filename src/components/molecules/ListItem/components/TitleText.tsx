@@ -10,7 +10,7 @@ type WrapTextProps = {
 export interface TitleTextProps {
 	title: string;
 	topSubtext?: string;
-	bottomSubtext?: string;
+	bottomSubtext?: string | null;
 	titleVariant?: Props<typeof Text>['variant'];
 	topSubtextVariant?: Props<typeof Text>['variant'];
 	bottomSubtextVariant?: Props<typeof Text>['variant'];

@@ -60,7 +60,7 @@ const EventsSection: React.FC<EventsSectionProps> = ({
 						}}
 						profileImageProps={{
 							image: urlForKey(event.event.profile_image?.small.key),
-							borderRadius: 'none',
+							borderRadius: 'l',
 							defaultImageProps: {
 								icon: 'event'
 							}

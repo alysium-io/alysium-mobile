@@ -1,3 +1,4 @@
+import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
 import { EventLink } from '@flux/api/event-link/event-link.entity';
 import {
 	useDatetimeCountdown,
@@ -8,6 +9,7 @@ import { ContentListItem } from '@molecules';
 import React from 'react';
 
 const EventListItem: React.FC<{ event: EventLink }> = ({ event }) => {
+	const { artistData } = useArtistAppContext();
 	const { manageEventPage } = useNavigation();
 	const dateFormatter = useEventDateFormatter(
 		event.event.start_time,
@@ -37,11 +39,13 @@ const EventListItem: React.FC<{ event: EventLink }> = ({ event }) => {
 			onPress={() => manageEventPage(event.event.event_uid)}
 			titleTextProps={{
 				title: event.event.name,
-				bottomSubtext: getSubtext() || undefined
+				bottomSubtext: getSubtext(),
+				topSubtext: event.artist.name,
+				topSubtextColor: 'text.q'
 			}}
 			profileImageProps={{
 				image: event.event.profile_image?.small.key,
-				borderRadius: 'none',
+				borderRadius: 'l',
 				defaultImageProps: {
 					icon: 'event'
 				}

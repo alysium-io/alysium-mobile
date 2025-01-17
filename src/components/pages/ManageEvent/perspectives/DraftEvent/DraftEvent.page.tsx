@@ -1,9 +1,9 @@
 import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
-import { ScrollView, View } from '@atomic';
+import { RefreshControl, ScrollView, View } from '@atomic';
 import { artistEventApiSlice } from '@flux/api/event';
 import { UpdateArtistEventBodyDto } from '@flux/api/event/dto/artist-event-update.dto';
 import { EventStatus } from '@flux/api/event/types';
-import { useKeyboard, useSheet } from '@hooks';
+import { useRefresh, useSheet } from '@hooks';
 import { ActionButtons } from '@molecules';
 import { BasePage, ShareExternal } from '@organisms';
 import { NanoId } from '@types';
@@ -30,7 +30,6 @@ const DraftEventPage: React.FC<DraftEventPageProps> = ({
 	event_uid,
 	setDraftToPublished
 }) => {
-	const { dismiss } = useKeyboard();
 	const { artistData } = useArtistAppContext();
 	const confirmPublishEventSheetApi = useSheet();
 	const draftEventPopupMenuBottomSheet = useSheet();
@@ -38,13 +37,15 @@ const DraftEventPage: React.FC<DraftEventPageProps> = ({
 	const [updateArtistEventMutation] =
 		artistEventApiSlice.useUpdateArtistEventMutation();
 
-	const { data: eventData } =
+	const { data: eventData, refetch } =
 		artistEventApiSlice.usePrivateFindOneArtistEventQuery({
 			params: {
 				event_uid,
 				artist_uid: artistData.artist_uid
 			}
 		});
+
+	const refreshControl = useRefresh(refetch);
 
 	const {
 		formState: { isDirty },
@@ -118,7 +119,7 @@ const DraftEventPage: React.FC<DraftEventPageProps> = ({
 				}}
 				onPressMenu={draftEventPopupMenuBottomSheet.open}
 			/>
-			<ScrollView>
+			<ScrollView refreshControl={<RefreshControl {...refreshControl} />}>
 				<HeaderSection
 					control={control}
 					eventData={eventData}

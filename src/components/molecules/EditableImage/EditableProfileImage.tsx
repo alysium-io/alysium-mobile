@@ -50,7 +50,11 @@ const EditableProfileImage: React.FC<EditableProfileImageProps> = ({
 	};
 
 	return (
-		<TouchableWithoutFeedback onPress={onPress} {...props} disabled={isLoading}>
+		<TouchableWithoutFeedback
+			onPress={onPress}
+			{...props}
+			disabled={props.disabled || isLoading}
+		>
 			<View style={[styles.container, { width: sizes[size] }]}>
 				<If condition={isLoading}>
 					<Then>

@@ -1,3 +1,4 @@
+import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
 import { Section, View } from '@atomic';
 import { FindOneArtistEventResponseDto } from '@flux/api/event/dto/artist-event-find-one.dto';
 import { UpdateArtistEventBodyDto } from '@flux/api/event/dto/artist-event-update.dto';
@@ -19,6 +20,7 @@ const HeaderSection: React.FC<HeaderSectionProps> = ({
 	control,
 	onBlurEditable
 }) => {
+	const { isEditable } = useArtistAppContext();
 	const [createArtistEventProfileImageMutation] =
 		profileImageApiSlice.useCreateArtistEventProfileImageMutation();
 	const [isProfileImageLoading, setIsProfileImageLoading] =
@@ -41,6 +43,7 @@ const HeaderSection: React.FC<HeaderSectionProps> = ({
 		<Section marginBottom='none'>
 			<View marginVertical='xxl' alignItems='center'>
 				<EditableProfileImage
+					disabled={!isEditable}
 					size='large'
 					onChooseImage={updateArtistEventProfileImage}
 					image={currentUrl}
@@ -57,6 +60,7 @@ const HeaderSection: React.FC<HeaderSectionProps> = ({
 					rules={{ required: true }}
 					render={({ field: { onChange, value } }) => (
 						<TitleTextInput
+							editable={isEditable}
 							placeholder='Event name'
 							onChangeText={onChange}
 							value={value}

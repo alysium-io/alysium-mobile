@@ -9,6 +9,7 @@ import { NanoId } from '@types';
 import dayjs from 'dayjs';
 import React from 'react';
 import SelectEventDateTimeBottomSheet from '../sheets/SelectEventDateTimeBottomSheet';
+import usePermissionsToastError from './usePermissionsError';
 
 interface DateSectionProps {
 	event_uid: NanoId;
@@ -23,12 +24,13 @@ const DateSection: React.FC<DateSectionProps> = ({
 }) => {
 	const { toastError } = useToast();
 	const { showLoader, hideLoader } = useGlobalLoader();
-	const { artistData } = useArtistAppContext();
+	const { artistData, isEditable } = useArtistAppContext();
 	const [patchArtistEventTimeMutation] =
 		artistEventApiSlice.usePatchArtistEventTimeMutation();
 	const sheetApi = useSheet();
 	const defaultStartDateTime = startTime ? new Date(startTime) : null;
 	const defaultEndDateTime = endTime ? new Date(endTime) : null;
+	const { permissionsError } = usePermissionsToastError();
 
 	const onSave = (startDateTime: Date, endDateTime: Date | null) => {
 		const start_time = Formatting.toUtcIsoFormat(startDateTime);
@@ -60,9 +62,12 @@ const DateSection: React.FC<DateSectionProps> = ({
 		}
 	};
 
+	const onPress = isEditable ? sheetApi.open : permissionsError;
+
 	return (
 		<View>
 			<MenuListItem
+				onPress={onPress}
 				prefixIconProps={{
 					name: 'clock-filled',
 					size: 'l'
@@ -78,7 +83,6 @@ const DateSection: React.FC<DateSectionProps> = ({
 						? dayjs(defaultStartDateTime).format('h:mma')
 						: 'Select a date and time'
 				}}
-				onPress={sheetApi.open}
 			/>
 			<SelectEventDateTimeBottomSheet
 				sheetApi={sheetApi}

@@ -5,7 +5,6 @@ export * from './ConfirmEventLocationChoiceBottomSheet';
 export * from './ContactPickerBottomSheet';
 export * from './CreateAccountBottomSheet';
 export * from './CreateArtistBottomSheet';
-export * from './CreateArtistEventBottomSheet';
 export * from './Documents';
 export * from './JoinScenePreviewBottomSheet';
 export * from './ModifyArtistTeamMemberPermissionsBottomSheet';
