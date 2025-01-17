@@ -50,6 +50,7 @@ export const AuthenticationAppProvider: React.FC<ProviderProps> = ({
 			} else {
 				if (authStage !== AuthStage.loggedOut) {
 					console.log('No token found, setting user to logged out.');
+					dispatch(serviceApi.util.resetApiState());
 					logout();
 				}
 			}
