@@ -1,45 +1,19 @@
-import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
 import { View } from '@atomic';
-import { artistEventApiSlice } from '@flux/api/event';
-import { usePagination, useSheet } from '@hooks';
+import { useSheet } from '@hooks';
 import { Button } from '@molecules';
 import { BasePage } from '@organisms';
 import { CreateArtistEventBottomSheet } from '@popups';
 import React, { useCallback, useState } from 'react';
+import { Case, Switch } from 'react-if';
 import ArchiveView from './components/ArchiveView';
-import LoadingView from './components/LoadingView';
 import WorkbenchView from './components/WorkbenchView';
 import EventManagerPageHeader from './EventManager.header';
 import FiltersPopupMenu from './sheets/FiltersPopupMenu';
 
 const EventManagerPage: React.FC = () => {
 	const filtersPopupMenuSheetApi = useSheet();
-	const { artistData } = useArtistAppContext();
 	const createArtistEventSheetApi = useSheet();
 	const [eventsView, setEventsView] = useState<string>('workbench');
-
-	const { data: workbenchData, isLoading: isLoadingWorkbench } =
-		artistEventApiSlice.useWorkbenchQuery({
-			params: {
-				artist_uid: artistData.artist_uid
-			}
-		});
-
-	const { page, defaultLimit } = usePagination();
-	const { data: archiveData, isLoading: isLoadingArchive } =
-		artistEventApiSlice.useArchiveQuery({
-			params: {
-				artist_uid: artistData.artist_uid
-			},
-			query: {
-				page,
-				limit: defaultLimit
-			}
-		});
-
-	const isCurrentViewLoading =
-		(isLoadingWorkbench && eventsView === 'workbench') ||
-		(isLoadingArchive && eventsView === 'archive');
 
 	const FooterComponent = useCallback(
 		() => (
@@ -61,9 +35,14 @@ const EventManagerPage: React.FC = () => {
 				eventsView={eventsView}
 				onPressFilters={filtersPopupMenuSheetApi.open}
 			/>
-			{isCurrentViewLoading && <LoadingView />}
-			{eventsView === 'workbench' && <WorkbenchView events={workbenchData} />}
-			{eventsView === 'archive' && <ArchiveView events={archiveData} />}
+			<Switch>
+				<Case condition={eventsView === 'workbench'}>
+					<WorkbenchView />
+				</Case>
+				<Case condition={eventsView === 'archive'}>
+					<ArchiveView />
+				</Case>
+			</Switch>
 			<FiltersPopupMenu
 				sheetApi={filtersPopupMenuSheetApi}
 				eventsView={eventsView}

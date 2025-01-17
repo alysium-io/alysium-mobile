@@ -51,6 +51,7 @@ export { default as usePagination } from './usePagination';
 export { default as usePhone } from './usePhone';
 export { default as usePriorityImage } from './usePriorityImage';
 export { default as useQRCodeSize } from './useQRCodeSize';
+export { default as useRefresh } from './useRefresh';
 export { default as useScrollView } from './useScrollView';
 export { default as useSearch, type SearchApi } from './useSearch';
 export { default as useSearchNearbyEvents } from './useSearchNearbyEvents';

@@ -1,68 +1,28 @@
-import { ScrollView, Section, Text, View } from '@atomic';
+import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
+import { RefreshControl, ScrollView, Section, Text, View } from '@atomic';
+import { artistEventApiSlice } from '@flux/api/event';
 import { EventLink } from '@flux/api/event-link/event-link.entity';
 import { ComplexEventStatus } from '@flux/api/event/types';
-import {
-	useComplexEventStatuses,
-	useDatetimeCountdown,
-	useEventDateFormatter,
-	useNavigation,
-	useTheme
-} from '@hooks';
-import { ContentListItem } from '@molecules';
+import { useComplexEventStatuses, useRefresh, useTheme } from '@hooks';
 import { orderBy } from 'lodash';
 import React, { useMemo } from 'react';
+import EventListItem from './EventListItem';
+import LoadingView from './LoadingView';
+import WorkbenchEmptyState from './WorkbenchEmptyState';
 
-interface WorkbenchViewProps {
-	events?: EventLink[];
-}
+interface WorkbenchViewProps {}
 
-const EventListItem: React.FC<{ event: EventLink }> = ({ event }) => {
-	const { manageEventPage } = useNavigation();
-	const dateFormatter = useEventDateFormatter(
-		event.event.start_time,
-		event.event.end_time
-	);
-
-	const { countdown } = useDatetimeCountdown(
-		event.event.start_time ?? undefined
-	);
-
-	const getSubtext = () => {
-		if (!dateFormatter.hasValidDate) return 'No date';
-
-		// If the event is today, show the countdown
-		if (dateFormatter.isToday) {
-			if (countdown) return 'Today, ' + countdown;
-			return 'Live';
+const WorkbenchView: React.FC<WorkbenchViewProps> = () => {
+	const { artistData } = useArtistAppContext();
+	const { data, isLoading, refetch } = artistEventApiSlice.useWorkbenchQuery({
+		params: {
+			artist_uid: artistData.artist_uid
 		}
+	});
+	const refreshControl = useRefresh(refetch);
 
-		if (dateFormatter.isInFuture)
-			return dateFormatter.semantic() + ', ' + dateFormatter.startDate();
-		if (dateFormatter.isInPast) return dateFormatter.timeAgoConcise();
-		return 'No date';
-	};
-
-	return (
-		<ContentListItem
-			onPress={() => manageEventPage(event.event.event_uid)}
-			titleTextProps={{
-				title: event.event.name,
-				bottomSubtext: getSubtext() || undefined
-			}}
-			profileImageProps={{
-				image: event.event.profile_image?.small.key,
-				borderRadius: 'none',
-				defaultImageProps: {
-					icon: 'event'
-				}
-			}}
-		/>
-	);
-};
-
-const WorkbenchView: React.FC<WorkbenchViewProps> = ({ events = [] }) => {
 	const { theme } = useTheme();
-	const { statusMap } = useComplexEventStatuses(events?.map((e) => e.event));
+	const { statusMap } = useComplexEventStatuses(data?.map((e) => e.event));
 
 	const sections = [
 		{ id: ComplexEventStatus.live, title: 'Live Now' },
@@ -76,7 +36,7 @@ const WorkbenchView: React.FC<WorkbenchViewProps> = ({ events = [] }) => {
 	const eventsBySection = useMemo(() => {
 		const grouped: Partial<Record<ComplexEventStatus, EventLink[]>> = {};
 
-		events.forEach((event) => {
+		data?.forEach((event) => {
 			const status = statusMap.get(event.event.event_uid);
 			if (status) {
 				grouped[status] = grouped[status] || [];
@@ -94,24 +54,18 @@ const WorkbenchView: React.FC<WorkbenchViewProps> = ({ events = [] }) => {
 		});
 
 		return grouped;
-	}, [events, statusMap]);
+	}, [data, statusMap]);
 
-	if (!events?.length) {
-		return (
-			<View flex={1} justifyContent='center' alignItems='center'>
-				<Text variant='paragraph-medium' color='text.q' textAlign='center'>
-					Create an{' '}
-					<Text variant='paragraph-medium' color='text.s'>
-						event
-					</Text>{' '}
-					to get started
-				</Text>
-			</View>
-		);
+	if (isLoading) {
+		return <LoadingView />;
+	}
+
+	if (!data?.length) {
+		return <WorkbenchEmptyState />;
 	}
 
 	return (
-		<ScrollView>
+		<ScrollView refreshControl={<RefreshControl {...refreshControl} />}>
 			{sections.map((section) => {
 				const sectionEvents = eventsBySection[section.id];
 				if (!sectionEvents?.length) return null;

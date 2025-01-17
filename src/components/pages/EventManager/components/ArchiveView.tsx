@@ -1,35 +1,46 @@
-import { ScrollView, Text, View } from '@atomic';
-import { EventLink } from '@flux/api/event-link/event-link.entity';
-import { useEventDateFormatter, useNavigation } from '@hooks';
+import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
+import { RefreshControl, ScrollView } from '@atomic';
+import { artistEventApiSlice } from '@flux/api/event';
+import {
+	useEventDateFormatter,
+	useNavigation,
+	usePagination,
+	useRefresh
+} from '@hooks';
 import { ContentListItem } from '@molecules';
 import { orderBy } from 'lodash';
 import React from 'react';
+import ArchiveEmptyState from './ArchiveEmptyState';
+import LoadingView from './LoadingView';
 
-interface ArchiveViewProps {
-	events?: EventLink[];
-}
+interface ArchiveViewProps {}
 
-const ArchiveView: React.FC<ArchiveViewProps> = ({ events }) => {
+const ArchiveView: React.FC<ArchiveViewProps> = () => {
+	const { artistData } = useArtistAppContext();
+	const { page, defaultLimit } = usePagination();
+	const { data, isLoading, refetch } = artistEventApiSlice.useArchiveQuery({
+		params: {
+			artist_uid: artistData.artist_uid
+		},
+		query: {
+			page,
+			limit: defaultLimit
+		}
+	});
+	const refreshControl = useRefresh(refetch);
 	const { manageEventPage } = useNavigation();
-	const sortedEvents = orderBy(events, ['event.start_time'], ['desc']);
+	const sortedEvents = orderBy(data, ['event.start_time'], ['desc']);
 
-	if (!events?.length) {
-		return (
-			<View flex={1} justifyContent='center' alignItems='center'>
-				<Text variant='paragraph-medium' color='text.q' textAlign='center'>
-					When you complete an{' '}
-					<Text variant='paragraph-medium' color='text.s'>
-						event
-					</Text>
-					{'\n'}
-					it will appear here
-				</Text>
-			</View>
-		);
+	if (isLoading) {
+		return <LoadingView />;
+	}
+
+	if (!data?.length) {
+		return <ArchiveEmptyState />;
 	}
 
 	return (
-		<ScrollView>
+		<ScrollView refreshControl={<RefreshControl {...refreshControl} />}>
 			{sortedEvents?.map((event) => {
 				const dateFormatter = useEventDateFormatter(
 					event.event.start_time,

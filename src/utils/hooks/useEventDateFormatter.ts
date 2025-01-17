@@ -69,9 +69,9 @@ const useEventDateFormatter = (
 		const diffMonths = normalizedStartDate.diff(now, 'month');
 		const diffYears = normalizedStartDate.diff(now, 'year');
 
-		// Same or next day
-		if (diffDays === 0) return 'Today';
-		if (diffDays === 1) return 'Tomorrow';
+		// Same or next day - Check if it's actually the same calendar day
+		if (normalizedStartDate.isSame(now, 'day')) return 'Today';
+		if (normalizedStartDate.isSame(now.add(1, 'day'), 'day')) return 'Tomorrow';
 
 		// Within this week or next week
 		if (diffDays < 14) {
