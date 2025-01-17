@@ -3,6 +3,7 @@ export * from './ArtistContactsAndLinks';
 export * from './ComplexEventStatusIndicator';
 export * from './ContentListItemsLoading';
 export * from './GlobalLoadingOverlay';
+export * from './PageError';
 export * from './ParallaxLoading';
 export * from './StandardFeedback';
 export * from './StartsInCountdown';

@@ -3,7 +3,7 @@ import { eventApiSlice } from '@flux/api/event';
 import { ActionButtons } from '@molecules';
 import { BasePage, Parallax } from '@organisms';
 import { useRoute } from '@react-navigation/native';
-import { ParallaxLoading } from '@templates';
+import { PageError, ParallaxLoading } from '@templates';
 import { EventPageRouteProp } from '@types';
 import React, { useCallback } from 'react';
 import { Linking } from 'react-native';
@@ -15,7 +15,7 @@ import EventPageHeader from './Event.header';
 
 const ArtistEvent = () => {
 	const { params } = useRoute<EventPageRouteProp>();
-	const { data: eventData } = eventApiSlice.useFindOneEventQuery({
+	const { data: eventData, error } = eventApiSlice.useFindOneEventQuery({
 		params: {
 			event_uid: params.event_uid
 		}
@@ -37,6 +37,10 @@ const ArtistEvent = () => {
 			</View>
 		);
 	}, [eventData]);
+
+	if (error) {
+		return <PageError error={error} />;
+	}
 
 	if (!eventData) {
 		return <ParallaxLoading />;
