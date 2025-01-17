@@ -1,17 +1,8 @@
+import { GeocodeResult } from '@types';
+
 export type Polygon = {
 	type: 'Polygon';
 	coordinates: number[][][];
-};
-
-export type Viewport = {
-	northeast: { lat: number; lng: number };
-	southwest: { lat: number; lng: number };
-};
-
-export type AddressComponent = {
-	long_name: string;
-	short_name: string;
-	types: string[];
 };
 
 export interface GoogleMapsAutocompleteResult {
@@ -19,4 +10,10 @@ export interface GoogleMapsAutocompleteResult {
 	readonly description: string;
 	readonly main_text: string;
 	readonly secondary_text: string;
+}
+
+export interface GeocodeResponseDto {
+	place_id: string;
+	cityResult: GeocodeResult;
+	polygon: Polygon;
 }

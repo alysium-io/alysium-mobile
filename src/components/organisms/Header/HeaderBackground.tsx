@@ -14,7 +14,17 @@ const HeaderBackground: React.FC<HeaderBackgroundProps> = ({
 	const { themeMode } = useTheme();
 
 	if (withBlur) {
-		return <BlurView blurAmount={25} style={styles.background} />;
+		return (
+			<BlurView
+				blurAmount={25}
+				style={styles.background}
+				blurType={
+					themeMode === ThemeMode.dark
+						? 'chromeMaterialDark'
+						: 'chromeMaterialLight'
+				}
+			/>
+		);
 	}
 
 	if (themeMode === ThemeMode.light) {

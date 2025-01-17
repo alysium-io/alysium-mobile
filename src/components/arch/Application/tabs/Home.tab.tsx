@@ -2,7 +2,6 @@ import {
 	ArtistPage,
 	EventPage,
 	HomePage,
-	LocalEventsMapPage,
 	ScenePage,
 	ViewGalleryPage
 } from '@pages';
@@ -20,13 +19,6 @@ const HomeTab = () => {
 	return (
 		<HomeStack.Navigator screenOptions={screenOptions}>
 			<HomeStack.Screen name='HomePage' component={HomePage} />
-			<HomeStack.Screen
-				name='LocalEventsMapPage'
-				component={LocalEventsMapPage}
-				options={{
-					presentation: 'modal'
-				}}
-			/>
 			<HomeStack.Screen name='ArtistPage' component={ArtistPage} />
 			<HomeStack.Screen name='ScenePage' component={ScenePage} />
 			<HomeStack.Screen name='EventPage' component={EventPage} />

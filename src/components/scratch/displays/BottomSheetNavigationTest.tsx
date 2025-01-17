@@ -149,7 +149,7 @@ const ButtonsScreen: React.FC<
 				<Text style={styles.buttonText}>Show Contacts</Text>
 			</TouchableOpacity>
 
-			<BottomSheet sheetRef={sheetApi.sheetRef} snapPoints={['80%']}>
+			<BottomSheet ref={sheetApi.sheetRef} snapPoints={['80%']}>
 				<ContactNavigator />
 			</BottomSheet>
 		</View>

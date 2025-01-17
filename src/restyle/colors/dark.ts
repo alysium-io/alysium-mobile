@@ -132,6 +132,7 @@ export const createSemanticDarkTheme = (
 		'etc.blur': 'dark',
 		'etc.scrollbar-indicator': 'white',
 		'etc.loader-kit': 'white',
+		'etc.mapview': 'dark',
 
 		'search-inactive-page.artists-following.image.bg': palette.p.p5,
 		'search-inactive-page.artists-following.image.icon': palette.p.p1,

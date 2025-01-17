@@ -4,7 +4,7 @@ import React from 'react';
 
 interface HeaderTitleProps {
 	title: string | React.ReactNode;
-	subtitle?: string;
+	subtitle?: string | null;
 	titleProps?: Props<typeof Text>;
 	subtitleProps?: Props<typeof Text>;
 }
@@ -18,7 +18,12 @@ const HeaderTitle: React.FC<HeaderTitleProps> = ({
 	return (
 		<View>
 			{typeof title === 'string' ? (
-				<Text variant='paragraph-small' color='text.p' {...titleProps}>
+				<Text
+					variant='paragraph-small'
+					color='text.p'
+					marginBottom='xs'
+					{...titleProps}
+				>
 					{title}
 				</Text>
 			) : (

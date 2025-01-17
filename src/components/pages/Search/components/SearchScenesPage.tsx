@@ -1,6 +1,7 @@
 import { ScrollView } from '@atomic';
 import { searchApiSlice } from '@flux/api/search';
-import { SearchApi, usePagination, usePersistedSearchState } from '@hooks';
+import { usePersistedArray } from '@flux/local/arrays/usePersistedArray';
+import { SearchApi, usePagination } from '@hooks';
 import React from 'react';
 import { Case, Switch } from 'react-if';
 import usePressSearchIteraction from '../usePressSearchIteraction';
@@ -16,11 +17,7 @@ interface SearchScenesPageProps {
 const SearchScenesPage: React.FC<SearchScenesPageProps> = ({ searchApi }) => {
 	const { page, defaultLimit } = usePagination();
 	const { onPressSceneSearchItem } = usePressSearchIteraction();
-	const {
-		isSceneRecentSearchesEmpty,
-		resetSceneRecentSearches,
-		sceneRecentSearches
-	} = usePersistedSearchState();
+	const { isEmpty, reset, items } = usePersistedArray('homeRecentSearchScenes');
 	const { data, isFetching } = searchApiSlice.useSearchScenesQuery(
 		{
 			body: { q: searchApi.searchText },
@@ -38,18 +35,14 @@ const SearchScenesPage: React.FC<SearchScenesPageProps> = ({ searchApi }) => {
 				<Case condition={isFetching}>
 					<LoadingSearchResults />
 				</Case>
-				<Case
-					condition={
-						searchApi.searchText.length === 0 && isSceneRecentSearchesEmpty
-					}
-				>
+				<Case condition={searchApi.searchText.length === 0 && isEmpty}>
 					<NoRecentSearches />
 				</Case>
 				<Case condition={searchApi.searchText.length === 0}>
 					<RecentSearches
-						recentSearches={sceneRecentSearches}
+						recentSearches={items}
 						onPressSearchResult={onPressSceneSearchItem}
-						onPressClear={resetSceneRecentSearches}
+						onPressClear={reset}
 					/>
 				</Case>
 				<Case condition={searchApi.searchText.length > 0}>

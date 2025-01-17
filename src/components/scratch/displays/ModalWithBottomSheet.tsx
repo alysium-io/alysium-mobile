@@ -41,7 +41,7 @@ const ModalWithBottomSheet: React.FC<ModalWithBottomSheetProps> = ({
 
 	return (
 		<BottomSheet
-			sheetRef={sheetApi.sheetRef}
+			ref={sheetApi.sheetRef}
 			snapPoints={['30%', '70%']}
 			backdropComponent={CBottomSheetBackdrop}
 			enableContentPanningGesture={true}

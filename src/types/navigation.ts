@@ -181,7 +181,6 @@ export type EventManagerStackNavigatorParamList = {
 
 export type HomeStackNavigatorParamList = {
 	HomePage: HomePage;
-	LocalEventsMapPage: LocalEventsMapPage;
 	ArtistPage: ArtistPage;
 	ScenePage: ScenePage;
 	EventPage: EventPage;

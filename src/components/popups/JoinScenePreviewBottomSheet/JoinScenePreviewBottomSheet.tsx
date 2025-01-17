@@ -59,7 +59,7 @@ const JoinScenePreviewBottomSheet: React.FC<
 
 	return (
 		<BottomSheet
-			sheetRef={sheetApi.sheetRef}
+			ref={sheetApi.sheetRef}
 			snapPoints={['75%']}
 			handleComponent={null}
 		>

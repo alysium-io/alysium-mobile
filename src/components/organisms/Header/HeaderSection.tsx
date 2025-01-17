@@ -2,9 +2,9 @@ import { View } from '@atomic';
 import React from 'react';
 
 type HeaderSectionProps = {
-	LeftComponent?: React.ReactNode;
-	CenterComponent?: React.ReactNode;
-	RightComponent?: React.ReactNode;
+	LeftComponent?: React.ReactNode | null;
+	CenterComponent?: React.ReactNode | null;
+	RightComponent?: React.ReactNode | null;
 };
 
 const HeaderSection: React.FC<HeaderSectionProps> = ({
@@ -19,15 +19,21 @@ const HeaderSection: React.FC<HeaderSectionProps> = ({
 		paddingHorizontal='s'
 		margin='m'
 	>
-		<View flex={1} alignItems='flex-start'>
-			{LeftComponent}
-		</View>
-		<View flex={2} alignItems='center'>
-			{CenterComponent}
-		</View>
-		<View flex={1} alignItems='flex-end'>
-			{RightComponent}
-		</View>
+		{LeftComponent !== null && (
+			<View flex={1} alignItems='flex-start'>
+				{LeftComponent}
+			</View>
+		)}
+		{CenterComponent !== null && (
+			<View flex={2} alignItems='center'>
+				{CenterComponent}
+			</View>
+		)}
+		{RightComponent !== null && (
+			<View flex={1} alignItems='flex-end'>
+				{RightComponent}
+			</View>
+		)}
 	</View>
 );
 

@@ -15,7 +15,7 @@ const ConfirmDeleteAccountBottomSheet: React.FC<
 	ConfirmDeleteAccountBottomSheetProps
 > = ({ sheetApi, onPressDeleteAccount, children }) => {
 	return (
-		<BottomSheet sheetRef={sheetApi.sheetRef} snapPoints={['50%']}>
+		<BottomSheet ref={sheetApi.sheetRef} snapPoints={['50%']}>
 			<BottomSheetView style={{ flex: 1 }}>
 				<View flex={1} margin='m' justifyContent='space-between'>
 					<View margin='m' justifyContent='center' alignItems='center'>

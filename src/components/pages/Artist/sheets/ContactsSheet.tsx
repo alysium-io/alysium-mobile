@@ -163,7 +163,7 @@ const ContactsSheet: React.FC<ContactsSheetProps> = ({
 	);
 
 	return (
-		<BottomSheet sheetRef={sheetApi.sheetRef} snapPoints={['50%']}>
+		<BottomSheet ref={sheetApi.sheetRef} snapPoints={['50%']}>
 			<NavigationIndependentTree>
 				<NavigationContainer>
 					<Stack.Navigator

@@ -168,6 +168,7 @@ export type SemanticColors = {
 	'etc.blur': BlurColor;
 	'etc.scrollbar-indicator': 'default' | 'black' | 'white';
 	'etc.loader-kit': 'black' | 'white';
+	'etc.mapview': 'dark' | 'light';
 
 	// Molecules
 	'block-list-item.bg': HexColor;

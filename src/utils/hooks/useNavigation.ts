@@ -74,7 +74,6 @@ interface IUseNavigation {
 	manageEventPage: (event_uid: NanoId) => void;
 	editPublishedEventPage: (event_uid: NanoId) => void;
 
-	localEventsMapPage: () => void;
 	editArtistTeamPage: () => void;
 	addArtistTeamMemberPage: () => void;
 
@@ -167,18 +166,18 @@ const useNavigation = (): IUseNavigation => {
 		transitionTagId: string,
 		galleryItems: GalleryItem[]
 	) => {
-		navigation.navigate('ViewGalleryPage', {
+		navigation.push('ViewGalleryPage', {
 			transitionTagId,
 			galleryItems
 		});
 	};
 
 	const chooseScenePage = () => {
-		navigation.navigate('ChooseScenePage');
+		navigation.push('ChooseScenePage');
 	};
 
 	const chooseEventLocationPage = (event_uid: NanoId) => {
-		navigation.navigate('ChooseEventLocationPage', { event_uid });
+		navigation.push('ChooseEventLocationPage', { event_uid });
 	};
 
 	const artistEventsPage = (
@@ -249,10 +248,6 @@ const useNavigation = (): IUseNavigation => {
 		navigation.push('EditPublishedEventPage', { event_uid });
 	};
 
-	const localEventsMapPage = () => {
-		navigation.push('LocalEventsMapPage');
-	};
-
 	const editArtistTeamPage = () => {
 		navigation.push('EditArtistTeamPage');
 	};
@@ -296,7 +291,6 @@ const useNavigation = (): IUseNavigation => {
 		editArtistEventTicketsUrlPage,
 		manageEventPage,
 		editPublishedEventPage,
-		localEventsMapPage,
 		editArtistTeamPage,
 		addArtistTeamMemberPage,
 		back

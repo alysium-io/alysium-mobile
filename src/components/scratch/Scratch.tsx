@@ -1,11 +1,11 @@
 import { View } from '@atomic';
 import React from 'react';
-import IGStory from './displays/IGStory';
+import PersistedSearchTest from './displays/PersistedSearchTest';
 
 const Scratch = () => {
 	return (
-		<View flex={1}>
-			<IGStory />
+		<View flex={1} backgroundColor='bg.p'>
+			<PersistedSearchTest />
 		</View>
 	);
 };

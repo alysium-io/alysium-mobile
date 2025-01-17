@@ -1,64 +1,49 @@
-import { View } from '@atomic';
-import { useNavigation, useSearchNearbyEvents, useTheme } from '@hooks';
-import { ActionButtons, Location } from '@molecules';
-import React from 'react';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { MapView, View } from '@atomic';
+import { eventApiSlice } from '@flux/api/event';
+import { EventLink } from '@flux/api/event-link/event-link.entity';
+import { useMapRegionDetection, useSheet } from '@hooks';
+import { SelectedRegionHighlight } from '@molecules';
+import React, { useState } from 'react';
+import EventMarker from './components/EventMarker';
+import Footer from './components/Footer';
+import SelectedEventSheet from './sheets/SelectedEventSheet';
 
 const LocalEventsMap = () => {
-	const { back } = useNavigation();
-	const insets = useSafeAreaInsets();
-	const { theme } = useTheme();
-	const { data } = useSearchNearbyEvents();
+	const { region, onRegionChangeComplete } = useMapRegionDetection();
+	const [selectedEvent, setSelectedEvent] = useState<EventLink | null>(null);
+	const selectedEventSheetApi = useSheet();
 
-	const markers =
-		data?.map((event) => ({
-			location: event.event.location,
-			label: event.event.name,
-			color: 'blue'
-		})) || [];
+	const { data: eventData } = eventApiSlice.useNearbyEventsQuery({
+		query: {
+			latitude: region?.latitude,
+			longitude: region?.longitude,
+			radius: region?.radius
+		}
+	});
 
 	return (
 		<View flex={1}>
-			<Location
-				markers={markers}
-				mapViewProps={{
-					zoomEnabled: true,
-					scrollEnabled: true,
-					rotateEnabled: true,
-					pitchEnabled: true,
-					zoomTapEnabled: true,
-					zoomControlEnabled: true,
-					moveOnMarkerPress: false,
-					loadingEnabled: true,
-					toolbarEnabled: false,
-					showsCompass: false,
-					showsMyLocationButton: true,
-					showsUserLocation: true
-				}}
-			/>
-			<View
-				backgroundColor='bg.light'
-				borderTopWidth={theme.borderWidth.normal}
-				borderTopColor='border.medium'
-				width='100%'
-				zIndex={999}
-				position='absolute'
-				bottom={0}
-				padding='m'
-				style={{
-					paddingBottom: insets.bottom + theme.spacing.m
-				}}
+			<MapView
+				style={{ flex: 1 }}
+				onRegionChangeComplete={onRegionChangeComplete}
+				showsUserLocation={true}
+				moveOnMarkerPress={true}
 			>
-				<ActionButtons
-					buttonProps={{
-						text: 'Dismiss',
-						onPress: back,
-						containerProps: {
-							backgroundColor: 'bg.p'
-						}
-					}}
-				/>
-			</View>
+				<SelectedRegionHighlight region={region} />
+				{eventData?.map((event) => (
+					<EventMarker
+						key={`${event.event.location?.latitude}-${event.event.location?.longitude}-${event.event.event_uid}`}
+						event={event}
+						onSelect={() => {
+							console.log('onCalloutPress');
+							setSelectedEvent(event);
+							selectedEventSheetApi.open();
+						}}
+					/>
+				))}
+			</MapView>
+			<Footer />
+			<SelectedEventSheet sheetApi={selectedEventSheetApi} />
 		</View>
 	);
 };

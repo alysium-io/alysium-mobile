@@ -3,7 +3,7 @@ import { Colors } from '@etc';
 import { useTheme } from '@hooks';
 import { SemanticColor } from '@types';
 import React from 'react';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { TouchableWithoutFeedback } from 'react-native';
 import {
 	interpolateColor,
 	useAnimatedStyle,

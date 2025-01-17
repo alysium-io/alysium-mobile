@@ -63,7 +63,7 @@ const ConfirmEventLocationChoiceBottomSheet: React.FC<
 
 	return (
 		<BottomSheet
-			sheetRef={sheetApi.sheetRef}
+			ref={sheetApi.sheetRef}
 			handleComponent={null}
 			// Using enableDynamicSizing causes really strange behavior
 			// with the location map view. Give it a specific snap point

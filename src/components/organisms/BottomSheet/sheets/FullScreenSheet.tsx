@@ -40,7 +40,7 @@ const FullScreenSheet: React.FC<FullScreenSheetProps> = ({
 
 	return (
 		<BottomSheet
-			sheetRef={sheetApi.sheetRef}
+			ref={sheetApi.sheetRef}
 			snapPoints={['100%']}
 			handleComponent={null}
 			onChange={onChange}

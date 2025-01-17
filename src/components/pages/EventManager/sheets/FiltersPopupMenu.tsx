@@ -19,7 +19,7 @@ const FiltersPopupMenu: React.FC<FiltersPopupMenuBotto> = ({
 	const insets = useSafeAreaInsets();
 
 	return (
-		<BottomSheet sheetRef={sheetApi.sheetRef} enableDynamicSizing>
+		<BottomSheet ref={sheetApi.sheetRef} enableDynamicSizing>
 			<BottomSheetView style={{ flex: 1, paddingBottom: insets.bottom + 25 }}>
 				<SingleOptionRadioToggler
 					defaultId={eventsView}

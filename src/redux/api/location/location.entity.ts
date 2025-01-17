@@ -1,4 +1,5 @@
-import { AddressComponent, Polygon, Viewport } from './types';
+import { AddressComponent, LatLng } from '@types';
+import { Polygon } from './types';
 
 export interface Location {
 	readonly latitude: number;
@@ -8,5 +9,5 @@ export interface Location {
 	readonly formatted_address: string | null;
 	readonly boundary: Polygon | null;
 	readonly address_components: AddressComponent[] | null;
-	readonly viewport: Viewport | null;
+	readonly viewport: LatLng | null;
 }

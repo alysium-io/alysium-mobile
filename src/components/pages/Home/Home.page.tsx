@@ -1,38 +1,72 @@
-import { ScrollView, View } from '@atomic';
-import { useSearchNearbyEvents } from '@hooks';
+import { locationApiSlice } from '@flux/api/location';
+import {
+	GeocodeResponseDto,
+	GoogleMapsAutocompleteResult
+} from '@flux/api/location/types';
+import { useSheet } from '@hooks';
 import { BasePage } from '@organisms';
-import React from 'react';
-import { Case, Switch } from 'react-if';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import FeedListItem from './components/FeedListItem';
-import NoEventsFound from './components/NoEventsFound';
-import ViewMapButton from './components/ViewMapButton';
-import LoadingFeed from './Loading';
+import { useCurrentLocationContext } from '@src/utils/contexts';
+import React, { useState } from 'react';
+import { Region } from 'react-native-maps';
+import EventMap from './components/EventMap';
+import HomePageHeader from './Home.header';
+import ChooseCitySheet from './sheets/ChooseCitySheet';
+import useInitialMapRegionForUserLocation from './useInitialMapRegionForUserLocation';
 
 const HomePage = () => {
-	const { data, isSuccess, isLoading } = useSearchNearbyEvents();
-	const insets = useSafeAreaInsets();
+	const chooseCitySheetApi = useSheet();
+	const { currentLocationData } = useCurrentLocationContext();
+	const { initialRegion } = useInitialMapRegionForUserLocation();
+	const [region, setRegion] = useState<Region>(initialRegion);
+	const [currentCity, setCurrentCity] = useState<GeocodeResponseDto | null>(
+		currentLocationData ?? null
+	);
+	const [geocodePlaceId] = locationApiSlice.useLazyGeocodePlaceIdQuery();
+
+	const onChooseSearchCity = async (
+		city: GoogleMapsAutocompleteResult | 'CurrentLocation'
+	) => {
+		if (city === 'CurrentLocation') {
+			setRegion(initialRegion);
+			setCurrentCity(currentLocationData ?? null);
+			chooseCitySheetApi.close();
+			return;
+		}
+
+		const { data } = await geocodePlaceId({
+			query: {
+				place_id: city.place_id
+			}
+		});
+		if (!data) {
+			// TODO: Handle error
+			return;
+		}
+		const { northeast, southwest } = data.cityResult.geometry.viewport;
+		const latitudeDelta = northeast.lat - southwest.lat;
+		const longitudeDelta = northeast.lng - southwest.lng;
+		const newRegion = {
+			latitude: data.cityResult.geometry.location.lat,
+			longitude: data.cityResult.geometry.location.lng,
+			latitudeDelta: latitudeDelta,
+			longitudeDelta: longitudeDelta
+		};
+		setRegion(newRegion);
+		setCurrentCity(data);
+		chooseCitySheetApi.close();
+	};
 
 	return (
 		<BasePage>
-			<View style={{ flex: 1, marginTop: insets.top }}>
-				<Switch>
-					<Case condition={isLoading}>
-						<LoadingFeed />
-					</Case>
-					<Case condition={isSuccess && !data?.length}>
-						<NoEventsFound />
-					</Case>
-					<Case condition={isSuccess}>
-						<ScrollView>
-							{data?.map((event) => (
-								<FeedListItem {...event} key={event.event.event_uid} />
-							))}
-						</ScrollView>
-						<ViewMapButton />
-					</Case>
-				</Switch>
-			</View>
+			<HomePageHeader
+				onPressCity={chooseCitySheetApi.open}
+				currentCity={currentCity}
+			/>
+			<EventMap initialRegion={region} />
+			<ChooseCitySheet
+				sheetApi={chooseCitySheetApi}
+				onChooseCity={onChooseSearchCity}
+			/>
 		</BasePage>
 	);
 };

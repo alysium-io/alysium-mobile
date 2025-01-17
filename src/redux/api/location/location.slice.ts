@@ -12,6 +12,14 @@ import {
 	FindGoogleLocationDetailsByPlaceIdResponseDto
 } from './dto/find-google-location-details-by-place-id.dto';
 import {
+	GeocodeLatLngQueryDto,
+	GeocodeLatLngResponseDto
+} from './dto/geocode-lat-lng.dto';
+import {
+	GeocodePlaceIdQueryDto,
+	GeocodePlaceIdResponseDto
+} from './dto/geocode-place.dto';
+import {
 	DriveTimeQueryDto,
 	DriveTimeResponseDto
 } from './dto/get-drive-time.dto';
@@ -56,6 +64,26 @@ export default serviceApi.injectEndpoints({
 		>({
 			query: ({ query }) => ({
 				url: url('/directions'),
+				method: 'GET',
+				params: query
+			})
+		}),
+		geocodeLatLng: builder.query<
+			GeocodeLatLngResponseDto,
+			{ query: GeocodeLatLngQueryDto }
+		>({
+			query: ({ query }) => ({
+				url: url('/geocode/lat-lng'),
+				method: 'GET',
+				params: query
+			})
+		}),
+		geocodePlaceId: builder.query<
+			GeocodePlaceIdResponseDto,
+			{ query: GeocodePlaceIdQueryDto }
+		>({
+			query: ({ query }) => ({
+				url: url('/geocode/place'),
 				method: 'GET',
 				params: query
 			})

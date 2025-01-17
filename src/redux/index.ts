@@ -15,13 +15,14 @@ import {
 } from 'redux-persist';
 
 import { serviceApi } from './api/base';
-import { persistedAppReducer, persistedSearchReducer } from './local';
+import { persistedAppReducer } from './local/app';
+import { persistedArrayReducers } from './local/arrays/configPersistedArrays';
 import apiErrorUnauthorizedMiddleware from './middleware/apiErrorUnauthorizedMiddleware';
 
 const store = configureStore({
 	reducer: {
 		persistedApp: persistedAppReducer,
-		persistedSearch: persistedSearchReducer,
+		...persistedArrayReducers,
 		[serviceApi.reducerPath]: serviceApi.reducer
 	},
 	middleware: (getDefaultMiddleware) => {

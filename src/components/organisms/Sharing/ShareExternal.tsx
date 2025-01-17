@@ -73,7 +73,7 @@ const ShareExternal: React.FC<ShareExternalProps> = ({ sheetApi, event }) => {
 
 	return (
 		<BottomSheet
-			sheetRef={sheetApi.sheetRef}
+			ref={sheetApi.sheetRef}
 			snapPoints={['5%', '20%', '40%']}
 			backdropComponent={CBottomSheetBackdrop}
 			enableContentPanningGesture={true}

@@ -43,6 +43,7 @@ export { default as ViewRef } from './ViewRef';
 export { default as BlurView } from './BlurView';
 export { default as DateTimePicker } from './DateTimePicker';
 export { default as LinearGradient } from './LinearGradient';
+export { default as MapView } from './MapView';
 export { default as Path } from './Path';
 export { default as SkeletonPlaceholder } from './SkeletonPlaceholder';
 export { default as Svg } from './Svg';

@@ -1,6 +1,7 @@
 import { ScrollView } from '@atomic';
 import { searchApiSlice } from '@flux/api/search';
-import { SearchApi, usePagination, usePersistedSearchState } from '@hooks';
+import { usePersistedArray } from '@flux/local/arrays/usePersistedArray';
+import { SearchApi, usePagination } from '@hooks';
 import React from 'react';
 import { Case, Switch } from 'react-if';
 import usePressSearchIteraction from '../usePressSearchIteraction';
@@ -16,11 +17,10 @@ interface SearchArtistsPageProps {
 const SearchArtistsPage: React.FC<SearchArtistsPageProps> = ({ searchApi }) => {
 	const { onPressArtistSearchItem } = usePressSearchIteraction();
 	const { page, defaultLimit } = usePagination();
-	const {
-		isArtistRecentSearchesEmpty,
-		resetArtistRecentSearches,
-		artistRecentSearches
-	} = usePersistedSearchState();
+	const { isEmpty, reset, items } = usePersistedArray(
+		'homeRecentSearchArtists'
+	);
+
 	const { data, isFetching } = searchApiSlice.useSearchArtistsQuery(
 		{
 			body: { q: searchApi.searchText },
@@ -38,18 +38,14 @@ const SearchArtistsPage: React.FC<SearchArtistsPageProps> = ({ searchApi }) => {
 				<Case condition={isFetching}>
 					<LoadingSearchResults />
 				</Case>
-				<Case
-					condition={
-						searchApi.searchText.length === 0 && isArtistRecentSearchesEmpty
-					}
-				>
+				<Case condition={searchApi.searchText.length === 0 && isEmpty}>
 					<NoRecentSearches />
 				</Case>
 				<Case condition={searchApi.searchText.length === 0}>
 					<RecentSearches
-						recentSearches={artistRecentSearches}
+						recentSearches={items}
 						onPressSearchResult={onPressArtistSearchItem}
-						onPressClear={resetArtistRecentSearches}
+						onPressClear={reset}
 					/>
 				</Case>
 				<Case condition={searchApi.searchText.length > 0}>

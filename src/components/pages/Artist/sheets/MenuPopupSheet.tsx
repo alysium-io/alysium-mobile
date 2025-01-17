@@ -22,7 +22,7 @@ const MenuPopupSheet: React.FC<MenuPopupSheetProps> = ({
 	const { copy } = useClipboard();
 
 	return (
-		<BottomSheet sheetRef={sheetApi.sheetRef}>
+		<BottomSheet ref={sheetApi.sheetRef}>
 			<BottomSheetView style={{ paddingBottom: insets.bottom + 25 }}>
 				<View margin='m' alignItems='center'>
 					<QRCode data={artistPageHyperlink(artist_uid)} />

@@ -100,7 +100,7 @@ const NewEventCelebrationSheet: React.FC<NewEventCelebrationSheetProps> = ({
 
 	return (
 		<BottomSheet
-			sheetRef={sheetApi.sheetRef}
+			ref={sheetApi.sheetRef}
 			footerComponent={footerComponent}
 			handleComponent={null}
 			sheetDidOpen={sheetDidOpen}

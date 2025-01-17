@@ -2,7 +2,8 @@ import {
 	ArtistSearchItem,
 	SceneSearchItem
 } from '@flux/api/search/search.entity';
-import { useNavigation, usePersistedSearchState } from '@hooks';
+import { usePersistedArray } from '@flux/local/arrays/usePersistedArray';
+import { useNavigation } from '@hooks';
 
 interface IUsePressSearchIteraction {
 	onPressArtistSearchItem: (item: ArtistSearchItem) => void;
@@ -10,12 +11,12 @@ interface IUsePressSearchIteraction {
 }
 
 const usePressSearchIteraction = (): IUsePressSearchIteraction => {
-	const { addArtistRecentSearch, addSceneRecentSearch } =
-		usePersistedSearchState();
+	const { add: addArtist } = usePersistedArray('homeRecentSearchArtists');
+	const { add: addScene } = usePersistedArray('homeRecentSearchScenes');
 	const { artistPage, scenePage } = useNavigation();
 
 	const onPressArtistSearchItem = (item: ArtistSearchItem) => {
-		addArtistRecentSearch(item);
+		addArtist(item);
 		artistPage(item.uid, {
 			from: 'SearchPage',
 			to: 'ArtistPage',
@@ -25,7 +26,7 @@ const usePressSearchIteraction = (): IUsePressSearchIteraction => {
 	};
 
 	const onPressSceneSearchItem = (item: SceneSearchItem) => {
-		addSceneRecentSearch(item);
+		addScene(item);
 		scenePage(item.uid, {
 			from: 'SearchPage',
 			to: 'ScenePage',

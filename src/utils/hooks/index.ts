@@ -1,6 +1,5 @@
 // State
 export { default as usePersistedAppState } from './usePersistedAppState';
-export { default as usePersistedSearchState } from './usePersistedSearchState';
 export { default as useTheme } from './useTheme';
 
 // Navigation
@@ -12,10 +11,12 @@ export { default as usePhotosAndCamera } from './usePhotosAndCamera';
 
 // Etc
 export { default as createUseContextHook } from './createUseContextHook';
+export { default as useAddressComponents } from './useAddressComponents';
 export { default as useAnimatedState } from './useAnimatedState';
 export { default as useAnimatedValue } from './useAnimatedValue';
 export { default as useArtistTeam } from './useArtistTeam';
 export { default as useBottomTabHeight } from './useBottomTabHeight';
+export { default as useCityAndCountryFromAddressComponents } from './useCityAndCountryFromAddressComponents';
 export { default as useClipboard } from './useClipboard';
 export { default as useComplexEventStatus } from './useComplexEventStatus';
 export { default as useComplexEventStatuses } from './useComplexEventStatuses';
@@ -41,6 +42,10 @@ export {
 export { default as useLinking } from './useLinking';
 export { default as useList, type ListApi } from './useList';
 export { default as useLocation } from './useLocation';
+export {
+	default as useMapRegionDetection,
+	type TargetRegion
+} from './useMapRegionDetection';
 export { default as useMultimedia } from './useMultimedia';
 export { default as usePagination } from './usePagination';
 export { default as usePhone } from './usePhone';

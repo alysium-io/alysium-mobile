@@ -1,6 +1,6 @@
 import { Section, Text } from '@atomic';
 import { artistEventApiSlice } from '@flux/api/event';
-import { useNavigation, usePagination } from '@hooks';
+import { useEventDateFormatter, useNavigation, usePagination } from '@hooks';
 import { TimelineListItem } from '@molecules';
 import { NanoId } from '@types';
 import dayjs from 'dayjs';
@@ -12,7 +12,6 @@ interface HistorySectionProps {
 
 const HistorySection: React.FC<HistorySectionProps> = ({ artist_uid }) => {
 	const { eventPage } = useNavigation();
-
 	const { page, defaultLimit } = usePagination();
 	const { data } = artistEventApiSlice.useArchiveQuery({
 		params: {
@@ -51,33 +50,37 @@ const HistorySection: React.FC<HistorySectionProps> = ({ artist_uid }) => {
 			>
 				History
 			</Text>
-			{data.map((event, index) => (
-				<TimelineListItem
-					key={event.event.event_uid}
-					onPress={() =>
-						eventPage(event.event.event_uid, {
-							from: 'ArtistPage',
-							from_uid: artist_uid,
-							to: 'EventPage',
-							to_uid: event.event.event_uid,
-							using: 'EVENT_PAGE_ARTIST_EVENT_HISTORY'
-						})
-					}
-					titleTextProps={{
-						title: event.event.name,
-						bottomSubtext: event.event.location?.formatted_address || ''
-					}}
-					timeLineProps={{
-						topTailProps: { vertical: index === 0 ? 'none' : 'top' }
-					}}
-					profileImageProps={{
-						image: event.event.profile_image?.medium.key
-					}}
-					fixedTextProps={{
-						text: dayjs(event.event.start_time).format('MMM. Do')
-					}}
-				/>
-			))}
+			{data.map((event, index) => {
+				const dateFormatter = useEventDateFormatter(event.event.start_time);
+				const { title } = dateFormatter.getDisplayParts();
+				return (
+					<TimelineListItem
+						key={event.event.event_uid}
+						onPress={() =>
+							eventPage(event.event.event_uid, {
+								from: 'ArtistPage',
+								from_uid: artist_uid,
+								to: 'EventPage',
+								to_uid: event.event.event_uid,
+								using: 'EVENT_PAGE_ARTIST_EVENT_HISTORY'
+							})
+						}
+						titleTextProps={{
+							title: event.event.name,
+							bottomSubtext: title
+						}}
+						timeLineProps={{
+							topTailProps: { vertical: index === 0 ? 'none' : 'top' }
+						}}
+						profileImageProps={{
+							image: event.event.profile_image?.medium.key
+						}}
+						fixedTextProps={{
+							text: dayjs(event.event.start_time).format('MMM. Do')
+						}}
+					/>
+				);
+			})}
 			<TimelineListItem
 				titleTextProps={{ title: '' }}
 				timeLineProps={{

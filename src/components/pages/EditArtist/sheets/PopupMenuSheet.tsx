@@ -17,7 +17,7 @@ const PopupMenuSheet: React.FC<PopupMenuSheetProps> = ({ sheetApi }) => {
 	const { artistData } = useArtistAppContext();
 
 	return (
-		<BottomSheet sheetRef={sheetApi.sheetRef} enableDynamicSizing>
+		<BottomSheet ref={sheetApi.sheetRef} enableDynamicSizing>
 			<BottomSheetView style={{ flex: 1, paddingBottom: insets.bottom + 25 }}>
 				<View margin='m' alignItems='center'>
 					<QRCode data={artistPageHyperlink(artistData.artist_uid)} />

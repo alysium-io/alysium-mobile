@@ -1,5 +1,6 @@
 import { Location } from '@flux/api/location';
-import { AddressComponent, Polygon, Viewport } from '@flux/api/location/types';
+import { Polygon } from '@flux/api/location/types';
+import { AddressComponent, AddressType, LatLng } from '@types';
 import { Linking } from 'react-native';
 
 /**
@@ -70,7 +71,7 @@ interface LocationApi {
 	getFormattedAddress: () => string | null;
 	getLatLng: () => { latitude: number; longitude: number } | null;
 	getPlaceId: () => string | null;
-	getViewport: () => Viewport | null;
+	getViewport: () => LatLng | null;
 	getBoundary: () => Polygon | null;
 	build: {
 		(formatSpecs: FormatSpecification[]): string;
@@ -91,8 +92,9 @@ export const useLocation = (
 	): AddressComponent | null => {
 		if (!location?.address_components) return null;
 		return (
-			location.address_components.find((comp) => comp.types.includes(type)) ||
-			null
+			location.address_components.find((comp) =>
+				comp.types.includes(type as AddressType)
+			) || null
 		);
 	};
 
@@ -112,7 +114,7 @@ export const useLocation = (
 		return location?.google_place_id || null;
 	};
 
-	const getViewport = (): Viewport | null => {
+	const getViewport = (): LatLng | null => {
 		return location?.viewport || null;
 	};
 

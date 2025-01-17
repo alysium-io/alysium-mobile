@@ -24,7 +24,7 @@ const ExternalUrlsSheet: React.FC<ExternalUrlsSheetProps> = ({
 	const { copy } = useClipboard();
 
 	return (
-		<BottomSheet sheetRef={sheetApi.sheetRef} snapPoints={['50%']}>
+		<BottomSheet ref={sheetApi.sheetRef} snapPoints={['50%']}>
 			<BottomSheetView
 				style={{
 					flex: 1,

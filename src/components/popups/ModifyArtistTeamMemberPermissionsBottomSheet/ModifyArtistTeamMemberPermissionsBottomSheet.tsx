@@ -206,7 +206,7 @@ export default ({
 	const initialPermissions = getInitialPermissions();
 
 	return (
-		<BottomSheet sheetRef={sheetApi.sheetRef}>
+		<BottomSheet ref={sheetApi.sheetRef}>
 			{user_uid && handle && initialPermissions && (
 				<ModifyArtistTeamMemberPermissionsBottomSheet
 					sheetApi={sheetApi}

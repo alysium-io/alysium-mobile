@@ -14,7 +14,7 @@ const TimeLineMarker: React.FC<TimeLineMarkerProps> = ({
 }) => {
 	return (
 		<View
-			backgroundColor='text.t'
+			backgroundColor='text.s'
 			height={size}
 			width={size}
 			borderRadius={type === 'circle' ? 'round' : 'none'}

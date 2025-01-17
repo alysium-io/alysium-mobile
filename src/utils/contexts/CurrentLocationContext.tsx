@@ -1,6 +1,11 @@
-import { createUseContextHook } from '@hooks';
+import { locationApiSlice } from '@flux/api/location';
+import { GeocodeResponseDto } from '@flux/api/location/types';
+import {
+	createUseContextHook,
+	useCityAndCountryFromAddressComponents
+} from '@hooks';
 import Geolocation from '@react-native-community/geolocation';
-import { ProviderProps } from '@types';
+import { AddressComponent, ProviderProps } from '@types';
 import React, { createContext, useEffect, useState } from 'react';
 import { LatLng } from 'react-native-maps';
 
@@ -29,6 +34,9 @@ export type CurrentLocationContextType = {
 	error: string | null;
 	loading: boolean;
 	hasLocation: boolean;
+	currentLocationData?: GeocodeResponseDto | null;
+	city?: AddressComponent | null;
+	country?: AddressComponent | null;
 };
 
 export const CurrentLocationContext = createContext(
@@ -42,6 +50,19 @@ export const CurrentLocationProvider: React.FC<ProviderProps> = ({
 	const [error, setError] = useState<string | null>(null);
 	const [loading, setLoading] = useState<boolean>(true);
 	const [hasLocation, setHasLocation] = useState<boolean>(false);
+	const { data: currentLocationData } = locationApiSlice.useGeocodeLatLngQuery(
+		{
+			query: {
+				latitude: currentLocation?.latitude || 0,
+				longitude: currentLocation?.longitude || 0
+			}
+		},
+		{ skip: !currentLocation }
+	);
+
+	const { city, country } = useCityAndCountryFromAddressComponents(
+		currentLocationData?.cityResult.address_components
+	);
 
 	useEffect(() => {
 		Geolocation.getCurrentPosition(
@@ -68,7 +89,10 @@ export const CurrentLocationProvider: React.FC<ProviderProps> = ({
 				currentLocation,
 				error,
 				loading,
-				hasLocation
+				hasLocation,
+				currentLocationData,
+				city,
+				country
 			}}
 		>
 			{children}

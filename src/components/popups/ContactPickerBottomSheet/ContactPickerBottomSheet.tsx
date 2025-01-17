@@ -48,7 +48,7 @@ const ContactPickerBottomSheet: React.FC<ContactPickerBottomSheetProps> = ({
 
 	return (
 		<BottomSheet
-			sheetRef={sheetApi.sheetRef}
+			ref={sheetApi.sheetRef}
 			snapPoints={['85%']}
 			onChange={onChange}
 			onDismiss={onDismiss}

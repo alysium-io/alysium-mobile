@@ -103,7 +103,7 @@ const SelectEventDateTimeBottomSheet: React.FC<
 	};
 
 	return (
-		<BottomSheet sheetRef={sheetApi.sheetRef} onDismiss={onDismiss}>
+		<BottomSheet ref={sheetApi.sheetRef} onDismiss={onDismiss}>
 			<BottomSheetScrollView style={{ flex: 1 }}>
 				<LView margin='m'>
 					<LView

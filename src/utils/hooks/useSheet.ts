@@ -8,6 +8,8 @@ export type SheetApi = {
 	open: () => void;
 	close: () => void;
 	instantClose: () => void;
+	snap: (index: number) => void;
+	expand: () => void;
 };
 
 const useSheet = (): SheetApi => {
@@ -25,11 +27,26 @@ const useSheet = (): SheetApi => {
 		sheetRef.current?.dismiss({ duration: 0 });
 	};
 
+	/**
+	 * Note about `snapToIndex`
+	 *   You cannot use `snapToIndex` until you have called `present` on the sheet.
+	 *   So essentially, you must "open" the sheet before you can control it.
+	 */
+	const snap = (index: number) => {
+		sheetRef.current?.snapToIndex(index);
+	};
+
+	const expand = () => {
+		sheetRef.current?.expand();
+	};
+
 	return {
 		sheetRef,
 		open,
 		close,
-		instantClose
+		instantClose,
+		snap,
+		expand
 	};
 };
 

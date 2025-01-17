@@ -132,6 +132,7 @@ export const createSemanticLightTheme = (
 		'etc.blur': 'light',
 		'etc.scrollbar-indicator': 'black',
 		'etc.loader-kit': 'white',
+		'etc.mapview': 'light',
 
 		'search-inactive-page.artists-following.image.bg': palette.p.p5,
 		'search-inactive-page.artists-following.image.icon': palette.p.p1,

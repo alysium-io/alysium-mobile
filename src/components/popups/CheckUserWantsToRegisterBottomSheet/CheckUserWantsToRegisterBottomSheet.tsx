@@ -17,7 +17,7 @@ const CheckUserWantsToRegisterBottomSheet: React.FC<
 	const insets = useSafeAreaInsets();
 	const { createAccountBottomSheetApi } = useUserAppContext();
 	return (
-		<BottomSheet sheetRef={sheetApi.sheetRef} snapPoints={['50%']}>
+		<BottomSheet ref={sheetApi.sheetRef} snapPoints={['50%']}>
 			<BottomSheetView
 				style={{
 					flex: 1,

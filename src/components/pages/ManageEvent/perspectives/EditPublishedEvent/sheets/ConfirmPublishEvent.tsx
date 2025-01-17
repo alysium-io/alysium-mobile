@@ -101,7 +101,7 @@ const ConfirmPublishEventBottomSheet: React.FC<
 	);
 
 	return (
-		<BottomSheet sheetRef={sheetApi.sheetRef} footerComponent={footerComponent}>
+		<BottomSheet ref={sheetApi.sheetRef} footerComponent={footerComponent}>
 			<BottomSheetView style={{ paddingBottom: theme.spacing.m }}>
 				<View margin='m'>
 					<Text variant='section-header-1' marginBottom='m'>
