@@ -2,6 +2,7 @@ export * from './BasePage';
 export * from './BottomSheet';
 export * from './Gallery';
 export * from './Header';
+export * from './Maps';
 export * from './Parallax';
 export * from './PillList';
 export * from './SearchBar';

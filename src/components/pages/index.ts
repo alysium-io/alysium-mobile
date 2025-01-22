@@ -1,6 +1,7 @@
 export * from './AddArtistTeamMember';
 export * from './Artist';
 export * from './ArtistEvents';
+export * from './ArtistEventsInteractiveMap';
 export * from './ChooseEventLocation';
 export * from './ChooseScene';
 export * from './CreateContact';

@@ -1,4 +1,5 @@
 import {
+	ArtistEventsInteractiveMapPage,
 	ArtistPage,
 	ChooseEventLocationPage,
 	EditArtistEventAboutPage,
@@ -60,6 +61,10 @@ const EventManagerTab = () => {
 			/>
 
 			<EventManagerStack.Screen name='ArtistPage' component={ArtistPage} />
+			<EventManagerStack.Screen
+				name='ArtistEventsInteractiveMapPage'
+				component={ArtistEventsInteractiveMapPage}
+			/>
 
 			<EventManagerStack.Screen
 				name='EditArtistEventTicketsUrlPage'

@@ -14,6 +14,7 @@ interface IUseNavigation {
 		artist_uid: NanoId,
 		navigationMeta: NavigationBehaviorMetadata
 	) => void;
+	artistEventsInteractiveMapPage: (artist_uid: NanoId) => void;
 	tagPage: (
 		tag_uid: NanoId,
 		navigationMeta: NavigationBehaviorMetadata
@@ -95,6 +96,10 @@ const useNavigation = (): IUseNavigation => {
 	) => {
 		navigation.push('ArtistPage', { artist_uid });
 		navigationBehavior(navigationMeta);
+	};
+
+	const artistEventsInteractiveMapPage = (artist_uid: NanoId) => {
+		navigation.push('ArtistEventsInteractiveMapPage', { artist_uid });
 	};
 
 	const tagPage = (
@@ -263,6 +268,7 @@ const useNavigation = (): IUseNavigation => {
 
 	return {
 		artistPage,
+		artistEventsInteractiveMapPage,
 		tagPage,
 		profilePage,
 		eventPage,

@@ -1,4 +1,5 @@
 import {
+	ArtistEventsInteractiveMapPage,
 	ArtistEventsPage,
 	ArtistPage,
 	EventPage,
@@ -27,6 +28,10 @@ const SearchTab = () => {
 			<SearchStack.Screen name='SearchPage' component={SearchPage} />
 
 			<SearchStack.Screen name='ArtistPage' component={ArtistPage} />
+			<SearchStack.Screen
+				name='ArtistEventsInteractiveMapPage'
+				component={ArtistEventsInteractiveMapPage}
+			/>
 
 			<SearchStack.Screen name='TagPage' component={TagPage} />
 

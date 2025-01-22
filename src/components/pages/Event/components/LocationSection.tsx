@@ -1,6 +1,7 @@
+import { Section } from '@atomic';
 import { FindOneEventResponseDto } from '@flux/api/event/dto/event-find-one.dto';
 import { useLocation } from '@hooks';
-import { Location } from '@molecules';
+import { StaticEventMap } from '@organisms';
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
 
@@ -17,19 +18,11 @@ const LocationSection: React.FC<LocationSectionProps> = ({ eventData }) => {
 	}
 
 	return (
-		<TouchableOpacity onPress={onPressLocation} activeOpacity={0.9}>
-			<Location
-				markers={{
-					location: eventData.event.location,
-					label: eventData.event.name
-				}}
-				containerProps={{
-					height: 300,
-					margin: 'm',
-					style: { borderRadius: 25 }
-				}}
-			/>
-		</TouchableOpacity>
+		<Section>
+			<TouchableOpacity onPress={onPressLocation} activeOpacity={0.9}>
+				<StaticEventMap events={[eventData]} />
+			</TouchableOpacity>
+		</Section>
 	);
 };
 

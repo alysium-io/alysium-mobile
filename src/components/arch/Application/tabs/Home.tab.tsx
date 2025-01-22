@@ -1,4 +1,5 @@
 import {
+	ArtistEventsInteractiveMapPage,
 	ArtistPage,
 	EventPage,
 	HomePage,
@@ -20,6 +21,10 @@ const HomeTab = () => {
 		<HomeStack.Navigator screenOptions={screenOptions}>
 			<HomeStack.Screen name='HomePage' component={HomePage} />
 			<HomeStack.Screen name='ArtistPage' component={ArtistPage} />
+			<HomeStack.Screen
+				name='ArtistEventsInteractiveMapPage'
+				component={ArtistEventsInteractiveMapPage}
+			/>
 			<HomeStack.Screen name='ScenePage' component={ScenePage} />
 			<HomeStack.Screen name='EventPage' component={EventPage} />
 			<HomeStack.Screen

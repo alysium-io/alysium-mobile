@@ -14,6 +14,10 @@ export { default as createUseContextHook } from './createUseContextHook';
 export { default as useAddressComponents } from './useAddressComponents';
 export { default as useAnimatedState } from './useAnimatedState';
 export { default as useArtistTeam } from './useArtistTeam';
+export {
+	default as useBottomSheetControl,
+	type BottomSheetControlApi
+} from './useBottomSheetControl';
 export { default as useBottomTabHeight } from './useBottomTabHeight';
 export { default as useCityAndCountryFromAddressComponents } from './useCityAndCountryFromAddressComponents';
 export { default as useClipboard } from './useClipboard';

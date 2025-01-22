@@ -1,6 +1,4 @@
-import { View } from '@atomic';
 import { sceneApiSlice } from '@flux/api/scene';
-import { Location } from '@molecules';
 import { BasePage, Parallax } from '@organisms';
 import { useRoute } from '@react-navigation/native';
 import { ParallaxLoading } from '@templates';
@@ -8,6 +6,7 @@ import { ScenePageRouteProp } from '@types';
 import React, { useCallback } from 'react';
 import ScenePageHeader from './Scene.header';
 import ArtistsSection from './components/ArtistsSection';
+import LocationParallaxMapDisplay from './components/LocationParallaxMapDisplay';
 import SubHeader from './components/SubHeader';
 
 const Scene = () => {
@@ -21,19 +20,7 @@ const Scene = () => {
 	const CustomImage = useCallback(
 		() =>
 			sceneData?.location && (
-				<View height='100%'>
-					<Location
-						markers={{
-							location: sceneData.location,
-							label: sceneData.name,
-							color: 'blue'
-						}}
-						containerProps={{
-							height: '100%'
-						}}
-						showsUserLocation={false}
-					/>
-				</View>
+				<LocationParallaxMapDisplay location={sceneData.location} />
 			),
 		[sceneData?.location]
 	);

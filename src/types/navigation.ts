@@ -15,11 +15,11 @@ import { NanoId } from './api';
  * Individual Pages
  */
 type HomePage = undefined;
-type LocalEventsMapPage = undefined;
 
 type SearchPage = undefined;
 
 type ArtistPage = { artist_uid: NanoId };
+type ArtistEventsInteractiveMapPage = { artist_uid: NanoId };
 type ArtistFollowersAndShowsPage = {
 	artist_uid: NanoId;
 	defaultTabIndex: number;
@@ -130,6 +130,7 @@ export type SearchStackNavigatorParamList = {
 	SearchPage: SearchPage;
 
 	ArtistPage: ArtistPage;
+	ArtistEventsInteractiveMapPage: ArtistEventsInteractiveMapPage;
 	ArtistFollowersAndShowsPage: ArtistFollowersAndShowsPage;
 
 	TagPage: TagPage;
@@ -176,12 +177,14 @@ export type EventManagerStackNavigatorParamList = {
 	EditPublishedEventPage: EditPublishedEventPage;
 	ViewGalleryPage: ViewGalleryPage;
 	ArtistPage: ArtistPage;
+	ArtistEventsInteractiveMapPage: ArtistEventsInteractiveMapPage;
 	ScenePage: ScenePage;
 };
 
 export type HomeStackNavigatorParamList = {
 	HomePage: HomePage;
 	ArtistPage: ArtistPage;
+	ArtistEventsInteractiveMapPage: ArtistEventsInteractiveMapPage;
 	ScenePage: ScenePage;
 	EventPage: EventPage;
 	ViewGalleryPage: ViewGalleryPage;
@@ -258,6 +261,10 @@ export type CompositeStackNavigatorParamList = HomeStackNavigatorParamList &
 export type ArtistPageRouteProp = RouteProp<
 	CompositeStackNavigatorParamList,
 	'ArtistPage'
+>;
+export type ArtistEventsInteractiveMapPageRouteProp = RouteProp<
+	CompositeStackNavigatorParamList,
+	'ArtistEventsInteractiveMapPage'
 >;
 export type ArtistFollowersAndShowsPageRouteProp = RouteProp<
 	CompositeStackNavigatorParamList,

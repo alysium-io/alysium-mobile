@@ -4,14 +4,13 @@ import {
 	GoogleMapsAutocompleteResult
 } from '@flux/api/location/types';
 import { useSheet } from '@hooks';
-import { BasePage } from '@organisms';
+import { BasePage, useInitialMapRegionForUserLocation } from '@organisms';
 import { useCurrentLocationContext } from '@src/utils/contexts';
 import React, { useState } from 'react';
 import { Region } from 'react-native-maps';
 import EventMap from './components/EventMap';
 import HomePageHeader from './Home.header';
 import ChooseCitySheet from './sheets/ChooseCitySheet';
-import useInitialMapRegionForUserLocation from './useInitialMapRegionForUserLocation';
 
 const HomePage = () => {
 	const chooseCitySheetApi = useSheet();

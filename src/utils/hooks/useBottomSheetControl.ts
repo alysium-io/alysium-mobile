@@ -1,7 +1,7 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { useRef, useState } from 'react';
 
-interface IBottomSheetControl {
+export interface BottomSheetControlApi {
 	controlProps: {
 		ref: React.RefObject<BottomSheetModal>;
 		onChange: (index: number) => void;
@@ -11,7 +11,14 @@ interface IBottomSheetControl {
 	close: () => void;
 }
 
-const useBottomSheetControl = (): IBottomSheetControl => {
+const useBottomSheetControl = (): BottomSheetControlApi => {
+	/**
+	 * This hook just helps give us slightly better control
+	 * over the bottom sheet because there are certain scenarios
+	 * where it gets finnicky, such as when we open it with multiple
+	 * different snap points on the home page map to display event
+	 * information.
+	 */
 	const ref = useRef<BottomSheetModal>(null);
 	const [currentIndex, onChange] = useState(-1);
 

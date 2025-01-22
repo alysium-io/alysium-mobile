@@ -1,8 +1,10 @@
 import { Section, Text } from '@atomic';
 import { PublicFindOneArtistResponseDto } from '@flux/api/artist/dto/artist-find-one.dto';
 import { FindAllArtistEventsResponseDto } from '@flux/api/event/dto/artist-event-find-all.dto';
-import { Location } from '@molecules';
+import { useNavigation } from '@hooks';
+import { StaticEventMap } from '@organisms';
 import React from 'react';
+import { TouchableOpacity } from 'react-native';
 import EventsSectionListItem from './EventsSectionListItem';
 
 interface EventsSectionProps {
@@ -14,11 +16,10 @@ const EventsSection: React.FC<EventsSectionProps> = ({
 	artistData,
 	eventsData
 }) => {
-	const markers = eventsData.map((event) => ({
-		location: event.event.location,
-		label: event.event.name,
-		color: 'blue'
-	}));
+	const { artistEventsInteractiveMapPage } = useNavigation();
+	const onPressMap = () => {
+		artistEventsInteractiveMapPage(artistData.artist_uid);
+	};
 
 	if (eventsData.length === 0) {
 		return null;
@@ -38,16 +39,9 @@ const EventsSection: React.FC<EventsSectionProps> = ({
 					/>
 				);
 			})}
-			{markers.length > 0 && (
-				<Location
-					markers={markers}
-					containerProps={{
-						height: 300,
-						margin: 'm',
-						style: { borderRadius: 25 }
-					}}
-				/>
-			)}
+			<TouchableOpacity onPress={onPressMap} activeOpacity={0.9}>
+				<StaticEventMap events={eventsData} />
+			</TouchableOpacity>
 		</Section>
 	);
 };
