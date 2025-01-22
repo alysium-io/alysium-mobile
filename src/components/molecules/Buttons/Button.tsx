@@ -1,4 +1,4 @@
-import { ActivityIndicator, Text, View } from '@atomic';
+import { ActivityIndicator, Icon, Text, View } from '@atomic';
 import { Vibrator } from '@etc';
 import { useTheme } from '@hooks';
 import { Props, SemanticColor } from '@types';
@@ -6,7 +6,6 @@ import React, { useMemo } from 'react';
 import { Case, Default, Switch } from 'react-if';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Container from './components/Container';
-import Content from './components/Content';
 import Success from './components/Success';
 import { ButtonState } from './useButtonState';
 
@@ -25,7 +24,9 @@ export interface ButtonProps {
 	color?: 'default' | 'p' | 's' | 't' | 'q';
 	variant?: 'solid' | 'outlined';
 	buttonThemeSettings?: Partial<ButtonThemeSettings>;
-	buttonContent?: Props<typeof Content>;
+	textProps?: Props<typeof Text>;
+	beforeIconProps?: Props<typeof Icon>;
+	afterIconProps?: Props<typeof Icon>;
 	containerProps?: Omit<Props<typeof Container>, 'settings'>;
 }
 
@@ -36,7 +37,9 @@ const Button: React.FC<ButtonProps> = ({
 	color = 'default',
 	variant = 'solid',
 	buttonThemeSettings,
-	buttonContent,
+	textProps,
+	beforeIconProps,
+	afterIconProps,
 	containerProps
 }) => {
 	const { theme } = useTheme();
@@ -136,13 +139,37 @@ const Button: React.FC<ButtonProps> = ({
 						<Success settings={settings} />
 					</Case>
 					<Default>
-						<Content
-							color={settings.textColor}
-							variant='paragraph-small-medium'
-							{...buttonContent}
+						<View
+							flexDirection='row'
+							alignItems='center'
+							justifyContent='center'
 						>
-							{text}
-						</Content>
+							{beforeIconProps && (
+								<View marginRight='s'>
+									<Icon
+										size='s'
+										color={settings.textColor}
+										{...beforeIconProps}
+									/>
+								</View>
+							)}
+							<Text
+								color={settings.textColor}
+								variant='paragraph-small-medium'
+								{...textProps}
+							>
+								{text}
+							</Text>
+							{afterIconProps && (
+								<View marginLeft='s'>
+									<Icon
+										size='s'
+										color={settings.textColor}
+										{...afterIconProps}
+									/>
+								</View>
+							)}
+						</View>
 					</Default>
 				</Switch>
 			</Container>

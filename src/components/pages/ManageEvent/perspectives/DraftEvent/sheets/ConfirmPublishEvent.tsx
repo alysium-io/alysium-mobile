@@ -1,6 +1,5 @@
 import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
 import { Text, View } from '@atomic';
-import { wait } from '@etc';
 import { artistEventApiSlice } from '@flux/api/event';
 import { EventStatus } from '@flux/api/event/types';
 import {
@@ -8,13 +7,14 @@ import {
 	BottomSheetFooterProps,
 	BottomSheetView
 } from '@gorhom/bottom-sheet';
-import { SheetApi, useTheme, useToast } from '@hooks';
-import { ActionButtons, useButtonState } from '@molecules';
+import { SheetApi, useTheme } from '@hooks';
+import { ActionButtons } from '@molecules';
 import { BottomSheet } from '@organisms';
 import { useGlobalLoader } from '@templates';
 import { IChildrenProps, NanoId } from '@types';
 import React, { useCallback } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import Toast from 'react-native-toast-message';
 
 interface ConfirmPublishEventBottomSheetProps extends IChildrenProps {
 	sheetApi: SheetApi;
@@ -26,19 +26,20 @@ const ConfirmPublishEventBottomSheet: React.FC<
 	ConfirmPublishEventBottomSheetProps
 > = ({ sheetApi, event_uid, setDraftToPublished }) => {
 	const { showLoader, hideLoader } = useGlobalLoader();
-	const { toastError } = useToast();
 	const { theme } = useTheme();
 	const [patchArtistEventStatusMutation] =
 		artistEventApiSlice.usePatchArtistEventStatusMutation();
 	const { artistData } = useArtistAppContext();
-	const publishButtonState = useButtonState('active');
 	const insets = useSafeAreaInsets();
 
 	const publishEvent = async () => {
 		try {
-			publishButtonState.setButtonState('loading');
+			sheetApi.close();
 
-			// First patch the event
+			// Show global loader
+			showLoader();
+
+			// // First patch the event
 			await patchArtistEventStatusMutation({
 				params: {
 					event_uid,
@@ -49,22 +50,17 @@ const ConfirmPublishEventBottomSheet: React.FC<
 				}
 			}).unwrap();
 
-			// Show global loader
-			showLoader();
-
-			// Show success animation
-			await publishButtonState.buttonSuccess(300);
-
-			await wait(0.5);
 			setDraftToPublished();
-			await wait(0.5);
 
 			// Finally hide loader
 			hideLoader();
 		} catch (err: any) {
 			console.log(err);
-			publishButtonState.reset();
-			toastError(err?.data?.message ?? 'Something went wrong.');
+			hideLoader();
+			Toast.show({
+				text1: 'Error',
+				text2: err?.data?.message ?? 'Something went wrong.'
+			});
 		}
 	};
 
@@ -89,7 +85,6 @@ const ConfirmPublishEventBottomSheet: React.FC<
 							{
 								text: 'Publish',
 								color: 'p',
-								buttonState: publishButtonState.buttonState,
 								onPress: publishEvent
 							}
 						]}
@@ -97,7 +92,7 @@ const ConfirmPublishEventBottomSheet: React.FC<
 				</View>
 			</BottomSheetFooter>
 		),
-		[publishButtonState.buttonState]
+		[]
 	);
 
 	return (

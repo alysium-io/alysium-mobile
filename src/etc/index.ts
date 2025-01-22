@@ -1,4 +1,5 @@
 export { default as Colors } from './Colors';
+export * from './dayjs';
 export { collectDeviceInfo } from './device';
 export { default as env } from './env';
 export { default as Formatting } from './Formatting';

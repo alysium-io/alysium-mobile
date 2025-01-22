@@ -2,21 +2,15 @@ import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
 import { AView, Text, View } from '@atomic';
 import { artistEventApiSlice } from '@flux/api/event';
 import { EventStatus } from '@flux/api/event/types';
-import { useComplexEventStatus, useSheet } from '@hooks';
+import { useEnteringExitingPageAnimations, useEvent, useSheet } from '@hooks';
 import { useRoute } from '@react-navigation/native';
+import { PageError } from '@templates';
 import { ManageEventPageRouteProp } from '@types';
 import React, { useEffect, useState } from 'react';
 import { Case, Default, Switch } from 'react-if';
-import {
-	runOnJS,
-	useAnimatedStyle,
-	useSharedValue,
-	withDelay,
-	withSequence,
-	withTiming
-} from 'react-native-reanimated';
 import Loading from './Loading';
 import { CanceledEventPage } from './perspectives/CanceledEvent';
+import CompletedEventPage from './perspectives/CompletedEvent/CompletedEvent.page';
 import { DraftEventPage } from './perspectives/DraftEvent';
 import { PublishedEventPage } from './perspectives/PublishedEvent';
 import NewEventCelebrationSheet from './perspectives/PublishedEvent/sheets/NewEventCelebrationSheet';
@@ -25,64 +19,53 @@ const ManageEventPage = () => {
 	const route = useRoute<ManageEventPageRouteProp>();
 	const newEventCelebrationSheetApi = useSheet();
 	const { artistData } = useArtistAppContext();
-	const visibility = useSharedValue(1);
+	const { onLoad, isLoaded, ...enteringExitingProps } =
+		useEnteringExitingPageAnimations();
 	const [page, setPage] = useState<EventStatus | null>(null);
-	const { data } = artistEventApiSlice.usePrivateFindOneArtistEventQuery({
-		params: {
-			artist_uid: artistData.artist_uid,
-			event_uid: route.params.event_uid
-		}
-	});
-	const { complexStatus } = useComplexEventStatus(data?.event);
+	const { data, error, isSuccess } =
+		artistEventApiSlice.usePrivateFindOneArtistEventQuery({
+			params: {
+				artist_uid: artistData.artist_uid,
+				event_uid: route.params.event_uid
+			}
+		});
+	const { status, complexStatus } = useEvent(data?.event);
 
 	useEffect(() => {
 		// Initial page load
-		if (page === null && data?.event.status) {
-			setPage(data.event.status);
+		if (page === null && status) {
+			setPage(status);
 		}
-	}, [data?.event.status]);
+	}, [isSuccess]);
+
+	useEffect(() => {
+		if (page && !isLoaded) {
+			onLoad();
+		}
+	}, [page]);
 
 	const setDraftToPublished = () => {
-		// We separate this into its own function to avoid the following warning:
-		// [Reanimated] Tried to modify key `current` of an object which has been already passed to a worklet. See
-		// https://docs.swmansion.com/react-native-reanimated/docs/guides/troubleshooting#tried-to-modify-key-of-an-object-which-has-been-converted-to-a-shareable
-		const showSheet = () => {
+		setPage(EventStatus.published);
+		setTimeout(() => {
 			newEventCelebrationSheetApi.open();
-		};
-
-		visibility.value = withSequence(
-			// Fade out
-			withTiming(0, { duration: 400 }),
-			// Small delay at opacity 0 by using a 0-duration animation
-			withTiming(0, { duration: 0 }, () => {
-				// Change page when we're fully invisible and after delay
-				runOnJS(setPage)(EventStatus.published);
-			}),
-			// Fade back in
-			withDelay(
-				250,
-				withTiming(1, { duration: 400 }, (finished) => {
-					if (finished) {
-						runOnJS(showSheet)();
-					}
-				})
-			)
-		);
+		}, 1000);
 	};
 
-	const animatedContainerProps = useAnimatedStyle(() => {
-		return {
-			opacity: visibility.value
-		};
-	}, []);
+	const setPublishedToCompleted = () => {
+		setPage(EventStatus.completed);
+	};
 
 	return (
 		<AView
+			key={`page-${page}`}
+			{...enteringExitingProps}
 			flex={1}
 			backgroundColor='transparent'
-			style={animatedContainerProps}
 		>
 			<Switch>
+				<Case condition={error !== undefined}>
+					<PageError error={error} />
+				</Case>
 				<Case condition={!data || !page}>
 					<Loading />
 				</Case>
@@ -93,10 +76,16 @@ const ManageEventPage = () => {
 					/>
 				</Case>
 				<Case condition={page === EventStatus.published}>
-					<PublishedEventPage event_uid={route.params.event_uid} />
+					<PublishedEventPage
+						event_uid={route.params.event_uid}
+						setPublishedToCompleted={setPublishedToCompleted}
+					/>
 				</Case>
 				<Case condition={page === EventStatus.canceled}>
 					<CanceledEventPage event_uid={route.params.event_uid} />
+				</Case>
+				<Case condition={page === EventStatus.completed}>
+					<CompletedEventPage event_uid={route.params.event_uid} />
 				</Case>
 				<Default>
 					{/** TODO: Add error handling */}

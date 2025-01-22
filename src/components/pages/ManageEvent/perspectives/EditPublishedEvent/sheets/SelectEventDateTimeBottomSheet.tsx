@@ -1,18 +1,13 @@
 import { DateTimePicker, LView, Text, View } from '@atomic';
+import { dayjs } from '@etc';
 import { BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import { SheetApi } from '@hooks';
 import { ActionButtons, PillGroup, TogglePill } from '@molecules';
 import { BottomSheet } from '@organisms';
 import { useEventTiming } from '@src/utils/hooks/useEventTiming';
-import dayjs from 'dayjs';
-import advancedFormat from 'dayjs/plugin/advancedFormat';
-import duration from 'dayjs/plugin/duration';
 import React, { useState } from 'react';
 import { FadeIn, FadeOut } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-
-dayjs.extend(duration);
-dayjs.extend(advancedFormat);
 
 type Resolution =
 	| 'year'

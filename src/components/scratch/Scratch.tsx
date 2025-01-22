@@ -1,11 +1,11 @@
 import { View } from '@atomic';
 import React from 'react';
-import PersistedSearchTest from './displays/PersistedSearchTest';
+import AnimatedPageChangeTest from './displays/AnimatedPageChangeTest';
 
 const Scratch = () => {
 	return (
 		<View flex={1} backgroundColor='bg.p'>
-			<PersistedSearchTest />
+			<AnimatedPageChangeTest />
 		</View>
 	);
 };

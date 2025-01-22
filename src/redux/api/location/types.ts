@@ -17,3 +17,14 @@ export interface GeocodeResponseDto {
 	cityResult: GeocodeResult;
 	polygon: Polygon;
 }
+
+export type Viewport = {
+	northeast: {
+		lat: number;
+		lng: number;
+	};
+	southwest: {
+		lat: number;
+		lng: number;
+	};
+};

@@ -6,6 +6,7 @@ import { EventStatus } from '@flux/api/event/types';
 import { useRefresh, useSheet } from '@hooks';
 import { ActionButtons } from '@molecules';
 import { BasePage, ShareExternal } from '@organisms';
+import { PageError } from '@templates';
 import { NanoId } from '@types';
 import React, { useCallback, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
@@ -37,13 +38,16 @@ const DraftEventPage: React.FC<DraftEventPageProps> = ({
 	const [updateArtistEventMutation] =
 		artistEventApiSlice.useUpdateArtistEventMutation();
 
-	const { data: eventData, refetch } =
-		artistEventApiSlice.usePrivateFindOneArtistEventQuery({
-			params: {
-				event_uid,
-				artist_uid: artistData.artist_uid
-			}
-		});
+	const {
+		data: eventData,
+		refetch,
+		error
+	} = artistEventApiSlice.usePrivateFindOneArtistEventQuery({
+		params: {
+			event_uid,
+			artist_uid: artistData.artist_uid
+		}
+	});
 
 	const refreshControl = useRefresh(refetch);
 
@@ -105,6 +109,10 @@ const DraftEventPage: React.FC<DraftEventPageProps> = ({
 		),
 		[eventData?.event.status]
 	);
+
+	if (error) {
+		return <PageError error={error} />;
+	}
 
 	if (!eventData) {
 		return <Loading />;

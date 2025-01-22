@@ -7,6 +7,7 @@ import { useKeyboard, useSheet } from '@hooks';
 import { ActionButtons } from '@molecules';
 import { BasePage, ShareExternal } from '@organisms';
 import { useRoute } from '@react-navigation/native';
+import { PageError } from '@templates';
 import { EditPublishedEventPageRouteProp } from '@types';
 import React, { useCallback, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
@@ -32,7 +33,7 @@ const EditPublishedEvent = () => {
 	const [updateArtistEventMutation] =
 		artistEventApiSlice.useUpdateArtistEventMutation();
 
-	const { data: eventData } =
+	const { data: eventData, error } =
 		artistEventApiSlice.usePrivateFindOneArtistEventQuery({
 			params: {
 				event_uid: route.params.event_uid,
@@ -93,6 +94,10 @@ const EditPublishedEvent = () => {
 		),
 		[eventData?.event.status]
 	);
+
+	if (error) {
+		return <PageError error={error} />;
+	}
 
 	if (!eventData) {
 		return <Loading />;

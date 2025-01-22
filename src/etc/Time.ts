@@ -1,34 +1,23 @@
-import { Dayjs } from 'dayjs'
-
-var dayjs = require('dayjs')
-var duration = require('dayjs/plugin/duration')
-var relativeTime = require('dayjs/plugin/relativeTime')
-
-dayjs.extend(duration)
-dayjs.extend(relativeTime)
+import { dayjs } from '@etc';
 
 class Time {
+	static getDuration(startTime: dayjs.Dayjs, endTime: dayjs.Dayjs) {
+		const diffDuration = dayjs.duration(endTime.diff(startTime));
 
-    static getDuration(startTime: Dayjs, endTime: Dayjs) {
+		// Format the duration as requested
+		let formattedDuration = '';
+		if (diffDuration.hours() > 0) {
+			formattedDuration += `${diffDuration.hours()}hr `;
+		}
+		if (diffDuration.minutes() > 0) {
+			formattedDuration += `${diffDuration.minutes()}min`;
+		}
 
-        const diffDuration = dayjs.duration(endTime.diff(startTime))
+		// Trim any extra space at the end
+		formattedDuration = formattedDuration.trim();
 
-        // Format the duration as requested
-        let formattedDuration = ''
-        if (diffDuration.hours() > 0) {
-            formattedDuration += `${diffDuration.hours()}hr `
-        }
-        if (diffDuration.minutes() > 0) {
-            formattedDuration += `${diffDuration.minutes()}min`
-        }
-
-        // Trim any extra space at the end
-        formattedDuration = formattedDuration.trim()
-
-        return formattedDuration
-
-    }
-
+		return formattedDuration;
+	}
 }
 
-export default Time
+export default Time;

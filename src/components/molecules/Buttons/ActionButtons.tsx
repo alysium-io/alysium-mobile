@@ -18,30 +18,24 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({ buttonProps }) => {
 	 * having this wrapper display component to handle it.
 	 */
 
-	// If we have a single button, we just render it normally
-	if (!Array.isArray(buttonProps)) {
-		return <Button {...buttonProps} />;
-	}
-
-	if (Array.isArray(buttonProps) && buttonProps.length === 1) {
-		return <Button {...buttonProps[0]} />;
-	}
-
-	if (buttonProps.length > 2) {
-		throw new Error('ActionButtons component only supports up to 2 buttons');
-	}
-
-	// If we have 2 buttons, we render them side by side
-	return (
-		<View flexDirection='row'>
-			<View marginRight='s' flex={1}>
-				<Button {...buttonProps[0]} />
+	let buttons = !Array.isArray(buttonProps) ? [buttonProps] : buttonProps;
+	if (buttons && buttons.length > 0) {
+		return (
+			<View
+				flexDirection={buttons.length === 1 ? 'column' : 'row'}
+				columnGap='m'
+			>
+				{buttons.map((i, index) => (
+					<View
+						key={`action-button-${index}`}
+						flex={buttons.length > 1 ? 1 : undefined}
+					>
+						<Button {...i} />
+					</View>
+				))}
 			</View>
-			<View marginLeft='s' flex={1}>
-				<Button {...buttonProps[1]} />
-			</View>
-		</View>
-	);
+		);
+	}
 };
 
 export default ActionButtons;

@@ -1,10 +1,9 @@
 import { Section, Text } from '@atomic';
 import { PublicFindOneArtistResponseDto } from '@flux/api/artist/dto/artist-find-one.dto';
 import { FindAllArtistEventsResponseDto } from '@flux/api/event/dto/artist-event-find-all.dto';
-import { useDate, useImage, useNavigation } from '@hooks';
-import { ContentListItem, Location } from '@molecules';
-import dayjs from 'dayjs';
+import { Location } from '@molecules';
 import React from 'react';
+import EventsSectionListItem from './EventsSectionListItem';
 
 interface EventsSectionProps {
 	artistData: PublicFindOneArtistResponseDto;
@@ -15,10 +14,6 @@ const EventsSection: React.FC<EventsSectionProps> = ({
 	artistData,
 	eventsData
 }) => {
-	const { eventPage, artistEventsPage } = useNavigation();
-	const { semantic } = useDate();
-	const { urlForKey } = useImage();
-
 	const markers = eventsData.map((event) => ({
 		location: event.event.location,
 		label: event.event.name,
@@ -35,36 +30,11 @@ const EventsSection: React.FC<EventsSectionProps> = ({
 				Events
 			</Text>
 			{eventsData?.map((event) => {
-				const semanticDateString = semantic(event.event.start_time);
-				const defaultDateString =
-					event.event.start_time !== null
-						? dayjs(event.event.start_time).format('MMM D, YYYY')
-						: event.event.status;
-				const bottomSubtext =
-					semanticDateString !== '' ? semanticDateString : defaultDateString;
 				return (
-					<ContentListItem
+					<EventsSectionListItem
 						key={event.event.event_uid}
-						onPress={() =>
-							eventPage(event.event.event_uid, {
-								from: 'ArtistPage',
-								from_uid: artistData.artist_uid,
-								to: 'EventPage',
-								to_uid: event.event.event_uid,
-								using: 'ARTIST_PAGE_EVENT_CONTENT_LIST_ITEM'
-							})
-						}
-						titleTextProps={{
-							title: event.event.name,
-							bottomSubtext
-						}}
-						profileImageProps={{
-							image: urlForKey(event.event.profile_image?.small.key),
-							borderRadius: 'l',
-							defaultImageProps: {
-								icon: 'event'
-							}
-						}}
+						event={event}
+						artist_uid={artistData.artist_uid}
 					/>
 				);
 			})}

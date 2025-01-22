@@ -26,9 +26,8 @@ const useLoginUserPhoneNumberFormApi = (
 		{
 			onValid: async (data: LoginUserPhoneNumberBodyDto) => {
 				formApiOptions?.methods?.onConfirmedValid?.(data);
-				data.phone_number = Formatting.preparePhoneNumberForApi(
-					data.phone_number
-				);
+				data.phone_number =
+					Formatting.preparePhoneNumberForApi(data.phone_number) ?? '';
 				loginPhoneNumberQuery({ body: data })
 					.unwrap()
 					.then((res) => {

@@ -39,7 +39,6 @@ const GoogleMapTesting = () => {
 	const insets = useSafeAreaInsets();
 	const {
 		region,
-		radiusInMeters,
 		latitude,
 		longitude,
 		onRegionChange,
@@ -95,7 +94,7 @@ const GoogleMapTesting = () => {
 							Pin Latitude
 						</Text>
 						<Text variant='paragraph-medium' textAlign='center'>
-							{region.latitude.toFixed(2)}
+							{region?.latitude.toFixed(2)}
 						</Text>
 					</View>
 					<View flex={1}>
@@ -108,7 +107,7 @@ const GoogleMapTesting = () => {
 							Pin Longitude
 						</Text>
 						<Text variant='paragraph-medium' textAlign='center'>
-							{region.longitude.toFixed(2)}
+							{region?.longitude.toFixed(2)}
 						</Text>
 					</View>
 					<View flex={1}>
@@ -121,7 +120,7 @@ const GoogleMapTesting = () => {
 							Radius (Meters)
 						</Text>
 						<Text variant='paragraph-medium' textAlign='center'>
-							{radiusInMeters?.toFixed(2)}
+							{region?.radius?.toFixed(2)}
 						</Text>
 					</View>
 					<View flex={1}>
@@ -134,7 +133,7 @@ const GoogleMapTesting = () => {
 							Radius (Km)
 						</Text>
 						<Text variant='paragraph-medium' textAlign='center'>
-							{(radiusInMeters / 1000).toFixed(2)}
+							{region?.radius ? (region.radius / 1000).toFixed(2) : ''}
 						</Text>
 					</View>
 				</View>
@@ -149,18 +148,18 @@ const GoogleMapTesting = () => {
 			>
 				<Circle
 					center={{
-						latitude: region.latitude,
-						longitude: region.longitude
+						latitude: region?.latitude ?? 0,
+						longitude: region?.longitude ?? 0
 					}}
-					radius={radiusInMeters}
+					radius={region?.radius ?? 0}
 					fillColor='rgba(100, 100, 255, 0.2)'
 					strokeColor='rgba(100, 100, 255, 0.5)'
 					strokeWidth={2}
 				/>
 				<Marker
 					coordinate={{
-						latitude: region.latitude,
-						longitude: region.longitude
+						latitude: region?.latitude ?? 0,
+						longitude: region?.longitude ?? 0
 					}}
 				/>
 			</MapView>

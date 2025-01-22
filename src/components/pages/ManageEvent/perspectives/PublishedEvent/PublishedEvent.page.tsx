@@ -13,20 +13,23 @@ import { MenuListItem } from '@molecules';
 import { BasePage, ShareExternal } from '@organisms';
 import Separator from '@src/components/pages/EditArtist/components/Separator';
 import SubHeader from '@src/components/pages/Event/components/SubHeader';
-import { StartsInCountdown } from '@templates';
+import { PageError, StartsInCountdown } from '@templates';
 import { NanoId } from '@types';
 import React from 'react';
 import { Linking } from 'react-native';
 import Loading from '../../Loading';
+import CompleteEventFooter from './components/CompleteEvent.footer';
 import PublishedEventPageHeader from './PublishedEvent.header';
 import PopupMenu from './sheets/PopupMenu';
 
 interface PublishedEventPageProps {
 	event_uid: NanoId;
+	setPublishedToCompleted: () => void;
 }
 
 const PublishedEventPage: React.FC<PublishedEventPageProps> = ({
-	event_uid
+	event_uid,
+	setPublishedToCompleted
 }) => {
 	const shareExternalSheetApi = useSheet();
 	const { copy } = useClipboard();
@@ -34,7 +37,7 @@ const PublishedEventPage: React.FC<PublishedEventPageProps> = ({
 	const publishedEventPopupMenuSheet = useSheet();
 	const { artistData, isEditable } = useArtistAppContext();
 	const { eventPageHyperlink } = useHyperlink();
-	const { data: eventData } =
+	const { data: eventData, error } =
 		artistEventApiSlice.usePrivateFindOneArtistEventQuery({
 			params: {
 				event_uid,
@@ -57,7 +60,10 @@ const PublishedEventPage: React.FC<PublishedEventPageProps> = ({
 			`${semanticTimeUntil}, ${formattedStartDate}, ${formattedStartTime}` +
 				(formattedDateApi.hasEndDate
 					? ` - ${formattedDateApi.endTime()}, ${duration}`
-					: '')
+					: ''),
+			{
+				text2: 'You can now share this time'
+			}
 		);
 	};
 
@@ -78,7 +84,10 @@ const PublishedEventPage: React.FC<PublishedEventPageProps> = ({
 				{ type: 'postal_code' },
 				{ type: 'administrative_area_level_1' },
 				{ type: 'country', nameLength: 'short_name' }
-			])
+			]),
+			{
+				text2: 'You can now share this address'
+			}
 		);
 	};
 
@@ -87,12 +96,25 @@ const PublishedEventPage: React.FC<PublishedEventPageProps> = ({
 		Linking.openURL(eventPageHyperlink(eventData.event.event_uid));
 	};
 
+	const FooterComponent = () => {
+		return (
+			<CompleteEventFooter
+				event={eventData}
+				setPublishedToCompleted={setPublishedToCompleted}
+			/>
+		);
+	};
+
+	if (error) {
+		return <PageError error={error} />;
+	}
+
 	if (!eventData) {
 		return <Loading />;
 	}
 
 	return (
-		<BasePage>
+		<BasePage FooterComponent={FooterComponent}>
 			<PublishedEventPageHeader
 				eventData={eventData}
 				onPressMenu={() => {

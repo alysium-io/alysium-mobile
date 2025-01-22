@@ -1,12 +1,12 @@
 import { env } from '@etc';
 import { RootState } from '@flux';
 import {
+	BaseQueryFn,
 	FetchArgs,
 	FetchBaseQueryArgs,
 	FetchBaseQueryError,
 	FetchBaseQueryMeta
-} from '@reduxjs/toolkit/dist/query/fetchBaseQuery';
-import { BaseQueryFn } from '@reduxjs/toolkit/query';
+} from '@reduxjs/toolkit/query';
 import { fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 type BaseQueryConfig = {

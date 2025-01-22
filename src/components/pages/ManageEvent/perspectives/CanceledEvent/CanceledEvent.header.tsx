@@ -1,7 +1,7 @@
 import { LiveIndicator, Text, View } from '@atomic';
 import { EventLink } from '@flux/api/event-link/event-link.entity';
 import { ComplexEventStatus } from '@flux/api/event/types';
-import { useComplexEventStatus, useNavigation } from '@hooks';
+import { useEvent, useNavigation } from '@hooks';
 import {
 	Header,
 	HeaderIconButton,
@@ -18,9 +18,7 @@ const CanceledEventPageHeader: React.FC<CanceledEventPageHeaderProps> = ({
 	eventData
 }) => {
 	const { back } = useNavigation();
-	const { complexStatus, semanticStatus } = useComplexEventStatus(
-		eventData?.event
-	);
+	const { complexStatus, semanticStatus } = useEvent(eventData?.event);
 
 	return (
 		<Header>

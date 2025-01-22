@@ -9,14 +9,20 @@ interface SwitchProps {
 }
 
 const Switch: React.FC<SwitchProps> = ({ onPress, value }) => {
-	const { mode, theme } = useTheme();
+	const { theme, themeMode } = useTheme();
 
 	return (
 		<RNSwitch
 			trackColor={{ true: '#81b0ff' }}
-			thumbColor={mode === ThemeMode.dark ? theme.colors.t1 : theme.colors.t2}
+			thumbColor={
+				themeMode === ThemeMode.dark
+					? theme.colors['text.p']
+					: theme.colors['text.s']
+			}
 			ios_backgroundColor={
-				mode === ThemeMode.dark ? theme.colors.bg3 : theme.colors.bg2
+				themeMode === ThemeMode.dark
+					? theme.colors['bg.t']
+					: theme.colors['bg.s']
 			}
 			onValueChange={() => onPress && onPress(!value)}
 			value={value}

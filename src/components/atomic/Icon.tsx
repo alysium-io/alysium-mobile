@@ -16,11 +16,8 @@ const Icon: React.FC<IconProps> = ({
 	...props
 }) => {
 	const { theme } = useTheme();
-
 	const SvgIcon = SvgIcons[name];
-
 	const iconSize = typeof size === 'string' ? theme.iconSize[size] : size;
-
 	return <SvgIcon {...props} size={iconSize} color={theme.colors[color]} />;
 };
 

@@ -4,7 +4,7 @@ import { SingleOptionRadioToggler } from '@molecules';
 import { ColorModeState } from '@types';
 import React from 'react';
 
-const ThemeModeSettings = () => {
+const ThemeModeSettings: React.FC = () => {
 	const { colorModeState, setColorModeState } = useTheme();
 
 	const onChange = (id: string) => {
@@ -13,33 +13,35 @@ const ThemeModeSettings = () => {
 	};
 
 	return (
-		<SingleOptionRadioToggler
-			defaultId={colorModeState}
-			onChange={onChange}
-			items={[
-				{
-					id: 'default',
-					titleTextProps: {
-						title: 'default',
-						titleVariant: 'paragraph'
+		<>
+			<SingleOptionRadioToggler
+				defaultId={colorModeState}
+				onChange={onChange}
+				items={[
+					{
+						id: 'default',
+						titleTextProps: {
+							title: 'default',
+							titleVariant: 'paragraph'
+						}
+					},
+					{
+						id: 'alwaysLight',
+						titleTextProps: {
+							title: 'always light',
+							titleVariant: 'paragraph'
+						}
+					},
+					{
+						id: 'alwaysDark',
+						titleTextProps: {
+							title: 'always dark',
+							titleVariant: 'paragraph'
+						}
 					}
-				},
-				{
-					id: 'alwaysLight',
-					titleTextProps: {
-						title: 'always light',
-						titleVariant: 'paragraph'
-					}
-				},
-				{
-					id: 'alwaysDark',
-					titleTextProps: {
-						title: 'always dark',
-						titleVariant: 'paragraph'
-					}
-				}
-			]}
-		/>
+				]}
+			/>
+		</>
 	);
 };
 

@@ -15,14 +15,17 @@ type ContainerProps = Omit<Props<typeof View>, 'animated'> & {
 
 const Container: React.FC<ContainerProps> = ({ settings, ...props }) => {
 	const { theme } = useTheme();
-	const backgroundColor = useSharedValue<string>(
+	const backgroundColor = useSharedValue(
 		theme.colors[settings.backgroundColor]
 	);
 
 	useEffect(() => {
-		backgroundColor.value = withTiming(theme.colors[settings.backgroundColor], {
-			duration: 150
-		});
+		backgroundColor.value = withTiming(
+			theme.colors[settings.backgroundColor] ?? 'bg.p',
+			{
+				duration: 150
+			}
+		);
 	}, [theme, settings.backgroundColor]);
 
 	const animatedStyle = useAnimatedStyle(() => {

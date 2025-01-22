@@ -1,18 +1,4 @@
-import dayjs from 'dayjs';
-import duration from 'dayjs/plugin/duration';
-import isBetween from 'dayjs/plugin/isBetween';
-import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
-import relativeTime from 'dayjs/plugin/relativeTime';
-import weekday from 'dayjs/plugin/weekday';
-import weekOfYear from 'dayjs/plugin/weekOfYear';
-
-// Initialize dayjs plugins
-dayjs.extend(duration);
-dayjs.extend(relativeTime);
-dayjs.extend(isSameOrBefore);
-dayjs.extend(weekday);
-dayjs.extend(isBetween);
-dayjs.extend(weekOfYear);
+import { dayjs } from '@etc';
 
 type DateInput = Date | dayjs.Dayjs | string | null | undefined;
 type TimeDisplay = {
@@ -145,47 +131,7 @@ const useEventDateFormatter = (
 		const now = dayjs();
 		if (normalizedStartDate.isAfter(now)) return null;
 
-		const diffMinutes = now.diff(normalizedStartDate, 'minute');
-		const diffHours = now.diff(normalizedStartDate, 'hour');
-		const diffDays = now.diff(normalizedStartDate, 'day');
-		const diffWeeks = Math.floor(diffDays / 7);
-		const diffMonths = now.diff(normalizedStartDate, 'month');
-		const diffYears = now.diff(normalizedStartDate, 'year');
-
-		// Just now / minutes
-		if (diffMinutes < 1) {
-			return 'Just now';
-		}
-		if (diffMinutes < 60) {
-			return `${diffMinutes} minute${diffMinutes === 1 ? '' : 's'} ago`;
-		}
-
-		// Hours
-		if (diffHours < 24) {
-			return `${diffHours} hour${diffHours === 1 ? '' : 's'} ago`;
-		}
-
-		// Days
-		if (diffDays < 7) {
-			return `${diffDays} day${diffDays === 1 ? '' : 's'} ago`;
-		}
-
-		// Weeks
-		if (diffWeeks < 4 && diffWeeks > 0) {
-			return `${diffWeeks} week${diffWeeks === 1 ? '' : 's'} ago`;
-		}
-
-		// Months
-		if (diffMonths < 12 && diffMonths > 0) {
-			return `${diffMonths} month${diffMonths === 1 ? '' : 's'} ago`;
-		}
-
-		// Years
-		if (diffYears > 0) {
-			return `${diffYears} year${diffYears === 1 ? '' : 's'} ago`;
-		}
-
-		return null;
+		return normalizedStartDate.fromNow();
 	};
 
 	const getDisplayParts = (): TimeDisplay => {

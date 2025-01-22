@@ -8,9 +8,16 @@ import EventManagerFooter from './EventManager.footer';
 import EventManagerPageHeader from './EventManager.header';
 import FiltersPopupMenu from './sheets/FiltersPopupMenu';
 
+export enum EventManagerView {
+	working_on = 'Working On',
+	epk = 'EPK'
+}
+
 const EventManagerPage: React.FC = () => {
 	const filtersPopupMenuSheetApi = useSheet();
-	const [eventsView, setEventsView] = useState<string>('workbench');
+	const [eventsView, setEventsView] = useState<EventManagerView>(
+		EventManagerView.working_on
+	);
 
 	return (
 		<BasePage FooterComponent={EventManagerFooter}>
@@ -19,10 +26,10 @@ const EventManagerPage: React.FC = () => {
 				onPressFilters={filtersPopupMenuSheetApi.open}
 			/>
 			<Switch>
-				<Case condition={eventsView === 'workbench'}>
+				<Case condition={eventsView === EventManagerView.working_on}>
 					<WorkbenchView />
 				</Case>
-				<Case condition={eventsView === 'archive'}>
+				<Case condition={eventsView === EventManagerView.epk}>
 					<ArchiveView />
 				</Case>
 			</Switch>

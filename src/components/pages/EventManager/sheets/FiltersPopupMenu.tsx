@@ -4,14 +4,15 @@ import { SingleOptionRadioToggler } from '@molecules';
 import { BottomSheet } from '@organisms';
 import React from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { EventManagerView } from '../EventManager.page';
 
-interface FiltersPopupMenuBotto {
+interface FiltersPopupMenuBottomSheetProps {
 	sheetApi: SheetApi;
-	eventsView: string;
-	setEventsView: (id: string) => void;
+	eventsView: EventManagerView;
+	setEventsView: (id: EventManagerView) => void;
 }
 
-const FiltersPopupMenu: React.FC<FiltersPopupMenuBotto> = ({
+const FiltersPopupMenu: React.FC<FiltersPopupMenuBottomSheetProps> = ({
 	sheetApi,
 	eventsView,
 	setEventsView
@@ -29,7 +30,7 @@ const FiltersPopupMenu: React.FC<FiltersPopupMenuBotto> = ({
 					}}
 					items={[
 						{
-							id: 'workbench',
+							id: EventManagerView.working_on,
 							titleTextProps: {
 								title: 'Working On',
 								titleVariant: 'paragraph',
@@ -38,11 +39,11 @@ const FiltersPopupMenu: React.FC<FiltersPopupMenuBotto> = ({
 							}
 						},
 						{
-							id: 'archive',
+							id: EventManagerView.epk,
 							titleTextProps: {
-								title: 'Archived',
+								title: 'EPK',
 								titleVariant: 'paragraph',
-								bottomSubtext: 'Historical record of completed events.',
+								bottomSubtext: 'Completed events that show on your profile.',
 								bottomSubtextColor: 'text.q'
 							}
 						}

@@ -1,10 +1,10 @@
 import { Text, View } from '@atomic';
 import { Header, HeaderIconButton, HeaderSection } from '@organisms';
-import { capitalize } from 'lodash';
 import React from 'react';
+import { EventManagerView } from './EventManager.page';
 
 interface EventManagerPageHeaderProps {
-	eventsView: string;
+	eventsView: EventManagerView;
 	onPressFilters: () => void;
 }
 
@@ -17,7 +17,7 @@ const EventManagerPageHeader: React.FC<EventManagerPageHeaderProps> = ({
 			<HeaderSection
 				LeftComponent={
 					<View>
-						<Text>{capitalize(eventsView)}</Text>
+						<Text>{eventsView}</Text>
 					</View>
 				}
 				RightComponent={

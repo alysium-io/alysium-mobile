@@ -1,5 +1,4 @@
 import { Location } from '@flux/api/location';
-import { useLocationPermissions } from '@hooks';
 import { useCurrentLocationContext } from '@src/utils/contexts';
 import { Props } from '@types';
 import React, { useEffect, useRef } from 'react';
@@ -20,7 +19,7 @@ interface LocationMapProps {
 }
 
 const DEFAULT_ZOOM_DELTA = 0.005;
-const DEFAULT_MARKER_COLOR = 'blue';
+const DEFAULT_MARKER_COLOR = 'green';
 
 const LocationMapView: React.FC<LocationMapProps> = ({
 	markers,
@@ -30,13 +29,6 @@ const LocationMapView: React.FC<LocationMapProps> = ({
 }) => {
 	const { currentLocation } = useCurrentLocationContext();
 	const mapRef = useRef<MapView>(null);
-	const { hasPermission, requestPermission } = useLocationPermissions();
-
-	useEffect(() => {
-		if (showsUserLocation && !hasPermission) {
-			requestPermission();
-		}
-	}, [showsUserLocation, hasPermission]);
 
 	const markersArray = Array.isArray(markers) ? markers : [markers];
 	const validMarkers = markersArray.filter(

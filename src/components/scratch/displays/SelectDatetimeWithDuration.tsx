@@ -1,18 +1,14 @@
 import { LView, Text, View } from '@atomic';
+import { dayjs } from '@etc';
 import { useTheme } from '@hooks';
 import { ActionButtons, PillGroup } from '@molecules';
 import TogglePill from '@src/components/molecules/Pills/TogglePill';
 import { useEventTiming } from '@src/utils/hooks/useEventTiming';
 import { Props } from '@types';
-import dayjs from 'dayjs';
-import duration from 'dayjs/plugin/duration';
 import React from 'react';
 import { useWindowDimensions } from 'react-native';
 import DatePicker from 'react-native-date-picker';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-var advancedFormat = require('dayjs/plugin/advancedFormat');
-dayjs.extend(advancedFormat);
-dayjs.extend(duration);
 
 type Resolution =
 	| 'year'

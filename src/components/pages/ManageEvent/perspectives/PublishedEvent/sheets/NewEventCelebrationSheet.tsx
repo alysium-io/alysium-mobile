@@ -10,15 +10,16 @@ import {
 import {
 	SheetApi,
 	useClipboard,
-	useDatetimeCountdown,
 	useHyperlink,
 	useIsLoaded,
 	useQRCodeSize,
-	useTheme
+	useTheme,
+	withPoke
 } from '@hooks';
 import { ActionButtons, useButtonState } from '@molecules';
 import { BottomSheet } from '@organisms';
 import { IChildrenProps, NanoId } from '@types';
+import dayjs from 'dayjs';
 import LottieView from 'lottie-react-native';
 import React, { useCallback } from 'react';
 import { Image } from 'react-native';
@@ -50,6 +51,11 @@ const NewEventCelebrationSheet: React.FC<NewEventCelebrationSheetProps> = ({
 			artist_uid: artistData.artist_uid
 		}
 	});
+	const startTime = dayjs(data?.event.start_time);
+	const { clear } = withPoke({
+		interval: 1,
+		name: 'NewEventCelebrationSheet'
+	});
 
 	const sheetDidOpen = () => {
 		setTimeout(() => {
@@ -58,18 +64,13 @@ const NewEventCelebrationSheet: React.FC<NewEventCelebrationSheetProps> = ({
 		onLoad();
 	};
 
-	const { countdown, clearInterval } = useDatetimeCountdown(
-		data?.event.start_time ?? undefined,
-		'D[d], H[h], m[m], s[s]'
-	);
-
 	const onAnimate = (_fromIndex: number, toIndex: number) => {
 		// We get this glitchy behavior when trying to close the sheet
 		// because of the "poking" that the countdown does. So this
 		// is how we will cancel the interval before closing the sheet
 		// so that it does not reopen the sheet.
 		if (toIndex === -1) {
-			clearInterval();
+			clear();
 		}
 	};
 
@@ -119,7 +120,7 @@ const NewEventCelebrationSheet: React.FC<NewEventCelebrationSheetProps> = ({
 								color='text.q'
 								textAlign='center'
 							>
-								starts in {countdown}
+								starts {startTime?.untilFormatted()}
 							</Text>
 						</AView>
 					)}

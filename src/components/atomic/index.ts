@@ -27,15 +27,12 @@
 export { default as Checkbox } from './Checkbox';
 export { default as GestureHandlerRootView } from './GestureHandlerRootView';
 export { default as Image } from './Image';
-export { default as KeyboardAvoidingView } from './KeyboardAvoidingView';
-export { default as PersonaView } from './PersonaView';
 export { default as Radio } from './Radio';
 export { default as ScrollView } from './ScrollView';
 export { default as Switch } from './Switch';
 export { default as Text } from './Text';
 export * from './TextInput';
 export { default as View } from './View';
-export { default as ViewRef } from './ViewRef';
 
 /**
  * Dependency Overrides
@@ -65,14 +62,9 @@ export { default as DisplayEnvironment } from './DisplayEnvironment';
 export { default as DynamicGrid } from './DynamicGrid';
 export { default as Hyperlink } from './Hyperlink';
 export { default as Icon } from './Icon';
-export { default as KeyboardAvoidingFooter } from './KeyboardAvoidingFooter';
-export { default as KeyboardViewFill } from './KeyboardViewFill';
 export { default as LiveIndicator } from './LiveIndicator';
 export { default as Loading } from './Loading';
 export { default as LView } from './LView';
-export { default as NotchMargin } from './NotchMargin';
-export { default as NotchSafeArea } from './NotchSafeArea';
-export { default as Or } from './Or';
 export { default as Overlay } from './Overlay';
 export {
 	default as PhoneNumberTextInput,
@@ -81,7 +73,4 @@ export {
 export { default as QRCode } from './QRCode';
 export { default as RefreshControl } from './RefreshControl';
 export { default as Section } from './Section';
-export { default as SlideInOutView } from './SlideInOutView';
 export { default as StatusBar } from './StatusBar';
-export { default as TagAvatar } from './TagAvatar';
-export { default as Touchable } from './Touchable';

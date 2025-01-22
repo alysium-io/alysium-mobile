@@ -4,6 +4,7 @@ export { type TitleTextProps } from './components/TitleText';
 export { default as ContentListItem } from './ContentListItem';
 export { default as ContentListItemSkeletonPlaceholder } from './ContentListItemSkeletonPlaceholder';
 export { default as ContentListItemWithRank } from './ContentListItemWithRank';
+export { default as EventContentListItem } from './EventContentListItem';
 export { default as ListItemWithRadio } from './ListItemWithRadio';
 export { default as MenuListItem } from './MenuListItem';
 export { default as MenuListItemWithButton } from './MenuListItemWithButton';

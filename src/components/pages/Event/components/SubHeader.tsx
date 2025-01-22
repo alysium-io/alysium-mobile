@@ -77,8 +77,10 @@ const SubHeader: React.FC<SubHeaderProps> = ({ eventData }) => {
 					</If>
 				</View>
 			</View>
-			<View width='75%'>
-				<Text variant='paragraph-small'>{eventData.event.about}</Text>
+			<View>
+				<Text variant='paragraph-small' textAlign='center'>
+					{eventData.event.about}
+				</Text>
 			</View>
 		</Section>
 	);

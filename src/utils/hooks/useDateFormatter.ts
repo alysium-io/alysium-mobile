@@ -1,16 +1,4 @@
-import dayjs from 'dayjs';
-import isBetween from 'dayjs/plugin/isBetween';
-import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
-import relativeTime from 'dayjs/plugin/relativeTime';
-import weekday from 'dayjs/plugin/weekday';
-import weekOfYear from 'dayjs/plugin/weekOfYear';
-
-// Initialize dayjs plugins
-dayjs.extend(relativeTime);
-dayjs.extend(isSameOrBefore);
-dayjs.extend(weekday);
-dayjs.extend(isBetween);
-dayjs.extend(weekOfYear);
+import { dayjs } from '@etc';
 
 type DateInput = Date | dayjs.Dayjs | string | null | undefined;
 

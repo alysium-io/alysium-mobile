@@ -52,9 +52,6 @@ export const createSemanticLightTheme = (
 
 		'sheet.handle': palette.neutral.p5,
 
-		'skeleton-placeholder.bg': undefined,
-		'skeleton-placeholder.highlight': undefined,
-
 		'button.solid.loading.bg': palette.neutral.p4,
 		'button.solid.loading.activity-indicator': palette.neutral.p8,
 		'button.solid.disabled.bg': palette.neutral.p3,

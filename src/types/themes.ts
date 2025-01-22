@@ -96,10 +96,6 @@ export type SemanticColors = {
 	// Sheets
 	'sheet.handle': HexColor;
 
-	// Skeletons
-	'skeleton-placeholder.bg': HexColor | undefined;
-	'skeleton-placeholder.highlight': HexColor | undefined;
-
 	// Buttons
 	'button.solid.loading.bg': HexColor;
 	'button.solid.loading.activity-indicator': HexColor;

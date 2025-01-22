@@ -76,6 +76,9 @@ const EventMapSheetItemHeader: React.FC<EventMapSheetItemHeaderProps> = ({
 				<Avatar
 					image={event.event.profile_image?.large.key}
 					borderRadius='none'
+					defaultImageProps={{
+						icon: 'event'
+					}}
 				/>
 			</AView>
 			<AView style={animatedTextContainerStyle}>

@@ -39,7 +39,8 @@ export default serviceApi.injectEndpoints({
 				body
 			}),
 			invalidatesTags: (results, error, { body }) => [
-				{ type: 'PrivateArtist', id: 'CURRENT' }
+				{ type: 'PrivateArtist', id: 'CURRENT' },
+				{ type: 'PublicArtist', id: body.artist_uid }
 			]
 		}),
 		findOneScene: builder.query<

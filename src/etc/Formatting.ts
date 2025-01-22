@@ -1,9 +1,4 @@
-import dayjs from 'dayjs';
-import timezone from 'dayjs/plugin/timezone';
-import utc from 'dayjs/plugin/utc';
-
-dayjs.extend(utc);
-dayjs.extend(timezone);
+import { dayjs } from '@etc';
 
 class Formatting {
 	static formatPhoneNumber = (input?: string | null): string | undefined => {

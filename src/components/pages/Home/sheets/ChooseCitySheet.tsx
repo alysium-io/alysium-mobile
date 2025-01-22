@@ -26,11 +26,14 @@ const ChooseCitySheet: React.FC<ChooseCitySheetProps> = ({
 	const insets = useSafeAreaInsets();
 	const searchApi = useSearch();
 	const { data, isFetching, isSuccess } =
-		locationApiSlice.useAutocompleteSceneQuery({
-			body: {
-				searchText: searchApi.searchText
-			}
-		});
+		locationApiSlice.useAutocompleteSceneQuery(
+			{
+				body: {
+					searchText: searchApi.searchText
+				}
+			},
+			{ skip: !searchApi.searchText.length }
+		);
 
 	const sheetDidOpen = () => {
 		searchApi.pressActivate();

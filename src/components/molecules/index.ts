@@ -16,8 +16,6 @@ export * from './EditableImage';
 export * from './ListItem';
 export * from './Maps';
 export * from './Pills';
-export * from './SelfAwareScrollView';
-export * from './Sequence';
 export * from './StepBar';
 export * from './TabToggler';
 export * from './TextInput';

@@ -1,24 +1,16 @@
 import { View } from '@atomic';
 import { Props } from '@types';
 import React from 'react';
-import { ActivityIndicator, StyleSheet } from 'react-native';
+import { ActivityIndicator } from 'react-native';
 
 interface LoadingProps extends Props<typeof ActivityIndicator> {}
 
 const Loading: React.FC<LoadingProps> = (props) => {
 	return (
-		<View style={styles.container}>
+		<View flex={1} justifyContent='center' alignItems='center'>
 			<ActivityIndicator {...props} />
 		</View>
 	);
 };
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		justifyContent: 'center',
-		alignItems: 'center'
-	}
-});
 
 export default Loading;

@@ -5,7 +5,6 @@ export * from './ContentListItemsLoading';
 export * from './GlobalLoadingOverlay';
 export * from './PageError';
 export * from './ParallaxLoading';
-export * from './StandardFeedback';
 export * from './StartsInCountdown';
 export * from './ThemeModeSettings';
 export * from './ThemePicker';

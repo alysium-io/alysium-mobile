@@ -1,7 +1,7 @@
 import { LiveIndicator, Text, View } from '@atomic';
 import { Event } from '@flux/api/event';
 import { ComplexEventStatus } from '@flux/api/event/types';
-import { useComplexEventStatus } from '@hooks';
+import { useEvent, withPoke } from '@hooks';
 import React from 'react';
 
 interface ComplexEventStatusIndicatorProps {
@@ -11,8 +11,12 @@ interface ComplexEventStatusIndicatorProps {
 const ComplexEventStatusIndicator: React.FC<
 	ComplexEventStatusIndicatorProps
 > = ({ event }) => {
-	const { complexStatus, semanticStatus } = useComplexEventStatus(event, {
-		pokeInterval: 15
+	const { complexStatus, semanticComplexStatus, _getComplexStatus } =
+		useEvent(event);
+	withPoke({
+		interval: 5,
+		checkFn: _getComplexStatus,
+		name: 'ComplexEventStatusIndicator'
 	});
 
 	if (!event) return null;
@@ -25,7 +29,7 @@ const ComplexEventStatusIndicator: React.FC<
 				variant='paragraph-small-medium'
 				color={complexStatus === ComplexEventStatus.live ? 'danger' : 'text.q'}
 			>
-				{semanticStatus}
+				{semanticComplexStatus}
 			</Text>
 		</View>
 	);

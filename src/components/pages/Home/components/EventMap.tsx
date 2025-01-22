@@ -3,7 +3,7 @@ import { eventApiSlice } from '@flux/api/event';
 import { EventLink } from '@flux/api/event-link/event-link.entity';
 import { BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import { useMapRegionDetection, useNavigation, useTheme } from '@hooks';
-import { Button, SelectedRegionHighlight } from '@molecules';
+import { Button } from '@molecules';
 import { BottomSheet } from '@organisms';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { TouchableOpacity, useWindowDimensions } from 'react-native';
@@ -155,7 +155,7 @@ const EventMap: React.FC<EventMapProps> = ({ initialRegion }) => {
 				onPanDrag={handleMapDrag}
 				initialRegion={initialRegion}
 			>
-				<SelectedRegionHighlight region={region} />
+				{/* <SelectedRegionHighlight region={region} /> */}
 				{eventData?.map((event) => (
 					<EventMapMarker
 						key={`${event.event.location?.latitude}-${event.event.location?.longitude}-${event.event.event_uid}`}
