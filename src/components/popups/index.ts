@@ -1,4 +1,3 @@
-export * from './ArtistEventPopupMenuBottomSheet';
 export * from './CheckUserWantsToRegisterBottomSheet';
 export * from './ConfirmDeleteBottomSheet';
 export * from './ConfirmEventLocationChoiceBottomSheet';
@@ -8,3 +7,4 @@ export * from './CreateArtistBottomSheet';
 export * from './Documents';
 export * from './JoinScenePreviewBottomSheet';
 export * from './ModifyArtistTeamMemberPermissionsBottomSheet';
+export * from './ShareExternalSheet';

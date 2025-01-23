@@ -10,20 +10,21 @@ import {
 import { BottomSheet } from '@organisms';
 import React, { useCallback, useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
 import ViewShot from 'react-native-view-shot';
 import ContentContainer from './components/ContentContainer';
-import CustomShareButtonIcon from './components/CustomShareButtonIcon';
-import ShareButton from './components/ShareButton';
+import ShareOptionsCarousel from './components/ShareOptionsCarousel';
+import useShareViewShot from './hooks/useShareViewShot';
 import StandardEventPoster from './posters/StandardEventPoster';
-import useShareViewShot from './useShareViewShot';
 
-interface ShareExternalProps {
+interface ShareEventPosterSheetProps {
 	event: EventLink;
 	sheetApi: SheetApi;
 }
 
-const ShareExternal: React.FC<ShareExternalProps> = ({ sheetApi, event }) => {
+const ShareEventPosterSheet: React.FC<ShareEventPosterSheetProps> = ({
+	sheetApi,
+	event
+}) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const { eventPageHyperlink } = useHyperlink();
 	const link = eventPageHyperlink(event.event.event_uid);
@@ -80,29 +81,15 @@ const ShareExternal: React.FC<ShareExternalProps> = ({ sheetApi, event }) => {
 			backgroundStyle={styles.bottomSheet}
 			onChange={onChange}
 		>
-			<ScrollView horizontal style={{ margin: 15 }}>
-				<ShareButton
-					CustomImage={() => <CustomShareButtonIcon icon='save' />}
-					title='Save Image'
-					onPress={captureWithOptions}
-				/>
-				<ShareButton
-					CustomImage={() => <CustomShareButtonIcon icon='chainlink' />}
-					title='Copy Link'
-					onPress={() => copy(link, { text2: 'You can now share this event' })}
-				/>
-				<ShareButton
-					CustomImage={() => <CustomShareButtonIcon icon='share-external' />}
-					title='Share Via'
-					onPress={shareVia}
-				/>
-				<ShareButton image='instagram' title='Story' onPress={shareIGStory} />
-				<ShareButton
-					image='imessage'
-					title='iMessage'
-					onPress={shareiMessage}
-				/>
-			</ScrollView>
+			<ShareOptionsCarousel
+				onPressSaveImage={captureWithOptions}
+				onPressCopyLink={() =>
+					copy(link, { text2: 'You can now share this event' })
+				}
+				onPressShareVia={shareVia}
+				onPressShareIGStory={shareIGStory}
+				onPressShareiMessage={shareiMessage}
+			/>
 		</BottomSheet>
 	);
 };
@@ -122,4 +109,4 @@ const styles = StyleSheet.create({
 	}
 });
 
-export default ShareExternal;
+export default ShareEventPosterSheet;

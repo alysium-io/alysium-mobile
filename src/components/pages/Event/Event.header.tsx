@@ -1,27 +1,22 @@
-import { Event } from '@flux/api/event';
+import { EventLink } from '@flux/api/event-link/event-link.entity';
 import { useNavigation, useSheet } from '@hooks';
 import { Header, HeaderIconButton, HeaderSection } from '@organisms';
-import { ArtistEventPopupMenuBottomSheet } from '@popups';
 import { ComplexEventStatusIndicator } from '@templates';
-import { NanoId } from '@types';
 import React from 'react';
+import ArtistEventPopupMenuSheet from './sheets/ArtistEventPopupMenuSheet';
 
 interface EventPageHeaderProps {
-	event_uid: NanoId;
-	event?: Event;
+	event?: EventLink;
 }
 
-const EventPageHeader: React.FC<EventPageHeaderProps> = ({
-	event_uid,
-	event
-}) => {
+const EventPageHeader: React.FC<EventPageHeaderProps> = ({ event }) => {
 	const { back } = useNavigation();
 	const artistEventPopupMenuSheetApi = useSheet();
 	return (
 		<Header>
 			<HeaderSection
 				LeftComponent={<HeaderIconButton onPress={back} name='arrow-left' />}
-				CenterComponent={<ComplexEventStatusIndicator event={event} />}
+				CenterComponent={<ComplexEventStatusIndicator event={event?.event} />}
 				RightComponent={
 					<HeaderIconButton
 						name='menu'
@@ -29,10 +24,12 @@ const EventPageHeader: React.FC<EventPageHeaderProps> = ({
 					/>
 				}
 			/>
-			<ArtistEventPopupMenuBottomSheet
-				sheetApi={artistEventPopupMenuSheetApi}
-				event_uid={event_uid}
-			/>
+			{event && (
+				<ArtistEventPopupMenuSheet
+					sheetApi={artistEventPopupMenuSheetApi}
+					event={event}
+				/>
+			)}
 		</Header>
 	);
 };

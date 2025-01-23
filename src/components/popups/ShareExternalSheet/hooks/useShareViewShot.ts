@@ -1,9 +1,9 @@
-import { usePhotosAndCamera, useToast } from '@hooks';
-import { Alert } from '@templates';
+import { usePhotosAndCamera } from '@hooks';
 import { useRef } from 'react';
 import { Share as RNShare } from 'react-native';
 import { getBundleId } from 'react-native-device-info';
 import Share, { Social } from 'react-native-share';
+import Toast from 'react-native-toast-message';
 import ViewShot, { captureRef } from 'react-native-view-shot';
 
 interface IUseShareViewShot {
@@ -15,14 +15,17 @@ interface IUseShareViewShot {
 }
 
 const useShareViewShot = (url: string): IUseShareViewShot => {
-	const { toastSuccess } = useToast();
 	const { saveImage } = usePhotosAndCamera();
 	const viewShotRef = useRef<ViewShot>(null);
 
 	const shareIGStory = async () => {
 		try {
 			if (!viewShotRef.current) {
-				throw new Error('ViewShot ref not ready');
+				Toast.show({
+					text1: 'ViewShotRef Error',
+					text2: 'Failed to share Instagram Story'
+				});
+				return;
 			}
 
 			const uri = await captureRef(viewShotRef, {
@@ -36,7 +39,11 @@ const useShareViewShot = (url: string): IUseShareViewShot => {
 				backgroundImage: uri
 			});
 		} catch (error) {
-			Alert.error();
+			console.log(error);
+			Toast.show({
+				text1: 'Error',
+				text2: 'Failed to share Instagram Story'
+			});
 		}
 	};
 
@@ -49,7 +56,11 @@ const useShareViewShot = (url: string): IUseShareViewShot => {
 				url
 			});
 		} catch (error) {
-			Alert.error();
+			console.log(error);
+			Toast.show({
+				text1: 'Error',
+				text2: 'Failed to share iMessage'
+			});
 		}
 	};
 
@@ -61,7 +72,11 @@ const useShareViewShot = (url: string): IUseShareViewShot => {
 				url
 			});
 		} catch (error) {
-			Alert.error();
+			console.log(error);
+			Toast.show({
+				text1: 'Error',
+				text2: 'Failed to share image'
+			});
 		}
 	};
 
@@ -72,9 +87,17 @@ const useShareViewShot = (url: string): IUseShareViewShot => {
 				quality: 0.8
 			});
 			await saveImage(uri);
-			toastSuccess('Image saved to camera roll');
+			Toast.show({
+				text1: 'Success',
+				text2: 'Image saved to camera roll',
+				props: { icon: 'save' }
+			});
 		} catch (error) {
 			console.error('Failed to capture view:', error);
+			Toast.show({
+				text1: 'Error',
+				text2: 'Failed to save image'
+			});
 		}
 	};
 

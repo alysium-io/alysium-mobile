@@ -6,7 +6,6 @@ export * from './Maps';
 export * from './Parallax';
 export * from './PillList';
 export * from './SearchBar';
-export * from './Sharing';
 export * from './Slider';
 export * from './Stats';
 export * from './TabToggle';

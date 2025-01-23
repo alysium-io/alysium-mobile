@@ -30,8 +30,6 @@ const EditUserProfileBottomSheet: React.FC<EditUserProfileBottomSheetProps> = ({
 		reset,
 		handleSubmit,
 		control,
-		watch,
-		getValues,
 		formState: { isValid }
 	} = useForm<UpdateUserBodyDto>({
 		defaultValues: {

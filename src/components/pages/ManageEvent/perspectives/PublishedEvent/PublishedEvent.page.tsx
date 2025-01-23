@@ -10,7 +10,8 @@ import {
 	useSheet
 } from '@hooks';
 import { MenuListItem } from '@molecules';
-import { BasePage, ShareExternal } from '@organisms';
+import { BasePage } from '@organisms';
+import { ShareEventPosterSheet } from '@popups';
 import Separator from '@src/components/pages/EditArtist/components/Separator';
 import SubHeader from '@src/components/pages/Event/components/SubHeader';
 import { PageError, StartsInCountdown } from '@templates';
@@ -258,7 +259,10 @@ const PublishedEventPage: React.FC<PublishedEventPageProps> = ({
 				sheetApi={publishedEventPopupMenuSheet}
 			/>
 			{eventData && (
-				<ShareExternal event={eventData} sheetApi={shareExternalSheetApi} />
+				<ShareEventPosterSheet
+					event={eventData}
+					sheetApi={shareExternalSheetApi}
+				/>
 			)}
 		</BasePage>
 	);

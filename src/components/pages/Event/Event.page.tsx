@@ -48,7 +48,7 @@ const ArtistEvent = () => {
 
 	return (
 		<BasePage FooterComponent={FooterComponent}>
-			<EventPageHeader event_uid={params.event_uid} event={eventData.event} />
+			<EventPageHeader event={eventData} />
 			<Parallax
 				title={eventData.event.name}
 				image={eventData.event.profile_image?.large.key}

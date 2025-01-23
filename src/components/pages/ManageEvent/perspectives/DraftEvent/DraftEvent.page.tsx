@@ -5,7 +5,8 @@ import { UpdateArtistEventBodyDto } from '@flux/api/event/dto/artist-event-updat
 import { EventStatus } from '@flux/api/event/types';
 import { useRefresh, useSheet } from '@hooks';
 import { ActionButtons } from '@molecules';
-import { BasePage, ShareExternal } from '@organisms';
+import { BasePage } from '@organisms';
+import { ShareEventPosterSheet } from '@popups';
 import { PageError } from '@templates';
 import { NanoId } from '@types';
 import React, { useCallback, useEffect } from 'react';
@@ -151,7 +152,10 @@ const DraftEventPage: React.FC<DraftEventPageProps> = ({
 				}}
 				event_uid={eventData.event.event_uid}
 			/>
-			<ShareExternal event={eventData} sheetApi={shareExternalSheetApi} />
+			<ShareEventPosterSheet
+				event={eventData}
+				sheetApi={shareExternalSheetApi}
+			/>
 		</BasePage>
 	);
 };
