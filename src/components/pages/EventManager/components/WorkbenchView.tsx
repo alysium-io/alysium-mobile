@@ -4,6 +4,7 @@ import { artistEventApiSlice } from '@flux/api/event';
 import { EventLink } from '@flux/api/event-link/event-link.entity';
 import { ComplexEventStatus } from '@flux/api/event/types';
 import { useEvent, useRefresh, withPoke } from '@hooks';
+import { PageError } from '@templates';
 import React, { useMemo } from 'react';
 import LoadingView from './LoadingView';
 import WorkbenchEmptyState from './WorkbenchEmptyState';
@@ -30,11 +31,12 @@ interface WorkbenchViewProps {}
 
 const WorkbenchView: React.FC<WorkbenchViewProps> = () => {
 	const { artistData } = useArtistAppContext();
-	let { data, isLoading, refetch } = artistEventApiSlice.useWorkbenchQuery({
-		params: {
-			artist_uid: artistData.artist_uid
-		}
-	});
+	let { data, isLoading, refetch, error } =
+		artistEventApiSlice.useWorkbenchQuery({
+			params: {
+				artist_uid: artistData.artist_uid
+			}
+		});
 	const refreshControl = useRefresh(refetch);
 
 	const { _getComplexStatus } = useEvent();
@@ -68,6 +70,10 @@ const WorkbenchView: React.FC<WorkbenchViewProps> = () => {
 		checkFn: getGroupedSections,
 		name: 'Workbench'
 	});
+
+	if (error) {
+		return <PageError error={error} />;
+	}
 
 	if (isLoading) {
 		return <LoadingView />;

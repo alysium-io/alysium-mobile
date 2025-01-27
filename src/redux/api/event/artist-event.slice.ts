@@ -1,6 +1,11 @@
 import _ from 'lodash';
 import { rtkBaseUrl, serviceApi } from '../base';
 import {
+	AllParamsDto,
+	AllQueryDto,
+	AllResponseDto
+} from './dto/artist-event-all.dto';
+import {
 	ArchiveParamsDto,
 	ArchiveQueryDto,
 	ArchiveResponseDto
@@ -14,6 +19,11 @@ import {
 	DeleteArtistEventParamsDto,
 	DeleteArtistEventResponseDto
 } from './dto/artist-event-delete.dto';
+import {
+	EndedParamsDto,
+	EndedQueryDto,
+	EndedResponseDto
+} from './dto/artist-event-ended.dto';
 import {
 	FindAllArtistEventsParamsDto,
 	FindAllArtistEventsQueryDto,
@@ -284,6 +294,30 @@ const artistEventApiSlice = serviceApi.injectEndpoints({
 			}),
 			providesTags: (result) =>
 				result ? [{ type: 'ArtistEvent', id: 'ARCHIVE' }] : []
+		}),
+		ended: builder.query<
+			EndedResponseDto,
+			{ params: EndedParamsDto; query: EndedQueryDto }
+		>({
+			query: ({ params, query }) => ({
+				url: url(`/artist/${params.artist_uid}/event/ended`),
+				method: 'GET',
+				params: query
+			}),
+			providesTags: (result) =>
+				result ? [{ type: 'ArtistEvent', id: 'ENDED' }] : []
+		}),
+		all: builder.query<
+			AllResponseDto,
+			{ params: AllParamsDto; query: AllQueryDto }
+		>({
+			query: ({ params, query }) => ({
+				url: url(`/artist/${params.artist_uid}/event/all`),
+				method: 'GET',
+				params: query
+			}),
+			providesTags: (result) =>
+				result ? [{ type: 'ArtistEvent', id: 'ALL' }] : []
 		})
 	})
 });

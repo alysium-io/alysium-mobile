@@ -1,34 +1,28 @@
 import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
 import { RefreshControl, ScrollView } from '@atomic';
 import { artistEventApiSlice } from '@flux/api/event';
-import {
-	useEventDateFormatter,
-	useNavigation,
-	usePagination,
-	useRefresh
-} from '@hooks';
+import { useEvent, useNavigation, usePagination, useRefresh } from '@hooks';
 import { EventContentListItem } from '@molecules';
 import { PageError } from '@templates';
 import { orderBy } from 'lodash';
 import React from 'react';
-import ArchiveEmptyState from './ArchiveEmptyState';
+import EndedEmptyState from './EndedEmptyState';
 import LoadingView from './LoadingView';
 
-interface ArchiveViewProps {}
+interface AllViewProps {}
 
-const ArchiveView: React.FC<ArchiveViewProps> = () => {
+const AllView: React.FC<AllViewProps> = () => {
 	const { artistData } = useArtistAppContext();
 	const { page, defaultLimit } = usePagination();
-	const { data, isLoading, refetch, error } =
-		artistEventApiSlice.useArchiveQuery({
-			params: {
-				artist_uid: artistData.artist_uid
-			},
-			query: {
-				page,
-				limit: defaultLimit
-			}
-		});
+	const { data, isLoading, refetch, error } = artistEventApiSlice.useAllQuery({
+		params: {
+			artist_uid: artistData.artist_uid
+		},
+		query: {
+			page,
+			limit: defaultLimit
+		}
+	});
 	const refreshControl = useRefresh(refetch);
 	const { manageEventPage } = useNavigation();
 	const sortedEvents = orderBy(data, ['event.start_time'], ['desc']);
@@ -42,23 +36,21 @@ const ArchiveView: React.FC<ArchiveViewProps> = () => {
 	}
 
 	if (!data?.length) {
-		return <ArchiveEmptyState />;
+		return <EndedEmptyState />;
 	}
 
 	return (
 		<ScrollView refreshControl={<RefreshControl {...refreshControl} />}>
 			{sortedEvents?.map((event) => {
-				const dateFormatter = useEventDateFormatter(
-					event.event.start_time,
-					event.event.end_time
-				);
+				const { semanticComplexStatus } = useEvent(event.event);
 				return (
 					<EventContentListItem
 						key={event.event.event_uid}
 						onPress={() => manageEventPage(event.event.event_uid)}
 						titleTextProps={{
 							title: event.event.name,
-							bottomSubtext: dateFormatter.timeAgoConcise() || ''
+							bottomSubtext: semanticComplexStatus,
+							bottomSubtextColor: 'text.q'
 						}}
 						profileImageProps={{
 							image: event.event.profile_image?.small.key
@@ -70,4 +62,4 @@ const ArchiveView: React.FC<ArchiveViewProps> = () => {
 	);
 };
 
-export default ArchiveView;
+export default AllView;

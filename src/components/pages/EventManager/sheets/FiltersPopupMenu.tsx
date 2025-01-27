@@ -39,11 +39,29 @@ const FiltersPopupMenu: React.FC<FiltersPopupMenuBottomSheetProps> = ({
 							}
 						},
 						{
+							id: EventManagerView.ended,
+							titleTextProps: {
+								title: 'Ended',
+								titleVariant: 'paragraph',
+								bottomSubtext: 'Events that have ended.',
+								bottomSubtextColor: 'text.q'
+							}
+						},
+						{
 							id: EventManagerView.epk,
 							titleTextProps: {
 								title: 'EPK',
 								titleVariant: 'paragraph',
 								bottomSubtext: 'Completed events that show on your profile.',
+								bottomSubtextColor: 'text.q'
+							}
+						},
+						{
+							id: EventManagerView.all,
+							titleTextProps: {
+								title: 'All',
+								titleVariant: 'paragraph',
+								bottomSubtext: 'All events.',
 								bottomSubtextColor: 'text.q'
 							}
 						}

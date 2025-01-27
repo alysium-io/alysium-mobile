@@ -11,16 +11,16 @@ import { EventContentListItem } from '@molecules';
 import { PageError } from '@templates';
 import { orderBy } from 'lodash';
 import React from 'react';
-import ArchiveEmptyState from './ArchiveEmptyState';
+import EndedEmptyState from './EndedEmptyState';
 import LoadingView from './LoadingView';
 
-interface ArchiveViewProps {}
+interface EndedViewProps {}
 
-const ArchiveView: React.FC<ArchiveViewProps> = () => {
+const EndedView: React.FC<EndedViewProps> = () => {
 	const { artistData } = useArtistAppContext();
 	const { page, defaultLimit } = usePagination();
-	const { data, isLoading, refetch, error } =
-		artistEventApiSlice.useArchiveQuery({
+	const { data, isLoading, refetch, error } = artistEventApiSlice.useEndedQuery(
+		{
 			params: {
 				artist_uid: artistData.artist_uid
 			},
@@ -28,7 +28,8 @@ const ArchiveView: React.FC<ArchiveViewProps> = () => {
 				page,
 				limit: defaultLimit
 			}
-		});
+		}
+	);
 	const refreshControl = useRefresh(refetch);
 	const { manageEventPage } = useNavigation();
 	const sortedEvents = orderBy(data, ['event.start_time'], ['desc']);
@@ -42,7 +43,7 @@ const ArchiveView: React.FC<ArchiveViewProps> = () => {
 	}
 
 	if (!data?.length) {
-		return <ArchiveEmptyState />;
+		return <EndedEmptyState />;
 	}
 
 	return (
@@ -70,4 +71,4 @@ const ArchiveView: React.FC<ArchiveViewProps> = () => {
 	);
 };
 
-export default ArchiveView;
+export default EndedView;
