@@ -1,9 +1,8 @@
 import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
 import { Section, View } from '@atomic';
-import { GalleryRefType } from '@flux/api/gallery/types';
 import { useArtistTeam, useNavigation } from '@hooks';
 import { ContentListItem } from '@molecules';
-import { BasePage, EditableGallery } from '@organisms';
+import { BasePage } from '@organisms';
 import FormTextDisplay from '@src/components/molecules/TextInput/FormTextInput/FormTextDisplay';
 import React from 'react';
 import { ScrollView } from 'react-native';
@@ -100,13 +99,6 @@ const EditArtistPage = () => {
 									  }`
 									: 'To manage/view your account'
 							}}
-						/>
-					</View>
-					<View margin='m'>
-						<EditableGallery
-							gallery={artistData.gallery}
-							galleryRefType={GalleryRefType.artist}
-							galleryRefUid={artistData.artist_uid}
 						/>
 					</View>
 				</Section>
