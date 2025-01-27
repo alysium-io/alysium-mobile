@@ -1,5 +1,4 @@
 import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
-import { View } from '@atomic';
 import { Formatting } from '@etc';
 import { artistEventApiSlice } from '@flux/api/event';
 import { useSheet, useToast } from '@hooks';
@@ -8,16 +7,16 @@ import { useGlobalLoader } from '@templates';
 import { NanoId } from '@types';
 import dayjs from 'dayjs';
 import React from 'react';
+import usePermissionsToastError from '../hooks/usePermissionsError';
 import SelectEventDateTimeBottomSheet from '../sheets/SelectEventDateTimeBottomSheet';
-import usePermissionsToastError from './usePermissionsError';
 
-interface DateSectionProps {
+interface EditEventDateMenuListItemProps {
 	event_uid: NanoId;
 	startTime: string | null;
 	endTime: string | null;
 }
 
-const DateSection: React.FC<DateSectionProps> = ({
+const EditEventDateMenuListItem: React.FC<EditEventDateMenuListItemProps> = ({
 	event_uid,
 	startTime,
 	endTime
@@ -65,7 +64,7 @@ const DateSection: React.FC<DateSectionProps> = ({
 	const onPress = isEditable ? sheetApi.open : permissionsError;
 
 	return (
-		<View>
+		<>
 			<MenuListItem
 				onPress={onPress}
 				prefixIconProps={{
@@ -90,8 +89,8 @@ const DateSection: React.FC<DateSectionProps> = ({
 				defaultEndDateTime={defaultEndDateTime}
 				onPressSave={onSave}
 			/>
-		</View>
+		</>
 	);
 };
 
-export default DateSection;
+export default EditEventDateMenuListItem;

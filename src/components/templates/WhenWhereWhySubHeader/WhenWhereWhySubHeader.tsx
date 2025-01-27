@@ -1,19 +1,21 @@
 import { Section, Text, View } from '@atomic';
-import { FindOneEventResponseDto } from '@flux/api/event/dto/event-find-one.dto';
+import { EventLink } from '@flux/api/event-link/event-link.entity';
 import { useDriveTime, useEventDateFormatter, useLocation } from '@hooks';
 import React from 'react';
 import { Else, If, Then } from 'react-if';
 import { TouchableOpacity } from 'react-native';
 
-interface SubHeaderProps {
-	eventData: FindOneEventResponseDto;
+interface WhenWhereWhySubHeaderProps {
+	event: EventLink;
 }
 
-const SubHeader: React.FC<SubHeaderProps> = ({ eventData }) => {
-	const dateApi = useEventDateFormatter(eventData.event.start_time);
-	const locationApi = useLocation(eventData.event.location);
-	const onPressLocation = () => locationApi.openMap(eventData.event.name);
-	const { formattedDriveTime } = useDriveTime(eventData.event.location);
+const WhenWhereWhySubHeader: React.FC<WhenWhereWhySubHeaderProps> = ({
+	event
+}) => {
+	const dateApi = useEventDateFormatter(event.event.start_time);
+	const locationApi = useLocation(event.event.location);
+	const onPressLocation = () => locationApi.openMap(event.event.name);
+	const { formattedDriveTime } = useDriveTime(event.event.location);
 
 	const { title: locationTitle, subtitle: locationSubtitle } =
 		locationApi.getDisplayParts();
@@ -79,11 +81,11 @@ const SubHeader: React.FC<SubHeaderProps> = ({ eventData }) => {
 			</View>
 			<View>
 				<Text variant='paragraph-small' textAlign='center'>
-					{eventData.event.about}
+					{event.event.about}
 				</Text>
 			</View>
 		</Section>
 	);
 };
 
-export default SubHeader;
+export default WhenWhereWhySubHeader;

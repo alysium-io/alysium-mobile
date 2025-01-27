@@ -8,13 +8,13 @@ import { NanoId } from '@types';
 import React from 'react';
 import Toast from 'react-native-toast-message';
 
-interface CancelButtonProps {
+interface CancelEventMenuListItemProps {
 	event_uid: NanoId;
 	onSuccess?: () => void;
 	onError?: () => void;
 }
 
-const CancelButton: React.FC<CancelButtonProps> = ({
+const CancelEventMenuListItem: React.FC<CancelEventMenuListItemProps> = ({
 	event_uid,
 	onSuccess,
 	onError
@@ -31,42 +31,40 @@ const CancelButton: React.FC<CancelButtonProps> = ({
 	});
 	const { complexStatus } = useEvent(data?.event);
 
-	const cancelEvent = () => {
+	const onCancel = () => {
 		Alert.alert('Cancel Event', 'You cannot undo this operation.', [
 			{
-				text: 'Do not cancel',
-				style: 'accent'
+				text: "Don't Cancel",
+				style: 'cancel'
 			},
 			{
 				text: 'Cancel Event',
-				onPress: onCancelEvent,
+				onPress: async () => {
+					try {
+						showLoader();
+						await patchArtistEventStatusMutation({
+							params: {
+								artist_uid: artistData.artist_uid,
+								event_uid
+							},
+							body: {
+								status: EventStatus.canceled
+							}
+						}).unwrap();
+						onSuccess?.();
+					} catch (error) {
+						onError?.();
+						Toast.show({
+							text1: 'Error',
+							text2: 'Failed to cancel event'
+						});
+					} finally {
+						hideLoader();
+					}
+				},
 				style: 'destructive'
 			}
 		]);
-	};
-
-	const onCancelEvent = async () => {
-		try {
-			showLoader();
-			await patchArtistEventStatusMutation({
-				params: {
-					artist_uid: artistData.artist_uid,
-					event_uid
-				},
-				body: {
-					status: EventStatus.canceled
-				}
-			}).unwrap();
-			onSuccess?.();
-		} catch (error) {
-			onError?.();
-			Toast.show({
-				text1: 'Error',
-				text2: 'Failed to cancel event'
-			});
-		} finally {
-			hideLoader();
-		}
 	};
 
 	return (
@@ -83,10 +81,10 @@ const CancelButton: React.FC<CancelButtonProps> = ({
 				}}
 				icon='cancel'
 				iconProps={{ size: 'm' }}
-				onPress={cancelEvent}
+				onPress={onCancel}
 			/>
 		)
 	);
 };
 
-export default CancelButton;
+export default CancelEventMenuListItem;

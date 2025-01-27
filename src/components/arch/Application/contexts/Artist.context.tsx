@@ -2,11 +2,12 @@ import { artistApiSlice } from '@flux/api/artist';
 import { PrivateArtist } from '@flux/api/artist/artist.entity';
 import { UserArtistLinkPermissions } from '@flux/api/user-artist-link/types';
 import { createUseContextHook } from '@hooks';
-import { ProviderProps } from '@types';
+import { NanoId, ProviderProps } from '@types';
 import React, { createContext, useEffect } from 'react';
 import { useUserAppContext } from './User.context';
 
 export type ArtistAppContextType = {
+	artist_uid: NanoId;
 	artistData: PrivateArtist;
 	artistError: any;
 	artistIsLoading: boolean;
@@ -44,6 +45,7 @@ export const ArtistAppProvider: React.FC<ProviderProps> = ({ children }) => {
 	return (
 		<ArtistAppContext.Provider
 			value={{
+				artist_uid: artistData.artist_uid,
 				artistData,
 				artistError,
 				artistIsLoading,

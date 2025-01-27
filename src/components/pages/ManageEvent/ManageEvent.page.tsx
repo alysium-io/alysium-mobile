@@ -9,10 +9,10 @@ import { ManageEventPageRouteProp } from '@types';
 import React, { useEffect, useState } from 'react';
 import { Case, Default, Switch } from 'react-if';
 import Loading from './Loading';
-import { CanceledEventPage } from './perspectives/CanceledEvent';
+import CanceledEventPage from './perspectives/CanceledEvent/CanceledEvent.page';
 import CompletedEventPage from './perspectives/CompletedEvent/CompletedEvent.page';
-import { DraftEventPage } from './perspectives/DraftEvent';
-import { PublishedEventPage } from './perspectives/PublishedEvent';
+import DraftEventPage from './perspectives/DraftEvent/DraftEvent.page';
+import PublishedEventPage from './perspectives/PublishedEvent/PublishedEvent.page';
 import NewEventCelebrationSheet from './perspectives/PublishedEvent/sheets/NewEventCelebrationSheet';
 
 const ManageEventPage = () => {

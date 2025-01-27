@@ -1,7 +1,6 @@
 import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
-import { View } from '@atomic';
+import { Section, View } from '@atomic';
 import { artistEventApiSlice } from '@flux/api/event';
-import { UpdateArtistEventBodyDto } from '@flux/api/event/dto/artist-event-update.dto';
 import { EventStatus } from '@flux/api/event/types';
 import { useKeyboard, useSheet } from '@hooks';
 import { ActionButtons } from '@molecules';
@@ -10,76 +9,37 @@ import { ShareEventPosterSheet } from '@popups';
 import { useRoute } from '@react-navigation/native';
 import { PageError } from '@templates';
 import { EditPublishedEventPageRouteProp } from '@types';
-import React, { useCallback, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
+import React, { useCallback } from 'react';
 import { If, Then } from 'react-if';
 import { ScrollView } from 'react-native';
+import EditEventAboutMenuListItem from '../../components/EditEventAboutMenuListItem';
+import EditEventDateMenuListItem from '../../components/EditEventDateMenuListItem';
+import EditEventGallery from '../../components/EditEventGallery';
+import EditEventLocationMenuListItem from '../../components/EditEventLocationMenuListItem';
+import EditEventName from '../../components/EditEventName';
+import EditEventProfileImage from '../../components/EditEventProfileImage';
+import EditEventTicketsUrlMenuListItem from '../../components/EditEventTicketsUrlMenuListItem';
+import PublicEventHeader from '../../components/PublicEvent.header';
 import Loading from '../../Loading';
-import AboutSection from './components/AboutSection';
-import AssetsSection from './components/AssetsSection';
-import DateSection from './components/DateSection';
-import HeaderSection from './components/HeaderSection';
-import LocationSection from './components/LocationSection';
-import TicketsUrlSection from './components/TicketsUrlSection';
-import EditPublishedEventHeader from './EditPublishedEvent.header';
-import PopupMenu from './sheets/PopupMenu';
 
 const EditPublishedEvent = () => {
 	const route = useRoute<EditPublishedEventPageRouteProp>();
 	const { dismiss } = useKeyboard();
 	const { artistData } = useArtistAppContext();
 	const confirmPublishEventSheetApi = useSheet();
-	const draftEventPopupMenuBottomSheet = useSheet();
 	const shareExternalSheetApi = useSheet();
-	const [updateArtistEventMutation] =
-		artistEventApiSlice.useUpdateArtistEventMutation();
-
-	const { data: eventData, error } =
-		artistEventApiSlice.usePrivateFindOneArtistEventQuery({
+	const { data, error } = artistEventApiSlice.usePrivateFindOneArtistEventQuery(
+		{
 			params: {
 				event_uid: route.params.event_uid,
 				artist_uid: artistData.artist_uid
 			}
-		});
-
-	const {
-		formState: { isDirty },
-		control,
-		handleSubmit,
-		reset
-	} = useForm<UpdateArtistEventBodyDto>({
-		defaultValues: {
-			name: eventData?.event.name,
-			about: eventData?.event.about
 		}
-	});
-
-	useEffect(() => {
-		reset({
-			name: eventData?.event.name,
-			about: eventData?.event.about
-		});
-	}, [eventData]);
-
-	const onBlurEditable = () => {
-		if (isDirty) {
-			handleSubmit(onSubmit)();
-		}
-	};
-
-	const onSubmit = async (data: UpdateArtistEventBodyDto) => {
-		updateArtistEventMutation({
-			params: {
-				artist_uid: artistData.artist_uid,
-				event_uid: route.params.event_uid
-			},
-			body: data
-		});
-	};
+	);
 
 	const FooterComponent = useCallback(
 		() => (
-			<If condition={eventData?.event.status === EventStatus.draft}>
+			<If condition={data?.event.status === EventStatus.draft}>
 				<Then>
 					<View margin='m'>
 						<ActionButtons
@@ -93,48 +53,36 @@ const EditPublishedEvent = () => {
 				</Then>
 			</If>
 		),
-		[eventData?.event.status]
+		[data?.event.status]
 	);
 
 	if (error) {
 		return <PageError error={error} />;
 	}
 
-	if (!eventData) {
+	if (!data) {
 		return <Loading />;
 	}
 
 	return (
 		<BasePage FooterComponent={FooterComponent}>
-			<EditPublishedEventHeader />
+			<PublicEventHeader event={data} />
 			<ScrollView onScrollBeginDrag={dismiss}>
-				<HeaderSection
-					control={control}
-					eventData={eventData}
-					onBlurEditable={onBlurEditable}
+				<Section marginBottom='none'>
+					<EditEventProfileImage event_uid={data.event.event_uid} />
+					<EditEventName event_uid={data.event.event_uid} />
+				</Section>
+				<EditEventDateMenuListItem
+					event_uid={data.event.event_uid}
+					startTime={data.event.start_time}
+					endTime={data.event.end_time}
 				/>
-				<DateSection
-					event_uid={eventData.event.event_uid}
-					startTime={eventData.event.start_time}
-					endTime={eventData.event.end_time}
-				/>
-				<LocationSection eventData={eventData} />
-				<AboutSection eventData={eventData} />
-				<TicketsUrlSection eventData={eventData} />
-				<AssetsSection eventData={eventData} />
+				<EditEventLocationMenuListItem event={data} />
+				<EditEventAboutMenuListItem event={data} />
+				<EditEventTicketsUrlMenuListItem event={data} />
+				<EditEventGallery event={data} />
 			</ScrollView>
-			<PopupMenu
-				sheetApi={draftEventPopupMenuBottomSheet}
-				onPressShare={() => {
-					draftEventPopupMenuBottomSheet.close();
-					shareExternalSheetApi.open();
-				}}
-				event_uid={eventData.event.event_uid}
-			/>
-			<ShareEventPosterSheet
-				event={eventData}
-				sheetApi={shareExternalSheetApi}
-			/>
+			<ShareEventPosterSheet event={data} sheetApi={shareExternalSheetApi} />
 		</BasePage>
 	);
 };

@@ -1,5 +1,7 @@
 import {
 	AddArtistTeamMemberPage,
+	ArtistEventsInteractiveMapPage,
+	ArtistPage,
 	ChooseScenePage,
 	CreateContactPage,
 	CreateExternalLinkPage,
@@ -11,7 +13,10 @@ import {
 	EditContactsPage,
 	EditExternalLinkPage,
 	EditExternalLinksPage,
-	ProfilePage
+	EventPage,
+	ProfilePage,
+	ScenePage,
+	ViewGalleryPage
 } from '@pages';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Persona, ProfileStackNavigatorParamList } from '@types';
@@ -29,6 +34,14 @@ const ProfileTab = () => {
 	return (
 		<ProfileStack.Navigator screenOptions={screenOptions}>
 			<ProfileStack.Screen name='ProfilePage' component={ProfilePage} />
+			<ProfileStack.Screen name='ArtistPage' component={ArtistPage} />
+			<ProfileStack.Screen
+				name='ArtistEventsInteractiveMapPage'
+				component={ArtistEventsInteractiveMapPage}
+			/>
+			<ProfileStack.Screen name='ScenePage' component={ScenePage} />
+			<ProfileStack.Screen name='EventPage' component={EventPage} />
+			<ProfileStack.Screen name='ViewGalleryPage' component={ViewGalleryPage} />
 
 			{personaType === Persona.artist && (
 				<ProfileStack.Screen name='EditArtistPage' component={EditArtistPage} />

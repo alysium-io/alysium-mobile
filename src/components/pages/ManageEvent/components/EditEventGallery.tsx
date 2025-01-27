@@ -1,33 +1,33 @@
 import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
 import { Section } from '@atomic';
-import { FindOneArtistEventResponseDto } from '@flux/api/event/dto/artist-event-find-one.dto';
+import { EventLink } from '@flux/api/event-link/event-link.entity';
 import { GalleryRefType } from '@flux/api/gallery/types';
 import { EditableGallery, Gallery } from '@organisms';
 import React from 'react';
 
-interface AssetsSectionProps {
-	eventData: FindOneArtistEventResponseDto;
+interface EditEventGalleryProps {
+	event: EventLink;
 }
 
-const AssetsSection: React.FC<AssetsSectionProps> = ({ eventData }) => {
+const EditEventGallery: React.FC<EditEventGalleryProps> = ({ event }) => {
 	const { isEditable } = useArtistAppContext();
 	return (
 		<Section margin='m'>
 			{isEditable ? (
 				<EditableGallery
-					gallery={eventData.event.gallery}
+					gallery={event.event.gallery}
 					galleryRefType={GalleryRefType.artistEvent}
-					galleryRefUid={eventData.event.event_uid}
+					galleryRefUid={event.event.event_uid}
 				/>
 			) : (
 				<Gallery
-					gallery={eventData.event.gallery}
+					gallery={event.event.gallery}
 					galleryRefType={GalleryRefType.artistEvent}
-					galleryRefUid={eventData.event.event_uid}
+					galleryRefUid={event.event.event_uid}
 				/>
 			)}
 		</Section>
 	);
 };
 
-export default AssetsSection;
+export default EditEventGallery;

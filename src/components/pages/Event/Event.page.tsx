@@ -3,14 +3,13 @@ import { eventApiSlice } from '@flux/api/event';
 import { ActionButtons } from '@molecules';
 import { BasePage, Parallax } from '@organisms';
 import { useRoute } from '@react-navigation/native';
-import { PageError, ParallaxLoading } from '@templates';
+import { PageError, ParallaxLoading, WhenWhereWhySubHeader } from '@templates';
 import { EventPageRouteProp } from '@types';
 import React, { useCallback } from 'react';
 import { Linking } from 'react-native';
 import GallerySection from './components/GallerySection';
 import LocationSection from './components/LocationSection';
 import OrganizerSection from './components/OrganizerSection';
-import SubHeader from './components/SubHeader';
 import EventPageHeader from './Event.header';
 
 const ArtistEvent = () => {
@@ -57,7 +56,7 @@ const ArtistEvent = () => {
 				}}
 			>
 				<View margin='m'>
-					<SubHeader eventData={eventData} />
+					<WhenWhereWhySubHeader event={eventData} />
 				</View>
 				<OrganizerSection eventData={eventData} />
 				<LocationSection eventData={eventData} />

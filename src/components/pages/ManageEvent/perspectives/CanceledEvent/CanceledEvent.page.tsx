@@ -1,15 +1,15 @@
 import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
-import { Avatar, QRCode, ScrollView, Section, Text, View } from '@atomic';
+import { QRCode, ScrollView, Section, View } from '@atomic';
 import { artistEventApiSlice } from '@flux/api/event';
 import { useHyperlink } from '@hooks';
 import { BasePage } from '@organisms';
 import Separator from '@src/components/pages/EditArtist/components/Separator';
-import SubHeader from '@src/components/pages/Event/components/SubHeader';
 import { PageError } from '@templates';
 import { NanoId } from '@types';
 import React from 'react';
+import PublicEventHeader from '../../components/PublicEvent.header';
+import PublicEventTitle from '../../components/PublicEventTitle';
 import Loading from '../../Loading';
-import CanceledEventPageHeader from './CanceledEvent.header';
 
 interface CanceledEventPageProps {
 	event_uid: NanoId;
@@ -36,33 +36,9 @@ const CanceledEventPage: React.FC<CanceledEventPageProps> = ({ event_uid }) => {
 
 	return (
 		<BasePage>
-			<CanceledEventPageHeader eventData={eventData} />
+			<PublicEventHeader event={eventData} />
 			<ScrollView>
-				<View margin='m'>
-					<View flexDirection='row' alignItems='center' marginBottom='m'>
-						<View height={100} width={100}>
-							<Avatar
-								image={eventData.event.profile_image?.medium.key}
-								defaultImageProps={{
-									icon: 'event'
-								}}
-							/>
-						</View>
-						<View marginLeft='m'>
-							<Text variant='paragraph-large-medium' marginBottom='s'>
-								{eventData.event.name}
-							</Text>
-							<Text
-								variant='paragraph-small-medium'
-								textDecorationLine='underline'
-								color='text.q'
-							>
-								Canceled
-							</Text>
-						</View>
-					</View>
-					<SubHeader eventData={eventData} />
-				</View>
+				<PublicEventTitle event={eventData} />
 				<Section>
 					<View alignItems='center'>
 						<QRCode

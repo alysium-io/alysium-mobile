@@ -1,17 +1,27 @@
-import { Text, View } from '@atomic';
+import { View } from '@atomic';
 import { Props } from '@types';
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
+import ButtonTextContent from './components/ButtonTextContent';
 
-type SimpleButtonProps = Props<typeof TouchableOpacity> & {};
+type SimpleButtonProps = Props<typeof TouchableOpacity> &
+	Omit<Props<typeof ButtonTextContent>, 'textColor'> & {};
 
-const SimpleButton: React.FC<SimpleButtonProps> = (props) => {
+const SimpleButton: React.FC<SimpleButtonProps> = ({
+	beforeIconProps,
+	afterIconProps,
+	text,
+	...props
+}) => {
 	return (
 		<TouchableOpacity activeOpacity={0.7} {...props}>
 			<View backgroundColor='bg.light' borderRadius='m' paddingVertical='m'>
-				<Text variant='paragraph-small-medium' textAlign='center'>
-					Edit Profile
-				</Text>
+				<ButtonTextContent
+					text={text}
+					textColor='text.p'
+					beforeIconProps={beforeIconProps}
+					afterIconProps={afterIconProps}
+				/>
 			</View>
 		</TouchableOpacity>
 	);

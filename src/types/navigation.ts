@@ -164,6 +164,11 @@ export type ProfileStackNavigatorParamList = {
 	ChooseScenePage: ChooseScenePage;
 	EditArtistTeamPage: EditArtistTeamPage;
 	AddArtistTeamMemberPage: AddArtistTeamMemberPage;
+	ArtistPage: ArtistPage;
+	ArtistEventsInteractiveMapPage: ArtistEventsInteractiveMapPage;
+	ScenePage: ScenePage;
+	EventPage: EventPage;
+	ViewGalleryPage: ViewGalleryPage;
 };
 
 export type EventManagerStackNavigatorParamList = {

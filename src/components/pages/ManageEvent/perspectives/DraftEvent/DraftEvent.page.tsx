@@ -1,7 +1,6 @@
 import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
-import { RefreshControl, ScrollView, View } from '@atomic';
+import { RefreshControl, ScrollView, Section, View } from '@atomic';
 import { artistEventApiSlice } from '@flux/api/event';
-import { UpdateArtistEventBodyDto } from '@flux/api/event/dto/artist-event-update.dto';
 import { EventStatus } from '@flux/api/event/types';
 import { useRefresh, useSheet } from '@hooks';
 import { ActionButtons } from '@molecules';
@@ -9,19 +8,18 @@ import { BasePage } from '@organisms';
 import { ShareEventPosterSheet } from '@popups';
 import { PageError } from '@templates';
 import { NanoId } from '@types';
-import React, { useCallback, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
+import React, { useCallback } from 'react';
 import { If, Then } from 'react-if';
+import EditEventAboutMenuListItem from '../../components/EditEventAboutMenuListItem';
+import EditEventDateMenuListItem from '../../components/EditEventDateMenuListItem';
+import EditEventGallery from '../../components/EditEventGallery';
+import EditEventLocationMenuListItem from '../../components/EditEventLocationMenuListItem';
+import EditEventName from '../../components/EditEventName';
+import EditEventProfileImage from '../../components/EditEventProfileImage';
+import EditEventTicketsUrlMenuListItem from '../../components/EditEventTicketsUrlMenuListItem';
+import PublicEventHeader from '../../components/PublicEvent.header';
 import Loading from '../../Loading';
-import AboutSection from './components/AboutSection';
-import AssetsSection from './components/AssetsSection';
-import DateSection from './components/DateSection';
-import HeaderSection from './components/HeaderSection';
-import LocationSection from './components/LocationSection';
-import TicketsUrlSection from './components/TicketsUrlSection';
-import DraftEventPageHeader from './DraftEvent.header';
 import ConfirmPublishEvent from './sheets/ConfirmPublishEvent';
-import PopupMenu from './sheets/PopupMenu';
 
 interface DraftEventPageProps {
 	event_uid: NanoId;
@@ -34,10 +32,7 @@ const DraftEventPage: React.FC<DraftEventPageProps> = ({
 }) => {
 	const { artistData } = useArtistAppContext();
 	const confirmPublishEventSheetApi = useSheet();
-	const draftEventPopupMenuBottomSheet = useSheet();
 	const shareExternalSheetApi = useSheet();
-	const [updateArtistEventMutation] =
-		artistEventApiSlice.useUpdateArtistEventMutation();
 
 	const {
 		data: eventData,
@@ -51,41 +46,6 @@ const DraftEventPage: React.FC<DraftEventPageProps> = ({
 	});
 
 	const refreshControl = useRefresh(refetch);
-
-	const {
-		formState: { isDirty },
-		control,
-		handleSubmit,
-		reset
-	} = useForm<UpdateArtistEventBodyDto>({
-		defaultValues: {
-			name: eventData?.event.name,
-			about: eventData?.event.about
-		}
-	});
-
-	useEffect(() => {
-		reset({
-			name: eventData?.event.name,
-			about: eventData?.event.about
-		});
-	}, [eventData]);
-
-	const onBlurEditable = () => {
-		if (isDirty) {
-			handleSubmit(onSubmit)();
-		}
-	};
-
-	const onSubmit = async (data: UpdateArtistEventBodyDto) => {
-		updateArtistEventMutation({
-			params: {
-				artist_uid: artistData.artist_uid,
-				event_uid
-			},
-			body: data
-		});
-	};
 
 	const FooterComponent = useCallback(
 		() => (
@@ -121,37 +81,22 @@ const DraftEventPage: React.FC<DraftEventPageProps> = ({
 
 	return (
 		<BasePage FooterComponent={FooterComponent}>
-			<DraftEventPageHeader
-				titleProps={{
-					title: eventData.event.status,
-					titleProps: { color: 'text.q', variant: 'paragraph-small' }
-				}}
-				onPressMenu={draftEventPopupMenuBottomSheet.open}
-			/>
+			<PublicEventHeader event={eventData} />
 			<ScrollView refreshControl={<RefreshControl {...refreshControl} />}>
-				<HeaderSection
-					control={control}
-					eventData={eventData}
-					onBlurEditable={onBlurEditable}
-				/>
-				<DateSection
+				<Section marginBottom='none'>
+					<EditEventProfileImage event_uid={eventData.event.event_uid} />
+					<EditEventName event_uid={eventData.event.event_uid} />
+				</Section>
+				<EditEventDateMenuListItem
 					event_uid={eventData.event.event_uid}
 					startTime={eventData.event.start_time}
 					endTime={eventData.event.end_time}
 				/>
-				<LocationSection eventData={eventData} />
-				<AboutSection eventData={eventData} />
-				<TicketsUrlSection eventData={eventData} />
-				<AssetsSection eventData={eventData} />
+				<EditEventLocationMenuListItem event={eventData} />
+				<EditEventAboutMenuListItem event={eventData} />
+				<EditEventTicketsUrlMenuListItem event={eventData} />
+				<EditEventGallery event={eventData} />
 			</ScrollView>
-			<PopupMenu
-				sheetApi={draftEventPopupMenuBottomSheet}
-				onPressShare={() => {
-					draftEventPopupMenuBottomSheet.close();
-					shareExternalSheetApi.open();
-				}}
-				event_uid={eventData.event.event_uid}
-			/>
 			<ShareEventPosterSheet
 				event={eventData}
 				sheetApi={shareExternalSheetApi}

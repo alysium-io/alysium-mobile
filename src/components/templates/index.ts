@@ -8,3 +8,4 @@ export * from './ParallaxLoading';
 export * from './StartsInCountdown';
 export * from './ThemeModeSettings';
 export * from './ThemePicker';
+export * from './WhenWhereWhySubHeader';
