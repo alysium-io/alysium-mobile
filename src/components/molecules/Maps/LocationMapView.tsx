@@ -19,7 +19,7 @@ interface LocationMapProps {
 }
 
 const DEFAULT_ZOOM_DELTA = 0.005;
-const DEFAULT_MARKER_COLOR = 'green';
+const DEFAULT_MARKER_COLOR = 'red';
 
 const LocationMapView: React.FC<LocationMapProps> = ({
 	markers,
