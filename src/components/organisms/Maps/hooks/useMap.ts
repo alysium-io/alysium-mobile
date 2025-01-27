@@ -2,14 +2,18 @@ import { Location } from '@flux/api/location';
 import { useRef } from 'react';
 import MapView, { Region } from 'react-native-maps';
 
+const DEFAULT_ZOOM_DELTA = 0.15;
+
 interface MapApi {
 	mapRef: React.RefObject<MapView>;
 	animateToRegion: (region: Region) => void;
 	animateToLocation: (location: Location | Location[]) => void;
 	animateToMarker: (location: Location) => void;
+	getRegionForLocation: (location: Location) => Region;
 	getRegionForLocations: (
 		locations: Location | Location[]
 	) => Region | undefined;
+	DEFAULT_ZOOM_DELTA: number;
 }
 
 const useMap = (): MapApi => {
@@ -44,6 +48,31 @@ const useMap = (): MapApi => {
 		});
 	};
 
+	const getRegionForLocation = (location: Location): Region => {
+		if (location.viewport) {
+			const { northeast, southwest } = location.viewport;
+			const centerLat = (northeast.lat + southwest.lat) / 2;
+			const centerLng = (northeast.lng + southwest.lng) / 2;
+			const latDelta = Math.abs(northeast.lat - southwest.lat);
+			const lngDelta = Math.abs(northeast.lng - southwest.lng);
+			const finalDelta = Math.max(latDelta, lngDelta, DEFAULT_ZOOM_DELTA);
+
+			return {
+				latitude: centerLat,
+				longitude: centerLng,
+				latitudeDelta: finalDelta,
+				longitudeDelta: finalDelta
+			};
+		}
+
+		return {
+			latitude: Number(location.latitude),
+			longitude: Number(location.longitude),
+			latitudeDelta: DEFAULT_ZOOM_DELTA,
+			longitudeDelta: DEFAULT_ZOOM_DELTA
+		};
+	};
+
 	const getRegionForLocations = (
 		locations: Location | Location[]
 	): Region | undefined => {
@@ -52,7 +81,6 @@ const useMap = (): MapApi => {
 			return undefined;
 		}
 
-		const DEFAULT_ZOOM_DELTA = 0.15;
 		// Case 1: In the case that there is only one location
 		if (locationsArray.length === 1) {
 			const location = locationsArray[0];
@@ -62,26 +90,8 @@ const useMap = (): MapApi => {
 			// When you base it on the viewport of the building, it will zoom in on the building
 			// and not show the rest of the map, which makes it rather useless. We'll see how
 			// this goes, so we will leave the viewport code commented out for now.
-
-			// if (location.viewport) {
-			// 	const { northeast, southwest } = location.viewport;
-			// 	const centerLat = (northeast.lat + southwest.lat) / 2;
-			// 	const centerLng = (northeast.lng + southwest.lng) / 2;
-			// 	const latDelta = Math.abs(northeast.lat - southwest.lat);
-			// 	const lngDelta = Math.abs(northeast.lng - southwest.lng);
-			// 	const finalDelta = Math.max(latDelta, lngDelta, DEFAULT_ZOOM_DELTA);
-
-			// 	return {
-			// 		latitude: centerLat,
-			// 		longitude: centerLng,
-			// 		latitudeDelta: finalDelta,
-			// 		longitudeDelta: finalDelta
-			// 	};
-			// }
-
 			return {
-				latitude: Number(location.latitude),
-				longitude: Number(location.longitude),
+				...getRegionForLocation(location),
 				latitudeDelta: DEFAULT_ZOOM_DELTA,
 				longitudeDelta: DEFAULT_ZOOM_DELTA
 			};
@@ -114,7 +124,9 @@ const useMap = (): MapApi => {
 		animateToRegion,
 		animateToLocation,
 		animateToMarker,
-		getRegionForLocations
+		getRegionForLocation,
+		getRegionForLocations,
+		DEFAULT_ZOOM_DELTA
 	};
 };
 

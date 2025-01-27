@@ -9,20 +9,17 @@ interface LocationParallaxMapDisplayProps {
 const LocationParallaxMapDisplay: React.FC<LocationParallaxMapDisplayProps> = ({
 	location
 }) => {
-	const { mapRef, animateToLocation, getRegionForLocations } = useMap();
+	const { mapRef, animateToRegion, getRegionForLocation } = useMap();
+	const region = getRegionForLocation(location);
 
 	useEffect(() => {
 		if (location) {
-			animateToLocation(location);
+			animateToRegion(region);
 		}
 	}, [location]);
 
 	return (
-		<MapView
-			ref={mapRef}
-			initialRegion={getRegionForLocations([location])}
-			style={{ height: '110%' }}
-		/>
+		<MapView ref={mapRef} initialRegion={region} style={{ height: '110%' }} />
 	);
 };
 

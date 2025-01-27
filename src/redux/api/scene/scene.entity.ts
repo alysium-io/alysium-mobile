@@ -9,5 +9,6 @@ export interface Scene {
 	readonly location: Location;
 	readonly artists: ArtistSceneLink[];
 	readonly num_followers: number;
+	readonly num_events: number;
 	readonly is_following: boolean;
 }

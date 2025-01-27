@@ -25,6 +25,10 @@ const SubHeader: React.FC<SubHeaderProps> = ({ sceneData }) => {
 						{
 							title: sceneData.num_followers.toLocaleString(),
 							subtitle: 'followers'
+						},
+						{
+							title: sceneData.num_events.toLocaleString(),
+							subtitle: 'events'
 						}
 					]}
 				/>
