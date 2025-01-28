@@ -47,7 +47,7 @@ const MenuPopupSheet: React.FC<MenuPopupSheetProps> = ({
 							bottomSubtextVariant: 'paragraph-small',
 							bottomSubtextColor: 'text.q'
 						}}
-						icon='share'
+						icon='share-filled'
 						iconProps={{
 							size: 'm'
 						}}

@@ -32,7 +32,7 @@ const ShareEventMenuListItem: React.FC<ShareEventMenuListItemProps> = ({
 					bottomSubtextVariant: 'paragraph-small',
 					bottomSubtextColor: 'text.q'
 				}}
-				icon='share'
+				icon='share-filled'
 				iconProps={{ size: 'm' }}
 				onPress={shareExternalSheetApi.open}
 			/>

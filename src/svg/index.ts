@@ -71,8 +71,9 @@ import Search from './Search';
 import SearchFilled from './SearchFilled';
 import Security from './Security';
 import Settings from './Settings';
-import Share from './Share';
 import ShareExternal from './ShareExternal';
+import ShareFilled from './ShareFilled';
+import ShareOutlined from './ShareOutlined';
 import Shopify from './Shopify';
 import Soundcloud from './Soundcloud';
 import Spotify from './Spotify';
@@ -124,7 +125,8 @@ export const SvgIcons = {
 	tag: Tag,
 	'tailed-arrow': TailedArrow,
 	link: Link,
-	share: Share,
+	'share-filled': ShareFilled,
+	'share-outlined': ShareOutlined,
 	menu: Menu,
 	bell: Bell,
 	'bell-notification': BellNotification,

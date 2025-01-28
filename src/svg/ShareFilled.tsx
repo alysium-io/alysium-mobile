@@ -1,0 +1,14 @@
+import { Path, Svg } from '@atomic';
+import { IconProps } from '@types';
+import React from 'react';
+
+const ShareFilled: React.FC<IconProps> = (props) => (
+	<Svg viewBox='0 0 18 18' size={props.size} fill='none'>
+		<Path
+			fill={props.color}
+			d='M10.04 15.978c-.102 0-.203 0-.305-.05-.304-.098-.456-.393-.456-.689v-3.843a8.564 8.564 0 0 0-5.983 2.414l-2.028 1.971c-.203.197-.558.296-.812.148-.304-.099-.456-.394-.456-.69v-.443C0 9.672 4.107 5.434 9.279 5.04V1.74c0-.296.203-.542.456-.69.254-.098.609-.049.812.148l7.2 6.504a.781.781 0 0 1 .253.542c0 .197-.101.394-.203.542l-7.2 6.996c-.152.148-.355.197-.558.197Z'
+		/>
+	</Svg>
+);
+
+export default ShareFilled;

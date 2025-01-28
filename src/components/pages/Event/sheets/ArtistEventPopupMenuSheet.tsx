@@ -38,7 +38,7 @@ const ArtistEventPopupMenuSheet: React.FC<ArtistEventPopupMenuSheetProps> = ({
 							bottomSubtextVariant: 'paragraph-small',
 							bottomSubtextColor: 'text.q'
 						}}
-						icon='share'
+						icon='share-filled'
 						iconProps={{
 							size: 'm'
 						}}
