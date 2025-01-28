@@ -2,9 +2,7 @@ import { DynamicGrid } from '@atomic';
 import { generateId } from '@etc';
 import { GalleryItem } from '@flux/api/gallery/gallery-item.entity';
 import { Gallery as IGallery } from '@flux/api/gallery/gallery.entity';
-import { GalleryRefType } from '@flux/api/gallery/types';
 import { useMultimedia, useNavigation } from '@hooks';
-import { NanoId } from '@types';
 import _ from 'lodash';
 import React, { useCallback, useMemo } from 'react';
 import GalleryItemContainer from './components/GalleryItemContainer';
@@ -18,7 +16,7 @@ const reorderFromIndex = (
 
 	// Find the maximum order value
 	const maxOrder = _.maxBy(array, 'order')?.order;
-	if (!maxOrder) return undefined;
+	if (maxOrder === undefined) return undefined;
 
 	// Create a function to get the new index for each item
 	const getNewIndex = (currentOrder: number) => {
@@ -32,21 +30,14 @@ const reorderFromIndex = (
 
 	// Sort the array based on the new indices
 	const orderedItems = _.sortBy(array, (obj) => getNewIndex(obj.order));
-
 	return orderedItems;
 };
 
 interface GalleryProps {
 	gallery: IGallery | null;
-	galleryRefType: GalleryRefType;
-	galleryRefUid: NanoId;
 }
 
-const Gallery: React.FC<GalleryProps> = ({
-	gallery,
-	galleryRefType,
-	galleryRefUid
-}) => {
+const Gallery: React.FC<GalleryProps> = ({ gallery }) => {
 	const { getImage } = useMultimedia();
 	const { viewGalleryPage } = useNavigation();
 
@@ -69,7 +60,7 @@ const Gallery: React.FC<GalleryProps> = ({
 				</GalleryItemContainer>
 			);
 		},
-		[galleryRefType, galleryRefUid, getImage, viewGalleryPage]
+		[gallery, getImage, viewGalleryPage]
 	);
 
 	return <DynamicGrid data={gallery?.items ?? []} renderItem={GridItem} />;

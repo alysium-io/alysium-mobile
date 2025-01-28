@@ -7,7 +7,6 @@ import React from 'react';
 const ViewGalleryPage = () => {
 	const route = useRoute<ViewGalleryPageRouteProp>();
 	const { transitionTagId, galleryItems } = route.params;
-
 	return <ScrollReel transitionTagId={transitionTagId} data={galleryItems} />;
 };
 
