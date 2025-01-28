@@ -40,10 +40,7 @@ const ArtistPage: React.FC = () => {
 
 	return (
 		<BasePage>
-			<ArtistPageHeader
-				title={artistData.name}
-				artist_uid={route.params.artist_uid}
-			/>
+			<ArtistPageHeader title={artistData.name} artist={artistData} />
 			<Parallax
 				title={artistData.name}
 				image={artistData.profile_image?.large.key}

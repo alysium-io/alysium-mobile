@@ -23,7 +23,6 @@ const EventListItem: React.FC<{ event: EventLink }> = ({ event }) => {
 			titleTextProps={{
 				title: event.event.name,
 				bottomSubtext: getBottomSubtext(),
-				topSubtext: event.artist.name,
 				topSubtextColor: 'text.q'
 			}}
 			profileImageProps={{

@@ -23,6 +23,7 @@ const MapView = forwardRef<RNMapView, MapViewProps & { disable?: boolean }>(
 		return (
 			<RNMapView
 				ref={ref}
+				legalLabelInsets={{ top: -99999, right: 0, bottom: 0, left: 0 }}
 				loadingEnabled={true}
 				userInterfaceStyle={theme.colors['etc.mapview']}
 				// Hide all the nonsense

@@ -8,10 +8,12 @@ import { Region } from 'react-native-maps';
 
 interface StaticEventMapProps extends Props<typeof MapView> {
 	events: EventLink[];
+	containerProps?: Props<typeof View>;
 }
 
 const StaticEventMap: React.FC<StaticEventMapProps> = ({
 	events,
+	containerProps,
 	...props
 }) => {
 	const { mapRef, animateToRegion, getRegionForLocations } = useMap();
@@ -40,6 +42,7 @@ const StaticEventMap: React.FC<StaticEventMapProps> = ({
 		<View
 			margin='m'
 			style={{ height: 400, overflow: 'hidden', borderRadius: 25 }}
+			{...containerProps}
 		>
 			<MapView
 				ref={mapRef}

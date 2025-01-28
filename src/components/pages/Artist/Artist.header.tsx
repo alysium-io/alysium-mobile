@@ -1,3 +1,4 @@
+import { PublicArtist } from '@flux/api/artist';
 import { useNavigation, useSheet } from '@hooks';
 import {
 	Header,
@@ -5,18 +6,17 @@ import {
 	HeaderSection,
 	HeaderTitle
 } from '@organisms';
-import { NanoId } from '@types';
 import React from 'react';
 import MenuPopupSheet from './sheets/MenuPopupSheet';
 
 interface ArtistPageHeaderProps {
 	title: string;
-	artist_uid: NanoId;
+	artist: PublicArtist;
 }
 
 const ArtistPageHeader: React.FC<ArtistPageHeaderProps> = ({
 	title,
-	artist_uid
+	artist
 }) => {
 	const { back } = useNavigation();
 	const artistPopupMenuSheetApi = useSheet();
@@ -37,10 +37,7 @@ const ArtistPageHeader: React.FC<ArtistPageHeaderProps> = ({
 					/>
 				}
 			/>
-			<MenuPopupSheet
-				sheetApi={artistPopupMenuSheetApi}
-				artist_uid={artist_uid}
-			/>
+			<MenuPopupSheet sheetApi={artistPopupMenuSheetApi} artist={artist} />
 		</Header>
 	);
 };
