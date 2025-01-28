@@ -79,11 +79,11 @@ const WhenWhereWhySubHeader: React.FC<WhenWhereWhySubHeaderProps> = ({
 					</If>
 				</View>
 			</View>
-			<View>
+			{event.event.about && (
 				<Text variant='paragraph-small' textAlign='center'>
 					{event.event.about}
 				</Text>
-			</View>
+			)}
 		</Section>
 	);
 };

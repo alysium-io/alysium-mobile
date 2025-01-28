@@ -10,7 +10,6 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import CancelEventMenuListItem from './components/CancelEventMenuListItem';
 import DeleteEventMenuListItem from './components/DeleteEventMenuListItem';
 import ShareEventMenuListItem from './components/ShareEventMenuListItem';
-import ShareQRCode from './components/ShareQRCode';
 
 interface PopupMenuSheetProps {
 	sheetApi: SheetApi;
@@ -35,8 +34,6 @@ const PopupMenuSheet: React.FC<PopupMenuSheetProps> = ({
 	return (
 		<BottomSheet ref={sheetApi.sheetRef}>
 			<BottomSheetView style={{ flex: 1, paddingBottom: insets.bottom + 25 }}>
-				{isComingUp && <ShareQRCode event_uid={event_uid} />}
-
 				{isComingUp && <ShareEventMenuListItem event_uid={event_uid} />}
 
 				{isEditable &&
