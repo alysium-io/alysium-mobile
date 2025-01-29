@@ -1,76 +1,64 @@
 import {
 	PhoneNumberTextInput as AtomicPhoneNumberTextInput,
-	AView,
+	Icon,
 	PhoneNumberTextInputProps,
-	Text,
 	View
 } from '@atomic';
-import { TextInputApi, useTextInput, useTheme } from '@hooks';
-import React from 'react';
-import { NativeSyntheticEvent, TextInputChangeEventData } from 'react-native';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import {
-	interpolateColor,
-	useAnimatedStyle,
-	useSharedValue,
-	withTiming
-} from 'react-native-reanimated';
+	TextInputFocusConfig,
+	useMergedRef,
+	useTextInputFocusEffect,
+	useTheme
+} from '@hooks';
+import React, { forwardRef, useState } from 'react';
+import {
+	NativeSyntheticEvent,
+	TextInput as RNTextInput,
+	TextInputChangeEventData
+} from 'react-native';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 interface InternationalPhoneNumberTextInputProps
 	extends PhoneNumberTextInputProps {
-	textInputApi?: TextInputApi;
 	textAlign?: 'left' | 'center';
+	focusConfig?: TextInputFocusConfig;
 }
-
-const InternationalPhoneNumberTextInput: React.FC<
+const InternationalPhoneNumberTextInput = forwardRef<
+	RNTextInput,
 	InternationalPhoneNumberTextInputProps
-> = ({ textInputApi, textAlign, ...props }) => {
+>(({ textAlign, focusConfig, ...props }, forwardedRef) => {
 	const { theme } = useTheme();
-	const animatedValue = useSharedValue<number>(0);
-	const activeBorderColor = theme.colors['border.medium'];
-	const inactiveBorderColor = theme.colors['border.light'];
+	const [isActive, setIsActive] = useState(false);
 
-	const defaultTextInputApi = useTextInput(props.defaultValue);
-	const _textInputApi = textInputApi || defaultTextInputApi;
-
-	const animatedContainerStyle = useAnimatedStyle(() => {
-		return {
-			borderColor: interpolateColor(
-				animatedValue.value,
-				[0, 1],
-				[inactiveBorderColor, activeBorderColor]
-			)
-		};
-	});
+	const ref = useMergedRef<RNTextInput>(forwardedRef);
+	useTextInputFocusEffect(ref, focusConfig);
 
 	const _onFocus = (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
-		animatedValue.value = withTiming(1);
+		setIsActive(true);
 		props.onFocus && props.onFocus(e);
 	};
 
 	const _onBlur = (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
-		animatedValue.value = withTiming(0);
+		setIsActive(false);
 		props.onBlur && props.onBlur(e);
 	};
 
 	return (
-		<TouchableWithoutFeedback onPress={_textInputApi?.focus}>
-			<AView
+		<TouchableWithoutFeedback onPress={() => ref.current?.focus()}>
+			<View
 				backgroundColor='bg.light'
-				borderWidth={theme.borderWidth.thick}
+				borderWidth={theme.borderWidth.xthick}
 				borderRadius='m'
 				overflow='hidden'
-				style={animatedContainerStyle}
+				borderColor={isActive ? 'bg.negative.p' : 'border.light'}
 			>
 				<View flexDirection='row'>
 					<View padding='m' height='100%' backgroundColor='bg.negative.p'>
-						<Text variant='paragraph-medium' color='text.negative.p'>
-							+1
-						</Text>
+						<Icon name='old-phone' size='m' color='text.negative.p' />
 					</View>
 					<View flex={1} padding='m' justifyContent='center'>
 						<AtomicPhoneNumberTextInput
-							ref={_textInputApi.ref}
+							ref={ref}
 							onFocus={_onFocus}
 							onBlur={_onBlur}
 							maxLength={14}
@@ -78,9 +66,9 @@ const InternationalPhoneNumberTextInput: React.FC<
 						/>
 					</View>
 				</View>
-			</AView>
+			</View>
 		</TouchableWithoutFeedback>
 	);
-};
+});
 
 export default InternationalPhoneNumberTextInput;

@@ -1,8 +1,9 @@
 import { GalleryRefType } from '@flux/api/gallery/types';
-import { useGallery, usePhotosAndCamera, useToast } from '@hooks';
+import { useGallery, usePhotosAndCamera } from '@hooks';
 import { getAssetMediaType } from '@src/etc/detect-media-type';
 import { Alert } from '@templates';
 import { NanoId } from '@types';
+import Toast from 'react-native-toast-message';
 
 interface IUseCreateNewGalleryItem {
 	onPressCreateNewGalleryItem: () => void;
@@ -15,7 +16,6 @@ const useCreateNewGalleryItem = (
 	order: number
 ): IUseCreateNewGalleryItem => {
 	const { chooseMediaOrTakeNew, extractAsset } = usePhotosAndCamera();
-	const { toastError } = useToast();
 	const gallery = useGallery(galleryRefType);
 	const [createGalleryItemMutation] = gallery.create();
 	const [deleteGalleryItemMutation] = gallery.delete();
@@ -27,7 +27,10 @@ const useCreateNewGalleryItem = (
 		if (asset) {
 			const mediaType = getAssetMediaType(asset);
 			if (!mediaType) {
-				toastError('Invalid media type');
+				Toast.show({
+					text1: 'Error',
+					text2: 'Invalid media type'
+				});
 				return;
 			}
 

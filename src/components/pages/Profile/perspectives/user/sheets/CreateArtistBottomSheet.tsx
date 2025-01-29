@@ -84,7 +84,7 @@ const CreateArtistBottomSheet: React.FC<CreateArtistBottomSheetProps> = ({
 					rules={{ required: 'Name is required' }}
 					render={({ field: { onChange, onBlur, value } }) => (
 						<TextBox
-							focusOnMount
+							focusConfig={{ focusOnMount: true }}
 							onChangeText={onChange}
 							onBlur={onBlur}
 							placeholder='Name'

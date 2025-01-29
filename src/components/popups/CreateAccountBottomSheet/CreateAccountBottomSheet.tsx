@@ -1,16 +1,17 @@
 import { usePersonaAppContext } from '@arch/Application/contexts/Persona.context';
 import { useAuthenticationAppContext } from '@arch/Authentication/Authentication.context';
 import { Icon, View } from '@atomic';
-import { regexPatterns } from '@etc';
+import { Formatting } from '@etc';
 import { userApiSlice } from '@flux/api/user';
-import { LoginResponseDto } from '@flux/api/user/dto/user-login.dto';
-import { SheetApi, useTextInput, useToast } from '@hooks';
+import { LoginUserPhoneNumberBodyDto } from '@flux/api/user/dto/user-login-phone.dto';
+import { RegisterUserPhoneNumberBodyDto } from '@flux/api/user/dto/user-register-phone.dto';
+import { SheetApi } from '@hooks';
 import { Button, useButtonState } from '@molecules';
 import { FullScreenSheet } from '@organisms';
-import useLoginUserPhoneNumber from '@src/utils/redux-hook-form/useLoginUserPhoneNumberFormApi';
-import useRegisterUserPhoneNumber from '@src/utils/redux-hook-form/useRegisterUserPhoneNumberFormApi';
 import React, { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { Case, Switch } from 'react-if';
+import Toast from 'react-native-toast-message';
 import EnterCode from './components/EnterCode';
 import InputPhoneNumber from './components/InputPhoneNumber';
 
@@ -21,111 +22,132 @@ interface CreateAccountBottomSheetProps {
 const CreateAccountBottomSheet: React.FC<CreateAccountBottomSheetProps> = ({
 	sheetApi
 }) => {
-	const { toastSuccess } = useToast();
 	const { login } = useAuthenticationAppContext();
 	const { setIsPersonaLoading } = usePersonaAppContext();
 	const [privateFindOneUserQuery] =
 		userApiSlice.useLazyPrivateFindOneUserQuery();
-	const textInputApi = useTextInput();
 	const sendTextButtonStateApi = useButtonState('disabled');
 	const oneTimeCodeButtonStateApi = useButtonState('disabled');
 	const [step, setStep] = useState(0);
+	const [loginPhoneNumberQuery] =
+		userApiSlice.useLazyLoginUserPhoneNumberQuery();
+	const [registerPhoneNumberQuery] =
+		userApiSlice.useLazyRegisterUserPhoneNumberQuery();
 
-	const loginUserPhoneNumberFormApi = useLoginUserPhoneNumber({
-		methods: {
-			onConfirmedValid: () => {
-				oneTimeCodeButtonStateApi.setButtonState('loading');
-			},
-			onValidDidComplete: (response: LoginResponseDto) => {
-				sheetApi.close();
-				setIsPersonaLoading(true);
-				login(response.token);
-				setTimeout(async () => {
-					setIsPersonaLoading(false);
-
-					// We do have to call it this way...
-					// If we try to just reference the useUserAppContext `userData` directly
-					// it will use the reference from when this function began (which is the guest account)
-					// The reason we show the toast in this scenario is because the user is currently
-					// in a "logged in" state as a guest. So we want to give them some sort of visual feedback
-					// that when they complete the register process, they have changed from a guest account to a user account.
-					// So we display their new user handle in a toast.
-					// This method covers the case where the user is a guest, and when they register, they register
-					// under an existing phone number, so their handle actually changes between the guest account that
-					// they currently are, and the user account that they are about to become.
-					const user = await privateFindOneUserQuery().unwrap();
-					toastSuccess('Logged in as: ' + user.handle);
-				}, 300);
-			},
-			onValidDidFail: () => {
-				oneTimeCodeButtonStateApi.setButtonState('active');
-			}
+	const {
+		handleSubmit: handleSubmitRegister,
+		reset: resetRegisterForm,
+		control: registerFormControl,
+		formState: { isValid: registerFormIsValid }
+	} = useForm<RegisterUserPhoneNumberBodyDto>({
+		defaultValues: {
+			phone_number: ''
 		}
 	});
 
-	const registerUserPhoneNumberFormApi = useRegisterUserPhoneNumber({
-		methods: {
-			onConfirmedValid: () => {
-				sendTextButtonStateApi.setButtonState('loading');
-			},
-			onValidDidComplete: () => {
-				sendTextButtonStateApi.setButtonState('active');
-				loginUserPhoneNumberFormApi.formMethods.setValue(
-					'phone_number',
-					registerUserPhoneNumberFormApi.formMethods.getValues('phone_number')
-				);
-				setStep(1);
-			},
-			onValidDidFail: () => {
-				sendTextButtonStateApi.setButtonState('active');
-			}
+	const {
+		handleSubmit: handleSubmitLogin,
+		setValue: setLoginFormValue,
+		reset: resetLoginForm,
+		control: loginFormControl,
+		formState: { isValid: loginFormIsValid }
+	} = useForm<LoginUserPhoneNumberBodyDto>({
+		defaultValues: {
+			phone_number: '',
+			passcode: ''
 		}
 	});
 
-	useEffect(() => {
-		const newButtonState = regexPatterns.phoneNumber.test(
-			registerUserPhoneNumberFormApi.formMethods.watch('phone_number')
-		)
-			? 'active'
-			: 'disabled';
-		sendTextButtonStateApi.setButtonState(newButtonState);
-	}, [registerUserPhoneNumberFormApi.formMethods.watch('phone_number')]);
+	const onSubmitRegister = handleSubmitRegister(
+		async (data: RegisterUserPhoneNumberBodyDto) => {
+			sendTextButtonStateApi.setButtonState('loading');
+			const phone_number =
+				Formatting.preparePhoneNumberForApi(data.phone_number) ?? '';
+			data.phone_number = phone_number;
+			registerPhoneNumberQuery({ body: data })
+				.unwrap()
+				.then((res) => {
+					setLoginFormValue('phone_number', phone_number);
+					setStep(1);
+				})
+				.catch((err) => {
+					Toast.show({
+						text1: 'Error',
+						text2: 'Something went wrong, please try again.',
+						type: 'error'
+					});
+				})
+				.finally(() => {
+					sendTextButtonStateApi.setButtonState('active');
+				});
+		}
+	);
 
-	useEffect(() => {
-		const newButtonState = regexPatterns.oneTimeCode.test(
-			loginUserPhoneNumberFormApi.formMethods.watch('passcode')
-		)
-			? 'active'
-			: 'disabled';
-		oneTimeCodeButtonStateApi.setButtonState(newButtonState);
-	}, [loginUserPhoneNumberFormApi.formMethods.watch('passcode')]);
+	const onSubmitLogin = handleSubmitLogin(
+		async (data: LoginUserPhoneNumberBodyDto) => {
+			oneTimeCodeButtonStateApi.setButtonState('loading');
+			loginPhoneNumberQuery({ body: data })
+				.unwrap()
+				.then((res) => {
+					sheetApi.close();
+					setIsPersonaLoading(true);
+					login(res.token);
+					setTimeout(async () => {
+						setIsPersonaLoading(false);
 
-	const onPressSendText = () => {
-		sendTextButtonStateApi.setButtonState('loading');
-		registerUserPhoneNumberFormApi.onSubmit();
-	};
-
-	const onPressCreateAccount = async () => {
-		oneTimeCodeButtonStateApi.setButtonState('loading');
-		loginUserPhoneNumberFormApi.formMethods.setValue(
-			'phone_number',
-			registerUserPhoneNumberFormApi.formMethods.getValues('phone_number')
-		);
-		loginUserPhoneNumberFormApi.onSubmit();
-	};
+						// We do have to call it this way...
+						// If we try to just reference the useUserAppContext `userData` directly
+						// it will use the reference from when this function began (which is the guest account)
+						// The reason we show the toast in this scenario is because the user is currently
+						// in a "logged in" state as a guest. So we want to give them some sort of visual feedback
+						// that when they complete the register process, they have changed from a guest account to a user account.
+						// So we display their new user handle in a toast.
+						// This method covers the case where the user is a guest, and when they register, they register
+						// under an existing phone number, so their handle actually changes between the guest account that
+						// they currently are, and the user account that they are about to become.
+						const user = await privateFindOneUserQuery().unwrap();
+						Toast.show({
+							text1: 'Success!',
+							text2: 'Logged in as @' + user.handle
+						});
+					}, 300);
+				})
+				.catch((err) => {
+					Toast.show({
+						text1: 'Error',
+						text2: 'Something went wrong.'
+					});
+				})
+				.finally(() => {
+					oneTimeCodeButtonStateApi.setButtonState('active');
+				});
+		}
+	);
 
 	const onPressBack = () => {
-		loginUserPhoneNumberFormApi.formMethods.reset();
-		registerUserPhoneNumberFormApi.formMethods.reset();
+		resetLoginForm();
+		resetRegisterForm();
 		sendTextButtonStateApi.setButtonState('disabled');
 		setStep(0);
 	};
 
+	useEffect(() => {
+		sendTextButtonStateApi.setButtonState(
+			registerFormIsValid ? 'active' : 'disabled'
+		);
+	}, [registerFormIsValid]);
+
+	useEffect(() => {
+		oneTimeCodeButtonStateApi.setButtonState(
+			loginFormIsValid ? 'active' : 'disabled'
+		);
+	}, [loginFormIsValid]);
+
 	const onPressCancel = () => {
 		sheetApi.close();
 		setTimeout(() => {
-			loginUserPhoneNumberFormApi.formMethods.reset();
-			registerUserPhoneNumberFormApi.formMethods.reset();
+			resetLoginForm();
+			resetRegisterForm();
 			setStep(0);
 		}, 300);
 	};
@@ -142,20 +164,14 @@ const CreateAccountBottomSheet: React.FC<CreateAccountBottomSheetProps> = ({
 				</View>
 				<Switch>
 					<Case condition={step === 0}>
-						<InputPhoneNumber
-							registerUserPhoneNumberFormApi={registerUserPhoneNumberFormApi}
-							textInputApi={textInputApi}
-						/>
+						<InputPhoneNumber control={registerFormControl} />
 					</Case>
 					<Case condition={step === 1}>
-						<EnterCode
-							loginUserPhoneNumberFormApi={loginUserPhoneNumberFormApi}
-							textInputApi={textInputApi}
-						/>
+						<EnterCode control={loginFormControl} />
 					</Case>
 				</Switch>
 			</View>
-			<View flexDirection='row' flex={1}>
+			<View flexDirection='row' flex={1} marginHorizontal='m'>
 				<View marginRight='s' flex={1}>
 					{step === 0 ? (
 						<Button text='cancel' variant='outlined' onPress={onPressCancel} />
@@ -168,14 +184,14 @@ const CreateAccountBottomSheet: React.FC<CreateAccountBottomSheetProps> = ({
 						<Button
 							text='Send Text'
 							color='p'
-							onPress={onPressSendText}
+							onPress={onSubmitRegister}
 							buttonState={sendTextButtonStateApi.buttonState}
 						/>
 					) : (
 						<Button
 							text='Login'
 							color='p'
-							onPress={onPressCreateAccount}
+							onPress={onSubmitLogin}
 							buttonState={oneTimeCodeButtonStateApi.buttonState}
 						/>
 					)}

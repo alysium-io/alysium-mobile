@@ -1,25 +1,28 @@
 import { Text, TextInput, View } from '@atomic';
-import { TextInputApi, useTextInput, useTheme } from '@hooks';
-import React from 'react';
+import { useMergedRef, useTextInputFocusEffect, useTheme } from '@hooks';
+import React, { forwardRef } from 'react';
 import { If, Then } from 'react-if';
-import { TextInputProps, TouchableWithoutFeedback } from 'react-native';
+import {
+	TextInput as RNTextInput,
+	TextInputProps,
+	TouchableWithoutFeedback
+} from 'react-native';
 
 interface FormTextInputWithLabelProps extends TextInputProps {
-	textInputApi?: TextInputApi;
 	label?: string;
 }
 
-const FormTextInputWithLabel: React.FC<FormTextInputWithLabelProps> = ({
-	textInputApi,
-	label,
-	...props
-}) => {
+const FormTextInputWithLabel = forwardRef<
+	RNTextInput,
+	FormTextInputWithLabelProps
+>(({ label, ...props }, forwardedRef) => {
 	const { theme } = useTheme();
-	const defaultTextInputApi = useTextInput(props.defaultValue);
-	const _textInputApi = textInputApi || defaultTextInputApi;
+
+	const ref = useMergedRef<RNTextInput>(forwardedRef);
+	useTextInputFocusEffect(ref);
 
 	return (
-		<TouchableWithoutFeedback onPress={_textInputApi.focus}>
+		<TouchableWithoutFeedback onPress={() => ref.current?.focus()}>
 			<View
 				flexDirection='row'
 				paddingVertical='xl'
@@ -37,7 +40,7 @@ const FormTextInputWithLabel: React.FC<FormTextInputWithLabelProps> = ({
 				</If>
 				<View flex={1}>
 					<TextInput
-						ref={_textInputApi.ref}
+						ref={ref}
 						variant='paragraph'
 						color='text.s'
 						placeholderTextColor={theme.colors['text.q']}
@@ -47,6 +50,6 @@ const FormTextInputWithLabel: React.FC<FormTextInputWithLabelProps> = ({
 			</View>
 		</TouchableWithoutFeedback>
 	);
-};
+});
 
 export default FormTextInputWithLabel;

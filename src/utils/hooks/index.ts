@@ -47,6 +47,7 @@ export {
 	default as useMapRegionDetection,
 	type TargetRegion
 } from './useMapRegionDetection';
+export { default as useMergedRef } from './useMergedRef';
 export { default as useMultimedia } from './useMultimedia';
 export { default as usePagination } from './usePagination';
 export { default as usePhone } from './usePhone';
@@ -59,6 +60,10 @@ export { default as useSequence, type SequenceApi } from './useSequence';
 export { default as useSet } from './useSet';
 export { default as useSheet, type SheetApi, type SheetRef } from './useSheet';
 export { default as useTextInput, type TextInputApi } from './useTextInput';
+export {
+	default as useTextInputFocusEffect,
+	type TextInputFocusConfig
+} from './useTextInputFocusEffect';
 export { default as useToast } from './useToast';
 export { default as useToggle, type ToggleApi } from './useToggle';
 export { default as withPoke } from './withPoke';

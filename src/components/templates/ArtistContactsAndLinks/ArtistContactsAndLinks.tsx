@@ -21,9 +21,7 @@ const ArtistContactsAndLinks: React.FC<ArtistContactsAndLinksProps> = ({
 	const externalUrlsSheetApi = useSheet();
 	const contactsSheetApi = useSheet();
 
-	if (!artistData) {
-		return null;
-	}
+	if (!artistData) return null;
 
 	return (
 		<>

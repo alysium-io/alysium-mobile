@@ -2,23 +2,23 @@ import { useUserAppContext } from '@arch/Application/contexts/User.context';
 import { FindOneSceneResponseDto } from '@flux/api/scene/dto/find-one-scene.dto';
 import { userScenesFollowingApiSlice } from '@flux/api/user-scenes-following';
 import { Role } from '@flux/api/user/user.entity';
-import { useToast, useToggle } from '@hooks';
+import { useToggle } from '@hooks';
 import { Button, FollowButton } from '@molecules';
 import { useBehaviorContext } from '@src/utils/contexts/Behavior';
 import React from 'react';
+import Toast from 'react-native-toast-message';
 
 interface FollowSceneButtonProps {
 	sceneData: FindOneSceneResponseDto;
 }
 
 const FollowSceneButton: React.FC<FollowSceneButtonProps> = ({ sceneData }) => {
-	const { toastError } = useToast();
 	const { behavior } = useBehaviorContext();
 	const [userScenesFollowCreateMutation] =
 		userScenesFollowingApiSlice.useCreateUserScenesFollowingMutation();
 	const [userScenesFollowDeleteMutation] =
 		userScenesFollowingApiSlice.useDeleteUserScenesFollowingMutation();
-	const { userData, checkUserWantsToRegisterBottomSheet } = useUserAppContext();
+	const { userData, createAccountBottomSheetApi } = useUserAppContext();
 	const followButtonToggleApi = useToggle(sceneData.is_following);
 
 	const onPressFollowButton = async (isFollowing: boolean) => {
@@ -37,7 +37,10 @@ const FollowSceneButton: React.FC<FollowSceneButtonProps> = ({ sceneData }) => {
 				})
 				.catch(() => {
 					followButtonToggleApi.off();
-					toastError();
+					Toast.show({
+						text1: 'Error',
+						text2: 'Failed to follow scene.'
+					});
 				});
 		} else {
 			await userScenesFollowDeleteMutation({
@@ -55,18 +58,16 @@ const FollowSceneButton: React.FC<FollowSceneButtonProps> = ({ sceneData }) => {
 				})
 				.catch(() => {
 					followButtonToggleApi.on();
-					toastError();
+					Toast.show({
+						text1: 'Error',
+						text2: 'Failed to unfollow scene.'
+					});
 				});
 		}
 	};
 
 	if (userData.role == Role.guest) {
-		return (
-			<Button
-				text='Follow'
-				onPress={checkUserWantsToRegisterBottomSheet.open}
-			/>
-		);
+		return <Button text='Follow' onPress={createAccountBottomSheetApi.open} />;
 	}
 
 	return (

@@ -1,32 +1,34 @@
 import { LView, View } from '@atomic';
-import { TextInputApi } from '@hooks';
+import { LoginUserPhoneNumberBodyDto } from '@flux/api/user/dto/user-login-phone.dto';
 import { DeclarativeText, TextInputWithLabel } from '@molecules';
-import { LoginUserPhoneNumberFormApi } from '@src/utils/redux-hook-form/useLoginUserPhoneNumberFormApi';
 import React from 'react';
-import { Controller } from 'react-hook-form';
+import { Control, Controller } from 'react-hook-form';
 import { FadeInRight, FadeOutRight } from 'react-native-reanimated';
 
 interface EnterCodeProps {
-	loginUserPhoneNumberFormApi: LoginUserPhoneNumberFormApi;
-	textInputApi: TextInputApi;
+	control: Control<LoginUserPhoneNumberBodyDto>;
 }
 
-const EnterCode: React.FC<EnterCodeProps> = ({
-	loginUserPhoneNumberFormApi,
-	textInputApi
-}) => {
+const EnterCode: React.FC<EnterCodeProps> = ({ control }) => {
 	return (
 		<LView entering={FadeInRight} exiting={FadeOutRight}>
 			<Controller
 				name='passcode'
-				control={loginUserPhoneNumberFormApi.formMethods.control}
-				render={({ field: { onChange } }) => (
+				control={control}
+				rules={{
+					required: 'Please enter a code',
+					minLength: {
+						value: 6,
+						message: 'Please enter a valid code'
+					}
+				}}
+				render={({ field: { onChange, value } }) => (
 					<TextInputWithLabel
-						textInputApi={textInputApi}
 						placeholder='Enter One Time Code'
 						keyboardType='number-pad'
 						textContentType='oneTimeCode'
 						onChangeText={onChange}
+						value={value}
 					/>
 				)}
 			/>

@@ -7,13 +7,13 @@ import React from 'react';
 interface ScenesFollowingButtonProps extends Props<typeof ContentListItem> {}
 
 const ScenesFollowingButton: React.FC<ScenesFollowingButtonProps> = (props) => {
-	const { userData, checkUserWantsToRegisterBottomSheet } = useUserAppContext();
+	const { userData, createAccountBottomSheetApi } = useUserAppContext();
 	return (
 		<ContentListItem
 			{...props}
 			onPress={
 				userData.role === Role.guest
-					? checkUserWantsToRegisterBottomSheet.open
+					? createAccountBottomSheetApi.open
 					: props.onPress
 			}
 		/>

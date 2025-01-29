@@ -9,13 +9,13 @@ interface ArtistsFollowingButtonProps extends Props<typeof ContentListItem> {}
 const ArtistsFollowingButton: React.FC<ArtistsFollowingButtonProps> = (
 	props
 ) => {
-	const { userData, checkUserWantsToRegisterBottomSheet } = useUserAppContext();
+	const { userData, createAccountBottomSheetApi } = useUserAppContext();
 	return (
 		<ContentListItem
 			{...props}
 			onPress={
 				userData.role === Role.guest
-					? checkUserWantsToRegisterBottomSheet.open
+					? createAccountBottomSheetApi.open
 					: props.onPress
 			}
 		/>

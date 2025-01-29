@@ -1,16 +1,16 @@
 import { Formatting } from '@etc';
-import { useTheme } from '@hooks';
+import { useMergedRef, useTheme } from '@hooks';
 import {
-	ColorProps,
-	SpacingProps,
-	VariantProps,
 	color,
+	ColorProps,
 	createRestyleComponent,
 	createVariant,
-	spacing
+	spacing,
+	SpacingProps,
+	VariantProps
 } from '@shopify/restyle';
 import { Theme } from '@types';
-import React, { forwardRef, useImperativeHandle, useRef } from 'react';
+import React, { forwardRef } from 'react';
 import { TextInput, TextInputProps } from 'react-native';
 
 const textInputRestyleFunctions = [
@@ -32,27 +32,25 @@ const RestyleTextInputMask = createRestyleComponent<
 export interface PhoneNumberTextInputProps extends RestyleTextInputProps {}
 
 const PhoneNumberTextInput = forwardRef<TextInput, PhoneNumberTextInputProps>(
-	(props, ref) => {
+	(props, forwardedRef) => {
 		const { theme } = useTheme();
-		const internalRef = useRef<TextInput>(null);
-
-		useImperativeHandle(ref, () => internalRef.current!, []);
+		const ref = useMergedRef<TextInput>(forwardedRef);
 
 		const handleTextInputChange = (text: string) => {
 			const formattedText = Formatting.formatPhoneNumber(text);
-			const currentRef =
-				(ref as React.RefObject<TextInput>)?.current || internalRef.current;
 
-			currentRef?.setNativeProps({
-				text: formattedText
-			});
+			if (ref.current) {
+				ref.current.setNativeProps({
+					text: formattedText
+				});
+			}
 
-			props.onChangeText && props.onChangeText(formattedText || '');
+			props.onChangeText?.(formattedText || '');
 		};
 
 		return (
 			<RestyleTextInputMask
-				ref={internalRef}
+				ref={ref}
 				textContentType='telephoneNumber'
 				keyboardType='phone-pad'
 				inputMode='tel'

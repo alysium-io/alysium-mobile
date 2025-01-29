@@ -2,10 +2,11 @@ import { useUserAppContext } from '@arch/Application/contexts/User.context';
 import { PublicFindOneArtistResponseDto } from '@flux/api/artist/dto/artist-find-one.dto';
 import { userArtistsFollowingApiSlice } from '@flux/api/user-artists-following';
 import { Role } from '@flux/api/user/user.entity';
-import { useToast, useToggle } from '@hooks';
+import { useToggle } from '@hooks';
 import { Button, FollowButton } from '@molecules';
 import { useBehaviorContext } from '@src/utils/contexts/Behavior';
 import React from 'react';
+import Toast from 'react-native-toast-message';
 
 interface FollowArtistButtonProps {
 	artistData: PublicFindOneArtistResponseDto;
@@ -14,14 +15,13 @@ interface FollowArtistButtonProps {
 const FollowArtistButton: React.FC<FollowArtistButtonProps> = ({
 	artistData
 }) => {
-	const { toastError } = useToast();
 	const { behavior } = useBehaviorContext();
 	const [userArtistsFollowCreateMutation] =
 		userArtistsFollowingApiSlice.useCreateUserArtistsFollowingMutation();
 	const [userArtistsFollowDeleteMutation] =
 		userArtistsFollowingApiSlice.useDeleteUserArtistsFollowingMutation();
 	const followButtonToggleApi = useToggle(artistData.is_following);
-	const { userData, checkUserWantsToRegisterBottomSheet } = useUserAppContext();
+	const { userData, createAccountBottomSheetApi } = useUserAppContext();
 
 	const onPressFollowButton = async (isFollowing: boolean) => {
 		if (!artistData) return;
@@ -39,7 +39,10 @@ const FollowArtistButton: React.FC<FollowArtistButtonProps> = ({
 				})
 				.catch(() => {
 					followButtonToggleApi.off();
-					toastError();
+					Toast.show({
+						text1: 'Error',
+						text2: 'Failed to follow artist.'
+					});
 				});
 		} else {
 			await userArtistsFollowDeleteMutation({
@@ -57,18 +60,16 @@ const FollowArtistButton: React.FC<FollowArtistButtonProps> = ({
 				})
 				.catch(() => {
 					followButtonToggleApi.on();
-					toastError();
+					Toast.show({
+						text1: 'Error',
+						text2: 'Failed to unfollow artist.'
+					});
 				});
 		}
 	};
 
 	if (userData.role == Role.guest) {
-		return (
-			<Button
-				text='Follow'
-				onPress={checkUserWantsToRegisterBottomSheet.open}
-			/>
-		);
+		return <Button text='Follow' onPress={createAccountBottomSheetApi.open} />;
 	}
 
 	return (

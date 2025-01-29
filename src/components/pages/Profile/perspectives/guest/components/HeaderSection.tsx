@@ -4,13 +4,11 @@ import { EditableProfileImage } from '@molecules';
 import React from 'react';
 
 const HeaderSection = () => {
-	const { checkUserWantsToRegisterBottomSheet } = useUserAppContext();
+	const { createAccountBottomSheetApi } = useUserAppContext();
 
 	return (
 		<Section margin='m' marginTop='xl' marginBottom='xxxl' alignItems='center'>
-			<EditableProfileImage
-				onPress={checkUserWantsToRegisterBottomSheet.open}
-			/>
+			<EditableProfileImage onPress={createAccountBottomSheetApi.open} />
 			<View margin='m' alignItems='center'>
 				<View flexDirection='row' alignItems='center'>
 					<Icon name='at' size='s' color='text.p' />

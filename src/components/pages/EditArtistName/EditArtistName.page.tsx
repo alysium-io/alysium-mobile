@@ -2,19 +2,19 @@ import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
 import { View } from '@atomic';
 import { artistApiSlice } from '@flux/api/artist';
 import { UpdateArtistBodyDto } from '@flux/api/artist/dto/artist-update.dto';
-import { useNavigation, useToast } from '@hooks';
+import { useNavigation } from '@hooks';
 import { FormText } from '@molecules';
 import { BasePage } from '@organisms';
 import { Alert, useGlobalLoader } from '@templates';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { Keyboard } from 'react-native';
+import Toast from 'react-native-toast-message';
 import EditArtistNamePageHeader from './EditArtistName.header';
 
 const EditArtistName = () => {
 	const { artistData } = useArtistAppContext();
 	const { showLoader, hideLoader } = useGlobalLoader();
-	const { toastError } = useToast();
 	const { back } = useNavigation();
 	const [updateArtistMutation] = artistApiSlice.useUpdateArtistMutation();
 
@@ -38,7 +38,10 @@ const EditArtistName = () => {
 		})
 			.unwrap()
 			.catch(() => {
-				toastError('Failed to update artist name');
+				Toast.show({
+					text1: 'Error',
+					text2: 'Failed to update artist name.'
+				});
 			})
 			.finally(() => {
 				back();
@@ -72,7 +75,10 @@ const EditArtistName = () => {
 	};
 
 	const onInvalid = () => {
-		toastError('Please enter a name');
+		Toast.show({
+			text1: 'Error',
+			text2: 'Please enter a name'
+		});
 	};
 
 	return (
@@ -90,7 +96,7 @@ const EditArtistName = () => {
 					}}
 					render={({ field: { onChange, value } }) => (
 						<FormText
-							focusOnMount
+							focusConfig={{ focusOnMount: true }}
 							onPressClear={() => onChange('')}
 							label='Name'
 							placeholder={artistData.name}

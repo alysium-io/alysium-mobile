@@ -18,7 +18,6 @@ export type UserAppContextType = {
 	userIsLoading: boolean;
 	setUserProfileImage: (image: Asset) => void;
 	createAccountBottomSheetApi: SheetApi;
-	checkUserWantsToRegisterBottomSheet: SheetApi;
 	userArtistsData: PrivateFindAllArtistsResponseDto;
 	revertToUser: () => void;
 	numberOfAccounts: number;
@@ -28,7 +27,6 @@ export const UserAppContext = createContext({} as UserAppContextType);
 
 export const UserAppProvider: React.FC<ProviderProps> = ({ children }) => {
 	const createAccountBottomSheetApi = useSheet();
-	const checkUserWantsToRegisterBottomSheet = useSheet();
 	const { personaId, personaType, initializePersona, changePersona } =
 		usePersonaAppContext();
 	const {
@@ -81,7 +79,6 @@ export const UserAppProvider: React.FC<ProviderProps> = ({ children }) => {
 				userIsLoading,
 				setUserProfileImage,
 				createAccountBottomSheetApi,
-				checkUserWantsToRegisterBottomSheet,
 				userArtistsData,
 				revertToUser,
 				numberOfAccounts: userArtistsData.length + 1

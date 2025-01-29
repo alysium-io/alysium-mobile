@@ -1,10 +1,7 @@
 import { AppTransitionWrapper, Icon } from '@atomic';
 import { Role } from '@flux/api/user/user.entity';
 import { usePersistedAppState } from '@hooks';
-import {
-	CheckUserWantsToRegisterBottomSheet,
-	CreateAccountBottomSheet
-} from '@popups';
+import { CreateAccountBottomSheet } from '@popups';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { UserAppBottomTabNavigatorParamList } from '@types';
 import React from 'react';
@@ -20,11 +17,7 @@ export const UserTabNavigator =
 const UserApp = () => {
 	const { screenOptions, fallbackTab } = useAppSettings();
 	const { setPersistedAppState, tab } = usePersistedAppState();
-	const {
-		userData,
-		createAccountBottomSheetApi,
-		checkUserWantsToRegisterBottomSheet
-	} = useUserAppContext();
+	const { userData, createAccountBottomSheetApi } = useUserAppContext();
 
 	const getInitialRouteName = (): keyof UserAppBottomTabNavigatorParamList => {
 		if (!['Home', 'Search', 'Profile'].includes(tab)) {
@@ -114,12 +107,7 @@ const UserApp = () => {
 				</UserTabNavigator.Navigator>
 			</AppTransitionWrapper>
 			{userData?.role === Role.guest && (
-				<>
-					<CreateAccountBottomSheet sheetApi={createAccountBottomSheetApi} />
-					<CheckUserWantsToRegisterBottomSheet
-						sheetApi={checkUserWantsToRegisterBottomSheet}
-					/>
-				</>
+				<CreateAccountBottomSheet sheetApi={createAccountBottomSheetApi} />
 			)}
 		</AppDependencies>
 	);

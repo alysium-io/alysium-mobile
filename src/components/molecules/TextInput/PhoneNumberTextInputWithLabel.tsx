@@ -1,57 +1,56 @@
 import { AView, PhoneNumberTextInput, Text, View } from '@atomic';
-import { TextInputApi, useAnimatedState, useTextInput, useTheme } from '@hooks';
-import React from 'react';
+import {
+	TextInputFocusConfig,
+	useMergedRef,
+	useTextInputFocusEffect,
+	useTheme
+} from '@hooks';
+import React, { forwardRef, useState } from 'react';
 import {
 	NativeSyntheticEvent,
-	TextInputFocusEventData,
+	TextInput as RNTextInput,
+	TextInputChangeEventData,
 	TextInputProps
 } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
-import { interpolateColor, useAnimatedStyle } from 'react-native-reanimated';
 
 interface PhoneNumberTextInputWithLabelProps extends TextInputProps {
-	textInputApi?: TextInputApi;
 	textAlign?: 'left' | 'center';
 	label?: string;
+	focusConfig?: TextInputFocusConfig;
 }
 
-const PhoneNumberTextInputWithLabel: React.FC<
+const PhoneNumberTextInputWithLabel = forwardRef<
+	RNTextInput,
 	PhoneNumberTextInputWithLabelProps
-> = ({ textInputApi, label, ...props }) => {
+>(({ label, focusConfig, ...props }, forwardedRef) => {
 	const { theme } = useTheme();
-	const { animatedValue, off, on } = useAnimatedState();
-	const activeBorderColor = theme.colors['border.heavy'];
-	const inactiveBorderColor = theme.colors['border.medium'];
-	const defaultTextInputApi = useTextInput(props.defaultValue);
-	const _textInputApi = textInputApi || defaultTextInputApi;
+	const [isActive, setIsActive] = useState(false);
 
-	const _onBlur = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
-		off();
-		props.onBlur && props.onBlur(e);
-	};
+	const ref = useMergedRef<RNTextInput>(forwardedRef);
+	useTextInputFocusEffect(ref, focusConfig);
 
-	const _onFocus = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
-		on();
+	const _onFocus = (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
+		setIsActive(true);
 		props.onFocus && props.onFocus(e);
 	};
 
-	const animatedContainerStyle = useAnimatedStyle(() => {
-		return {
-			borderColor: interpolateColor(
-				animatedValue.value,
-				[0, 1],
-				[inactiveBorderColor, activeBorderColor]
-			)
-		};
-	});
+	const _onBlur = (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
+		setIsActive(false);
+		props.onBlur && props.onBlur(e);
+	};
 
 	return (
-		<TouchableWithoutFeedback onPress={_textInputApi.focus}>
+		<TouchableWithoutFeedback onPress={() => ref.current?.focus()}>
 			<AView
 				paddingVertical='l'
 				paddingHorizontal='s'
 				borderBottomWidth={theme.borderWidth.thin}
-				style={animatedContainerStyle}
+				borderBottomColor={
+					isActive
+						? theme.colors['border.heavy']
+						: theme.colors['border.medium']
+				}
 			>
 				{label && (
 					<View style={{ marginBottom: 5 }}>
@@ -62,7 +61,7 @@ const PhoneNumberTextInputWithLabel: React.FC<
 				)}
 				<View>
 					<PhoneNumberTextInput
-						ref={_textInputApi.ref}
+						ref={ref}
 						variant='paragraph'
 						color='text.s'
 						placeholderTextColor={theme.colors['text.q']}
@@ -74,6 +73,6 @@ const PhoneNumberTextInputWithLabel: React.FC<
 			</AView>
 		</TouchableWithoutFeedback>
 	);
-};
+});
 
 export default PhoneNumberTextInputWithLabel;

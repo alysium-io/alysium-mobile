@@ -2,7 +2,7 @@ import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
 import { Text, View } from '@atomic';
 import { artistEventApiSlice } from '@flux/api/event';
 import { UpdateArtistEventBodyDto } from '@flux/api/event/dto/artist-event-update.dto';
-import { useNavigation, useToast } from '@hooks';
+import { useNavigation } from '@hooks';
 import { FormText } from '@molecules';
 import { BasePage } from '@organisms';
 import { useRoute } from '@react-navigation/native';
@@ -10,13 +10,13 @@ import { Alert, useGlobalLoader } from '@templates';
 import { EditArtistEventAboutPageRouteProp } from '@types';
 import React, { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
+import Toast from 'react-native-toast-message';
 import EditArtistEventAboutPageHeader from './EditArtistEventAbout.header';
 
 const EditArtistEventAbout = () => {
 	const route = useRoute<EditArtistEventAboutPageRouteProp>();
 	const { artistData } = useArtistAppContext();
 	const { showLoader, hideLoader } = useGlobalLoader();
-	const { toastError } = useToast();
 	const { back } = useNavigation();
 	const { data: eventData } =
 		artistEventApiSlice.usePrivateFindOneArtistEventQuery({
@@ -59,7 +59,12 @@ const EditArtistEventAbout = () => {
 				},
 				body: data
 			})
-				.catch(toastError)
+				.catch(() => {
+					Toast.show({
+						text1: 'Error',
+						text2: 'Failed to update artist event about.'
+					});
+				})
 				.finally(() => {
 					hideLoader();
 					back();
@@ -103,7 +108,7 @@ const EditArtistEventAbout = () => {
 					name='about'
 					render={({ field: { onChange, value } }) => (
 						<FormText
-							focusOnMount
+							focusConfig={{ focusOnMount: true }}
 							onPressClear={() => onChange('')}
 							label='About'
 							placeholder='Tell fans what to expect'

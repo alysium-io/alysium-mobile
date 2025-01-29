@@ -1,12 +1,13 @@
 import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
 import { Formatting } from '@etc';
 import { artistEventApiSlice } from '@flux/api/event';
-import { useSheet, useToast } from '@hooks';
+import { useSheet } from '@hooks';
 import { MenuListItem } from '@molecules';
 import { useGlobalLoader } from '@templates';
 import { NanoId } from '@types';
 import dayjs from 'dayjs';
 import React from 'react';
+import Toast from 'react-native-toast-message';
 import usePermissionsToastError from '../hooks/usePermissionsError';
 import SelectEventDateTimeBottomSheet from '../sheets/SelectEventDateTimeBottomSheet';
 
@@ -21,7 +22,6 @@ const EditEventDateMenuListItem: React.FC<EditEventDateMenuListItemProps> = ({
 	startTime,
 	endTime
 }) => {
-	const { toastError } = useToast();
 	const { showLoader, hideLoader } = useGlobalLoader();
 	const { artistData, isEditable } = useArtistAppContext();
 	const [patchArtistEventTimeMutation] =
@@ -50,14 +50,20 @@ const EditEventDateMenuListItem: React.FC<EditEventDateMenuListItemProps> = ({
 			})
 				.unwrap()
 				.catch((err) => {
-					toastError(err?.data?.error?.message ?? 'Error updating event time.');
+					Toast.show({
+						text1: 'Error',
+						text2: err?.data?.error?.message ?? 'Error updating event time.'
+					});
 				})
 				.finally(() => {
 					sheetApi.close();
 					hideLoader();
 				});
 		} else {
-			toastError('Invalid start time');
+			Toast.show({
+				text1: 'Error',
+				text2: 'Invalid start time'
+			});
 		}
 	};
 

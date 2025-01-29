@@ -5,15 +5,15 @@ import { useAuthenticationAppContext } from '@arch/Authentication/Authentication
 import { Text, View } from '@atomic';
 import { artistApiSlice } from '@flux/api/artist';
 import { UserArtistLinkPermissions } from '@flux/api/user-artist-link/types';
-import { useSheet, useToast } from '@hooks';
+import { useSheet } from '@hooks';
 import { Button } from '@molecules';
 import { ConfirmDeleteBottomSheet } from '@popups';
 import { useBehaviorContext } from '@src/utils/contexts/Behavior';
 import { Persona } from '@types';
 import React from 'react';
+import Toast from 'react-native-toast-message';
 
 const LogoutSection = () => {
-	const { toastError } = useToast();
 	const { logout } = useAuthenticationAppContext();
 	const { userData } = useUserAppContext();
 	const { changePersona } = usePersonaAppContext();
@@ -38,7 +38,10 @@ const LogoutSection = () => {
 				changePersona(Persona.user, userData.user_uid);
 			}, 200);
 		} catch (error) {
-			toastError('Something went wrong. Please try again.');
+			Toast.show({
+				text1: 'Error',
+				text2: 'Something went wrong. Please try again.'
+			});
 		}
 	};
 

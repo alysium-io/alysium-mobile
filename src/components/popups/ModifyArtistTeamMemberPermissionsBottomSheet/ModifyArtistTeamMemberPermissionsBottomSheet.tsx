@@ -3,13 +3,14 @@ import { View } from '@atomic';
 import { userArtistLinkApiSlice } from '@flux/api/user-artist-link';
 import { UserArtistLinkPermissions } from '@flux/api/user-artist-link/types';
 import { BottomSheetView } from '@gorhom/bottom-sheet';
-import { SheetApi, useArtistTeam, useToast } from '@hooks';
+import { SheetApi, useArtistTeam } from '@hooks';
 import { ActionButtons, SingleOptionRadioToggler } from '@molecules';
 import { BottomSheet } from '@organisms';
 import { Alert } from '@templates';
 import { NanoId } from '@types';
 import React, { useState } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import Toast from 'react-native-toast-message';
 
 interface ModifyArtistTeamMemberPermissionsBottomSheetProps {
 	sheetApi: SheetApi;
@@ -33,7 +34,6 @@ const ModifyArtistTeamMemberPermissionsBottomSheet: React.FC<
 	onPermissionsRevoked
 }) => {
 	const insets = useSafeAreaInsets();
-	const { toastInfo } = useToast();
 	const [selectedPermission, setSelectedPermission] =
 		useState<UserArtistLinkPermissions>(initialPermissions);
 	const [grantArtistAccessMutation] =
@@ -77,11 +77,17 @@ const ModifyArtistTeamMemberPermissionsBottomSheet: React.FC<
 		})
 			.unwrap()
 			.then(() => {
-				toastInfo(`Access granted to @${handle}`);
+				Toast.show({
+					text1: 'Success',
+					text2: `Access granted to @${handle}`
+				});
 				onPermissionsGranted?.(selectedPermission);
 			})
 			.catch((error) => {
-				toastInfo(error.message);
+				Toast.show({
+					text1: 'Error',
+					text2: error.message
+				});
 			})
 			.finally(() => {
 				sheetApi.close();
@@ -97,11 +103,17 @@ const ModifyArtistTeamMemberPermissionsBottomSheet: React.FC<
 		})
 			.unwrap()
 			.then(() => {
-				toastInfo(`Access revoked from @${handle}`);
+				Toast.show({
+					text1: 'Success',
+					text2: `Access revoked from @${handle}`
+				});
 				onPermissionsRevoked?.();
 			})
 			.catch((error) => {
-				toastInfo(error.message);
+				Toast.show({
+					text1: 'Error',
+					text2: error.message
+				});
 			})
 			.finally(() => {
 				sheetApi.close();

@@ -1,9 +1,11 @@
 import { useDispatch } from '@flux';
 import { serviceApi } from '@flux/api/base';
 import { userApiSlice } from '@flux/api/user';
-import { createUseContextHook, usePersistedAppState, useToast } from '@hooks';
+import { usePersistedArray } from '@flux/local/arrays/usePersistedArray';
+import { createUseContextHook, usePersistedAppState } from '@hooks';
 import { AuthStage, ProviderProps } from '@types';
 import React, { createContext, useEffect } from 'react';
+import Toast from 'react-native-toast-message';
 
 export type AuthenticationAppContextType = {
 	authStage: AuthStage;
@@ -27,12 +29,17 @@ export const AuthenticationAppProvider: React.FC<ProviderProps> = ({
 		setPersistedAppStateWithDefaults,
 		authStage
 	} = usePersistedAppState();
-	const { toastError } = useToast();
 	const [privateFindOneUserQuery] =
 		userApiSlice.useLazyPrivateFindOneUserQuery();
 	const [deleteUserMutation] = userApiSlice.useDeleteUserMutation();
 	const [loginGuestQuery] = userApiSlice.useLazyLoginGuestUserQuery();
 	const dispatch = useDispatch();
+	const { reset: resetPersistedArrayArtists } = usePersistedArray(
+		'homeRecentSearchArtists'
+	);
+	const { reset: resetPersistedArrayScenes } = usePersistedArray(
+		'homeRecentSearchScenes'
+	);
 
 	useEffect(() => {
 		const fetchMe = async () => {
@@ -60,6 +67,8 @@ export const AuthenticationAppProvider: React.FC<ProviderProps> = ({
 
 	const logout = () => {
 		dispatch(serviceApi.util.resetApiState());
+		resetPersistedArrayArtists();
+		resetPersistedArrayScenes();
 		setPersistedAppStateWithDefaults({
 			authStage: AuthStage.loggedOut,
 			token: null
@@ -67,7 +76,6 @@ export const AuthenticationAppProvider: React.FC<ProviderProps> = ({
 	};
 
 	const login = (token: string) => {
-		dispatch(serviceApi.util.resetApiState());
 		setPersistedAppState({
 			token,
 			authStage: AuthStage.loggedIn
@@ -78,14 +86,24 @@ export const AuthenticationAppProvider: React.FC<ProviderProps> = ({
 		deleteUserMutation()
 			.unwrap()
 			.then(logout)
-			.catch(() => toastError());
+			.catch(() => {
+				Toast.show({
+					text1: 'Error',
+					text2: 'Failed to delete account.'
+				});
+			});
 	};
 
 	const loginGuest = async () => {
 		loginGuestQuery()
 			.unwrap()
 			.then(({ token }) => login(token))
-			.catch(() => toastError());
+			.catch(() => {
+				Toast.show({
+					text1: 'Error',
+					text2: 'Failed to login as guest.'
+				});
+			});
 	};
 
 	return (

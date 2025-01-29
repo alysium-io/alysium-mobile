@@ -2,7 +2,7 @@ import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
 import { Text, View } from '@atomic';
 import { externalUrlApiSlice } from '@flux/api/external-url';
 import { UpdateExternalUrlBodyDto } from '@flux/api/external-url/dto/external-url-update.dto';
-import { useNavigation, useToast } from '@hooks';
+import { useNavigation } from '@hooks';
 import { FormText } from '@molecules';
 import { BasePage } from '@organisms';
 import { useRoute } from '@react-navigation/native';
@@ -13,11 +13,11 @@ import { EditExternalLinkPageRouteProp } from '@types';
 import React, { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import Toast from 'react-native-toast-message';
 import EditExternalLinkPageHeader from './EditExternalLink.header';
 
 const EditExternalLinkPage = () => {
 	const { showLoader, hideLoader } = useGlobalLoader();
-	const { toastError } = useToast();
 	const route = useRoute<EditExternalLinkPageRouteProp>();
 	const { back } = useNavigation();
 	const [deleteExternalUrlMutation] =
@@ -54,7 +54,12 @@ const EditExternalLinkPage = () => {
 			body: data
 		})
 			.unwrap()
-			.catch(toastError)
+			.catch(() => {
+				Toast.show({
+					text1: 'Error',
+					text2: 'Failed to update external link.'
+				});
+			})
 			.finally(() => {
 				hideLoader();
 				back();
@@ -102,7 +107,10 @@ const EditExternalLinkPage = () => {
 							}
 						});
 					} catch {
-						toastError('Failed to delete contact');
+						Toast.show({
+							text1: 'Error',
+							text2: 'Failed to delete external link.'
+						});
 					} finally {
 						hideLoader();
 						back();
@@ -128,7 +136,7 @@ const EditExternalLinkPage = () => {
 					}}
 					render={({ field: { onChange, value } }) => (
 						<FormText
-							focusOnMount
+							focusConfig={{ focusOnMount: true }}
 							onPressClear={() => onChange('')}
 							label='Url'
 							placeholder='https://instagram.com/your-page'
@@ -149,7 +157,6 @@ const EditExternalLinkPage = () => {
 					render={({ field: { onChange, value } }) => (
 						<FormText
 							onPressClear={() => onChange('')}
-							focusOnMountDelay={300}
 							label='Name'
 							placeholder='John Smith'
 							onChangeText={onChange}

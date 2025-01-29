@@ -14,7 +14,7 @@ const SimplifiedTextInput = () => {
 					<Text>Hello World</Text>
 					<View margin='m'>
 						<TextBox
-							focusOnMount
+							focusConfig={{ focusOnMount: true }}
 							placeholder='Hello World'
 							value={value}
 							onChangeText={setValue}

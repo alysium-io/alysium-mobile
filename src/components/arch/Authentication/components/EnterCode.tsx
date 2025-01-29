@@ -1,40 +1,32 @@
 import { View } from '@atomic';
 import { regexPatterns } from '@etc';
+import { LoginUserPhoneNumberBodyDto } from '@flux/api/user/dto/user-login-phone.dto';
 import {
 	Button,
 	ButtonStateApi,
 	DeclarativeText,
 	TextInputWithLabel
 } from '@molecules';
-import { LoginUserPhoneNumberFormApi } from '@src/utils/redux-hook-form/useLoginUserPhoneNumberFormApi';
-import React, { useEffect } from 'react';
-import { Controller } from 'react-hook-form';
-import ContentAnimationWrapper from './ContentAnimationWrapper';
+import React from 'react';
+import { Control, Controller } from 'react-hook-form';
 
 interface EnterCodeWithPhoneBodyProps {
 	onPressBack: () => void;
-	loginUserPhoneNumberFormApi: LoginUserPhoneNumberFormApi;
 	oneTimeCodeButtonStateApi: ButtonStateApi;
+	control: Control<LoginUserPhoneNumberBodyDto>;
+	onSubmit: () => void;
 }
 
 const EnterCodeWithPhoneBody: React.FC<EnterCodeWithPhoneBodyProps> = ({
 	onPressBack,
-	loginUserPhoneNumberFormApi,
-	oneTimeCodeButtonStateApi
+	control,
+	oneTimeCodeButtonStateApi,
+	onSubmit
 }) => {
-	useEffect(() => {
-		const newButtonState = regexPatterns.oneTimeCode.test(
-			loginUserPhoneNumberFormApi.formMethods.watch('passcode')
-		)
-			? 'active'
-			: 'disabled';
-		oneTimeCodeButtonStateApi.setButtonState(newButtonState);
-	}, [loginUserPhoneNumberFormApi.formMethods.watch('passcode')]);
-
 	return (
-		<ContentAnimationWrapper>
+		<View>
 			<Controller
-				control={loginUserPhoneNumberFormApi.formMethods.control}
+				control={control}
 				name='passcode'
 				rules={{
 					required: 'Please enter a code',
@@ -70,12 +62,12 @@ const EnterCodeWithPhoneBody: React.FC<EnterCodeWithPhoneBodyProps> = ({
 					<Button
 						text='Log In'
 						color='t'
-						onPress={loginUserPhoneNumberFormApi.onSubmit}
+						onPress={onSubmit}
 						buttonState={oneTimeCodeButtonStateApi.buttonState}
 					/>
 				</View>
 			</View>
-		</ContentAnimationWrapper>
+		</View>
 	);
 };
 

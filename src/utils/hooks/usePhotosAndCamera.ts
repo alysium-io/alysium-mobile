@@ -18,7 +18,7 @@ import {
 	request,
 	RESULTS
 } from 'react-native-permissions';
-import useToast from './useToast';
+import Toast from 'react-native-toast-message';
 
 // Video constraints
 const VIDEO_CONFIG = {
@@ -52,8 +52,6 @@ interface IUsePhotosAndCamera {
 }
 
 const usePhotosAndCamera = (): IUsePhotosAndCamera => {
-	const { toastError } = useToast();
-
 	const handleApiResolve = async (fn: () => Promise<any>, resolve: any) =>
 		fn().then((result: any) => resolve(result));
 
@@ -123,7 +121,10 @@ const usePhotosAndCamera = (): IUsePhotosAndCamera => {
 			return true;
 		} catch (error) {
 			console.error('Error saving image:', error);
-			toastError('Failed to save image. Please try again.');
+			Toast.show({
+				text1: 'Error',
+				text2: 'Failed to save image. Please try again.'
+			});
 			return false;
 		}
 	};
@@ -251,7 +252,10 @@ const usePhotosAndCamera = (): IUsePhotosAndCamera => {
 			}
 		} catch (err) {
 			console.log(`Something bad happened: ${err}`);
-			toastError('An error occurred while selecting media. Please try again.');
+			Toast.show({
+				text1: 'Error',
+				text2: 'An error occurred while selecting media. Please try again.'
+			});
 			return null;
 		}
 	};
@@ -281,14 +285,20 @@ const usePhotosAndCamera = (): IUsePhotosAndCamera => {
 		const duration = asset.duration;
 		const fileSize = asset.fileSize;
 		if (!duration || !fileSize) {
-			toastError('Invalid video content.');
+			Toast.show({
+				text1: 'Error',
+				text2: 'Invalid video content.'
+			});
 			return false;
 		}
 
 		if (isVideoTooLong(duration)) {
 			const videoLimitString =
 				VIDEO_CONFIG.DURATION_LIMIT_SECONDS.toLocaleString();
-			toastError(`Videos cannot be longer than ${videoLimitString} seconds.`);
+			Toast.show({
+				text1: 'Error',
+				text2: `Videos cannot be longer than ${videoLimitString} seconds.`
+			});
 			return false;
 		}
 
@@ -297,9 +307,10 @@ const usePhotosAndCamera = (): IUsePhotosAndCamera => {
 			const videoSizeMBString = Math.round(
 				convert(fileSize, Unit.B, Unit.MB)
 			).toLocaleString();
-			toastError(
-				`${videoSizeMBString}MB video exceeds the ${videoLimitString}MB limit.`
-			);
+			Toast.show({
+				text1: 'Error',
+				text2: `${videoSizeMBString}MB video exceeds the ${videoLimitString}MB limit.`
+			});
 			return false;
 		}
 

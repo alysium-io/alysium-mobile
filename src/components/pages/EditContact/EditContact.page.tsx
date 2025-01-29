@@ -3,7 +3,7 @@ import { Text, View } from '@atomic';
 import { Formatting } from '@etc';
 import { contactApiSlice } from '@flux/api/contact';
 import { UpdateContactBodyDto } from '@flux/api/contact/dto/contact-update.dto';
-import { useKeyboard, useNavigation, useToast } from '@hooks';
+import { useKeyboard, useNavigation } from '@hooks';
 import { FormPhoneNumber, FormText } from '@molecules';
 import { BasePage } from '@organisms';
 import { useRoute } from '@react-navigation/native';
@@ -12,12 +12,12 @@ import { EditContactPageRouteProp } from '@types';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { ScrollView, TouchableOpacity } from 'react-native';
+import Toast from 'react-native-toast-message';
 import EditContactPageHeader from './EditContact.header';
 
 const EditContactPage = () => {
 	const route = useRoute<EditContactPageRouteProp>();
 	const { back } = useNavigation();
-	const { toastError } = useToast();
 	const { artistData } = useArtistAppContext();
 	const [deleteContactMutation] = contactApiSlice.useDeleteContactMutation();
 	const [updateContactMutation] = contactApiSlice.useUpdateContactMutation();
@@ -53,7 +53,12 @@ const EditContactPage = () => {
 				}
 			})
 				.unwrap()
-				.catch(toastError)
+				.catch(() => {
+					Toast.show({
+						text1: 'Error',
+						text2: 'Failed to update contact.'
+					});
+				})
 				.finally(() => {
 					hideLoader();
 					back();
@@ -85,7 +90,10 @@ const EditContactPage = () => {
 								}
 							});
 						} catch {
-							toastError('Failed to delete contact');
+							Toast.show({
+								text1: 'Error',
+								text2: 'Failed to delete contact.'
+							});
 						} finally {
 							hideLoader();
 							back();
@@ -136,7 +144,7 @@ const EditContactPage = () => {
 						}}
 						render={({ field: { onChange, value } }) => (
 							<FormText
-								focusOnMount
+								focusConfig={{ focusOnMount: true }}
 								onPressClear={() => onChange('')}
 								label='Name'
 								placeholder='John Smith'

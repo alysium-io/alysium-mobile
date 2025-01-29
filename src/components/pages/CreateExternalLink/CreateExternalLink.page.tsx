@@ -2,7 +2,7 @@ import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
 import { ScrollView, View } from '@atomic';
 import { externalUrlApiSlice } from '@flux/api/external-url';
 import { CreateExternalUrlBodyDto } from '@flux/api/external-url/dto/external-url-create.dto';
-import { useNavigation, useToast } from '@hooks';
+import { useNavigation } from '@hooks';
 import { FormText } from '@molecules';
 import { BasePage } from '@organisms';
 import { getIconFromUrl } from '@src/etc/domains';
@@ -10,11 +10,11 @@ import { IconNames } from '@svg';
 import { Alert, useGlobalLoader } from '@templates';
 import React, { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
+import Toast from 'react-native-toast-message';
 import CreateExternalLinkPageHeader from './CreateExternalLink.header';
 
 const CreateExternalLinkPage = () => {
 	const { back } = useNavigation();
-	const { toastError } = useToast();
 	const [createExternalUrlMutation] =
 		externalUrlApiSlice.useCreateExternalUrlMutation();
 	const { artistData } = useArtistAppContext();
@@ -50,7 +50,12 @@ const CreateExternalLinkPage = () => {
 				body: data
 			})
 				.unwrap()
-				.catch(toastError)
+				.catch(() => {
+					Toast.show({
+						text1: 'Error',
+						text2: 'Failed to create external link.'
+					});
+				})
 				.finally(() => {
 					hideLoader();
 					back();
@@ -100,7 +105,7 @@ const CreateExternalLinkPage = () => {
 						}}
 						render={({ field: { onChange, value } }) => (
 							<FormText
-								focusOnMount
+								focusConfig={{ focusOnMount: true }}
 								onPressClear={() => onChange('')}
 								label='Url'
 								placeholder='https://instagram.com/your-page'

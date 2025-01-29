@@ -2,7 +2,7 @@ import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
 import { Text, View } from '@atomic';
 import { artistEventApiSlice } from '@flux/api/event';
 import { UpdateArtistEventBodyDto } from '@flux/api/event/dto/artist-event-update.dto';
-import { useNavigation, useToast } from '@hooks';
+import { useNavigation } from '@hooks';
 import { FormText } from '@molecules';
 import { BasePage } from '@organisms';
 import { useRoute } from '@react-navigation/native';
@@ -11,13 +11,13 @@ import { EditArtistEventTicketsUrlPageRouteProp } from '@types';
 import React, { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { ScrollView } from 'react-native';
+import Toast from 'react-native-toast-message';
 import EditArtistEventTicketsUrlHeader from './EditArtistEventTicketsUrl.header';
 
 const EditArtistEventTicketsUrl = () => {
 	const route = useRoute<EditArtistEventTicketsUrlPageRouteProp>();
 	const { artistData } = useArtistAppContext();
 	const { showLoader, hideLoader } = useGlobalLoader();
-	const { toastError } = useToast();
 	const { back } = useNavigation();
 	const { data: eventData } =
 		artistEventApiSlice.usePrivateFindOneArtistEventQuery({
@@ -57,7 +57,12 @@ const EditArtistEventTicketsUrl = () => {
 			},
 			body: data
 		})
-			.catch(toastError)
+			.catch(() => {
+				Toast.show({
+					text1: 'Error',
+					text2: 'Failed to update artist event tickets URL.'
+				});
+			})
 			.finally(() => {
 				hideLoader();
 				back();
@@ -99,7 +104,7 @@ const EditArtistEventTicketsUrl = () => {
 						name='tickets_url'
 						render={({ field: { onChange, value } }) => (
 							<FormText
-								focusOnMount
+								focusConfig={{ focusOnMount: true }}
 								onPressClear={() => onChange('')}
 								label='link'
 								placeholder='https://www.tickets.io'

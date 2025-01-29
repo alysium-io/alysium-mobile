@@ -3,7 +3,7 @@ import { ScrollView, Text, View } from '@atomic';
 import { Formatting } from '@etc';
 import { contactApiSlice } from '@flux/api/contact';
 import { CreateContactBodyDto } from '@flux/api/contact/dto/contact-create.dto';
-import { useContact, useNavigation, useSearch, useToast } from '@hooks';
+import { useContact, useNavigation, useSearch } from '@hooks';
 import { ContentListItem, FormPhoneNumber, FormText } from '@molecules';
 import { BasePage, SearchBar } from '@organisms';
 import { useGlobalLoader } from '@templates';
@@ -11,10 +11,10 @@ import React, { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import Contacts from 'react-native-contacts';
 import { Contact } from 'react-native-contacts/type';
+import Toast from 'react-native-toast-message';
 import CreateContactPageHeader from './CreateContact.header';
 
 const CreateContactPage = () => {
-	const { toastError } = useToast();
 	const { back } = useNavigation();
 	const { artistData } = useArtistAppContext();
 	const [createContactMutation] = contactApiSlice.useCreateContactMutation();
@@ -68,7 +68,10 @@ const CreateContactPage = () => {
 		})
 			.unwrap()
 			.catch(() => {
-				toastError();
+				Toast.show({
+					text1: 'Error',
+					text2: 'Failed to create contact.'
+				});
 			})
 			.finally(() => {
 				hideLoader();
@@ -80,10 +83,16 @@ const CreateContactPage = () => {
 		const defaultText = 'Please fill out all required fields';
 		const errorKeys = Object.keys(err);
 		if (errorKeys.length > 0) {
-			toastError(err[errorKeys[0]]?.message ?? defaultText);
+			Toast.show({
+				text1: 'Error',
+				text2: err[errorKeys[0]]?.message ?? defaultText
+			});
 			return;
 		} else {
-			toastError(defaultText);
+			Toast.show({
+				text1: 'Error',
+				text2: defaultText
+			});
 		}
 	};
 

@@ -1,23 +1,27 @@
 import { PhoneNumberTextInput, Text, View } from '@atomic';
-import { TextInputApi, useTextInput, useTheme } from '@hooks';
-import React from 'react';
+import { useMergedRef, useTextInputFocusEffect, useTheme } from '@hooks';
+import React, { forwardRef } from 'react';
 import { If, Then } from 'react-if';
-import { TextInputProps, TouchableWithoutFeedback } from 'react-native';
+import {
+	TextInput as RNTextInput,
+	TextInputProps,
+	TouchableWithoutFeedback
+} from 'react-native';
 
 interface FormPhoneNumberTextInputWithLabelProps extends TextInputProps {
-	textInputApi?: TextInputApi;
 	label?: string;
 }
 
-const FormPhoneNumberTextInputWithLabel: React.FC<
+const FormPhoneNumberTextInputWithLabel = forwardRef<
+	RNTextInput,
 	FormPhoneNumberTextInputWithLabelProps
-> = ({ textInputApi, label, ...props }) => {
+>(({ label, ...props }, forwardedRef) => {
 	const { theme } = useTheme();
-	const defaultTextInputApi = useTextInput(props.defaultValue);
-	const _textInputApi = textInputApi || defaultTextInputApi;
+	const ref = useMergedRef<RNTextInput>(forwardedRef);
+	useTextInputFocusEffect(ref);
 
 	return (
-		<TouchableWithoutFeedback onPress={_textInputApi.focus}>
+		<TouchableWithoutFeedback onPress={() => ref.current?.focus()}>
 			<View
 				flexDirection='row'
 				paddingVertical='xl'
@@ -35,7 +39,7 @@ const FormPhoneNumberTextInputWithLabel: React.FC<
 				</If>
 				<View flex={1}>
 					<PhoneNumberTextInput
-						ref={_textInputApi.ref}
+						ref={ref}
 						variant='paragraph'
 						color='text.t'
 						placeholderTextColor={theme.colors['text.q']}
@@ -45,6 +49,6 @@ const FormPhoneNumberTextInputWithLabel: React.FC<
 			</View>
 		</TouchableWithoutFeedback>
 	);
-};
+});
 
 export default FormPhoneNumberTextInputWithLabel;

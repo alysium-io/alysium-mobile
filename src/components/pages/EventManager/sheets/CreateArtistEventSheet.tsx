@@ -2,11 +2,12 @@ import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
 import { Text, View } from '@atomic';
 import { artistEventApiSlice } from '@flux/api/event';
 import { CreateArtistEventBodyDto } from '@flux/api/event/dto/artist-event-create.dto';
-import { SheetApi, useNavigation, useToast } from '@hooks';
+import { SheetApi, useNavigation } from '@hooks';
 import { TextBox, useButtonState } from '@molecules';
 import { FullScreenSheet } from '@organisms';
 import React, { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
+import Toast from 'react-native-toast-message';
 
 interface CreateArtistEventSheetProps {
 	sheetApi: SheetApi;
@@ -15,7 +16,6 @@ interface CreateArtistEventSheetProps {
 const CreateArtistEventSheet: React.FC<CreateArtistEventSheetProps> = ({
 	sheetApi
 }) => {
-	const { toastError } = useToast();
 	const {
 		setButtonState,
 		reset: resetButtonState,
@@ -49,7 +49,10 @@ const CreateArtistEventSheet: React.FC<CreateArtistEventSheetProps> = ({
 			}, 500);
 		} catch {
 			setButtonState('active');
-			toastError();
+			Toast.show({
+				text1: 'Error',
+				text2: 'Failed to create artist event.'
+			});
 		}
 	};
 
@@ -90,7 +93,7 @@ const CreateArtistEventSheet: React.FC<CreateArtistEventSheetProps> = ({
 					rules={{ required: 'Name is required' }}
 					render={({ field: { onChange, value } }) => (
 						<TextBox
-							focusOnMount
+							focusConfig={{ focusOnMount: true }}
 							onChangeText={onChange}
 							placeholder='What was the event called?'
 							subtitle="EDX Nightclub on Tuesdays, Sarah's Wedding, Ultra Miami 2024, etc."
