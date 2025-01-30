@@ -1,4 +1,4 @@
-import { DateTimePicker, LView, Text, View } from '@atomic';
+import { LView, Text, View } from '@atomic';
 import { dayjs } from '@etc';
 import { BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import { SheetApi } from '@hooks';
@@ -190,9 +190,7 @@ const SelectEventDateTimeBottomSheet: React.FC<
 						)}
 					</LView>
 				</LView>
-				<LView>
-					<DateTimePicker {...datePickerOptions} />
-				</LView>
+				<LView>{/* <DateTimePicker {...datePickerOptions} /> */}</LView>
 				<LView flex={1} margin='m' style={{ marginBottom: insets.bottom }}>
 					{selectedDurationOption.id === 'custom' && (
 						<LView>
