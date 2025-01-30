@@ -22,7 +22,13 @@ const UserProfilePageHeader: React.FC = () => {
 						title={
 							<View flexDirection='row' alignItems='center'>
 								<Icon name='at' color='text.s' size='xs' />
-								<Text marginLeft='xs' variant='paragraph'>
+								<Text
+									marginLeft='xs'
+									variant='paragraph'
+									adjustsFontSizeToFit
+									minimumFontScale={0.8}
+									numberOfLines={1}
+								>
 									{userData.handle}
 								</Text>
 							</View>
@@ -34,6 +40,7 @@ const UserProfilePageHeader: React.FC = () => {
 						titleProps={{ variant: 'paragraph', color: 'text.q' }}
 					/>
 				}
+				CenterComponent={null}
 				RightComponent={
 					<HeaderIconButton
 						name='menu'

@@ -1,13 +1,10 @@
 import { useUserAppContext } from '@arch/Application/contexts/User.context';
 import { Avatar, Section, View } from '@atomic';
-import { useSheet } from '@hooks';
 import { Stats } from '@organisms';
 import React from 'react';
 
 const HeaderSection = () => {
 	const { userData, numberOfAccounts } = useUserAppContext();
-	const editUserProfileSheetApi = useSheet();
-
 	return (
 		<Section margin='m' marginTop='xl'>
 			<View
