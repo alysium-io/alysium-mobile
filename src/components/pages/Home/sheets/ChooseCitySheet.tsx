@@ -1,9 +1,10 @@
 import { Text, View } from '@atomic';
 import { locationApiSlice } from '@flux/api/location';
 import { GoogleMapsAutocompleteResult } from '@flux/api/location/types';
+import { usePersistedArray } from '@flux/local/arrays/usePersistedArray';
 import { BottomSheetScrollView, BottomSheetView } from '@gorhom/bottom-sheet';
 import { SheetApi, useSearch } from '@hooks';
-import { MenuListItem } from '@molecules';
+import { Button, MenuListItem } from '@molecules';
 import { BottomSheet, SearchBar } from '@organisms';
 import { useCurrentLocationContext } from '@src/utils/contexts';
 import { ContentListItemsLoading } from '@templates';
@@ -13,15 +14,18 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface ChooseCitySheetProps {
 	sheetApi: SheetApi;
-	onChooseCity: (
-		city: GoogleMapsAutocompleteResult | 'CurrentLocation'
-	) => void;
+	onSelectCurrentLocation: () => void;
+	onSelectCity: (citySearchResult: GoogleMapsAutocompleteResult) => void;
 }
 
 const ChooseCitySheet: React.FC<ChooseCitySheetProps> = ({
 	sheetApi,
-	onChooseCity
+	onSelectCurrentLocation,
+	onSelectCity
 }) => {
+	const { add, items, reset } = usePersistedArray<GoogleMapsAutocompleteResult>(
+		'homeMapSearchCities'
+	);
 	const { hasLocation, city, country } = useCurrentLocationContext();
 	const insets = useSafeAreaInsets();
 	const searchApi = useSearch();
@@ -35,8 +39,17 @@ const ChooseCitySheet: React.FC<ChooseCitySheetProps> = ({
 			{ skip: !searchApi.searchText.length }
 		);
 
-	const sheetDidOpen = () => {
-		searchApi.pressActivate();
+	const _onSelectCity = (citySearchResult: GoogleMapsAutocompleteResult) => {
+		add(citySearchResult);
+		onSelectCity(citySearchResult);
+		sheetApi.close();
+		searchApi.reset();
+	};
+
+	const _onSelectCurrentLocation = () => {
+		onSelectCurrentLocation();
+		sheetApi.close();
+		searchApi.reset();
 	};
 
 	const CurrentLocationMenuItem = () => {
@@ -63,7 +76,7 @@ const ChooseCitySheet: React.FC<ChooseCitySheetProps> = ({
 				containerProps={{
 					paddingLeft: 's'
 				}}
-				onPress={() => onChooseCity('CurrentLocation')}
+				onPress={_onSelectCurrentLocation}
 			/>
 		);
 	};
@@ -72,7 +85,7 @@ const ChooseCitySheet: React.FC<ChooseCitySheetProps> = ({
 		<BottomSheet
 			ref={sheetApi.sheetRef}
 			snapPoints={['90%']}
-			sheetDidOpen={sheetDidOpen}
+			sheetDidOpen={searchApi.pressActivate}
 		>
 			<BottomSheetView style={{ flex: 1, paddingBottom: insets.bottom }}>
 				<View margin='m'>
@@ -85,13 +98,44 @@ const ChooseCitySheet: React.FC<ChooseCitySheetProps> = ({
 				>
 					<Switch>
 						<Case condition={searchApi.searchText.length === 0}>
-							{hasLocation ? (
-								<CurrentLocationMenuItem />
-							) : (
-								<Text variant='paragraph' color='text.s' textAlign='center'>
-									Search by <Text variant='paragraph-medium'>City</Text>
-								</Text>
-							)}
+							<View>
+								{hasLocation && <CurrentLocationMenuItem />}
+								{!items.length && (
+									<Text
+										margin='m'
+										variant='paragraph'
+										color='text.s'
+										textAlign='center'
+									>
+										Search by <Text variant='paragraph-medium'>City</Text>
+									</Text>
+								)}
+								{items?.map((item) => (
+									<MenuListItem
+										key={item.place_id}
+										titleTextProps={{
+											title: item.main_text,
+											bottomSubtext: item.secondary_text,
+											bottomSubtextColor: 'text.q'
+										}}
+										containerProps={{
+											paddingLeft: 's'
+										}}
+										onPress={() => _onSelectCity(item)}
+									/>
+								))}
+								{items?.length > 0 && (
+									<View margin='m' flexDirection='row' justifyContent='center'>
+										<Button
+											text='Clear'
+											onPress={reset}
+											containerProps={{
+												paddingHorizontal: 'xl'
+											}}
+										/>
+									</View>
+								)}
+							</View>
 						</Case>
 						<Case condition={isFetching}>
 							<ContentListItemsLoading withImage={false} />
@@ -114,7 +158,7 @@ const ChooseCitySheet: React.FC<ChooseCitySheetProps> = ({
 									containerProps={{
 										paddingLeft: 's'
 									}}
-									onPress={() => onChooseCity(item)}
+									onPress={() => _onSelectCity(item)}
 								/>
 							))}
 						</Case>

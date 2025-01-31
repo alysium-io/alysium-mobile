@@ -1,7 +1,8 @@
 import { View } from '@atomic';
 import { EventLink } from '@flux/api/event-link/event-link.entity';
 import { Location } from '@flux/api/location';
-import { ImageMarker, MapView, useMap } from '@organisms';
+import { useMap } from '@hooks';
+import { ImageMarker, MapView } from '@organisms';
 import { Props } from '@types';
 import React, { useEffect } from 'react';
 import { Region } from 'react-native-maps';

@@ -18,6 +18,7 @@ const HomePageHeader: React.FC<HomePageHeaderProps> = ({
 	const { display } = useCityAndCountryFromAddressComponents(
 		currentCity?.cityResult.address_components
 	);
+
 	return (
 		<Header position='absolute' top={0} left={0} right={0} zIndex={9999}>
 			<HeaderSection
@@ -36,12 +37,12 @@ const HomePageHeader: React.FC<HomePageHeaderProps> = ({
 								title={display.title}
 								subtitle={display.subtitle}
 								titleProps={{
-									variant: 'paragraph-medium',
+									variant: 'paragraph-large-medium',
 									adjustsFontSizeToFit: true,
 									numberOfLines: 1
 								}}
 								subtitleProps={{
-									variant: 'paragraph',
+									variant: 'paragraph-small',
 									adjustsFontSizeToFit: true,
 									numberOfLines: 1
 								}}
@@ -50,6 +51,7 @@ const HomePageHeader: React.FC<HomePageHeaderProps> = ({
 					</TouchableOpacity>
 				}
 				CenterComponent={null}
+				RightComponent={null}
 			/>
 		</Header>
 	);

@@ -1,5 +1,6 @@
 import { Location } from '@flux/api/location';
-import { MapView, useMap } from '@organisms';
+import { useMap } from '@hooks';
+import { MapView } from '@organisms';
 import React, { useEffect } from 'react';
 
 interface LocationParallaxMapDisplayProps {

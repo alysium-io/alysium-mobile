@@ -17,11 +17,13 @@ import {
 import { serviceApi } from './api/base';
 import { persistedAppReducer } from './local/app';
 import { persistedArrayReducers } from './local/arrays/configPersistedArrays';
+import { persistedHomeMapReducer } from './local/home-map';
 import apiErrorUnauthorizedMiddleware from './middleware/apiErrorUnauthorizedMiddleware';
 
 const store = configureStore({
 	reducer: {
 		persistedApp: persistedAppReducer,
+		persistedHomeMap: persistedHomeMapReducer,
 		...persistedArrayReducers,
 		[serviceApi.reducerPath]: serviceApi.reducer
 	},

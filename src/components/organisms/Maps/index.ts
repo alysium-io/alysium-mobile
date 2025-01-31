@@ -12,4 +12,3 @@ export { default as StaticEventMap } from './templates/StaticEventMap';
 
 // Hooks
 export { default as useInitialMapRegionForUserLocation } from './hooks/useInitialMapRegionForUserLocation';
-export { default as useMap } from './hooks/useMap';

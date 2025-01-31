@@ -1,16 +1,11 @@
 import { View } from '@atomic';
 import { eventApiSlice } from '@flux/api/event';
 import { EventLink } from '@flux/api/event-link/event-link.entity';
-import { useBottomSheetControl, useMapRegionDetection } from '@hooks';
-import {
-	ImageMarker,
-	MapView,
-	SelectedEventMapSheet,
-	useMap
-} from '@organisms';
+import { useBottomSheetControl, useMap, useMapRegionDetection } from '@hooks';
+import { ImageMarker, MapView, SelectedEventMapSheet } from '@organisms';
 import React, { useEffect, useState } from 'react';
 import { Region } from 'react-native-maps';
-import Toast from 'react-native-toast-message';
+import TotalEvents from './TotalEvents';
 
 interface EventMapProps {
 	initialRegion: Region;
@@ -18,10 +13,11 @@ interface EventMapProps {
 
 const EventMap: React.FC<EventMapProps> = ({ initialRegion }) => {
 	const bottomSheetControlApi = useBottomSheetControl();
-	const { region, onRegionChangeComplete } = useMapRegionDetection();
+	const { region, onRegionChangeComplete } =
+		useMapRegionDetection(initialRegion);
 	const [selectedEvent, setSelectedEvent] = useState<EventLink | null>(null);
 	const { mapRef, animateToMarker, animateToRegion } = useMap();
-	const { data: eventData } = eventApiSlice.useNearbyEventsQuery({
+	const { data: eventData, isFetching } = eventApiSlice.useNearbyEventsQuery({
 		query: {
 			latitude: region?.latitude,
 			longitude: region?.longitude,
@@ -48,47 +44,44 @@ const EventMap: React.FC<EventMapProps> = ({ initialRegion }) => {
 		animateToRegion(initialRegion);
 	}, [initialRegion]);
 
-	useEffect(() => {
-		if (!eventData?.length) {
-			Toast.show({
-				text1: 'No events found',
-				text2: 'Search a different area or come back later'
-			});
-		}
-	}, [eventData]);
-
 	return (
-		<View flex={1}>
-			<MapView
-				ref={mapRef}
-				style={{ flex: 1 }}
-				onRegionChangeComplete={onRegionChangeComplete}
-				showsUserLocation={true}
-				moveOnMarkerPress={true}
-				onPanDrag={onMapDrag}
-				initialRegion={initialRegion}
-			>
-				{eventData?.map(
-					(event) =>
-						event.event.location && (
-							<ImageMarker
-								key={`${event.event.location?.latitude}-${event.event.location?.longitude}-${event.event.event_uid}`}
-								image={event.event.profile_image?.small.key}
-								location={event.event.location}
-								onPress={() => onPressEventMarker(event)}
-								isSelected={
-									selectedEvent?.event.event_uid === event.event.event_uid
-								}
-							/>
-						)
-				)}
-			</MapView>
-			<SelectedEventMapSheet
-				event={selectedEvent}
-				bottomSheetControlApi={bottomSheetControlApi}
-				onPressMinimizedHeader={onPressEventMarker}
+		<>
+			<View flex={1}>
+				<MapView
+					ref={mapRef}
+					style={{ flex: 1 }}
+					onRegionChangeComplete={onRegionChangeComplete}
+					showsUserLocation={true}
+					moveOnMarkerPress={true}
+					onPanDrag={onMapDrag}
+					initialRegion={initialRegion}
+				>
+					{eventData?.map(
+						(event) =>
+							event.event.location && (
+								<ImageMarker
+									key={`${event.event.location?.latitude}-${event.event.location?.longitude}-${event.event.event_uid}`}
+									image={event.event.profile_image?.small.key}
+									location={event.event.location}
+									onPress={() => onPressEventMarker(event)}
+									isSelected={
+										selectedEvent?.event.event_uid === event.event.event_uid
+									}
+								/>
+							)
+					)}
+				</MapView>
+				<SelectedEventMapSheet
+					event={selectedEvent}
+					bottomSheetControlApi={bottomSheetControlApi}
+					onPressMinimizedHeader={onPressEventMarker}
+				/>
+			</View>
+			<TotalEvents
+				isFetching={isFetching}
+				numberOfEvents={eventData?.length || 0}
 			/>
-		</View>
+		</>
 	);
 };
 

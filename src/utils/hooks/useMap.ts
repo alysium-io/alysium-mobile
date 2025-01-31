@@ -1,4 +1,6 @@
 import { Location } from '@flux/api/location';
+import { Viewport } from '@flux/api/location/types';
+import { AddressGeometry } from '@types';
 import { useRef } from 'react';
 import MapView, { Region } from 'react-native-maps';
 
@@ -13,6 +15,9 @@ interface MapApi {
 	getRegionForLocations: (
 		locations: Location | Location[]
 	) => Region | undefined;
+	viewportToRegion: (viewport: Viewport) => Region;
+	regionToRadius: (region: Region) => number;
+	geometryToRegion: (geometry: AddressGeometry) => Region;
 	DEFAULT_ZOOM_DELTA: number;
 }
 
@@ -48,18 +53,47 @@ const useMap = (): MapApi => {
 		});
 	};
 
+	const geometryToRegion = (geometry: AddressGeometry): Region => {
+		const { northeast, southwest } = geometry.viewport;
+		const latitudeDelta = northeast.lat - southwest.lat;
+		const longitudeDelta = northeast.lng - southwest.lng;
+		return {
+			latitude: geometry.location.lat,
+			longitude: geometry.location.lng,
+			latitudeDelta: latitudeDelta,
+			longitudeDelta: longitudeDelta
+		};
+	};
+
+	const viewportToRegion = (viewport: Viewport) => {
+		const { northeast, southwest } = viewport;
+		const centerLat = (northeast.lat + southwest.lat) / 2;
+		const centerLng = (northeast.lng + southwest.lng) / 2;
+		const latDelta = Math.abs(northeast.lat - southwest.lat);
+		const lngDelta = Math.abs(northeast.lng - southwest.lng);
+
+		return {
+			latitude: centerLat,
+			longitude: centerLng,
+			latitudeDelta: latDelta,
+			longitudeDelta: lngDelta
+		};
+	};
+
 	const getRegionForLocation = (location: Location): Region => {
 		if (location.viewport) {
-			const { northeast, southwest } = location.viewport;
-			const centerLat = (northeast.lat + southwest.lat) / 2;
-			const centerLng = (northeast.lng + southwest.lng) / 2;
-			const latDelta = Math.abs(northeast.lat - southwest.lat);
-			const lngDelta = Math.abs(northeast.lng - southwest.lng);
-			const finalDelta = Math.max(latDelta, lngDelta, DEFAULT_ZOOM_DELTA);
+			const { latitude, longitude, latitudeDelta, longitudeDelta } =
+				viewportToRegion(location.viewport);
+
+			const finalDelta = Math.max(
+				latitudeDelta,
+				longitudeDelta,
+				DEFAULT_ZOOM_DELTA
+			);
 
 			return {
-				latitude: centerLat,
-				longitude: centerLng,
+				latitude,
+				longitude,
 				latitudeDelta: finalDelta,
 				longitudeDelta: finalDelta
 			};
@@ -119,6 +153,22 @@ const useMap = (): MapApi => {
 		};
 	};
 
+	const regionToRadius = (region: Region): number => {
+		// We calculate the radius based on the approximate vertical delta between
+		// the the center of the map and the top of the map. Since phones are
+		// rectangular, this will "object-fit" the region vertically, overshooting
+		// horizontally a bit. This is fine.
+		// The other option is to use the longitude delta, but the object-fit in this
+		// case leaves a gap on the top and bottom of the viewable map. So I guess
+		// we'd rather overshoot a bit to capture the whole viewable map than leave
+		// a gap, but this is definitely still up for debate. I might change this later...
+		const delta = region.latitudeDelta;
+
+		const radiusInMeters =
+			(delta * 111320 * Math.cos(region.latitude * (Math.PI / 180))) / 2;
+		return radiusInMeters;
+	};
+
 	return {
 		mapRef,
 		animateToRegion,
@@ -126,6 +176,9 @@ const useMap = (): MapApi => {
 		animateToMarker,
 		getRegionForLocation,
 		getRegionForLocations,
+		viewportToRegion,
+		regionToRadius,
+		geometryToRegion,
 		DEFAULT_ZOOM_DELTA
 	};
 };

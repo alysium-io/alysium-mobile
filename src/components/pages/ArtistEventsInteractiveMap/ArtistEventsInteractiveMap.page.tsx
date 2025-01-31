@@ -2,13 +2,12 @@ import { View } from '@atomic';
 import { artistEventApiSlice } from '@flux/api/event';
 import { EventLink } from '@flux/api/event-link/event-link.entity';
 import { Location } from '@flux/api/location';
-import { useBottomSheetControl, useMapRegionDetection } from '@hooks';
+import { useBottomSheetControl, useMap, useMapRegionDetection } from '@hooks';
 import {
 	BasePage,
 	ImageMarker,
 	MapView,
-	SelectedEventMapSheet,
-	useMap
+	SelectedEventMapSheet
 } from '@organisms';
 import { useRoute } from '@react-navigation/native';
 import { ArtistEventsInteractiveMapPageRouteProp } from '@types';

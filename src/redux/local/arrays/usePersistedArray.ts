@@ -24,8 +24,9 @@ export function usePersistedArray<
 	return {
 		items: items as T[],
 		limit,
-		add: (item: T) => dispatch(persistedArrayActions[key].add(item)),
-		remove: (item: T) => dispatch(persistedArrayActions[key].remove(item)),
+		add: (item: T) => dispatch(persistedArrayActions[key].add(item as any)),
+		remove: (item: T) =>
+			dispatch(persistedArrayActions[key].remove(item as any)),
 		reset: () => dispatch(persistedArrayActions[key].reset()),
 		isEmpty: items.length === 0,
 		isFull: items.length === limit,

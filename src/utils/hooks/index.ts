@@ -1,5 +1,6 @@
 // State
 export { default as usePersistedAppState } from './usePersistedAppState';
+export { default as usePersistedHomeMapState } from './usePersistedHomeMapState';
 export { default as useTheme } from './useTheme';
 
 // Navigation
@@ -43,6 +44,7 @@ export {
 export { default as useLinking } from './useLinking';
 export { default as useList, type ListApi } from './useList';
 export { default as useLocation } from './useLocation';
+export { default as useMap } from './useMap';
 export {
 	default as useMapRegionDetection,
 	type TargetRegion

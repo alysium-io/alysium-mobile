@@ -15,7 +15,7 @@ export type CreatePersistedArrayConfig<T> = {
 export function createPersistedArray<T>({
 	name,
 	limit = 50,
-	compareProp = 'uid' as keyof T
+	compareProp
 }: CreatePersistedArrayConfig<T>) {
 	const initialState: PersistedArrayState<T> = {
 		items: [],
