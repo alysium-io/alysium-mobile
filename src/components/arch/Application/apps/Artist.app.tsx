@@ -83,7 +83,7 @@ const ArtistApp = () => {
 						options={{
 							tabBarIcon: ({ focused }) => (
 								<Icon
-									name='profile'
+									name='user'
 									size='m'
 									color={
 										focused ? 'navbar.icon.active' : 'navbar.icon.inactive'

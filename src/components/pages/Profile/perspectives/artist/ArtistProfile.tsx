@@ -1,6 +1,7 @@
 import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
-import { ScrollView, View } from '@atomic';
-import { useNavigation } from '@hooks';
+import { useUserAppContext } from '@arch/Application/contexts/User.context';
+import { RefreshControl, ScrollView, View } from '@atomic';
+import { useNavigation, useRefresh } from '@hooks';
 import { BasePage } from '@organisms';
 import SimpleButton from '@src/components/molecules/Buttons/SimpleButton';
 import React from 'react';
@@ -12,12 +13,21 @@ import LogoutSection from './components/LogoutSection';
 import ShareEpkSection from './components/ShareEpkSection';
 
 const ArtistProfile = () => {
-	const { artist_uid } = useArtistAppContext();
+	const { artist_uid, refetchArtist } = useArtistAppContext();
 	const { editArtistPage, artistPage } = useNavigation();
+	const { refetchUserArtists } = useUserAppContext();
+
+	const refresh = () => {
+		refetchUserArtists();
+		refetchArtist();
+	};
+
+	const refreshControl = useRefresh(refresh);
+
 	return (
 		<BasePage>
 			<ArtistProfilePageHeader />
-			<ScrollView>
+			<ScrollView refreshControl={<RefreshControl {...refreshControl} />}>
 				<HeaderSection />
 				<View margin='m' columnGap='m' flexDirection='row'>
 					<SimpleButton

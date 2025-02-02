@@ -64,7 +64,7 @@ const useHomeMapState = (): IUseHomeMapState => {
 		 * set the active region and city to their current location.
 		 */
 		initCurrentLocation().then(({ status, location }) => {
-			if (status && location) {
+			if (status && location && city === null) {
 				geocodeLatLng({
 					query: location
 				}).then(({ data }) => {

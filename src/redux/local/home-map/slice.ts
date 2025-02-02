@@ -16,7 +16,6 @@ const defaultRegion = {
 };
 
 const initialState: HomeMapState = {
-	radius: 0,
 	defaultRegion,
 	region: defaultRegion,
 	city: null

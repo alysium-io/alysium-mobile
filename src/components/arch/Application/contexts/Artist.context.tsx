@@ -13,6 +13,7 @@ export type ArtistAppContextType = {
 	artistIsLoading: boolean;
 	permissions: UserArtistLinkPermissions | null;
 	isEditable: boolean;
+	refetchArtist: () => void;
 };
 
 export const ArtistAppContext = createContext({} as ArtistAppContextType);
@@ -23,7 +24,8 @@ export const ArtistAppProvider: React.FC<ProviderProps> = ({ children }) => {
 	const {
 		data: artistData,
 		error: artistError,
-		isLoading: artistIsLoading
+		isLoading: artistIsLoading,
+		refetch: refetchArtist
 	} = artistApiSlice.usePrivateFindOneArtistQuery({
 		params: { artist_uid: personaId }
 	});
@@ -50,7 +52,8 @@ export const ArtistAppProvider: React.FC<ProviderProps> = ({ children }) => {
 				artistError,
 				artistIsLoading,
 				permissions: artistData.user?.permissions ?? null,
-				isEditable
+				isEditable,
+				refetchArtist
 			}}
 		>
 			{children}

@@ -27,7 +27,6 @@ const usePersistedHomeMapState = (): IUsePersistedHomeMapState => {
 		region: persistedHomeMap.region,
 		city: persistedHomeMap.city,
 		defaultRegion: persistedHomeMap.defaultRegion,
-		radius: persistedHomeMap.radius,
 		setPersistedHomeMapState,
 		resetPersistedHomeMapState,
 		setPersistedHomeMapStateWithDefaults

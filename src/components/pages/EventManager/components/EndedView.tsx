@@ -1,5 +1,5 @@
 import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
-import { RefreshControl, ScrollView } from '@atomic';
+import { RefreshControl, ScrollView, Text } from '@atomic';
 import { artistEventApiSlice } from '@flux/api/event';
 import {
 	useEventDateFormatter,
@@ -11,7 +11,7 @@ import { EventContentListItem } from '@molecules';
 import { PageError } from '@templates';
 import { orderBy } from 'lodash';
 import React from 'react';
-import EndedEmptyState from './EndedEmptyState';
+import EmptyState from './EmptyState';
 import LoadingView from './LoadingView';
 
 interface EndedViewProps {}
@@ -43,7 +43,21 @@ const EndedView: React.FC<EndedViewProps> = () => {
 	}
 
 	if (!data?.length) {
-		return <EndedEmptyState />;
+		return (
+			<EmptyState
+				title={
+					<Text variant='paragraph-medium' color='text.q' textAlign='center'>
+						When you finish an{' '}
+						<Text variant='paragraph-medium' color='text.s'>
+							event
+						</Text>
+						{'\n'}
+						it will appear here to review for your EPK.
+					</Text>
+				}
+				refetch={refetch}
+			/>
+		);
 	}
 
 	return (

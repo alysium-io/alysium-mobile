@@ -1,15 +1,15 @@
 import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
-import { RefreshControl, ScrollView } from '@atomic';
+import { RefreshControl, ScrollView, Text } from '@atomic';
 import { artistEventApiSlice } from '@flux/api/event';
 import { EventLink } from '@flux/api/event-link/event-link.entity';
 import { ComplexEventStatus } from '@flux/api/event/types';
 import { useEvent, useRefresh, withPoke } from '@hooks';
 import { PageError } from '@templates';
+import _ from 'lodash';
 import React, { useMemo } from 'react';
+import EmptyState from './EmptyState';
 import LoadingView from './LoadingView';
-import WorkbenchEmptyState from './WorkbenchEmptyState';
 import WorkbenchSection from './WorkbenchSection';
-
 type SectionData = {
 	id: ComplexEventStatus;
 	title: string;
@@ -58,7 +58,12 @@ const WorkbenchView: React.FC<WorkbenchViewProps> = () => {
 				(event) => _getComplexStatus(event.event) === section.id
 			);
 			if (events?.length) {
-				groupedData.push({ ...section, events });
+				const sortedEvents = _.orderBy(
+					events,
+					[(event) => event.event.start_time || '9999-12-31'],
+					['asc']
+				);
+				groupedData.push({ ...section, events: sortedEvents });
 			}
 		}
 		return groupedData;
@@ -80,7 +85,20 @@ const WorkbenchView: React.FC<WorkbenchViewProps> = () => {
 	}
 
 	if (!data?.length) {
-		return <WorkbenchEmptyState />;
+		return (
+			<EmptyState
+				title={
+					<Text variant='paragraph-medium' color='text.q' textAlign='center'>
+						Create an{' '}
+						<Text variant='paragraph-medium' color='text.s'>
+							event
+						</Text>{' '}
+						to get started
+					</Text>
+				}
+				refetch={refetch}
+			/>
+		);
 	}
 
 	return (

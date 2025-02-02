@@ -21,6 +21,8 @@ export type UserAppContextType = {
 	userArtistsData: PrivateFindAllArtistsResponseDto;
 	revertToUser: () => void;
 	numberOfAccounts: number;
+	refetchUser: () => void;
+	refetchUserArtists: () => void;
 };
 
 export const UserAppContext = createContext({} as UserAppContextType);
@@ -32,12 +34,13 @@ export const UserAppProvider: React.FC<ProviderProps> = ({ children }) => {
 	const {
 		data: userData,
 		error: userError,
-		isLoading: userIsLoading
+		isLoading: userIsLoading,
+		refetch: refetchUser
 	} = userApiSlice.usePrivateFindOneUserQuery();
 	const [createUserProfileImageMutation] =
 		profileImageApiSlice.useCreateUserProfileImageMutation();
 	const { setBehaviorUserUid } = useBehaviorContext();
-	const { data: userArtistsData } =
+	const { data: userArtistsData, refetch: refetchUserArtists } =
 		artistApiSlice.usePrivateFindAllArtistsQuery();
 
 	useEffect(() => {
@@ -81,7 +84,9 @@ export const UserAppProvider: React.FC<ProviderProps> = ({ children }) => {
 				createAccountBottomSheetApi,
 				userArtistsData,
 				revertToUser,
-				numberOfAccounts: userArtistsData.length + 1
+				numberOfAccounts: userArtistsData.length + 1,
+				refetchUserArtists,
+				refetchUser
 			}}
 		>
 			{children}

@@ -1,12 +1,12 @@
 import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
-import { RefreshControl, ScrollView } from '@atomic';
+import { RefreshControl, ScrollView, Text } from '@atomic';
 import { artistEventApiSlice } from '@flux/api/event';
 import { useEvent, useNavigation, usePagination, useRefresh } from '@hooks';
 import { EventContentListItem } from '@molecules';
 import { PageError } from '@templates';
 import { orderBy } from 'lodash';
 import React from 'react';
-import EndedEmptyState from './EndedEmptyState';
+import EmptyState from './EmptyState';
 import LoadingView from './LoadingView';
 
 interface AllViewProps {}
@@ -36,7 +36,21 @@ const AllView: React.FC<AllViewProps> = () => {
 	}
 
 	if (!data?.length) {
-		return <EndedEmptyState />;
+		return (
+			<EmptyState
+				title={
+					<Text variant='paragraph-medium' color='text.q' textAlign='center'>
+						All your{' '}
+						<Text variant='paragraph-medium' color='text.s'>
+							events
+						</Text>
+						{'\n'}
+						will appear here.
+					</Text>
+				}
+				refetch={refetch}
+			/>
+		);
 	}
 
 	return (

@@ -1,5 +1,5 @@
 import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
-import { RefreshControl, ScrollView } from '@atomic';
+import { RefreshControl, ScrollView, Text } from '@atomic';
 import { artistEventApiSlice } from '@flux/api/event';
 import {
 	useEventDateFormatter,
@@ -11,7 +11,7 @@ import { EventContentListItem } from '@molecules';
 import { PageError } from '@templates';
 import { orderBy } from 'lodash';
 import React from 'react';
-import ArchiveEmptyState from './ArchiveEmptyState';
+import EmptyState from './EmptyState';
 import LoadingView from './LoadingView';
 
 interface ArchiveViewProps {}
@@ -42,7 +42,21 @@ const ArchiveView: React.FC<ArchiveViewProps> = () => {
 	}
 
 	if (!data?.length) {
-		return <ArchiveEmptyState />;
+		return (
+			<EmptyState
+				title={
+					<Text variant='paragraph-medium' color='text.q' textAlign='center'>
+						When you complete an{' '}
+						<Text variant='paragraph-medium' color='text.s'>
+							event
+						</Text>
+						{'\n'}
+						it will appear here
+					</Text>
+				}
+				refetch={refetch}
+			/>
+		);
 	}
 
 	return (
