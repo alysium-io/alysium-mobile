@@ -11,7 +11,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface ExternalUrlsSheetProps {
 	sheetApi: SheetApi;
-	externalUrls: ExternalUrl[];
+	externalUrls?: ExternalUrl[];
 }
 
 const ExternalUrlsSheet: React.FC<ExternalUrlsSheetProps> = ({
@@ -34,12 +34,17 @@ const ExternalUrlsSheet: React.FC<ExternalUrlsSheetProps> = ({
 				<BottomSheetHeader textAlign='center'>Links</BottomSheetHeader>
 				<BottomSheetScrollView>
 					<Switch>
-						<Case condition={externalUrls.length > 0}>
-							{externalUrls.map((externalUrl) => (
+						<Case condition={externalUrls && externalUrls.length > 0}>
+							{externalUrls?.map((externalUrl) => (
 								<MenuListItemWithButton
 									key={externalUrl.external_url_uid}
 									onPress={() => go(externalUrl.url)}
-									onPressButton={() => copy(externalUrl.url)}
+									onPressButton={() =>
+										copy(externalUrl.url, {
+											text1: 'Copied link to clipboard',
+											text2: externalUrl.name
+										})
+									}
 									buttonIconProps={{
 										name: 'link'
 									}}
@@ -63,7 +68,7 @@ const ExternalUrlsSheet: React.FC<ExternalUrlsSheetProps> = ({
 								/>
 							))}
 						</Case>
-						<Case condition={externalUrls.length === 0}>
+						<Case condition={externalUrls && externalUrls.length === 0}>
 							<Text
 								variant='paragraph-medium'
 								margin='m'

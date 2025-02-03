@@ -2,7 +2,6 @@ import {
 	Avatar,
 	Bold,
 	Icon,
-	Link,
 	P,
 	ScrollView,
 	Section,
@@ -48,92 +47,124 @@ const AboutAlysiumBottomSheet: React.FC<AboutAlysiumBottomSheetProps> = ({
 						<Text variant='page-header' marginBottom='s'>
 							Alysium
 						</Text>
+						<P>
+							The purpose of Alysium is to help artists{' '}
+							<Bold>build their live music business</Bold>. We do that by giving
+							artists the tools to create events, share them with their
+							audience, and automatically save them to an EPK (Electronic Press
+							Kit) so that your credibility compounds for the future. Building a
+							business out of playing shows is hard, but we give you the tools
+							to make managing it efficient and straightforward.
+						</P>
 					</Section>
-					<Section marginBottom='none'>
+
+					<Section>
+						<Text variant='section-header-1' marginTop='m' marginBottom='s'>
+							Here's how it works
+						</Text>
+
+						<Text variant='section-header-2' marginTop='m' marginBottom='s'>
+							1. Create an artist account
+						</Text>
 						<P>
-							The purpose of Alysium is to help people build their{' '}
-							<Bold>live music business</Bold>, and help deliver that to fans.
+							Alysium takes on two different forms. You are either a{' '}
+							<Bold>User</Bold> or an <Bold>Artist</Bold>. Users search for live
+							music, Artists build it. When you first enter Alysium you are a
+							User. Start by navigating to the User Profile tab where you will
+							see a button at the bottom of your screen to "Create Artist". Once
+							you create your artist, you will be brought into the Artist app
+							which is where you can start building live music as your new
+							artist.
+						</P>
+
+						<Text variant='section-header-2' marginTop='m' marginBottom='s'>
+							2. Create your first event
+						</Text>
+						<P>
+							Once you've entered the Artist app, navigate to the center tab
+							which is where you will manage all of your events. Start by
+							pressing "Create Event" and give your event a name.
 						</P>
 						<P>
-							It's not like there isn't music happening all around us...
-							constantly... I want to grab a drink and listen to some electronic
-							music tonight... where do I go? I know it's out there...but{' '}
-							<Bold>where is the music?</Bold>
+							In order to publish your event, you must give it a Time and a
+							Location. We also recommend adding a profile image, a description
+							and a link to purchase tickets if you have one.
 						</P>
 						<P>
-							The live music world is currently dominated by{' '}
-							<Bold>big corporations</Bold> that refused to prioritize the needs
-							of the hosts and artists that work so hard to bring culture to our
-							communities.
+							Once published, your event becomes visible to anyone on Alysium -
+							meaning anyone searching for live music on our interactive map can
+							find you!
 						</P>
+
+						<Text variant='section-header-2' marginTop='m' marginBottom='s'>
+							3. Share your event
+						</Text>
+						<P>After creating an event, there are several ways to share it:</P>
+
+						<Text
+							variant='paragraph-large-medium'
+							marginTop='m'
+							marginBottom='s'
+						>
+							1. In Person
+						</Text>
 						<P>
-							The industry has been monopolized, optimized, and corporatized.
-							They are only interested in turning your experience into a
-							commodity that they can scale to arenas, stadiums, and festivals.
-							So the answer is simple... Why can't you find your local jazz bar?
-							Because it doesn't <Bold>benefit them</Bold>.
+							When meeting someone interested in your show, simply pull up your
+							event and show them the QR Code to scan. They'll get access to all
+							event information and an interactive map with directions.
 						</P>
+
+						<Text
+							variant='paragraph-large-medium'
+							marginTop='m'
+							marginBottom='s'
+						>
+							2. Social Media
+						</Text>
 						<P>
-							We are building Alysium for <Bold>the people</Bold>. We are
-							building Alysium for the <Bold>hosts</Bold> that want to bring
-							culture to their communities. We are building Alysium for the{' '}
-							<Bold>artists</Bold> that want to share their music with the
-							world. We are building Alysium for the <Bold>fans</Bold> that want
-							to <Bold>dance</Bold>.
+							Use the "Share" option in your Event Manager to access pre-built
+							posters for Instagram stories. Don't forget to include your
+							Alysium profile link!
 						</P>
-						<P>And here's exactly how we're going to do it.</P>
-						<View alignItems='center' style={{ marginVertical: 50 }}>
-							<View
-								flexDirection='row'
-								justifyContent='space-around'
-								width='100%'
-								style={{ marginBottom: 50 }}
-							>
-								<DefaultImage icon='host' text='Host' />
-								<DefaultImage icon='artist' text='Artist' />
-							</View>
-							<DefaultImage icon='user' text='Fan' />
+
+						<Text
+							variant='paragraph-large-medium'
+							marginTop='m'
+							marginBottom='s'
+						>
+							3. Alysium Discovery
+						</Text>
+						<P>
+							Your published events appear on the Alysium interactive map,
+							allowing new fans to discover your shows organically.
+						</P>
+
+						<Text variant='section-header-2' marginTop='m' marginBottom='s'>
+							4. Save to your EPK
+						</Text>
+						<P>
+							After your event, save it to your EPK through the Event Manager.
+							This helps:
+						</P>
+						<View marginLeft='m' marginBottom='m'>
+							<P>• Future fans understand your vibe</P>
+							<P>• Venues see your performance history</P>
+							<P>• Build your professional portfolio</P>
 						</View>
-						<P>
-							The live music world is split into 3 major groups:{' '}
-							<Bold>hosts</Bold>, <Bold>artists</Bold>, and <Bold>fans</Bold>.
-						</P>
-						<P>
-							<Bold>Hosts</Bold> want to...{'\n\n'}
-							1. Find high quality artists they know will sell tickets{'\n'}
-							2. Have a mechanism to sell tickets{'\n'}
-							3. Market their events to fans{'\n'}
-						</P>
-						<P>
-							<Bold>Artists</Bold> want to...{'\n\n'}
-							1. Find the right venues to be booked at{'\n'}
-							2. Stay connected to the fans who want to support them{'\n'}
-						</P>
-						<P>
-							<Bold>Fans</Bold> want to...{'\n\n'}
-							1. Find live music{'\n'}
-							2. Stay connected to artists & hosts they love{'\n'}
-							3. Dance{'\n'}
-						</P>
-						<P>So how do we bring these people together?</P>
-						<P>
-							1. We start by building tools to make life easier for hosts while
-							building a show. We will provide them with the tools to search and
-							contract artists, sell tickets, and market their events.{'\n'}
-							2. Then we build tools for artists to find venues, escrowed
-							contracts to verify that they will be paid, and a profile that
-							their fans can follow.{'\n'}
-							3. Once we can help the hosts & artists build their business, we
-							can finally focus on delivering those events to the fans.
-						</P>
-						<P>
-							It starts with the business, but it ends with the fans, and we are
-							building Alysium for <Bold>the people</Bold>.
-						</P>
+
+						<Text variant='section-header-2' marginTop='m' marginBottom='s'>
+							5. Complete your artist profile
+						</Text>
+						<P>Enhance your presence by adding:</P>
+						<View marginLeft='m' marginBottom='m'>
+							<P>• Contact information</P>
+							<P>• Social media links</P>
+							<P>• Your home scene (city)</P>
+							<P>• Media links (SoundCloud, YouTube, etc.)</P>
+						</View>
 						<P marginBottom='none'>
-							We will share more about our journey, our progress, and our vision
-							as we continue to build Alysium. And if you ever have any
-							questions, feel free to email us at <Link>alec@alysium.io</Link>
+							This creates a comprehensive profile that helps connect you with
+							fans, venues, and other artists in your scene.
 						</P>
 					</Section>
 				</View>

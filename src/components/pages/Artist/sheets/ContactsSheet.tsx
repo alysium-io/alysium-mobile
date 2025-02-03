@@ -93,9 +93,7 @@ const ContactDetailScreen: React.FC<ContactDetailScreenProps> = ({ route }) => {
 				<MenuListItemWithButton
 					onPress={() => call(phone_number)}
 					prefixIconProps={{ name: 'old-phone' }}
-					onPressButton={() =>
-						copy(phone_number, { text2: 'You can now share this phone number' })
-					}
+					onPressButton={() => copy(phone_number, { text2: phone_number })}
 					buttonIconProps={{
 						name: 'link'
 					}}
@@ -119,9 +117,7 @@ const ContactDetailScreen: React.FC<ContactDetailScreenProps> = ({ route }) => {
 				<MenuListItemWithButton
 					onPress={() => handleEmail(email)}
 					prefixIconProps={{ name: 'at' }}
-					onPressButton={() =>
-						copy(email, { text2: 'You can now share this email' })
-					}
+					onPressButton={() => copy(email, { text2: email })}
 					buttonIconProps={{
 						name: 'link'
 					}}
@@ -147,7 +143,7 @@ const ContactDetailScreen: React.FC<ContactDetailScreenProps> = ({ route }) => {
 
 interface ContactsSheetProps {
 	sheetApi: SheetApi;
-	contacts: Contact[];
+	contacts?: Contact[];
 }
 
 const ContactsSheet: React.FC<ContactsSheetProps> = ({
@@ -157,7 +153,7 @@ const ContactsSheet: React.FC<ContactsSheetProps> = ({
 	const { theme } = useTheme();
 	const ContactsListScreenFC = useCallback(
 		(props: NativeStackScreenProps<RootStackParamList, 'ContactsList'>) => (
-			<ContactsListScreen {...props} contacts={contacts} />
+			<ContactsListScreen {...props} contacts={contacts ?? []} />
 		),
 		[contacts]
 	);

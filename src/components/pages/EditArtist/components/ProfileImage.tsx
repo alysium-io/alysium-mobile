@@ -30,6 +30,9 @@ const ProfileImage = () => {
 				onChooseImage={updateArtistProfileImage}
 				image={artistData.profile_image?.medium.key}
 				isLoading={artistIsLoading || isProfileImageLoading}
+				defaultImageProps={{
+					icon: 'artist'
+				}}
 			/>
 		</View>
 	);

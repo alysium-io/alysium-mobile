@@ -1,7 +1,7 @@
 import { BgTouchAnimation, Icon, View } from '@atomic';
 import { Props } from '@types';
 import React from 'react';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { TouchableOpacity } from 'react-native';
 import Container from './components/Container';
 import TitleText from './components/TitleText';
 

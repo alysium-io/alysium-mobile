@@ -21,8 +21,6 @@ const ArtistContactsAndLinks: React.FC<ArtistContactsAndLinksProps> = ({
 	const externalUrlsSheetApi = useSheet();
 	const contactsSheetApi = useSheet();
 
-	if (!artistData) return null;
-
 	return (
 		<>
 			<View width='75%'>
@@ -56,11 +54,11 @@ const ArtistContactsAndLinks: React.FC<ArtistContactsAndLinksProps> = ({
 			</View>
 			<ExternalUrlsSheet
 				sheetApi={externalUrlsSheetApi}
-				externalUrls={artistData.external_urls}
+				externalUrls={artistData?.external_urls}
 			/>
 			<ContactsSheet
 				sheetApi={contactsSheetApi}
-				contacts={artistData.contacts}
+				contacts={artistData?.contacts}
 			/>
 		</>
 	);
