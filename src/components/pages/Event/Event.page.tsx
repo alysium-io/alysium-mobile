@@ -7,7 +7,7 @@ import { PageError, ParallaxLoading, WhenWhereWhySubHeader } from '@templates';
 import { EventPageRouteProp } from '@types';
 import React, { useCallback } from 'react';
 import { Linking } from 'react-native';
-import GallerySection from './components/GallerySection';
+import EventMediaSection from './components/EventMediaSection';
 import LocationSection from './components/LocationSection';
 import OrganizerSection from './components/OrganizerSection';
 import EventPageHeader from './Event.header';
@@ -60,7 +60,7 @@ const ArtistEvent = () => {
 				</View>
 				<OrganizerSection eventData={eventData} />
 				<LocationSection eventData={eventData} />
-				<GallerySection eventData={eventData} />
+				<EventMediaSection eventData={eventData} />
 			</Parallax>
 		</BasePage>
 	);

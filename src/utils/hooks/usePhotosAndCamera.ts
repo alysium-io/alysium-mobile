@@ -6,6 +6,7 @@ import { Alert } from '@templates';
 import { Linking, Platform } from 'react-native';
 import {
 	Asset,
+	ImageLibraryOptions,
 	ImagePickerResponse,
 	launchCamera,
 	launchImageLibrary,
@@ -44,7 +45,8 @@ const isVideoTooLong = (duration: number): boolean => {
 
 interface IUsePhotosAndCamera {
 	chooseMediaOrTakeNew: (
-		mediaType?: RNMediaType
+		mediaType?: RNMediaType,
+		config?: Partial<ImageLibraryOptions>
 	) => Promise<ImagePickerResponse | null>;
 	extractAsset: (response: ImagePickerResponse | null) => Asset | null;
 	saveImage: (uri: string) => Promise<boolean>;
@@ -130,7 +132,8 @@ const usePhotosAndCamera = (): IUsePhotosAndCamera => {
 	};
 
 	const chooseMediaOrTakeNew = async (
-		mediaType: RNMediaType = 'mixed'
+		mediaType: RNMediaType = 'mixed',
+		config?: Partial<ImageLibraryOptions>
 	): Promise<ImagePickerResponse | null> => {
 		return new Promise((resolve) => {
 			Alert.alert(
@@ -149,7 +152,7 @@ const usePhotosAndCamera = (): IUsePhotosAndCamera => {
 							handleApiResolve(async () => {
 								return new Promise((res) => {
 									setTimeout(async () => {
-										const result = await chooseFromLibrary(mediaType);
+										const result = await chooseFromLibrary(mediaType, config);
 										res(result);
 									}, 500);
 								});
@@ -215,7 +218,8 @@ const usePhotosAndCamera = (): IUsePhotosAndCamera => {
 	};
 
 	const chooseFromLibrary = async (
-		mediaType: RNMediaType = 'mixed'
+		mediaType: RNMediaType = 'mixed',
+		config?: Partial<ImageLibraryOptions>
 	): Promise<ImagePickerResponse | null> => {
 		try {
 			const permissionResult = await requestPhotosPermissions();
@@ -225,9 +229,11 @@ const usePhotosAndCamera = (): IUsePhotosAndCamera => {
 			) {
 				const result = await launchImageLibrary({
 					mediaType,
-					quality: SHARED_CONFIG.QUALITY,
-					selectionLimit: SHARED_CONFIG.SELECTION_LIMIT,
-					videoQuality: 'high'
+					videoQuality: 'high',
+					...{
+						...SHARED_CONFIG,
+						...config
+					}
 				});
 
 				// If we chose nothing or canceled the operation

@@ -1,6 +1,6 @@
 import { Contact } from '@flux/api/contact';
+import { EventMedia } from '@flux/api/event-media/event-media.entity';
 import { ExternalUrl } from '@flux/api/external-url/external-url.entity';
-import { GalleryItem } from '@flux/api/gallery/gallery-item.entity';
 import { useNavigation as useRNNavigation } from '@react-navigation/native';
 import { CompositeScreenNavigationProp, NanoId } from '@types';
 import {
@@ -37,10 +37,7 @@ interface IUseNavigation {
 	userTagsFollowingPage: (navigationMeta: NavigationBehaviorMetadata) => void;
 	topTagsPage: (navigationMeta: NavigationBehaviorMetadata) => void;
 
-	viewGalleryPage: (
-		transitionTagId: string,
-		galleryItems: GalleryItem[]
-	) => void;
+	viewEventMediaPage: (eventMedia: EventMedia[], initialIndex: number) => void;
 
 	chooseScenePage: () => void;
 
@@ -167,13 +164,13 @@ const useNavigation = (): IUseNavigation => {
 		navigationBehavior(navigationMeta);
 	};
 
-	const viewGalleryPage = (
-		transitionTagId: string,
-		galleryItems: GalleryItem[]
+	const viewEventMediaPage = (
+		eventMedia: EventMedia[],
+		initialIndex: number
 	) => {
-		navigation.push('ViewGalleryPage', {
-			transitionTagId,
-			galleryItems
+		navigation.push('ViewEventMediaPage', {
+			eventMedia,
+			initialIndex
 		});
 	};
 
@@ -279,7 +276,7 @@ const useNavigation = (): IUseNavigation => {
 		userScenesFollowingPage,
 		userTagsFollowingPage,
 		topTagsPage,
-		viewGalleryPage,
+		viewEventMediaPage,
 		chooseScenePage,
 		chooseEventLocationPage,
 		artistEventsPage,

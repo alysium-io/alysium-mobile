@@ -2,7 +2,6 @@ import { ArtistSceneLink } from '../artist-scene-link/artist-scene-link.entity';
 import { ArtistTagLink } from '../artist-tag-link/artist-tag-link.entity';
 import { Contact } from '../contact';
 import { ExternalUrl } from '../external-url/external-url.entity';
-import { Gallery } from '../gallery/gallery.entity';
 import { Location } from '../location/location.entity';
 import { ProfileImage } from '../profile-image';
 import { UserArtistLink } from '../user-artist-link/user-artist-link.entity';
@@ -23,7 +22,6 @@ interface ArtistCommon {
 	readonly external_urls: ExternalUrl[];
 	readonly scene: ArtistSceneLink | null;
 	readonly contacts: Contact[];
-	readonly gallery: Gallery | null;
 	readonly user: UserArtistLink | null;
 }
 

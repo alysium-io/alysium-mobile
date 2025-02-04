@@ -4,7 +4,7 @@ import {
 	EventPage,
 	HomePage,
 	ScenePage,
-	ViewGalleryPage
+	ViewEventMediaPage
 } from '@pages';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { HomeStackNavigatorParamList } from '@types';
@@ -28,12 +28,8 @@ const HomeTab = () => {
 			<HomeStack.Screen name='ScenePage' component={ScenePage} />
 			<HomeStack.Screen name='EventPage' component={EventPage} />
 			<HomeStack.Screen
-				name='ViewGalleryPage'
-				component={ViewGalleryPage}
-				options={{
-					presentation: 'transparentModal',
-					animation: 'fade'
-				}}
+				name='ViewEventMediaPage'
+				component={ViewEventMediaPage}
 			/>
 		</HomeStack.Navigator>
 	);

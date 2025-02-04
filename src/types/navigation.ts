@@ -1,6 +1,6 @@
 import { Contact } from '@flux/api/contact';
+import { EventMedia } from '@flux/api/event-media/event-media.entity';
 import { ExternalUrl } from '@flux/api/external-url/external-url.entity';
-import { GalleryItem } from '@flux/api/gallery/gallery-item.entity';
 import { type BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import {
 	CompositeNavigationProp,
@@ -47,9 +47,9 @@ type TopTagsPage = undefined;
 
 type EditArtistPage = undefined;
 
-type ViewGalleryPage = {
-	transitionTagId: string;
-	galleryItems: GalleryItem[];
+type ViewEventMediaPage = {
+	eventMedia: EventMedia[];
+	initialIndex: number;
 };
 
 type ScenePage = { scene_uid: NanoId };
@@ -96,7 +96,7 @@ export type RouteNames =
 	| 'EditArtistEventTicketsUrlPage'
 	| 'TopTagsPage'
 	| 'EditArtistPage'
-	| 'ViewGalleryPage'
+	| 'ViewEventMediaPage'
 	| 'ChooseScenePage'
 	| 'ChooseEventLocationPage'
 	| 'EventPage'
@@ -142,7 +142,7 @@ export type SearchStackNavigatorParamList = {
 
 	TopTagsPage: TopTagsPage;
 
-	ViewGalleryPage: ViewGalleryPage;
+	ViewEventMediaPage: ViewEventMediaPage;
 
 	EventPage: EventPage;
 	ArtistEventsPage: ArtistEventsPage;
@@ -168,7 +168,7 @@ export type ProfileStackNavigatorParamList = {
 	ArtistEventsInteractiveMapPage: ArtistEventsInteractiveMapPage;
 	ScenePage: ScenePage;
 	EventPage: EventPage;
-	ViewGalleryPage: ViewGalleryPage;
+	ViewEventMediaPage: ViewEventMediaPage;
 };
 
 export type EventManagerStackNavigatorParamList = {
@@ -180,7 +180,7 @@ export type EventManagerStackNavigatorParamList = {
 	ManageEventPage: ManageEventPage;
 	EventPage: EventPage;
 	EditPublishedEventPage: EditPublishedEventPage;
-	ViewGalleryPage: ViewGalleryPage;
+	ViewEventMediaPage: ViewEventMediaPage;
 	ArtistPage: ArtistPage;
 	ArtistEventsInteractiveMapPage: ArtistEventsInteractiveMapPage;
 	ScenePage: ScenePage;
@@ -192,7 +192,7 @@ export type HomeStackNavigatorParamList = {
 	ArtistEventsInteractiveMapPage: ArtistEventsInteractiveMapPage;
 	ScenePage: ScenePage;
 	EventPage: EventPage;
-	ViewGalleryPage: ViewGalleryPage;
+	ViewEventMediaPage: ViewEventMediaPage;
 };
 
 /**
@@ -327,9 +327,9 @@ export type EditArtistPageRouteProp = RouteProp<
 	CompositeStackNavigatorParamList,
 	'EditArtistPage'
 >;
-export type ViewGalleryPageRouteProp = RouteProp<
+export type ViewEventMediaPageRouteProp = RouteProp<
 	CompositeStackNavigatorParamList,
-	'ViewGalleryPage'
+	'ViewEventMediaPage'
 >;
 export type ChooseEventLocationRouteProp = RouteProp<
 	CompositeStackNavigatorParamList,

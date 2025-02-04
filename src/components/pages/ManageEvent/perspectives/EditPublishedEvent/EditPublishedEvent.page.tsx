@@ -14,8 +14,8 @@ import { If, Then } from 'react-if';
 import { ScrollView } from 'react-native';
 import EditEventAboutMenuListItem from '../../components/EditEventAboutMenuListItem';
 import EditEventDateMenuListItem from '../../components/EditEventDateMenuListItem';
-import EditEventGallery from '../../components/EditEventGallery';
 import EditEventLocationMenuListItem from '../../components/EditEventLocationMenuListItem';
+import EditEventMediaSection from '../../components/EditEventMediaSection';
 import EditEventName from '../../components/EditEventName';
 import EditEventProfileImage from '../../components/EditEventProfileImage';
 import EditEventTicketsUrlMenuListItem from '../../components/EditEventTicketsUrlMenuListItem';
@@ -80,7 +80,7 @@ const EditPublishedEvent = () => {
 				<EditEventLocationMenuListItem event={data} />
 				<EditEventAboutMenuListItem event={data} />
 				<EditEventTicketsUrlMenuListItem event={data} />
-				<EditEventGallery event={data} />
+				<EditEventMediaSection event={data} />
 			</ScrollView>
 			<ShareEventPosterSheet event={data} sheetApi={shareExternalSheetApi} />
 		</BasePage>

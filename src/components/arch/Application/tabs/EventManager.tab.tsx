@@ -9,7 +9,7 @@ import {
 	EventPage,
 	ManageEventPage,
 	ScenePage,
-	ViewGalleryPage
+	ViewEventMediaPage
 } from '@pages';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { EventManagerStackNavigatorParamList } from '@types';
@@ -52,12 +52,8 @@ const EventManagerTab = () => {
 			/>
 
 			<EventManagerStack.Screen
-				name='ViewGalleryPage'
-				component={ViewGalleryPage}
-				options={{
-					presentation: 'transparentModal',
-					animation: 'fade'
-				}}
+				name='ViewEventMediaPage'
+				component={ViewEventMediaPage}
 			/>
 
 			<EventManagerStack.Screen name='ArtistPage' component={ArtistPage} />

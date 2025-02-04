@@ -28,8 +28,6 @@ export const serviceApi = createApi({
 		'PrivateArtist',
 		'PublicArtist',
 		'ArtistTagLink',
-		'ArtistGallery',
-		'ArtistEventGallery',
 		'ArtistEvent',
 		'PublicEvent',
 		'UserScenesFollowing',

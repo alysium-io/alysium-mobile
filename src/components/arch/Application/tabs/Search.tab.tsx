@@ -10,7 +10,7 @@ import {
 	UserArtistsFollowingPage,
 	UserScenesFollowingPage,
 	UserTagsFollowingPage,
-	ViewGalleryPage
+	ViewEventMediaPage
 } from '@pages';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { SearchStackNavigatorParamList } from '@types';
@@ -53,12 +53,8 @@ const SearchTab = () => {
 			<SearchStack.Screen name='TopTagsPage' component={TopTagsPage} />
 
 			<SearchStack.Screen
-				name='ViewGalleryPage'
-				component={ViewGalleryPage}
-				options={{
-					presentation: 'transparentModal',
-					animation: 'fade'
-				}}
+				name='ViewEventMediaPage'
+				component={ViewEventMediaPage}
 			/>
 
 			<SearchStack.Screen name='EventPage' component={EventPage} />

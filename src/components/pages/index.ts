@@ -29,4 +29,4 @@ export * from './TopTags';
 export * from './UserArtistsFollowing';
 export * from './UserScenesFollowing';
 export * from './UserTagsFollowing';
-export * from './ViewGallery';
+export * from './ViewEventMedia';

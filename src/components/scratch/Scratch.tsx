@@ -1,11 +1,11 @@
 import { View } from '@atomic';
 import React from 'react';
-import AnimatedPageChangeTest from './displays/AnimatedPageChangeTest';
+import Vibrations from './displays/Vibrations';
 
 const Scratch = () => {
 	return (
 		<View flex={1} backgroundColor='bg.p'>
-			<AnimatedPageChangeTest />
+			<Vibrations />
 		</View>
 	);
 };

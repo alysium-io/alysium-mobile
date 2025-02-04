@@ -1,4 +1,4 @@
-import { Gallery } from '../gallery/gallery.entity';
+import { EventMedia } from '../event-media/event-media.entity';
 import { Location } from '../location';
 import { Image } from '../media';
 import { EventStatus } from './types';
@@ -12,6 +12,6 @@ export interface Event {
 	readonly profile_image: Image | null;
 	readonly location: Location | null;
 	readonly status: EventStatus;
-	readonly gallery: Gallery | null;
+	readonly event_media: EventMedia[];
 	readonly tickets_url: string | null;
 }

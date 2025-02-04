@@ -16,7 +16,7 @@ import {
 	EventPage,
 	ProfilePage,
 	ScenePage,
-	ViewGalleryPage
+	ViewEventMediaPage
 } from '@pages';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Persona, ProfileStackNavigatorParamList } from '@types';
@@ -41,7 +41,10 @@ const ProfileTab = () => {
 			/>
 			<ProfileStack.Screen name='ScenePage' component={ScenePage} />
 			<ProfileStack.Screen name='EventPage' component={EventPage} />
-			<ProfileStack.Screen name='ViewGalleryPage' component={ViewGalleryPage} />
+			<ProfileStack.Screen
+				name='ViewEventMediaPage'
+				component={ViewEventMediaPage}
+			/>
 
 			{personaType === Persona.artist && (
 				<ProfileStack.Screen name='EditArtistPage' component={EditArtistPage} />

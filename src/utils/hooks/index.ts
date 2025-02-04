@@ -32,7 +32,6 @@ export { default as useEnteringExitingPageAnimations } from './useEnteringExitin
 export { default as useEvent } from './useEvent';
 export { default as useEventDateFormatter } from './useEventDateFormatter';
 export { default as useForm } from './useForm';
-export { default as useGallery } from './useGallery';
 export { default as useHyperlink } from './useHyperlink';
 export { default as useImage } from './useImage';
 export { default as useIsLoaded } from './useIsLoaded';

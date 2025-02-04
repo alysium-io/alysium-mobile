@@ -12,8 +12,8 @@ import React, { useCallback } from 'react';
 import { If, Then } from 'react-if';
 import EditEventAboutMenuListItem from '../../components/EditEventAboutMenuListItem';
 import EditEventDateMenuListItem from '../../components/EditEventDateMenuListItem';
-import EditEventGallery from '../../components/EditEventGallery';
 import EditEventLocationMenuListItem from '../../components/EditEventLocationMenuListItem';
+import EditEventMediaSection from '../../components/EditEventMediaSection';
 import EditEventName from '../../components/EditEventName';
 import EditEventProfileImage from '../../components/EditEventProfileImage';
 import EditEventTicketsUrlMenuListItem from '../../components/EditEventTicketsUrlMenuListItem';
@@ -95,7 +95,7 @@ const DraftEventPage: React.FC<DraftEventPageProps> = ({
 				<EditEventLocationMenuListItem event={eventData} />
 				<EditEventAboutMenuListItem event={eventData} />
 				<EditEventTicketsUrlMenuListItem event={eventData} />
-				<EditEventGallery event={eventData} />
+				<EditEventMediaSection event={eventData} />
 			</ScrollView>
 			<ShareEventPosterSheet
 				event={eventData}

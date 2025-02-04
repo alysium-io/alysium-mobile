@@ -2,6 +2,7 @@ export * from './Alert';
 export * from './ArtistContactsAndLinks';
 export * from './ComplexEventStatusIndicator';
 export * from './ContentListItemsLoading';
+export * from './EventMedia';
 export * from './GlobalLoadingOverlay';
 export * from './PageError';
 export * from './ParallaxLoading';
