@@ -4,7 +4,7 @@ import Animated from 'react-native-reanimated';
 
 const PriorityImage: React.FC = () => {
 	const currentUrl =
-		'https://dev-images.alysium.ninja/artist/BhBmP0sWGiO582CBQQmZoCN8/RPmalJnwwRK4xv2d8qsg0DG9/RPmalJnwwRK4xv2d8qsg0DG9.png';
+		'https://dev-images.alysium.io/artist/BhBmP0sWGiO582CBQQmZoCN8/RPmalJnwwRK4xv2d8qsg0DG9/RPmalJnwwRK4xv2d8qsg0DG9.png';
 
 	return <Animated.Image source={{ uri: currentUrl }} style={styles.image} />;
 };

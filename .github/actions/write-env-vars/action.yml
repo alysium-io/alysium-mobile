@@ -17,17 +17,17 @@ runs:
         # Environment name
         echo "ENV=${{ inputs.ENV }}" >> .env.${{ inputs.ENV }}
 
-        # Api url (e.g. https://qa-api.alysium.ninja)
-        echo "API_URL=https://api-${{ inputs.ENV }}.alysium.ninja/alysium" >> .env.${{ inputs.ENV }}
+        # Api url (e.g. https://qa-api.alysium.io)
+        echo "API_URL=https://api-${{ inputs.ENV }}.alysium.io/alysium" >> .env.${{ inputs.ENV }}
 
-        # Images base url (e.g. IMAGES_BASE_URL='https://dev-images.alysium.ninja/')
-        echo "IMAGES_BASE_URL=https://${{ inputs.ENV }}-images.alysium.ninja/" >> .env.${{ inputs.ENV }}
+        # Images base url (e.g. IMAGES_BASE_URL='https://dev-images.alysium.io/')
+        echo "IMAGES_BASE_URL=https://${{ inputs.ENV }}-images.alysium.io/" >> .env.${{ inputs.ENV }}
 
         # Web URL
         if [ "${{ inputs.ENV }}" = "qa" ]; then
-          echo "WEB_URL=https://qa.alysium.ninja" >> .env.${{ inputs.ENV }}
+          echo "WEB_URL=https://qa.alysium.io" >> .env.${{ inputs.ENV }}
         elif [ "${{ inputs.ENV }}" = "prod" ]; then
-          echo "WEB_URL=https://www.alysium.ninja" >> .env.${{ inputs.ENV }}
+          echo "WEB_URL=https://alysium.io" >> .env.${{ inputs.ENV }}
         else
           echo "WEB_URL=http://localhost:5173" >> .env.${{ inputs.ENV }}
         fi

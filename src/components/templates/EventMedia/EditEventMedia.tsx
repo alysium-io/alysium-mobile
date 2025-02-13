@@ -5,7 +5,7 @@ import { eventMediaApiSlice } from '@flux/api/event-media';
 import { CreateEventMediaResponseDto } from '@flux/api/event-media/dto/event-media-create.dto';
 import { EventMedia } from '@flux/api/event-media/event-media.entity';
 import { MediaType } from '@flux/api/media/types';
-import { useImage, usePhotosAndCamera } from '@hooks';
+import { usePhotosAndCamera } from '@hooks';
 import { getAssetMediaType } from '@src/etc/detect-media-type';
 import { Alert } from '@templates';
 import { NanoId } from '@types';
@@ -18,6 +18,7 @@ import AddItem from './components/AddItem';
 import Container from './components/Container';
 import ImageItem from './components/ImageItem';
 import LoadingItem from './components/LoadingItem';
+import VideoItem from './components/VideoItem';
 import { CONFIG } from './constants';
 import { SquareStateItem } from './types';
 import useSpacing from './useSpacing';
@@ -31,7 +32,6 @@ const EditEventMedia: React.FC<EditEventMediaProps> = ({
 	event_uid
 }) => {
 	const { artist_uid } = useArtistAppContext();
-	const { urlForKey } = useImage();
 	const { chooseMediaOrTakeNew, extractAsset } = usePhotosAndCamera();
 	const { gap, squareWidth, onLayout } = useSpacing();
 	const [createEventMediaMutation] =
@@ -47,8 +47,8 @@ const EditEventMedia: React.FC<EditEventMediaProps> = ({
 		if (squares === null && event_media) {
 			setSquares(
 				event_media.map((item) => ({
-					type: 'image',
-					uri: urlForKey(item.multimedia.image?.small.key),
+					type: item.multimedia.media_type,
+					uri: item.multimedia.image?.small.key,
 					id: generateId(),
 					eventMedia: item,
 					created_at: dayjs(item.created_at)
@@ -67,7 +67,9 @@ const EditEventMedia: React.FC<EditEventMediaProps> = ({
 		}
 
 		const selectionLimit = CONFIG.MAX_ITEMS - squares.length;
-		const response = await chooseMediaOrTakeNew('photo', { selectionLimit });
+		const response = await chooseMediaOrTakeNew('mixed', {
+			selectionLimit
+		});
 		const assets = response?.assets;
 		if (!assets || assets.length === 0) {
 			// Operation cancelled
@@ -87,13 +89,22 @@ const EditEventMedia: React.FC<EditEventMediaProps> = ({
 					uri: asset.uri
 				},
 				promise: new Promise((resolve) => {
+					const mediaType = getAssetMediaType(asset);
+					if (!mediaType) {
+						Toast.show({
+							text1: 'Error',
+							text2: 'Invalid media type'
+						});
+						return;
+					}
+
 					return createEventMediaMutation({
 						params: {
 							artist_uid,
 							event_uid
 						},
 						body: {
-							mediaType: MediaType.image
+							mediaType
 						},
 						file: asset
 					}).then(({ data }) => {
@@ -124,7 +135,10 @@ const EditEventMedia: React.FC<EditEventMediaProps> = ({
 					? {
 							...square,
 							eventMedia: newSquare.data,
-							type: 'image' as const
+							type:
+								newSquare.data?.multimedia.media_type === MediaType.video
+									? 'video'
+									: 'image'
 					  }
 					: square;
 			})
@@ -142,7 +156,7 @@ const EditEventMedia: React.FC<EditEventMediaProps> = ({
 			return;
 		}
 
-		const response = await chooseMediaOrTakeNew('photo');
+		const response = await chooseMediaOrTakeNew('mixed');
 		const asset = extractAsset(response);
 		if (!asset) {
 			// Operation cancelled
@@ -268,6 +282,12 @@ const EditEventMedia: React.FC<EditEventMediaProps> = ({
 								disabled={isLoading}
 								uri={square.uri}
 								onPress={() => onPressReplaceOrDelete(square)}
+							/>
+						</Case>
+						<Case condition={square.type === 'video'}>
+							<VideoItem
+								onPress={() => onPressReplaceOrDelete(square)}
+								uri={square.eventMedia?.multimedia.video?.media.key}
 							/>
 						</Case>
 					</Switch>

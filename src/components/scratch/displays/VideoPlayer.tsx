@@ -16,10 +16,10 @@ const VideoPlayerWithDefaults = () => {
 			 * The source of the video which should be a uri or a valid ReactVideoSource object
 			 * @type {ReactVideoSource}
 			 * @description Specifies the source of the video to be played
-			 * @example { uri: 'https://dev-images.alysium.ninja/3195394-uhd_3840_2160_25fps.m3u8' }
+			 * @example { uri: 'https://dev-images.alysium.io/3195394-uhd_3840_2160_25fps.m3u8' }
 			 */
 			source={{
-				uri: 'https://dev-images.alysium.ninja/3195394-uhd_3840_2160_25fps.m3u8'
+				uri: 'https://dev-images.alysium.io/3195394-uhd_3840_2160_25fps.m3u8'
 			}}
 			/**
 			 * The style of the video component
@@ -147,7 +147,7 @@ const VideoPlayerWithDefaults = () => {
 
 const VideoPlayer = () => {
 	const hlsVideo =
-		'https://dev-images.alysium.ninja/artist/BhBmP0sWGiO582CBQQmZoCN8/aPrpFC1sZ4ePUk5BfXWqURvr/index.m3u8';
+		'https://dev-images.alysium.io/artist/BhBmP0sWGiO582CBQQmZoCN8/aPrpFC1sZ4ePUk5BfXWqURvr/index.m3u8';
 
 	console.log(hlsVideo);
 	const [paused, setPaused] = useState(false);

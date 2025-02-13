@@ -23,7 +23,7 @@ import Toast from 'react-native-toast-message';
 
 // Video constraints
 const VIDEO_CONFIG = {
-	DURATION_LIMIT_SECONDS: 45,
+	DURATION_LIMIT_SECONDS: 61,
 	MAX_FILE_SIZE_MB: 100,
 	VIDEO_QUALITY: 'high' as const
 } as const;

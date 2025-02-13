@@ -1,7 +1,5 @@
-import { View } from '@atomic';
 import { EventMedia } from '@flux/api/event-media/event-media.entity';
-import { useImage } from '@hooks';
-import React from 'react';
+import React, { useState } from 'react';
 import {
 	LayoutRectangle,
 	NativeScrollEvent,
@@ -9,6 +7,7 @@ import {
 	StyleSheet
 } from 'react-native';
 import Animated from 'react-native-reanimated';
+import FlatListItem from './FlatListItem';
 
 interface FlatListItemProps {
 	eventMedia: EventMedia;
@@ -30,7 +29,7 @@ const FlatList: React.FC<FlatListProps> = ({
 	initialIndex,
 	dimensions
 }) => {
-	const { urlForKey } = useImage();
+	const [isInteracting, setIsInteracting] = useState(false);
 
 	const onScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
 		const totalHeight = event.nativeEvent.layoutMeasurement.height;
@@ -41,6 +40,21 @@ const FlatList: React.FC<FlatListProps> = ({
 		}
 	};
 
+	const onScrollBeginDrag = () => {
+		setIsInteracting(true);
+	};
+
+	const onScrollEndDrag = () => {
+		// Add a small delay before resuming video playback
+		setTimeout(() => {
+			setIsInteracting(false);
+		}, 300);
+	};
+
+	const onMomentumScrollEnd = () => {
+		setIsInteracting(false);
+	};
+
 	return (
 		<Animated.FlatList
 			data={items}
@@ -49,24 +63,21 @@ const FlatList: React.FC<FlatListProps> = ({
 			showsVerticalScrollIndicator={false}
 			decelerationRate='fast'
 			snapToAlignment='start'
-			renderItem={({ item }) => (
-				<View
-					style={{
-						width: dimensions.width,
-						height: dimensions.height
-					}}
-				>
-					<Animated.Image
-						resizeMode='cover'
-						source={{
-							uri: urlForKey(item.eventMedia.multimedia.image?.original.key)
-						}}
-						style={{ flex: 1 }}
-					/>
-				</View>
+			renderItem={({ item, index }) => (
+				<FlatListItem
+					dimensions={dimensions}
+					item={item.eventMedia}
+					isVisible={index === currentIndex}
+					isInteracting={isInteracting}
+					currentIndex={currentIndex}
+					index={index}
+				/>
 			)}
 			style={styles.flatlist}
 			onScroll={onScroll}
+			onScrollBeginDrag={onScrollBeginDrag}
+			onScrollEndDrag={onScrollEndDrag}
+			onMomentumScrollEnd={onMomentumScrollEnd}
 			initialNumToRender={1}
 			maxToRenderPerBatch={2}
 			initialScrollIndex={initialIndex}

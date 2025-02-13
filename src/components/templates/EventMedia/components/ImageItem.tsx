@@ -1,22 +1,21 @@
-import { View } from '@atomic';
+import { useImage } from '@hooks';
 import { Props } from '@types';
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
-import Animated from 'react-native-reanimated';
+import { Image, TouchableOpacity } from 'react-native';
 
 interface ImageItemProps extends Props<typeof TouchableOpacity> {
 	uri?: string;
 }
 
 const ImageItem: React.FC<ImageItemProps> = ({ uri, ...props }) => {
+	const { urlForKey } = useImage();
 	return (
-		<TouchableOpacity style={{ flex: 1 }} {...props}>
-			<View flex={1}>
-				<Animated.Image
-					source={{ uri }}
-					style={{ width: '100%', height: '100%' }}
-				/>
-			</View>
+		<TouchableOpacity activeOpacity={0.8} {...props}>
+			<Image
+				source={{ uri: urlForKey(uri) }}
+				style={{ width: '100%', height: '100%' }}
+				resizeMode='cover'
+			/>
 		</TouchableOpacity>
 	);
 };

@@ -118,16 +118,12 @@ const AlertService: React.FC<{ children: React.ReactNode }> = ({
 	return (
 		<AlertContext.Provider value={value}>
 			{children}
-			<Overlay visible={isOpen} useContentBlurView>
-				<BlurView style={styles.alertContainer}>
+			<Overlay visible={isOpen} useContentBlurView blurType='dark'>
+				<BlurView style={styles.alertContainer} blurType='dark'>
 					<View margin='m' paddingBottom='m' justifyContent='center'>
-						<Text style={styles.title} color='text.p'>
-							{alertConfig?.title}
-						</Text>
+						<Text style={styles.title}>{alertConfig?.title}</Text>
 						{alertConfig?.message && (
-							<Text style={styles.message} color='text.q'>
-								{alertConfig.message}
-							</Text>
+							<Text style={styles.message}>{alertConfig.message}</Text>
 						)}
 					</View>
 					<View style={styles.buttonContainer}>
