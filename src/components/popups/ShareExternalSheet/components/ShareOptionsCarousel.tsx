@@ -1,7 +1,6 @@
+import { CircularButton } from '@molecules';
 import React from 'react';
 import { ScrollView } from 'react-native-gesture-handler';
-import CustomShareButtonIcon from './CustomShareButtonIcon';
-import ShareButton from './ShareButton';
 
 interface ShareOptionsCarouselProps {
 	onPressSaveImage: () => void;
@@ -19,31 +18,40 @@ const ShareOptionsCarousel: React.FC<ShareOptionsCarouselProps> = ({
 	onPressShareiMessage
 }) => {
 	return (
-		<ScrollView horizontal style={{ margin: 15 }}>
-			<ShareButton
-				CustomImage={() => <CustomShareButtonIcon icon='save' />}
+		<ScrollView
+			horizontal
+			style={{ margin: 15 }}
+			contentContainerStyle={{ gap: 15 }}
+		>
+			<CircularButton
+				icon='save'
 				title='Save Image'
 				onPress={onPressSaveImage}
+				titleProps={{ color: 'palette.neutral.p9' }}
 			/>
-			<ShareButton
-				CustomImage={() => <CustomShareButtonIcon icon='chainlink' />}
+			<CircularButton
+				icon='chainlink'
 				title='Copy Link'
 				onPress={onPressCopyLink}
+				titleProps={{ color: 'palette.neutral.p9' }}
 			/>
-			<ShareButton
-				CustomImage={() => <CustomShareButtonIcon icon='share-external' />}
+			<CircularButton
+				icon='share-external'
 				title='Share Via'
 				onPress={onPressShareVia}
+				titleProps={{ color: 'palette.neutral.p9' }}
 			/>
-			<ShareButton
+			<CircularButton
 				image='instagram'
 				title='Story'
 				onPress={onPressShareIGStory}
+				titleProps={{ color: 'palette.neutral.p9' }}
 			/>
-			<ShareButton
+			<CircularButton
 				image='imessage'
 				title='iMessage'
 				onPress={onPressShareiMessage}
+				titleProps={{ color: 'palette.neutral.p9' }}
 			/>
 		</ScrollView>
 	);

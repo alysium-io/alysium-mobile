@@ -22,7 +22,7 @@ const CustomShareButtonIcon: React.FC<CustomShareButtonIconProps> = ({
 			borderWidth={theme.borderWidth.normal}
 			borderColor='border.light'
 		>
-			<Icon name={icon} size='l' color='border.heavy' />
+			<Icon name={icon} size='l' color='text.p' />
 		</View>
 	);
 };

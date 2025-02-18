@@ -59,6 +59,7 @@ export { default as useScrollView } from './useScrollView';
 export { default as useSearch, type SearchApi } from './useSearch';
 export { default as useSequence, type SequenceApi } from './useSequence';
 export { default as useSet } from './useSet';
+export { default as useShareViewShot } from './useShareViewShot';
 export { default as useSheet, type SheetApi, type SheetRef } from './useSheet';
 export { default as useTextInput, type TextInputApi } from './useTextInput';
 export {

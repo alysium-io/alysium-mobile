@@ -42,18 +42,31 @@ const CustomToast: React.FC<CustomToastProps> = ({ props, ...toastProps }) => {
 								<Icon name={props.icon} size='m' color='text.t' />
 							</View>
 						)}
-						<View justifyContent='center'>
+						<View justifyContent='center' flex={1}>
 							{toastProps.text1 && (
 								<Text
 									variant='paragraph-medium'
 									color='text.p'
 									marginBottom='xs'
+									numberOfLines={1}
+									ellipsizeMode='tail'
+									adjustsFontSizeToFit
+									minimumFontScale={0.5}
+									flex={1}
 								>
 									{toastProps.text1}
 								</Text>
 							)}
 							{toastProps.text2 && (
-								<Text variant='paragraph-small' color='text.t'>
+								<Text
+									variant='paragraph-small'
+									color='text.t'
+									numberOfLines={1}
+									ellipsizeMode='tail'
+									adjustsFontSizeToFit
+									minimumFontScale={0.5}
+									flex={1}
+								>
 									{toastProps.text2}
 								</Text>
 							)}
@@ -86,7 +99,8 @@ const styles = StyleSheet.create({
 		width: '95%',
 		justifyContent: 'center',
 		borderRadius: 18,
-		padding: 8
+		padding: 8,
+		zIndex: 999999999
 	}
 });
 

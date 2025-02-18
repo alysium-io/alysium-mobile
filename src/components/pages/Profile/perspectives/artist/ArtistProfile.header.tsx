@@ -32,7 +32,7 @@ const ArtistProfilePageHeader: React.FC = () => {
 						subtitleProps={{
 							marginTop: 'xs'
 						}}
-						titleProps={{ variant: 'paragraph' }}
+						titleProps={{ variant: 'paragraph-medium' }}
 					/>
 				}
 				CenterComponent={null}

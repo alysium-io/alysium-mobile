@@ -15,40 +15,32 @@ type QRCodeProps = {
 	};
 };
 
-const useQRCodeSize = (coefficient: number = 1): QRCodeProps => {
-	return useMemo(
-		() => ({
-			padding: 16 * coefficient,
-			pieceSize: 6 * coefficient,
-			pieceBorderRadius: 3 * coefficient,
+const useQRCodeSize = (size: number): QRCodeProps => {
+	return useMemo(() => {
+		const borderRadius = size / 2;
+		const eyeBorder = size * 2.5;
+
+		return {
+			padding: 0,
+			pieceSize: size,
+			pieceBorderRadius: borderRadius,
 			outerEyesOptions: {
 				topLeft: {
-					borderRadius: [
-						16 * coefficient,
-						16 * coefficient,
-						0,
-						16 * coefficient
-					]
+					borderRadius: [eyeBorder, eyeBorder, 0, eyeBorder]
 				},
 				topRight: {
-					borderRadius: [16 * coefficient, 16 * coefficient, 16 * coefficient]
+					borderRadius: [eyeBorder, eyeBorder, eyeBorder]
 				},
 				bottomLeft: {
-					borderRadius: [
-						16 * coefficient,
-						0,
-						16 * coefficient,
-						16 * coefficient
-					]
+					borderRadius: [eyeBorder, 0, eyeBorder, eyeBorder]
 				}
 			},
 			innerEyesOptions: {
-				borderRadius: 9 * coefficient,
+				borderRadius: eyeBorder * 0.6,
 				scale: 0.85
 			}
-		}),
-		[coefficient]
-	);
+		};
+	}, [size]);
 };
 
 export default useQRCodeSize;

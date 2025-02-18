@@ -29,4 +29,6 @@ export * from './TopTags';
 export * from './UserArtistsFollowing';
 export * from './UserScenesFollowing';
 export * from './UserTagsFollowing';
+export * from './ViewArtistQRCode';
 export * from './ViewEventMedia';
+export * from './ViewEventQRCode';

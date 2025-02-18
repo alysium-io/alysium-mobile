@@ -12,7 +12,6 @@ import {
 	useClipboard,
 	useHyperlink,
 	useIsLoaded,
-	useQRCodeSize,
 	useTheme,
 	withPoke
 } from '@hooks';
@@ -41,7 +40,6 @@ const NewEventCelebrationSheet: React.FC<NewEventCelebrationSheetProps> = ({
 	const { theme } = useTheme();
 	const publishButtonState = useButtonState('active');
 	const insets = useSafeAreaInsets();
-	const qrCodeSizes = useQRCodeSize(0.3);
 	const { eventPageHyperlink } = useHyperlink();
 	const { copy } = useClipboard();
 
@@ -176,18 +174,9 @@ const NewEventCelebrationSheet: React.FC<NewEventCelebrationSheetProps> = ({
 								alignItems='center'
 								marginBottom='s'
 							>
-								<View
-									marginHorizontal='m'
-									height={75}
-									width={75}
-									justifyContent='center'
-									alignItems='center'
-								>
-									<QRCode
-										{...qrCodeSizes}
-										data={eventPageHyperlink(data?.event.event_uid ?? '')}
-									/>
-								</View>
+								<QRCode
+									data={eventPageHyperlink(data?.event.event_uid ?? '')}
+								/>
 								<View flex={1}>
 									<Text variant='paragraph-small'>Via QR</Text>
 									<Text variant='paragraph-small' color='text.q'>

@@ -1,9 +1,8 @@
 import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
-import { QRCode, ScrollView, Section, View } from '@atomic';
+import { ScrollView } from '@atomic';
 import { artistEventApiSlice } from '@flux/api/event';
 import { useHyperlink } from '@hooks';
 import { BasePage } from '@organisms';
-import Separator from '@src/components/pages/EditArtist/components/Separator';
 import { PageError } from '@templates';
 import { NanoId } from '@types';
 import React from 'react';
@@ -39,15 +38,6 @@ const CanceledEventPage: React.FC<CanceledEventPageProps> = ({ event_uid }) => {
 			<PublicEventHeader event={eventData} />
 			<ScrollView>
 				<PublicEventTitle event={eventData} />
-				<Section>
-					<View alignItems='center'>
-						<QRCode
-							data={eventPageHyperlink(eventData.event.event_uid)}
-							size={1}
-						/>
-					</View>
-					<Separator size='thick' />
-				</Section>
 			</ScrollView>
 		</BasePage>
 	);

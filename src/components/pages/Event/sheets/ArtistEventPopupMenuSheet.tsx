@@ -1,4 +1,3 @@
-import { QRCode, View } from '@atomic';
 import { EventLink } from '@flux/api/event-link/event-link.entity';
 import { BottomSheetView } from '@gorhom/bottom-sheet';
 import { SheetApi, useClipboard, useHyperlink, useSheet } from '@hooks';
@@ -26,9 +25,6 @@ const ArtistEventPopupMenuSheet: React.FC<ArtistEventPopupMenuSheetProps> = ({
 		<>
 			<BottomSheet ref={sheetApi.sheetRef} enableDynamicSizing>
 				<BottomSheetView style={{ flex: 1, paddingBottom: insets.bottom + 25 }}>
-					<View margin='m' alignItems='center'>
-						<QRCode data={eventPageHyperlink(event.event.event_uid)} />
-					</View>
 					<MenuListItem
 						onPress={shareEventPosterSheetApi.open}
 						titleTextProps={{

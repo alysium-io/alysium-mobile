@@ -72,4 +72,5 @@ export {
 export { default as QRCode } from './QRCode';
 export { default as RefreshControl } from './RefreshControl';
 export { default as Section } from './Section';
+export { default as Separator } from './Separator';
 export { default as StatusBar } from './StatusBar';

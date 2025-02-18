@@ -1,11 +1,10 @@
 import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
-import { QRCode, ScrollView, Section, View } from '@atomic';
+import { ScrollView, View } from '@atomic';
 import { artistEventApiSlice } from '@flux/api/event';
-import { useHyperlink, useNavigation, useSheet } from '@hooks';
+import { useNavigation, useSheet } from '@hooks';
 import { BasePage } from '@organisms';
 import { ShareEventPosterSheet } from '@popups';
 import SimpleButton from '@src/components/molecules/Buttons/SimpleButton';
-import Separator from '@src/components/pages/EditArtist/components/Separator';
 import { PageError } from '@templates';
 import { NanoId } from '@types';
 import React from 'react';
@@ -14,6 +13,7 @@ import PublicEventHeader from '../../components/PublicEvent.header';
 import PublicEventTitle from '../../components/PublicEventTitle';
 import Loading from '../../Loading';
 import CompleteEventFooter from './CompleteEvent.footer';
+import QRCodeSection from './components/QRCodeSection';
 
 interface PublishedEventPageProps {
 	event_uid: NanoId;
@@ -26,7 +26,6 @@ const PublishedEventPage: React.FC<PublishedEventPageProps> = ({
 }) => {
 	const { eventPage, editPublishedEventPage } = useNavigation();
 	const shareExternalSheetApi = useSheet();
-	const { eventPageHyperlink } = useHyperlink();
 	const { artistData } = useArtistAppContext();
 	const { data: eventData, error } =
 		artistEventApiSlice.usePrivateFindOneArtistEventQuery({
@@ -79,15 +78,7 @@ const PublishedEventPage: React.FC<PublishedEventPageProps> = ({
 						afterIconProps={{ name: 'arrow-right' }}
 					/>
 				</View>
-				<Section>
-					<View alignItems='center'>
-						<QRCode
-							data={eventPageHyperlink(eventData.event.event_uid)}
-							size={1}
-						/>
-					</View>
-					<Separator size='thick' />
-				</Section>
+				<QRCodeSection eventData={eventData} />
 				<Actions event_uid={eventData.event.event_uid} />
 			</ScrollView>
 			{eventData && (

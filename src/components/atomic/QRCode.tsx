@@ -2,25 +2,23 @@ import { useQRCodeSize, useTheme } from '@hooks';
 import { Props } from '@types';
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import RNQRCode from 'react-native-qrcode-styled';
+import QRCodeStyled from 'react-native-qrcode-styled';
 
-type QRCodeProps = Props<typeof RNQRCode> & {
-	size?: number;
+type QRCodeProps = Props<typeof QRCodeStyled> & {
+	size?: number; // height/width of each piece
 };
 
-const QRCode: React.FC<QRCodeProps> = ({ size = 0.5, ...props }) => {
+const QRCode: React.FC<QRCodeProps> = ({ data, size = 3, ...props }) => {
 	const { theme } = useTheme();
-	const qrCodeSizes = useQRCodeSize(size);
+	const sizes = useQRCodeSize(size);
+
 	return (
-		<RNQRCode
-			style={[
-				styles.svg,
-				{
-					backgroundColor: 'transparent'
-				}
-			]}
+		<QRCodeStyled
+			data={data}
+			style={styles.svg}
+			isPiecesGlued
 			color={theme.colors['text.p']}
-			{...qrCodeSizes}
+			{...sizes}
 			{...props}
 		/>
 	);
@@ -28,6 +26,7 @@ const QRCode: React.FC<QRCodeProps> = ({ size = 0.5, ...props }) => {
 
 const styles = StyleSheet.create({
 	svg: {
+		backgroundColor: 'transparent',
 		overflow: 'hidden'
 	}
 });

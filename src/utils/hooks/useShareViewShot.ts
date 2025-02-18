@@ -15,8 +15,8 @@ interface IUseShareViewShot {
 }
 
 const useShareViewShot = (url: string): IUseShareViewShot => {
-	const { saveImage } = usePhotosAndCamera();
 	const viewShotRef = useRef<ViewShot>(null);
+	const { saveImage } = usePhotosAndCamera();
 
 	const shareIGStory = async () => {
 		try {
@@ -84,7 +84,7 @@ const useShareViewShot = (url: string): IUseShareViewShot => {
 		try {
 			const uri = await captureRef(viewShotRef, {
 				format: 'png',
-				quality: 0.8
+				quality: 1
 			});
 			await saveImage(uri);
 			Toast.show({

@@ -1445,7 +1445,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - RNReanimated (3.16.6):
+  - RNReanimated (3.16.7):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -1465,10 +1465,10 @@ PODS:
     - React-utils
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
-    - RNReanimated/reanimated (= 3.16.6)
-    - RNReanimated/worklets (= 3.16.6)
+    - RNReanimated/reanimated (= 3.16.7)
+    - RNReanimated/worklets (= 3.16.7)
     - Yoga
-  - RNReanimated/reanimated (3.16.6):
+  - RNReanimated/reanimated (3.16.7):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -1488,9 +1488,9 @@ PODS:
     - React-utils
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
-    - RNReanimated/reanimated/apple (= 3.16.6)
+    - RNReanimated/reanimated/apple (= 3.16.7)
     - Yoga
-  - RNReanimated/reanimated/apple (3.16.6):
+  - RNReanimated/reanimated/apple (3.16.7):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -1511,7 +1511,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - RNReanimated/worklets (3.16.6):
+  - RNReanimated/worklets (3.16.7):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -1926,7 +1926,7 @@ SPEC CHECKSUMS:
   RNGestureHandler: 6fee3422fd8c81c5ee756fa72e3d1780e9943d9d
   RNPermissions: dec6481e344807a55da01e120be2e33d1cb640df
   RNReactNativeHapticFeedback: 7c701396d35a0e8863d8d8f97a7273c5f8509b40
-  RNReanimated: 5a19d7bc2fd0f1929d81301359a627d83c3684be
+  RNReanimated: b0728bed09875d78b9a3a0ba0e2d1171f63f8b5a
   RNScreens: a422459b99276a83c145986def122a430aa14194
   RNShare: b4362b6233f15b92ccdaf25e9343cc384d320f8b
   RNSVG: 3d2bdcaef51c8071880a9c0072fe324f4423a3ba

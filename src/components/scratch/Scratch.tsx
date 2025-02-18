@@ -1,11 +1,11 @@
 import { View } from '@atomic';
 import React from 'react';
-import VideoTesting from './displays/VideoTesting';
+import ReanimaedSharedTransitionHangingBug from './displays/ReanimaedSharedTransitionHangingBug';
 
 const Scratch = () => {
 	return (
 		<View flex={1} backgroundColor='bg.p'>
-			<VideoTesting />
+			<ReanimaedSharedTransitionHangingBug />
 		</View>
 	);
 };

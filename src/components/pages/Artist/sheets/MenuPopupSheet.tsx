@@ -1,4 +1,3 @@
-import { QRCode, View } from '@atomic';
 import { PublicArtist } from '@flux/api/artist';
 import { artistEventApiSlice } from '@flux/api/event';
 import { BottomSheetView } from '@gorhom/bottom-sheet';
@@ -35,9 +34,6 @@ const MenuPopupSheet: React.FC<MenuPopupSheetProps> = ({
 		<>
 			<BottomSheet ref={sheetApi.sheetRef}>
 				<BottomSheetView style={{ paddingBottom: insets.bottom + 25 }}>
-					<View margin='m' alignItems='center'>
-						<QRCode data={artistPageHyperlink(artist.artist_uid)} />
-					</View>
 					<MenuListItem
 						onPress={shareArtistPosterSheetApi.open}
 						titleTextProps={{

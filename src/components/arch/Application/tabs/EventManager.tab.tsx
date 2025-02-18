@@ -9,7 +9,8 @@ import {
 	EventPage,
 	ManageEventPage,
 	ScenePage,
-	ViewEventMediaPage
+	ViewEventMediaPage,
+	ViewEventQRCodePage
 } from '@pages';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { EventManagerStackNavigatorParamList } from '@types';
@@ -68,6 +69,20 @@ const EventManagerTab = () => {
 			/>
 
 			<EventManagerStack.Screen name='ScenePage' component={ScenePage} />
+
+			<EventManagerStack.Screen
+				name='ViewEventQRCodePage'
+				component={ViewEventQRCodePage}
+				options={{
+					animation: 'fade',
+					gestureEnabled: false,
+					animationDuration: 300,
+					presentation: 'transparentModal',
+					contentStyle: {
+						backgroundColor: 'transparent'
+					}
+				}}
+			/>
 		</EventManagerStack.Navigator>
 	);
 };

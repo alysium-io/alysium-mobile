@@ -1,49 +1,43 @@
 import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
-import { Text, View } from '@atomic';
-import {
-	useClipboard,
-	useHyperlink,
-	useQRCodeSize,
-	useSheet,
-	useTheme
-} from '@hooks';
+import { QRCode, Text, View } from '@atomic';
+import { Vibrator } from '@etc';
+import { useHyperlink, useNavigation, useSheet, useTheme } from '@hooks';
 import { EPKExplanationBottomSheet } from '@popups';
 import React from 'react';
-import { StyleSheet } from 'react-native';
-import { Pressable, TouchableOpacity } from 'react-native-gesture-handler';
-import QRCode from 'react-native-qrcode-styled';
+import { TouchableWithoutFeedback } from 'react-native';
+import { Pressable } from 'react-native-gesture-handler';
+import Animated from 'react-native-reanimated';
 
 const ShareEpkSection = () => {
 	const { theme } = useTheme();
 	const { artistPageHyperlink } = useHyperlink();
 	const { artistData } = useArtistAppContext();
-	const qrCodeSizes = useQRCodeSize();
 	const epkExplanationBottomSheet = useSheet();
-	const { copy } = useClipboard();
+	const { viewArtistQRCodePage } = useNavigation();
 
 	return (
 		<View alignItems='center' marginVertical='xxl'>
-			<TouchableOpacity
-				activeOpacity={0.8}
-				onPress={() =>
-					copy(artistPageHyperlink(artistData.artist_uid), {
-						text2: 'You can now share your EPK'
-					})
-				}
+			<TouchableWithoutFeedback
+				onPress={() => {
+					Vibrator.soft();
+					viewArtistQRCodePage(artistData.artist_uid);
+				}}
 			>
-				<View
+				<Animated.View
 					style={{
-						backgroundColor: theme.colors['bg.p'],
-						borderRadius: 25,
+						backgroundColor: theme.colors['palette.neutral.p1'],
+						borderRadius: 35,
 						shadowColor: theme.colors['text.p'],
 						shadowOffset: { width: 0, height: 2 },
 						shadowOpacity: 0.25,
-						shadowRadius: 3.84
+						shadowRadius: 3.84,
+						padding: theme.spacing['l']
 					}}
+					sharedTransitionTag={`artist-profile-qr-code-${artistData.artist_uid}`}
 				>
 					<QRCode
 						data={artistPageHyperlink(artistData.artist_uid)}
-						style={styles.svg}
+						size={5}
 						gradient={{
 							type: 'linear',
 							options: {
@@ -53,28 +47,9 @@ const ShareEpkSection = () => {
 								locations: [0, 1]
 							}
 						}}
-						{...qrCodeSizes}
 					/>
-					<View
-						borderTopWidth={2}
-						backgroundColor='bg.negative.p'
-						style={{
-							borderTopColor: 'rgba(150, 150, 150, 1)',
-							borderBottomLeftRadius: 25,
-							borderBottomRightRadius: 25
-						}}
-					>
-						<Text
-							variant='section-header-1'
-							marginVertical='m'
-							textAlign='center'
-							color='text.negative.p'
-						>
-							EPK
-						</Text>
-					</View>
-				</View>
-			</TouchableOpacity>
+				</Animated.View>
+			</TouchableWithoutFeedback>
 			<View marginTop='xl'>
 				<Pressable onPress={epkExplanationBottomSheet.open}>
 					<Text
@@ -90,11 +65,5 @@ const ShareEpkSection = () => {
 		</View>
 	);
 };
-
-const styles = StyleSheet.create({
-	svg: {
-		overflow: 'hidden'
-	}
-});
 
 export default ShareEpkSection;

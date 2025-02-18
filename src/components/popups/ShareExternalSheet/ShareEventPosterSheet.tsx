@@ -5,7 +5,8 @@ import {
 	SheetApi,
 	useClipboard,
 	useHyperlink,
-	useLayoutDimensions
+	useLayoutDimensions,
+	useShareViewShot
 } from '@hooks';
 import { BottomSheet } from '@organisms';
 import React, { useCallback, useEffect, useState } from 'react';
@@ -13,8 +14,7 @@ import { StyleSheet } from 'react-native';
 import ViewShot from 'react-native-view-shot';
 import ContentContainer from './components/ContentContainer';
 import ShareOptionsCarousel from './components/ShareOptionsCarousel';
-import useShareViewShot from './hooks/useShareViewShot';
-import StandardEventPoster from './posters/StandardEventPoster';
+import StandardEventPoster from './posters/StandardEventPoster/StandardEventPoster';
 
 interface ShareEventPosterSheetProps {
 	event: EventLink;
