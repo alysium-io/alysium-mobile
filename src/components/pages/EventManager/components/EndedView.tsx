@@ -35,7 +35,7 @@ const EndedView: React.FC<EndedViewProps> = () => {
 	const sortedEvents = orderBy(data, ['event.start_time'], ['desc']);
 
 	if (error) {
-		return <PageError error={error} />;
+		return <PageError error={error} withHeader={false} />;
 	}
 
 	if (isLoading) {

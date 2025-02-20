@@ -1,41 +1,69 @@
+import { View } from '@atomic';
+import { HeaderWithBackButton } from '@templates';
 import React from 'react';
-import BadRequest from './pages/BadRequest';
-import ErrorNotFound from './pages/ErrorNotFound';
-import Forbidden from './pages/Forbidden';
-import ServerError from './pages/ServerError';
-import Unauthorized from './pages/Unauthorized';
-import Unknown from './pages/Unknown';
+import MainText from './components/MainText';
 import { PageErrorType } from './types';
 import useParseError from './useParseError';
 
 interface PageErrorProps {
 	error: any;
+	withHeader?: boolean;
 }
 
-const PageError: React.FC<PageErrorProps> = ({ error }) => {
+const PageError: React.FC<PageErrorProps> = ({ error, withHeader = true }) => {
 	const pageErrorType = useParseError(error);
 
 	if (pageErrorType === PageErrorType.NOT_FOUND) {
-		return <ErrorNotFound />;
+		return (
+			<View flex={1}>
+				{withHeader && <HeaderWithBackButton />}
+				<MainText title='Error 404' description='Page not found' />
+			</View>
+		);
 	}
 
 	if (pageErrorType === PageErrorType.SERVER_ERROR) {
-		return <ServerError />;
+		return (
+			<View flex={1}>
+				{withHeader && <HeaderWithBackButton />}
+				<MainText title='Error 500' description='Server error' />
+			</View>
+		);
 	}
 
 	if (pageErrorType === PageErrorType.UNAUTHORIZED) {
-		return <Unauthorized />;
+		return (
+			<View flex={1}>
+				{withHeader && <HeaderWithBackButton />}
+				<MainText title='Error 401' description='Unauthorized' />
+			</View>
+		);
 	}
 
 	if (pageErrorType === PageErrorType.FORBIDDEN) {
-		return <Forbidden />;
+		return (
+			<View flex={1}>
+				{withHeader && <HeaderWithBackButton />}
+				<MainText title='Error 403' description='Forbidden' />
+			</View>
+		);
 	}
 
 	if (pageErrorType === PageErrorType.BAD_REQUEST) {
-		return <BadRequest />;
+		return (
+			<View flex={1}>
+				{withHeader && <HeaderWithBackButton />}
+				<MainText title='Error 400' description='Bad Request' />
+			</View>
+		);
 	}
 
-	return <Unknown />;
+	return (
+		<View flex={1}>
+			{withHeader && <HeaderWithBackButton />}
+			<MainText title='Error 500' description='Unknown error' />
+		</View>
+	);
 };
 
 export default PageError;

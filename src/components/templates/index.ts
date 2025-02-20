@@ -4,6 +4,7 @@ export * from './ComplexEventStatusIndicator';
 export * from './ContentListItemsLoading';
 export * from './EventMedia';
 export * from './GlobalLoadingOverlay';
+export * from './HeaderWithBackButton';
 export * from './PageError';
 export * from './ParallaxLoading';
 export * from './StartsInCountdown';

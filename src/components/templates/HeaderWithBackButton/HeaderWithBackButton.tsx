@@ -1,7 +1,7 @@
 import { Header, HeaderBackButton, HeaderSection } from '@organisms';
 import React from 'react';
 
-const PageHeader = () => {
+const HeaderWithBackButton = () => {
 	return (
 		<Header>
 			<HeaderSection LeftComponent={<HeaderBackButton />} />
@@ -9,4 +9,4 @@ const PageHeader = () => {
 	);
 };
 
-export default PageHeader;
+export default HeaderWithBackButton;

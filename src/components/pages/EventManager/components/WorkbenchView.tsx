@@ -77,7 +77,7 @@ const WorkbenchView: React.FC<WorkbenchViewProps> = () => {
 	});
 
 	if (error) {
-		return <PageError error={error} />;
+		return <PageError error={error} withHeader={false} />;
 	}
 
 	if (isLoading) {
