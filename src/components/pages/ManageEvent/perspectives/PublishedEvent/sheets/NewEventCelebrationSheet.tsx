@@ -1,5 +1,5 @@
 import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
-import { AView, Icon, QRCode, Text, View } from '@atomic';
+import { AView, Icon, Text, View } from '@atomic';
 import { Vibrator } from '@etc';
 import { artistEventApiSlice } from '@flux/api/event';
 import {
@@ -132,14 +132,13 @@ const NewEventCelebrationSheet: React.FC<NewEventCelebrationSheetProps> = ({
 							</Text>
 						</AView>
 					)}
-					<View>
+					<View rowGap='m'>
 						{isLoaded && (
 							<AView
 								entering={FadeInDown.duration(500).delay(400)}
 								height={75}
 								flexDirection='row'
 								alignItems='center'
-								marginBottom='s'
 							>
 								<View
 									marginHorizontal='m'
@@ -172,11 +171,23 @@ const NewEventCelebrationSheet: React.FC<NewEventCelebrationSheetProps> = ({
 								height={75}
 								flexDirection='row'
 								alignItems='center'
-								marginBottom='s'
 							>
-								<QRCode
-									data={eventPageHyperlink(data?.event.event_uid ?? '')}
-								/>
+								<View
+									marginHorizontal='m'
+									height={75}
+									width={75}
+									justifyContent='center'
+									alignItems='center'
+								>
+									<Image
+										source={require('src/assets/images/qr-code-example.png')}
+										style={{
+											height: '100%',
+											width: '100%',
+											objectFit: 'cover'
+										}}
+									/>
+								</View>
 								<View flex={1}>
 									<Text variant='paragraph-small'>Via QR</Text>
 									<Text variant='paragraph-small' color='text.q'>
@@ -192,7 +203,6 @@ const NewEventCelebrationSheet: React.FC<NewEventCelebrationSheetProps> = ({
 								height={75}
 								flexDirection='row'
 								alignItems='center'
-								marginBottom='s'
 							>
 								<TouchableOpacity
 									onPress={() =>
