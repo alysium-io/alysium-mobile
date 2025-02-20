@@ -13,7 +13,12 @@ const useImage = (): IUseImage => {
 		}
 
 		// If it already starts with the base url, return it as is
-		if (key.startsWith(env.imagesBaseUrl)) {
+		if (
+			key.startsWith(env.imagesBaseUrl) ||
+			key.startsWith('http://') ||
+			key.startsWith('https://') ||
+			key.startsWith('file://')
+		) {
 			return key;
 		}
 
