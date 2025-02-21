@@ -18,7 +18,7 @@ const TermsOfServiceBottomSheet: React.FC<TermsOfServiceBottomSheetProps> = ({
 				<View margin='m'>
 					<Section>
 						<Text variant='page-header' marginBottom='s'>
-							Privacy Policy
+							Terms of Service
 						</Text>
 						<Text variant='paragraph-small'>
 							Please read these terms of service carefully before using this
@@ -69,7 +69,34 @@ const TermsOfServiceBottomSheet: React.FC<TermsOfServiceBottomSheetProps> = ({
 					</Section>
 
 					<Section>
-						<SectionTitle>5. Personal Data</SectionTitle>
+						<SectionTitle>5. User-Generated Content</SectionTitle>
+						<SectionBody>
+							The Service allows users to post, share, and interact with
+							content, including but not limited to text, images, and other
+							materials ("User-Generated Content"). By using the Service, you
+							agree to the following:
+							{'\n\n'}- **Zero-Tolerance Policy:** Alysium has a zero-tolerance
+							policy for objectionable content or abusive behavior, including
+							but not limited to hate speech, harassment, violence, explicit
+							material, or spam.
+							{'\n'}- **Content Moderation:** We reserve the right to monitor,
+							filter, and remove any User-Generated Content that violates these
+							Terms at our sole discretion.
+							{'\n'}- **Reporting Mechanism:** Users may report objectionable
+							content through the reporting tools provided in the Service. We
+							will review and act on such reports within 24 hours, including
+							removing the content and, if warranted, suspending or terminating
+							the account of the user responsible.
+							{'\n'}- **Blocking Users:** Users may block other users to prevent
+							interaction or visibility of their content within the Service.
+							{'\n'}- **User Responsibility:** You are solely responsible for
+							the User-Generated Content you post and agree not to upload or
+							share content that violates these Terms or applicable laws.
+						</SectionBody>
+					</Section>
+
+					<Section>
+						<SectionTitle>6. Personal Data</SectionTitle>
 						<SectionBody>
 							We collect and store certain personal information, including your
 							name, email address, and phone number when you create an account.
@@ -80,7 +107,7 @@ const TermsOfServiceBottomSheet: React.FC<TermsOfServiceBottomSheetProps> = ({
 					</Section>
 
 					<Section>
-						<SectionTitle>6. Intellectual Property</SectionTitle>
+						<SectionTitle>7. Intellectual Property</SectionTitle>
 						<SectionBody>
 							Alysium and its licensors retain all right, title, and interest in
 							and to the Service, including all related intellectual property
@@ -90,18 +117,19 @@ const TermsOfServiceBottomSheet: React.FC<TermsOfServiceBottomSheetProps> = ({
 					</Section>
 
 					<Section>
-						<SectionTitle>7. Termination</SectionTitle>
+						<SectionTitle>8. Termination</SectionTitle>
 						<SectionBody>
 							We may terminate or suspend your access to the Service
 							immediately, without prior notice or liability, for any reason
-							whatsoever, including without limitation if you breach the Terms.
-							Upon termination, your right to use the Service will immediately
-							cease.
+							whatsoever, including without limitation if you breach the Terms,
+							such as by posting objectionable User-Generated Content or
+							engaging in abusive behavior. Upon termination, your right to use
+							the Service will immediately cease.
 						</SectionBody>
 					</Section>
 
 					<Section>
-						<SectionTitle>8. Disclaimer of Warranties</SectionTitle>
+						<SectionTitle>9. Disclaimer of Warranties</SectionTitle>
 						<SectionBody>
 							The Service is provided on an "AS IS" and "AS AVAILABLE" basis.
 							Alysium expressly disclaims all warranties of any kind, whether
@@ -110,7 +138,7 @@ const TermsOfServiceBottomSheet: React.FC<TermsOfServiceBottomSheetProps> = ({
 					</Section>
 
 					<Section>
-						<SectionTitle>9. Limitation of Liability</SectionTitle>
+						<SectionTitle>10. Limitation of Liability</SectionTitle>
 						<SectionBody>
 							In no event shall Alysium be liable for any indirect, incidental,
 							special, consequential or punitive damages, including without
@@ -121,7 +149,7 @@ const TermsOfServiceBottomSheet: React.FC<TermsOfServiceBottomSheetProps> = ({
 					</Section>
 
 					<Section>
-						<SectionTitle>10. Governing Law</SectionTitle>
+						<SectionTitle>11. Governing Law</SectionTitle>
 						<SectionBody>
 							These Terms shall be governed and construed in accordance with the
 							laws of the United States, without regard to its conflict of law
@@ -130,7 +158,7 @@ const TermsOfServiceBottomSheet: React.FC<TermsOfServiceBottomSheetProps> = ({
 					</Section>
 
 					<Section>
-						<SectionTitle>11. Arbitration</SectionTitle>
+						<SectionTitle>12. Arbitration</SectionTitle>
 						<SectionBody>
 							Any dispute arising from or relating to the subject matter of
 							these Terms shall be finally settled by arbitration in California,
@@ -142,7 +170,7 @@ const TermsOfServiceBottomSheet: React.FC<TermsOfServiceBottomSheetProps> = ({
 					</Section>
 
 					<Section>
-						<SectionTitle>12. Changes to Terms</SectionTitle>
+						<SectionTitle>13. Changes to Terms</SectionTitle>
 						<SectionBody>
 							We reserve the right, at our sole discretion, to modify or replace
 							these Terms at any time. If a revision is material we will try to
@@ -152,7 +180,7 @@ const TermsOfServiceBottomSheet: React.FC<TermsOfServiceBottomSheetProps> = ({
 					</Section>
 
 					<Section>
-						<SectionTitle>13. Contact Us</SectionTitle>
+						<SectionTitle>14. Contact Us</SectionTitle>
 						<SectionBody>
 							If you have any questions about these Terms, please contact us at{' '}
 							<Text
@@ -166,7 +194,7 @@ const TermsOfServiceBottomSheet: React.FC<TermsOfServiceBottomSheetProps> = ({
 					</Section>
 
 					<Text variant='paragraph-small' textAlign='right'>
-						Aug. 1st, 2024
+						February 21st, 2025
 					</Text>
 				</View>
 			</ScrollView>
