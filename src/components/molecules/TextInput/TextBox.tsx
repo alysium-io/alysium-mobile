@@ -42,7 +42,18 @@ const TextBox = forwardRef<RNTextInput, TextBoxProps>(
 
 		return (
 			<View>
-				<View position='relative'>
+				<View
+					flexDirection='row'
+					alignItems='center'
+					style={{
+						borderRadius: theme.borderRadii.m,
+						backgroundColor: theme.colors['bg.light'],
+						borderWidth: theme.borderWidth.xthick,
+						borderColor: isFocused
+							? theme.colors['border.heavy']
+							: theme.colors['border.light']
+					}}
+				>
 					<TextInput
 						ref={ref}
 						variant='paragraph'
@@ -54,28 +65,13 @@ const TextBox = forwardRef<RNTextInput, TextBoxProps>(
 						onBlur={_onBlur}
 						value={value}
 						onChangeText={onChangeText}
-						style={{
-							borderRadius: theme.borderRadii.m,
-							backgroundColor: theme.colors['bg.light'],
-							borderWidth: theme.borderWidth.xthick,
-							borderColor: isFocused
-								? theme.colors['border.heavy']
-								: theme.colors['border.light']
-						}}
+						style={{ flex: 1 }}
 						{...props}
 					/>
 					{value && (
 						<Pressable
-							onPress={() => {
-								onChangeText?.('');
-							}}
-							style={{
-								position: 'absolute',
-								right: theme.spacing.m,
-								top: '50%',
-								transform: [{ translateY: -9 }],
-								zIndex: 9999
-							}}
+							onPress={() => onChangeText?.('')}
+							style={{ marginRight: theme.spacing.m }}
 						>
 							<Icon
 								name='clear'

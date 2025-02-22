@@ -40,6 +40,7 @@ import Eventbrite from './Eventbrite';
 import Experiment from './Experiment';
 import Facebook from './Facebook';
 import Filter from './Filter';
+import Flag from './Flag';
 import Home from './Home';
 import Host from './Host';
 import InfoOne from './InfoOne';
@@ -185,7 +186,8 @@ export const SvgIcons = {
 	chrome: Chrome,
 	save: Save,
 	home: Home,
-	manager: Manager
+	manager: Manager,
+	flag: Flag
 };
 
 export type IconNames = keyof typeof SvgIcons;

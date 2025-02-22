@@ -5,4 +5,5 @@ export * from './CreateAccountBottomSheet';
 export * from './Documents';
 export * from './JoinScenePreviewBottomSheet';
 export * from './ModifyArtistTeamMemberPermissionsBottomSheet';
+export * from './ReportContentBottomSheet';
 export * from './ShareExternalSheet';

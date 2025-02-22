@@ -1,9 +1,11 @@
 import { PublicArtist } from '@flux/api/artist';
 import { artistEventApiSlice } from '@flux/api/event';
+import { ReportedContentType } from '@flux/api/reported-content/types';
 import { BottomSheetView } from '@gorhom/bottom-sheet';
 import { SheetApi, useClipboard, useHyperlink, useSheet } from '@hooks';
 import { MenuListItem } from '@molecules';
 import { BottomSheet } from '@organisms';
+import { useReportedContentContext } from '@popups';
 import ShareArtistPosterSheet from '@src/components/popups/ShareExternalSheet/ShareArtistPosterSheet';
 import React from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -21,6 +23,7 @@ const MenuPopupSheet: React.FC<MenuPopupSheetProps> = ({
 	const { artistPageHyperlink } = useHyperlink();
 	const insets = useSafeAreaInsets();
 	const { copy } = useClipboard();
+	const { openReportSheet } = useReportedContentContext();
 	const { data: eventsData } =
 		artistEventApiSlice.usePublicFindAllArtistEventsQuery({
 			params: { artist_uid: artist.artist_uid },
@@ -62,6 +65,22 @@ const MenuPopupSheet: React.FC<MenuPopupSheetProps> = ({
 							titleVariant: 'paragraph',
 							bottomSubtextColor: 'text.q'
 						}}
+					/>
+					<MenuListItem
+						onPress={() => {
+							openReportSheet({
+								referenceType: ReportedContentType.artist,
+								referenceUid: artist.artist_uid
+							});
+						}}
+						titleTextProps={{
+							title: 'Report',
+							bottomSubtext: 'Report this artist',
+							titleVariant: 'paragraph',
+							bottomSubtextColor: 'text.q'
+						}}
+						icon='flag'
+						iconProps={{ size: 'm' }}
 					/>
 				</BottomSheetView>
 			</BottomSheet>

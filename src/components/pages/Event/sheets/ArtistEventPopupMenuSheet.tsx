@@ -1,9 +1,10 @@
 import { EventLink } from '@flux/api/event-link/event-link.entity';
+import { ReportedContentType } from '@flux/api/reported-content/types';
 import { BottomSheetView } from '@gorhom/bottom-sheet';
 import { SheetApi, useClipboard, useHyperlink, useSheet } from '@hooks';
 import { MenuListItem } from '@molecules';
 import { BottomSheet } from '@organisms';
-import { ShareEventPosterSheet } from '@popups';
+import { ShareEventPosterSheet, useReportedContentContext } from '@popups';
 import React from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -20,6 +21,7 @@ const ArtistEventPopupMenuSheet: React.FC<ArtistEventPopupMenuSheetProps> = ({
 	const insets = useSafeAreaInsets();
 	const shareEventPosterSheetApi = useSheet();
 	const { copy } = useClipboard();
+	const { openReportSheet } = useReportedContentContext();
 
 	return (
 		<>
@@ -56,6 +58,22 @@ const ArtistEventPopupMenuSheet: React.FC<ArtistEventPopupMenuSheetProps> = ({
 						iconProps={{
 							size: 'm'
 						}}
+					/>
+					<MenuListItem
+						onPress={() => {
+							openReportSheet({
+								referenceType: ReportedContentType.event,
+								referenceUid: event.event.event_uid
+							});
+						}}
+						titleTextProps={{
+							title: 'Report',
+							bottomSubtext: 'Report this artist',
+							titleVariant: 'paragraph',
+							bottomSubtextColor: 'text.q'
+						}}
+						icon='flag'
+						iconProps={{ size: 'm' }}
 					/>
 				</BottomSheetView>
 			</BottomSheet>
