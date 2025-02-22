@@ -20,6 +20,7 @@ export interface User {
 	readonly num_artists_following: number;
 	readonly num_scenes_following: number;
 	readonly role: Role;
+	readonly has_accepted_terms: boolean;
 }
 
 export interface PrivateUser extends User {}

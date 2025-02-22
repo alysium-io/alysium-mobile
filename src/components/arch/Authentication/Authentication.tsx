@@ -1,3 +1,4 @@
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { AuthStage, ChildrenProps } from '@types';
 import React from 'react';
 import { Case, Default, Switch } from 'react-if';
@@ -21,9 +22,11 @@ const Authentication: React.FC<ChildrenProps> = ({ children }) => {
 };
 
 const AuthenticationWrapper: React.FC<ChildrenProps> = ({ children }) => (
-	<AuthenticationAppProvider>
-		<Authentication>{children}</Authentication>
-	</AuthenticationAppProvider>
+	<BottomSheetModalProvider>
+		<AuthenticationAppProvider>
+			<Authentication>{children}</Authentication>
+		</AuthenticationAppProvider>
+	</BottomSheetModalProvider>
 );
 
 export default AuthenticationWrapper;

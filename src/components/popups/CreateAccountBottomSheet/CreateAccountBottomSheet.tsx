@@ -6,11 +6,12 @@ import { userApiSlice } from '@flux/api/user';
 import { LoginUserPhoneNumberBodyDto } from '@flux/api/user/dto/user-login-phone.dto';
 import { RegisterUserPhoneNumberBodyDto } from '@flux/api/user/dto/user-register-phone.dto';
 import { SheetApi } from '@hooks';
-import { Button, useButtonState } from '@molecules';
+import { useButtonState } from '@molecules';
 import { FullScreenSheet } from '@organisms';
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Case, Switch } from 'react-if';
+import { LayoutAnimationConfig } from 'react-native-reanimated';
 import Toast from 'react-native-toast-message';
 import EnterCode from './components/EnterCode';
 import InputPhoneNumber from './components/InputPhoneNumber';
@@ -54,7 +55,8 @@ const CreateAccountBottomSheet: React.FC<CreateAccountBottomSheetProps> = ({
 	} = useForm<LoginUserPhoneNumberBodyDto>({
 		defaultValues: {
 			phone_number: '',
-			passcode: ''
+			passcode: '',
+			has_accepted_terms: false
 		}
 	});
 
@@ -76,6 +78,8 @@ const CreateAccountBottomSheet: React.FC<CreateAccountBottomSheetProps> = ({
 						text2: 'Something went wrong, please try again.',
 						type: 'error'
 					});
+					setStep(0);
+					resetRegisterForm();
 				})
 				.finally(() => {
 					sendTextButtonStateApi.setButtonState('active');
@@ -158,45 +162,31 @@ const CreateAccountBottomSheet: React.FC<CreateAccountBottomSheetProps> = ({
 			onDismiss={onPressCancel}
 			withButtons={false}
 		>
-			<View margin='m'>
-				<View marginTop='l' marginBottom='xl' alignItems='center'>
-					<Icon name='logo' size='l' color='text.p' />
+			<LayoutAnimationConfig skipEntering>
+				<View margin='m'>
+					<View marginTop='l' marginBottom='xl' alignItems='center'>
+						<Icon name='logo' size='l' color='text.p' />
+					</View>
+					<Switch>
+						<Case condition={step === 0}>
+							<InputPhoneNumber
+								control={registerFormControl}
+								sendTextButtonStateApi={sendTextButtonStateApi}
+								onPressCancel={onPressCancel}
+								onSubmitRegister={onSubmitRegister}
+							/>
+						</Case>
+						<Case condition={step === 1}>
+							<EnterCode
+								control={loginFormControl}
+								onPressBack={onPressBack}
+								onSubmitLogin={onSubmitLogin}
+								oneTimeCodeButtonStateApi={oneTimeCodeButtonStateApi}
+							/>
+						</Case>
+					</Switch>
 				</View>
-				<Switch>
-					<Case condition={step === 0}>
-						<InputPhoneNumber control={registerFormControl} />
-					</Case>
-					<Case condition={step === 1}>
-						<EnterCode control={loginFormControl} />
-					</Case>
-				</Switch>
-			</View>
-			<View flexDirection='row' flex={1} marginHorizontal='m'>
-				<View marginRight='s' flex={1}>
-					{step === 0 ? (
-						<Button text='cancel' variant='outlined' onPress={onPressCancel} />
-					) : (
-						<Button text='Back' variant='outlined' onPress={onPressBack} />
-					)}
-				</View>
-				<View marginLeft='s' flex={1}>
-					{step === 0 ? (
-						<Button
-							text='Send Text'
-							color='p'
-							onPress={onSubmitRegister}
-							buttonState={sendTextButtonStateApi.buttonState}
-						/>
-					) : (
-						<Button
-							text='Login'
-							color='p'
-							onPress={onSubmitLogin}
-							buttonState={oneTimeCodeButtonStateApi.buttonState}
-						/>
-					)}
-				</View>
-			</View>
+			</LayoutAnimationConfig>
 		</FullScreenSheet>
 	);
 };

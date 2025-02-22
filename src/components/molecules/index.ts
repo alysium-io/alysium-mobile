@@ -11,6 +11,7 @@
  *
  */
 export * from './Buttons';
+export * from './Checkbox';
 export * from './CircularButtons';
 export * from './DeclarativeText';
 export * from './EditableImage';

@@ -1,14 +1,17 @@
-import { View } from '@atomic';
+import { DismissKeyboardWrapper, View } from '@atomic';
 import { regexPatterns } from '@etc';
 import { RegisterUserPhoneNumberBodyDto } from '@flux/api/user/dto/user-register-phone.dto';
+import { useSheet } from '@hooks';
 import {
 	Button,
 	ButtonStateApi,
 	DeclarativeText,
 	InternationalPhoneNumberTextInput
 } from '@molecules';
+import { PrivacyPolicyBottomSheet } from '@popups';
 import React from 'react';
 import { Control, Controller } from 'react-hook-form';
+import { Keyboard } from 'react-native';
 import { useAuthenticationAppContext } from '../Authentication.context';
 
 interface RegisterUserPhoneNumberProps {
@@ -23,6 +26,7 @@ const RegisterUserPhoneNumber: React.FC<RegisterUserPhoneNumberProps> = ({
 	onSubmit
 }) => {
 	const { loginGuest } = useAuthenticationAppContext();
+	const sheetApi = useSheet();
 
 	return (
 		<View flex={1} justifyContent='space-between'>
@@ -56,7 +60,11 @@ const RegisterUserPhoneNumber: React.FC<RegisterUserPhoneNumberProps> = ({
 								variant: 'paragraph-small',
 								color: 'subtext.s',
 								underline: true,
-								newline: false
+								newline: false,
+								onPress: () => {
+									Keyboard.dismiss();
+									sheetApi.open();
+								}
 							}
 						]}
 					/>
@@ -70,6 +78,7 @@ const RegisterUserPhoneNumber: React.FC<RegisterUserPhoneNumberProps> = ({
 					/>
 				</View>
 			</View>
+			<DismissKeyboardWrapper containerStyle={{ flex: 1 }} />
 			<View marginBottom='m'>
 				<Button
 					text='Continue as Guest'
@@ -77,6 +86,7 @@ const RegisterUserPhoneNumber: React.FC<RegisterUserPhoneNumberProps> = ({
 					onPress={loginGuest}
 				/>
 			</View>
+			<PrivacyPolicyBottomSheet sheetApi={sheetApi} />
 		</View>
 	);
 };

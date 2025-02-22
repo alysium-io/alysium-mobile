@@ -1,4 +1,4 @@
-import { AView, DismissKeyboardWrapper, Icon, View } from '@atomic';
+import { AView, Icon, View } from '@atomic';
 import { Formatting } from '@etc';
 import { userApiSlice } from '@flux/api/user';
 import { LoginUserPhoneNumberBodyDto } from '@flux/api/user/dto/user-login-phone.dto';
@@ -31,6 +31,7 @@ const LoggedOut = () => {
 		userApiSlice.useLazyRegisterUserPhoneNumberQuery();
 	const [loginPhoneNumberQuery] =
 		userApiSlice.useLazyLoginUserPhoneNumberQuery();
+	const [previouslyAcceptedTerms, setPreviouslyAcceptedTerms] = useState(false);
 
 	const {
 		handleSubmit: handleSubmitRegister,
@@ -52,7 +53,8 @@ const LoggedOut = () => {
 	} = useForm<LoginUserPhoneNumberBodyDto>({
 		defaultValues: {
 			phone_number: '',
-			passcode: ''
+			passcode: '',
+			has_accepted_terms: false
 		}
 	});
 
@@ -66,6 +68,8 @@ const LoggedOut = () => {
 				.unwrap()
 				.then((res) => {
 					setLoginFormValue('phone_number', phone_number);
+					setPreviouslyAcceptedTerms(res.has_accepted_terms);
+					setLoginFormValue('has_accepted_terms', res.has_accepted_terms);
 					setStep(1);
 				})
 				.catch((err) => {
@@ -95,16 +99,20 @@ const LoggedOut = () => {
 						text2: 'Invalid authentication, please try again.',
 						type: 'error'
 					});
-					oneTimeCodeButtonStateApi.setButtonState('active');
-					setStep(0);
+					resetAll();
 				});
 		}
 	);
 
 	const onPressBack = () => {
+		resetAll();
+	};
+
+	const resetAll = () => {
 		resetLoginForm();
 		resetRegisterForm();
 		sendTextButtonStateApi.setButtonState('disabled');
+		oneTimeCodeButtonStateApi.setButtonState('disabled');
 		setStep(0);
 	};
 
@@ -123,41 +131,40 @@ const LoggedOut = () => {
 	return (
 		<BasePage>
 			<LayoutAnimationConfig skipEntering>
-				<DismissKeyboardWrapper>
-					<View
-						flex={1}
-						margin='m'
-						style={{ marginTop: insets.top + theme.spacing.l }}
-					>
-						<View marginBottom='xl' alignItems='center'>
-							<Icon name='logo' size='l' color='text.p' />
-						</View>
-						<AView
-							flex={1}
-							key={step}
-							entering={FadeInLeft.duration(200)}
-							exiting={FadeOutRight.duration(200)}
-						>
-							<Switch>
-								<Case condition={step === 0}>
-									<RegisterUserPhoneNumber
-										sendTextButtonStateApi={sendTextButtonStateApi}
-										control={registerFormControl}
-										onSubmit={onSubmitRegister}
-									/>
-								</Case>
-								<Case condition={step === 1}>
-									<EnterCode
-										onPressBack={onPressBack}
-										control={loginFormControl}
-										onSubmit={onSubmitLogin}
-										oneTimeCodeButtonStateApi={oneTimeCodeButtonStateApi}
-									/>
-								</Case>
-							</Switch>
-						</AView>
+				<View
+					flex={1}
+					margin='m'
+					style={{ marginTop: insets.top + theme.spacing.l }}
+				>
+					<View marginBottom='xl' alignItems='center'>
+						<Icon name='logo' size='l' color='text.p' />
 					</View>
-				</DismissKeyboardWrapper>
+					<AView
+						flex={1}
+						key={step}
+						entering={FadeInLeft.duration(200)}
+						exiting={FadeOutRight.duration(200)}
+					>
+						<Switch>
+							<Case condition={step === 0}>
+								<RegisterUserPhoneNumber
+									sendTextButtonStateApi={sendTextButtonStateApi}
+									control={registerFormControl}
+									onSubmit={onSubmitRegister}
+								/>
+							</Case>
+							<Case condition={step === 1}>
+								<EnterCode
+									onPressBack={onPressBack}
+									control={loginFormControl}
+									onSubmit={onSubmitLogin}
+									oneTimeCodeButtonStateApi={oneTimeCodeButtonStateApi}
+									previouslyAcceptedTerms={previouslyAcceptedTerms}
+								/>
+							</Case>
+						</Switch>
+					</AView>
+				</View>
 			</LayoutAnimationConfig>
 		</BasePage>
 	);

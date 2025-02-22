@@ -1,15 +1,24 @@
+import TermsOfServiceAgreement from '@arch/Authentication/components/TermsOfServiceAgreement';
 import { LView, View } from '@atomic';
 import { LoginUserPhoneNumberBodyDto } from '@flux/api/user/dto/user-login-phone.dto';
-import { DeclarativeText, TextInputWithLabel } from '@molecules';
+import { ActionButtons, ButtonStateApi, TextInputWithLabel } from '@molecules';
 import React from 'react';
 import { Control, Controller } from 'react-hook-form';
 import { FadeInRight, FadeOutRight } from 'react-native-reanimated';
 
 interface EnterCodeProps {
 	control: Control<LoginUserPhoneNumberBodyDto>;
+	onPressBack: () => void;
+	onSubmitLogin: () => void;
+	oneTimeCodeButtonStateApi: ButtonStateApi;
 }
 
-const EnterCode: React.FC<EnterCodeProps> = ({ control }) => {
+const EnterCode: React.FC<EnterCodeProps> = ({
+	control,
+	onPressBack,
+	onSubmitLogin,
+	oneTimeCodeButtonStateApi
+}) => {
 	return (
 		<LView entering={FadeInRight} exiting={FadeOutRight}>
 			<Controller
@@ -29,19 +38,40 @@ const EnterCode: React.FC<EnterCodeProps> = ({ control }) => {
 						textContentType='oneTimeCode'
 						onChangeText={onChange}
 						value={value}
+						autoFocus
 					/>
 				)}
 			/>
-			<View margin='m'>
-				<DeclarativeText
-					textItems={[
-						{
-							text: 'We texted you a code, enter it here.',
-							variant: 'paragraph-small'
-						}
-					]}
+			<View marginVertical='xl'>
+				<Controller
+					control={control}
+					name='has_accepted_terms'
+					rules={{
+						required: 'You must accept the terms and conditions'
+					}}
+					render={({ field: { value, onChange } }) => (
+						<TermsOfServiceAgreement
+							checked={value}
+							onPress={() => onChange(!value)}
+						/>
+					)}
 				/>
 			</View>
+			<ActionButtons
+				buttonProps={[
+					{
+						text: 'Back',
+						variant: 'outlined',
+						onPress: onPressBack
+					},
+					{
+						text: 'Login',
+						color: 'p',
+						onPress: onSubmitLogin,
+						buttonState: oneTimeCodeButtonStateApi.buttonState
+					}
+				]}
+			/>
 		</LView>
 	);
 };
