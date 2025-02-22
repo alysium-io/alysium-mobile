@@ -18,6 +18,7 @@ import { serviceApi } from './api/base';
 import { persistedAppReducer } from './local/app';
 import { persistedArrayReducers } from './local/arrays/configPersistedArrays';
 import { persistedHomeMapReducer } from './local/home-map';
+import accountSuspendedMiddleware from './middleware/accountSuspendedMiddleware';
 import apiErrorUnauthorizedMiddleware from './middleware/apiErrorUnauthorizedMiddleware';
 
 const store = configureStore({
@@ -34,7 +35,8 @@ const store = configureStore({
 			}
 		})
 			.concat(serviceApi.middleware)
-			.concat(apiErrorUnauthorizedMiddleware);
+			.concat(apiErrorUnauthorizedMiddleware)
+			.concat(accountSuspendedMiddleware);
 	}
 });
 

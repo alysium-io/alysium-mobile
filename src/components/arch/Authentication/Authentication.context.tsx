@@ -52,6 +52,10 @@ export const AuthenticationAppProvider: React.FC<ProviderProps> = ({
 						});
 					})
 					.catch(() => {
+						Toast.show({
+							text1: 'Error',
+							text2: 'Unable to log in, please try again later.'
+						});
 						logout();
 					});
 			} else {
