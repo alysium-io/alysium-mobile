@@ -13,6 +13,7 @@ import Beatport from './Beatport';
 import Bell from './Bell';
 import BellNotification from './BellNotification';
 import BigCartel from './BigCartel';
+import Block from './Block';
 import BuyMeACoffee from './BuyMeACoffee';
 import Calendar from './Calendar';
 import Cancel from './Cancel';
@@ -38,6 +39,7 @@ import Event from './Event';
 import EventManager from './EventManager';
 import Eventbrite from './Eventbrite';
 import Experiment from './Experiment';
+import Eye from './Eye';
 import Facebook from './Facebook';
 import Filter from './Filter';
 import Flag from './Flag';
@@ -187,7 +189,9 @@ export const SvgIcons = {
 	save: Save,
 	home: Home,
 	manager: Manager,
-	flag: Flag
+	flag: Flag,
+	block: Block,
+	eye: Eye
 };
 
 export type IconNames = keyof typeof SvgIcons;

@@ -6,8 +6,10 @@ import { useRoute } from '@react-navigation/native';
 import { PageError, ParallaxLoading } from '@templates';
 import { ArtistPageRouteProp } from '@types';
 import React from 'react';
+import { Case, Switch } from 'react-if';
 import ArtistPageHeader from './Artist.header';
 import ActionButtons from './components/ActionButtons';
+import BlockedArtistSection from './components/BlockedArtistSection';
 import EventsSection from './components/EventsSection';
 import HistorySection from './components/HistorySection';
 import SubHeader from './components/SubHeader';
@@ -44,12 +46,22 @@ const ArtistPage: React.FC = () => {
 				title={artistData.name}
 				image={artistData.profile_image?.large.key}
 			>
-				<View margin='m'>
-					<SubHeader artistData={artistData} />
-					<ActionButtons artistData={artistData} />
-				</View>
-				<EventsSection artistData={artistData} eventsData={eventsData} />
-				<HistorySection artist_uid={route.params.artist_uid} />
+				<Switch>
+					<Case condition={artistData.is_blocked}>
+						<View margin='m'>
+							<SubHeader artistData={artistData} />
+							<BlockedArtistSection />
+						</View>
+					</Case>
+					<Case condition={!artistData.is_blocked}>
+						<View margin='m'>
+							<SubHeader artistData={artistData} />
+							<ActionButtons artistData={artistData} />
+						</View>
+						<EventsSection artistData={artistData} eventsData={eventsData} />
+						<HistorySection artist_uid={route.params.artist_uid} />
+					</Case>
+				</Switch>
 			</Parallax>
 		</BasePage>
 	);

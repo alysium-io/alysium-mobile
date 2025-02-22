@@ -9,6 +9,7 @@ import { useReportedContentContext } from '@popups';
 import ShareArtistPosterSheet from '@src/components/popups/ShareExternalSheet/ShareArtistPosterSheet';
 import React from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import BlockArtistMenuListItem from '../components/BlockArtistMenuListItem';
 
 interface MenuPopupSheetProps {
 	sheetApi: SheetApi;
@@ -82,6 +83,7 @@ const MenuPopupSheet: React.FC<MenuPopupSheetProps> = ({
 						icon='flag'
 						iconProps={{ size: 'm' }}
 					/>
+					<BlockArtistMenuListItem sheetApi={sheetApi} artist={artist} />
 				</BottomSheetView>
 			</BottomSheet>
 			<ShareArtistPosterSheet

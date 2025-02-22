@@ -1,4 +1,8 @@
 import { rtkBaseUrl, serviceApi } from '../base';
+import {
+	UserBlockArtistParamsDto,
+	UserBlockArtistResponseDto
+} from './dto/block-artist.dto';
 import { CreateUserResponseDto } from './dto/user-create.dto';
 import { DeleteUserResponseDto } from './dto/user-delete.dto';
 import { PrivateFindOneUserResponseDto } from './dto/user-find-one.dto';
@@ -68,6 +72,30 @@ export default serviceApi.injectEndpoints({
 				url: url('/login-guest'),
 				method: 'POST'
 			})
+		}),
+		blockArtist: builder.mutation<
+			UserBlockArtistResponseDto,
+			{ params: UserBlockArtistParamsDto }
+		>({
+			query: ({ params }) => ({
+				url: url(`artist/${params.artist_uid}/block`),
+				method: 'POST'
+			}),
+			invalidatesTags: (_, __, { params }) => [
+				{ type: 'PublicArtist', id: params.artist_uid }
+			]
+		}),
+		unblockArtist: builder.mutation<
+			UserBlockArtistResponseDto,
+			{ params: UserBlockArtistParamsDto }
+		>({
+			query: ({ params }) => ({
+				url: url(`artist/${params.artist_uid}/unblock`),
+				method: 'POST'
+			}),
+			invalidatesTags: (_, __, { params }) => [
+				{ type: 'PublicArtist', id: params.artist_uid }
+			]
 		})
 	})
 });

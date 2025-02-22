@@ -13,6 +13,7 @@ interface ArtistCommon {
 	readonly phone_number: string | null;
 	readonly bio: string | null;
 	readonly is_following: boolean;
+	readonly is_blocked: boolean;
 	readonly num_followers: number;
 	readonly num_events: number;
 	readonly profile_image: ProfileImage | null;

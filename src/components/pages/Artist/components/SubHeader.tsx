@@ -33,7 +33,6 @@ const SubHeader: React.FC<SubHeaderProps> = ({ artistData }) => {
 				flexDirection='row'
 				justifyContent='space-between'
 				alignItems='center'
-				marginBottom='m'
 			>
 				<View>
 					<If condition={!!artistData?.scene}>
@@ -72,7 +71,11 @@ const SubHeader: React.FC<SubHeaderProps> = ({ artistData }) => {
 				/>
 			</View>
 			{artistData.bio && (
-				<Text variant='paragraph-small'>{artistData.bio}</Text>
+				<View width='60%'>
+					<Text variant='paragraph-small' color='text.s'>
+						{artistData.bio}
+					</Text>
+				</View>
 			)}
 			<ArtistContactsAndLinks artist_uid={artistData.artist_uid} />
 		</Section>
