@@ -55,25 +55,23 @@ const ReportContentBottomSheet: React.FC<ReportContentBottomSheetProps> = ({
 	};
 
 	const onSubmit = (data: CreateReportedContentBodyDto) => {
-		try {
-			submitButtonState.setButtonState('loading');
-			createReportedContentMutation({ body: data })
-				.unwrap()
-				.then(() => {
-					Toast.show({
-						text1: 'Content reported successfully',
-						text2: 'We will review your report in 24 hours'
-					});
-					sheetApi.close();
-					resetAll();
+		submitButtonState.setButtonState('loading');
+		createReportedContentMutation({ body: data })
+			.unwrap()
+			.then(() => {
+				Toast.show({
+					text1: 'Content reported successfully',
+					text2: 'We will review your report in 24 hours'
 				});
-		} catch (error) {
-			Toast.show({
-				text1: 'Failed to report content',
-				text2: 'Please try again later'
+				sheetApi.close();
+				resetAll();
+			})
+			.catch(() => {
+				Toast.show({
+					text1: 'Failed to report content',
+					text2: 'Please try again later'
+				});
 			});
-			submitButtonState.setButtonState('active');
-		}
 	};
 
 	const onInvalid = () => {
