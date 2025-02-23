@@ -10,7 +10,7 @@ import ShareArtistPosterSheet from '@src/components/popups/ShareExternalSheet/Sh
 import React from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import BlockArtistMenuListItem from '../components/BlockArtistMenuListItem';
-
+import ReportArtistMenuListItem from '../components/ReportArtistMenuListItem';
 interface MenuPopupSheetProps {
 	sheetApi: SheetApi;
 	artist: PublicArtist;
@@ -20,11 +20,11 @@ const MenuPopupSheet: React.FC<MenuPopupSheetProps> = ({
 	sheetApi,
 	artist
 }) => {
+	const { openReportSheet } = useReportedContentContext();
 	const shareArtistPosterSheetApi = useSheet();
 	const { artistPageHyperlink } = useHyperlink();
 	const insets = useSafeAreaInsets();
 	const { copy } = useClipboard();
-	const { openReportSheet } = useReportedContentContext();
 	const { data: eventsData } =
 		artistEventApiSlice.usePublicFindAllArtistEventsQuery({
 			params: { artist_uid: artist.artist_uid },
@@ -67,21 +67,13 @@ const MenuPopupSheet: React.FC<MenuPopupSheetProps> = ({
 							bottomSubtextColor: 'text.q'
 						}}
 					/>
-					<MenuListItem
+					<ReportArtistMenuListItem
 						onPress={() => {
 							openReportSheet({
 								referenceType: ReportedContentType.artist,
 								referenceUid: artist.artist_uid
 							});
 						}}
-						titleTextProps={{
-							title: 'Report',
-							bottomSubtext: 'Report this artist',
-							titleVariant: 'paragraph',
-							bottomSubtextColor: 'text.q'
-						}}
-						icon='flag'
-						iconProps={{ size: 'm' }}
 					/>
 					<BlockArtistMenuListItem sheetApi={sheetApi} artist={artist} />
 				</BottomSheetView>

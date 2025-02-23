@@ -7,6 +7,7 @@ import { BottomSheet } from '@organisms';
 import { ShareEventPosterSheet, useReportedContentContext } from '@popups';
 import React from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import ReportEventMenuListItem from '../components/ReportEventMenuListItem';
 
 interface ArtistEventPopupMenuSheetProps {
 	sheetApi: SheetApi;
@@ -17,11 +18,11 @@ const ArtistEventPopupMenuSheet: React.FC<ArtistEventPopupMenuSheetProps> = ({
 	sheetApi,
 	event
 }) => {
+	const { openReportSheet } = useReportedContentContext();
 	const { eventPageHyperlink } = useHyperlink();
 	const insets = useSafeAreaInsets();
 	const shareEventPosterSheetApi = useSheet();
 	const { copy } = useClipboard();
-	const { openReportSheet } = useReportedContentContext();
 
 	return (
 		<>
@@ -59,21 +60,13 @@ const ArtistEventPopupMenuSheet: React.FC<ArtistEventPopupMenuSheetProps> = ({
 							size: 'm'
 						}}
 					/>
-					<MenuListItem
+					<ReportEventMenuListItem
 						onPress={() => {
 							openReportSheet({
 								referenceType: ReportedContentType.event,
 								referenceUid: event.event.event_uid
 							});
 						}}
-						titleTextProps={{
-							title: 'Report',
-							bottomSubtext: 'Report this artist',
-							titleVariant: 'paragraph',
-							bottomSubtextColor: 'text.q'
-						}}
-						icon='flag'
-						iconProps={{ size: 'm' }}
 					/>
 				</BottomSheetView>
 			</BottomSheet>

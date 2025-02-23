@@ -1,4 +1,6 @@
+import { useUserAppContext } from '@arch/Application/contexts/User.context';
 import { userApiSlice } from '@flux/api/user';
+import { Role } from '@flux/api/user/user.entity';
 import { SheetApi } from '@hooks';
 import { MenuListItem } from '@molecules';
 import { PublicArtist } from '@src/redux/api/artist/artist.entity';
@@ -15,6 +17,7 @@ const BlockArtistMenuListItem: React.FC<BlockArtistMenuListItemProps> = ({
 	sheetApi,
 	artist
 }) => {
+	const { userData } = useUserAppContext();
 	const [blockArtistMutation] = userApiSlice.useBlockArtistMutation();
 	const [unblockArtistMutation] = userApiSlice.useUnblockArtistMutation();
 
@@ -73,6 +76,10 @@ const BlockArtistMenuListItem: React.FC<BlockArtistMenuListItemProps> = ({
 			]
 		);
 	};
+
+	if (userData.role === Role.guest) {
+		return null;
+	}
 
 	return (
 		<MenuListItem
