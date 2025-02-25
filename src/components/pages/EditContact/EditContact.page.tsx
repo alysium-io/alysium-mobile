@@ -7,6 +7,7 @@ import { useKeyboard, useNavigation } from '@hooks';
 import { FormPhoneNumber, FormText } from '@molecules';
 import { BasePage } from '@organisms';
 import { useRoute } from '@react-navigation/native';
+import { captureException } from '@sentry/react-native';
 import { Alert, useGlobalLoader } from '@templates';
 import { EditContactPageRouteProp } from '@types';
 import React from 'react';
@@ -53,7 +54,8 @@ const EditContactPage = () => {
 				}
 			})
 				.unwrap()
-				.catch(() => {
+				.catch((err) => {
+					captureException(err);
 					Toast.show({
 						text1: 'Error',
 						text2: 'Failed to update contact.'

@@ -8,6 +8,7 @@ import { UserArtistLinkPermissions } from '@flux/api/user-artist-link/types';
 import { useSheet } from '@hooks';
 import { Button } from '@molecules';
 import { ConfirmDeleteBottomSheet } from '@popups';
+import { captureException } from '@sentry/react-native';
 import { useBehaviorContext } from '@src/utils/contexts/Behavior';
 import { Persona } from '@types';
 import React from 'react';
@@ -27,7 +28,7 @@ const LogoutSection = () => {
 	const onPressDeleteAccount = async () => {
 		confirmDeleteAccountSheetApi.close();
 		behavior('PRESSED_CONFIRM_DELETE_ARTIST_PROFILE').catch((err) =>
-			console.log(err)
+			captureException(err)
 		);
 
 		try {
@@ -37,7 +38,8 @@ const LogoutSection = () => {
 			setTimeout(() => {
 				changePersona(Persona.user, userData.user_uid);
 			}, 200);
-		} catch (error) {
+		} catch (err) {
+			captureException(err);
 			Toast.show({
 				text1: 'Error',
 				text2: 'Something went wrong. Please try again.'

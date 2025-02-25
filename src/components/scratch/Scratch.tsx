@@ -1,11 +1,11 @@
 import { View } from '@atomic';
 import React from 'react';
-import ReanimaedSharedTransitionHangingBug from './displays/ReanimaedSharedTransitionHangingBug';
+import SentryTest from './displays/SentryTest';
 
 const Scratch = () => {
 	return (
 		<View flex={1} backgroundColor='bg.p'>
-			<ReanimaedSharedTransitionHangingBug />
+			<SentryTest />
 		</View>
 	);
 };

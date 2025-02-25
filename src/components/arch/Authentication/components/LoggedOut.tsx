@@ -6,6 +6,7 @@ import { RegisterUserPhoneNumberBodyDto } from '@flux/api/user/dto/user-register
 import { useTheme } from '@hooks';
 import { useButtonState } from '@molecules';
 import { BasePage } from '@organisms';
+import { addBreadcrumb, captureException } from '@sentry/react-native';
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Case, Switch } from 'react-if';
@@ -60,28 +61,93 @@ const LoggedOut = () => {
 
 	const onSubmitRegister = handleSubmitRegister(
 		async (data: RegisterUserPhoneNumberBodyDto) => {
-			sendTextButtonStateApi.setButtonState('loading');
-			const phone_number =
-				Formatting.preparePhoneNumberForApi(data.phone_number) ?? '';
-			data.phone_number = phone_number;
-			registerPhoneNumberQuery({ body: data })
-				.unwrap()
-				.then((res) => {
-					setLoginFormValue('phone_number', phone_number);
-					setPreviouslyAcceptedTerms(res.has_accepted_terms);
-					setLoginFormValue('has_accepted_terms', res.has_accepted_terms);
-					setStep(1);
-				})
-				.catch((err) => {
-					Toast.show({
-						text1: 'Error',
-						text2: 'Something went wrong, please try again.',
-						type: 'error'
-					});
-				})
-				.finally(() => {
-					sendTextButtonStateApi.setButtonState('active');
+			try {
+				addBreadcrumb({
+					category: 'auth',
+					message: 'User attempted phone registration',
+					level: 'info',
+					data: {
+						...data,
+						step,
+						previouslyAcceptedTerms
+					}
 				});
+				sendTextButtonStateApi.setButtonState('loading');
+				addBreadcrumb({
+					category: 'auth',
+					message: 'Button set to loading',
+					level: 'info'
+				});
+
+				const phone_number =
+					Formatting.preparePhoneNumberForApi(data.phone_number) ?? '';
+
+				addBreadcrumb({
+					category: 'auth',
+					message: 'Phone number formatted',
+					level: 'info',
+					data: {
+						phoneNumber: phone_number,
+						step,
+						previouslyAcceptedTerms
+					}
+				});
+				data.phone_number = phone_number;
+				const result = await registerPhoneNumberQuery({ body: data }).unwrap();
+				addBreadcrumb({
+					category: 'auth',
+					message: 'Registration successful',
+					level: 'info',
+					data: {
+						...result
+					}
+				});
+				setLoginFormValue('phone_number', phone_number);
+				addBreadcrumb({
+					category: 'auth',
+					message: 'Setting login form value',
+					level: 'info',
+					data: {
+						phoneNumber: phone_number
+					}
+				});
+				setPreviouslyAcceptedTerms(result.has_accepted_terms);
+				addBreadcrumb({
+					category: 'auth',
+					message: 'Setting previously accepted terms',
+					level: 'info',
+					data: {
+						hasAcceptedTerms: result.has_accepted_terms
+					}
+				});
+				setLoginFormValue('has_accepted_terms', result.has_accepted_terms);
+				addBreadcrumb({
+					category: 'auth',
+					message: 'Setting login form value',
+					level: 'info',
+					data: {
+						hasAcceptedTerms: result.has_accepted_terms
+					}
+				});
+				setStep(1);
+				addBreadcrumb({
+					category: 'auth',
+					message: 'Setting step',
+					level: 'info',
+					data: {
+						step: 1
+					}
+				});
+			} catch (err: any) {
+				captureException(err);
+				Toast.show({
+					text1: 'Error',
+					text2: 'Something went wrong, please try again.',
+					type: 'error'
+				});
+			} finally {
+				sendTextButtonStateApi.setButtonState('active');
+			}
 		}
 	);
 
@@ -94,6 +160,7 @@ const LoggedOut = () => {
 					login(res.token);
 				})
 				.catch((err) => {
+					captureException(err);
 					Toast.show({
 						text1: 'Error',
 						text2: 'Invalid authentication, please try again.',

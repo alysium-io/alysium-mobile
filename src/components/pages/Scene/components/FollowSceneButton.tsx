@@ -4,6 +4,7 @@ import { userScenesFollowingApiSlice } from '@flux/api/user-scenes-following';
 import { Role } from '@flux/api/user/user.entity';
 import { useToggle } from '@hooks';
 import { Button, FollowButton } from '@molecules';
+import { captureException } from '@sentry/react-native';
 import { useBehaviorContext } from '@src/utils/contexts/Behavior';
 import React from 'react';
 import Toast from 'react-native-toast-message';
@@ -33,9 +34,10 @@ const FollowSceneButton: React.FC<FollowSceneButtonProps> = ({ sceneData }) => {
 				.then(() => {
 					behavior('FOLLOW_SCENE', {
 						scene_uid: sceneData.scene_uid
-					}).catch(() => console.error('Error logging FOLLOW_SCENE behavior'));
+					}).catch((err) => captureException(err));
 				})
-				.catch(() => {
+				.catch((err) => {
+					captureException(err);
 					followButtonToggleApi.off();
 					Toast.show({
 						text1: 'Error',
@@ -52,11 +54,10 @@ const FollowSceneButton: React.FC<FollowSceneButtonProps> = ({ sceneData }) => {
 				.then(() => {
 					behavior('UNFOLLOW_SCENE', {
 						scene_uid: sceneData.scene_uid
-					}).catch(() =>
-						console.error('Error logging UNFOLLOW_SCENE behavior')
-					);
+					});
 				})
-				.catch(() => {
+				.catch((err) => {
+					captureException(err);
 					followButtonToggleApi.on();
 					Toast.show({
 						text1: 'Error',

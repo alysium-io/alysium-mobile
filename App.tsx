@@ -1,10 +1,26 @@
 import { Application, Authentication, Dependencies } from '@arch';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { NavigationContainer } from '@react-navigation/native';
+import {
+	ErrorBoundary,
+	init,
+	mobileReplayIntegration
+} from '@sentry/react-native';
 import React from 'react';
+import Config from 'react-native-config';
 import Animated from 'react-native-reanimated';
 import { Scratch } from 'src/components/scratch';
 import './ignore-warnings';
+
+// Initialize Sentry
+init({
+	dsn: Config.SENTRY_DSN,
+	enableAutoPerformanceTracing: true,
+	debug: Config.ENV === 'dev',
+	environment: Config.ENV === 'dev' ? 'development' : 'production',
+	enabled: Config.ENV !== 'dev',
+	integrations: [mobileReplayIntegration()]
+});
 
 // This is a workaround to allow the TextInput `text` prop to be animated
 // in react-native-reanimated
@@ -20,22 +36,26 @@ const App = () => {
 
 	if (sandboxMode) {
 		return (
-			<Dependencies>
-				<NavigationContainer>
-					<BottomSheetModalProvider>
-						<Scratch />
-					</BottomSheetModalProvider>
-				</NavigationContainer>
-			</Dependencies>
+			<ErrorBoundary>
+				<Dependencies>
+					<NavigationContainer>
+						<BottomSheetModalProvider>
+							<Scratch />
+						</BottomSheetModalProvider>
+					</NavigationContainer>
+				</Dependencies>
+			</ErrorBoundary>
 		);
 	}
 
 	return (
-		<Dependencies>
-			<Authentication>
-				<Application />
-			</Authentication>
-		</Dependencies>
+		<ErrorBoundary>
+			<Dependencies>
+				<Authentication>
+					<Application />
+				</Authentication>
+			</Dependencies>
+		</ErrorBoundary>
 	);
 };
 

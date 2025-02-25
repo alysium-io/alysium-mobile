@@ -6,6 +6,7 @@ import { useNavigation } from '@hooks';
 import { FormText } from '@molecules';
 import { BasePage } from '@organisms';
 import { useRoute } from '@react-navigation/native';
+import { captureException } from '@sentry/react-native';
 import { Alert, useGlobalLoader } from '@templates';
 import { EditArtistEventTicketsUrlPageRouteProp } from '@types';
 import React, { useEffect } from 'react';
@@ -57,7 +58,8 @@ const EditArtistEventTicketsUrl = () => {
 			},
 			body: data
 		})
-			.catch(() => {
+			.catch((err) => {
+				captureException(err);
 				Toast.show({
 					text1: 'Error',
 					text2: 'Failed to update artist event tickets URL.'

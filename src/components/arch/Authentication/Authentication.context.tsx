@@ -3,6 +3,7 @@ import { serviceApi } from '@flux/api/base';
 import { userApiSlice } from '@flux/api/user';
 import { usePersistedArray } from '@flux/local/arrays/usePersistedArray';
 import { createUseContextHook, usePersistedAppState } from '@hooks';
+import { captureException } from '@sentry/react-native';
 import { AuthStage, ProviderProps } from '@types';
 import React, { createContext, useEffect } from 'react';
 import Toast from 'react-native-toast-message';
@@ -51,7 +52,8 @@ export const AuthenticationAppProvider: React.FC<ProviderProps> = ({
 							authStage: AuthStage.loggedIn
 						});
 					})
-					.catch(() => {
+					.catch((err) => {
+						captureException(err);
 						Toast.show({
 							text1: 'Error',
 							text2: 'Unable to log in, please try again later.'
@@ -90,7 +92,8 @@ export const AuthenticationAppProvider: React.FC<ProviderProps> = ({
 		deleteUserMutation()
 			.unwrap()
 			.then(logout)
-			.catch(() => {
+			.catch((err) => {
+				captureException(err);
 				Toast.show({
 					text1: 'Error',
 					text2: 'Failed to delete account.'
@@ -102,7 +105,8 @@ export const AuthenticationAppProvider: React.FC<ProviderProps> = ({
 		loginGuestQuery()
 			.unwrap()
 			.then(({ token }) => login(token))
-			.catch(() => {
+			.catch((err) => {
+				captureException(err);
 				Toast.show({
 					text1: 'Error',
 					text2: 'Failed to login as guest.'

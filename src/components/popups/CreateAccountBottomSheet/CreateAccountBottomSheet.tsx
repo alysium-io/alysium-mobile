@@ -8,6 +8,7 @@ import { RegisterUserPhoneNumberBodyDto } from '@flux/api/user/dto/user-register
 import { SheetApi } from '@hooks';
 import { useButtonState } from '@molecules';
 import { FullScreenSheet } from '@organisms';
+import { captureException } from '@sentry/react-native';
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Case, Switch } from 'react-if';
@@ -68,11 +69,12 @@ const CreateAccountBottomSheet: React.FC<CreateAccountBottomSheetProps> = ({
 			data.phone_number = phone_number;
 			registerPhoneNumberQuery({ body: data })
 				.unwrap()
-				.then((res) => {
+				.then(() => {
 					setLoginFormValue('phone_number', phone_number);
 					setStep(1);
 				})
 				.catch((err) => {
+					captureException(err);
 					Toast.show({
 						text1: 'Error',
 						text2: 'Something went wrong, please try again.',
@@ -117,6 +119,7 @@ const CreateAccountBottomSheet: React.FC<CreateAccountBottomSheetProps> = ({
 					}, 300);
 				})
 				.catch((err) => {
+					captureException(err);
 					Toast.show({
 						text1: 'Error',
 						text2: 'Something went wrong.'

@@ -10,6 +10,7 @@ import {
 	useButtonState
 } from '@molecules';
 import { FullScreenSheet } from '@organisms';
+import { captureException } from '@sentry/react-native';
 import { ThemeModeSettings, ThemePicker } from '@templates';
 import React, { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
@@ -54,6 +55,7 @@ const EditUserProfileBottomSheet: React.FC<EditUserProfileBottomSheetProps> = ({
 				sheetApi.close();
 			})
 			.catch((err: any) => {
+				captureException(err);
 				setButtonState('active');
 				if (err?.data?.error === 'UNIQUE_CONSTRAINT_EXCEPTION') {
 					const key = err.data.uniqueExceptionDetails?.key || 'Unknown';

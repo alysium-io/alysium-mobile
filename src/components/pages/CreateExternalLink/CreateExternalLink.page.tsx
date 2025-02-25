@@ -5,6 +5,7 @@ import { CreateExternalUrlBodyDto } from '@flux/api/external-url/dto/external-ur
 import { useNavigation } from '@hooks';
 import { FormText } from '@molecules';
 import { BasePage } from '@organisms';
+import { captureException } from '@sentry/react-native';
 import { getIconFromUrl } from '@src/etc/domains';
 import { IconNames } from '@svg';
 import { Alert, useGlobalLoader } from '@templates';
@@ -50,7 +51,8 @@ const CreateExternalLinkPage = () => {
 				body: data
 			})
 				.unwrap()
-				.catch(() => {
+				.catch((err) => {
+					captureException(err);
 					Toast.show({
 						text1: 'Error',
 						text2: 'Failed to create external link.'

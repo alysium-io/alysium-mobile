@@ -3,6 +3,7 @@ import { Formatting } from '@etc';
 import { artistEventApiSlice } from '@flux/api/event';
 import { useSheet } from '@hooks';
 import { MenuListItem } from '@molecules';
+import { captureException } from '@sentry/react-native';
 import { useGlobalLoader } from '@templates';
 import { NanoId } from '@types';
 import dayjs from 'dayjs';
@@ -50,6 +51,7 @@ const EditEventDateMenuListItem: React.FC<EditEventDateMenuListItemProps> = ({
 			})
 				.unwrap()
 				.catch((err) => {
+					captureException(err);
 					Toast.show({
 						text1: 'Error',
 						text2: err?.data?.error?.message ?? 'Error updating event time.'

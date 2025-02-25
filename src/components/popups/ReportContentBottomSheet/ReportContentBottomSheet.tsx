@@ -5,6 +5,7 @@ import { ReportedContentType } from '@flux/api/reported-content/types';
 import { SheetApi } from '@hooks';
 import { TextBox, useButtonState } from '@molecules';
 import { FullScreenSheet } from '@organisms';
+import { captureException } from '@sentry/react-native';
 import React, { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import Toast from 'react-native-toast-message';
@@ -66,7 +67,8 @@ const ReportContentBottomSheet: React.FC<ReportContentBottomSheetProps> = ({
 				sheetApi.close();
 				resetAll();
 			})
-			.catch(() => {
+			.catch((err) => {
+				captureException(err);
 				Toast.show({
 					text1: 'Failed to report content',
 					text2: 'Please try again later'

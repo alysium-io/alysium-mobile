@@ -3,6 +3,7 @@ import { userApiSlice } from '@flux/api/user';
 import { Role } from '@flux/api/user/user.entity';
 import { SheetApi } from '@hooks';
 import { MenuListItem } from '@molecules';
+import { captureException } from '@sentry/react-native';
 import { PublicArtist } from '@src/redux/api/artist/artist.entity';
 import { Alert } from '@templates';
 import React from 'react';
@@ -33,7 +34,8 @@ const BlockArtistMenuListItem: React.FC<BlockArtistMenuListItemProps> = ({
 					text2: 'We will limit the visiblity of this artist to you'
 				});
 			})
-			.catch(() => {
+			.catch((err) => {
+				captureException(err);
 				Toast.show({
 					text1: 'Failed to block artist',
 					text2: 'Please try again later'
@@ -53,7 +55,8 @@ const BlockArtistMenuListItem: React.FC<BlockArtistMenuListItemProps> = ({
 					text2: 'We will now show this artist to you again'
 				});
 			})
-			.catch(() => {
+			.catch((err) => {
+				captureException(err);
 				Toast.show({
 					text1: 'Failed to unblock artist',
 					text2: 'Please try again later'

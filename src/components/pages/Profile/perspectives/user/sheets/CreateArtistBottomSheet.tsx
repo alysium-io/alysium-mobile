@@ -5,6 +5,7 @@ import { CreateArtistBodyDto } from '@flux/api/artist/dto/artist-create.dto';
 import { SheetApi } from '@hooks';
 import { TextBox, useButtonState } from '@molecules';
 import { FullScreenSheet } from '@organisms';
+import { captureException } from '@sentry/react-native';
 import { Persona } from '@types';
 import React, { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
@@ -48,6 +49,7 @@ const CreateArtistBottomSheet: React.FC<CreateArtistBottomSheetProps> = ({
 				}, 300);
 			})
 			.catch((err) => {
+				captureException(err);
 				Toast.show({
 					text1: 'Error creating artist',
 					text2: 'Please try again'

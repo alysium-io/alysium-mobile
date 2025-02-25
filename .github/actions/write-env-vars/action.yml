@@ -9,6 +9,12 @@ inputs:
       - demo
       - prod
     required: true
+  SENTRY_DSN:
+    description: 'SENTRY_DSN environment variable name'
+    type: choice
+    options:
+      - qa
+      - prod
 
 runs:
   using: 'composite'
@@ -31,5 +37,8 @@ runs:
         else
           echo "WEB_URL=http://localhost:5173" >> .env.${{ inputs.ENV }}
         fi
+
+        # Sentry DSN
+        echo "SENTRY_DSN=${{ inputs.SENTRY_DSN }}" >> .env.${{ inputs.ENV }}
 
       shell: bash

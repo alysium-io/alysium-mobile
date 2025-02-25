@@ -4,6 +4,7 @@ import { userArtistsFollowingApiSlice } from '@flux/api/user-artists-following';
 import { Role } from '@flux/api/user/user.entity';
 import { useToggle } from '@hooks';
 import { Button, FollowButton } from '@molecules';
+import { captureException } from '@sentry/react-native';
 import { useBehaviorContext } from '@src/utils/contexts/Behavior';
 import React from 'react';
 import Toast from 'react-native-toast-message';
@@ -35,9 +36,10 @@ const FollowArtistButton: React.FC<FollowArtistButtonProps> = ({
 				.then(() => {
 					behavior('FOLLOW_ARTIST', {
 						artist_uid: artistData.artist_uid
-					}).catch(() => console.error('Error logging FOLLOW_ARTIST behavior'));
+					}).catch((err) => captureException(err));
 				})
-				.catch(() => {
+				.catch((err) => {
+					captureException(err);
 					followButtonToggleApi.off();
 					Toast.show({
 						text1: 'Error',
@@ -54,11 +56,10 @@ const FollowArtistButton: React.FC<FollowArtistButtonProps> = ({
 				.then(() => {
 					behavior('UNFOLLOW_ARTIST', {
 						artist_uid: artistData.artist_uid
-					}).catch(() =>
-						console.error('Error logging UNFOLLOW_ARTIST behavior')
-					);
+					}).catch((err) => captureException(err));
 				})
-				.catch(() => {
+				.catch((err) => {
+					captureException(err);
 					followButtonToggleApi.on();
 					Toast.show({
 						text1: 'Error',

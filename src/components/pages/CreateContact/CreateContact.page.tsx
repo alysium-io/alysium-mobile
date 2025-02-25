@@ -6,6 +6,7 @@ import { CreateContactBodyDto } from '@flux/api/contact/dto/contact-create.dto';
 import { useContact, useNavigation, useSearch } from '@hooks';
 import { ContentListItem, FormPhoneNumber, FormText } from '@molecules';
 import { BasePage, SearchBar } from '@organisms';
+import { captureException } from '@sentry/react-native';
 import { useGlobalLoader } from '@templates';
 import React, { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
@@ -67,7 +68,8 @@ const CreateContactPage = () => {
 			}
 		})
 			.unwrap()
-			.catch(() => {
+			.catch((err) => {
+				captureException(err);
 				Toast.show({
 					text1: 'Error',
 					text2: 'Failed to create contact.'

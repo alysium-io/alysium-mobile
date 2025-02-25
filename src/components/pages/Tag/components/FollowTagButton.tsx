@@ -4,6 +4,7 @@ import { userTagsFollowingApiSlice } from '@flux/api/user-tags-following';
 import { Role } from '@flux/api/user/user.entity';
 import { useToggle } from '@hooks';
 import { Button, FollowButton } from '@molecules';
+import { captureException } from '@sentry/react-native';
 import { useBehaviorContext } from '@src/utils/contexts/Behavior';
 import React from 'react';
 import Toast from 'react-native-toast-message';
@@ -33,9 +34,10 @@ const FollowTagButton: React.FC<FollowTagButtonProps> = ({ tagData }) => {
 				.then(() => {
 					behavior('FOLLOW_TAG', {
 						tag_uid: tagData.tag_uid
-					}).catch(() => console.error('Error logging FOLLOW_TAG behavior'));
+					}).catch((err) => captureException(err));
 				})
-				.catch(() => {
+				.catch((err) => {
+					captureException(err);
 					followButtonToggleApi.off();
 					Toast.show({
 						text1: 'Error',
@@ -52,9 +54,10 @@ const FollowTagButton: React.FC<FollowTagButtonProps> = ({ tagData }) => {
 				.then(() => {
 					behavior('UNFOLLOW_TAG', {
 						tag_uid: tagData.tag_uid
-					}).catch(() => console.error('Error logging UNFOLLOW_TAG behavior'));
+					}).catch((err) => captureException(err));
 				})
-				.catch(() => {
+				.catch((err) => {
+					captureException(err);
 					followButtonToggleApi.on();
 					Toast.show({
 						text1: 'Error',

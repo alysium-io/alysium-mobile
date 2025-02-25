@@ -90,6 +90,7 @@ jobs:
       uses: ./.github/actions/write-env-vars
       with:
         ENV: ${{ github.event.inputs.env }}
+        SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
     - name: Print the .env file
       run: cat .env.${{ github.event.inputs.env }}
     - name: Generate CustomIOSBuild.xcconfig for build number

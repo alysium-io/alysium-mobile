@@ -6,6 +6,7 @@ import { BottomSheetView } from '@gorhom/bottom-sheet';
 import { SheetApi, useArtistTeam } from '@hooks';
 import { ActionButtons, SingleOptionRadioToggler } from '@molecules';
 import { BottomSheet } from '@organisms';
+import { captureException } from '@sentry/react-native';
 import { Alert } from '@templates';
 import { NanoId } from '@types';
 import React, { useState } from 'react';
@@ -83,10 +84,11 @@ const ModifyArtistTeamMemberPermissionsBottomSheet: React.FC<
 				});
 				onPermissionsGranted?.(selectedPermission);
 			})
-			.catch((error) => {
+			.catch((err) => {
+				captureException(err);
 				Toast.show({
 					text1: 'Error',
-					text2: error.message
+					text2: err.message
 				});
 			})
 			.finally(() => {
@@ -109,10 +111,11 @@ const ModifyArtistTeamMemberPermissionsBottomSheet: React.FC<
 				});
 				onPermissionsRevoked?.();
 			})
-			.catch((error) => {
+			.catch((err) => {
+				captureException(err);
 				Toast.show({
 					text1: 'Error',
-					text2: error.message
+					text2: err.message
 				});
 			})
 			.finally(() => {

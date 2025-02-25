@@ -11,7 +11,8 @@ export const envSchema = yup.object().shape({
 	env: yup
 		.string()
 		.oneOf(envNames, 'ENV must be one of the following: ' + envNames.join(', '))
-		.required()
+		.required(),
+	sentryDsn: yup.string().required('SENTRY_DSN is required')
 });
 
 export type Env = yup.InferType<typeof envSchema>;
@@ -24,7 +25,8 @@ export const validateEnv = (): { env: Env | null; errors: any | null } => {
 				webUrl: Config.WEB_URL,
 				apiUrl:
 					Config.ENV === 'dev' ? `http://${getHostIp()}:3000` : Config.API_URL,
-				env: Config.ENV
+				env: Config.ENV,
+				sentryDsn: Config.SENTRY_DSN
 			},
 			{ abortEarly: false }
 		);

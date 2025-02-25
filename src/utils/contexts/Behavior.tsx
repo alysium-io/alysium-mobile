@@ -2,6 +2,7 @@ import { collectDeviceInfo, Formatting } from '@etc';
 import { behaviorApiSlice } from '@flux/api/behavior';
 import { CreateBehaviorBodyDto } from '@flux/api/behavior/dto/behavior-create.dto';
 import { createUseContextHook } from '@hooks';
+import { captureException } from '@sentry/react-native';
 import { generate_nanoid } from '@src/etc/nanoid';
 import { NanoId, ProviderProps, RouteNames } from '@types';
 import React, { createContext, useEffect, useState } from 'react';
@@ -118,7 +119,7 @@ export const BehaviorProvider: React.FC<ProviderProps> = ({ children }) => {
 		createBehaviorMutation({
 			body: behaviorData
 		}).catch((err: any) => {
-			console.error('Error creating behavior:', err);
+			captureException(err);
 		});
 	};
 
