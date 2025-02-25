@@ -1,6 +1,6 @@
 {
 	"name": "alysium",
-	"version": "1.2.2",
+	"version": "1.2.3",
 	"private": true,
 	"scripts": {
 		"postinstall": "patch-package",
@@ -12,9 +12,9 @@
 		"clean": "rm -rf node_modules",
 		"start:clean": "watchman watch-del-all && yarn cache clean && yarn start --reset-cache",
 		"check-git-clean": "git diff-index --quiet HEAD -- || (echo \"You have uncommitted changes. Please commit or stash them.\"; exit 1)",
-		"version:patch": "yarn check-git-clean && yarn version patch && npx react-native-version --never-increment-build",
-		"version:minor": "yarn check-git-clean && yarn version minor && npx react-native-version --never-increment-build",
-		"version:major": "yarn check-git-clean && yarn version major && npx react-native-version --never-increment-build",
+		"version:patch": "yarn check-git-clean && yarn version patch && npx react-native-version --never-increment-build --legacy",
+		"version:minor": "yarn check-git-clean && yarn version minor && npx react-native-version --never-increment-build --legacy",
+		"version:major": "yarn check-git-clean && yarn version major && npx react-native-version --never-increment-build --legacy",
 		"android:prod": "npx react-native run-android --variant=prodDebug",
 		"android:prod-release": "npx react-native run-android --variant=prodRelease",
 		"android:demo": "npx react-native run-android --variant=demoDebug",
