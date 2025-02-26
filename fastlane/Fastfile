@@ -89,7 +89,14 @@ platform :ios do
             export_xcargs: '-jobs $(sysctl -n hw.ncpu)'
         )
 
-        # After the build completes, add:
+        # Generate the React Native bundle and sourcemap
+        scheme = get_environment_option(options[:environment], :scheme)
+        bundle_path = "../ios/build/#{scheme}/main.jsbundle"
+        sourcemap_path = "../ios/build/#{scheme}/main.jsbundle.map"
+        
+        sh("npx react-native bundle --platform ios --dev false --entry-file index.js --bundle-output #{bundle_path} --sourcemap-output #{sourcemap_path}")
+      
+        # Upload sourcemaps to Sentry
         upload_sentry_sourcemaps(
             environment: options[:environment],
             build_number: options[:build_number]
@@ -126,65 +133,70 @@ platform :ios do
         )
     end
 
-    # Updated lane for Sentry sourcemaps using the plugin
     lane :upload_sentry_sourcemaps do |options|
-      environment = options[:environment]
-      version = get_version_from_package_json
-      build_number = options[:build_number] || version_code
-      app_identifier = get_environment_option(environment, :app_identifier)
+        environment = options[:environment]
+        version = get_version_from_package_json
+        build_number = options[:build_number] || version_code
+        app_identifier = get_environment_option(environment, :app_identifier)
+        
+        release_version = "#{app_identifier}@#{version}+#{build_number}"
+        dist = "#{environment || 'prod'}-#{version}"
+        
+        UI.message("Uploading Sentry sourcemaps for iOS: Release=#{release_version}, Dist=#{dist}")
+        
+        # Define the paths to the bundle and sourcemap
+        scheme = get_environment_option(environment, :scheme)
+        ios_bundle_path = "../ios/build/#{scheme}/main.jsbundle"
+        ios_sourcemap_path = "../ios/build/#{scheme}/main.jsbundle.map"
       
-      # Match format from App.tsx: <BUNDLE ID>@<RELEASE SEMVER>+<BUILD NUMBER>
-      release_version = "#{app_identifier}@#{version}+#{build_number}"
-      dist = "#{environment || 'prod'}-#{version}"
+        # Debug: Verify the files exist
+        UI.message("Checking for bundle at: #{ios_bundle_path}")
+        UI.message("Checking for sourcemap at: #{ios_sourcemap_path}")
+        sh("ls -la #{ios_bundle_path}") rescue UI.message("Bundle file not found!")
+        sh("ls -la #{ios_sourcemap_path}") rescue UI.message("Sourcemap file not found!")
       
-      UI.message("Uploading Sentry sourcemaps for iOS: Release=#{release_version}, Dist=#{dist}")
-      
-      # Create a new release in Sentry
-      sentry_create_release(
-        auth_token: ENV['SENTRY_AUTH_TOKEN'],
-        org_slug: ENV['SENTRY_ORG'],
-        project_slug: ENV['SENTRY_PROJECT'],
-        version: release_version,
-        finalize: false # We'll finalize after uploading sourcemaps
-      )
-      
-      # Associate commits with the release
-      sentry_set_commits(
-        auth_token: ENV['SENTRY_AUTH_TOKEN'],
-        org_slug: ENV['SENTRY_ORG'],
-        project_slug: ENV['SENTRY_PROJECT'],
-        version: release_version,
-        auto: true
-      )
-      
-      # Upload debug files for iOS
-      sentry_debug_files_upload(
-        auth_token: ENV['SENTRY_AUTH_TOKEN'], 
-        org_slug: ENV['SENTRY_ORG'],
-        project_slug: ENV['SENTRY_PROJECT'],
-        path: '../ios/build/Build/Products',
-        include_sources: true
-      )
-      
-      # Upload sourcemaps for React Native
-      sentry_upload_sourcemap(
-        auth_token: ENV['SENTRY_AUTH_TOKEN'],
-        org_slug: ENV['SENTRY_ORG'],
-        project_slug: ENV['SENTRY_PROJECT'],
-        version: release_version,
-        dist: dist,
-        sourcemap: "../ios/build/Build/Products",
-        rewrite: true,
-        wait: true
-      )
-      
-      # Finalize the release
-      sentry_finalize_release(
-        auth_token: ENV['SENTRY_AUTH_TOKEN'],
-        org_slug: ENV['SENTRY_ORG'],
-        project_slug: ENV['SENTRY_PROJECT'],
-        version: release_version
-      )
+        sentry_create_release(
+          auth_token: ENV['SENTRY_AUTH_TOKEN'],
+          org_slug: ENV['SENTRY_ORG'],
+          project_slug: ENV['SENTRY_PROJECT'],
+          version: release_version,
+          finalize: false
+        )
+        
+        sentry_set_commits(
+          auth_token: ENV['SENTRY_AUTH_TOKEN'],
+          org_slug: ENV['SENTRY_ORG'],
+          project_slug: ENV['SENTRY_PROJECT'],
+          version: release_version,
+          auto: true
+        )
+        
+        sentry_debug_files_upload(
+          auth_token: ENV['SENTRY_AUTH_TOKEN'],
+          org_slug: ENV['SENTRY_ORG'],
+          project_slug: ENV['SENTRY_PROJECT'],
+          path: '../ios/build/Build/Products',
+          include_sources: true
+        )
+        
+        # Upload the specific bundle and sourcemap files
+        sentry_upload_sourcemap(
+          auth_token: ENV['SENTRY_AUTH_TOKEN'],
+          org_slug: ENV['SENTRY_ORG'],
+          project_slug: ENV['SENTRY_PROJECT'],
+          version: release_version,
+          dist: dist,
+          sourcemap: [ios_bundle_path, ios_sourcemap_path], # Pass both files as an array
+          rewrite: true,
+          wait: true
+        )
+        
+        sentry_finalize_release(
+          auth_token: ENV['SENTRY_AUTH_TOKEN'],
+          org_slug: ENV['SENTRY_ORG'],
+          project_slug: ENV['SENTRY_PROJECT'],
+          version: release_version
+        )
     end
 
 end
