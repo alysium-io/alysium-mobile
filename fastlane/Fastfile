@@ -6,6 +6,10 @@ require 'json'
 android_metadata_path = './fastlane/metadata/android'
 version_code = get_current_build_number_from_package_json
 
+# Sourcemaps (from `yarn generate-sourcemaps`)
+bundle_path = "../ios/main.jsbundle"
+sourcemap_path = "../ios/main.jsbundle.map"
+
 ENVIRONMENT_CONFIG = {
   'dev' => {
     scheme: 'alysium',
@@ -91,10 +95,6 @@ platform :ios do
 
         # Generate the React Native bundle and sourcemap
         scheme = get_environment_option(options[:environment], :scheme)
-        bundle_path = "../ios/build/#{scheme}/main.jsbundle"
-        sourcemap_path = "../ios/build/#{scheme}/main.jsbundle.map"
-        
-        sh("npx react-native bundle --platform ios --dev false --entry-file index.js --bundle-output #{bundle_path} --sourcemap-output #{sourcemap_path}")
       
         # Upload sourcemaps to Sentry
         upload_sentry_sourcemaps(
@@ -143,17 +143,12 @@ platform :ios do
         dist = "#{environment || 'prod'}-#{version}"
         
         UI.message("Uploading Sentry sourcemaps for iOS: Release=#{release_version}, Dist=#{dist}")
-        
-        # Define the paths to the bundle and sourcemap
-        scheme = get_environment_option(environment, :scheme)
-        ios_bundle_path = "../ios/build/#{scheme}/main.jsbundle"
-        ios_sourcemap_path = "../ios/build/#{scheme}/main.jsbundle.map"
       
         # Debug: Verify the files exist
-        UI.message("Checking for bundle at: #{ios_bundle_path}")
-        UI.message("Checking for sourcemap at: #{ios_sourcemap_path}")
-        sh("ls -la #{ios_bundle_path}") rescue UI.message("Bundle file not found!")
-        sh("ls -la #{ios_sourcemap_path}") rescue UI.message("Sourcemap file not found!")
+        UI.message("Checking for bundle at: #{bundle_path}")
+        UI.message("Checking for sourcemap at: #{sourcemap_path}")
+        sh("ls -la #{bundle_path}") rescue UI.message("Bundle file not found!")
+        sh("ls -la #{sourcemap_path}") rescue UI.message("Sourcemap file not found!")
       
         sentry_create_release(
           auth_token: ENV['SENTRY_AUTH_TOKEN'],
@@ -186,7 +181,7 @@ platform :ios do
           project_slug: ENV['SENTRY_PROJECT'],
           version: release_version,
           dist: dist,
-          sourcemap: [ios_bundle_path, ios_sourcemap_path], # Pass both files as an array
+          sourcemap: [bundle_path, sourcemap_path], # Pass both files as an array
           rewrite: true,
           wait: true
         )

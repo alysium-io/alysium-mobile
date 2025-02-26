@@ -28,7 +28,8 @@
 		"link-assets": "npx react-native-asset --plist ./ios/alysium/alysium-demo Info.plist",
 		"test:deeplink:artist": "npx uri-scheme open \"alysium://artist/BhBmP0sWGiO582CBQQmZoCN8\" --ios",
 		"test:deeplink:event": "npx uri-scheme open \"alysium://artist/event/ZrI2elEfcdaaigsU5hqgtPbc\" --ios",
-		"sentry:sourcemaps": "node_modules/.bin/sentry-cli react-native sourcemaps"
+		"sentry:sourcemaps": "node_modules/.bin/sentry-cli react-native sourcemaps",
+		"generate-sourcemaps": "npx react-native bundle --platform ios --dev false --entry-file index.js --bundle-output ./ios/main.jsbundle --sourcemap-output ./ios/main.jsbundle.map"
 	},
 	"dependencies": {
 		"@babel/plugin-proposal-export-namespace-from": "^7.18.9",

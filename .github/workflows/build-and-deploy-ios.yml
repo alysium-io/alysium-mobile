@@ -102,6 +102,10 @@ jobs:
       with:
         match_deploy_key: ${{ secrets.MATCH_DEPLOY_KEY }}
 
+    # Generate sourcemaps
+    - name: Generate Sourcemaps
+      run: yarn generate-sourcemaps
+
     # Build iOS
     - name: Build iOS # fastlane
       env:
