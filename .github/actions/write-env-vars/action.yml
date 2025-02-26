@@ -15,6 +15,10 @@ inputs:
     options:
       - qa
       - prod
+  BUILD_NUMBER:
+    description: 'BUILD_NUMBER environment variable name'
+    type: string
+    required: true
 
 runs:
   using: 'composite'
@@ -40,5 +44,8 @@ runs:
 
         # Sentry DSN
         echo "SENTRY_DSN=${{ inputs.SENTRY_DSN }}" >> .env.${{ inputs.ENV }}
+
+        # Build number
+        echo "BUILD_NUMBER=${{ inputs.BUILD_NUMBER }}" >> .env.${{ inputs.ENV }}
 
       shell: bash

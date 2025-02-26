@@ -27,7 +27,8 @@
 		"android:build:metadata": "bundle exec ruby ./tools/build-android-metadata.rb",
 		"link-assets": "npx react-native-asset --plist ./ios/alysium/alysium-demo Info.plist",
 		"test:deeplink:artist": "npx uri-scheme open \"alysium://artist/BhBmP0sWGiO582CBQQmZoCN8\" --ios",
-		"test:deeplink:event": "npx uri-scheme open \"alysium://artist/event/ZrI2elEfcdaaigsU5hqgtPbc\" --ios"
+		"test:deeplink:event": "npx uri-scheme open \"alysium://artist/event/ZrI2elEfcdaaigsU5hqgtPbc\" --ios",
+		"sentry:sourcemaps": "node_modules/.bin/sentry-cli react-native sourcemaps"
 	},
 	"dependencies": {
 		"@babel/plugin-proposal-export-namespace-from": "^7.18.9",
@@ -92,6 +93,7 @@
 		"@react-native/eslint-config": "0.74.85",
 		"@react-native/metro-config": "0.74.85",
 		"@react-native/typescript-config": "0.74.85",
+		"@sentry/cli": "^2.42.2",
 		"@types/lodash": "^4.14.196",
 		"@types/qrcode": "^1.5.5",
 		"@types/react": "^18.2.6",

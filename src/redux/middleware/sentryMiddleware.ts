@@ -53,9 +53,9 @@ const sentryMiddleware: Middleware = () => (next) => (action) => {
 
 				// Add additional context
 				scope.setExtra('error_details', {
-					error: errorPayload.data.error,
-					messages: errorPayload.data.message,
-					statusCode: errorPayload.data.statusCode
+					error: errorPayload.data?.error,
+					messages: errorPayload.data?.message,
+					statusCode: errorPayload.data?.statusCode
 				});
 				scope.setExtra('endpoint_details', {
 					name: rtqMeta.arg.endpointName,
@@ -64,9 +64,9 @@ const sentryMiddleware: Middleware = () => (next) => (action) => {
 				});
 
 				// Capture the exception with the actual error messages
-				const errorMessage = Array.isArray(errorPayload.data.message)
-					? errorPayload.data.message.join(', ')
-					: errorPayload.data.error;
+				const errorMessage = Array.isArray(errorPayload.data?.message)
+					? errorPayload.data?.message.join(', ')
+					: errorPayload.data?.error;
 
 				captureException(new Error(errorMessage), {
 					extra: {
@@ -83,9 +83,9 @@ const sentryMiddleware: Middleware = () => (next) => (action) => {
 				data: {
 					endpoint: rtqMeta.arg.endpointName,
 					type: rtqMeta.arg.type,
-					error: errorPayload.data.error,
-					messages: errorPayload.data.message,
-					statusCode: errorPayload.data.statusCode
+					error: errorPayload.data?.error,
+					messages: errorPayload.data?.message,
+					statusCode: errorPayload.data?.statusCode
 				}
 			});
 		} catch (error) {

@@ -8,18 +8,27 @@ import {
 } from '@sentry/react-native';
 import React from 'react';
 import Config from 'react-native-config';
+import DeviceInfo from 'react-native-device-info';
 import Animated from 'react-native-reanimated';
 import { Scratch } from 'src/components/scratch';
 import './ignore-warnings';
 
 // Initialize Sentry
+const isProduction = Config.ENV !== 'dev';
 init({
 	dsn: Config.SENTRY_DSN,
 	enableAutoPerformanceTracing: true,
-	debug: Config.ENV === 'dev',
-	environment: Config.ENV === 'dev' ? 'development' : 'production',
-	enabled: Config.ENV !== 'dev',
-	integrations: [mobileReplayIntegration()]
+	debug: false,
+	environment: isProduction ? 'production' : 'development',
+	enabled: true,
+	integrations: [mobileReplayIntegration()],
+	release: isProduction
+		? `${DeviceInfo.getBundleId()}@${require('./package.json').version}+${
+				Config.BUILD_NUMBER || '1'
+		  }`
+		: undefined,
+	dist: `${Config.ENV || 'prod'}-${require('./package.json').version}`,
+	attachStacktrace: true
 });
 
 // This is a workaround to allow the TextInput `text` prop to be animated
@@ -32,7 +41,7 @@ Animated.addWhitelistedNativeProps({ text: true });
 // Authentication: Authentication flow
 // Application:  Application navigation/routing (user, artist, host, etc.)
 const App = () => {
-	const sandboxMode = false;
+	const sandboxMode = true;
 
 	if (sandboxMode) {
 		return (

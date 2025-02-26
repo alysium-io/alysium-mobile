@@ -91,6 +91,8 @@ jobs:
       with:
         ENV: ${{ github.event.inputs.env }}
         SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+        BUILD_NUMBER: ${{ env.BUILD_NUMBER }}
+
     - name: Print the .env file
       run: cat .env.${{ github.event.inputs.env }}
     - name: Generate CustomIOSBuild.xcconfig for build number
@@ -108,7 +110,10 @@ jobs:
         APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
         APP_STORE_CONNECT_API_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}
         APP_STORE_CONNECT_API_KEY_CONTENT: ${{ secrets.APP_STORE_CONNECT_API_KEY_CONTENT }}
-      run: bundle exec fastlane ios build environment:"${{ github.event.inputs.env }}"
+        SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+        SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+        SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+      run: bundle exec fastlane ios build environment:"${{ github.event.inputs.env }}" build_number:"${{ env.BUILD_NUMBER }}"
       working-directory: fastlane
 
     # After the build step but before save/deploy
@@ -180,6 +185,9 @@ jobs:
         APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
         APP_STORE_CONNECT_API_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}
         APP_STORE_CONNECT_API_KEY_CONTENT: ${{ secrets.APP_STORE_CONNECT_API_KEY_CONTENT }}
+        SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+        SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+        SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
       run: bundle exec fastlane ios deploy environment:"${{ github.event.inputs.env }}"
       working-directory: fastlane
 

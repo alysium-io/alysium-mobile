@@ -1,6 +1,7 @@
 require_relative '../tools/get-changelog-notes'
 require_relative '../tools/prepare-android-changelog'
 require_relative '../tools/utils'
+require 'json'
 
 android_metadata_path = './fastlane/metadata/android'
 version_code = get_current_build_number_from_package_json
@@ -44,6 +45,12 @@ def get_environment_option(env, key)
     return option
 end
 
+# Helper method to get version from package.json
+def get_version_from_package_json
+  package = JSON.parse(File.read('../package.json'))
+  return package['version']
+end
+
 lane :test_lane do |options|
     # Use this lane to test your Fastfile
     # Be sure to delete whatever you're testing here before committing tho... >_>
@@ -81,6 +88,12 @@ platform :ios do
             silent: true,
             export_xcargs: '-jobs $(sysctl -n hw.ncpu)'
         )
+
+        # After the build completes, add:
+        upload_sentry_sourcemaps(
+            environment: options[:environment],
+            build_number: options[:build_number]
+        )
     end
 
     # Build and ship to testflight
@@ -108,9 +121,39 @@ platform :ios do
             distribute_external: false,
             changelog: changelog,
             beta_app_feedback_email: 'aymather@gmail.com',
-            beta_app_description: 'Alysium Beta: Build Live Music',
+            beta_app_description: 'Build Live Music',
             groups: []
         )
+    end
+
+    # Add this new lane for Sentry sourcemaps
+    lane :upload_sentry_sourcemaps do |options|
+      environment = options[:environment]
+      version = get_version_from_package_json
+      build_number = options[:build_number] || version_code
+      app_identifier = get_environment_option(environment, :app_identifier)
+      
+      # Match format from App.tsx: <BUNDLE ID>@<RELEASE SEMVER>+<BUILD NUMBER>
+      release_name = "#{app_identifier}@#{version}+#{build_number}"
+      dist_name = "#{environment || 'prod'}-#{version}"
+      
+      UI.message("Uploading Sentry sourcemaps for iOS: Release=#{release_name}, Dist=#{dist_name}")
+      
+      # Create a new release in Sentry
+      sh("export SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN SENTRY_ORG=$SENTRY_ORG SENTRY_PROJECT=$SENTRY_PROJECT && sentry-cli releases new #{release_name}")
+      
+      # Add a URL prefix to map app:// to our source code
+      sh("export SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN SENTRY_ORG=$SENTRY_ORG SENTRY_PROJECT=$SENTRY_PROJECT && sentry-cli releases set-commits --auto #{release_name}")
+      
+      # Map app:/// scheme to our source files
+      sh("export SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN SENTRY_ORG=$SENTRY_ORG SENTRY_PROJECT=$SENTRY_PROJECT && sentry-cli releases files #{release_name} upload-sourcemaps --url-prefix app:/// ../ios/build/Build/Products")
+      
+      # React Native specific sourcemap processing - inject debug IDs into sourcemaps
+      # Added include-sources to ensure source files are uploaded directly to Sentry
+      sh("export SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN SENTRY_ORG=$SENTRY_ORG SENTRY_PROJECT=$SENTRY_PROJECT && sentry-cli react-native sourcemaps upload --release=#{release_name} --dist=#{dist_name} --include-sources --force-foreground ../ios/build/Build/Products")
+      
+      # Finalize the release
+      sh("export SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN SENTRY_ORG=$SENTRY_ORG SENTRY_PROJECT=$SENTRY_PROJECT && sentry-cli releases finalize #{release_name}")
     end
 
 end
@@ -138,6 +181,12 @@ platform :android do
             flavor: options[:env],
             build_type: 'Release'
         )
+
+        # After the build completes, add:
+        upload_android_sentry_sourcemaps(
+            env: options[:env],
+            build_number: options[:build_number]
+        )
     end
 
     lane :deploy do |options|
@@ -151,5 +200,39 @@ platform :android do
             version_code: version_code
         )
     end
+
+    # Add this new lane for Sentry sourcemaps
+    lane :upload_android_sentry_sourcemaps do |options|
+      environment = options[:env]
+      version = get_version_from_package_json
+      build_number = options[:build_number] || version_code
+      
+      # For Android, the app identifier depends on the environment
+      app_identifier_suffix = environment == 'prod' ? '' : ".#{environment}"
+      app_identifier = "io.alysium#{app_identifier_suffix}"
+      
+      # Match format from App.tsx: <BUNDLE ID>@<RELEASE SEMVER>+<BUILD NUMBER>
+      release_name = "#{app_identifier}@#{version}+#{build_number}"
+      dist_name = "#{environment || 'prod'}-#{version}"
+      
+      UI.message("Uploading Sentry sourcemaps for Android: Release=#{release_name}, Dist=#{dist_name}")
+      
+      # Create a new release in Sentry
+      sh("export SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN SENTRY_ORG=$SENTRY_ORG SENTRY_PROJECT=$SENTRY_PROJECT && sentry-cli releases new #{release_name}")
+      
+      # Add a URL prefix to map app:// to our source code
+      sh("export SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN SENTRY_ORG=$SENTRY_ORG SENTRY_PROJECT=$SENTRY_PROJECT && sentry-cli releases set-commits --auto #{release_name}")
+      
+      # Map app:/// scheme to our source files
+      sh("export SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN SENTRY_ORG=$SENTRY_ORG SENTRY_PROJECT=$SENTRY_PROJECT && sentry-cli releases files #{release_name} upload-sourcemaps --url-prefix app:/// ../android/app/build/generated/assets/react/#{environment}Release")
+      
+      # React Native specific sourcemap processing - inject debug IDs into sourcemaps
+      # Added include-sources to ensure source files are uploaded directly to Sentry
+      sh("export SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN SENTRY_ORG=$SENTRY_ORG SENTRY_PROJECT=$SENTRY_PROJECT && sentry-cli react-native sourcemaps upload --release=#{release_name} --dist=#{dist_name} --include-sources --force-foreground ../android/app/build/generated/assets/react/#{environment}Release")
+      
+      # Finalize the release
+      sh("export SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN SENTRY_ORG=$SENTRY_ORG SENTRY_PROJECT=$SENTRY_PROJECT && sentry-cli releases finalize #{release_name}")
+    end
+
 end
 
