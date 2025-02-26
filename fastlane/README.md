@@ -42,6 +42,14 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 
 
+### ios upload_sentry_sourcemaps
+
+```sh
+[bundle exec] fastlane ios upload_sentry_sourcemaps
+```
+
+
+
 ----
 
 
@@ -59,6 +67,14 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 ```sh
 [bundle exec] fastlane android deploy
+```
+
+
+
+### android upload_android_sentry_sourcemaps
+
+```sh
+[bundle exec] fastlane android upload_android_sentry_sourcemaps
 ```
 
 

@@ -126,7 +126,7 @@ platform :ios do
         )
     end
 
-    # Add this new lane for Sentry sourcemaps
+    # Updated lane for Sentry sourcemaps using the plugin
     lane :upload_sentry_sourcemaps do |options|
       environment = options[:environment]
       version = get_version_from_package_json
@@ -134,26 +134,57 @@ platform :ios do
       app_identifier = get_environment_option(environment, :app_identifier)
       
       # Match format from App.tsx: <BUNDLE ID>@<RELEASE SEMVER>+<BUILD NUMBER>
-      release_name = "#{app_identifier}@#{version}+#{build_number}"
-      dist_name = "#{environment || 'prod'}-#{version}"
+      release_version = "#{app_identifier}@#{version}+#{build_number}"
+      dist = "#{environment || 'prod'}-#{version}"
       
-      UI.message("Uploading Sentry sourcemaps for iOS: Release=#{release_name}, Dist=#{dist_name}")
+      UI.message("Uploading Sentry sourcemaps for iOS: Release=#{release_version}, Dist=#{dist}")
       
       # Create a new release in Sentry
-      sh("export SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN SENTRY_ORG=$SENTRY_ORG SENTRY_PROJECT=$SENTRY_PROJECT && sentry-cli releases new #{release_name}")
+      sentry_create_release(
+        auth_token: ENV['SENTRY_AUTH_TOKEN'],
+        org_slug: ENV['SENTRY_ORG'],
+        project_slug: ENV['SENTRY_PROJECT'],
+        version: release_version,
+        finalize: false # We'll finalize after uploading sourcemaps
+      )
       
-      # Add a URL prefix to map app:// to our source code
-      sh("export SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN SENTRY_ORG=$SENTRY_ORG SENTRY_PROJECT=$SENTRY_PROJECT && sentry-cli releases set-commits --auto #{release_name}")
+      # Associate commits with the release
+      sentry_set_commits(
+        auth_token: ENV['SENTRY_AUTH_TOKEN'],
+        org_slug: ENV['SENTRY_ORG'],
+        project_slug: ENV['SENTRY_PROJECT'],
+        version: release_version,
+        auto: true
+      )
       
-      # Map app:/// scheme to our source files
-      sh("export SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN SENTRY_ORG=$SENTRY_ORG SENTRY_PROJECT=$SENTRY_PROJECT && sentry-cli releases files #{release_name} upload-sourcemaps --url-prefix app:/// ../ios/build/Build/Products")
+      # Upload debug files for iOS
+      sentry_debug_files_upload(
+        auth_token: ENV['SENTRY_AUTH_TOKEN'], 
+        org_slug: ENV['SENTRY_ORG'],
+        project_slug: ENV['SENTRY_PROJECT'],
+        path: '../ios/build/Build/Products',
+        include_sources: true
+      )
       
-      # React Native specific sourcemap processing - inject debug IDs into sourcemaps
-      # Added include-sources to ensure source files are uploaded directly to Sentry
-      sh("export SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN SENTRY_ORG=$SENTRY_ORG SENTRY_PROJECT=$SENTRY_PROJECT && sentry-cli react-native sourcemaps upload --release=#{release_name} --dist=#{dist_name} --include-sources --force-foreground ../ios/build/Build/Products")
+      # Upload sourcemaps for React Native
+      sentry_upload_sourcemap(
+        auth_token: ENV['SENTRY_AUTH_TOKEN'],
+        org_slug: ENV['SENTRY_ORG'],
+        project_slug: ENV['SENTRY_PROJECT'],
+        version: release_version,
+        dist: dist,
+        sourcemap: "../ios/build/Build/Products",
+        rewrite: true,
+        wait: true
+      )
       
       # Finalize the release
-      sh("export SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN SENTRY_ORG=$SENTRY_ORG SENTRY_PROJECT=$SENTRY_PROJECT && sentry-cli releases finalize #{release_name}")
+      sentry_finalize_release(
+        auth_token: ENV['SENTRY_AUTH_TOKEN'],
+        org_slug: ENV['SENTRY_ORG'],
+        project_slug: ENV['SENTRY_PROJECT'],
+        version: release_version
+      )
     end
 
 end
@@ -201,7 +232,7 @@ platform :android do
         )
     end
 
-    # Add this new lane for Sentry sourcemaps
+    # Updated lane for Android Sentry sourcemaps using the plugin
     lane :upload_android_sentry_sourcemaps do |options|
       environment = options[:env]
       version = get_version_from_package_json
@@ -212,26 +243,57 @@ platform :android do
       app_identifier = "io.alysium#{app_identifier_suffix}"
       
       # Match format from App.tsx: <BUNDLE ID>@<RELEASE SEMVER>+<BUILD NUMBER>
-      release_name = "#{app_identifier}@#{version}+#{build_number}"
-      dist_name = "#{environment || 'prod'}-#{version}"
+      release_version = "#{app_identifier}@#{version}+#{build_number}"
+      dist = "#{environment || 'prod'}-#{version}"
       
-      UI.message("Uploading Sentry sourcemaps for Android: Release=#{release_name}, Dist=#{dist_name}")
+      UI.message("Uploading Sentry sourcemaps for Android: Release=#{release_version}, Dist=#{dist}")
       
       # Create a new release in Sentry
-      sh("export SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN SENTRY_ORG=$SENTRY_ORG SENTRY_PROJECT=$SENTRY_PROJECT && sentry-cli releases new #{release_name}")
+      sentry_create_release(
+        auth_token: ENV['SENTRY_AUTH_TOKEN'],
+        org_slug: ENV['SENTRY_ORG'],
+        project_slug: ENV['SENTRY_PROJECT'],
+        version: release_version,
+        finalize: false # We'll finalize after uploading sourcemaps
+      )
       
-      # Add a URL prefix to map app:// to our source code
-      sh("export SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN SENTRY_ORG=$SENTRY_ORG SENTRY_PROJECT=$SENTRY_PROJECT && sentry-cli releases set-commits --auto #{release_name}")
+      # Associate commits with the release
+      sentry_set_commits(
+        auth_token: ENV['SENTRY_AUTH_TOKEN'],
+        org_slug: ENV['SENTRY_ORG'],
+        project_slug: ENV['SENTRY_PROJECT'],
+        version: release_version,
+        auto: true
+      )
       
-      # Map app:/// scheme to our source files
-      sh("export SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN SENTRY_ORG=$SENTRY_ORG SENTRY_PROJECT=$SENTRY_PROJECT && sentry-cli releases files #{release_name} upload-sourcemaps --url-prefix app:/// ../android/app/build/generated/assets/react/#{environment}Release")
+      # Upload sourcemaps for React Native
+      sentry_upload_sourcemap(
+        auth_token: ENV['SENTRY_AUTH_TOKEN'],
+        org_slug: ENV['SENTRY_ORG'],
+        project_slug: ENV['SENTRY_PROJECT'],
+        version: release_version,
+        dist: dist,
+        sourcemap: "../android/app/build/generated/assets/react/#{environment}Release",
+        rewrite: true,
+        wait: true
+      )
       
-      # React Native specific sourcemap processing - inject debug IDs into sourcemaps
-      # Added include-sources to ensure source files are uploaded directly to Sentry
-      sh("export SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN SENTRY_ORG=$SENTRY_ORG SENTRY_PROJECT=$SENTRY_PROJECT && sentry-cli react-native sourcemaps upload --release=#{release_name} --dist=#{dist_name} --include-sources --force-foreground ../android/app/build/generated/assets/react/#{environment}Release")
+      # Upload Proguard mapping files for Android
+      sentry_upload_proguard(
+        auth_token: ENV['SENTRY_AUTH_TOKEN'],
+        org_slug: ENV['SENTRY_ORG'],
+        project_slug: ENV['SENTRY_PROJECT'],
+        android_manifest_path: "../android/app/build/intermediates/merged_manifests/#{environment}Release/AndroidManifest.xml",
+        mapping_path: "../android/app/build/outputs/mapping/#{environment}Release/mapping.txt"
+      )
       
       # Finalize the release
-      sh("export SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN SENTRY_ORG=$SENTRY_ORG SENTRY_PROJECT=$SENTRY_PROJECT && sentry-cli releases finalize #{release_name}")
+      sentry_finalize_release(
+        auth_token: ENV['SENTRY_AUTH_TOKEN'],
+        org_slug: ENV['SENTRY_ORG'],
+        project_slug: ENV['SENTRY_PROJECT'],
+        version: release_version
+      )
     end
 
 end
