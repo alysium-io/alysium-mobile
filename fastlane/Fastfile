@@ -7,8 +7,8 @@ android_metadata_path = './fastlane/metadata/android'
 version_code = get_current_build_number_from_package_json
 
 # Sourcemaps (from `yarn generate-sourcemaps`)
-bundle_path = "../ios/main.jsbundle"
-sourcemap_path = "../ios/main.jsbundle.map"
+bundle_path = "../main.jsbundle"
+sourcemap_path = "../main.jsbundle.map"
 
 ENVIRONMENT_CONFIG = {
   'dev' => {
@@ -82,16 +82,16 @@ platform :ios do
         )
 
         # Build
-        gym(
-            scheme: get_environment_option(options[:environment], :scheme),
-            export_method: 'app-store',
-            workspace: './ios/alysium.xcworkspace',
-            xcconfig: './CustomIOSBuild.xcconfig',
-            output_directory: './ios/build',
-            output_name: get_environment_option(options[:environment], :scheme) + '.ipa',
-            silent: true,
-            export_xcargs: '-jobs $(sysctl -n hw.ncpu)'
-        )
+        # gym(
+        #     scheme: get_environment_option(options[:environment], :scheme),
+        #     export_method: 'app-store',
+        #     workspace: './ios/alysium.xcworkspace',
+        #     xcconfig: './CustomIOSBuild.xcconfig',
+        #     output_directory: './ios/build',
+        #     output_name: get_environment_option(options[:environment], :scheme) + '.ipa',
+        #     silent: true,
+        #     export_xcargs: '-jobs $(sysctl -n hw.ncpu)'
+        # )
 
         # Generate the React Native bundle and sourcemap
         scheme = get_environment_option(options[:environment], :scheme)
@@ -166,19 +166,20 @@ platform :ios do
           auto: true
         )
         
-        sentry_debug_files_upload(
-          auth_token: ENV['SENTRY_AUTH_TOKEN'],
-          org_slug: ENV['SENTRY_ORG'],
-          project_slug: ENV['SENTRY_PROJECT'],
-          path: '../ios/build/Build/Products',
-          include_sources: true
-        )
+        # sentry_debug_files_upload(
+        #   auth_token: ENV['SENTRY_AUTH_TOKEN'],
+        #   org_slug: ENV['SENTRY_ORG'],
+        #   project_slug: ENV['SENTRY_PROJECT'],
+        #   path: '../ios/build/Build/Products',
+        #   include_sources: true
+        # )
         
         # Upload the specific bundle and sourcemap files
         sentry_upload_sourcemap(
           auth_token: ENV['SENTRY_AUTH_TOKEN'],
           org_slug: ENV['SENTRY_ORG'],
           project_slug: ENV['SENTRY_PROJECT'],
+          app_identifier: app_identifier,
           version: release_version,
           dist: dist,
           sourcemap: [bundle_path, sourcemap_path], # Pass both files as an array
@@ -186,12 +187,12 @@ platform :ios do
           wait: true
         )
         
-        sentry_finalize_release(
-          auth_token: ENV['SENTRY_AUTH_TOKEN'],
-          org_slug: ENV['SENTRY_ORG'],
-          project_slug: ENV['SENTRY_PROJECT'],
-          version: release_version
-        )
+        # sentry_finalize_release(
+        #   auth_token: ENV['SENTRY_AUTH_TOKEN'],
+        #   org_slug: ENV['SENTRY_ORG'],
+        #   project_slug: ENV['SENTRY_PROJECT'],
+        #   version: release_version
+        # )
     end
 
 end
