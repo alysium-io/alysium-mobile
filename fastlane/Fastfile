@@ -4,7 +4,6 @@ require_relative '../tools/utils'
 require 'json'
 
 android_metadata_path = './fastlane/metadata/android'
-version_code = get_current_build_number_from_package_json
 
 # Sourcemaps (from `yarn generate-sourcemaps`)
 # I know that this looks weird, because they actually get generated to "../main.jsbundle"
@@ -51,12 +50,6 @@ def get_environment_option(env, key)
     end
 
     return option
-end
-
-# Helper method to get version from package.json
-def get_version_from_package_json
-  package = JSON.parse(File.read('../package.json'))
-  return package['version']
 end
 
 lane :test_lane do |options|
@@ -139,20 +132,20 @@ platform :ios do
 
     lane :upload_sentry_sourcemaps do |options|
         environment = options[:environment]
-        version = get_version_from_package_json
-        build_number = options[:build_number] || version_code
+        build_number = options[:build_number]
+        semver = get_current_version_from_package_json
         app_identifier = get_environment_option(environment, :app_identifier)
         
-        release_version = "#{app_identifier}@#{version}+#{build_number}"
-        dist = "#{environment || 'prod'}-#{version}"
+        version = "#{semver}+#{build_number}"
+        dist = "#{environment}-#{semver}"
         
-        UI.message("Uploading Sentry sourcemaps for iOS: Release=#{release_version}, Dist=#{dist}")
+        UI.message("Uploading Sentry sourcemaps for iOS: Release=#{version}, Dist=#{dist}")
       
         sentry_create_release(
           auth_token: ENV['SENTRY_AUTH_TOKEN'],
           org_slug: ENV['SENTRY_ORG'],
           project_slug: ENV['SENTRY_PROJECT'],
-          version: release_version,
+          version: version,
           finalize: false
         )
         
@@ -160,7 +153,7 @@ platform :ios do
           auth_token: ENV['SENTRY_AUTH_TOKEN'],
           org_slug: ENV['SENTRY_ORG'],
           project_slug: ENV['SENTRY_PROJECT'],
-          version: release_version,
+          version: version,
           auto: true
         )
         
@@ -177,7 +170,8 @@ platform :ios do
           auth_token: ENV['SENTRY_AUTH_TOKEN'],
           org_slug: ENV['SENTRY_ORG'],
           project_slug: ENV['SENTRY_PROJECT'],
-          version: release_version,
+          app_identifier: app_identifier,
+          version: version,
           dist: dist,
           sourcemap: [bundle_path, sourcemap_path], # Pass both files as an array
           rewrite: true
@@ -187,7 +181,7 @@ platform :ios do
           auth_token: ENV['SENTRY_AUTH_TOKEN'],
           org_slug: ENV['SENTRY_ORG'],
           project_slug: ENV['SENTRY_PROJECT'],
-          version: release_version
+          version: version
         )
     end
 
@@ -216,12 +210,6 @@ platform :android do
             flavor: options[:env],
             build_type: 'Release'
         )
-
-        # After the build completes, add:
-        upload_android_sentry_sourcemaps(
-            env: options[:env],
-            build_number: options[:build_number]
-        )
     end
 
     lane :deploy do |options|
@@ -232,72 +220,8 @@ platform :android do
             track: 'internal',
             aab: "./android/app/build/outputs/bundle/#{options[:env]}Release/app-#{options[:env]}-release.aab",
             metadata_path: android_metadata_path,
-            version_code: version_code
+            version_code: options[:build_number]
         )
-    end
-
-    # Updated lane for Android Sentry sourcemaps using the plugin
-    lane :upload_android_sentry_sourcemaps do |options|
-      environment = options[:env]
-      version = get_version_from_package_json
-      build_number = options[:build_number] || version_code
-      
-      # For Android, the app identifier depends on the environment
-      app_identifier_suffix = environment == 'prod' ? '' : ".#{environment}"
-      app_identifier = "io.alysium#{app_identifier_suffix}"
-      
-      # Match format from App.tsx: <BUNDLE ID>@<RELEASE SEMVER>+<BUILD NUMBER>
-      release_version = "#{app_identifier}@#{version}+#{build_number}"
-      dist = "#{environment || 'prod'}-#{version}"
-      
-      UI.message("Uploading Sentry sourcemaps for Android: Release=#{release_version}, Dist=#{dist}")
-      
-      # Create a new release in Sentry
-      sentry_create_release(
-        auth_token: ENV['SENTRY_AUTH_TOKEN'],
-        org_slug: ENV['SENTRY_ORG'],
-        project_slug: ENV['SENTRY_PROJECT'],
-        version: release_version,
-        finalize: false # We'll finalize after uploading sourcemaps
-      )
-      
-      # Associate commits with the release
-      sentry_set_commits(
-        auth_token: ENV['SENTRY_AUTH_TOKEN'],
-        org_slug: ENV['SENTRY_ORG'],
-        project_slug: ENV['SENTRY_PROJECT'],
-        version: release_version,
-        auto: true
-      )
-      
-      # Upload sourcemaps for React Native
-      sentry_upload_sourcemap(
-        auth_token: ENV['SENTRY_AUTH_TOKEN'],
-        org_slug: ENV['SENTRY_ORG'],
-        project_slug: ENV['SENTRY_PROJECT'],
-        version: release_version,
-        dist: dist,
-        sourcemap: "../android/app/build/generated/assets/react/#{environment}Release",
-        rewrite: true,
-        wait: true
-      )
-      
-      # Upload Proguard mapping files for Android
-      sentry_upload_proguard(
-        auth_token: ENV['SENTRY_AUTH_TOKEN'],
-        org_slug: ENV['SENTRY_ORG'],
-        project_slug: ENV['SENTRY_PROJECT'],
-        android_manifest_path: "../android/app/build/intermediates/merged_manifests/#{environment}Release/AndroidManifest.xml",
-        mapping_path: "../android/app/build/outputs/mapping/#{environment}Release/mapping.txt"
-      )
-      
-      # Finalize the release
-      sentry_finalize_release(
-        auth_token: ENV['SENTRY_AUTH_TOKEN'],
-        org_slug: ENV['SENTRY_ORG'],
-        project_slug: ENV['SENTRY_PROJECT'],
-        version: release_version
-      )
     end
 
 end

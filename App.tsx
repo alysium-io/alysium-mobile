@@ -8,13 +8,14 @@ import {
 } from '@sentry/react-native';
 import React from 'react';
 import Config from 'react-native-config';
-import DeviceInfo from 'react-native-device-info';
 import Animated from 'react-native-reanimated';
 import { Scratch } from 'src/components/scratch';
 import './ignore-warnings';
 
 // Initialize Sentry
 const isProduction = Config.ENV !== 'dev';
+const semver = require('./package.json').version;
+const buildNumber = Config.BUILD_NUMBER || '1';
 init({
 	dsn: Config.SENTRY_DSN,
 	enableAutoPerformanceTracing: true,
@@ -22,12 +23,8 @@ init({
 	environment: isProduction ? 'production' : 'development',
 	enabled: isProduction,
 	integrations: [mobileReplayIntegration()],
-	release: isProduction
-		? `${DeviceInfo.getBundleId()}@${require('./package.json').version}+${
-				Config.BUILD_NUMBER || '1'
-		  }`
-		: undefined,
-	dist: `${Config.ENV || 'prod'}-${require('./package.json').version}`,
+	release: isProduction ? `${semver}+${buildNumber}` : undefined,
+	dist: isProduction ? `${Config.ENV}-${semver}` : undefined,
 	attachStacktrace: true,
 	normalizeDepth: 10
 });
