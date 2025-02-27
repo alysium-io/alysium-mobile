@@ -20,7 +20,7 @@ init({
 	enableAutoPerformanceTracing: true,
 	debug: false,
 	environment: isProduction ? 'production' : 'development',
-	enabled: true,
+	enabled: isProduction,
 	integrations: [mobileReplayIntegration()],
 	release: isProduction
 		? `${DeviceInfo.getBundleId()}@${require('./package.json').version}+${
@@ -28,7 +28,8 @@ init({
 		  }`
 		: undefined,
 	dist: `${Config.ENV || 'prod'}-${require('./package.json').version}`,
-	attachStacktrace: true
+	attachStacktrace: true,
+	normalizeDepth: 10
 });
 
 // This is a workaround to allow the TextInput `text` prop to be animated
