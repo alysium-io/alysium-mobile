@@ -106,6 +106,14 @@ jobs:
     - name: Generate Sourcemaps
       run: yarn generate-sourcemaps
 
+    # Write the sentry.properties file
+    - name: Write Sentry Properties
+      run: |
+        echo "auth.token=${{ secrets.SENTRY_AUTH_TOKEN }}" >> ios/sentry.properties
+        echo "defaults.org=${{ secrets.SENTRY_ORG }}" >> ios/sentry.properties
+        echo "defaults.project=${{ secrets.SENTRY_PROJECT }}" >> ios/sentry.properties
+        echo "defaults.url=${{ secrets.SENTRY_URL }}" >> ios/sentry.properties
+
     # Build iOS
     - name: Build iOS # fastlane
       env:
@@ -120,129 +128,129 @@ jobs:
       run: bundle exec fastlane ios build environment:"${{ github.event.inputs.env }}" build_number:"${{ env.BUILD_NUMBER }}"
       working-directory: fastlane
 
-    # After the build step but before save/deploy
-    - name: Calculate Build Duration
-      id: build-duration
-      if: always()
-      run: |
-        end=$(date +%s)
-        duration=$((end - ${{ steps.start-time.outputs.start }}))
-        minutes=$((duration / 60))
-        seconds=$((duration % 60))
-        echo "minutes=$minutes" >> $GITHUB_OUTPUT
-        echo "seconds=$seconds" >> $GITHUB_OUTPUT
+    # # After the build step but before save/deploy
+    # - name: Calculate Build Duration
+    #   id: build-duration
+    #   if: always()
+    #   run: |
+    #     end=$(date +%s)
+    #     duration=$((end - ${{ steps.start-time.outputs.start }}))
+    #     minutes=$((duration / 60))
+    #     seconds=$((duration % 60))
+    #     echo "minutes=$minutes" >> $GITHUB_OUTPUT
+    #     echo "seconds=$seconds" >> $GITHUB_OUTPUT
 
-    - name: Generate Build Success Timestamp
-      if: success()
-      run: |
-        TIMESTAMP=$(TZ='America/Los_Angeles' date '+%b. %d, %I:%M:%S%p' | tr '[:upper:]' '[:lower:]')
-        echo "timestamp=$TIMESTAMP" >> $GITHUB_ENV
+    # - name: Generate Build Success Timestamp
+    #   if: success()
+    #   run: |
+    #     TIMESTAMP=$(TZ='America/Los_Angeles' date '+%b. %d, %I:%M:%S%p' | tr '[:upper:]' '[:lower:]')
+    #     echo "timestamp=$TIMESTAMP" >> $GITHUB_ENV
 
-    - name: Send Build Success Notification
-      if: success()
-      uses: slackapi/slack-github-action@v1.25.0
-      with:
-        channel-id: 'jenkins'
-        payload: |
-          {
-            "attachments": [
-              {
-                "color": "good",
-                "text": "✅ *Build & Deploy iOS (Build): Success* ✨\n*Time:* `${{ env.timestamp }}`\n*Branch:* `${{ github.ref_name }}`\n*Environment:* `${{ github.event.inputs.env }}`\n*Duration:* `${{ steps.build-duration.outputs.minutes }}m ${{ steps.build-duration.outputs.seconds }}s`\n*Initiated by:* `${{ github.actor }}`\n<${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View in GitHub Actions>\n*Commit:* `${{ github.sha }}`"
-              }
-            ]
-          }
-      env:
-        SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+    # - name: Send Build Success Notification
+    #   if: success()
+    #   uses: slackapi/slack-github-action@v1.25.0
+    #   with:
+    #     channel-id: 'jenkins'
+    #     payload: |
+    #       {
+    #         "attachments": [
+    #           {
+    #             "color": "good",
+    #             "text": "✅ *Build & Deploy iOS (Build): Success* ✨\n*Time:* `${{ env.timestamp }}`\n*Branch:* `${{ github.ref_name }}`\n*Environment:* `${{ github.event.inputs.env }}`\n*Duration:* `${{ steps.build-duration.outputs.minutes }}m ${{ steps.build-duration.outputs.seconds }}s`\n*Initiated by:* `${{ github.actor }}`\n<${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View in GitHub Actions>\n*Commit:* `${{ github.sha }}`"
+    #           }
+    #         ]
+    #       }
+    #   env:
+    #     SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
 
-    - name: Send Build Failure Notification
-      if: failure()
-      uses: slackapi/slack-github-action@v1.25.0
-      with:
-        channel-id: 'jenkins'
-        payload: |
-          {
-            "attachments": [
-              {
-                "color": "danger",
-                "text": "❌ *Build & Deploy iOS (Build): Failed* 🔥\n*Time:* `${{ env.timestamp }}`\n*Branch:* `${{ github.ref_name }}`\n*Environment:* `${{ github.event.inputs.env }}`\n*Duration:* `${{ steps.build-duration.outputs.minutes }}m ${{ steps.build-duration.outputs.seconds }}s`\n*Initiated by:* `${{ github.actor }}`\n<${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View in GitHub Actions>\n*Commit:* `${{ github.sha }}`"
-              }
-            ]
-          }
-      env:
-        SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+    # - name: Send Build Failure Notification
+    #   if: failure()
+    #   uses: slackapi/slack-github-action@v1.25.0
+    #   with:
+    #     channel-id: 'jenkins'
+    #     payload: |
+    #       {
+    #         "attachments": [
+    #           {
+    #             "color": "danger",
+    #             "text": "❌ *Build & Deploy iOS (Build): Failed* 🔥\n*Time:* `${{ env.timestamp }}`\n*Branch:* `${{ github.ref_name }}`\n*Environment:* `${{ github.event.inputs.env }}`\n*Duration:* `${{ steps.build-duration.outputs.minutes }}m ${{ steps.build-duration.outputs.seconds }}s`\n*Initiated by:* `${{ github.actor }}`\n<${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View in GitHub Actions>\n*Commit:* `${{ github.sha }}`"
+    #           }
+    #         ]
+    #       }
+    #   env:
+    #     SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
 
-    # Save the .ipa artifact
-    - name: Upload .ipa artifact
-      if: ${{ github.event.inputs.save == 'true' }}
-      uses: actions/upload-artifact@v4
-      with:
-        name: Alysium iOS
-        path: ios/build/alysium-${{ github.event.inputs.env }}.ipa
-        retention-days: 1
+    # # Save the .ipa artifact
+    # - name: Upload .ipa artifact
+    #   if: ${{ github.event.inputs.save == 'true' }}
+    #   uses: actions/upload-artifact@v4
+    #   with:
+    #     name: Alysium iOS
+    #     path: ios/build/alysium-${{ github.event.inputs.env }}.ipa
+    #     retention-days: 1
 
-    # Deploy iOS
-    - name: Deploy iOS
-      if: ${{ github.event.inputs.deploy == 'true' }}
-      env:
-        FASTLANE_USER: ${{ secrets.FASTLANE_USER }}
-        APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
-        APP_STORE_CONNECT_API_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}
-        APP_STORE_CONNECT_API_KEY_CONTENT: ${{ secrets.APP_STORE_CONNECT_API_KEY_CONTENT }}
-        SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-        SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
-        SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
-      run: bundle exec fastlane ios deploy environment:"${{ github.event.inputs.env }}"
-      working-directory: fastlane
+    # # Deploy iOS
+    # - name: Deploy iOS
+    #   if: ${{ github.event.inputs.deploy == 'true' }}
+    #   env:
+    #     FASTLANE_USER: ${{ secrets.FASTLANE_USER }}
+    #     APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
+    #     APP_STORE_CONNECT_API_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}
+    #     APP_STORE_CONNECT_API_KEY_CONTENT: ${{ secrets.APP_STORE_CONNECT_API_KEY_CONTENT }}
+    #     SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+    #     SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+    #     SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+    #   run: bundle exec fastlane ios deploy environment:"${{ github.event.inputs.env }}"
+    #   working-directory: fastlane
 
-    # After the deploy step
-    - name: Calculate Deploy Duration
-      id: deploy-duration
-      if: always() && github.event.inputs.deploy == 'true'
-      run: |
-        end=$(date +%s)
-        duration=$((end - ${{ steps.start-time.outputs.start }}))
-        minutes=$((duration / 60))
-        seconds=$((duration % 60))
-        echo "minutes=$minutes" >> $GITHUB_OUTPUT
-        echo "seconds=$seconds" >> $GITHUB_OUTPUT
+    # # After the deploy step
+    # - name: Calculate Deploy Duration
+    #   id: deploy-duration
+    #   if: always() && github.event.inputs.deploy == 'true'
+    #   run: |
+    #     end=$(date +%s)
+    #     duration=$((end - ${{ steps.start-time.outputs.start }}))
+    #     minutes=$((duration / 60))
+    #     seconds=$((duration % 60))
+    #     echo "minutes=$minutes" >> $GITHUB_OUTPUT
+    #     echo "seconds=$seconds" >> $GITHUB_OUTPUT
 
-    - name: Generate Deploy Success Timestamp
-      if: success() && github.event.inputs.deploy == 'true'
-      run: |
-        TIMESTAMP=$(TZ='America/Los_Angeles' date '+%b. %d, %I:%M:%S%p' | tr '[:upper:]' '[:lower:]')
-        echo "timestamp=$TIMESTAMP" >> $GITHUB_ENV
+    # - name: Generate Deploy Success Timestamp
+    #   if: success() && github.event.inputs.deploy == 'true'
+    #   run: |
+    #     TIMESTAMP=$(TZ='America/Los_Angeles' date '+%b. %d, %I:%M:%S%p' | tr '[:upper:]' '[:lower:]')
+    #     echo "timestamp=$TIMESTAMP" >> $GITHUB_ENV
 
-    - name: Send Deploy Success Notification
-      if: success() && github.event.inputs.deploy == 'true'
-      uses: slackapi/slack-github-action@v1.25.0
-      with:
-        channel-id: 'jenkins'
-        payload: |
-          {
-            "attachments": [
-              {
-                "color": "good",
-                "text": "✅ *Build & Deploy iOS (Deploy): Success* ✨\n*Time:* `${{ env.timestamp }}`\n*Branch:* `${{ github.ref_name }}`\n*Environment:* `${{ github.event.inputs.env }}`\n*Duration:* `${{ steps.deploy-duration.outputs.minutes }}m ${{ steps.deploy-duration.outputs.seconds }}s`\n*Initiated by:* `${{ github.actor }}`\n<${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View in GitHub Actions>\n*Commit:* `${{ github.sha }}`"
-              }
-            ]
-          }
-      env:
-        SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+    # - name: Send Deploy Success Notification
+    #   if: success() && github.event.inputs.deploy == 'true'
+    #   uses: slackapi/slack-github-action@v1.25.0
+    #   with:
+    #     channel-id: 'jenkins'
+    #     payload: |
+    #       {
+    #         "attachments": [
+    #           {
+    #             "color": "good",
+    #             "text": "✅ *Build & Deploy iOS (Deploy): Success* ✨\n*Time:* `${{ env.timestamp }}`\n*Branch:* `${{ github.ref_name }}`\n*Environment:* `${{ github.event.inputs.env }}`\n*Duration:* `${{ steps.deploy-duration.outputs.minutes }}m ${{ steps.deploy-duration.outputs.seconds }}s`\n*Initiated by:* `${{ github.actor }}`\n<${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View in GitHub Actions>\n*Commit:* `${{ github.sha }}`"
+    #           }
+    #         ]
+    #       }
+    #   env:
+    #     SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
 
-    - name: Send Deploy Failure Notification
-      if: failure() && github.event.inputs.deploy == 'true'
-      uses: slackapi/slack-github-action@v1.25.0
-      with:
-        channel-id: 'jenkins'
-        payload: |
-          {
-            "attachments": [
-              {
-                "color": "danger",
-                "text": "❌ *Build & Deploy iOS (Deploy): Failed* 🔥\n*Time:* `${{ env.timestamp }}`\n*Branch:* `${{ github.ref_name }}`\n*Environment:* `${{ github.event.inputs.env }}`\n*Duration:* `${{ steps.deploy-duration.outputs.minutes }}m ${{ steps.deploy-duration.outputs.seconds }}s`\n*Initiated by:* `${{ github.actor }}`\n<${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View in GitHub Actions>\n*Commit:* `${{ github.sha }}`"
-              }
-            ]
-          }
-      env:
-        SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+    # - name: Send Deploy Failure Notification
+    #   if: failure() && github.event.inputs.deploy == 'true'
+    #   uses: slackapi/slack-github-action@v1.25.0
+    #   with:
+    #     channel-id: 'jenkins'
+    #     payload: |
+    #       {
+    #         "attachments": [
+    #           {
+    #             "color": "danger",
+    #             "text": "❌ *Build & Deploy iOS (Deploy): Failed* 🔥\n*Time:* `${{ env.timestamp }}`\n*Branch:* `${{ github.ref_name }}`\n*Environment:* `${{ github.event.inputs.env }}`\n*Duration:* `${{ steps.deploy-duration.outputs.minutes }}m ${{ steps.deploy-duration.outputs.seconds }}s`\n*Initiated by:* `${{ github.actor }}`\n<${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View in GitHub Actions>\n*Commit:* `${{ github.sha }}`"
+    #           }
+    #         ]
+    #       }
+    #   env:
+    #     SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
