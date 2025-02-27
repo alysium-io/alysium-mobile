@@ -86,16 +86,16 @@ platform :ios do
         )
 
         # Build
-        # gym(
-        #     scheme: get_environment_option(options[:environment], :scheme),
-        #     export_method: 'app-store',
-        #     workspace: './ios/alysium.xcworkspace',
-        #     xcconfig: './CustomIOSBuild.xcconfig',
-        #     output_directory: './ios/build',
-        #     output_name: get_environment_option(options[:environment], :scheme) + '.ipa',
-        #     silent: true,
-        #     export_xcargs: '-jobs $(sysctl -n hw.ncpu)'
-        # )
+        gym(
+            scheme: get_environment_option(options[:environment], :scheme),
+            export_method: 'app-store',
+            workspace: './ios/alysium.xcworkspace',
+            xcconfig: './CustomIOSBuild.xcconfig',
+            output_directory: './ios/build',
+            output_name: get_environment_option(options[:environment], :scheme) + '.ipa',
+            silent: true,
+            export_xcargs: '-jobs $(sysctl -n hw.ncpu)'
+        )
 
         # Generate the React Native bundle and sourcemap
         scheme = get_environment_option(options[:environment], :scheme)
@@ -170,13 +170,13 @@ platform :ios do
           auto: true
         )
         
-        # sentry_debug_files_upload(
-        #   auth_token: ENV['SENTRY_AUTH_TOKEN'],
-        #   org_slug: ENV['SENTRY_ORG'],
-        #   project_slug: ENV['SENTRY_PROJECT'],
-        #   path: '../ios/build/Build/Products',
-        #   include_sources: true
-        # )
+        sentry_debug_files_upload(
+          auth_token: ENV['SENTRY_AUTH_TOKEN'],
+          org_slug: ENV['SENTRY_ORG'],
+          project_slug: ENV['SENTRY_PROJECT'],
+          path: '../ios/build/Build/Products',
+          include_sources: true
+        )
         
         # Upload the specific bundle and sourcemap files
         sentry_upload_sourcemap(
@@ -190,12 +190,12 @@ platform :ios do
           rewrite: true
         )
         
-        # sentry_finalize_release(
-        #   auth_token: ENV['SENTRY_AUTH_TOKEN'],
-        #   org_slug: ENV['SENTRY_ORG'],
-        #   project_slug: ENV['SENTRY_PROJECT'],
-        #   version: release_version
-        # )
+        sentry_finalize_release(
+          auth_token: ENV['SENTRY_AUTH_TOKEN'],
+          org_slug: ENV['SENTRY_ORG'],
+          project_slug: ENV['SENTRY_PROJECT'],
+          version: release_version
+        )
     end
 
 end
