@@ -73,6 +73,7 @@ platform :ios do
         sh('ls -la .')
         sh('ls -la ..')
         sh('ls -la ../ios')
+        sh('ls -la ../ios/build')
 
         # Make sure match is set up correctly for the testflight deployment
         match(
@@ -99,6 +100,8 @@ platform :ios do
         sh('ls -la ..')
         sh('ls -la ../ios')
         sh('ls -la ../ios/build')
+        sh('ls -la ../ios/build/generated')
+        sh('ls -la ../ios/build/generated/ios')
 
         # Generate the React Native bundle and sourcemap
         scheme = get_environment_option(options[:environment], :scheme)
@@ -170,7 +173,7 @@ platform :ios do
           auth_token: ENV['SENTRY_AUTH_TOKEN'],
           org_slug: ENV['SENTRY_ORG'],
           project_slug: ENV['SENTRY_PROJECT'],
-          path: '../ios/build/Build/Products',
+          path: "../ios/build/#{get_environment_option(environment, :scheme)}.app.dSYM.zip",
           include_sources: true
         )
         
