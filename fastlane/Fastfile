@@ -148,12 +148,6 @@ platform :ios do
         
         UI.message("Uploading Sentry sourcemaps for iOS: Release=#{release_version}, Dist=#{dist}")
       
-        # Debug: Verify the files exist
-        UI.message("Checking for bundle at: #{bundle_path}")
-        UI.message("Checking for sourcemap at: #{sourcemap_path}")
-        sh("ls -la #{bundle_path}") rescue UI.message("Bundle file not found!")
-        sh("ls -la #{sourcemap_path}") rescue UI.message("Sourcemap file not found!")
-      
         sentry_create_release(
           auth_token: ENV['SENTRY_AUTH_TOKEN'],
           org_slug: ENV['SENTRY_ORG'],
