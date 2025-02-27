@@ -177,7 +177,6 @@ platform :ios do
           auth_token: ENV['SENTRY_AUTH_TOKEN'],
           org_slug: ENV['SENTRY_ORG'],
           project_slug: ENV['SENTRY_PROJECT'],
-          app_identifier: app_identifier,
           version: release_version,
           dist: dist,
           sourcemap: [bundle_path, sourcemap_path], # Pass both files as an array
