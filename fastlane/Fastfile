@@ -71,7 +71,8 @@ platform :ios do
         setup_ci
 
         sh('ls -la .')
-        sh('ls -la ./ios')
+        sh('ls -la ..')
+        sh('ls -la ../ios')
 
         # Make sure match is set up correctly for the testflight deployment
         match(
@@ -95,8 +96,9 @@ platform :ios do
 
         # List the files
         sh('ls -la .')
-        sh('ls -la ./ios')
-        sh('ls -la ./ios/build')
+        sh('ls -la ..')
+        sh('ls -la ../ios')
+        sh('ls -la ../ios/build')
 
         # Generate the React Native bundle and sourcemap
         scheme = get_environment_option(options[:environment], :scheme)
