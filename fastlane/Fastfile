@@ -133,19 +133,16 @@ platform :ios do
     lane :upload_sentry_sourcemaps do |options|
         environment = options[:environment]
         build_number = options[:build_number]
-        semver = get_current_version_from_package_json
+        version = get_current_version_from_package_json
         app_identifier = get_environment_option(environment, :app_identifier)
-        
-        version = "#{semver}+#{build_number}"
-        dist = "#{environment}-#{semver}"
-        
-        UI.message("Uploading Sentry sourcemaps for iOS: Release=#{version}, Dist=#{dist}")
       
         sentry_create_release(
           auth_token: ENV['SENTRY_AUTH_TOKEN'],
           org_slug: ENV['SENTRY_ORG'],
           project_slug: ENV['SENTRY_PROJECT'],
           version: version,
+          app_identifier: app_identifier,
+          build: build_number,
           finalize: false
         )
         
@@ -154,6 +151,8 @@ platform :ios do
           org_slug: ENV['SENTRY_ORG'],
           project_slug: ENV['SENTRY_PROJECT'],
           version: version,
+          app_identifier: app_identifier,
+          build: build_number,
           auto: true
         )
         
@@ -171,8 +170,9 @@ platform :ios do
           org_slug: ENV['SENTRY_ORG'],
           project_slug: ENV['SENTRY_PROJECT'],
           app_identifier: app_identifier,
+          build: build_number,
           version: version,
-          dist: dist,
+          dist: build_number,
           sourcemap: [bundle_path, sourcemap_path], # Pass both files as an array
           rewrite: true
         )
@@ -181,7 +181,9 @@ platform :ios do
           auth_token: ENV['SENTRY_AUTH_TOKEN'],
           org_slug: ENV['SENTRY_ORG'],
           project_slug: ENV['SENTRY_PROJECT'],
-          version: version
+          version: version,
+          app_identifier: app_identifier,
+          build: build_number
         )
     end
 

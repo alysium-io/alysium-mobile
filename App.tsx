@@ -8,6 +8,7 @@ import {
 } from '@sentry/react-native';
 import React from 'react';
 import Config from 'react-native-config';
+import DeviceInfo from 'react-native-device-info';
 import Animated from 'react-native-reanimated';
 import { Scratch } from 'src/components/scratch';
 import './ignore-warnings';
@@ -23,8 +24,10 @@ init({
 	environment: isProduction ? 'production' : 'development',
 	enabled: isProduction,
 	integrations: [mobileReplayIntegration()],
-	release: isProduction ? `${semver}+${buildNumber}` : undefined,
-	dist: isProduction ? `${Config.ENV}-${semver}` : undefined,
+	release: isProduction
+		? `${DeviceInfo.getBundleId()}@${semver}+${buildNumber}`
+		: undefined,
+	dist: isProduction ? buildNumber : undefined,
 	attachStacktrace: true,
 	normalizeDepth: 10
 });
