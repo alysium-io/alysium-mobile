@@ -7,8 +7,12 @@ android_metadata_path = './fastlane/metadata/android'
 version_code = get_current_build_number_from_package_json
 
 # Sourcemaps (from `yarn generate-sourcemaps`)
-bundle_path = "../main.jsbundle"
-sourcemap_path = "../main.jsbundle.map"
+# I know that this looks weird, because they actually get generated to "../main.jsbundle"
+# and "../main.jsbundle.map" respectively, but actually since we're executing this with
+# the `bundle exec` command, the current working directory is the root of the project,
+# not the fastlane directory. Just...stop asking questions.
+bundle_path = "main.jsbundle"
+sourcemap_path = "main.jsbundle.map"
 
 ENVIRONMENT_CONFIG = {
   'dev' => {
@@ -183,8 +187,7 @@ platform :ios do
           version: release_version,
           dist: dist,
           sourcemap: [bundle_path, sourcemap_path], # Pass both files as an array
-          rewrite: true,
-          wait: true
+          rewrite: true
         )
         
         # sentry_finalize_release(

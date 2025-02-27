@@ -82,8 +82,8 @@ jobs:
       uses: ./.github/actions/yarn
     - name: Install gem dependencies # gems
       uses: ./.github/actions/gems
-    - name: Install pods # cocoapods
-      uses: ./.github/actions/pods
+    # - name: Install pods # cocoapods
+    #   uses: ./.github/actions/pods
 
     # iOS specific configuration
     - name: Write .env file
