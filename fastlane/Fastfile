@@ -92,7 +92,8 @@ platform :ios do
             output_directory: './ios/build',
             output_name: get_environment_option(options[:environment], :scheme) + '.ipa',
             silent: true,
-            export_xcargs: '-jobs $(sysctl -n hw.ncpu)'
+            export_xcargs: '-jobs $(sysctl -n hw.ncpu)',
+            result_bundle: true
         )
 
         # List the files
