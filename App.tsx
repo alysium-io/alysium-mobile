@@ -42,7 +42,7 @@ Animated.addWhitelistedNativeProps({ text: true });
 // Authentication: Authentication flow
 // Application:  Application navigation/routing (user, artist, host, etc.)
 const App = () => {
-	const sandboxMode = true;
+	const sandboxMode = false;
 
 	if (sandboxMode) {
 		return (
