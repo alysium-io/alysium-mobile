@@ -154,7 +154,6 @@ platform :ios do
           org_slug: ENV['SENTRY_ORG'],
           project_slug: ENV['SENTRY_PROJECT'],
           version: version,
-          app_identifier: app_identifier,
           build: build_number,
           finalize: false
         )
@@ -164,7 +163,6 @@ platform :ios do
           org_slug: ENV['SENTRY_ORG'],
           project_slug: ENV['SENTRY_PROJECT'],
           version: version,
-          app_identifier: app_identifier,
           build: build_number,
           auto: true
         )
@@ -182,7 +180,6 @@ platform :ios do
           auth_token: ENV['SENTRY_AUTH_TOKEN'],
           org_slug: ENV['SENTRY_ORG'],
           project_slug: ENV['SENTRY_PROJECT'],
-          app_identifier: app_identifier,
           build: build_number,
           version: version,
           dist: build_number,
@@ -195,7 +192,6 @@ platform :ios do
           org_slug: ENV['SENTRY_ORG'],
           project_slug: ENV['SENTRY_PROJECT'],
           version: version,
-          app_identifier: app_identifier,
           build: build_number
         )
     end
