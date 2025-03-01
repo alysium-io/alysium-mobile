@@ -70,11 +70,6 @@ platform :ios do
         # Basically this command sets up the keychain for the CI environment
         setup_ci
 
-        sh('ls -la .')
-        sh('ls -la ..')
-        sh('ls -la ../ios')
-        sh('ls -la ../ios/build')
-
         # Make sure match is set up correctly for the testflight deployment
         match(
             type: 'appstore',
@@ -95,14 +90,6 @@ platform :ios do
             export_xcargs: '-jobs $(sysctl -n hw.ncpu)',
             result_bundle: true
         )
-
-        # List the files
-        sh('ls -la .')
-        sh('ls -la ..')
-        sh('ls -la ../ios')
-        sh('ls -la ../ios/build')
-        sh('ls -la ../ios/build/generated')
-        sh('ls -la ../ios/build/generated/ios')
 
         # Generate the React Native bundle and sourcemap
         scheme = get_environment_option(options[:environment], :scheme)
