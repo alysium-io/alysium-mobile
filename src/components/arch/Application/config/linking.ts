@@ -23,7 +23,7 @@ const artistPageConfigMap = {
 };
 
 const eventPageConfigMap = {
-	path: 'artist/event/:event_uid',
+	path: 'event/:event_uid',
 	parse: {
 		event_uid: (event_uid: string) => event_uid
 	}
