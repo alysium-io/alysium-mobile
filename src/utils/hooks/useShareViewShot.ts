@@ -1,5 +1,6 @@
 import { usePhotosAndCamera } from '@hooks';
-import { useRef } from 'react';
+import { captureException } from '@sentry/react-native';
+import { useRef, useState } from 'react';
 import { Share as RNShare } from 'react-native';
 import { getBundleId } from 'react-native-device-info';
 import Share, { Social } from 'react-native-share';
@@ -12,11 +13,15 @@ interface IUseShareViewShot {
 	shareiMessage: () => Promise<void>;
 	shareVia: () => Promise<void>;
 	captureWithOptions: () => Promise<void>;
+	savedPhotoAssetUrl: string | null;
 }
 
 const useShareViewShot = (url: string): IUseShareViewShot => {
 	const viewShotRef = useRef<ViewShot>(null);
-	const { saveImage } = usePhotosAndCamera();
+	const { saveImage, openPhotoInGallery } = usePhotosAndCamera();
+	const [savedPhotoAssetUrl, setSavedPhotoAssetUrl] = useState<string | null>(
+		null
+	);
 
 	const shareIGStory = async () => {
 		try {
@@ -86,13 +91,25 @@ const useShareViewShot = (url: string): IUseShareViewShot => {
 				format: 'png',
 				quality: 1
 			});
-			await saveImage(uri);
+			const result = await saveImage(uri);
+
+			// If the result is a string, it's the asset URL (particularly on iOS)
+			if (typeof result === 'string') {
+				setSavedPhotoAssetUrl(result);
+			}
+
 			Toast.show({
 				text1: 'Success',
 				text2: 'Image saved to camera roll',
-				props: { icon: 'save' }
+				props: { icon: 'save' },
+				onPress: () => {
+					if (typeof result === 'string') {
+						openPhotoInGallery(result);
+					}
+				}
 			});
 		} catch (error) {
+			captureException(error);
 			console.error('Failed to capture view:', error);
 			Toast.show({
 				text1: 'Error',
@@ -106,7 +123,8 @@ const useShareViewShot = (url: string): IUseShareViewShot => {
 		shareIGStory,
 		shareiMessage,
 		shareVia,
-		captureWithOptions
+		captureWithOptions,
+		savedPhotoAssetUrl
 	};
 };
 

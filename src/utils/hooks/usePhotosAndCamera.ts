@@ -1,6 +1,7 @@
 import { convert, Unit } from '@etc';
 import { MediaType } from '@flux/api/media/types';
 import { CameraRoll } from '@react-native-camera-roll/camera-roll';
+import { captureException } from '@sentry/react-native';
 import { getAssetMediaType } from '@src/etc/detect-media-type';
 import { Alert } from '@templates';
 import { Linking, Platform } from 'react-native';
@@ -49,8 +50,9 @@ interface IUsePhotosAndCamera {
 		config?: Partial<ImageLibraryOptions>
 	) => Promise<ImagePickerResponse | null>;
 	extractAsset: (response: ImagePickerResponse | null) => Asset | null;
-	saveImage: (uri: string) => Promise<boolean>;
+	saveImage: (uri: string) => Promise<string | boolean>;
 	hasImageSavePermissions: () => Promise<boolean>;
+	openPhotoInGallery: (assetUrl?: string) => void;
 }
 
 const usePhotosAndCamera = (): IUsePhotosAndCamera => {
@@ -110,24 +112,53 @@ const usePhotosAndCamera = (): IUsePhotosAndCamera => {
 		}
 	};
 
-	const saveImage = async (uri: string): Promise<boolean> => {
+	const saveImage = async (uri: string): Promise<string | boolean> => {
 		try {
 			const hasPermission = await hasImageSavePermissions();
 			if (!hasPermission) {
 				return false;
 			}
 
-			await CameraRoll.save(uri, {
+			const result = await CameraRoll.saveAsset(uri, {
 				type: 'photo'
 			});
-			return true;
+
+			return result.node.image.uri || true;
 		} catch (error) {
-			console.error('Error saving image:', error);
 			Toast.show({
 				text1: 'Error',
 				text2: 'Failed to save image. Please try again.'
 			});
 			return false;
+		}
+	};
+
+	const openPhotoInGallery = (assetUrl?: string) => {
+		try {
+			if (Platform.OS === 'ios') {
+				// On iOS, if we have a specific asset URL, try to open it directly
+				// Format could be like: assets-library://asset/asset.JPG?id=...
+				if (assetUrl && assetUrl.startsWith('assets-library://')) {
+					Linking.openURL(assetUrl).catch(() => {
+						// If we can't open the specific photo, open the Photos app
+						Linking.openURL('photos-redirect://');
+					});
+				} else {
+					// If no specific asset URL, just open the Photos app
+					Linking.openURL('photos-redirect://');
+				}
+			} else if (Platform.OS === 'android') {
+				// On Android, open the gallery
+				Linking.openURL('content://media/internal/images/media');
+			} else {
+				console.log('Could not open photo gallery app');
+			}
+		} catch (error) {
+			captureException(error);
+			Toast.show({
+				text1: 'Error',
+				text2: 'Could not open photo gallery'
+			});
 		}
 	};
 
@@ -335,7 +366,8 @@ const usePhotosAndCamera = (): IUsePhotosAndCamera => {
 		chooseMediaOrTakeNew,
 		extractAsset,
 		saveImage,
-		hasImageSavePermissions
+		hasImageSavePermissions,
+		openPhotoInGallery
 	};
 };
 
