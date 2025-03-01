@@ -19,8 +19,14 @@ const PublicEventTitle: React.FC<PublicEventTitleProps> = ({ event }) => {
 						}}
 					/>
 				</View>
-				<View marginLeft='m'>
-					<Text variant='paragraph-large-medium' marginBottom='s'>
+				<View marginLeft='m' flex={1}>
+					<Text
+						variant='paragraph-large-medium'
+						marginBottom='s'
+						numberOfLines={2}
+						adjustsFontSizeToFit
+						minimumFontScale={0.8}
+					>
 						{event.event.name}
 					</Text>
 					<StartsInCountdown event={event.event} />
