@@ -22,7 +22,12 @@ const LiveEventsSection: React.FC<LiveEventsSectionProps> = ({
 
 	return (
 		<Section>
-			<View flexDirection='row' alignItems='center' marginHorizontal='m'>
+			<View
+				flexDirection='row'
+				alignItems='center'
+				marginHorizontal='m'
+				marginBottom='s'
+			>
 				<LiveIndicator active />
 				<Text variant='paragraph-medium' color='danger' marginLeft='s'>
 					Live

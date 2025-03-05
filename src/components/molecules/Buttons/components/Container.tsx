@@ -15,6 +15,9 @@ type ContainerProps = Omit<Props<typeof View>, 'animated'> & {
 
 const Container: React.FC<ContainerProps> = ({ settings, ...props }) => {
 	const { theme } = useTheme();
+	const overrideBackgroundColor = props.backgroundColor
+		? theme.colors[props.backgroundColor]
+		: undefined;
 	const backgroundColor = useSharedValue(
 		theme.colors[settings.backgroundColor]
 	);
@@ -30,9 +33,9 @@ const Container: React.FC<ContainerProps> = ({ settings, ...props }) => {
 
 	const animatedStyle = useAnimatedStyle(() => {
 		return {
-			backgroundColor: backgroundColor.value
+			backgroundColor: overrideBackgroundColor ?? backgroundColor.value
 		};
-	}, [theme, settings]);
+	}, [theme, settings, props.backgroundColor]);
 
 	return (
 		<AView

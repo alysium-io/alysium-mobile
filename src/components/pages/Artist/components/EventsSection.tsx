@@ -22,7 +22,7 @@ const EventsSection: React.FC<EventsSectionProps> = ({
 
 	return (
 		<Section>
-			<Text variant='section-header-2' marginHorizontal='m' marginBottom='m'>
+			<Text variant='section-header-2' marginHorizontal='m' marginBottom='s'>
 				Events
 			</Text>
 			{coming_up.map((event) => {

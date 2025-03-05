@@ -85,6 +85,7 @@ import Tag from './Tag';
 import TailedArrow from './TailedArrow';
 import Threads from './Threads';
 import Ticket from './Ticket';
+import Tickets from './Tickets';
 import Tidal from './Tidal';
 import TikTok from './TikTok';
 import Trash from './Trash';
@@ -191,7 +192,8 @@ export const SvgIcons = {
 	manager: Manager,
 	flag: Flag,
 	block: Block,
-	eye: Eye
+	eye: Eye,
+	tickets: Tickets
 };
 
 export type IconNames = keyof typeof SvgIcons;

@@ -26,11 +26,21 @@ const ArtistEvent = () => {
 			<View flex={1} margin='m'>
 				<ActionButtons
 					buttonProps={{
-						text: 'Get Tickets',
+						text: 'Tickets',
+						textProps: {
+							color: 'white'
+						},
 						onPress: () =>
 							eventData?.event.tickets_url &&
 							Linking.openURL(eventData.event.tickets_url),
-						color: 'p'
+						beforeIconProps: {
+							name: 'tickets',
+							size: 'm',
+							color: 'white'
+						},
+						containerProps: {
+							backgroundColor: 'primary'
+						}
 					}}
 				/>
 			</View>

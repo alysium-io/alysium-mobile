@@ -210,6 +210,7 @@ export type SemanticColors = {
 	'palette.q.medium': HexColor;
 	'palette.q.dark': HexColor;
 
+	primary: HexColor;
 	danger: HexColor;
 	warning: HexColor;
 	success: HexColor;
