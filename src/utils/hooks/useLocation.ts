@@ -1,6 +1,5 @@
 import { Location } from '@flux/api/location';
-import { Polygon } from '@flux/api/location/types';
-import { AddressComponent, AddressType, LatLng } from '@types';
+import { AddressComponent, AddressType } from '@types';
 import { Linking } from 'react-native';
 
 /**
@@ -68,11 +67,6 @@ interface FormatSpecification {
 
 interface LocationApi {
 	getAddressComponent: (type: AddressComponentType) => AddressComponent | null;
-	getFormattedAddress: () => string | null;
-	getLatLng: () => { latitude: number; longitude: number } | null;
-	getPlaceId: () => string | null;
-	getViewport: () => LatLng | null;
-	getBoundary: () => Polygon | null;
 	build: {
 		(formatSpecs: FormatSpecification[]): string;
 		(formatSpec: FormatSpecification): string;
@@ -96,30 +90,6 @@ export const useLocation = (
 				comp.types.includes(type as AddressType)
 			) || null
 		);
-	};
-
-	const getFormattedAddress = (): string | null => {
-		return location?.formatted_address || null;
-	};
-
-	const getLatLng = () => {
-		if (!location) return null;
-		return {
-			latitude: location.latitude,
-			longitude: location.longitude
-		};
-	};
-
-	const getPlaceId = (): string | null => {
-		return location?.google_place_id || null;
-	};
-
-	const getViewport = (): LatLng | null => {
-		return location?.viewport || null;
-	};
-
-	const getBoundary = (): Polygon | null => {
-		return location?.boundary || null;
 	};
 
 	const buildAddress = (specs: FormatSpecification[]): string => {
@@ -246,11 +216,6 @@ export const useLocation = (
 
 	return {
 		getAddressComponent,
-		getFormattedAddress,
-		getLatLng,
-		getPlaceId,
-		getViewport,
-		getBoundary,
 		build,
 		openMap,
 		hasLocation: !!location,
