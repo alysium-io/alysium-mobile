@@ -60,10 +60,12 @@ const FlatListItem: React.FC<FlatListItemProps> = ({
 				}}
 				style={{
 					width: dimensions.width,
-					height: dimensions.height
+					height: dimensions.height,
+					flex: 1
 				}}
-				repeat={true}
+				resizeMode='contain'
 				paused={!shouldPlayVideo}
+				repeat
 			/>
 		);
 	}
