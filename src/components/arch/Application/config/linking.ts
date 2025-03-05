@@ -2,8 +2,7 @@ import { env } from '@etc';
 import { LinkingOptions, PathConfig } from '@react-navigation/native';
 import {
 	ArtistAppBottomTabNavigatorParamList,
-	SearchStackNavigatorParamList,
-	UserAppBottomTabNavigatorParamList
+	SearchStackNavigatorParamList
 } from '@types';
 
 /**
@@ -39,18 +38,7 @@ const searchTabConfigMap: PathConfig<SearchStackNavigatorParamList> = {
 };
 
 // App level configurations
-export const artistAppDeepLinkingConfig: LinkingOptions<ArtistAppBottomTabNavigatorParamList> =
-	{
-		prefixes,
-		config: {
-			initialRouteName: 'Search',
-			screens: {
-				Search: searchTabConfigMap
-			}
-		}
-	};
-
-export const userAppDeepLinkingConfig: LinkingOptions<UserAppBottomTabNavigatorParamList> =
+export const appDeepLinkingConfig: LinkingOptions<ArtistAppBottomTabNavigatorParamList> =
 	{
 		prefixes,
 		config: {
