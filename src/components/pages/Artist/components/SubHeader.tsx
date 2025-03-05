@@ -71,7 +71,7 @@ const SubHeader: React.FC<SubHeaderProps> = ({ artistData }) => {
 				/>
 			</View>
 			{artistData.bio && (
-				<View width='60%'>
+				<View width='60%' marginTop='s'>
 					<Text variant='paragraph-small' color='text.s'>
 						{artistData.bio}
 					</Text>
