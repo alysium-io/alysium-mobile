@@ -1,31 +1,34 @@
-import { Section, Text } from '@atomic';
+import { LiveIndicator, Section, Text, View } from '@atomic';
 import { PublicFindOneArtistResponseDto } from '@flux/api/artist/dto/artist-find-one.dto';
 import { FindAllArtistEventsResponseDto } from '@flux/api/event/dto/artist-event-find-all.dto';
 import { useSplitEventsByComplexStatus } from '@hooks';
 import React from 'react';
 import EventsSectionListItem from './EventsSectionListItem';
 
-interface EventsSectionProps {
+interface LiveEventsSectionProps {
 	artistData: PublicFindOneArtistResponseDto;
 	eventsData: FindAllArtistEventsResponseDto;
 }
 
-const EventsSection: React.FC<EventsSectionProps> = ({
+const LiveEventsSection: React.FC<LiveEventsSectionProps> = ({
 	artistData,
 	eventsData
 }) => {
-	const { coming_up } = useSplitEventsByComplexStatus(eventsData);
+	const { live } = useSplitEventsByComplexStatus(eventsData);
 
-	if (coming_up.length === 0) {
+	if (live.length === 0) {
 		return null;
 	}
 
 	return (
 		<Section>
-			<Text variant='section-header-2' marginHorizontal='m' marginBottom='m'>
-				Events
-			</Text>
-			{coming_up.map((event) => {
+			<View flexDirection='row' alignItems='center' marginHorizontal='m'>
+				<LiveIndicator active />
+				<Text variant='paragraph-medium' color='danger' marginLeft='s'>
+					Live
+				</Text>
+			</View>
+			{live.map((event) => {
 				return (
 					<EventsSectionListItem
 						key={event.event.event_uid}
@@ -38,4 +41,4 @@ const EventsSection: React.FC<EventsSectionProps> = ({
 	);
 };
 
-export default EventsSection;
+export default LiveEventsSection;

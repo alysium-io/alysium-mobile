@@ -13,18 +13,23 @@ import Animated, {
 interface LiveIndicatorProps {
 	status?: ComplexEventStatus | null;
 	size?: number;
+	active?: boolean;
 }
 
-const LiveIndicator: React.FC<LiveIndicatorProps> = ({ status, size = 8 }) => {
+const LiveIndicator: React.FC<LiveIndicatorProps> = ({
+	status,
+	size = 8,
+	active = false
+}) => {
 	const { theme } = useTheme();
-	const isLive = status === ComplexEventStatus.live;
-	const mainColor = isLive ? theme.colors['danger'] : theme.colors['text.s'];
+	const isActive = active || status === ComplexEventStatus.live;
+	const mainColor = isActive ? theme.colors['danger'] : theme.colors['text.s'];
 
-	const opacity = useSharedValue(isLive ? 0.9 : 0.4);
+	const opacity = useSharedValue(isActive ? 0.9 : 0.4);
 	const scale = useSharedValue(1);
 
 	useEffect(() => {
-		if (isLive) {
+		if (isActive) {
 			opacity.value = 0.9;
 			scale.value = 0.8;
 
@@ -44,7 +49,7 @@ const LiveIndicator: React.FC<LiveIndicatorProps> = ({ status, size = 8 }) => {
 			cancelAnimation(opacity);
 			cancelAnimation(scale);
 		};
-	}, [isLive]);
+	}, [isActive]);
 
 	const animatedStyle = useAnimatedStyle(() => ({
 		width: size,
@@ -55,8 +60,8 @@ const LiveIndicator: React.FC<LiveIndicatorProps> = ({ status, size = 8 }) => {
 		shadowColor: mainColor,
 		shadowOffset: { width: 0, height: 0 },
 		shadowRadius: size / 2,
-		shadowOpacity: isLive ? 0.8 : 0,
-		elevation: isLive ? 8 : 0,
+		shadowOpacity: isActive ? 0.8 : 0,
+		elevation: isActive ? 8 : 0,
 		opacity: opacity.value,
 		transform: [{ scale: scale.value }]
 	}));
