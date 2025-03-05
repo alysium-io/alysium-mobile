@@ -60,12 +60,12 @@ const SubHeader: React.FC<SubHeaderProps> = ({ artistData }) => {
 						{
 							title: Formatting.abbreviateNumber(artistData?.num_followers),
 							subtitle: Formatting.getNumFollowersSuffix(
-								artistData?.artist_spotify_data?.followers
+								artistData?.num_followers
 							)
 						},
 						{
 							title: Formatting.abbreviateNumber(artistData?.num_events),
-							subtitle: 'events'
+							subtitle: 'event' + (artistData?.num_events === 1 ? '' : 's')
 						}
 					]}
 				/>

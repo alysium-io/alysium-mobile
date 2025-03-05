@@ -6,7 +6,6 @@ export enum Persona {
 export enum ContentType {
 	user = 'user',
 	artist = 'artist',
-	tag = 'tag',
 	event = 'event',
 	location = 'location'
 }

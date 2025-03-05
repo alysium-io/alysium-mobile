@@ -11,11 +11,6 @@ import {
 	SearchScenesResponseDto
 } from './dto/search-scenes.dto';
 import {
-	SearchTagsBodyDto,
-	SearchTagsQueryDto,
-	SearchTagsResponseDto
-} from './dto/search-tags.dto';
-import {
 	SearchUsersBodyDto,
 	SearchUsersQueryDto,
 	SearchUsersResponseDto
@@ -62,32 +57,6 @@ const apiSlice = serviceApi.injectEndpoints({
 			serializeQueryArgs: ({ endpointName, queryArgs: { body } }) => ({
 				endpointName,
 				q: body?.q
-			}),
-			merge: (currentCache, newItems) => {
-				return {
-					...newItems,
-					hits: _.unionBy(currentCache.hits, newItems.hits, (item) => item.uid)
-				};
-			},
-			forceRefetch({ currentArg, previousArg }) {
-				return !_.isEqual(currentArg, previousArg);
-			}
-		}),
-		searchTags: builder.query<
-			SearchTagsResponseDto,
-			{ body: SearchTagsBodyDto; query: SearchTagsQueryDto }
-		>({
-			query: ({ body, query }) => ({
-				url: url('/tags'),
-				method: 'POST',
-				params: query,
-				body
-			}),
-			serializeQueryArgs: ({ endpointName, queryArgs: { body } }) => ({
-				endpointName,
-				tag_uid: body?.q,
-				sort: body?.sort,
-				correlated_tag_uids: body?.correlated_tag_uids
 			}),
 			merge: (currentCache, newItems) => {
 				return {

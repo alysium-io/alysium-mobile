@@ -5,11 +5,8 @@ import {
 	EventPage,
 	ScenePage,
 	SearchPage,
-	TagPage,
-	TopTagsPage,
 	UserArtistsFollowingPage,
 	UserScenesFollowingPage,
-	UserTagsFollowingPage,
 	ViewEventMediaPage
 } from '@pages';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -33,8 +30,6 @@ const SearchTab = () => {
 				component={ArtistEventsInteractiveMapPage}
 			/>
 
-			<SearchStack.Screen name='TagPage' component={TagPage} />
-
 			<SearchStack.Screen
 				name='UserArtistsFollowingPage'
 				component={UserArtistsFollowingPage}
@@ -44,13 +39,6 @@ const SearchTab = () => {
 				name='UserScenesFollowingPage'
 				component={UserScenesFollowingPage}
 			/>
-
-			<SearchStack.Screen
-				name='UserTagsFollowingPage'
-				component={UserTagsFollowingPage}
-			/>
-
-			<SearchStack.Screen name='TopTagsPage' component={TopTagsPage} />
 
 			<SearchStack.Screen
 				name='ViewEventMediaPage'

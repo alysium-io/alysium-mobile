@@ -25,9 +25,6 @@ type ArtistFollowersAndShowsPage = {
 	defaultTabIndex: number;
 };
 
-type TagPage = { tag_uid: NanoId };
-type TagFollowersPage = { tag_uid: NanoId };
-
 type ProfilePage = undefined;
 
 type EditEventPage = { event_uid: NanoId };
@@ -41,9 +38,6 @@ type ChooseEventLocationPage = { event_uid: NanoId };
 
 type UserArtistsFollowingPage = undefined;
 type UserScenesFollowingPage = undefined;
-type UserTagsFollowingPage = undefined;
-
-type TopTagsPage = undefined;
 
 type EditArtistPage = undefined;
 
@@ -87,8 +81,6 @@ export type RouteNames =
 	| 'HostFollowersAndShowsPage'
 	| 'ArtistPage'
 	| 'ArtistFollowersAndShowsPage'
-	| 'TagPage'
-	| 'TagFollowersPage'
 	| 'ProfilePage'
 	| 'EventManagerPage'
 	| 'EditEventPage'
@@ -96,9 +88,7 @@ export type RouteNames =
 	| 'EditContractPage'
 	| 'UserArtistsFollowingPage'
 	| 'UserScenesFollowingPage'
-	| 'UserTagsFollowingPage'
 	| 'EditArtistEventTicketsUrlPage'
-	| 'TopTagsPage'
 	| 'EditArtistPage'
 	| 'ViewEventMediaPage'
 	| 'ChooseScenePage'
@@ -139,14 +129,8 @@ export type SearchStackNavigatorParamList = {
 	ArtistEventsInteractiveMapPage: ArtistEventsInteractiveMapPage;
 	ArtistFollowersAndShowsPage: ArtistFollowersAndShowsPage;
 
-	TagPage: TagPage;
-	TagFollowersPage: TagFollowersPage;
-
 	UserArtistsFollowingPage: UserArtistsFollowingPage;
 	UserScenesFollowingPage: UserScenesFollowingPage;
-	UserTagsFollowingPage: UserTagsFollowingPage;
-
-	TopTagsPage: TopTagsPage;
 
 	ViewEventMediaPage: ViewEventMediaPage;
 
@@ -282,14 +266,6 @@ export type ArtistEventsInteractiveMapPageRouteProp = RouteProp<
 export type ArtistFollowersAndShowsPageRouteProp = RouteProp<
 	CompositeStackNavigatorParamList,
 	'ArtistFollowersAndShowsPage'
->;
-export type TagPageRouteProp = RouteProp<
-	CompositeStackNavigatorParamList,
-	'TagPage'
->;
-export type TagFollowersPageRouteProp = RouteProp<
-	CompositeStackNavigatorParamList,
-	'TagFollowersPage'
 >;
 export type ArtistEventsPageRouteProp = RouteProp<
 	CompositeStackNavigatorParamList,

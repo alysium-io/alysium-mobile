@@ -15,10 +15,6 @@ interface IUseNavigation {
 		navigationMeta: NavigationBehaviorMetadata
 	) => void;
 	artistEventsInteractiveMapPage: (artist_uid: NanoId) => void;
-	tagPage: (
-		tag_uid: NanoId,
-		navigationMeta: NavigationBehaviorMetadata
-	) => void;
 	profilePage: (navigationMeta: NavigationBehaviorMetadata) => void;
 	eventPage: (
 		event_uid: NanoId,
@@ -34,8 +30,6 @@ interface IUseNavigation {
 		navigationMeta: NavigationBehaviorMetadata
 	) => void;
 	userScenesFollowingPage: (navigationMeta: NavigationBehaviorMetadata) => void;
-	userTagsFollowingPage: (navigationMeta: NavigationBehaviorMetadata) => void;
-	topTagsPage: (navigationMeta: NavigationBehaviorMetadata) => void;
 
 	viewEventMediaPage: (eventMedia: EventMedia[], initialIndex: number) => void;
 
@@ -102,14 +96,6 @@ const useNavigation = (): IUseNavigation => {
 		navigation.push('ArtistEventsInteractiveMapPage', { artist_uid });
 	};
 
-	const tagPage = (
-		tag_uid: NanoId,
-		navigationMeta: NavigationBehaviorMetadata
-	) => {
-		navigation.push('TagPage', { tag_uid });
-		navigationBehavior(navigationMeta);
-	};
-
 	const profilePage = (navigationMeta: NavigationBehaviorMetadata) => {
 		navigation.push('ProfilePage');
 		navigationBehavior(navigationMeta);
@@ -152,18 +138,6 @@ const useNavigation = (): IUseNavigation => {
 		navigationMeta: NavigationBehaviorMetadata
 	) => {
 		navigation.push('UserScenesFollowingPage');
-		navigationBehavior(navigationMeta);
-	};
-
-	const userTagsFollowingPage = (
-		navigationMeta: NavigationBehaviorMetadata
-	) => {
-		navigation.push('UserTagsFollowingPage');
-		navigationBehavior(navigationMeta);
-	};
-
-	const topTagsPage = (navigationMeta: NavigationBehaviorMetadata) => {
-		navigation.push('TopTagsPage');
 		navigationBehavior(navigationMeta);
 	};
 
@@ -277,7 +251,6 @@ const useNavigation = (): IUseNavigation => {
 	return {
 		artistPage,
 		artistEventsInteractiveMapPage,
-		tagPage,
 		profilePage,
 		eventPage,
 		editEventPage,
@@ -285,8 +258,6 @@ const useNavigation = (): IUseNavigation => {
 		eventManagerPage,
 		userArtistsFollowingPage,
 		userScenesFollowingPage,
-		userTagsFollowingPage,
-		topTagsPage,
 		viewEventMediaPage,
 		chooseScenePage,
 		chooseEventLocationPage,

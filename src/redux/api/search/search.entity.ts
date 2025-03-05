@@ -2,8 +2,7 @@ import { ProfileImage } from '../profile-image';
 
 export enum SearchType {
 	artist = 'artist',
-	scene = 'scene',
-	tag = 'tag'
+	scene = 'scene'
 }
 
 export interface SearchItem {
@@ -20,11 +19,6 @@ export interface ArtistSearchItem extends SearchItem {
 
 export interface SceneSearchItem extends SearchItem {
 	readonly followers: number;
-}
-
-export interface TagSearchItem extends SearchItem {
-	readonly numArtists: number;
-	readonly spotifyFollowersSum: number;
 }
 
 export interface UserSearchItem extends SearchItem {

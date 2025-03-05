@@ -16,7 +16,6 @@ export interface User {
 	readonly phone_number: string | null;
 	readonly profile_image: ProfileImage | null;
 	readonly artists: PrivateArtist[];
-	readonly num_tags_following: number;
 	readonly num_artists_following: number;
 	readonly num_scenes_following: number;
 	readonly role: Role;
