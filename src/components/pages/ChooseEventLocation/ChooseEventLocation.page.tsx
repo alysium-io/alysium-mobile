@@ -3,25 +3,26 @@ import { Text, View } from '@atomic';
 import { artistEventApiSlice } from '@flux/api/event';
 import { locationApiSlice } from '@flux/api/location';
 import { GoogleMapsAutocompleteResult } from '@flux/api/location/types';
-import { useKeyboard, useSearch, useSheet } from '@hooks';
+import { useKeyboard, useNavigation, useSearch } from '@hooks';
 import { MenuListItem } from '@molecules';
 import { BasePage, SearchBar } from '@organisms';
-import { ConfirmEventLocationChoiceBottomSheet } from '@popups';
 import { useRoute } from '@react-navigation/native';
+import { captureException } from '@sentry/react-native';
 import { ChooseEventLocationRouteProp } from '@types';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Else, If, Then } from 'react-if';
 import { ScrollView } from 'react-native';
+import Toast from 'react-native-toast-message';
 import ChooseEventLocationPageHeader from './ChooseEventLocation.header';
 
 const ChooseEventLocation = () => {
 	const route = useRoute<ChooseEventLocationRouteProp>();
 	const searchApi = useSearch();
 	const { dismiss } = useKeyboard();
-	const confirmEventLocationChoiceSheetApi = useSheet();
-	const [googleMapsAutocompleteResult, setGoogleMapsAutocompleteResult] =
-		useState<GoogleMapsAutocompleteResult | null>(null);
+	const { back } = useNavigation();
 	const { artistData } = useArtistAppContext();
+	const [patchArtistEventLocationMutation] =
+		artistEventApiSlice.usePatchArtistEventLocationMutation();
 
 	useEffect(() => {
 		setTimeout(() => {
@@ -48,9 +49,26 @@ const ChooseEventLocation = () => {
 		});
 
 	const onPressSearchResult = (item: GoogleMapsAutocompleteResult) => {
-		dismiss();
-		setGoogleMapsAutocompleteResult(item);
-		confirmEventLocationChoiceSheetApi.open();
+		if (eventData) {
+			patchArtistEventLocationMutation({
+				params: {
+					artist_uid: artistData.artist_uid,
+					event_uid: eventData.event.event_uid
+				},
+				body: {
+					place_id: item.place_id
+				}
+			})
+				.unwrap()
+				.catch((error) => {
+					captureException(error);
+					Toast.show({
+						text1: 'Error updating event location',
+						text2: 'Please try again later'
+					});
+				});
+			back();
+		}
 	};
 
 	return (
@@ -94,11 +112,6 @@ const ChooseEventLocation = () => {
 					</Else>
 				</If>
 			</ScrollView>
-			<ConfirmEventLocationChoiceBottomSheet
-				sheetApi={confirmEventLocationChoiceSheetApi}
-				googleMapsAutocompleteResult={googleMapsAutocompleteResult}
-				eventData={eventData}
-			/>
 		</BasePage>
 	);
 };

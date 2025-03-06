@@ -1,19 +1,25 @@
+import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
 import { Text, View } from '@atomic';
 import { locationApiSlice } from '@flux/api/location';
 import { GoogleMapsAutocompleteResult } from '@flux/api/location/types';
-import { useKeyboard, useSearch, useSheet } from '@hooks';
+import { sceneApiSlice } from '@flux/api/scene';
+import { useKeyboard, useNavigation, useSearch, useSheet } from '@hooks';
 import { MenuListItem } from '@molecules';
 import { BasePage, SearchBar } from '@organisms';
-import { JoinScenePreviewBottomSheet } from '@popups';
+import { captureException } from '@sentry/react-native';
 import React, { useEffect, useState } from 'react';
 import { Else, If, Then } from 'react-if';
 import { ScrollView } from 'react-native';
+import Toast from 'react-native-toast-message';
 import ChooseScenePageHeader from './ChooseScene.header';
 
 const ChooseScene = () => {
+	const { artistData } = useArtistAppContext();
+	const { back } = useNavigation();
 	const joinScenePreviewSheetApi = useSheet();
 	const searchApi = useSearch();
 	const { dismiss } = useKeyboard();
+	const [artistJoinSceneMutation] = sceneApiSlice.useArtistJoinSceneMutation();
 	const [googleMapsAutocompleteResult, setGoogleMapsAutocompleteResult] =
 		useState<GoogleMapsAutocompleteResult | null>(null);
 
@@ -35,9 +41,21 @@ const ChooseScene = () => {
 	const onPressScene = (
 		googleMapsAutocompleteResult: GoogleMapsAutocompleteResult
 	) => {
-		dismiss();
-		setGoogleMapsAutocompleteResult(googleMapsAutocompleteResult);
-		joinScenePreviewSheetApi.open();
+		artistJoinSceneMutation({
+			body: {
+				place_id: googleMapsAutocompleteResult.place_id,
+				artist_uid: artistData.artist_uid
+			}
+		})
+			.unwrap()
+			.catch((error) => {
+				captureException(error);
+				Toast.show({
+					text1: 'Error joining scene',
+					text2: 'Please try again later'
+				});
+			});
+		back();
 	};
 
 	return (
@@ -82,10 +100,6 @@ const ChooseScene = () => {
 					</Else>
 				</If>
 			</ScrollView>
-			<JoinScenePreviewBottomSheet
-				sheetApi={joinScenePreviewSheetApi}
-				googleMapsAutocompleteResult={googleMapsAutocompleteResult}
-			/>
 		</BasePage>
 	);
 };
