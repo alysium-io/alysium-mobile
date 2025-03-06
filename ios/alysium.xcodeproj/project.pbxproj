@@ -45,7 +45,7 @@
 		A028C50F0B5646F78F29C199 /* HelveticaNeue-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A4F0C244A8754AE9818FD5D2 /* HelveticaNeue-Medium.ttf */; };
 		B3B5ADD1F0BB1BA325CF44C4 /* libPods-alysiumCommonPods-alysium-demo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E82E171A949239398311226 /* libPods-alysiumCommonPods-alysium-demo.a */; };
 		BABC424DBCAB4FB8AD3B1156 /* HelveticaNeue-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C65BCBC1D82405389E1C939 /* HelveticaNeue-MediumItalic.ttf */; };
-		C32B2C5EB76CA18DA93833D4 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; };
+		C32B2C5EB76CA18DA93833D4 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		CED8BFF63CA34C90AFC09F8D /* HelveticaNeue-CondensedBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BF05AECD7CB2497EADFF030A /* HelveticaNeue-CondensedBold.ttf */; };
 		FA1210A7CE040408AC01B47C /* libPods-alysiumCommonPods-alysium-dev.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5433521EA551F9F8ECB29560 /* libPods-alysiumCommonPods-alysium-dev.a */; };
 		FA5DE11ECDAF6FB557635631 /* libPods-alysiumCommonPods-alysium.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 848CF8F5884765B4592D204D /* libPods-alysiumCommonPods-alysium.a */; };
@@ -75,7 +75,6 @@
 		5FF740E20CE94A7D9BC520F6 /* HelveticaNeue-LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "HelveticaNeue-LightItalic.ttf"; path = "../src/assets/fonts/HelveticaNeue-LightItalic.ttf"; sourceTree = "<group>"; };
 		682B7D637AED01443F294F1B /* Pods-alysiumCommonPods-alysium-qa.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alysiumCommonPods-alysium-qa.debug.xcconfig"; path = "Target Support Files/Pods-alysiumCommonPods-alysium-qa/Pods-alysiumCommonPods-alysium-qa.debug.xcconfig"; sourceTree = "<group>"; };
 		69C1244E09558CE9EBB2A3AF /* Pods-alysiumCommonPods-alysium.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alysiumCommonPods-alysium.release.xcconfig"; path = "Target Support Files/Pods-alysiumCommonPods-alysium/Pods-alysiumCommonPods-alysium.release.xcconfig"; sourceTree = "<group>"; };
-		6A47F53A2CFFD3F000D2A355 /* alysium-dev.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "alysium-dev.entitlements"; sourceTree = "<group>"; };
 		6A4C6A212BF8FBE3009B660D /* alysium-qa.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "alysium-qa.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A4C6A422BF8FE90009B660D /* alysium-demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "alysium-demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A9DC0482C989F4B00BC262D /* alysium.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = alysium.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -83,6 +82,7 @@
 		6AB7FF3D2BF92F9B00D4F277 /* alysium-dev Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "alysium-dev Info.plist"; path = "alysium/alysium-dev Info.plist"; sourceTree = "<group>"; };
 		6AB7FF412BF92FFB00D4F277 /* alysium-demo Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "alysium-demo Info.plist"; path = "alysium/alysium-demo Info.plist"; sourceTree = "<group>"; };
 		6AB7FF422BF92FFB00D4F277 /* alysium-qa Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "alysium-qa Info.plist"; path = "alysium/alysium-qa Info.plist"; sourceTree = "<group>"; };
+		6ACE32AD2D79222400010245 /* alysium.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = alysium.entitlements; path = alysium/alysium.entitlements; sourceTree = "<group>"; };
 		6AEA19F92C502B9500BD73FB /* LocalCustomIOSBuild.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = LocalCustomIOSBuild.xcconfig; sourceTree = "<group>"; };
 		6AF109532A95344A00DB24EC /* alysium-dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "alysium-dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FC20CA38F57C1ADDDC4FF47 /* Pods-alysiumCommonPods-alysium-demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alysiumCommonPods-alysium-demo.debug.xcconfig"; path = "Target Support Files/Pods-alysiumCommonPods-alysium-demo/Pods-alysiumCommonPods-alysium-demo.debug.xcconfig"; sourceTree = "<group>"; };
@@ -109,7 +109,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C32B2C5EB76CA18DA93833D4 /* BuildFile in Frameworks */,
+				C32B2C5EB76CA18DA93833D4 /* (null) in Frameworks */,
 				0EAAC9E7C3A11FAC25921E60 /* libPods-alysiumCommonPods-alysium-qa.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -161,6 +161,7 @@
 		13B07FAE1A68108700A75B9A /* alysium */ = {
 			isa = PBXGroup;
 			children = (
+				6ACE32AD2D79222400010245 /* alysium.entitlements */,
 				6A9DC0492C989F4B00BC262D /* alysium-prod Info.plist */,
 				6AB7FF412BF92FFB00D4F277 /* alysium-demo Info.plist */,
 				6AB7FF422BF92FFB00D4F277 /* alysium-qa Info.plist */,
@@ -218,7 +219,6 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				6A47F53A2CFFD3F000D2A355 /* alysium-dev.entitlements */,
 				6AEA19F92C502B9500BD73FB /* LocalCustomIOSBuild.xcconfig */,
 				13B07FAE1A68108700A75B9A /* alysium */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -872,6 +872,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "entitlements/alysium-qa.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = "$(CURRENT_BUILD_NUMBER)";
@@ -911,6 +912,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "entitlements/alysium-qa.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = "$(CURRENT_BUILD_NUMBER)";
@@ -1024,6 +1026,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "entitlements/alysium-prod.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 2;
@@ -1063,6 +1066,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "entitlements/alysium-prod.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 2;
@@ -1100,7 +1104,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = "alysium-dev.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "entitlements/alysium-dev.entitlements";
 				CURRENT_PROJECT_VERSION = "$(CURRENT_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = 3S5R5B5ACT;
 				ENABLE_BITCODE = NO;
@@ -1136,7 +1140,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = "alysium-dev.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "entitlements/alysium-dev.entitlements";
 				CURRENT_PROJECT_VERSION = "$(CURRENT_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = 3S5R5B5ACT;
 				INFOPLIST_FILE = "alysium/alysium-dev Info.plist";

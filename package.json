@@ -29,7 +29,10 @@
 		"test:deeplink:artist": "npx uri-scheme open \"alysium://artist/BhBmP0sWGiO582CBQQmZoCN8\" --ios",
 		"test:deeplink:event": "npx uri-scheme open \"alysium://artist/event/ZrI2elEfcdaaigsU5hqgtPbc\" --ios",
 		"sentry:sourcemaps": "node_modules/.bin/sentry-cli react-native sourcemaps",
-		"generate-sourcemaps": "npx react-native bundle --platform ios --dev false --entry-file index.js --bundle-output main.jsbundle --sourcemap-output main.jsbundle.map"
+		"generate-sourcemaps": "npx react-native bundle --platform ios --dev false --entry-file index.js --bundle-output main.jsbundle --sourcemap-output main.jsbundle.map",
+		"match:nuke": "bundle exec fastlane match nuke development && bundle exec fastlane match nuke distribution",
+		"match:generate": "bundle exec fastlane match development && bundle exec fastlane match appstore",
+		"match:regenerate": "yarn match:nuke && yarn match:generate"
 	},
 	"dependencies": {
 		"@babel/plugin-proposal-export-namespace-from": "^7.18.9",
