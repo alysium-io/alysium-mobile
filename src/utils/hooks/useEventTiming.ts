@@ -25,7 +25,6 @@ type UseEventTimingReturn = {
 	endMinimumDate: Date;
 	datePickerOptions: {
 		date: Date;
-		minimumDate: Date;
 		onDateChange: (date: Date) => void;
 	};
 	isEditingStartOrEnd: 'start' | 'end';
@@ -217,10 +216,6 @@ export const useEventTiming = (
 				? startDateTimeInternal.toDate()
 				: endDateTimeInternal?.toDate() ??
 				  startDateTimeInternal.add(1, 'hour').toDate(),
-		minimumDate:
-			isEditingStartOrEnd === 'start'
-				? startMinimumDateTime.toDate()
-				: endMinimumDateTime.toDate(),
 		onDateChange:
 			isEditingStartOrEnd === 'start' ? setStartDateTime : setEndDateTime
 	};

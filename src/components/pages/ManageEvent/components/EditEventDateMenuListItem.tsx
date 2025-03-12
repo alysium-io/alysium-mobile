@@ -69,6 +69,36 @@ const EditEventDateMenuListItem: React.FC<EditEventDateMenuListItemProps> = ({
 		}
 	};
 
+	const getTopSubtextProps = () => {
+		const day = dayjs(defaultStartDateTime);
+
+		// If the start date is in the past, show 'in the past'
+		if (day.isBefore(dayjs())) {
+			return {
+				topSubtext: 'in the past',
+				topSubtextColor: 'primary'
+			};
+		}
+
+		// If the start date is within the next week, show 'in [n] days'
+		if (day.isAfter(dayjs()) && day.isBefore(dayjs().add(1, 'week'))) {
+			return {
+				topSubtext: day.fromNow(),
+				topSubtextColor: 'warning'
+			};
+		}
+
+		return undefined;
+	};
+
+	const getTopSubtextColor = () => {
+		const day = dayjs(defaultStartDateTime);
+		if (day.isBefore(dayjs())) {
+			return 'text.q';
+		}
+		return 'primary';
+	};
+
 	const onPress = isEditable ? sheetApi.open : permissionsError;
 
 	return (
@@ -88,7 +118,9 @@ const EditEventDateMenuListItem: React.FC<EditEventDateMenuListItemProps> = ({
 					bottomSubtextColor: 'text.q',
 					bottomSubtext: defaultStartDateTime
 						? dayjs(defaultStartDateTime).format('h:mma')
-						: 'Select a date and time'
+						: 'Select a date and time',
+					...getTopSubtextProps(),
+					topSubtextVariant: 'paragraph-small-medium'
 				}}
 			/>
 			<SelectEventDateTimeBottomSheet

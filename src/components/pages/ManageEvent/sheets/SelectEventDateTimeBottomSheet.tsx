@@ -5,7 +5,7 @@ import { SheetApi } from '@hooks';
 import { ActionButtons, PillGroup, TogglePill } from '@molecules';
 import { BottomSheet } from '@organisms';
 import { useEventTiming } from '@src/utils/hooks/useEventTiming';
-import React, { useState } from 'react';
+import React from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 type Resolution =
@@ -28,7 +28,6 @@ const SelectEventDateTimeBottomSheet: React.FC<
 	SelectEventDateTimeBottomSheetProps
 > = ({ sheetApi, defaultStartDateTime, defaultEndDateTime, onPressSave }) => {
 	const insets = useSafeAreaInsets();
-	const [resetKey, setResetKey] = useState<string>('0');
 
 	const {
 		startDateTime,
@@ -40,17 +39,10 @@ const SelectEventDateTimeBottomSheet: React.FC<
 		datePickerOptions,
 		isEditingStartOrEnd,
 		setIsEditingStartOrEnd
-	} = useEventTiming(
-		{
-			startDateTime: defaultStartDateTime,
-			endDateTime: defaultEndDateTime
-		},
-		resetKey
-	);
-
-	const onDismiss = () => {
-		setResetKey((prev) => `${parseInt(prev) + 1}`);
-	};
+	} = useEventTiming({
+		startDateTime: defaultStartDateTime,
+		endDateTime: defaultEndDateTime
+	});
 
 	const _onPressSave = () => {
 		onPressSave && onPressSave(startDateTime, endDateTime);
@@ -98,7 +90,7 @@ const SelectEventDateTimeBottomSheet: React.FC<
 	};
 
 	return (
-		<BottomSheet ref={sheetApi.sheetRef} onDismiss={onDismiss}>
+		<BottomSheet ref={sheetApi.sheetRef}>
 			<BottomSheetScrollView style={{ flex: 1 }}>
 				<LView margin='m'>
 					<LView

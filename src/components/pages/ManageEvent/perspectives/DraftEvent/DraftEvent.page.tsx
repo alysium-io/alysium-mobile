@@ -34,22 +34,19 @@ const DraftEventPage: React.FC<DraftEventPageProps> = ({
 	const confirmPublishEventSheetApi = useSheet();
 	const shareExternalSheetApi = useSheet();
 
-	const {
-		data: eventData,
-		refetch,
-		error
-	} = artistEventApiSlice.usePrivateFindOneArtistEventQuery({
-		params: {
-			event_uid,
-			artist_uid: artistData.artist_uid
-		}
-	});
+	const { data, refetch, error } =
+		artistEventApiSlice.usePrivateFindOneArtistEventQuery({
+			params: {
+				event_uid,
+				artist_uid: artistData.artist_uid
+			}
+		});
 
 	const refreshControl = useRefresh(refetch);
 
 	const FooterComponent = useCallback(
 		() => (
-			<If condition={eventData?.event.status === EventStatus.draft}>
+			<If condition={data?.event.status === EventStatus.draft}>
 				<Then>
 					<View margin='m'>
 						<ActionButtons
@@ -68,40 +65,37 @@ const DraftEventPage: React.FC<DraftEventPageProps> = ({
 				</Then>
 			</If>
 		),
-		[eventData?.event.status]
+		[data?.event.status]
 	);
 
 	if (error) {
 		return <PageError error={error} />;
 	}
 
-	if (!eventData) {
+	if (!data) {
 		return <Loading />;
 	}
 
 	return (
 		<BasePage FooterComponent={FooterComponent}>
-			<PublicEventHeader event={eventData} />
+			<PublicEventHeader event={data} />
 			<ScrollView refreshControl={<RefreshControl {...refreshControl} />}>
 				<Section marginBottom='none'>
-					<EditEventProfileImage event_uid={eventData.event.event_uid} />
-					<EditEventName event_uid={eventData.event.event_uid} />
+					<EditEventProfileImage event_uid={data.event.event_uid} />
+					<EditEventName event_uid={data.event.event_uid} />
 				</Section>
 				<EditEventDateMenuListItem
-					event_uid={eventData.event.event_uid}
-					startTime={eventData.event.start_time}
-					endTime={eventData.event.end_time}
+					event_uid={data.event.event_uid}
+					startTime={data.event.start_time}
+					endTime={data.event.end_time}
 				/>
-				<EditEventLocationMenuListItem event={eventData} />
-				<EditEventAboutMenuListItem event={eventData} />
-				<EditEventTicketsUrlMenuListItem event={eventData} />
+				<EditEventLocationMenuListItem event={data} />
+				<EditEventAboutMenuListItem event={data} />
+				<EditEventTicketsUrlMenuListItem event={data} />
 				<Separator size='thick' />
-				<EditEventMediaSection event={eventData} />
+				<EditEventMediaSection event={data} />
 			</ScrollView>
-			<ShareEventPosterSheet
-				event={eventData}
-				sheetApi={shareExternalSheetApi}
-			/>
+			<ShareEventPosterSheet event={data} sheetApi={shareExternalSheetApi} />
 		</BasePage>
 	);
 };
