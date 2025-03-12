@@ -1,5 +1,5 @@
 import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
-import { RefreshControl, ScrollView, Section, View } from '@atomic';
+import { RefreshControl, ScrollView, Section, Separator, View } from '@atomic';
 import { artistEventApiSlice } from '@flux/api/event';
 import { EventStatus } from '@flux/api/event/types';
 import { useRefresh, useSheet } from '@hooks';
@@ -13,10 +13,10 @@ import { If, Then } from 'react-if';
 import EditEventAboutMenuListItem from '../../components/EditEventAboutMenuListItem';
 import EditEventDateMenuListItem from '../../components/EditEventDateMenuListItem';
 import EditEventLocationMenuListItem from '../../components/EditEventLocationMenuListItem';
-import EditEventMediaSection from '../../components/EditEventMediaSection';
 import EditEventName from '../../components/EditEventName';
 import EditEventProfileImage from '../../components/EditEventProfileImage';
 import EditEventTicketsUrlMenuListItem from '../../components/EditEventTicketsUrlMenuListItem';
+import EditEventMediaSection from '../../components/EventMediaSection/EditEventMediaSection';
 import PublicEventHeader from '../../components/PublicEvent.header';
 import Loading from '../../Loading';
 import ConfirmPublishEvent from './sheets/ConfirmPublishEvent';
@@ -95,6 +95,7 @@ const DraftEventPage: React.FC<DraftEventPageProps> = ({
 				<EditEventLocationMenuListItem event={eventData} />
 				<EditEventAboutMenuListItem event={eventData} />
 				<EditEventTicketsUrlMenuListItem event={eventData} />
+				<Separator size='thick' />
 				<EditEventMediaSection event={eventData} />
 			</ScrollView>
 			<ShareEventPosterSheet

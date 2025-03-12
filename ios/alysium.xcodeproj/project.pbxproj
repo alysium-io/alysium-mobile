@@ -45,7 +45,7 @@
 		A028C50F0B5646F78F29C199 /* HelveticaNeue-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A4F0C244A8754AE9818FD5D2 /* HelveticaNeue-Medium.ttf */; };
 		B3B5ADD1F0BB1BA325CF44C4 /* libPods-alysiumCommonPods-alysium-demo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E82E171A949239398311226 /* libPods-alysiumCommonPods-alysium-demo.a */; };
 		BABC424DBCAB4FB8AD3B1156 /* HelveticaNeue-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C65BCBC1D82405389E1C939 /* HelveticaNeue-MediumItalic.ttf */; };
-		C32B2C5EB76CA18DA93833D4 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
+		C32B2C5EB76CA18DA93833D4 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; };
 		CED8BFF63CA34C90AFC09F8D /* HelveticaNeue-CondensedBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BF05AECD7CB2497EADFF030A /* HelveticaNeue-CondensedBold.ttf */; };
 		FA1210A7CE040408AC01B47C /* libPods-alysiumCommonPods-alysium-dev.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5433521EA551F9F8ECB29560 /* libPods-alysiumCommonPods-alysium-dev.a */; };
 		FA5DE11ECDAF6FB557635631 /* libPods-alysiumCommonPods-alysium.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 848CF8F5884765B4592D204D /* libPods-alysiumCommonPods-alysium.a */; };
@@ -109,7 +109,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C32B2C5EB76CA18DA93833D4 /* (null) in Frameworks */,
+				C32B2C5EB76CA18DA93833D4 /* BuildFile in Frameworks */,
 				0EAAC9E7C3A11FAC25921E60 /* libPods-alysiumCommonPods-alysium-qa.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

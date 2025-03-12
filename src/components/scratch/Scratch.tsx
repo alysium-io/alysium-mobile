@@ -1,11 +1,13 @@
 import { View } from '@atomic';
 import React from 'react';
-import SentryTest from './displays/SentryTest';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import NewMediaTest from './displays/NewMediaTest';
 
 const Scratch = () => {
+	const { top } = useSafeAreaInsets();
 	return (
-		<View flex={1} backgroundColor='bg.p'>
-			<SentryTest />
+		<View flex={1} style={{ paddingTop: top }} backgroundColor='bg.p'>
+			<NewMediaTest />
 		</View>
 	);
 };

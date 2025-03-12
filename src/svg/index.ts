@@ -34,6 +34,7 @@ import Deezer from './Deezer';
 import Dice from './Dice';
 import Discover from './Discover';
 import Dog from './Dog';
+import Edit from './Edit';
 import EditImage from './EditImage';
 import Event from './Event';
 import EventManager from './EventManager';
@@ -45,6 +46,7 @@ import Filter from './Filter';
 import Flag from './Flag';
 import Home from './Home';
 import Host from './Host';
+import Image from './Image';
 import InfoOne from './InfoOne';
 import InfoTwo from './InfoTwo';
 import Instagram from './Instagram';
@@ -193,7 +195,9 @@ export const SvgIcons = {
 	flag: Flag,
 	block: Block,
 	eye: Eye,
-	tickets: Tickets
+	tickets: Tickets,
+	image: Image,
+	edit: Edit
 };
 
 export type IconNames = keyof typeof SvgIcons;

@@ -1,5 +1,5 @@
 import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
-import { Section, View } from '@atomic';
+import { Section, Separator, View } from '@atomic';
 import { artistEventApiSlice } from '@flux/api/event';
 import { EventStatus } from '@flux/api/event/types';
 import { useKeyboard, useSheet } from '@hooks';
@@ -15,10 +15,10 @@ import { ScrollView } from 'react-native';
 import EditEventAboutMenuListItem from '../../components/EditEventAboutMenuListItem';
 import EditEventDateMenuListItem from '../../components/EditEventDateMenuListItem';
 import EditEventLocationMenuListItem from '../../components/EditEventLocationMenuListItem';
-import EditEventMediaSection from '../../components/EditEventMediaSection';
 import EditEventName from '../../components/EditEventName';
 import EditEventProfileImage from '../../components/EditEventProfileImage';
 import EditEventTicketsUrlMenuListItem from '../../components/EditEventTicketsUrlMenuListItem';
+import EditEventMediaSection from '../../components/EventMediaSection/EditEventMediaSection';
 import PublicEventHeader from '../../components/PublicEvent.header';
 import Loading from '../../Loading';
 
@@ -80,6 +80,7 @@ const EditPublishedEvent = () => {
 				<EditEventLocationMenuListItem event={data} />
 				<EditEventAboutMenuListItem event={data} />
 				<EditEventTicketsUrlMenuListItem event={data} />
+				<Separator size='thick' />
 				<EditEventMediaSection event={data} />
 			</ScrollView>
 			<ShareEventPosterSheet event={data} sheetApi={shareExternalSheetApi} />

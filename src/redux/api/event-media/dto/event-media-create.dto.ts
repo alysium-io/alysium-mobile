@@ -9,6 +9,7 @@ export interface CreateEventMediaParamsDto {
 
 export interface CreateEventMediaBodyDto {
 	readonly mediaType: MediaType;
+	readonly timestamp?: string | null;
 }
 
 export interface CreateEventMediaResponseDto extends EventMedia {}

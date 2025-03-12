@@ -110,7 +110,7 @@ const Button: React.FC<ButtonProps> = ({
 	}, [buttonState, color, variant, buttonThemeSettings, theme]);
 
 	const _onPress = () => {
-		Vibrator.rigid();
+		Vibrator.medium();
 		onPress();
 	};
 

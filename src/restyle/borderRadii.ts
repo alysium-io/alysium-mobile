@@ -3,5 +3,6 @@ export const borderRadii = {
 	s: 2,
 	m: 8,
 	l: 12,
+	xl: 25,
 	round: 9999
 };

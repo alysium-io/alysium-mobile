@@ -10,7 +10,6 @@ import {
 } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { NanoId } from './api';
-
 /**
  * Individual Pages
  */
@@ -73,6 +72,10 @@ type AddArtistTeamMemberPage = undefined;
 type ViewEventQRCodePage = { event_uid: NanoId };
 type ViewArtistQRCodePage = { artist_uid: NanoId };
 
+type EditEventMediaPage = { event_uid: NanoId };
+
+type PreviewEventMediaPage = { event_uid: NanoId; eventMedia: EventMedia };
+
 export type RouteNames =
 	| 'HomePage'
 	| 'LocalEventsMapPage'
@@ -109,7 +112,9 @@ export type RouteNames =
 	| 'EditArtistTeamPage'
 	| 'AddArtistTeamMemberPage'
 	| 'ViewEventQRCodePage'
-	| 'ViewArtistQRCodePage';
+	| 'ViewArtistQRCodePage'
+	| 'EditEventMediaPage'
+	| 'PreviewEventMediaPage';
 
 /**
  * Stack Navigators
@@ -176,6 +181,8 @@ export type EventManagerStackNavigatorParamList = {
 	ArtistEventsInteractiveMapPage: ArtistEventsInteractiveMapPage;
 	ScenePage: ScenePage;
 	ViewEventQRCodePage: ViewEventQRCodePage;
+	EditEventMediaPage: EditEventMediaPage;
+	PreviewEventMediaPage: PreviewEventMediaPage;
 };
 
 export type HomeStackNavigatorParamList = {
@@ -307,6 +314,10 @@ export type EventPageRouteProp = RouteProp<
 	CompositeStackNavigatorParamList,
 	'EventPage'
 >;
+export type PreviewEventMediaPageRouteProp = RouteProp<
+	CompositeStackNavigatorParamList,
+	'PreviewEventMediaPage'
+>;
 
 /**
  * Edit Artist Route Props
@@ -350,4 +361,8 @@ export type EditArtistEventTicketsUrlPageRouteProp = RouteProp<
 export type ViewEventQRCodePageRouteProp = RouteProp<
 	CompositeStackNavigatorParamList,
 	'ViewEventQRCodePage'
+>;
+export type EditEventMediaPageRouteProp = RouteProp<
+	CompositeStackNavigatorParamList,
+	'EditEventMediaPage'
 >;

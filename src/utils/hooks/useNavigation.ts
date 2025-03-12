@@ -72,6 +72,10 @@ interface IUseNavigation {
 	viewEventQRCodePage: (event_uid: NanoId) => void;
 	viewArtistQRCodePage: (artist_uid: NanoId) => void;
 
+	editEventMediaPage: (event_uid: NanoId) => void;
+
+	previewEventMediaPage: (event_uid: NanoId, eventMedia: EventMedia) => void;
+
 	/** General */
 	back: () => void;
 }
@@ -243,6 +247,14 @@ const useNavigation = (): IUseNavigation => {
 		navigation.push('ViewArtistQRCodePage', { artist_uid });
 	};
 
+	const editEventMediaPage = (event_uid: NanoId) => {
+		navigation.push('EditEventMediaPage', { event_uid });
+	};
+
+	const previewEventMediaPage = (event_uid: NanoId, eventMedia: EventMedia) => {
+		navigation.push('PreviewEventMediaPage', { event_uid, eventMedia });
+	};
+
 	/**
 	 * General
 	 */
@@ -280,6 +292,8 @@ const useNavigation = (): IUseNavigation => {
 		addArtistTeamMemberPage,
 		viewEventQRCodePage,
 		viewArtistQRCodePage,
+		editEventMediaPage,
+		previewEventMediaPage,
 		back
 	};
 };

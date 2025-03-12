@@ -261,6 +261,7 @@ const usePhotosAndCamera = (): IUsePhotosAndCamera => {
 				const result = await launchImageLibrary({
 					mediaType,
 					videoQuality: 'high',
+					includeExtra: true, // this allows us to get the timestamp of the media
 					...{
 						...SHARED_CONFIG,
 						...config
