@@ -83,6 +83,7 @@ const FlatList: React.FC<FlatListProps> = ({
 			initialScrollIndex={initialIndex}
 			getItemLayout={(data, index) => ({
 				length: dimensions.height,
+				width: dimensions.width,
 				offset: dimensions.height * index,
 				index
 			})}

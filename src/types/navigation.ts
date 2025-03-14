@@ -41,7 +41,7 @@ type UserScenesFollowingPage = undefined;
 type EditArtistPage = undefined;
 
 type ViewEventMediaPage = {
-	eventMedia: EventMedia[];
+	event_uid: NanoId;
 	initialIndex: number;
 };
 

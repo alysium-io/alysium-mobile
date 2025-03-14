@@ -10,7 +10,10 @@ interface EventMediaSectionProps {
 const EventMediaSection: React.FC<EventMediaSectionProps> = ({ eventData }) => {
 	return (
 		<Section marginBottom='none'>
-			<EventMedia eventMedia={eventData.event.event_media} />
+			<EventMedia
+				event_uid={eventData.event.event_uid}
+				eventMedia={eventData.event.event_media}
+			/>
 		</Section>
 	);
 };

@@ -3,6 +3,7 @@ import { EventMedia as IEventMedia } from '@flux/api/event-media/event-media.ent
 import { MediaType } from '@flux/api/media/types';
 import { useNavigation } from '@hooks';
 import { dayjs } from '@src/etc/dayjs';
+import { NanoId } from '@types';
 import { orderBy } from 'lodash';
 import React, { useMemo } from 'react';
 import { Case, Switch } from 'react-if';
@@ -12,10 +13,11 @@ import VideoItem from './components/VideoItem';
 import useSpacing from './useSpacing';
 
 interface EventMediaProps {
+	event_uid: NanoId;
 	eventMedia: IEventMedia[];
 }
 
-const EventMedia: React.FC<EventMediaProps> = ({ eventMedia }) => {
+const EventMedia: React.FC<EventMediaProps> = ({ event_uid, eventMedia }) => {
 	const { gap, squareWidth, onLayout } = useSpacing();
 	const { viewEventMediaPage } = useNavigation();
 	const renderedSquares: IEventMedia[] = useMemo(() => {
@@ -40,7 +42,7 @@ const EventMedia: React.FC<EventMediaProps> = ({ eventMedia }) => {
 							<ImageItem
 								uri={square.multimedia.image?.large.key}
 								onPress={() => {
-									viewEventMediaPage(eventMedia, index);
+									viewEventMediaPage(event_uid, index);
 								}}
 							/>
 						</Case>
@@ -48,7 +50,7 @@ const EventMedia: React.FC<EventMediaProps> = ({ eventMedia }) => {
 							<VideoItem
 								uri={square.multimedia.video?.media.key}
 								onPress={() => {
-									viewEventMediaPage(eventMedia, index);
+									viewEventMediaPage(event_uid, index);
 								}}
 							/>
 						</Case>

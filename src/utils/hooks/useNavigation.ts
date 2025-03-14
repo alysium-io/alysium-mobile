@@ -31,7 +31,7 @@ interface IUseNavigation {
 	) => void;
 	userScenesFollowingPage: (navigationMeta: NavigationBehaviorMetadata) => void;
 
-	viewEventMediaPage: (eventMedia: EventMedia[], initialIndex: number) => void;
+	viewEventMediaPage: (event_uid: NanoId, initialIndex: number) => void;
 
 	chooseScenePage: () => void;
 
@@ -145,12 +145,9 @@ const useNavigation = (): IUseNavigation => {
 		navigationBehavior(navigationMeta);
 	};
 
-	const viewEventMediaPage = (
-		eventMedia: EventMedia[],
-		initialIndex: number
-	) => {
+	const viewEventMediaPage = (event_uid: NanoId, initialIndex: number) => {
 		navigation.push('ViewEventMediaPage', {
-			eventMedia,
+			event_uid,
 			initialIndex
 		});
 	};

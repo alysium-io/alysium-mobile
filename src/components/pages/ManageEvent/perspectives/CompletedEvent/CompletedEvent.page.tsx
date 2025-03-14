@@ -1,12 +1,11 @@
 import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
-import { ScrollView, Section } from '@atomic';
+import { ScrollView } from '@atomic';
 import { artistEventApiSlice } from '@flux/api/event';
 import { BasePage } from '@organisms';
-import Separator from '@src/components/pages/EditArtist/components/Separator';
-import EventMediaSection from '@src/components/pages/Event/components/EventMediaSection';
 import { PageError } from '@templates';
 import { NanoId } from '@types';
 import React from 'react';
+import EventMediaSection from '../../components/EventMediaSection/EditEventMediaSection';
 import PublicEventHeader from '../../components/PublicEvent.header';
 import PublicEventTitle from '../../components/PublicEventTitle';
 import Loading from '../../Loading';
@@ -40,10 +39,7 @@ const CompletedEventPage: React.FC<CompletedEventPageProps> = ({
 			<PublicEventHeader event={eventData} />
 			<ScrollView>
 				<PublicEventTitle event={eventData} />
-				<Section>
-					<EventMediaSection eventData={eventData} />
-					<Separator size='thick' />
-				</Section>
+				<EventMediaSection event={eventData} />
 			</ScrollView>
 		</BasePage>
 	);

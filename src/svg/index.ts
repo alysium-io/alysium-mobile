@@ -94,6 +94,8 @@ import Trash from './Trash';
 import TwitterX from './TwitterX';
 import User from './User';
 import Vimeo from './Vimeo';
+import VolumeOff from './VolumeOff';
+import VolumeOn from './VolumeOn';
 import X from './X';
 import Youtube from './Youtube';
 
@@ -197,7 +199,9 @@ export const SvgIcons = {
 	eye: Eye,
 	tickets: Tickets,
 	image: Image,
-	edit: Edit
+	edit: Edit,
+	'volume-off': VolumeOff,
+	'volume-on': VolumeOn
 };
 
 export type IconNames = keyof typeof SvgIcons;
