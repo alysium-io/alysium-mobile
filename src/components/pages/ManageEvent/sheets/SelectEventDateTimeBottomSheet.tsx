@@ -211,7 +211,11 @@ const SelectEventDateTimeBottomSheet: React.FC<
 						</LView>
 					)}
 					<LView>
-						<PillGroup padding='m' alignItems='center' justifyContent='center'>
+						<PillGroup
+							paddingVertical='m'
+							alignItems='center'
+							justifyContent='center'
+						>
 							{durationOptions.map((option, idx) => (
 								<TogglePill
 									key={idx}

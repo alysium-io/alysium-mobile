@@ -22,6 +22,7 @@ const ViewArtistQRCodePage = () => {
 	const { captureWithOptions, viewShotRef, shareVia } = useShareViewShot(
 		artistPageHyperlink(params.artist_uid)
 	);
+
 	return (
 		<BlurView style={{ flex: 1 }}>
 			<View flex={1} justifyContent='center' alignItems='center'>
@@ -63,12 +64,14 @@ const ViewArtistQRCodePage = () => {
 					>
 						<CircularButton
 							title='Save Image'
-							icon='save'
 							onPress={captureWithOptions}
+							iconProps={{
+								name: 'save',
+								color: 'text.q'
+							}}
 						/>
 						<CircularButton
 							title='Copy Link'
-							icon='chainlink'
 							onPress={() =>
 								copy(artistPageHyperlink(params.artist_uid), {
 									text1: 'Link Copied to Clipboard',
@@ -76,11 +79,18 @@ const ViewArtistQRCodePage = () => {
 									props: { icon: 'link' }
 								})
 							}
+							iconProps={{
+								name: 'chainlink',
+								color: 'text.q'
+							}}
 						/>
 						<CircularButton
 							title='Share Via'
-							icon='share-external'
 							onPress={shareVia}
+							iconProps={{
+								name: 'share-external',
+								color: 'text.q'
+							}}
 						/>
 					</View>
 					<Button

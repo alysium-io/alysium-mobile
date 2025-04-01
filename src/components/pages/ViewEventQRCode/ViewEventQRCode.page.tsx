@@ -55,12 +55,18 @@ const ViewEventQRCodePage = () => {
 					>
 						<CircularButton
 							title='Save Image'
-							icon='save'
+							iconProps={{
+								name: 'save',
+								color: 'text.q'
+							}}
 							onPress={captureWithOptions}
 						/>
 						<CircularButton
 							title='Copy Link'
-							icon='chainlink'
+							iconProps={{
+								name: 'chainlink',
+								color: 'text.q'
+							}}
 							onPress={() =>
 								copy(eventPageHyperlink(params.event_uid), {
 									text1: 'Link Copied to Clipboard',
@@ -71,7 +77,10 @@ const ViewEventQRCodePage = () => {
 						/>
 						<CircularButton
 							title='Share Via'
-							icon='share-external'
+							iconProps={{
+								name: 'share-external',
+								color: 'text.q'
+							}}
 							onPress={shareVia}
 						/>
 					</View>

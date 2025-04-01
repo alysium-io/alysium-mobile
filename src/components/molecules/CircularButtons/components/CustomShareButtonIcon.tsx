@@ -1,14 +1,12 @@
 import { Icon, View } from '@atomic';
 import { useTheme } from '@hooks';
-import { IconNames } from '@svg';
+import { Props } from '@types';
 import React from 'react';
 
-interface CustomShareButtonIconProps {
-	icon: IconNames;
-}
+interface CustomShareButtonIconProps extends Props<typeof Icon> {}
 
 const CustomShareButtonIcon: React.FC<CustomShareButtonIconProps> = ({
-	icon
+	...props
 }) => {
 	const { theme } = useTheme();
 	return (
@@ -22,7 +20,7 @@ const CustomShareButtonIcon: React.FC<CustomShareButtonIconProps> = ({
 			borderWidth={theme.borderWidth.normal}
 			borderColor='border.light'
 		>
-			<Icon name={icon} size='l' color='text.p' />
+			<Icon size='l' color='text.p' {...props} />
 		</View>
 	);
 };

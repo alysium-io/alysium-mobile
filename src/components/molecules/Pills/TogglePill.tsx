@@ -37,7 +37,13 @@ const TogglePill: React.FC<TogglePillProps> = ({
 					isActive ? theme.borderWidth.xthick : theme.borderWidth.thick
 				}
 			>
-				<Text variant='paragraph-small' color={settings.textColor}>
+				<Text
+					variant='paragraph-small'
+					color={settings.textColor}
+					minimumFontScale={0.5}
+					adjustsFontSizeToFit
+					numberOfLines={1}
+				>
 					{text}
 				</Text>
 			</Container>

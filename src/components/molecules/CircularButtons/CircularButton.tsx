@@ -21,17 +21,18 @@ interface CircularButtonProps {
 	onPress: () => void;
 	titleProps?: Props<typeof Text>;
 	containerProps?: Props<typeof View>;
+	iconProps?: Props<typeof CustomShareButtonIcon>;
 }
 
 const CircularButton: React.FC<CircularButtonProps> = ({
 	title,
 	image,
-	icon,
 	onPress,
 	titleProps,
-	containerProps
+	containerProps,
+	iconProps
 }) => {
-	if (icon === undefined && image === undefined) {
+	if (iconProps?.name === undefined && image === undefined) {
 		throw new Error('CustomImage or image prop is required');
 	}
 
@@ -39,8 +40,8 @@ const CircularButton: React.FC<CircularButtonProps> = ({
 		<TouchableOpacity activeOpacity={0.8} onPress={onPress}>
 			<View alignItems='center' {...containerProps}>
 				<View height={IMAGE_SIZE} width={IMAGE_SIZE}>
-					{icon !== undefined ? (
-						<CustomShareButtonIcon icon={icon} />
+					{iconProps?.name !== undefined ? (
+						<CustomShareButtonIcon {...iconProps} />
 					) : (
 						<Image
 							style={{ height: '100%', width: '100%' }}
