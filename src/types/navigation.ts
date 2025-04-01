@@ -76,6 +76,11 @@ type EditEventMediaPage = { event_uid: NanoId };
 
 type PreviewEventMediaPage = { event_uid: NanoId; eventMedia: EventMedia };
 
+type EditColorThemePage = undefined;
+
+type EditFanAccountPage = undefined;
+type EditFanHandlePage = undefined;
+
 export type RouteNames =
 	| 'HomePage'
 	| 'LocalEventsMapPage'
@@ -114,7 +119,10 @@ export type RouteNames =
 	| 'ViewEventQRCodePage'
 	| 'ViewArtistQRCodePage'
 	| 'EditEventMediaPage'
-	| 'PreviewEventMediaPage';
+	| 'PreviewEventMediaPage'
+	| 'EditColorThemePage'
+	| 'EditFanAccountPage'
+	| 'EditFanHandlePage';
 
 /**
  * Stack Navigators
@@ -165,6 +173,9 @@ export type ProfileStackNavigatorParamList = {
 	EventPage: EventPage;
 	ViewEventMediaPage: ViewEventMediaPage;
 	ViewArtistQRCodePage: ViewArtistQRCodePage;
+	EditColorThemePage: EditColorThemePage;
+	EditFanAccountPage: EditFanAccountPage;
+	EditFanHandlePage: EditFanHandlePage;
 };
 
 export type EventManagerStackNavigatorParamList = {

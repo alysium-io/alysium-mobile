@@ -14,7 +14,13 @@ const CreateProfileActionFooter: React.FC<CreateProfileActionFooterProps> = ({
 	return (
 		<>
 			<View margin='m'>
-				<Button text='Create Artist' onPress={createArtistSheetApi.open} />
+				<Button
+					text='Create Artist'
+					onPress={createArtistSheetApi.open}
+					buttonThemeSettings={{
+						backgroundColor: 'primary'
+					}}
+				/>
 			</View>
 			<CreateArtistBottomSheet sheetApi={createArtistSheetApi} />
 		</>

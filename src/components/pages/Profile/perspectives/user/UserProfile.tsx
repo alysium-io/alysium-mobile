@@ -4,16 +4,17 @@ import { useRefresh, useSheet } from '@hooks';
 import { BasePage } from '@organisms';
 import React, { useCallback } from 'react';
 import MenuSection from '../../components/MenuSection';
-import SelectAccountSection from '../../components/SelectAccountSection';
-import CreateProfileActionFooter from './CreateProfileAction.footer';
-import ProfilePageHeader from './UserProfile.header';
+import ProfilePageHeader from '../../Profile.header';
 import HeaderSection from './components/HeaderSection';
 import LogoutSection from './components/LogoutSection';
+import StartYourJourneySection from './components/StartYourJourneySection';
+import CreateProfileActionFooter from './CreateProfileAction.footer';
 
 const ProfilePage = () => {
 	const createArtistSheetApi = useSheet();
-	const { refetchUser } = useUserAppContext();
+	const { refetchUser, userData } = useUserAppContext();
 	const { refetchUserArtists } = useUserAppContext();
+
 	const refresh = () => {
 		refetchUserArtists();
 		refetchUser();
@@ -30,10 +31,10 @@ const ProfilePage = () => {
 
 	return (
 		<BasePage FooterComponent={FooterComponent}>
-			<ProfilePageHeader />
+			<ProfilePageHeader name={userData.handle} />
 			<ScrollView refreshControl={<RefreshControl {...refreshControl} />}>
 				<HeaderSection />
-				<SelectAccountSection />
+				<StartYourJourneySection />
 				<MenuSection />
 				<LogoutSection />
 			</ScrollView>

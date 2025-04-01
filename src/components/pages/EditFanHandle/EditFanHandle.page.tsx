@@ -1,7 +1,7 @@
-import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
+import { useUserAppContext } from '@arch/Application/contexts/User.context';
 import { View } from '@atomic';
-import { artistApiSlice } from '@flux/api/artist';
-import { UpdateArtistBodyDto } from '@flux/api/artist/dto/artist-update.dto';
+import { userApiSlice } from '@flux/api/user';
+import { UpdateUserBodyDto } from '@flux/api/user/dto/user-update.dto';
 import { useNavigation } from '@hooks';
 import { FormText } from '@molecules';
 import { BasePage } from '@organisms';
@@ -11,44 +11,49 @@ import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { ScrollView } from 'react-native';
 import Toast from 'react-native-toast-message';
-import EditArtistBioPageHeader from './EditArtistBio.header';
+import EditFanHandlePageHeader from './EditFanHandle.header';
 
-const EditArtistBio = () => {
-	const { artistData } = useArtistAppContext();
+const EditFanHandle = () => {
+	const { userData } = useUserAppContext();
 	const { showLoader, hideLoader } = useGlobalLoader();
 	const { back } = useNavigation();
-	const [updateArtistMutation] = artistApiSlice.useUpdateArtistMutation();
+	const [updateUserMutation] = userApiSlice.useUpdateUserMutation();
 
 	const {
 		control,
 		handleSubmit,
 		formState: { isDirty }
-	} = useForm<UpdateArtistBodyDto>({
+	} = useForm<UpdateUserBodyDto>({
 		defaultValues: {
-			bio: artistData.bio
+			handle: userData.handle
 		}
 	});
 
-	const onSubmit = (data: UpdateArtistBodyDto) => {
+	const onSubmit = (data: UpdateUserBodyDto) => {
 		if (isDirty) {
 			showLoader();
-			updateArtistMutation({
-				params: {
-					artist_uid: artistData.artist_uid
-				},
-				body: data
-			})
+			updateUserMutation({ body: data })
 				.unwrap()
-				.catch((err) => {
-					captureException(err);
-					Toast.show({
-						text1: 'Error',
-						text2: 'Failed to update artist bio.'
-					});
-				})
-				.finally(() => {
+				.then(() => {
 					hideLoader();
 					back();
+				})
+				.catch((err) => {
+					hideLoader();
+					console.log(err);
+					if (err?.data?.error === 'UNIQUE_CONSTRAINT_EXCEPTION') {
+						Toast.show({
+							text1: 'Handle already exists',
+							text2: 'Please choose another handle.',
+							props: { icon: 'block' }
+						});
+					} else {
+						captureException(err);
+						Toast.show({
+							text1: 'Error',
+							text2: 'Failed to update fan handle.'
+						});
+					}
 				});
 		} else {
 			back();
@@ -79,7 +84,7 @@ const EditArtistBio = () => {
 
 	return (
 		<BasePage>
-			<EditArtistBioPageHeader
+			<EditFanHandlePageHeader
 				onCancel={onCancel}
 				onSubmit={handleSubmit(onSubmit)}
 			/>
@@ -87,13 +92,13 @@ const EditArtistBio = () => {
 				<View margin='m'>
 					<Controller
 						control={control}
-						name='bio'
+						name='handle'
 						render={({ field: { onChange, value } }) => (
 							<FormText
 								focusConfig={{ focusOnMount: true }}
 								onPressClear={() => onChange('')}
-								label='Bio'
-								placeholder='What can people expect from you?'
+								label='Handle'
+								placeholder='Enter your handle'
 								onChangeText={onChange}
 								value={value ?? ''}
 							/>
@@ -105,4 +110,4 @@ const EditArtistBio = () => {
 	);
 };
 
-export default EditArtistBio;
+export default EditFanHandle;

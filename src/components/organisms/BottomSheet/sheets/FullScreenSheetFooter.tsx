@@ -20,8 +20,7 @@ const FullScreenSheetFooter: React.FC<FullScreenSheetFooterProps> = ({
 	const keyboard = useAnimatedKeyboard();
 	const animatedStyle = useAnimatedStyle(
 		() => ({
-			paddingBottom: insets.bottom,
-			bottom: keyboard.height.value
+			transform: [{ translateY: -keyboard.height.value }]
 		}),
 		[]
 	);
@@ -32,7 +31,7 @@ const FullScreenSheetFooter: React.FC<FullScreenSheetFooterProps> = ({
 			backgroundColor='bg.p'
 			borderTopWidth={theme.borderWidth.thin}
 			borderColor='border.light'
-			style={animatedStyle}
+			style={[animatedStyle, { paddingBottom: insets.bottom }]}
 		>
 			<ActionButtons
 				buttonProps={

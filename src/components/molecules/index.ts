@@ -19,5 +19,6 @@ export * from './ListItem';
 export * from './Maps';
 export * from './Pills';
 export * from './StepBar';
+export * from './Switch';
 export * from './TabToggler';
 export * from './TextInput';

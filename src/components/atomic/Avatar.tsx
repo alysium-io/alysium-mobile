@@ -1,7 +1,7 @@
 import { Image, View } from '@atomic';
 import { useImage } from '@hooks';
 import { BorderRadii, Props } from '@types';
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import DefaultImage from './DefaultImage';
 
@@ -19,6 +19,7 @@ const Avatar: React.FC<AvatarProps> = ({
 	containerProps
 }) => {
 	const { urlForKey } = useImage();
+	const [isError, setIsError] = useState(false);
 
 	const imageCache = useMemo(() => {
 		if (!image) return { uri: undefined };
@@ -42,10 +43,14 @@ const Avatar: React.FC<AvatarProps> = ({
 			{...containerProps}
 			style={[styles.container, containerProps?.style]}
 		>
-			{!image ? (
+			{!image || isError ? (
 				<DefaultImage {...defaultImageProps} />
 			) : (
-				<Image source={imageCache} style={styles.image} />
+				<Image
+					source={imageCache}
+					style={styles.image}
+					onError={() => setIsError(true)}
+				/>
 			)}
 		</View>
 	);

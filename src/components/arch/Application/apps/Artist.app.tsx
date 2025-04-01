@@ -3,6 +3,7 @@ import { usePersistedAppState, withProvider } from '@hooks';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { ArtistAppBottomTabNavigatorParamList } from '@types';
 import React from 'react';
+import ArtistProfileTabIcon from '../components/ArtistProfileTabIcon';
 import { ArtistAppProvider } from '../contexts/Artist.context';
 import { EventManagerTab, ProfileTab, SearchTab } from '../tabs';
 import AppDependencies from './AppDependencies';
@@ -68,7 +69,7 @@ const ArtistApp = () => {
 						options={{
 							tabBarIcon: ({ focused }) => (
 								<Icon
-									name='artist'
+									name='clipboard'
 									size='m'
 									color={
 										focused ? 'navbar.icon.active' : 'navbar.icon.inactive'
@@ -81,15 +82,7 @@ const ArtistApp = () => {
 						name='Profile'
 						component={ProfileTab}
 						options={{
-							tabBarIcon: ({ focused }) => (
-								<Icon
-									name='user'
-									size='m'
-									color={
-										focused ? 'navbar.icon.active' : 'navbar.icon.inactive'
-									}
-								/>
-							)
+							tabBarIcon: ArtistProfileTabIcon
 						}}
 					/>
 				</ArtistTabNavigator.Navigator>

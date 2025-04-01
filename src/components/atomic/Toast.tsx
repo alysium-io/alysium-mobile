@@ -22,14 +22,18 @@ const CustomToast: React.FC<CustomToastProps> = ({ props, ...toastProps }) => {
 				<Shadow
 					style={{ width: '100%' }}
 					paintInside={false}
-					distance={4}
-					startColor={themeMode === ThemeMode.dark ? '#FFFFFF15' : '#00000015'}
-					endColor={themeMode === ThemeMode.dark ? '#FFFFFF00' : '#00000000'}
+					distance={3}
+					startColor='#00000010'
+					endColor='#00000000'
 				>
 					<BlurView
 						style={{ borderRadius: 18 }}
 						blurAmount={20}
-						blurType={themeMode === ThemeMode.dark ? 'dark' : 'xlight'}
+						blurType={
+							themeMode === ThemeMode.dark
+								? 'chromeMaterialDark'
+								: 'thickMaterialLight'
+						}
 					>
 						<View
 							marginHorizontal='xs'
@@ -54,6 +58,7 @@ const CustomToast: React.FC<CustomToastProps> = ({ props, ...toastProps }) => {
 										adjustsFontSizeToFit
 										minimumFontScale={0.5}
 										flex={1}
+										style={{ fontSize: 14 }}
 									>
 										{toastProps.text1}
 									</Text>
@@ -67,13 +72,14 @@ const CustomToast: React.FC<CustomToastProps> = ({ props, ...toastProps }) => {
 										adjustsFontSizeToFit
 										minimumFontScale={0.5}
 										flex={1}
+										style={{ fontSize: 12 }}
 									>
 										{toastProps.text2}
 									</Text>
 								)}
 							</View>
 						</View>
-						<Handle />
+						<Handle containerProps={{ marginVertical: 's' }} />
 					</BlurView>
 				</Shadow>
 			</View>

@@ -1,34 +1,34 @@
 import { useUserAppContext } from '@arch/Application/contexts/User.context';
-import { Avatar, Section, View } from '@atomic';
-import { Stats } from '@organisms';
+import { Icon, Text, View } from '@atomic';
+import { useNavigation } from '@hooks';
+import { EditableProfileImage } from '@molecules';
 import React from 'react';
+import { Pressable } from 'react-native';
 
 const HeaderSection = () => {
-	const { userData, numberOfAccounts } = useUserAppContext();
+	const { userData, setUserProfileImage } = useUserAppContext();
+	const { editFanAccountPage } = useNavigation();
+
 	return (
-		<Section margin='m' marginTop='xl'>
-			<View
-				flexDirection='row'
-				alignItems='center'
-				justifyContent='space-between'
-				marginBottom='m'
-			>
-				<View height={75} width={75}>
-					<Avatar
-						image={userData.profile_image?.small.key}
-						defaultImageProps={{ icon: 'user' }}
-					/>
-				</View>
-				<Stats
-					items={[
-						{
-							title: numberOfAccounts.toString(),
-							subtitle: 'account' + (numberOfAccounts === 1 ? '' : 's')
-						}
-					]}
-				/>
+		<View margin='m' gap='s' alignItems='center'>
+			<EditableProfileImage
+				image={userData.profile_image?.small.key}
+				onChooseImage={setUserProfileImage}
+			/>
+			<View flexDirection='row' alignItems='center' gap='xs' marginTop='m'>
+				<Icon name='at' size='s' />
+				<Text variant='paragraph-small'>{userData.handle}</Text>
 			</View>
-		</Section>
+			<Pressable onPress={editFanAccountPage}>
+				<Text
+					variant='paragraph-small'
+					color='text.q'
+					textDecorationLine='underline'
+				>
+					Edit Fan Account
+				</Text>
+			</Pressable>
+		</View>
 	);
 };
 

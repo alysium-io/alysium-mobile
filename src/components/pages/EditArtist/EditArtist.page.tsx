@@ -1,9 +1,8 @@
 import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
 import { Section, View } from '@atomic';
 import { useArtistTeam, useNavigation } from '@hooks';
-import { ContentListItem } from '@molecules';
+import { ContentListItem, FormTextDisplay } from '@molecules';
 import { BasePage } from '@organisms';
-import FormTextDisplay from '@src/components/molecules/TextInput/FormTextInput/FormTextDisplay';
 import React from 'react';
 import { ScrollView } from 'react-native';
 import ProfileImage from './components/ProfileImage';

@@ -1,5 +1,9 @@
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
-import { ReportedContentProvider } from '@popups';
+import {
+	ChooseAccountProvider,
+	CreateArtistProvider,
+	ReportedContentProvider
+} from '@popups';
 import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
 import { appDeepLinkingConfig } from '../config/linking';
@@ -12,7 +16,11 @@ const AppDependencies: React.FC<AppDependenciesProps> = ({ children }) => {
 	return (
 		<NavigationContainer linking={appDeepLinkingConfig}>
 			<BottomSheetModalProvider>
-				<ReportedContentProvider>{children}</ReportedContentProvider>
+				<ReportedContentProvider>
+					<CreateArtistProvider>
+						<ChooseAccountProvider>{children}</ChooseAccountProvider>
+					</CreateArtistProvider>
+				</ReportedContentProvider>
 			</BottomSheetModalProvider>
 		</NavigationContainer>
 	);

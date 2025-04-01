@@ -9,10 +9,13 @@ import {
 	EditArtistNamePage,
 	EditArtistPage,
 	EditArtistTeamPage,
+	EditColorThemePage,
 	EditContactPage,
 	EditContactsPage,
 	EditExternalLinkPage,
 	EditExternalLinksPage,
+	EditFanAccountPage,
+	EditFanHandlePage,
 	EventPage,
 	ProfilePage,
 	ScenePage,
@@ -45,6 +48,21 @@ const ProfileTab = () => {
 			<ProfileStack.Screen
 				name='ViewEventMediaPage'
 				component={ViewEventMediaPage}
+			/>
+
+			<ProfileStack.Screen
+				name='EditFanAccountPage'
+				component={EditFanAccountPage}
+			/>
+
+			<ProfileStack.Screen
+				name='EditFanHandlePage'
+				component={EditFanHandlePage}
+			/>
+
+			<ProfileStack.Screen
+				name='EditColorThemePage'
+				component={EditColorThemePage}
 			/>
 
 			{personaType === Persona.artist && (

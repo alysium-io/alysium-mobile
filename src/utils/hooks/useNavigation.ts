@@ -76,6 +76,11 @@ interface IUseNavigation {
 
 	previewEventMediaPage: (event_uid: NanoId, eventMedia: EventMedia) => void;
 
+	editColorThemePage: () => void;
+
+	editFanAccountPage: () => void;
+	editFanHandlePage: () => void;
+
 	/** General */
 	back: () => void;
 }
@@ -252,6 +257,18 @@ const useNavigation = (): IUseNavigation => {
 		navigation.push('PreviewEventMediaPage', { event_uid, eventMedia });
 	};
 
+	const editColorThemePage = () => {
+		navigation.push('EditColorThemePage');
+	};
+
+	const editFanAccountPage = () => {
+		navigation.push('EditFanAccountPage');
+	};
+
+	const editFanHandlePage = () => {
+		navigation.push('EditFanHandlePage');
+	};
+
 	/**
 	 * General
 	 */
@@ -291,6 +308,9 @@ const useNavigation = (): IUseNavigation => {
 		viewArtistQRCodePage,
 		editEventMediaPage,
 		previewEventMediaPage,
+		editColorThemePage,
+		editFanAccountPage,
+		editFanHandlePage,
 		back
 	};
 };

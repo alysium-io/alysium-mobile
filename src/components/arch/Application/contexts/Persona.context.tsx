@@ -1,12 +1,14 @@
 import { createUseContextHook } from '@hooks';
-import { NanoId, Persona, ProviderProps, ThemeMode } from '@types';
+import { NanoId, Persona, ProviderProps } from '@types';
 import React, { createContext, useState } from 'react';
 import usePersistedAppState from 'src/utils/hooks/usePersistedAppState';
 
-const appThemeModeMap = {
-	[Persona.user]: ThemeMode.dark,
-	[Persona.artist]: ThemeMode.light
-};
+// This is also part of the app color theme state context, but we're
+// not using it here because we're not using the app theme mode.
+// const appThemeModeMap = {
+// 	[Persona.user]: ThemeMode.dark,
+// 	[Persona.artist]: ThemeMode.light
+// };
 
 export type PersonaAppContextType = {
 	personaId: NanoId | null;
@@ -44,8 +46,12 @@ export const PersonaAppProvider: React.FC<ProviderProps> = ({ children }) => {
 			setIsPersonaLoading(true);
 			setPersistedAppState({
 				personaType: newPersonaType,
-				personaId: newPersonaId,
-				themeMode: appThemeModeMap[newPersonaType]
+				personaId: newPersonaId
+				// Removing this for now, this is how we would change the theme mode
+				// depending on whether we were in the fan or artist apps. This is
+				// confusing i guess, so we're gunna go without it for now, but we'll
+				// leave it in here just in case.
+				// themeMode: appThemeModeMap[newPersonaType]
 			});
 			setTimeout(() => {
 				setIsPersonaLoading(false);

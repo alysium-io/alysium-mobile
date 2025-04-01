@@ -87,3 +87,6 @@ fastlane/metadata/
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+# Etc
+todo.md

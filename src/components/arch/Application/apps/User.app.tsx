@@ -5,6 +5,7 @@ import { CreateAccountBottomSheet } from '@popups';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { UserAppBottomTabNavigatorParamList } from '@types';
 import React from 'react';
+import UserProfileTabIcon from '../components/UserProfileTabIcon';
 import { useUserAppContext } from '../contexts/User.context';
 import { ProfileTab, SearchTab } from '../tabs';
 import HomeTab from '../tabs/Home.tab';
@@ -93,15 +94,7 @@ const UserApp = () => {
 						name='Profile'
 						component={ProfileTab}
 						options={{
-							tabBarIcon: ({ focused }) => (
-								<Icon
-									name='user'
-									size='m'
-									color={
-										focused ? 'navbar.icon.active' : 'navbar.icon.inactive'
-									}
-								/>
-							)
+							tabBarIcon: UserProfileTabIcon
 						}}
 					/>
 				</UserTabNavigator.Navigator>

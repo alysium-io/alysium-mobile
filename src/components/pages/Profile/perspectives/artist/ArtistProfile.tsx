@@ -6,8 +6,7 @@ import { BasePage } from '@organisms';
 import SimpleButton from '@src/components/molecules/Buttons/SimpleButton';
 import React from 'react';
 import MenuSection from '../../components/MenuSection';
-import SelectAccountSection from '../../components/SelectAccountSection';
-import ArtistProfilePageHeader from './ArtistProfile.header';
+import ProfilePageHeader from '../../Profile.header';
 import HeaderSection from './components/HeaderSection';
 import LogoutSection from './components/LogoutSection';
 import ShareEpkSection from './components/ShareEpkSection';
@@ -16,6 +15,7 @@ const ArtistProfile = () => {
 	const { artist_uid, refetchArtist } = useArtistAppContext();
 	const { editArtistPage, artistPage } = useNavigation();
 	const { refetchUserArtists } = useUserAppContext();
+	const { artistData } = useArtistAppContext();
 
 	const refresh = () => {
 		refetchUserArtists();
@@ -26,7 +26,7 @@ const ArtistProfile = () => {
 
 	return (
 		<BasePage>
-			<ArtistProfilePageHeader />
+			<ProfilePageHeader name={artistData.name} />
 			<ScrollView refreshControl={<RefreshControl {...refreshControl} />}>
 				<HeaderSection />
 				<View margin='m' columnGap='m' flexDirection='row'>
@@ -51,7 +51,6 @@ const ArtistProfile = () => {
 					/>
 				</View>
 				<ShareEpkSection />
-				<SelectAccountSection />
 				<MenuSection />
 				<LogoutSection />
 			</ScrollView>

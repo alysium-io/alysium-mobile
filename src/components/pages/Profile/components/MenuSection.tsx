@@ -1,5 +1,5 @@
 import { Section, Text } from '@atomic';
-import { useSheet } from '@hooks';
+import { useNavigation, useSheet } from '@hooks';
 import { MenuListItem } from '@molecules';
 import {
 	AboutAlysiumBottomSheet,
@@ -14,6 +14,7 @@ const MenuSection: React.FC<MenuSectionProps> = () => {
 	const termsOfServiceSheetApi = useSheet();
 	const privacyPolicySheetApi = useSheet();
 	const aboutAlysiumSheetApi = useSheet();
+	const { editColorThemePage } = useNavigation();
 
 	return (
 		<Section>
@@ -22,22 +23,33 @@ const MenuSection: React.FC<MenuSectionProps> = () => {
 			</Text>
 			<MenuListItem
 				titleTextProps={{
+					title: 'Theme',
+					topSubtext: 'Light/Dark',
+					topSubtextColor: 'text.q'
+				}}
+				onPress={editColorThemePage}
+			/>
+			<MenuListItem
+				titleTextProps={{
 					title: 'Alysium',
-					topSubtext: 'Learn more about Alysium'
+					topSubtext: 'Learn more about Alysium',
+					topSubtextColor: 'text.q'
 				}}
 				onPress={aboutAlysiumSheetApi.open}
 			/>
 			<MenuListItem
 				titleTextProps={{
 					title: 'Terms of Service',
-					topSubtext: 'Read our terms of service'
+					topSubtext: 'Read our terms of service',
+					topSubtextColor: 'text.q'
 				}}
 				onPress={termsOfServiceSheetApi.open}
 			/>
 			<MenuListItem
 				titleTextProps={{
 					title: 'Privacy Policy',
-					topSubtext: 'Read our privacy policy'
+					topSubtext: 'Read our privacy policy',
+					topSubtextColor: 'text.q'
 				}}
 				onPress={privacyPolicySheetApi.open}
 			/>

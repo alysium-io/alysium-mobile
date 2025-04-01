@@ -1,19 +1,19 @@
 import { useTheme } from '@hooks';
-import { ThemeMode } from '@types';
+import { Props, ThemeMode } from '@types';
 import React from 'react';
 import { Switch as RNSwitch } from 'react-native';
 
-interface SwitchProps {
+interface SwitchProps extends Props<typeof RNSwitch> {
 	onPress?: (newValue: boolean) => void;
 	value?: boolean;
 }
 
-const Switch: React.FC<SwitchProps> = ({ onPress, value }) => {
+const Switch: React.FC<SwitchProps> = ({ ...props }) => {
 	const { theme, themeMode } = useTheme();
 
 	return (
 		<RNSwitch
-			trackColor={{ true: '#81b0ff' }}
+			trackColor={{ true: theme.colors.primary }}
 			thumbColor={
 				themeMode === ThemeMode.dark
 					? theme.colors['text.p']
@@ -24,8 +24,7 @@ const Switch: React.FC<SwitchProps> = ({ onPress, value }) => {
 					? theme.colors['bg.t']
 					: theme.colors['bg.s']
 			}
-			onValueChange={() => onPress && onPress(!value)}
-			value={value}
+			{...props}
 		/>
 	);
 };
