@@ -58,6 +58,9 @@ const ProfileTab = () => {
 			<ProfileStack.Screen
 				name='EditFanHandlePage'
 				component={EditFanHandlePage}
+				options={{
+					gestureEnabled: false
+				}}
 			/>
 
 			<ProfileStack.Screen

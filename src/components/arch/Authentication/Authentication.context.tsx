@@ -3,18 +3,15 @@ import { serviceApi } from '@flux/api/base';
 import { userApiSlice } from '@flux/api/user';
 import { usePersistedArray } from '@flux/local/arrays/usePersistedArray';
 import { createUseContextHook, usePersistedAppState } from '@hooks';
-import { captureException } from '@sentry/react-native';
+import { addBreadcrumb, captureException } from '@sentry/react-native';
 import { AuthStage, ProviderProps } from '@types';
 import React, { createContext, useEffect } from 'react';
 import Toast from 'react-native-toast-message';
 
 export type AuthenticationAppContextType = {
-	authStage: AuthStage;
-	token: string | null;
 	logout: () => void;
+	login: () => void;
 	deleteAccount: () => void;
-	loginGuest: () => void;
-	login: (token: string) => void;
 };
 
 export const AuthenticationAppContext = createContext(
@@ -24,16 +21,11 @@ export const AuthenticationAppContext = createContext(
 export const AuthenticationAppProvider: React.FC<ProviderProps> = ({
 	children
 }) => {
-	const {
-		token,
-		setPersistedAppState,
-		setPersistedAppStateWithDefaults,
-		authStage
-	} = usePersistedAppState();
+	const { token, setPersistedAppState, setPersistedAppStateWithDefaults } =
+		usePersistedAppState();
 	const [privateFindOneUserQuery] =
 		userApiSlice.useLazyPrivateFindOneUserQuery();
 	const [deleteUserMutation] = userApiSlice.useDeleteUserMutation();
-	const [loginGuestQuery] = userApiSlice.useLazyLoginGuestUserQuery();
 	const dispatch = useDispatch();
 	const { reset: resetPersistedArrayArtists } = usePersistedArray(
 		'homeRecentSearchArtists'
@@ -43,33 +35,29 @@ export const AuthenticationAppProvider: React.FC<ProviderProps> = ({
 	);
 
 	useEffect(() => {
-		const fetchMe = async () => {
-			if (token !== null) {
-				privateFindOneUserQuery()
-					.unwrap()
-					.then(() => {
-						setPersistedAppState({
-							authStage: AuthStage.loggedIn
-						});
-					})
-					.catch((err) => {
-						captureException(err);
-						Toast.show({
-							text1: 'Error',
-							text2: 'Unable to log in, please try again later.'
-						});
-						logout();
-					});
-			} else {
-				if (authStage !== AuthStage.loggedOut) {
-					console.log('No token found, setting user to logged out.');
-					dispatch(serviceApi.util.resetApiState());
-					logout();
-				}
-			}
-		};
-		fetchMe();
-	}, [token]);
+		if (token) {
+			login();
+		} else {
+			logout();
+		}
+	}, []);
+
+	const login = async () => {
+		try {
+			await privateFindOneUserQuery().unwrap();
+			setPersistedAppState({
+				authStage: AuthStage.loggedIn
+			});
+		} catch (err) {
+			addBreadcrumb({
+				level: 'error',
+				message: 'Error fetching user with token in AuthenticationAppContext',
+				category: 'authentication'
+			});
+			captureException(err);
+			logout();
+		}
+	};
 
 	const logout = () => {
 		dispatch(serviceApi.util.resetApiState());
@@ -78,13 +66,6 @@ export const AuthenticationAppProvider: React.FC<ProviderProps> = ({
 		setPersistedAppStateWithDefaults({
 			authStage: AuthStage.loggedOut,
 			token: null
-		});
-	};
-
-	const login = (token: string) => {
-		setPersistedAppState({
-			token,
-			authStage: AuthStage.loggedIn
 		});
 	};
 
@@ -101,28 +82,12 @@ export const AuthenticationAppProvider: React.FC<ProviderProps> = ({
 			});
 	};
 
-	const loginGuest = async () => {
-		loginGuestQuery()
-			.unwrap()
-			.then(({ token }) => login(token))
-			.catch((err) => {
-				captureException(err);
-				Toast.show({
-					text1: 'Error',
-					text2: 'Failed to login as guest.'
-				});
-			});
-	};
-
 	return (
 		<AuthenticationAppContext.Provider
 			value={{
-				authStage,
-				token,
 				logout,
-				deleteAccount,
-				loginGuest,
-				login
+				login,
+				deleteAccount
 			}}
 		>
 			{children}

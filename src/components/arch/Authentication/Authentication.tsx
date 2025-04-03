@@ -1,32 +1,31 @@
+import { Loading } from '@atomic';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+import { usePersistedAppState, withProvider } from '@hooks';
+import { BasePage } from '@organisms';
 import { AuthStage, ChildrenProps } from '@types';
 import React from 'react';
-import { Case, Default, Switch } from 'react-if';
-import {
-	AuthenticationAppProvider,
-	useAuthenticationAppContext
-} from './Authentication.context';
-import LoggedOut from './components/LoggedOut';
+import { AuthenticationAppProvider } from './Authentication.context';
+import AuthenticationApp from './AuthenticationApp';
 
 const Authentication: React.FC<ChildrenProps> = ({ children }) => {
-	const { authStage } = useAuthenticationAppContext();
+	const { authStage } = usePersistedAppState();
 
-	return (
-		<Switch>
-			<Case condition={authStage === AuthStage.loggedOut}>
-				<LoggedOut />
-			</Case>
-			<Default>{children}</Default>
-		</Switch>
-	);
+	if (authStage === AuthStage.loggedOut) {
+		return <AuthenticationApp />;
+	}
+
+	if (authStage === AuthStage.loading) {
+		return (
+			<BasePage>
+				<Loading />
+			</BasePage>
+		);
+	}
+
+	return children;
 };
 
-const AuthenticationWrapper: React.FC<ChildrenProps> = ({ children }) => (
-	<BottomSheetModalProvider>
-		<AuthenticationAppProvider>
-			<Authentication>{children}</Authentication>
-		</AuthenticationAppProvider>
-	</BottomSheetModalProvider>
-);
-
-export default AuthenticationWrapper;
+export default withProvider(Authentication, [
+	BottomSheetModalProvider,
+	AuthenticationAppProvider
+]);

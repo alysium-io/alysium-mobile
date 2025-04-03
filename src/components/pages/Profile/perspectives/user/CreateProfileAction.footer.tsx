@@ -18,7 +18,8 @@ const CreateProfileActionFooter: React.FC<CreateProfileActionFooterProps> = ({
 					text='Create Artist'
 					onPress={createArtistSheetApi.open}
 					buttonThemeSettings={{
-						backgroundColor: 'primary'
+						backgroundColor: 'primary',
+						textColor: 'white'
 					}}
 				/>
 			</View>

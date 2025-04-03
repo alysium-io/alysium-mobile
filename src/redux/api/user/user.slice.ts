@@ -3,9 +3,11 @@ import {
 	UserBlockArtistParamsDto,
 	UserBlockArtistResponseDto
 } from './dto/block-artist.dto';
+import { UserAcceptTermsResponseDto } from './dto/user-accept-terms.dto';
 import { CreateUserResponseDto } from './dto/user-create.dto';
 import { DeleteUserResponseDto } from './dto/user-delete.dto';
 import { PrivateFindOneUserResponseDto } from './dto/user-find-one.dto';
+import { UserHandleCreatedResponseDto } from './dto/user-handle-created.dto';
 import { LoginUserPhoneNumberBodyDto } from './dto/user-login-phone.dto';
 import { LoginResponseDto } from './dto/user-login.dto';
 import { RegisterUserPhoneNumberBodyDto } from './dto/user-register-phone.dto';
@@ -96,6 +98,20 @@ export default serviceApi.injectEndpoints({
 			invalidatesTags: (_, __, { params }) => [
 				{ type: 'PublicArtist', id: params.artist_uid }
 			]
+		}),
+		acceptTerms: builder.mutation<UserAcceptTermsResponseDto, void>({
+			query: () => ({
+				url: url('/accept-terms'),
+				method: 'POST'
+			}),
+			invalidatesTags: [{ type: 'User', id: 'USER' }]
+		}),
+		handleCreated: builder.mutation<UserHandleCreatedResponseDto, void>({
+			query: () => ({
+				url: url('/handle-created'),
+				method: 'POST'
+			}),
+			invalidatesTags: [{ type: 'User', id: 'USER' }]
 		})
 	})
 });

@@ -9,7 +9,6 @@ import { captureException } from '@sentry/react-native';
 import { Alert, useGlobalLoader } from '@templates';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { ScrollView } from 'react-native';
 import Toast from 'react-native-toast-message';
 import EditFanHandlePageHeader from './EditFanHandle.header';
 
@@ -72,7 +71,7 @@ const EditFanHandle = () => {
 					},
 					{
 						text: 'Discard',
-						onPress: () => back(),
+						onPress: back,
 						style: 'destructive'
 					}
 				]
@@ -88,24 +87,22 @@ const EditFanHandle = () => {
 				onCancel={onCancel}
 				onSubmit={handleSubmit(onSubmit)}
 			/>
-			<ScrollView>
-				<View margin='m'>
-					<Controller
-						control={control}
-						name='handle'
-						render={({ field: { onChange, value } }) => (
-							<FormText
-								focusConfig={{ focusOnMount: true }}
-								onPressClear={() => onChange('')}
-								label='Handle'
-								placeholder='Enter your handle'
-								onChangeText={onChange}
-								value={value ?? ''}
-							/>
-						)}
-					/>
-				</View>
-			</ScrollView>
+			<View margin='m'>
+				<Controller
+					control={control}
+					name='handle'
+					render={({ field: { onChange, value } }) => (
+						<FormText
+							focusConfig={{ focusOnMount: true }}
+							onPressClear={() => onChange('')}
+							label='Handle'
+							placeholder='Enter your handle'
+							onChangeText={onChange}
+							value={value ?? ''}
+						/>
+					)}
+				/>
+			</View>
 		</BasePage>
 	);
 };
