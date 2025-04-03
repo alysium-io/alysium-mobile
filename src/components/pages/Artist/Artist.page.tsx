@@ -93,12 +93,11 @@ const ArtistPage: React.FC = () => {
 	const ListHeaderComponent = useCallback(() => {
 		return (
 			<ListHeader
-				artistData={artistData}
-				eventsData={eventsData}
+				artist_uid={route.params.artist_uid}
 				scrollOffset={scrollOffset}
 			/>
 		);
-	}, [artistData, eventsData, scrollOffset]);
+	}, [scrollOffset]);
 
 	if (error) {
 		return <PageError error={error} />;

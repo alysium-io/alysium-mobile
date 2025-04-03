@@ -21,9 +21,9 @@ const DefaultImage: React.FC<DefaultImageProps> = ({
 }) => {
 	return (
 		<View
-			style={styles.container}
 			backgroundColor={backgroundColor}
 			{...containerProps}
+			style={[styles.container, containerProps?.style]}
 		>
 			<Icon name={icon} color={iconColor} size={20} {...iconProps} />
 		</View>
