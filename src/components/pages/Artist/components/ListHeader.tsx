@@ -42,6 +42,16 @@ const ListHeader: React.FC<ListHeaderProps> = React.memo(
 				}
 			});
 
+		const { data: historyData } = artistEventApiSlice.useArchiveQuery({
+			params: {
+				artist_uid
+			},
+			query: {
+				page: 1,
+				limit: 20
+			}
+		});
+
 		const { live, coming_up } = useSplitEventsByComplexStatus(eventsData);
 		withPoke({
 			interval: 1,
@@ -136,8 +146,10 @@ const ListHeader: React.FC<ListHeaderProps> = React.memo(
 					</View>
 					<LiveEventsSection artistData={artistData} eventsData={eventsData} />
 					<EventsSection artistData={artistData} eventsData={eventsData} />
-					<EventsMap eventsData={eventsData} artistData={artistData} />
-					{eventsData?.length && (
+					{eventsData?.length > 0 && (
+						<EventsMap eventsData={eventsData} artistData={artistData} />
+					)}
+					{historyData?.length && historyData.length > 0 && (
 						<View
 							margin='m'
 							marginBottom='none'
@@ -145,13 +157,7 @@ const ListHeader: React.FC<ListHeaderProps> = React.memo(
 							borderBottomWidth={theme.borderWidth.hairline}
 							borderBottomColor='border.light'
 						>
-							<Text
-								variant='section-header-2'
-								// color='text.q'
-								// textAlign='center'
-							>
-								Past Events
-							</Text>
+							<Text variant='section-header-2'>Past Events</Text>
 						</View>
 					)}
 				</View>
