@@ -1,8 +1,8 @@
 import { FALLBACK_TAB } from '@arch/Application/apps/useAppSettings';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { AppState, AuthStage, Persona, ThemeMode } from '@types';
+import { AuthStage, PersistedAppState, Persona, ThemeMode } from '@types';
 
-const initialState: AppState = {
+const initialState: PersistedAppState = {
 	token: null,
 	personaType: Persona.user,
 	personaId: null,
@@ -13,11 +13,11 @@ const initialState: AppState = {
 	tab: FALLBACK_TAB
 };
 
-const appSlice = createSlice({
-	name: 'app',
+const persistedAppSlice = createSlice({
+	name: 'persistedApp',
 	initialState,
 	reducers: {
-		set(state, action: PayloadAction<Partial<AppState>>) {
+		set(state, action: PayloadAction<Partial<PersistedAppState>>) {
 			Object.entries(action.payload).forEach(([key, value]) => {
 				// Here we use a type assertion to tell TypeScript that we know what we're doing.
 				// This is safe as long as `AppState` and `action.payload` are kept in sync in terms of types.
@@ -29,7 +29,7 @@ const appSlice = createSlice({
 				(state as any)[key] = value;
 			});
 		},
-		setWithDefaults(state, action: PayloadAction<Partial<AppState>>) {
+		setWithDefaults(state, action: PayloadAction<Partial<PersistedAppState>>) {
 			Object.entries(initialState).forEach(([key, value]) => {
 				(state as any)[key] = (action.payload as any)[key] ?? value;
 			});
@@ -37,5 +37,4 @@ const appSlice = createSlice({
 	}
 });
 
-export const appActions = appSlice.actions;
-export const appReducer = appSlice.reducer;
+export default persistedAppSlice;

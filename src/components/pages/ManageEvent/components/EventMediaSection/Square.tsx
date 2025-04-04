@@ -1,4 +1,4 @@
-import { BlurView, Icon, View } from '@atomic';
+import { BlurView, Icon, Video, View } from '@atomic';
 import { MediaType } from '@flux/api/media/types';
 import { useNavigation, useTheme } from '@hooks';
 import { DynamicMediaProps } from '@src/utils/hooks/useUploadBulkMedia';
@@ -6,7 +6,6 @@ import { NanoId } from '@types';
 import React, { useState } from 'react';
 import { Pressable } from 'react-native';
 import Animated from 'react-native-reanimated';
-import Video from 'react-native-video';
 import LoadingOverlay from './LoadingOverlay';
 
 const Square: React.FC<DynamicMediaProps & { event_uid: NanoId }> = ({

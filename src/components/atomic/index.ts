@@ -44,6 +44,7 @@ export { default as Path } from './Path';
 export { default as SkeletonPlaceholder } from './SkeletonPlaceholder';
 export { default as Svg } from './Svg';
 export { default as Toast } from './Toast';
+export { default as Video } from './Video';
 
 /**
  * Custom Components
@@ -64,6 +65,7 @@ export { default as Icon } from './Icon';
 export { default as LiveIndicator } from './LiveIndicator';
 export { default as Loading } from './Loading';
 export { default as LView } from './LView';
+export { default as MediaLayover } from './MediaLayover';
 export { default as Overlay } from './Overlay';
 export {
 	default as PhoneNumberTextInput,

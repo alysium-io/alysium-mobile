@@ -1,9 +1,10 @@
+import { Icon, MediaLayover, Video, View } from '@atomic';
 import { EventMedia } from '@flux/api/event-media/event-media.entity';
 import { MediaType } from '@flux/api/media/types';
-import { useImage } from '@hooks';
+import { useImage, useTransientAppState } from '@hooks';
 import React, { useEffect, useRef, useState } from 'react';
-import { Image, LayoutRectangle } from 'react-native';
-import Video, { VideoRef } from 'react-native-video';
+import { Image, LayoutRectangle, Pressable } from 'react-native';
+import { VideoRef } from 'react-native-video';
 
 interface FlatListItemProps {
 	item: EventMedia;
@@ -25,6 +26,7 @@ const FlatListItem: React.FC<FlatListItemProps> = ({
 	const { urlForKey } = useImage();
 	const [shouldPlayVideo, setShouldPlayVideo] = useState(false);
 	const videoRef = useRef<VideoRef>(null);
+	const { soundEnabled, toggleSoundEnabled } = useTransientAppState();
 
 	// Update video playback state based on visibility and interaction
 	useEffect(() => {
@@ -54,19 +56,36 @@ const FlatListItem: React.FC<FlatListItemProps> = ({
 
 	if (item.multimedia.media_type === MediaType.video) {
 		return (
-			<Video
-				ref={videoRef}
-				source={{
-					uri: urlForKey(item.multimedia.video?.media.key)
-				}}
-				style={{
-					width: dimensions.width,
-					height: dimensions.height
-				}}
-				resizeMode='cover'
-				paused={!shouldPlayVideo}
-				repeat
-			/>
+			<View position='relative'>
+				<Video
+					ref={videoRef}
+					source={{
+						uri: urlForKey(item.multimedia.video?.media.key)
+					}}
+					style={{
+						width: dimensions.width,
+						height: dimensions.height
+					}}
+					muted={!soundEnabled}
+					resizeMode='cover'
+					paused={!shouldPlayVideo}
+					repeat
+				/>
+				<Pressable onPress={toggleSoundEnabled}>
+					<MediaLayover
+						style={{
+							right: 0,
+							bottom: 0
+						}}
+					>
+						<Icon
+							name={soundEnabled ? 'volume-on' : 'volume-off'}
+							size='m'
+							color='white'
+						/>
+					</MediaLayover>
+				</Pressable>
+			</View>
 		);
 	}
 };

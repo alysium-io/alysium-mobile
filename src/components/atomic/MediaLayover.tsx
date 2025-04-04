@@ -3,13 +3,11 @@ import { useTheme } from '@hooks';
 import { Props } from '@types';
 import React from 'react';
 
-type HistoricalListItemCellLayoverTextProps = Props<typeof BlurView> & {
+type MediaLayoverProps = Props<typeof BlurView> & {
 	children: React.ReactNode | React.ReactNode[];
 };
 
-const HistoricalListItemCellLayoverText: React.FC<
-	HistoricalListItemCellLayoverTextProps
-> = ({ children, ...props }) => {
+const MediaLayover: React.FC<MediaLayoverProps> = ({ children, ...props }) => {
 	const { theme } = useTheme();
 	return (
 		<BlurView
@@ -35,4 +33,4 @@ const HistoricalListItemCellLayoverText: React.FC<
 	);
 };
 
-export default HistoricalListItemCellLayoverText;
+export default MediaLayover;

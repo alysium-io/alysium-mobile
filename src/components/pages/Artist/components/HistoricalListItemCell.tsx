@@ -1,12 +1,10 @@
-import { Icon, Image, Text, View } from '@atomic';
+import { Icon, Image, MediaLayover, Text, Video, View } from '@atomic';
 import { MediaType } from '@flux/api/media/types';
-import { useNavigation } from '@hooks';
+import { useNavigation, useTransientAppState } from '@hooks';
 import dayjs from 'dayjs';
 import React from 'react';
 import { Pressable, useWindowDimensions } from 'react-native';
-import Video from 'react-native-video';
 import { HISTORICAL_LIST_ITEM_HEIGHT, HistoricalListItemProps } from './etc';
-import HistoricalListItemCellLayoverText from './HistoricalListItemCellLayoverText';
 
 const HistoricalListItemCell: React.FC<HistoricalListItemProps> = ({
 	event_uid,
@@ -14,14 +12,18 @@ const HistoricalListItemCell: React.FC<HistoricalListItemProps> = ({
 	date,
 	location,
 	index,
-	currentViewIndex,
-	muted,
-	toggleMuted
+	currentViewIndex
 }) => {
 	const { width } = useWindowDimensions();
 	const { viewEventMediaPage } = useNavigation();
+	const { soundEnabled, toggleSoundEnabled } = useTransientAppState();
+
+	const onPress = () => {
+		viewEventMediaPage(event_uid, 0);
+	};
+
 	return (
-		<Pressable onPress={() => viewEventMediaPage(event_uid, 0)}>
+		<Pressable onPress={onPress}>
 			<View height={HISTORICAL_LIST_ITEM_HEIGHT} width={width}>
 				{event_media.type === MediaType.image ? (
 					<Image
@@ -31,46 +33,38 @@ const HistoricalListItemCell: React.FC<HistoricalListItemProps> = ({
 					/>
 				) : (
 					<Video
-						source={{
-							uri: event_media.uri,
-							bufferConfig: {
-								minBufferMs: 1000,
-								maxBufferMs: 5000,
-								bufferForPlaybackMs: 1000,
-								bufferForPlaybackAfterRebufferMs: 2000
-							}
-						}}
+						source={{ uri: event_media.uri }}
 						style={{ width: '100%', height: HISTORICAL_LIST_ITEM_HEIGHT }}
 						resizeMode='cover'
 						repeat
-						muted={muted}
+						muted={!soundEnabled}
 						paused={index !== currentViewIndex}
 						playInBackground={false}
 						ignoreSilentSwitch='ignore'
 						mixWithOthers='mix'
 					/>
 				)}
-				<HistoricalListItemCellLayoverText>
+				<MediaLayover>
 					<Text color='white' variant='paragraph-small'>
 						{dayjs(date).format('ddd MMM. M')}
 					</Text>
 					<Text color='white' variant='paragraph-small' numberOfLines={1}>
 						{location}
 					</Text>
-				</HistoricalListItemCellLayoverText>
-				<Pressable onPress={toggleMuted}>
-					<HistoricalListItemCellLayoverText
+				</MediaLayover>
+				<Pressable onPress={toggleSoundEnabled}>
+					<MediaLayover
 						style={{
 							right: 0,
 							bottom: 0
 						}}
 					>
 						<Icon
-							name={muted ? 'volume-off' : 'volume-on'}
+							name={soundEnabled ? 'volume-on' : 'volume-off'}
 							size='m'
 							color='white'
 						/>
-					</HistoricalListItemCellLayoverText>
+					</MediaLayover>
 				</Pressable>
 			</View>
 		</Pressable>

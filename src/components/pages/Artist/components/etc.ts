@@ -12,8 +12,6 @@ export type HistoricalListItemProps = {
 	number_of_media: number;
 	index: number;
 	currentViewIndex: number;
-	muted: boolean;
-	toggleMuted: () => void;
 };
 
 export type HistoricalListItemCellProps = {

@@ -16,33 +16,29 @@ const ViewEventMediaPage = () => {
 	const { dimensions, onLayout, isLayoutReady } = useLayoutDimensions();
 	const [currentIndex, setCurrentIndex] = useState(initialIndex);
 
-	const { data: eventMedia } = eventApiSlice.useFindOneEventQuery({
+	const { data: event } = eventApiSlice.useFindOneEventQuery({
 		params: { event_uid }
 	});
 
 	const [headerTitle, setHeaderTitle] = useState(
-		eventMedia
-			? `${initialIndex + 1} of ${eventMedia.event.event_media.length}`
-			: ''
+		event ? `${initialIndex + 1} of ${event.event.event_media.length}` : ''
 	);
 
 	useEffect(() => {
 		setHeaderTitle(
-			eventMedia
-				? `${currentIndex + 1} of ${eventMedia.event.event_media.length}`
-				: ''
+			event ? `${currentIndex + 1} of ${event.event.event_media.length}` : ''
 		);
-	}, [currentIndex, eventMedia]);
+	}, [currentIndex, event]);
 
 	return (
 		<BasePage>
 			<ViewEventMediaHeader title={headerTitle} />
 			<View flex={1} onLayout={onLayout}>
-				{isLayoutReady && eventMedia && (
+				{isLayoutReady && event && (
 					<FlatList
 						items={
 							orderBy(
-								eventMedia.event.event_media,
+								event.event.event_media,
 								[(s) => dayjs(s.created_at).valueOf()],
 								['desc']
 							).map((item, index) => ({
@@ -54,6 +50,7 @@ const ViewEventMediaPage = () => {
 						setCurrentIndex={setCurrentIndex}
 						initialIndex={initialIndex}
 						dimensions={dimensions}
+						event={event}
 					/>
 				)}
 			</View>

@@ -1,5 +1,5 @@
 import { serviceApi } from '@flux/api/base';
-import { appActions } from '@flux/local/app';
+import { persistedAppSlice } from '@flux/local/persisted-app';
 import { Middleware, isRejectedWithValue } from '@reduxjs/toolkit';
 import { AuthStage } from '@types';
 import Toast from 'react-native-toast-message';
@@ -18,7 +18,7 @@ const accountSuspendedMiddleware: Middleware =
 				// Reset the API state (i.e. logout the user)
 				dispatch(serviceApi.util.resetApiState());
 				dispatch(
-					appActions.setWithDefaults({
+					persistedAppSlice.actions.setWithDefaults({
 						authStage: AuthStage.loggedOut,
 						token: null
 					})

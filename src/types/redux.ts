@@ -16,7 +16,7 @@ export enum AuthStage {
 
 export type ColorModeState = 'default' | 'alwaysLight' | 'alwaysDark';
 
-export type AppState = {
+export type PersistedAppState = {
 	token: string | null;
 	personaType: Persona;
 	personaId: NanoId | null;
@@ -27,4 +27,8 @@ export type AppState = {
 	tab:
 		| keyof ArtistAppBottomTabNavigatorParamList
 		| keyof UserAppBottomTabNavigatorParamList;
+};
+
+export type TransientAppState = {
+	soundEnabled: boolean;
 };

@@ -2,7 +2,7 @@ import { View } from '@atomic';
 import { artistApiSlice } from '@flux/api/artist';
 import { artistEventApiSlice } from '@flux/api/event';
 import { MediaType } from '@flux/api/media/types';
-import { useImage, usePagination, useToggle } from '@hooks';
+import { useImage, usePagination } from '@hooks';
 import { BasePage, Parallax, useAnimatedFlatListOffset } from '@organisms';
 import { useRoute } from '@react-navigation/native';
 import { PageError, ParallaxLoading } from '@templates';
@@ -84,7 +84,6 @@ const ArtistPage: React.FC = () => {
 		},
 		[]
 	);
-	const { state: isMuted, toggle: toggleMuted } = useToggle(true);
 
 	const flatListRef =
 		useAnimatedRef<Animated.FlatList<HistoricalListItemProps>>();
@@ -144,8 +143,6 @@ const ArtistPage: React.FC = () => {
 						{...item}
 						index={index}
 						currentViewIndex={currentViewableItem?.index ?? -1}
-						muted={isMuted}
-						toggleMuted={toggleMuted}
 					/>
 				)}
 			/>

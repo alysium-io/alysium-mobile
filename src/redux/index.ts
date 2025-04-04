@@ -15,15 +15,17 @@ import {
 } from 'redux-persist';
 
 import { serviceApi } from './api/base';
-import { persistedAppReducer } from './local/app';
 import { persistedArrayReducers } from './local/arrays/configPersistedArrays';
 import { persistedHomeMapReducer } from './local/home-map';
+import { persistedAppReducer } from './local/persisted-app';
+import { transientAppSlice } from './local/transient-app';
 import accountSuspendedMiddleware from './middleware/accountSuspendedMiddleware';
 import apiErrorUnauthorizedMiddleware from './middleware/apiErrorUnauthorizedMiddleware';
 
 const store = configureStore({
 	reducer: {
 		persistedApp: persistedAppReducer,
+		transientApp: transientAppSlice.reducer,
 		persistedHomeMap: persistedHomeMapReducer,
 		...persistedArrayReducers,
 		[serviceApi.reducerPath]: serviceApi.reducer

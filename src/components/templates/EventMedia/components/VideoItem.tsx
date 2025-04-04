@@ -1,9 +1,8 @@
-import { View } from '@atomic';
+import { Video, View } from '@atomic';
 import { useImage, useIsLoaded } from '@hooks';
 import { Props } from '@types';
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
-import Video from 'react-native-video';
 import LoadingItem from './LoadingItem';
 
 interface VideoItemProps extends Props<typeof TouchableOpacity> {

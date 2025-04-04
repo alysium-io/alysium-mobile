@@ -69,6 +69,7 @@ export {
 } from './useTextInputFocusEffect';
 export { default as useToast } from './useToast';
 export { default as useToggle, type ToggleApi } from './useToggle';
+export { default as useTransientAppState } from './useTransientAppState';
 export { default as useUploadBulkMedia } from './useUploadBulkMedia';
 export { default as withPoke } from './withPoke';
 export { default as withProvider } from './withProvider';

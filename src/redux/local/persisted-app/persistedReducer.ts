@@ -1,8 +1,8 @@
-import { AppState } from '@types';
+import { PersistedAppState } from '@types';
 import configurePersistor from '../utils/configurePersistor';
-import { appReducer } from './slice';
+import persistedAppSlice from './slice';
 
-const persistedAppReducer = configurePersistor<AppState>(
+export default configurePersistor<PersistedAppState>(
 	'app',
 	[
 		'token',
@@ -13,7 +13,5 @@ const persistedAppReducer = configurePersistor<AppState>(
 		'colorModeState',
 		'tab'
 	],
-	appReducer
+	persistedAppSlice.reducer
 );
-
-export default persistedAppReducer;

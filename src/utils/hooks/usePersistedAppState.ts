@@ -1,25 +1,27 @@
 import { useDispatch, useSelector } from '@flux';
-import { appActions } from '@flux/local/app';
-import { AppState } from '@types';
+import { persistedAppSlice } from '@flux/local/persisted-app';
+import { PersistedAppState } from '@types';
 
-export type IUsePersistedAppState = AppState & {
-	setPersistedAppState: (state: Partial<AppState>) => void;
+export type IUsePersistedAppState = PersistedAppState & {
+	setPersistedAppState: (state: Partial<PersistedAppState>) => void;
 	resetPersistedAppState: () => void;
-	setPersistedAppStateWithDefaults: (state: Partial<AppState>) => void;
+	setPersistedAppStateWithDefaults: (state: Partial<PersistedAppState>) => void;
 };
 
 const usePersistedAppState = (): IUsePersistedAppState => {
 	const dispatch = useDispatch();
 	const persistedApp = useSelector((state) => state.persistedApp);
-	const setPersistedAppState = (state: Partial<AppState>) => {
-		dispatch(appActions.set(state));
+	const setPersistedAppState = (state: Partial<PersistedAppState>) => {
+		dispatch(persistedAppSlice.actions.set(state));
 	};
 	const resetPersistedAppState = () => {
-		dispatch(appActions.reset());
+		dispatch(persistedAppSlice.actions.reset());
 	};
 
-	const setPersistedAppStateWithDefaults = (state: Partial<AppState>) => {
-		dispatch(appActions.setWithDefaults(state));
+	const setPersistedAppStateWithDefaults = (
+		state: Partial<PersistedAppState>
+	) => {
+		dispatch(persistedAppSlice.actions.setWithDefaults(state));
 	};
 
 	return {

@@ -1,11 +1,10 @@
-import { BlurView, Icon, Image, Text, View } from '@atomic';
+import { BlurView, Icon, Image, Text, Video, View } from '@atomic';
 import { EventMedia } from '@flux/api/event-media/event-media.entity';
 import { MediaType } from '@flux/api/media/types';
 import { useImage, useTheme } from '@hooks';
 import React from 'react';
 import { ListRenderItemInfo, TouchableOpacity } from 'react-native';
 import { useReorderableDrag } from 'react-native-reorderable-list';
-import Video from 'react-native-video';
 import HandleBar from './HandleBar';
 
 type ListItemProps = ListRenderItemInfo<EventMedia> & {
