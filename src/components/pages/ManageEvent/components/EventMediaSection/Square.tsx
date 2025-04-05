@@ -1,11 +1,10 @@
-import { BlurView, Icon, Video, View } from '@atomic';
+import { BlurView, Icon, Image, Video, View } from '@atomic';
 import { MediaType } from '@flux/api/media/types';
-import { useNavigation, useTheme } from '@hooks';
+import { useTheme } from '@hooks';
 import { DynamicMediaProps } from '@src/utils/hooks/useUploadBulkMedia';
 import { NanoId } from '@types';
 import React, { useState } from 'react';
 import { Pressable } from 'react-native';
-import Animated from 'react-native-reanimated';
 import LoadingOverlay from './LoadingOverlay';
 
 const Square: React.FC<DynamicMediaProps & { event_uid: NanoId }> = ({
@@ -16,18 +15,10 @@ const Square: React.FC<DynamicMediaProps & { event_uid: NanoId }> = ({
 	eventMedia
 }) => {
 	const { theme } = useTheme();
-	const { previewEventMediaPage } = useNavigation();
 	const [paused, setPaused] = useState(true);
 
 	return (
-		<Pressable
-			disabled={!eventMedia || state === 'loading'}
-			onPress={() => {
-				if (eventMedia) {
-					previewEventMediaPage(event_uid, eventMedia);
-				}
-			}}
-		>
+		<View>
 			<View
 				borderRadius='xl'
 				overflow='hidden'
@@ -40,12 +31,7 @@ const Square: React.FC<DynamicMediaProps & { event_uid: NanoId }> = ({
 				}}
 			>
 				{type === MediaType.image ? (
-					<Animated.Image
-						sharedTransitionTag={
-							eventMedia
-								? `preview-event-media-${eventMedia.event_media_uid}`
-								: undefined
-						}
+					<Image
 						source={{ uri }}
 						style={{
 							width: 125,
@@ -65,6 +51,7 @@ const Square: React.FC<DynamicMediaProps & { event_uid: NanoId }> = ({
 								height: 125
 							}}
 							resizeMode='cover'
+							repeat
 						/>
 					</Pressable>
 				)}
@@ -86,7 +73,7 @@ const Square: React.FC<DynamicMediaProps & { event_uid: NanoId }> = ({
 					<Icon name={paused ? 'play' : 'pause'} size='s' color='white' />
 				</BlurView>
 			)}
-		</Pressable>
+		</View>
 	);
 };
 

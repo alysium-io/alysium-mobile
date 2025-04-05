@@ -19,7 +19,6 @@ import {
 	EventPage,
 	ProfilePage,
 	ScenePage,
-	ViewArtistQRCodePage,
 	ViewEventMediaPage
 } from '@pages';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -164,22 +163,6 @@ const ProfileTab = () => {
 				<ProfileStack.Screen
 					name='AddArtistTeamMemberPage'
 					component={AddArtistTeamMemberPage}
-				/>
-			)}
-
-			{personaType === Persona.artist && (
-				<ProfileStack.Screen
-					name='ViewArtistQRCodePage'
-					component={ViewArtistQRCodePage}
-					options={{
-						animation: 'fade',
-						gestureEnabled: false,
-						animationDuration: 300,
-						presentation: 'transparentModal',
-						contentStyle: {
-							backgroundColor: 'transparent'
-						}
-					}}
 				/>
 			)}
 		</ProfileStack.Navigator>

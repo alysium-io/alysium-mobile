@@ -69,9 +69,6 @@ type EditPublishedEventPage = { event_uid: NanoId };
 type EditArtistTeamPage = undefined;
 type AddArtistTeamMemberPage = undefined;
 
-type ViewEventQRCodePage = { event_uid: NanoId };
-type ViewArtistQRCodePage = { artist_uid: NanoId };
-
 type EditEventMediaPage = { event_uid: NanoId };
 
 type PreviewEventMediaPage = { event_uid: NanoId; eventMedia: EventMedia };
@@ -116,8 +113,6 @@ export type RouteNames =
 	| 'EditPublishedEventPage'
 	| 'EditArtistTeamPage'
 	| 'AddArtistTeamMemberPage'
-	| 'ViewEventQRCodePage'
-	| 'ViewArtistQRCodePage'
 	| 'EditEventMediaPage'
 	| 'PreviewEventMediaPage'
 	| 'EditColorThemePage'
@@ -172,7 +167,6 @@ export type ProfileStackNavigatorParamList = {
 	ScenePage: ScenePage;
 	EventPage: EventPage;
 	ViewEventMediaPage: ViewEventMediaPage;
-	ViewArtistQRCodePage: ViewArtistQRCodePage;
 	EditColorThemePage: EditColorThemePage;
 	EditFanAccountPage: EditFanAccountPage;
 	EditFanHandlePage: EditFanHandlePage;
@@ -191,7 +185,6 @@ export type EventManagerStackNavigatorParamList = {
 	ArtistPage: ArtistPage;
 	ArtistEventsInteractiveMapPage: ArtistEventsInteractiveMapPage;
 	ScenePage: ScenePage;
-	ViewEventQRCodePage: ViewEventQRCodePage;
 	EditEventMediaPage: EditEventMediaPage;
 	PreviewEventMediaPage: PreviewEventMediaPage;
 };
@@ -309,10 +302,6 @@ export type EditExternalLinkPageRouteProp = RouteProp<
 	CompositeStackNavigatorParamList,
 	'EditExternalLinkPage'
 >;
-export type ViewArtistQRCodePageRouteProp = RouteProp<
-	CompositeStackNavigatorParamList,
-	'ViewArtistQRCodePage'
->;
 
 /**
  * Event Manager Route Props
@@ -369,10 +358,7 @@ export type EditArtistEventTicketsUrlPageRouteProp = RouteProp<
 	CompositeStackNavigatorParamList,
 	'EditArtistEventTicketsUrlPage'
 >;
-export type ViewEventQRCodePageRouteProp = RouteProp<
-	CompositeStackNavigatorParamList,
-	'ViewEventQRCodePage'
->;
+
 export type EditEventMediaPageRouteProp = RouteProp<
 	CompositeStackNavigatorParamList,
 	'EditEventMediaPage'
