@@ -1,8 +1,9 @@
 import { BlurView, Icon, Image, Text, Video, View } from '@atomic';
+import { formatSplitTime } from '@etc';
 import { EventMedia } from '@flux/api/event-media/event-media.entity';
 import { MediaType } from '@flux/api/media/types';
 import { useImage, useTheme } from '@hooks';
-import React from 'react';
+import React, { useState } from 'react';
 import { ListRenderItemInfo, TouchableOpacity } from 'react-native';
 import { useReorderableDrag } from 'react-native-reorderable-list';
 import HandleBar from './HandleBar';
@@ -15,6 +16,7 @@ const ListItem = React.memo(({ item, index, onPressMenu }: ListItemProps) => {
 	const drag = useReorderableDrag();
 	const { urlForKey } = useImage();
 	const { theme } = useTheme();
+	const [duration, setDuration] = useState<string | null>(null);
 
 	return (
 		<TouchableOpacity activeOpacity={0.8} onLongPress={drag}>
@@ -49,6 +51,7 @@ const ListItem = React.memo(({ item, index, onPressMenu }: ListItemProps) => {
 							}}
 							paused
 							resizeMode='cover'
+							onLoad={(data) => setDuration(formatSplitTime(data.duration))}
 						/>
 					)}
 					{item.multimedia.media_type === MediaType.video && (
@@ -71,6 +74,11 @@ const ListItem = React.memo(({ item, index, onPressMenu }: ListItemProps) => {
 				<View flex={1}>
 					<Text variant='paragraph-medium'>#{index + 1}</Text>
 					<Text variant='paragraph-medium'>{item.multimedia.media_type}</Text>
+					{duration && item.multimedia.media_type === MediaType.video && (
+						<Text variant='paragraph-small' color='text.t'>
+							{duration}
+						</Text>
+					)}
 				</View>
 				<TouchableOpacity activeOpacity={0.8} onPress={onPressMenu}>
 					<View

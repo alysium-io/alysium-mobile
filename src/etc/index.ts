@@ -8,6 +8,7 @@ export * from './path';
 export * from './random';
 export { regexPatterns } from './regex';
 export * from './size-conversions';
+export { formatSplitTime, splitTime, type SplitTime } from './splitTime';
 export * from './string';
 export { default as Time } from './Time';
 export { default as Vibrator } from './Vibrator';
