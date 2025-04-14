@@ -1,5 +1,5 @@
 import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
-import { AView, Icon, Text, View } from '@atomic';
+import { AView, Icon, QRCode, Text, View } from '@atomic';
 import { Vibrator } from '@etc';
 import { artistEventApiSlice } from '@flux/api/event';
 import {
@@ -104,7 +104,6 @@ const NewEventCelebrationSheet: React.FC<NewEventCelebrationSheetProps> = ({
 			handleComponent={null}
 			sheetDidOpen={sheetDidOpen}
 			onAnimate={onAnimate}
-			backgroundColor={theme.colors['palette.neutral.p1']}
 		>
 			<BottomSheetView style={{ height: 500 }}>
 				<View flex={1} justifyContent='center'>
@@ -179,14 +178,7 @@ const NewEventCelebrationSheet: React.FC<NewEventCelebrationSheetProps> = ({
 									justifyContent='center'
 									alignItems='center'
 								>
-									<Image
-										source={require('src/assets/images/qr-code-example.png')}
-										style={{
-											height: '100%',
-											width: '100%',
-											objectFit: 'cover'
-										}}
-									/>
+									<QRCode data='hello :)' size={3} />
 								</View>
 								<View flex={1}>
 									<Text variant='paragraph-small'>Via QR</Text>
@@ -205,9 +197,12 @@ const NewEventCelebrationSheet: React.FC<NewEventCelebrationSheetProps> = ({
 								alignItems='center'
 							>
 								<TouchableOpacity
-									onPress={() =>
-										copy(eventPageHyperlink(data?.event.event_uid ?? ''))
-									}
+									onPress={() => {
+										const hyperlink = eventPageHyperlink(
+											data?.event.event_uid ?? ''
+										);
+										return copy(hyperlink);
+									}}
 								>
 									<View
 										marginHorizontal='m'

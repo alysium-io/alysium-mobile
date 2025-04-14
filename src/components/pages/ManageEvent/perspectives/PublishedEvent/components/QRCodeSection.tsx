@@ -1,4 +1,4 @@
-import { QRCode, Section, Separator, View } from '@atomic';
+import { QRCode, View } from '@atomic';
 import { EventLink } from '@flux/api/event-link/event-link.entity';
 import { useClipboard, useHyperlink, useShareViewShot, useTheme } from '@hooks';
 import { CircularButton } from '@molecules';
@@ -18,7 +18,7 @@ const QRCodeSection: React.FC<QRCodeSectionProps> = ({ eventData }) => {
 	);
 
 	return (
-		<Section marginTop='m'>
+		<View gap='m'>
 			<View justifyContent='center' alignItems='center' gap='m'>
 				<View
 					style={{
@@ -81,8 +81,7 @@ const QRCodeSection: React.FC<QRCodeSectionProps> = ({ eventData }) => {
 					/>
 				</View>
 			</View>
-			<Separator size='thick' />
-		</Section>
+		</View>
 	);
 };
 

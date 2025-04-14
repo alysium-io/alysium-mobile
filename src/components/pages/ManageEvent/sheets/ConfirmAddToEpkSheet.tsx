@@ -85,7 +85,7 @@ const ConfirmAddToEpkSheet: React.FC<ConfirmAddToEpkSheetProps> = ({
 								onPress: sheetApi.close
 							},
 							{
-								text: 'Confirm',
+								text: 'Add',
 								color: 'p',
 								onPress: addToEpk
 							}
@@ -100,21 +100,21 @@ const ConfirmAddToEpkSheet: React.FC<ConfirmAddToEpkSheetProps> = ({
 	return (
 		<BottomSheet ref={sheetApi.sheetRef} footerComponent={footerComponent}>
 			<BottomSheetView style={{ paddingBottom: theme.spacing.m }}>
-				<View margin='m'>
+				<View margin='m' gap='m'>
 					<Text variant='section-header-1' marginBottom='m'>
 						Add to your EPK
 					</Text>
-					<Text variant='paragraph-medium' color='text.t' marginBottom='s'>
-						This event is (and will remain) publicly available. If you add this
-						event to your EPK, then it will be featured on your artist profile
-						so that people can see a glimps of what you have done in the past.
+					<Text variant='paragraph-small-medium' color='text.t'>
+						Fans are 68% more likely to attend an event if they can catch a vibe
+						from your previous events.
 					</Text>
-					<Text variant='paragraph-medium' color='text.t'>
-						We recommend adding{' '}
-						<Text variant='paragraph-medium' color='text.p'>
-							all
-						</Text>{' '}
-						your events to your EPK to increase your credibility.
+					<Text variant='paragraph-small-medium' color='text.t'>
+						Venues are 98% more likely to book artists who can demonstrate a
+						history of playing successful shows.
+					</Text>
+					<Text variant='paragraph-small-medium' color='text.t'>
+						Events added to your EPK will be featured on your artist profile so
+						that people can see what you have done in the past.
 					</Text>
 				</View>
 			</BottomSheetView>

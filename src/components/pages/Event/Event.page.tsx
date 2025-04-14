@@ -64,6 +64,9 @@ const ArtistEvent = () => {
 				titleTextProps={{
 					textAlign: 'center'
 				}}
+				defaultIconProps={{
+					name: 'event'
+				}}
 			>
 				<View margin='m'>
 					<WhenWhereWhySubHeader event={eventData} />

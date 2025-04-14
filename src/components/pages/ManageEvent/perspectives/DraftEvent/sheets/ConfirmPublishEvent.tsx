@@ -7,9 +7,10 @@ import {
 	BottomSheetFooterProps,
 	BottomSheetView
 } from '@gorhom/bottom-sheet';
-import { SheetApi, useTheme } from '@hooks';
+import { SheetApi, useEvent, useTheme } from '@hooks';
 import { ActionButtons } from '@molecules';
 import { BottomSheet } from '@organisms';
+import { captureException } from '@sentry/react-native';
 import { useGlobalLoader } from '@templates';
 import { IChildrenProps, NanoId } from '@types';
 import React, { useCallback } from 'react';
@@ -31,6 +32,15 @@ const ConfirmPublishEventBottomSheet: React.FC<
 		artistEventApiSlice.usePatchArtistEventStatusMutation();
 	const { artistData } = useArtistAppContext();
 	const insets = useSafeAreaInsets();
+
+	const { data } = artistEventApiSlice.usePrivateFindOneArtistEventQuery({
+		params: {
+			event_uid,
+			artist_uid: artistData.artist_uid
+		}
+	});
+
+	const { isInPast } = useEvent(data?.event);
 
 	const publishEvent = async () => {
 		try {
@@ -56,6 +66,7 @@ const ConfirmPublishEventBottomSheet: React.FC<
 			hideLoader();
 		} catch (err: any) {
 			console.log(err);
+			captureException(err);
 			hideLoader();
 			Toast.show({
 				text1: 'Error',
@@ -98,15 +109,21 @@ const ConfirmPublishEventBottomSheet: React.FC<
 	return (
 		<BottomSheet ref={sheetApi.sheetRef} footerComponent={footerComponent}>
 			<BottomSheetView style={{ paddingBottom: theme.spacing.m }}>
-				<View margin='m'>
-					<Text variant='section-header-1' marginBottom='m'>
-						Publish Event
-					</Text>
+				<View margin='m' gap='m'>
+					<Text variant='section-header-1'>Publish Event</Text>
 					<Text variant='paragraph-small-medium' color='text.t'>
 						Currently this event is private. By hitting publish, you agree to
 						make this information publicly available to everyone. Are you sure
 						you want to publish this event?
 					</Text>
+					{isInPast && (
+						<Text variant='paragraph-small-medium' color='text.t'>
+							Note: This event is in the past. Publishing it means that anyone
+							with the link will be able to view it, but it will not show up on
+							your profile directly. If you want this event to be viewable in
+							your profile history, save it to your EPK.
+						</Text>
+					)}
 				</View>
 			</BottomSheetView>
 		</BottomSheet>

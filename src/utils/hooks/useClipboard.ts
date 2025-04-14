@@ -12,7 +12,7 @@ const useClipboard = (): IUseClipboard => {
 		Clipboard.setString(text);
 		Toast.show({
 			text1: toastProps?.text1 ?? 'Copied to clipboard',
-			text2: toastProps?.text2,
+			text2: toastProps?.text2 ?? text,
 			props: { icon: 'link' }
 		});
 	};

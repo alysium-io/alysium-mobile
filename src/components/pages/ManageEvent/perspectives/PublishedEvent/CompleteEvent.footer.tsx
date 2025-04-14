@@ -3,7 +3,7 @@ import { EventLink } from '@flux/api/event-link/event-link.entity';
 import { useEvent, useSheet } from '@hooks';
 import { Button } from '@molecules';
 import React from 'react';
-import ConfirmAddToEpkSheet from './sheets/ConfirmAddToEpkSheet';
+import ConfirmAddToEpkSheet from '../../sheets/ConfirmAddToEpkSheet';
 
 interface CompleteEventFooterProps {
 	event?: EventLink;

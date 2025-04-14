@@ -1,8 +1,8 @@
 import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
-import { Section, Separator, View } from '@atomic';
+import { ScrollView, Separator, View } from '@atomic';
 import { artistEventApiSlice } from '@flux/api/event';
 import { EventStatus } from '@flux/api/event/types';
-import { useKeyboard, useSheet } from '@hooks';
+import { useSheet, useTheme } from '@hooks';
 import { ActionButtons } from '@molecules';
 import { BasePage } from '@organisms';
 import { ShareEventPosterSheet } from '@popups';
@@ -11,7 +11,6 @@ import { PageError } from '@templates';
 import { EditPublishedEventPageRouteProp } from '@types';
 import React, { useCallback } from 'react';
 import { If, Then } from 'react-if';
-import { ScrollView } from 'react-native';
 import EditEventAboutMenuListItem from '../../components/EditEventAboutMenuListItem';
 import EditEventDateMenuListItem from '../../components/EditEventDateMenuListItem';
 import EditEventLocationMenuListItem from '../../components/EditEventLocationMenuListItem';
@@ -24,7 +23,7 @@ import Loading from '../../Loading';
 
 const EditPublishedEvent = () => {
 	const route = useRoute<EditPublishedEventPageRouteProp>();
-	const { dismiss } = useKeyboard();
+	const { theme } = useTheme();
 	const { artistData } = useArtistAppContext();
 	const confirmPublishEventSheetApi = useSheet();
 	const shareExternalSheetApi = useSheet();
@@ -67,19 +66,19 @@ const EditPublishedEvent = () => {
 	return (
 		<BasePage FooterComponent={FooterComponent}>
 			<PublicEventHeader event={data} />
-			<ScrollView onScrollBeginDrag={dismiss}>
-				<Section marginBottom='none'>
+			<ScrollView contentContainerStyle={{ gap: theme.spacing.xxl }}>
+				<View>
 					<EditEventProfileImage event_uid={data.event.event_uid} />
 					<EditEventName event_uid={data.event.event_uid} />
-				</Section>
-				<EditEventDateMenuListItem
-					event_uid={data.event.event_uid}
-					startTime={data.event.start_time}
-					endTime={data.event.end_time}
-				/>
-				<EditEventLocationMenuListItem event={data} />
-				<EditEventAboutMenuListItem event={data} />
-				<EditEventTicketsUrlMenuListItem event={data} />
+					<EditEventDateMenuListItem
+						event_uid={data.event.event_uid}
+						startTime={data.event.start_time}
+						endTime={data.event.end_time}
+					/>
+					<EditEventLocationMenuListItem event={data} />
+					<EditEventAboutMenuListItem event={data} />
+					<EditEventTicketsUrlMenuListItem event={data} />
+				</View>
 				<Separator size='thick' />
 				<EditEventMediaSection event={data} />
 			</ScrollView>

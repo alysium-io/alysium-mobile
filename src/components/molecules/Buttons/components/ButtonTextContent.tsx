@@ -18,13 +18,25 @@ const ButtonTextContent: React.FC<ButtonTextContentProps> = ({
 	textColor
 }) => {
 	return (
-		<View flexDirection='row' alignItems='center' justifyContent='center'>
+		<View
+			flexDirection='row'
+			alignItems='center'
+			justifyContent='center'
+			paddingHorizontal='l'
+		>
 			{beforeIconProps && (
 				<View marginRight='s'>
 					<Icon size='s' color={textColor} {...beforeIconProps} />
 				</View>
 			)}
-			<Text color={textColor} variant='paragraph-small-medium' {...textProps}>
+			<Text
+				color={textColor}
+				variant='paragraph-small-medium'
+				adjustsFontSizeToFit
+				minimumFontScale={0.5}
+				numberOfLines={1}
+				{...textProps}
+			>
 				{text}
 			</Text>
 			{afterIconProps && (

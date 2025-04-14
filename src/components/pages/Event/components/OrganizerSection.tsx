@@ -36,7 +36,7 @@ const OrganizerSection: React.FC<OrganizerSectionProps> = ({ eventData }) => {
 				marginHorizontal='m'
 				textDecorationLine='underline'
 			>
-				Organizer
+				Artist
 			</Text>
 			<ContentListItem
 				onPress={onPressOrganizer}

@@ -27,6 +27,12 @@ const BannerImage: React.FC<BannerImageProps> = ({ event, height }) => {
 						icon: 'event',
 						iconProps: {
 							size: 'xl'
+						},
+						containerProps: {
+							style: {
+								aspectRatio: undefined,
+								width: '100%'
+							}
 						}
 					}}
 					containerProps={{

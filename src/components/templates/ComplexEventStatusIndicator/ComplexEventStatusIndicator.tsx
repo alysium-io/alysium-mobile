@@ -29,7 +29,7 @@ const ComplexEventStatusIndicator: React.FC<
 				variant='paragraph-small-medium'
 				color={complexStatus === ComplexEventStatus.live ? 'danger' : 'text.q'}
 			>
-				{semanticComplexStatus}
+				{semanticComplexStatus === 'Completed' ? 'EPK' : semanticComplexStatus}
 			</Text>
 		</View>
 	);

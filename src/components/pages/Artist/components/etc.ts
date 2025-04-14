@@ -5,8 +5,10 @@ import { Dimensions } from 'react-native';
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
 export type HistoricalListItemProps = {
+	artist_uid: NanoId;
 	event_uid: NanoId;
-	event_media: HistoricalListItemCellProps;
+	event_media: HistoricalListItemCellProps | null;
+	profile_image?: string | null;
 	date?: string | null;
 	location?: string | null;
 	number_of_media: number;

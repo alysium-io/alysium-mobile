@@ -1,6 +1,6 @@
+import { dayjs } from '@etc';
 import { Event } from '@flux/api/event';
 import { ComplexEventStatus, EventStatus } from '@flux/api/event/types';
-import dayjs from 'dayjs';
 
 interface IUseEvent {
 	_isDraft: (overrideEvent?: Event) => boolean | undefined;
@@ -35,6 +35,8 @@ interface IUseEvent {
 	_getStatus: (overrideEvent?: Event) => EventStatus | undefined;
 	status: EventStatus | undefined;
 	semanticStatus: string | undefined;
+	_isInPast: (overrideEvent?: Event) => boolean | undefined;
+	isInPast: boolean | undefined;
 }
 
 const useEvent = (event?: Event): IUseEvent => {
@@ -215,6 +217,12 @@ const useEvent = (event?: Event): IUseEvent => {
 		}
 	};
 
+	const _isInPast = (overrideEvent?: Event): boolean | undefined => {
+		const targetEvent = overrideEvent ?? event;
+		if (!targetEvent) return undefined;
+		return dayjs(targetEvent.start_time).isBefore(dayjs());
+	};
+
 	return {
 		_isDraft,
 		isDraft: _isDraft(event),
@@ -247,7 +255,9 @@ const useEvent = (event?: Event): IUseEvent => {
 		semanticComplexStatus: _getSemanticComplexStatus(),
 		_getStatus,
 		status: _getStatus(event),
-		semanticStatus: _getSemanticStatus()
+		semanticStatus: _getSemanticStatus(),
+		_isInPast,
+		isInPast: _isInPast(event)
 	};
 };
 

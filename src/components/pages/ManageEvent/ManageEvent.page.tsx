@@ -29,7 +29,7 @@ const ManageEventPage = () => {
 				event_uid: route.params.event_uid
 			}
 		});
-	const { status, complexStatus } = useEvent(data?.event);
+	const { status, complexStatus, isInPast } = useEvent(data?.event);
 
 	useEffect(() => {
 		// Initial page load
@@ -46,9 +46,11 @@ const ManageEventPage = () => {
 
 	const setDraftToPublished = () => {
 		setPage(EventStatus.published);
-		setTimeout(() => {
-			newEventCelebrationSheetApi.open();
-		}, 1000);
+		if (!isInPast) {
+			setTimeout(() => {
+				newEventCelebrationSheetApi.open();
+			}, 1000);
+		}
 	};
 
 	const setPublishedToCompleted = () => {

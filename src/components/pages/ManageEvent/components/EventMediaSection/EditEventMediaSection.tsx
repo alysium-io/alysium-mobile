@@ -163,7 +163,7 @@ const EditEventMediaSection: React.FC<EditEventMediaSectionProps> = ({
 	};
 
 	return (
-		<LView marginVertical='l'>
+		<LView>
 			<Section rowGap='m'>
 				<LView>
 					<Text variant='section-header-2' paddingHorizontal='m'>

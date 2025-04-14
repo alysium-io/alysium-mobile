@@ -1,4 +1,4 @@
-import { Section, Text } from '@atomic';
+import { Text, View } from '@atomic';
 import React from 'react';
 import ActionCopyAddress from '../perspectives/PublishedEvent/components/ActionCopyAddress';
 import ActionCopyEventLink from '../perspectives/PublishedEvent/components/ActionCopyEventLink';
@@ -11,7 +11,7 @@ interface ActionsProps {
 
 const Actions: React.FC<ActionsProps> = ({ event_uid }) => {
 	return (
-		<Section>
+		<View>
 			<Text variant='section-header-2' marginHorizontal='m'>
 				Actions
 			</Text>
@@ -19,7 +19,7 @@ const Actions: React.FC<ActionsProps> = ({ event_uid }) => {
 			<ActionCopyAddress event_uid={event_uid} />
 			<ActionCopyTime event_uid={event_uid} />
 			<ActionGoToWebPage event_uid={event_uid} />
-		</Section>
+		</View>
 	);
 };
 

@@ -1,4 +1,4 @@
-import { Section, Text, View } from '@atomic';
+import { Text, View } from '@atomic';
 import { EventLink } from '@flux/api/event-link/event-link.entity';
 import { useDriveTime, useEventDateFormatter, useLocation } from '@hooks';
 import React from 'react';
@@ -24,8 +24,8 @@ const WhenWhereWhySubHeader: React.FC<WhenWhereWhySubHeaderProps> = ({
 		dateApi.getDisplayParts();
 
 	return (
-		<Section marginBottom='s'>
-			<View flexDirection='row' justifyContent='space-between' marginBottom='m'>
+		<View gap='m'>
+			<View flexDirection='row' justifyContent='space-between' gap='m'>
 				<View flex={1}>
 					<Text variant='paragraph-large-medium' marginBottom='xs'>
 						{dateTitle}
@@ -84,7 +84,7 @@ const WhenWhereWhySubHeader: React.FC<WhenWhereWhySubHeaderProps> = ({
 					{event.event.about}
 				</Text>
 			)}
-		</Section>
+		</View>
 	);
 };
 

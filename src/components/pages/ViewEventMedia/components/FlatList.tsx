@@ -98,23 +98,23 @@ const FlatList: React.FC<FlatListProps> = ({
 				})}
 			/>
 			{event.event.start_time && event.event?.location && (
-				<Pressable
-					onPress={() =>
-						eventPage(event.event.event_uid, {
-							from: 'ViewEventMediaPage',
-							from_uid: event.event.event_uid,
-							to: 'EventPage',
-							to_uid: event.event.event_uid,
-							using: 'VIEW_EVENT_MEDIA_PAGE_EVENT_CONTENT_LIST_ITEM'
-						})
-					}
+				<MediaLayover
+					style={{
+						top: 0,
+						left: 0,
+						maxWidth: '65%'
+					}}
 				>
-					<MediaLayover
-						style={{
-							left: 0,
-							bottom: 0,
-							maxWidth: '65%'
-						}}
+					<Pressable
+						onPress={() =>
+							eventPage(event.event.event_uid, {
+								from: 'ViewEventMediaPage',
+								from_uid: event.event.event_uid,
+								to: 'EventPage',
+								to_uid: event.event.event_uid,
+								using: 'VIEW_EVENT_MEDIA_PAGE_EVENT_CONTENT_LIST_ITEM'
+							})
+						}
 					>
 						<Text color='white' variant='paragraph-small'>
 							{dayjs(event.event.start_time).format('ddd MMM. M')}
@@ -122,8 +122,8 @@ const FlatList: React.FC<FlatListProps> = ({
 						<Text color='white' variant='paragraph-small' numberOfLines={1}>
 							{event.event.location.name}
 						</Text>
-					</MediaLayover>
-				</Pressable>
+					</Pressable>
+				</MediaLayover>
 			)}
 		</View>
 	);

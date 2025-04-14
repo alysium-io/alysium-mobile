@@ -56,8 +56,9 @@ const ArtistPage: React.FC = () => {
 					date: item.event.start_time,
 					location: item.event.location?.name,
 					number_of_media: item.event.event_media.length,
-					event_media: _.orderBy(item.event.event_media, ['order']).map(
-						(media) => ({
+					profile_image: item.event.profile_image?.large.key,
+					event_media:
+						_.orderBy(item.event.event_media, ['order']).map((media) => ({
 							event_media_uid: media.event_media_uid,
 							uri: urlForKey(
 								media.multimedia.media_type === MediaType.image
@@ -65,8 +66,7 @@ const ArtistPage: React.FC = () => {
 									: media.multimedia.video?.media.key
 							),
 							type: media.multimedia.media_type
-						})
-					)?.[0]
+						}))?.[0] ?? null
 				}))
 			})
 		}
@@ -141,6 +141,7 @@ const ArtistPage: React.FC = () => {
 				renderItem={({ item, index }) => (
 					<HistoricalListItemCell
 						{...item}
+						artist_uid={route.params.artist_uid}
 						index={index}
 						currentViewIndex={currentViewableItem?.index ?? -1}
 					/>
