@@ -2,7 +2,6 @@ import { useArtistAppContext } from '@arch/Application/contexts/Artist.context';
 import { View } from '@atomic';
 import { artistEventApiSlice } from '@flux/api/event';
 import { profileImageApiSlice } from '@flux/api/profile-image';
-import { usePriorityImage } from '@hooks';
 import { EditableProfileImage } from '@molecules';
 import React, { useState } from 'react';
 import { Asset } from 'react-native-image-picker';
@@ -25,7 +24,6 @@ const EditEventProfileImage: React.FC<EditEventProfileImageProps> = ({
 			artist_uid: artistData.artist_uid
 		}
 	});
-	const { currentUrl } = usePriorityImage(data?.event.profile_image);
 
 	const updateArtistEventProfileImage = (profileImage: Asset) => {
 		if (data) {
@@ -46,7 +44,7 @@ const EditEventProfileImage: React.FC<EditEventProfileImageProps> = ({
 			<EditableProfileImage
 				size='large'
 				onChooseImage={updateArtistEventProfileImage}
-				image={currentUrl}
+				image={data?.event.profile_image?.large.key}
 				isLoading={isProfileImageLoading}
 				defaultImageProps={{
 					icon: 'event'

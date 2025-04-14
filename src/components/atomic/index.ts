@@ -54,7 +54,6 @@ export { default as AppTransitionWrapper } from './AppTransitionWrapper';
 export { default as Avatar } from './Avatar';
 export { default as AView } from './AView';
 export { default as BgTouchAnimation } from './BgTouchAnimation';
-export { default as ComplexImage } from './ComplexImage';
 export * from './DeclarativeText';
 export { default as DefaultImage } from './DefaultImage';
 export { default as DismissKeyboardWrapper } from './DismissKeyboardWrapper';
